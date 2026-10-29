@@ -55,14 +55,14 @@ Evidence: `ops/inventory/*.md` (scout reads, nothing built or run, so every scor
 | SIR AI | 2 | 2 | 4 | 3 | 3 | 21 | Core (its AI gateway feeds the platform) | 4 |
 | Laptop manager (Personal OS, not sold) | 0 | 3 | 4 | 4 | 2 | 20 | Core, internal | 4 |
 | Negm Furniture (client brand) | 2 | 4 | 1 | 3 | 2 | 20 | Maintenance, separate | 3 |
-| SIR ModPack + SIR Mods for GTA V | 2 | 3 | 2 | 3 | 3 | 19 | Maintenance (tentative until its scout reports) | 4 |
+| SIR ModPack + SIR Mods for GTA V | 2 | 3 | 2 | 3 | 3 | 19 | Maintenance, kept as two repos (see ADR 10) | 0 for GTA V admin auth, then 4 |
 | AHome (private, no subscription, local AI) | 0 | 3 | 2 | 5 | 2 | 18 | Core, private, never exposed | 4 |
 | SIR Optimizer (as a stand-alone) | 3 | 2 | 2 | 2 | 3 | 18 | merged into SIR Controller | 3 |
 | SIR Life (new, from the TickTick ideas) | 3 | 0 | 4 | 4 | 3 | 22 | Concept | 4+ |
 | Odysseus app (fork, AGPL) | 1 | 1 | 1 | 2 | 3 | 8 | Maintenance, licence decision | 4 |
 
 ## Waves (2 projects at a time; Wave 0 is an emergency, everything else follows the sprint order)
-- **Wave 0, internet-facing exploit paths (Oct 29-Nov 4):** Merged sites webhook (`dev_signature` accepts any payment), SIR Controller unsigned webhook, SIR Optimizer self-grant OP mode and client-bundled keys, SIR AI client-trusted owner telemetry; secret rotations (owner actions). These need no platform work, only server-side checks.
+- **Wave 0, internet-facing exploit paths (Oct 29-Nov 4):** Merged sites webhook (`dev_signature` accepts any payment), SIR Mods for GTA V forgeable admin cookie, SIR Controller unsigned webhook, SIR Optimizer self-grant OP mode and client-bundled keys, SIR AI client-trusted owner telemetry; secret rotations (owner actions). These need no platform work, only server-side checks.
 - **Wave 1:** SIR Platform shared kit (owner claim from verified token, nonce CSP, billing with Coming Soon fallback, legal pack with truthful claims) built with **Obour Academic Hub as the golden-path product** (closest to shippable: CI, 47 tests, live, session cookie already httpOnly). Solve-modes removed.
 - **Wave 2:** Hagoozat Elite parity (routes, AI layer, slot lock, deposits) and SIR Business core with **Restaurant first** (most complete, has CI).
 - **Wave 3:** Market, Pharmacy, Library as vertical modes of the core; Content Creation Studio; SIR Controller absorbing Optimizer; Negm Furniture cleanup.
@@ -77,6 +77,7 @@ Evidence: `ops/inventory/*.md` (scout reads, nothing built or run, so every scor
 6. **Negm Furniture stays separate**: client brand, own domain; share tooling only. Its fake ratings, followers and login are removed first.
 7. **TickTick ideas become modules**, not 30 projects (see `ops/TICKTICK_MAP.md`); only SIR Life is a new product.
 8. **Odysseus**: a fork of odysseus-dev/odysseus under AGPL-3.0. Decision: stay AGPL and say so (no proprietary EULA, fake testimonials removed) or stop distributing it; no sales until settled.
+10. **SIR ModPack and SIR Mods for GTA V stay separate repos for now**: the GTA V portal's admin gate is forgeable (cookie set in client JS, admin routes unchecked), the licences and game-EULA risks differ, and third-party DLLs (ScriptHookV and about 87 more) are redistributed without licence files. Fix auth and the redistribution question first.
 9. **Never merge published apps** (app IDs are permanent): none are on a store yet, so the merges above carry no store migration.
 
 ## Cross-project findings that shape the platform (Phase 4)

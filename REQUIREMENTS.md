@@ -37,7 +37,7 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 | R-022 | Disk space is tight; clean drive C:, the Antigravity folder on C:, Laptop Manager, and empty files and folders | Rule 10; Phase 2.4 | ✅ | Dry run (ops/PC_CLEANUP_DRYRUN.md) and cleanup ran 2026-10-29: about 5.9 GB freed (C: 14.47 to 16.27 GB, D: 14.60 to 18.70 GB). Antigravity caches cleared, history kept. Remaining space is games, duplicates in runtime paths and models: personal, left alone |
 | R-023 | Everything lives in `D:\Projects`; fix links to the folders he moved there (Learning, Obour Institute Second Year 1st term, AI_Models_Hub, Jobs) | Rule 11; Phase 8.7 | 🔄 | All four folders exist in `D:\Projects`. No Desktop/Start Menu shortcut or Laptop manager/SIR Controller script points to the old paths (scan 2026-10-29). Still open: Ollama does not serve the models in `AI_Models_Hub` (needs `OLLAMA_MODELS`), Phase 1.14 |
 | R-024 | A dashboard for Ahmed with everything he needs | Phase 7.2 (Command Center) | ⬜ | |
-| R-025 | Update TickTick: detailed, organized notes and tasks for every project, current state checked off | Phase 3.2, 7.3 | ⬜ | |
+| R-025 | Update TickTick: detailed, organized notes and tasks for every project, current state checked off | Phase 3.2, 7.3 | 🔄 | |
 
 ## AHome
 
@@ -56,9 +56,9 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 | R-031 | Make every project premium; they were written by an older model and nothing is trusted until tested | A0; Phase 5 | ⬜ | |
 | R-032 | Scan and analyze every project folder, including the Desktop folders he listed | Phase 3.1 | 🔄 | Mapped only (Phase 0.3): `ops/PORTFOLIO.md` lists 20 repos + 5 non-git folders + 25 Desktop launcher folders (all shortcuts, no source). Deep scan and scoring still to do in Phase 3 |
 | R-033 | Rebuild broken areas instead of patching them | Phase 5 step 4 | ⬜ | |
-| R-034 | 11Players and EGFootball5 are already merged into "Merged sites"; finish it and move the originals to `old projects` | Phase 3.5 | ⬜ | |
-| R-035 | Find more merges among existing and new projects; merged products get a new name and identity, or keep a strong existing one; fewer, stronger projects | Phase 3.5 | ⬜ | |
-| R-036 | Reflect every merge everywhere: GitHub repos, LinkedIn, profiles, TickTick | Phase 3.5 step 11 | ⬜ | |
+| R-034 | 11Players and EGFootball5 are already merged into "Merged sites"; finish it and move the originals to `old projects` | Phase 3.5 | 🔄 | |
+| R-035 | Find more merges among existing and new projects; merged products get a new name and identity, or keep a strong existing one; fewer, stronger projects | Phase 3.5 | 🔄 | |
+| R-036 | Reflect every merge everywhere: GitHub repos, LinkedIn, profiles, TickTick | Phase 3.5 step 11 | 🔄 | |
 | R-037 | New and merged projects get their own Firebase, hosting and GitHub setup, without coming back to Ahmed | Rule 17 | ⬜ | |
 | R-038 | The 30 TickTick ideas become products, merged where they fit, each with folders in `D:\Projects` and on the Desktop and an exhaustive plan | Phase 6; A4 | ⬜ | |
 | R-039 | Laptop Manager, sirahmed8 and Antigravity Agent Suite get tailored instruction files | Phase 5 (special cases) | ⬜ | |
