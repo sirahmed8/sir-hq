@@ -10,3 +10,4 @@ platform/
 ops/subagent.log
 ops/usage-ledger.jsonl
 ops/provider-cooling.json
+.claude/
