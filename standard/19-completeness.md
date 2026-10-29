@@ -1,0 +1,24 @@
+# 19 — Completeness sweep (so nothing is forgotten)
+
+Run it at every milestone (the end of each phase for a project, and before every release), and whenever Ahmed asks "did we forget anything?".
+
+1. The PM goes through every item below and marks it ✅ done, ➖ not applicable (with a reason), or ⬜ missing (which becomes a BOARD task).
+2. Results are saved to `.sir/reports/completeness-<date>.md`.
+3. Then the owner's questions, answered in writing: *Did we forget anything? What's still missing compared with the best apps in this category (the module 21 benchmark)? What would Google, Apple or Stripe add here? What should we do next? What would Ahmed think if he saw this now? What else might he need?* Gaps become BOARD tasks, ideas become proposals, and anything that matches a row in `D:\Projects\_SIR\REQUIREMENTS.md` updates that row.
+
+- **Product:** problem and users clear (PRODUCT.md, PRFAQ) · differentiator · pricing and monetization · success metrics · roadmap · benchmark done and the top gaps closed (module 21) · real generated changelog · notifications on every channel · owner dashboard · support suite (help center, FAQ, contact, AI support, suggestions, bug reports, status page) · fair subscription model (AHome: none) · nothing fake, no hype in the copy
+- **Experience:**
+  - onboarding · consent gate · sign-in and guest mode · the 5 states everywhere · error recovery · offline
+  - notifications with preferences · in-app search · Profile and Settings matching the family · help and FAQ · in-app feedback · what's new · rate-the-app prompt · share and deep links
+  - accessibility (screen readers, text scaling, contrast, reduced motion) · RTL · every locale · rebuilt themes (light, dark, system, high contrast) · keyboard shortcuts and help screen · tablet, foldable and desktop sizes · every zoom level · smooth at 120 Hz and above
+- **Platforms:** web and PWA · Windows · macOS · Linux · Android phone, tablet and foldable · iPhone and iPad · Wear OS · watchOS · Android TV and Apple TV · Android Auto and CarPlay (allowed categories only) · widgets and Live Activities · XR compatibility · browser extension where useful · Microsoft Store listing (MSIX) · installers, auto-update, clean uninstall · deep links on every platform · real builds installed and smoke-tested (`BUILDS.md`)
+- **Engineering:** architecture per module 02 · CODEMAP · strict types · unit, integration and e2e tests · CI gates with branch protection · performance budgets · error tracking · logging · consent-aware analytics · feature flags and remote config · migrations · seed data for dev only
+- **Data and security:** module 04 checklist passed · threat model · tested security rules · App Check · input validation · rate limits and bot protection · security headers · secret, static, dependency and DAST scans green · audit log and alerts · backups with a restore test · retention · data export and deletion · 2FA on every owner and admin account · `security.txt` and a disclosure policy
+- **AI (at the core):** flagship AI feature · in-app assistant with real actions · AI search, summaries, translation and voice · system-assistant integration (App Intents, Android app functions, an MCP server where it fits) · gateway with the free provider chain and privacy routing · on-device path · evaluation sets per provider · quotas and caps · disclosures and consent
+- **Legal and compliance:** privacy, terms, EULA, refunds, cookies, data-deletion page · consent records · store privacy forms · licenses and attributions · name and trademark check · age rating · domain disclaimers
+- **Distribution:** store listings in every locale (Google Play, the App Store, the Microsoft Store, AppGallery, Galaxy Store) · screenshots for every device class · preview video · keywords · reviewer notes and a demo account · testers recruited (Google Play's 12 testers for 14 days) · final bundle IDs
+- **Growth:** SEO foundations · structured data · Search Console and Bing · content plan · social profiles · launch plan · referral or sharing loop · email capture · landing-page conversion · local listing if relevant · monthly AI-assistant check
+- **Support and operations:** support email with SPF, DKIM and DMARC set up · help center · uptime monitor · free-tier usage alerts (module 22) · alert routing · cost budgets and alerts · domain and certificate renewal dates · runbooks · SLOs
+- **Brand:** unique icon in every size · name · palette · typography · voice · OG images · folder icon and launchers
+- **Automations:** project workflows exported and documented · veto windows and owner lists · failure alerts
+- **Continuity:** AGENTS, CLAUDE and GEMINI files current · the same rules, skills and agents working in Antigravity, Codex and OpenCode · CHECKPOINT · ADRs · CHANGELOG · handoff notes · Command Center status

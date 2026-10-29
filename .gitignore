@@ -1,0 +1,9 @@
+# local-only memory state (core/04-memory.md step 7)
+ops/LAST_CONTEXT.md
+ops/snapshots/
+ops/memory.log
+ops/stop-guard.json
+# raw scanner reports (redacted, but machine-specific noise)
+ops/inventory/gitleaks/
+# own repos later (platform/ and standard/ split out in their phases)
+platform/

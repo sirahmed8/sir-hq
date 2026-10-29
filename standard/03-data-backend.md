@@ -1,0 +1,17 @@
+# 03 — Data, backend and Firebase
+
+Free-tier limits, reset periods and the whole zero-cost stack are in module 22.
+
+- **Environments:** separate Firebase projects per environment, `sir-<product>-dev` and `sir-<product>-prod` (staging when needed). Project IDs are globally unique and permanent; add a short suffix if a name is taken. Development uses the emulator suite. Note that Google Cloud limits how many projects an account can create; check the quota and request more if needed.
+- **Region:** choose by latency to Egypt and service availability; record it in an ADR. Keep Firestore, Functions and Storage in compatible regions.
+- **Firestore modeling:** model around queries. Denormalize deliberately and document it. Respect the 1 MiB document limit. Avoid hotspots from sequential IDs. Composite indexes live in `firestore.indexes.json` in git. Cursor pagination everywhere. Multi-document changes use transactions or batched writes. Use server timestamps. Soft-delete with a retention policy.
+- **Relational needs:** heavy relational and reporting workloads (POS, inventory, payroll) may use Postgres instead, through Firebase Data Connect or Supabase, via an ADR. Offline-first POS uses a local SQLite store with sync.
+- **Security rules are code:** deny by default, least privilege, ownership checks on every path, validated fields and types. Unit-test them in the emulator in CI.
+- **App Check is enforced** for Firestore, Functions, Storage and the AI gateway (Play Integrity on Android, App Attest on iOS, reCAPTCHA Enterprise on web).
+- **Server code** (Cloudflare Workers now; Cloud Functions 2nd gen once Blaze is funded): typed, inputs validated with Zod, idempotent, with timeouts and limits set. Secrets live in the platform's secret store, never in code. Design within the free-plan limits (requests per day, CPU time, script size) and check them in the current docs.
+- **Offline:** Firestore offline persistence on mobile; optimistic UI with conflict handling.
+- **Media:** Cloudinary with signed uploads through the backend (never expose the API secret), transformations for responsive images, folders per product and environment.
+- **Web hosting:** one hosting project per web app on a free host that allows commercial use (Cloudflare static assets first, Firebase Hosting as the backup; module 22), env vars per environment, a preview deployment for every PR. Use static export where possible: it's the fastest, cheapest and best for SEO. Vercel's free Hobby plan only for non-commercial projects.
+- **GitHub:** private repos for commercial products, with branch protection (on private repos this needs GitHub Pro, free through the Student Developer Pack), Actions, and Dependabot or Renovate. GitHub's secret scanning and CodeQL are free only on public repos, so private repos run free scanners in CI instead (module 04).
+- **Cost control:** zero budget means every product must run on free tiers: read-efficient queries, caching, App Check and rate limits against abuse (an attacker who burns a free quota takes the product down), and alerts when usage nears a free-tier limit. Stay paid-ready (configs that move to Blaze or paid tiers without rewrites), and upgrade only from real earnings with a hard budget alert.
+- **Backups:** scheduled, encrypted exports of production data to free storage (for example Cloudflare R2's free tier; managed Firestore exports need Blaze), plus a restore test every quarter.

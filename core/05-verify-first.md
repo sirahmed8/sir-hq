@@ -1,0 +1,17 @@
+# Verify-first list (moving targets; check official sources before acting)
+
+- **Claude Code:** subagent frontmatter fields, agent-teams enablement, hook events and payloads, permission settings, Remote Control flags, what survives compaction and the `/autocompact` setting (code.claude.com/docs).
+- **Antigravity:** rules locations and size limits, skills folder, MCP config location (antigravity.google/docs).
+- **Expo:** current SDK; `@expo/ui` APIs for Liquid Glass and Material 3 Expressive; EAS Build/Submit/Update limits on the free tier.
+- **Android / Google Play:** target API requirement (since 31 Aug 2026 new apps and updates must target API 36 / Android 16; Android 17 is API 37; Wear OS has its own lower requirement); 16 KB page-size support for native libraries; edge-to-edge; large-screen resizability rules in Android 16+; exact-alarm and background-location policies; new policies for apps targeting API 37 (Contact Picker and Location Button, announced for early 2027); new **personal** developer accounts must run a closed test with at least 12 testers opted in for 14 continuous days before production access.
+- **Apple:** current Xcode/SDK required for App Store uploads; iOS 27 / iPadOS / watchOS / macOS HIG; Liquid Glass; layered icons made with Icon Composer; privacy manifests; in-app account deletion; login rules (guideline 4.8); in-app purchase rules for the storefronts you target.
+- **Electron:** supported OS minimums (currently Windows 10+ and only recent macOS releases; Windows 7/8 and old macOS cannot be supported on modern toolchains).
+- **Egypt:** status of the Personal Data Protection Law (Law 151/2020) executive regulations; onboarding requirements for payment gateways (Paymob, Fawry, Kashier or similar).
+- **Antigravity CLI (`agy`), OpenCode CLI and Kilo CLI (`kilo`):** flags, model slugs, quota behavior, and the data terms of any free model.
+- **Free tiers and plans (there is no budget):** module 22 lists the verified free stack; re-check any limit before relying on it, because they change often. Known traps: Vercel's Hobby plan is non-commercial only; Firebase's free plan has no Cloud Functions or Cloud Storage; GitHub Free has no branch protection or code scanning on private repos; Netlify's free plan pauses every site when one goes over; Supabase's free projects pause after a week of inactivity.
+- **AI providers:** each free tier's models, limits, reset times and data-use terms (module 10). Free tiers that use content for training must never receive personal data.
+- **Stores:** the Microsoft Store has been free for individual developers since September 2025 and signs MSIX packages for free; Google Play and Apple charge fees; check the alternative Android stores' current fees and policies.
+- **Social platforms:** each platform's current API access and automation rules before choosing a publishing route (Phase 8.2). X's automation rules forbid scripting its website.
+- **n8n:** current version and supported install method; in n8n 2.x the Execute Command node is disabled by default (the community-reported way to re-enable it is `NODES_EXCLUDE="[]"`); current MCP features.
+- **Claude Code automation:** `/goal`, `/loop` and `loop.md`, Desktop scheduled tasks, cloud scheduled tasks.
+- **Search:** Google Search Central guidance (no special files or markup are needed for AI Overviews or AI Mode; SEO fundamentals apply), Bing Webmaster Tools and IndexNow, current App Store and Google Play listing rules.

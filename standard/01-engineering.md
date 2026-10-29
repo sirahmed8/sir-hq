@@ -1,0 +1,21 @@
+# 01 — Engineering
+
+- **TypeScript everywhere** (Kotlin for Wear OS, Swift for watchOS and iOS extensions). `strict: true`, `noUncheckedIndexedAccess`, `noImplicitOverride`. No `any`; use `unknown` and narrow. No non-null assertions without a comment saying why.
+- **Lint and format:** typescript-eslint (strict + stylistic), Prettier, 0 warnings in CI. Shared config from `@sir/config`.
+- **Structure:** feature folders (`features/<feature>/{components,hooks,services,schemas}`). Components stay small (split when they pass ~250 lines or do two jobs). Business rules live in `packages/core` as pure functions, with no UI or I/O.
+- **Errors:** typed errors or Result objects for expected failures; exceptions only for the unexpected. Every async boundary handles failure. Users see a human message plus a retry; logs get the technical detail, never PII.
+- **Data access:** no query or `fetch` inside a loop (batch it, use `in` queries, `Promise.all` with a concurrency limit, joins or eager loading). Paginate every list with cursors. No unbounded reads.
+- **Concurrency and money:** multi-step mutations (orders, bookings, inventory, payments) run in transactions. Mutating endpoints are idempotent (idempotency keys or unique constraints), so double taps and retries never duplicate records.
+- **Calculations are exact and tested:**
+  - Money in integer minor units (piasters, cents) or a decimal library, never binary floating point; explicit rounding rules.
+  - Time zones through IANA zones (Egypt's `Africa/Cairo` observes daylight saving time again since 2023).
+  - Hijri dates through proper calendar libraries.
+  - Prayer times through a proven library with the Egyptian General Authority of Survey method (configurable), checked against official timetables.
+  - Units and nutrition math with explicit conversions.
+  - Property-based tests on every calculation module.
+- **Algorithms:** pick the right data structure (Map/Set over repeated scans). Measure before micro-optimizing.
+- **Dependencies:** each new dependency needs a reason (bundle size, maintenance, license, security, native-module support on every target). Prefer the platform and existing `@sir/*` packages. Lockfiles committed; versions pinned through the workspace catalog.
+- **Comments** explain *why*, not *what*. Delete dead code; git remembers it.
+- **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `perf:`, `test:`, `docs:`, `chore:`), small and focused, each one building.
+- **Refactors:** separate from feature work, test-covered first, and in their own PR when large. Code that can be replaced by something far smaller and clearer should be, under the same rules.
+- **AI-legible code:** consistent names, small files, typed public APIs, a README per package, and `docs/CODEMAP.md` (a one-line purpose for every top-level folder and package). A new developer or a new AI should find anything within minutes.

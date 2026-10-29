@@ -1,0 +1,12 @@
+# Phase 0 — Memory, orientation and safety net (read-only plus backups)
+
+> **Read first:** `START_HERE.md`, then `core/02-rules.md` and `core/04-memory.md`. **When this phase is done:** add an entry to `ops/MISSION_LOG.md`, update `ops/HQ_CHECKPOINT.md` and `REQUIREMENTS.md`, send the short report (`core/07-reporting.md`), and continue with `phases/01-workstation.md`.
+
+1. **Memory first.** Create `D:\Projects\_SIR\ops\` with `MISSION_LOG.md` and `HQ_CHECKPOINT.md`, then set up the memory system exactly as `core/04-memory.md` describes (the workspace `CLAUDE.md`, the three hooks, the script tests). From now on, update the checkpoint after every finished step.
+2. **Environment check:** `claude --version`, `claude doctor`, Windows version and edition, and versions of git, node, pnpm, java, python, Android SDK, gh, firebase, vercel, eas, agy, opencode, ollama and n8n. Write `_SIR/ops/TOOLS.md`. **Disk report:** free space on C: and D: plus the 30 largest folders (caches, `node_modules`, Android images, models, media), written to `_SIR/ops/DISK.md`.
+3. **Map the territory (read-only):** list `D:\Projects\*` and `C:\Users\a7med\Desktop\*`. For each Desktop project folder, determine whether it holds shortcuts and launchers or real source code. Include the folders Ahmed moved into `D:\Projects` (`Learning`, `Obour Institute Second Year 1st term`, `AI_Models_Hub`, `Jobs`) and find anything still pointing to their old locations.
+4. **Safety net before any change.** For every project:
+   - Git repo: commit any uncommitted work to a new local branch `pre-sir-snapshot` and tag it. Don't touch `main`.
+   - Not a git repo: `git init` and make a snapshot commit, or zip it to `D:\Backups\SIR-<date>\<project>.zip` excluding `node_modules`, build output and caches. Copy the backup folder to Google Drive as well, so it survives a disk failure.
+   - Scan every repo, including history, for secrets with gitleaks (install it if missing). Never print secret values; report file, line and type only. Each real leak is a high-priority fix: rotate the key yourself through the provider's CLI or console (Tier 1), then remove it from git history on a backup branch. Only a step that needs Ahmed's 2FA goes on his list.
+5. **Deliverables:** the memory system installed and tested, `TOOLS.md`, a `PORTFOLIO.md` skeleton, backup confirmation, a secret-scan summary, and `REQUIREMENTS.md` statuses filled in for everything already true.
