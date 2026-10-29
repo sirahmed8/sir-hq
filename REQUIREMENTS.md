@@ -34,7 +34,7 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 | R-019 | Improve and train the local AI models | Phase 1.14 | ⬜ | |
 | R-020 | Many n8n AI automations connected to local AIs and the CLIs | Phase 1.11, 7.4; module 18 | ⬜ | |
 | R-021 | Non-project instructions, automations and PC tasks live in Laptop Manager (his "Personal OS") | Phase 1.9, 2.4 | ⬜ | |
-| R-022 | Disk space is tight; clean drive C:, the Antigravity folder on C:, Laptop Manager, and empty files and folders | Rule 10; Phase 2.4 | ⬜ | |
+| R-022 | Disk space is tight; clean drive C:, the Antigravity folder on C:, Laptop Manager, and empty files and folders | Rule 10; Phase 2.4 | 🔄 | Dry run done: ops/PC_CLEANUP_DRYRUN.md (about 5 GB regenerable without .next, up to 10.1 GB with build output). Tier 1 script ready: scripts/pc-cleanup-tier1.ps1 (classifier refused running the deletes; owner action). Antigravity history and duplicates untouched |
 | R-023 | Everything lives in `D:\Projects`; fix links to the folders he moved there (Learning, Obour Institute Second Year 1st term, AI_Models_Hub, Jobs) | Rule 11; Phase 8.7 | 🔄 | All four folders exist in `D:\Projects`. No Desktop/Start Menu shortcut or Laptop manager/SIR Controller script points to the old paths (scan 2026-10-29). Still open: Ollama does not serve the models in `AI_Models_Hub` (needs `OLLAMA_MODELS`), Phase 1.14 |
 | R-024 | A dashboard for Ahmed with everything he needs | Phase 7.2 (Command Center) | ⬜ | |
 | R-025 | Update TickTick: detailed, organized notes and tasks for every project, current state checked off | Phase 3.2, 7.3 | ⬜ | |
@@ -43,9 +43,9 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 
 | ID | Requirement | Where | Status | Evidence |
 |---|---|---|---|---|
-| R-026 | Recover the `.remember` folder deleted by mistake in AHome | Phase 2.1 | ⬜ | |
-| R-027 | Remove `D:\Projects\AhmedAndHabiba`; AHome replaces it | Phase 2.2 | ⬜ | |
-| R-028 | AHome's folder shows its project icon | Phase 2.3 | ⬜ | |
+| R-026 | Recover the `.remember` folder deleted by mistake in AHome | Phase 2.1 | ✅ | Unrecoverable (not in git, Recycle Bin or any copy); made by the remember plugin, which rebuilds it; `.remember/` now gitignored in AHome (commit a6c254b) |
+| R-027 | Remove `D:\Projects\AhmedAndHabiba`; AHome replaces it | Phase 2.2 | 🔄 | Backup tested, references mapped, script ready: scripts/ahome-retire-old-path.ps1 (classifier refused stopping the running daemons; owner action) |
+| R-028 | AHome's folder shows its project icon | Phase 2.3 | 🔄 | folder.ico (6 sizes) + desktop.ini (Hidden+System, relative path) + read-only folder already set; Explorer visual check pending |
 | R-029 | AHome gets everything in the standard, plus special features built just for Ahmed and Habiba | Phase 5 (special cases) | ⬜ | |
 | R-030 | AHome uses local AI, stays private, and has no subscriptions | Phase 5; module 21; A4 | ⬜ | |
 

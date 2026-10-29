@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # SIR workspace rules (D:\Projects)
 
 Claude Code loads this file in every session under `D:\Projects` and re-injects it after compaction. Keep it short. (Source: `_SIR/core/workspace-CLAUDE.md`.)
