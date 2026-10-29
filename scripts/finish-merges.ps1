@@ -21,8 +21,7 @@ if ((Test-Path 'D:\Projects\SIR AI') -and -not (Test-Path 'D:\Projects\SIR AI\.s
   try {
     Move-Item 'D:\Projects\SIR AI' 'D:\Projects\old projects\SIR AI (v1)' -ErrorAction Stop
     $env:PYTHONIOENCODING = 'utf-8'
-    python 'D:\Projects\_SIR\plans\make_folders.py' | Out-Null
-    'new SIR AI folder created'
+    Push-Location 'D:\Projects\_SIR\plans'; python make_folders.py | Select-String 'SIR AI'; Pop-Location
   } catch { "SIR AI still locked: $($_.Exception.Message)" }
 }
 

@@ -29,7 +29,12 @@ foreach ($new in $map.Keys) {
       if ((Get-Item $dst -Force).LinkType) { cmd /c rmdir "`"$dst`"" | Out-Null } else { "have: $new\legacy\$old"; continue }
     }
     $src = $null
-    foreach ($cand in "D:\Projects\old projects\$old", "D:\Projects\$($alias[$old])", "D:\Projects\$old") {
+    $cands = @("D:\Projects\old projects\$old")
+    if ($alias.ContainsKey($old)) { $cands += "D:\Projects\$($alias[$old])" }   # only when an alias exists: a missing alias used to resolve to D:\Projects itself
+    $cands += "D:\Projects\$old"
+    foreach ($cand in $cands) {
+      $leaf = Split-Path $cand -Leaf
+      if ([string]::IsNullOrWhiteSpace($leaf) -or $cand.TrimEnd('\') -eq 'D:\Projects') { continue }   # never treat the Projects folder itself as a source
       if ((Test-Path $cand) -and $cand -ne $root -and -not (Test-Path "$cand\.sir")) { $src = $cand; break }
     }
     if (-not $src) { "not found (already merged elsewhere?): $old"; continue }
@@ -37,7 +42,14 @@ foreach ($new in $map.Keys) {
       Move-Item -LiteralPath $src -Destination $dst -ErrorAction Stop
       Remove-Item "$dst\RETIRED.md" -Force -ErrorAction SilentlyContinue
       "merged: $old -> $new\legacy"
-    } catch { "LOCKED, close what uses it and re-run: $old ($($_.Exception.Message))" }
+    } catch {
+      # the folder itself is held open by a program or shell: move its CONTENTS with robocopy; the empty shell can be deleted later
+      robocopy $src $dst /E /MOVE /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null
+      if ((Test-Path $dst) -and (@(Get-ChildItem $dst -Force).Count -gt 0)) {
+        Remove-Item "$dst\RETIRED.md" -Force -ErrorAction SilentlyContinue
+        "merged (contents moved; the empty folder '$old' stays at the top level until what holds it is closed, then delete it): $old -> $new\legacy"
+      } else { "LOCKED, close what uses it and re-run: $old" }
+    }
   }
   $names = Get-ChildItem "$root\legacy" -Directory -ErrorAction SilentlyContinue | ForEach-Object { "- ``$($_.Name)``" }
   Set-Content "$root\legacy\README.md" ("# legacy: the old projects this product replaces`n`nThis is a MERGE project. Each folder below is a complete old project (code, git history, structure, assets). Read the inventory in D:\Projects\_SIR\ops\inventory\ and the plan in ..\.sir\PLAN.md, then port everything of value into the new structure (apps/, packages/) with clean architecture and high quality code, fully configured, tested, deployed and pushed in production mode. Do not edit legacy code except to read it. When the plan's milestone M6 is complete, move each folder here to D:\Projects\old projects\ (a script step in M6).`n`n" + ($names -join "`n") + "`n") -Encoding UTF8

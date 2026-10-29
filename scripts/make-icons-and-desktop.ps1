@@ -37,6 +37,7 @@ foreach ($prop in $brand.PSObject.Properties) {
     & $magick -size 256x256 xc:none -fill $b.color -draw 'roundrectangle 8,8 247,247 52,52' -font $font -pointsize 118 -fill white -gravity center -annotate +0+6 $b.mono $png
   }
   & $magick $png -define icon:auto-resize=256,128,64,48,32,16 $ico
+  if (Test-Path "$proj\folder.ico") { attrib -r -s -h "$proj\folder.ico" }
   Copy-Item $ico "$proj\folder.ico" -Force
   # folder icon on D:
   $ini = "$proj\desktop.ini"
@@ -69,7 +70,8 @@ Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.Comm
   # Desktop folder with the same icon and 3 shortcuts
   $dd = Join-Path $desktop $b.folder
   New-Item -ItemType Directory -Force $dd | Out-Null
-  New-Item -ItemType File -Force (Join-Path $dd '.sir-shortcuts') | Out-Null; attrib +h (Join-Path $dd '.sir-shortcuts')
+  $marker = Join-Path $dd '.sir-shortcuts'
+  if (-not (Test-Path $marker)) { New-Item -ItemType File $marker | Out-Null; attrib +h $marker }
   Copy-Item $ico (Join-Path $dd 'icon.ico') -Force
   $dini = Join-Path $dd 'desktop.ini'
   if (Test-Path $dini) { attrib -h -s $dini }

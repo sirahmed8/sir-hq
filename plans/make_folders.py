@@ -1,4 +1,5 @@
 import os, subprocess
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from products import PRODUCTS
 NEW = {"sir-ai","sir-controller","sir-content-creation-studio","sir-modpack","sir-mods-for-gta-v","sir-portfolio","sir-study","sir-hagoozat","sir-obour-hub","sir-home","sir-laptop-manager","sir-jobs","sir-negm-furniture","sir-odysseus"}
 for p in PRODUCTS:
