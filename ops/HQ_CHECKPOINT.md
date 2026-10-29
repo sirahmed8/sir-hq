@@ -2,9 +2,9 @@
 ## Phase and step
 Phase 0 finished. Next: Phase 1 (`phases/01-workstation.md`), step 1.1. (Read the file first; it is about 19 KB, so read it in parts.)
 ## Now
-Phase 0 deliverables are in `_SIR/ops/`: HQ_CHECKPOINT, MISSION_LOG, TOOLS, DISK, PORTFOLIO, OWNER_ACTIONS, IDEAS_INBOX, inventory/SECRETS.md. Memory hooks installed and script-tested. Safety net: `pre-sir-snapshot` branch + tag `pre-sir-2026-10-29` in 18 repos; zips + bundle in `D:\Backups\SIR-2026-10-29\`. Leak #1 (public SIR ModPack) fixed and verified. `_SIR` is being turned into the private repo `sirahmed8/sir-hq` (first push is the last Phase 0 act).
+Phase 0 deliverables are in `_SIR/ops/`: HQ_CHECKPOINT, MISSION_LOG, TOOLS, DISK, PORTFOLIO, OWNER_ACTIONS, IDEAS_INBOX, inventory/SECRETS.md. Memory hooks installed and script-tested. Safety net: `pre-sir-snapshot` branch + tag `pre-sir-2026-10-29` in 18 repos; zips + bundle in `D:\Backups\SIR-2026-10-29\`. Leak #1 (public SIR ModPack) fixed and verified. `_SIR` is now the private repo `sirahmed8/sir-hq` (commit df24880 pushed; later commits: `git -C D:/Projects/_SIR add -A && git commit && git push`).
 ## Next step
-1. If `git -C D:/Projects/_SIR log` shows no commit or `gh repo view sirahmed8/sir-hq` fails: `git init -b main`, commit, `gh repo create sirahmed8/sir-hq --private --source . --push` (`.gitignore` already written).
+1. (done) sir-hq exists and is pushed; push again after meaningful changes to the mission files.
 2. Read `phases/01-workstation.md` and start 1.1. Disk first: C: 14 GB and D: 16 GB free. Free the safe regenerables from `ops/DISK.md` (npm-cache 5.6 GB via `npm cache clean --force`, Temp) before any heavy install.
 3. Install missing tools in Phase 1 only (pnpm, eas-cli, wrangler, Android SDK); set `OLLAMA_MODELS=D:\Projects\AI_Models_Hub\ollama`.
 ## Running in the background
