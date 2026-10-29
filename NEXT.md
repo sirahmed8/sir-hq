@@ -1,30 +1,26 @@
-# NEXT (read this, nothing else, to know where we are) - updated 2026-10-29 23:50
-Everything below is done by the agents; only the last section needs Ahmed.
+# NEXT (read this first; updated 2026-10-29 late) 
+The program: rebuild every product as a new SIR project (see `plans/MASTER_REBUILD_PLAN.md`). Agents run everything; only the last section needs Ahmed.
 
-## Done today
-- AHome renamed (old name gone), 5.9 GB freed, 3 routines registered in Task Scheduler (morning, nightly, weekly: Ready).
-- All 16 projects inventoried and scored (`ops/inventory/`, `ops/PORTFOLIO.md`), TickTick read and backed up.
-- Five security fixes written, tested and pushed as PRs. All five ready to merge (script ready). Optimizer 35/35 and SIR AI 257 passed after the reviewers' fixes; both deserve one quick second review.
-- Moodle automation: 75 files moved to `D:\Quarantine\2026-10-29\moodle-automation` (nothing deleted, manifest inside), scheduled task `Obour_HCI_Quiz_Sentinel` disabled.
-- `Merged sites` renamed to `Hagoozat Elite`; `11Players` and `EGFootball5` moved to `old projects` (backups tested). Their live sites stay online.
-- New folders with prompts: `SIR Platform`, `SIR Business`, `SIR Life`.
+## Done
+- AHome renamed, 5.9 GB freed, 3 routines registered, Moodle automation quarantined (75 files, task disabled), consolidation (Merged sites -> Hagoozat Elite, 11Players and EGFootball5 -> old projects).
+- 16 inventories + scores + TickTick map; five security fixes pushed as PRs (all re-tested, reviewed once; merge script ready).
+- Master rebuild plan, 15 detailed product plans (`plans/*.md`), 10 new folders with plan + agent files: SIR Platform, SIR Business, SIR Life, SIR Hagoozat, SIR Obour Hub, SIR Home, SIR Laptop Manager, SIR Jobs, SIR Negm Furniture, SIR Odysseus.
 
-## Next, in this order (agents run all of it)
-1. Finish the two PR fixes (sir-optimizer, SIR-AI), re-run tests, push. Then merge all five (script `scripts/merge-approved-prs.ps1` for the first three).
-2. Rotate the leaked keys in the browser (Google AI Studio, OpenRouter): create new, put them only in local untracked env files, delete the old. Needs Ahmed's logged-in Chrome.
-3. Fix GitHub Actions failures: SIR-Controller `build`, sir-content-creation-studio `CI`, odysseus `CI` and `Container scan`, antigravity-agent-suite `CI` (oldest run). The other repos have no workflows: add the standard CI (typecheck, lint, test, build, gitleaks).
-4. SIR Platform: extract owner-auth, signed-webhook, ai-proxy from the reviewed code; Obour Academic Hub is the first consumer (remove its solve modes, tighten Firestore reads).
-5. Port Hagoozat Elite features from `old projects\11Players` and `EGFootball5` (list in `ops/inventory/Merged-sites.md`).
-6. SIR Business core, Restaurant first.
-7. Smaller merges: Optimizer into Controller, agent suite into Laptop manager.
-8. Not yet done at all: the benchmark against the best apps (Phase 3.6), the parity test of the SIR setup in Antigravity/OpenCode/Kilo, testing the agent-config sync script on a temp workspace.
+## Next, in this order
+1. Protect live users (old repos): rotate keys (Google AI Studio, OpenRouter) in Ahmed's Chrome, fix failing GitHub Actions (SIR-Controller build, sir-content-creation-studio CI, odysseus CI + Container scan, antigravity-agent-suite CI), merge the 5 PRs (script) , leftovers listed below.
+2. SIR Platform M0-M2: owner-auth, signed-webhook, ai-proxy, billing fallback, legal-pack, ui kit, project-kit (plan: `plans/sir-platform.md`).
+3. SIR Obour Hub M0-M6 (first product; proves Cloudflare + new Firebase project + login brand check).
+4. SIR Hagoozat, then SIR Business (Restaurant mode first).
+5. SIR Content Creation Studio, SIR Controller (+Optimizer), SIR AI.
+6. SIR Home (rename last, daemons stopped), SIR Laptop Manager, SIR Jobs.
+7. SIR ModPack, SIR Mods for GTA V, SIR Odysseus, SIR Negm Furniture, SIR Life.
+8. Not done yet and must not be forgotten: the benchmark against the best apps for each product (Phase 3.6, do it at each product's M0), parity test of the SIR setup in Antigravity/OpenCode/Kilo, test of the agent-config sync script on a temp workspace, Wave 0 leftovers (below), legal truthful-claims sweep on the OLD live sites, x360ce App (listed in TickTick, no folder found).
 
-## Known leftovers of the five fixes (agents do these in step 4)
-- Webhooks: put the timestamp inside the signed payload; native Stripe/Paymob formats; idempotent activation.
-- SIR AI: portal chat sends no bearer token so the owner is metered in the web UI; tokeninfo audience check; X-Forwarded-For on support quota; OwnerManager.is_owner hard-coded list; untrack `.env.production` in GTA V.
-- SIR Optimizer: add firebase-admin and verifyIdToken; /transactions and /metrics still public read.
+## Wave 0 leftovers (go into the rebuilds or old repos, whichever comes first)
+- Webhooks: timestamp inside the signed payload; native Stripe/Paymob formats; idempotent activation.
+- SIR AI: portal chat sends no bearer so the owner is metered; tokeninfo audience check; X-Forwarded-For on support quota; OwnerManager hard-coded list; untrack `.env.production` in GTA V; SIR Optimizer: firebase-admin + verifyIdToken, public /transactions and /metrics reads.
 
-## Only Ahmed can do (the classifier or his accounts)
-- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (5 merges: merged-sites, SIR-Controller, sir-mods-for-gta-v, sir-optimizer, SIR-AI).
-- Move the passwords out of the TickTick notes into a password manager; change the Moodle password.
-- Log in to Chrome sessions for Google AI Studio and OpenRouter if asked.
+## Only Ahmed can do
+- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (5 merges; Optimizer and SIR AI deserve one quick second look).
+- Move passwords out of the TickTick notes into a password manager; change the Moodle password.
+- When asked: be logged in to Google AI Studio and OpenRouter in Chrome; create the Paymob/Fawry accounts when ready (billing stays "Launching Soon" until then).

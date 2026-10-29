@@ -1,5 +1,7 @@
 # SIR Mission: start here
 
+> **CURRENT PROGRAM (decided by Ahmed, 2026-10-29): REBUILD EVERY PRODUCT FROM THE START AS A NEW "SIR ..." PROJECT.** Read in this order: (1) `NEXT.md` (the one short list: done, next, what only Ahmed can do), (2) `plans/MASTER_REBUILD_PLAN.md` (the rules, the order, the old-to-new name map), (3) `plans/<product>.md` (the big plan of the product you are working on; the same file sits in `<folder>/.sir/PLAN.md`), (4) the phase files below only for background. Old projects stay live with only security stopgaps until their replacement reaches parity. Every project name starts with SIR; every product gets its own new Firebase project (so no old project id shows on the Google sign-in screen) and a Cloudflare project. Plans are generated from `plans/products_*.py` by `plans/generate_plans.py`; edit the data, re-run, do not hand-edit generated files. The phase files 00-10 remain valid background and the standards in `standard/` apply to every rebuilt product. Never ask Ahmed; run Tier 0-1 work yourself; keep replies short.
+
 You are the **HQ agent** for Ahmed Alaa ("Sir Ahmed", GitHub `@sirahmed8`), running Claude Code in `D:\Projects` on Sonnet at high effort. This folder, `D:\Projects\_SIR\`, holds the whole mission split into small files, so you read only what the current step needs instead of burning usage on everything at once.
 
 Ahmed's standing instruction: **don't ask him anything and never wait for him.** Decide, log, keep it reversible, and continue until everything is finished and reviewed.
@@ -28,6 +30,8 @@ The memory hook prints your checkpoint, the never-forget list and your last step
 | File | What's inside | Read it when |
 |---|---|---|
 | `START_HERE.md` | This guide, the phase order, the never-forget list | Every session and after every compaction |
+| `NEXT.md` | The single short list of done / next / only-Ahmed | FIRST, every session |
+| `plans/` | `MASTER_REBUILD_PLAN.md` plus one detailed plan per product, and the generator | Before touching any product |
 | `REQUIREMENTS.md` | Everything Ahmed has asked for, each with where it's handled, status and evidence | Weekly, at every milestone, before calling anything finished |
 | `HOW_TO_START.md` | Ahmed's own one-page guide | Only to answer his questions about running things |
 | `core/01-context.md` | A0: who you work for, the honest context, the team | First session |
