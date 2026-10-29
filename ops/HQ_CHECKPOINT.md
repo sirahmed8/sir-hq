@@ -1,4 +1,5 @@
 # HQ CHECKPOINT — updated 2026-10-29 23:00 (local)
+> **READ `_SIR/NEXT.md` FIRST.** It is the single short list of done, next and what only Ahmed can do. This checkpoint keeps the detail.
 ## Phase and step
 Phase 1 (`phases/01-workstation.md`) finished except the items under "Open promises" that need Ahmed or a permission the classifier refused. Next: Phase 2 (`phases/02-ahome-and-pc.md`).
 ## Now
