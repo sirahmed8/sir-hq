@@ -17,7 +17,7 @@
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [string]$Backup = 'D:\Backups\AHome-2026-10-29\AhmedAndHabiba-before-rename.zip'
+    [string]$Backup = 'D:\Projects\Backups\AHome-2026-10-29\AhmedAndHabiba-before-rename.zip'
 )
 
 $ErrorActionPreference = 'Stop'

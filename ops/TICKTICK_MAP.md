@@ -1,5 +1,5 @@
 # TickTick to portfolio map (Phase 3.2, 2026-10-29)
-Read: 9 projects (Daily/Weekly/Monthly routine untouched, My life, Yearly goals, My 2026 Goals, My notes, 30-Day Projects Sprint, Inbox). Backup before any change: `D:\Backups\TickTick-2026-10-29\sprint-ideas-goals-backup.json` (outside git on purpose: several personal notes hold passwords and family details and are NOT copied anywhere; HQ never edits them).
+Read: 9 projects (Daily/Weekly/Monthly routine untouched, My life, Yearly goals, My 2026 Goals, My notes, 30-Day Projects Sprint, Inbox). Backup before any change: `D:\Projects\Backups\TickTick-2026-10-29\sprint-ideas-goals-backup.json` (outside git on purpose: several personal notes hold passwords and family details and are NOT copied anywhere; HQ never edits them).
 
 ## 30-Day Projects Sprint (24 open tasks, Oct 28 to Nov 26): already a security remediation plan that matches the scout findings
 | Sprint day | Project | Matches inventory finding |

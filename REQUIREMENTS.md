@@ -25,7 +25,7 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 
 | ID | Requirement | Where | Status | Evidence |
 |---|---|---|---|---|
-| R-013 | Fix the Remote Control error ("CCR v2 worker registration failed … 404") | Phase 1.2 | ✅ | 2026-10-29: 27 stale bridge pointers backed up to `D:\Backups\SIR-2026-10-29\bridge-pointers\` and moved; `scripts/rc-hq.ps1` run twice, worker registered on attempt 1 both times, no HTTP 404. Logon task left to Ahmed (OWNER_ACTIONS) |
+| R-013 | Fix the Remote Control error ("CCR v2 worker registration failed … 404") | Phase 1.2 | ✅ | 2026-10-29: 27 stale bridge pointers backed up to `D:\Projects\Backups\SIR-2026-10-29\bridge-pointers\` and moved; `scripts/rc-hq.ps1` run twice, worker registered on attempt 1 both times, no HTTP 404. Logon task left to Ahmed (OWNER_ACTIONS) |
 | R-014 | See and continue every laptop session from the iPhone, in any project, any time | Phase 1.3 | 🔄 | `remoteControlAtStartup: true` set; HQ server connects (Capacity 0/8). Not yet confirmed from the iPhone (needs Ahmed to open the Code tab); power plan is in OWNER_ACTIONS |
 | R-015 | Clean connectors; re-enable all skills, MCP servers and connectors that are useful | Phase 1.7 | ⬜ | |
 | R-016 | Android SDK and CLI tools, and everything needed to build and test apps, installed and configured | Phase 1.8 | ⬜ | |
@@ -44,7 +44,7 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 | ID | Requirement | Where | Status | Evidence |
 |---|---|---|---|---|
 | R-026 | Recover the `.remember` folder deleted by mistake in AHome | Phase 2.1 | ✅ | Unrecoverable (not in git, Recycle Bin or any copy); made by the remember plugin, which rebuilds it; `.remember/` now gitignored in AHome (commit a6c254b) |
-| R-027 | Remove `D:\Projects\AhmedAndHabiba`; AHome replaces it | Phase 2.2 | ✅ | Backup tested, references mapped, ran and verified 2026-10-29: AHome is the real folder, old name gone, daemons restarted (backup D:\Backups\AHome-2026-10-29) |
+| R-027 | Remove `D:\Projects\AhmedAndHabiba`; AHome replaces it | Phase 2.2 | ✅ | Backup tested, references mapped, ran and verified 2026-10-29: AHome is the real folder, old name gone, daemons restarted (backup D:\Projects\Backups\AHome-2026-10-29) |
 | R-028 | AHome's folder shows its project icon | Phase 2.3 | 🔄 | folder.ico (6 sizes) + desktop.ini (Hidden+System, relative path) + read-only folder already set; Explorer visual check pending |
 | R-029 | AHome gets everything in the standard, plus special features built just for Ahmed and Habiba | Phase 5 (special cases) | ⬜ | |
 | R-030 | AHome uses local AI, stays private, and has no subscriptions | Phase 5; module 21; A4 | ⬜ | |

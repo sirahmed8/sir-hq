@@ -15,7 +15,7 @@ $map = [ordered]@{
  'SIR Content Creation Studio'  = @('SIR Content Creation Studio (v1)')
  'SIR ModPack'                  = @('SIR ModPack (v1)')
  'SIR Mods for GTA V'           = @('SIR Mods for GTA V (v1)')
- 'SIR AI'                       = @('SIR AI (v1)')
+ 'SIR AI'                       = @('SIR AI (v1)','SIR Tele Gateway','Desktop_SIR_Tele_Gateway')
 }
 # where an old folder may currently be: old projects\<name>, or still at D:\Projects\<name> (deferred because it was in use)
 $alias = @{ 'SIR Controller (v1)'='SIR Controller'; 'SIR Content Creation Studio (v1)'='SIR Content Creation Studio'; 'SIR ModPack (v1)'='SIR ModPack'; 'SIR Mods for GTA V (v1)'='SIR Mods for GTA V'; 'SIR AI (v1)'='SIR AI' }

@@ -7,12 +7,15 @@ Program: rebuild every product as a new SIR project. Rules and order: `plans/MAS
 ## Progress
 See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foundations only). Re-run `python plans/generate_plans.py` after ticking boxes.
 
-## State of the folders (2026-10-30)
-- 17 new SIR project folders exist with plan, agent files, icon (placeholder), Desktop folder (open / start dev / stop dev) and git. Merged products hold their old projects in `legacy\` (SIR Hagoozat, Business, Controller (v1 only so far), Laptop Manager (agent suite), Negm Furniture, Odysseus, Content Creation Studio, ModPack, Mods for GTA V) and the study folder is `SIR Study\materials\obour-year2-term1` (Moodle scripts in `SIR Study\_quarantine`).
-- DONE 2026-10-30: every old project is now inside its new product (`legacy\`): AHome -> SIR Home (daemons repointed, port 8090 verified), Obour Academic Hub -> SIR Obour Hub, SIR Optimizer -> SIR Controller, sirahmed8 -> SIR Portfolio, Jobs -> SIR Jobs, Laptop manager -> SIR Laptop Manager, SIR AI (v1) -> `old projects\SIR AI (v1)` and merged into the new `SIR AI`. The old SIR AI and SIR PowerSync apps were stopped. `AI_Models_Hub` stays at the top level (model store, not a project).
-- ONE LEFTOVER: the top-level `Laptop manager` shell still holds `.git` and `.claude` (a program or another chat has them open). Close it, then move both into `SIR Laptop Manager\legacy\Laptop manager` (its `.claude` already exists there: merge, do not overwrite) and delete the empty shell.
-- INCIDENT (fixed): a bug in `merge-legacy.ps1` moved parts of `D:\Projects` (AGENTS.md, CLAUDE.md, START_HERE.md, Jobs ...) into `SIR Controller\legacy\SIR Optimizer`. Everything was restored with `scripts/restore-misplaced.ps1` and `restore-finish.ps1`, nothing lost, and the bug is fixed (a missing alias no longer resolves to the Projects folder). A duplicate whisper model cache sits in `AI_Models_Hub\_whisper_duplicate_from_restore`.
-- GitHub: 10 new private repos created (sir-platform, sir-obour-hub, sir-hagoozat, sir-business, ... ); old repos get renamed `sir-legacy-*` and archived by `scripts/github-organize.ps1` AFTER the 5 PRs are merged.
+## State of the folders (2026-10-30, after the merge)
+- D:/Projects now holds ONLY: the SIR product folders, AHome (private, own name), AI_Models_Hub (model store), Android and Backups (you moved them in), old projects, _SIR, and the three auto-read rule files AGENTS.md / CLAUDE.md / GEMINI.md (Claude, Codex and Gemini read these automatically in every chat started in D:/Projects, so they stay).
+- Every old project lives INSIDE its new product as legacy/: SIR Hagoozat (Hagoozat Elite, 11Players, EGFootball5) · SIR Business (Restaurant, Market, Pharmacy, Library) · SIR Controller (v1, Optimizer) · SIR Laptop Manager (Laptop manager, agent suite) · SIR Obour Hub (Obour Academic Hub) · SIR AI (SIR AI v1, SIR Tele Gateway) · SIR Portfolio (sirahmed8 profile repo) · SIR Jobs (Jobs data) · SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Negm Furniture, SIR Odysseus (their v1). SIR Study holds the old Obour Institute study folder in materials/ and the Moodle scripts in _quarantine/.
+- AHome is NOT a SIR product: private project of Ahmed and Habiba, keeps its name, services run from D:/Projects/AHome (port 8090 verified), plan in AHome/.sir/PLAN.md.
+- One empty leftover: D:/Projects/Laptop manager (an empty shell; Ahmed's open Laptop manager chat sits in it; it disappears when that chat is closed or any agent can delete it then).
+- Old SIR AI app and SIR PowerSync were stopped at Ahmed's request. A duplicate whisper cache is in AI_Models_Hub/_whisper_duplicate_from_restore.
+- INCIDENT (fixed, nothing lost): a bug in merge-legacy.ps1 moved parts of D:/Projects into a legacy folder; restored with scripts/restore-misplaced.ps1 + restore-finish.ps1; the bug is fixed (a missing alias no longer resolves to the Projects folder).
+- Handy: scripts/who-holds.ps1 lists the programs that keep a folder from moving (agents run it themselves; Ahmed never has to look).
+- GitHub: new private repos created for most products; old repos get renamed sir-legacy-* and archived by scripts/github-organize.ps1 AFTER the 5 PRs are merged; then re-run github-create-new-repos.ps1 for Content Creation Studio, Controller, ModPack, GTA mods.
 
 ## Next, in this order
 1. Protect live users: rotate keys (Google AI Studio, OpenRouter) in Ahmed's Chrome; fix failing Actions (SIR-Controller build, sir-content-creation-studio CI, odysseus CI + Container scan, agent-suite CI); then `github-organize.ps1`.
@@ -22,8 +25,7 @@ See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foun
 5. Not done yet, never forget: benchmark vs best apps per product (at each M0), parity test of the SIR setup in Antigravity/OpenCode/Kilo, test of the agent-config sync script, Wave 0 leftovers (webhook timestamp-in-payload, native Stripe/Paymob, SIR AI bearer on portal chat, firebase-admin for the Optimizer), x360ce app (no folder), legal truthful-claims sweep, publisher identity "SIR" (owner decision), developer accounts.
 
 ## Only Ahmed can do (the agents already prepared the command)
-1. `pwsh -NoProfile -File D:\Projects\_SIR\scripts\generate-icons-agy.ps1` : makes the AI logo for every product with agy (the safety check blocks agents from launching agy). It rebuilds the folder icons and Desktop shortcuts at the end.
-2. `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` : merges the 5 security PRs (classifier blocks agents from merging). Then agents run github-organize.
-3. Close whatever holds D:/Projects/Laptop manager/.git (see ONE LEFTOVER above), then tell any agent: finish the Laptop manager move.
-4. Delete the empty leftover folder `D:\Quarantine` (the safety check does not let agents remove it).
-5. Move passwords out of the TickTick notes; change the Moodle password; be logged in to Google AI Studio and OpenRouter in Chrome when asked; decide the company/publisher entity "SIR" for the stores.
+1. Make the AI logos: pwsh -NoProfile -File D:/Projects/_SIR/scripts/generate-icons-agy.ps1 (the safety check blocks agents from launching agy; icons are temporary letters until you run it).
+2. Merge the 5 security fixes: pwsh -NoProfile -File D:/Projects/_SIR/scripts/merge-approved-prs.ps1 (the safety check blocks agents from merging). Agents then run github-organize.
+3. Accounts and decisions only you can do: move passwords out of the TickTick notes into a password manager; change the Moodle password; be logged in to Google AI Studio and OpenRouter in Chrome when asked; decide the company/publisher entity SIR for the stores.
+Everything else (finding locks, stopping old programs, moving folders, fixing scripts) is done by the agents themselves.

@@ -47,12 +47,6 @@
   "folder": "SIR Laptop Manager",
   "display": "SIR Laptop Manager"
  },
- "sir-home": {
-  "color": "#BE185D",
-  "mono": "SH",
-  "folder": "SIR Home",
-  "display": "SIR Home"
- },
  "sir-jobs": {
   "color": "#A16207",
   "mono": "SJ",
@@ -100,5 +94,11 @@
   "mono": "ST",
   "folder": "SIR Study",
   "display": "SIR Study"
+ },
+ "ahome": {
+  "color": "#BE185D",
+  "mono": "SH",
+  "folder": "AHome",
+  "display": "AHome"
  }
 }

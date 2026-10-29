@@ -1,22 +1,17 @@
-# PLAN: SIR Home
-Status: planned, not started. Wave 4. Replaces: AHome (AhmedAndHabiba). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
-
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- AHome (moves in when SIR Home replaces it, daemons stopped)
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
+# PLAN: AHome
+Status: planned, not started. Wave 5. Replaces: nothing: AHome keeps its own name and stays a separate private project (not a SIR product, not merged into anything). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 1. Mission and audience
-Private home app for Ahmed and Habiba: shared calendar, notes, dates, reminders, local AI assistant and Telegram/phone bridge. Two users only. Never public, never sold, no subscriptions.
+AHome: the private home app of Ahmed and Habiba: shared calendar, notes, dates, reminders, local AI assistant and Telegram/phone bridge. Two users only. Never public, never sold, no subscriptions, never listed in the portfolio. It is improved in place under the AHome name (clean architecture, new UI) without changing its identity.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
-| Folder | `D:\Projects\SIR Home` |
-| GitHub (private) | `sirahmed8/sir-home` |
-| Firebase project / OAuth app name | `sir-home-private` / "SIR Home" |
-| Cloudflare project | `sir-home` (`sir-home.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-home` (Android, iOS, Windows) |
+| Folder | `D:\Projects\AHome` |
+| GitHub (private) | `sirahmed8/ahmed-and-habiba-sanctuary` |
+| Firebase project / OAuth app name | `ahmed-and-habiba (existing; a new private project id is decided at M0)` / "AHome" |
+| Cloudflare project | `ahmed-and-habiba-sanctuary` (`ahmed-and-habiba-sanctuary.pages.dev` until a domain is affordable) |
+| App ids | `app.sir.ahome` (Android, iOS, Windows) |
 | Platforms | Local core (FastAPI on 127.0.0.1) + PWA for phones through a private tunnel; Windows daemons |
 | Money | none |
 
@@ -45,13 +40,13 @@ Local models only (Ollama); nothing leaves the house network.
 
 ## 8. Milestones
 ### M0 Foundations
-- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-home`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/ahmed-and-habiba-sanctuary`.
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-home-private` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Home", logo, support email.
+- [ ] New Firebase project `ahmed-and-habiba (existing; a new private project id is decided at M0)` (Auth Google, Firestore) and Cloudflare project; OAuth app name "AHome", logo, support email.
 - [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
 - [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
 ### M1 Core slice
-- [ ] Rename folder to `SIR Home` with daemons stopped (script like `ahome-retire-old-path.ps1`), keep supervisor working, verify port 8090.
+- [ ] Keep the folder name `AHome`; do all work in place with the supervisor running (port 8090 must stay up after every change).
 ### M2 Parity with the old project
 - [ ] Rebuild web app on the SIR UI kit; regenerate lockfile; fix CSP and lint.
 ### M3 Security, legal, billing
@@ -63,7 +58,7 @@ Local models only (Ollama); nothing leaves the house network.
 ### M5 Quality sweep
 - [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
 ### M6 Release and retirement
-- [ ] Rotate Telegram/Firebase/Gemini keys; purge secrets from history after rotation.
+- [ ] Rotate Telegram/Firebase/Gemini keys; purge secrets from history after rotation; never add AHome to any public list.
 
 ## 9. Risks and open decisions
 - Private data: never use outside AI; never add to the public portfolio.

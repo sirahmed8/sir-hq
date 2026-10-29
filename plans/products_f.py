@@ -14,7 +14,7 @@ F = [
         m2=["Product detail pages, Work page, Social links (real URLs), contact Worker, Arabic/English/Chinese/Hindi, themes.", "Design system from SIR ui kit; real screenshots of each product at 390 px and 1280 px."],
         m4=["Grounded 'ask about Ahmed's work' box with refusal tests for personal-info questions."],
         m6=["Domain decision (free `.pages.dev` until a domain is affordable); replace the GitHub profile README with a short honest one that links here; submit sitemap."],
-        risks="- Showing products that are not ready: statuses must be honest ('In build').\n- Privacy: nothing about Habiba, family, study or address; AHome/SIR Home is never listed.",
+        risks="- Showing products that are not ready: statuses must be honest ('In build').\n- Privacy: nothing about Habiba, family, study or address; AHome is never listed.",
     ),
     dict(
         slug="sir-study", display="SIR Study", folder="SIR Study", repo="sir-study", firebase="sir-study-private",

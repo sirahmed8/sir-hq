@@ -18,7 +18,7 @@ Facts only. Tier, wave, score and platform matrix stay `?` until the Phase 3 sca
 | SIR Controller | main | 9 | 2026-10-26 | 0.87 | SIR-Controller | ? |
 | SIR Library | main | 16 | 2026-10-26 | 0.92 | sir-library | ? |
 | SIR Market | **master** | 23 | 2026-10-26 | 4.71 | sir-market | ? |
-| SIR ModPack | main | 9 | 2026-10-29 | 16.86 | SIR-ModPack (**public**, release v1.0.0) | ? (largest; payload files). History rewritten 2026-10-29 to drop launcher account files; all SHAs changed; `.git` 1.2 GB → 6.5 MB; original at `D:\Backups\SIR-2026-10-29\SIR-ModPack-original.bundle` |
+| SIR ModPack | main | 9 | 2026-10-29 | 16.86 | SIR-ModPack (**public**, release v1.0.0) | ? (largest; payload files). History rewritten 2026-10-29 to drop launcher account files; all SHAs changed; `.git` 1.2 GB → 6.5 MB; original at `D:\Projects\Backups\SIR-2026-10-29\SIR-ModPack-original.bundle` |
 | SIR Mods for GTA V | main | 10 | 2026-10-26 | 3.19 | sir-mods-for-gta-v | ? |
 | SIR Optimizer | main | 29 | 2026-10-26 | 0.85 | sir-optimizer | ? |
 | SIR Pharmacy | main | 15 | 2026-10-26 | 0.93 | sir-pharmacy | ? |
@@ -29,7 +29,7 @@ Facts only. Tier, wave, score and platform matrix stay `?` until the Phase 3 sca
 ## Not git repos
 | Folder | Size GB | What it holds | Backup |
 |---|---|---|---|
-| Jobs | 0.00 | CV, job scrapers, auto-apply scripts, trackers (personal data) | `D:\Backups\SIR-2026-10-29\Jobs.zip` |
+| Jobs | 0.00 | CV, job scrapers, auto-apply scripts, trackers (personal data) | `D:\Projects\Backups\SIR-2026-10-29\Jobs.zip` |
 | Learning | 0.00 | 4 small practice files (A.cpp, A.dart, A.py, A.exe) | `Learning.zip` |
 | Obour Institute Second Year 1st term | 0.18 | 7 course folders, Moodle/sync scripts, study prompts | `Obour Institute Second Year 1st term.zip` |
 | AI_Models_Hub | 9.22 | Ollama model blobs (bge-m3, deepseek-r1 1.5b, nomic-embed-text, qwen2.5 1.5b, qwen2.5-coder 1.5b, qwen3 8b) | manifest only, re-pullable |

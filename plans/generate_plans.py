@@ -53,7 +53,7 @@ MERGE = {
     "sir-negm-furniture": ["Negm Furniture"], "sir-odysseus": ["Odysseus app"],
     "sir-content-creation-studio": ["SIR Content Creation Studio (v1)"], "sir-modpack": ["SIR ModPack (v1)"],
     "sir-mods-for-gta-v": ["SIR Mods for GTA V (v1)"], "sir-ai": ["SIR AI (v1)"],
-    "sir-home": ["AHome (moves in when SIR Home replaces it, daemons stopped)"], "sir-jobs": ["Jobs (data moves in when imported)"],
+    "sir-jobs": ["Jobs (data moves in when imported)"],
 }
 
 

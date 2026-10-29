@@ -65,7 +65,7 @@ Optional small assistant that answers 'what does Ahmed build?' strictly from the
 
 ## 9. Risks and open decisions
 - Showing products that are not ready: statuses must be honest ('In build').
-- Privacy: nothing about Habiba, family, study or address; AHome/SIR Home is never listed.
+- Privacy: nothing about Habiba, family, study or address; AHome is never listed.
 
 ## 10. How any chat continues this project
 Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.

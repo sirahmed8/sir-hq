@@ -148,7 +148,7 @@ C:\Users\a7med and D:\ were scanned at depth 2; no partial results.
 | 13 | D:\Projects\AhmedAndHabiba (same as AHome) | 1.709 |
 | 14 | D:\Projects\11Players | 1.458 |
 | 15 | C:\Users\a7med\.lunarclient\shared | 1.389 |
-Other: D:\Projects\SIR ModPack 16.4 GB; D:\Projects\AI_Models_Hub holds Ollama blobs (4.9, 1.1, 1.0, 0.9, 0.9 GB); D:\Backups 0.668; D:\Android 0.760. Laptop manager\backups\antigravity_conversations_archive_oct2026.zip is 2.208 GB (keep).
+Other: D:\Projects\SIR ModPack 16.4 GB; D:\Projects\AI_Models_Hub holds Ollama blobs (4.9, 1.1, 1.0, 0.9, 0.9 GB); D:\Projects\Backups 0.668; D:\Projects\Android 0.760. Laptop manager\backups\antigravity_conversations_archive_oct2026.zip is 2.208 GB (keep).
 
 ## Totals
 | Category | Auto-safe reclaimable GB |

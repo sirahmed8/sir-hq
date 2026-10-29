@@ -1,8 +1,8 @@
 D = [
     dict(
-        slug="sir-home", display="SIR Home", folder="SIR Home", repo="sir-home", firebase="sir-home-private",
-        replaces="AHome (AhmedAndHabiba)", wave=4,
-        mission="Private home app for Ahmed and Habiba: shared calendar, notes, dates, reminders, local AI assistant and Telegram/phone bridge. Two users only. Never public, never sold, no subscriptions.",
+        slug="ahome", display="AHome", folder="AHome", repo="ahmed-and-habiba-sanctuary", firebase="ahmed-and-habiba (existing; a new private project id is decided at M0)",
+        replaces="nothing: AHome keeps its own name and stays a separate private project (not a SIR product, not merged into anything)", wave=5,
+        mission="AHome: the private home app of Ahmed and Habiba: shared calendar, notes, dates, reminders, local AI assistant and Telegram/phone bridge. Two users only. Never public, never sold, no subscriptions, never listed in the portfolio. It is improved in place under the AHome name (clean architecture, new UI) without changing its identity.",
         platforms="Local core (FastAPI on 127.0.0.1) + PWA for phones through a private tunnel; Windows daemons", money="none",
         why="- Secrets in `.env.local` and 4 commits of history; `apps/web/package-lock.json` corrupt; security headers file ignored by Vercel; CSP and 87 lint errors open; old folder name already retired, daemons hardcode paths.",
         port="- local-core services, Telegram gateway, firebase bridge, web push delivery, web app screens.",
@@ -10,10 +10,10 @@ D = [
         entities="Person(2), Event, Note, Reminder, Message, Device",
         ai="Local models only (Ollama); nothing leaves the house network.",
         security_extra="- Only two allow-listed Google accounts; tunnel behind Cloudflare Access; backups encrypted; nothing from this project is ever sent to outside AI providers or listed in public profiles.",
-        m1=["Rename folder to `SIR Home` with daemons stopped (script like `ahome-retire-old-path.ps1`), keep supervisor working, verify port 8090."],
+        m1=["Keep the folder name `AHome`; do all work in place with the supervisor running (port 8090 must stay up after every change)."],
         m2=["Rebuild web app on the SIR UI kit; regenerate lockfile; fix CSP and lint."],
         m4=["Local assistant over notes with delete controls."],
-        m6=["Rotate Telegram/Firebase/Gemini keys; purge secrets from history after rotation."],
+        m6=["Rotate Telegram/Firebase/Gemini keys; purge secrets from history after rotation; never add AHome to any public list."],
         risks="- Private data: never use outside AI; never add to the public portfolio.",
     ),
     dict(

@@ -1,6 +1,6 @@
 <# Creates the new private SIR repos and pushes each project's first commit (plan, agent files, icons). Safe to re-run: skips repos that exist.
-   Held back on purpose until they have code: sir-home (private home data), sir-jobs and sir-study (personal data). #>
-$hold = 'sir-home','sir-jobs','sir-study','sir-ai'
+   Held back on purpose until they have code: ahome (private home data, repo already exists), sir-jobs and sir-study (personal data). #>
+$hold = 'ahome','sir-jobs','sir-study','sir-ai'
 $items = Get-Content 'D:\Projects\_SIR\plans\repos.json' -Raw -Encoding UTF8 | ConvertFrom-Json
 foreach ($p in $items.PSObject.Properties) {
   $v = $p.Value; $dir = "D:\Projects\$($v.folder)"

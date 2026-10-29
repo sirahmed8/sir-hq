@@ -29,7 +29,7 @@ Windows 11 Pro 10.0.26300 x64 · Git Bash shell · Lenovo i7-13th, RTX 4050 6 GB
 pnpm · eas-cli · wrangler (Cloudflare) · Android SDK + `ANDROID_HOME` (only platform-tools exist) · docker (not needed yet) · cargo · flutter (not needed unless a project requires it).
 
 ## Local Ollama models (files present, not yet served)
-bge-m3, deepseek-r1:1.5b, nomic-embed-text, qwen2.5:1.5b, qwen2.5-coder:1.5b, qwen3:8b. Total about 9.2 GB. Manifest: `D:\Backups\SIR-2026-10-29\AI_Models_Hub-manifest.txt`.
+bge-m3, deepseek-r1:1.5b, nomic-embed-text, qwen2.5:1.5b, qwen2.5-coder:1.5b, qwen3:8b. Total about 9.2 GB. Manifest: `D:\Projects\Backups\SIR-2026-10-29\AI_Models_Hub-manifest.txt`.
 
 ## Hooks (SIR memory)
 `C:\Users\a7med\.claude\settings.json` → SessionStart, PreCompact, Stop → `D:/Projects/_SIR/scripts/memory/*.mjs`. Backup of the previous settings: `settings.json.bak-pre-sir-2026-10-29` in the same folder. Re-authenticate: nothing to do.
@@ -40,7 +40,7 @@ Many plugin servers show "needs authentication" (GitHub connector, Exa, Firecraw
 ## Phase 1 additions (2026-10-29)
 - Installed (npm global): pnpm 12.16.1, eas-cli 27.1.0, wrangler 4.155.0. Removed the duplicate npm copy of Claude Code (native 2.1.312 at `~/.local/bin` is the one that runs). `git config --global core.longpaths true`.
 - Claude Code: latest; `claude doctor` clean after the duplicate removal. `ANTHROPIC_BASE_URL` is set only inside the desktop-app process to the default `https://api.anthropic.com` (not user/machine/settings level): harmless. Auto-updates show "disabled (set by env: DISABLE_AUTOUPDATER)" in the app process; update manually (`claude update`) or via npm-free native updater.
-- Remote Control: 27 stale `bridge-pointer.json` files moved to `D:\Backups\SIR-2026-10-29\bridge-pointers\`. HQ server script `_SIR/scripts/rc-hq.ps1` run twice: connected, "Capacity 0/8", worker registered on attempt 1 both times (second run reused the prior environment from the pointer), no HTTP 404. NOT registered as a logon task (owner action).
+- Remote Control: 27 stale `bridge-pointer.json` files moved to `D:\Projects\Backups\SIR-2026-10-29\bridge-pointers\`. HQ server script `_SIR/scripts/rc-hq.ps1` run twice: connected, "Capacity 0/8", worker registered on attempt 1 both times (second run reused the prior environment from the pointer), no HTTP 404. NOT registered as a logon task (owner action).
 - User settings (`~/.claude/settings.json`, backups `settings.json.bak-pre-sir-2026-10-29` and `.bak-phase1-2026-10-29`): `remoteControlAtStartup: true`, env `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (2-teammate smoke test still to run), deny rules added for `gh repo delete`, `git push --mirror`, `gh release delete`. Hooks now: SessionStart, PreCompact, Stop, SubagentStop. `defaultMode` stays `auto`; `bypassPermissions` not used.
 - Roster: 18 agents in `~/.claude/agents/` (scout, architect, reviewer, builder, mobile-engineer, desktop-engineer, ui-craftsman, qa-breaker, security-auditor, release-manager, localizer, seo-specialist, automation-engineer, docs-keeper, ai-engineer, growth-operator, study-coach, pc-janitor); existing agents kept (architect-refactor, desktop-release-qa, explorer, legal-compliance-counsel, security-shield-auditor, ui-motion-director). Skill `sir-session-end` created; the other eight rule-9 skills are created when their procedure exists (Phases 4-5), not as empty shells.
 - External workforce, all tested through `_SIR/scripts/ai/ask.ps1` (pwsh 7.6): local Ollama (qwen2.5:1.5b default) ok; `agy` (default model, ~50 s for one word) ok; `opencode` with `opencode/deepseek-v4.1-flash-free` ok; `kilo run --auto` ok. Forced failure (nonexistent OpenCode model) retried once then fell back to local. A prompt containing a credential-shaped string is forced to local-only. Ledger: `ops/usage-ledger.jsonl`; cooling marker: `ops/provider-cooling.json` (both git-ignored).
@@ -53,11 +53,11 @@ Many plugin servers show "needs authentication" (GitHub connector, Exa, Firecraw
 
 ## Phase 1.8 toolchain (2026-10-29, verified by running each tool)
 - JDK: Temurin 17.0.20.1 installed (`JAVA_HOME` user variable); Microsoft OpenJDK 21.0.13 stays on PATH for other tools.
-- Android SDK at `D:\Android\Sdk` (`ANDROID_HOME`): cmdline-tools latest, platform-tools 37.0.1 (adb 1.0.41), platform android-36, build-tools 36.0.0, licenses accepted. 428 MB. No emulator image yet (1.5 GB each); add one only when a build needs it. The older `C:\Users\a7med\platform-tools` copy is untouched.
-- Maestro 2.12.0 at `D:\Android\tools\maestro` (bin on user PATH). ImageMagick 7.1.2-34, 7-Zip 26.05, ffmpeg 8.1.1 (Gyan build), Playwright Chromium headless shell (v1248, in `%LOCALAPPDATA%\ms-playwright`).
+- Android SDK at `D:\Projects\Android\Sdk` (`ANDROID_HOME`): cmdline-tools latest, platform-tools 37.0.1 (adb 1.0.41), platform android-36, build-tools 36.0.0, licenses accepted. 428 MB. No emulator image yet (1.5 GB each); add one only when a build needs it. The older `C:\Users\a7med\platform-tools` copy is untouched.
+- Maestro 2.12.0 at `D:\Projects\Android\tools\maestro` (bin on user PATH). ImageMagick 7.1.2-34, 7-Zip 26.05, ffmpeg 8.1.1 (Gyan build), Playwright Chromium headless shell (v1248, in `%LOCALAPPDATA%\ms-playwright`).
 - Already present: gitleaks 8.30.1, Firebase CLI 15.12.0, Wrangler 4.155.0, EAS CLI 27.1.0, Vercel CLI 50.1.3, pnpm 12.16.1, Python 3.14.7, OpenCode 2.2.0, Kilo 7.8.18, agy 1.4.10, n8n 2.44.6.
 - Not installed on purpose: Rust (no ADR chose Tauri); Visual Studio Build Tools C++ and the Windows SDK (multi-GB; installed when a Windows installer, MSIX or native build needs them, Phase 10); Android Studio (the command-line SDK is enough for Gradle and Expo builds; its IDE is optional).
-- User PATH gained `D:\Android\tools\maestro\bin`, `D:\Android\Sdk\platform-tools` and `D:\Android\Sdk\cmdline-tools\latest\bin`. Open a new terminal to see them.
+- User PATH gained `D:\Projects\Android\tools\maestro\bin`, `D:\Projects\Android\Sdk\platform-tools` and `D:\Projects\Android\Sdk\cmdline-tools\latest\bin`. Open a new terminal to see them.
 
 ## Phase 1.9 instruction files (2026-10-29)
 - `D:\Projects\AGENTS.md` (workspace rules, portfolio map, locks), `D:\Projects\GEMINI.md`, and `D:\Projects\CLAUDE.md` now starts with `@AGENTS.md`. Source copy: `core/workspace-CLAUDE.md`.
@@ -67,7 +67,7 @@ Many plugin servers show "needs authentication" (GitHub connector, Exa, Firecraw
 - Subagent log: a `scout` run wrote `scout finished` to `ops/subagent.log` (roster plus SubagentStop hook confirmed).
 
 ## Phase 1.11-1.14 (2026-10-29)
-- n8n 2.44.6: listens on 127.0.0.1:5678 only (restarted with `N8N_LISTEN_ADDRESS`; it had been on all interfaces). Execute Command node on via `NODES_EXCLUDE="[]"`; telemetry off; logon start `SIR-n8n.vbs`; data backup `D:\Backups\SIR-2026-10-29\n8n`. Not done: n8n MCP link to Claude Code.
+- n8n 2.44.6: listens on 127.0.0.1:5678 only (restarted with `N8N_LISTEN_ADDRESS`; it had been on all interfaces). Execute Command node on via `NODES_EXCLUDE="[]"`; telemetry off; logon start `SIR-n8n.vbs`; data backup `D:\Projects\Backups\SIR-2026-10-29\n8n`. Not done: n8n MCP link to Claude Code.
 - Routines: `~/.sir/routines/{morning,nightly,weekly}.md`, runner `~/.sir/scripts/routine.ps1` (`claude -p --model haiku`, restricted `--allowedTools`, `SIR_MEMORY_GUARD=0`), log `~/.sir/routines/run.log`. Outputs in `ops/briefs/`. Not scheduled yet (owner action).
 - Cross-tool: `Laptop manager/agent-config/` is canonical; `node sync-agent-config.mjs D:/Projects` copies skills to `D:\Projects\.agents\skills` (never deletes). Parity test in agy, OpenCode and Kilo NOT run: launching them from an agent session was refused. Codex is not installed.
 - Local AI: `Laptop manager/local-ai/rag.py` (`index`, `ask`), embeddings `bge-m3`, index at `D:\Projects\AI_Models_Hub\rag\index.sqlite`. Nightly refresh = add `python rag.py index` to the nightly routine later. Fine-tuning not started.

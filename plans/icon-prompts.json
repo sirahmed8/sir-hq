@@ -47,12 +47,6 @@
   "color": "#475569",
   "concept": "a laptop with a wrench and a check mark on the screen"
  },
- "sir-home": {
-  "folder": "SIR Home",
-  "display": "SIR Home",
-  "color": "#BE185D",
-  "concept": "a warm house with a heart-shaped window, calm and private feeling"
- },
  "sir-jobs": {
   "folder": "SIR Jobs",
   "display": "SIR Jobs",
@@ -100,5 +94,11 @@
   "display": "SIR Study",
   "color": "#4338CA",
   "concept": "an open notebook with a pencil and a small calendar check mark"
+ },
+ "ahome": {
+  "folder": "AHome",
+  "display": "AHome",
+  "color": "#BE185D",
+  "concept": "a warm house with a heart-shaped window, calm and private feeling"
  }
 }

@@ -21,9 +21,9 @@ def wr(p, t):
 t = rd(WS)
 start = t.index("## Portfolio map")
 end = t.index("## Parallel work and locks")
-portfolio = r"""## Portfolio map (everything lives inside `D:\Projects`; create nothing outside it, except the Desktop shortcut folders and `D:\Backups` for private backups)
+portfolio = r"""## Portfolio map (everything lives inside `D:\Projects`; create nothing outside it, except the Desktop shortcut folders and `D:\Projects\Backups` for private backups)
 Every product is a NEW project whose name starts with SIR. Merged products contain their old projects under `legacy\` (a MERGE project: port everything, then move `legacy\*` to `old projects\` at M6).
-SIR Platform (shared kit) · SIR Obour Hub · SIR Hagoozat (+Hagoozat Elite, 11Players, EGFootball5) · SIR Business (+Restaurant, Market, Pharmacy, Library) · SIR Content Creation Studio · SIR Controller (+Optimizer) · SIR AI · SIR Laptop Manager (+agent suite, Laptop manager) · SIR Home (private; AHome still runs from `AHome`) · SIR Jobs (data in `Jobs`) · SIR Study (study folder merged in `materials\`) · SIR Negm Furniture (client brand) · SIR ModPack · SIR Mods for GTA V · SIR Odysseus · SIR Life · SIR Portfolio (Ahmed's public site).
+SIR Platform (shared kit) · SIR Obour Hub · SIR Hagoozat (+Hagoozat Elite, 11Players, EGFootball5) · SIR Business (+Restaurant, Market, Pharmacy, Library) · SIR Content Creation Studio · SIR Controller (+Optimizer) · SIR AI · SIR Laptop Manager (+agent suite, Laptop manager) · AHome (private home project of Ahmed and Habiba, keeps its own name, not a SIR product) · SIR Jobs (data in `Jobs`) · SIR Study (study folder merged in `materials\`) · SIR Negm Furniture (client brand) · SIR ModPack · SIR Mods for GTA V · SIR Odysseus · SIR Life · SIR Portfolio (Ahmed's public site).
 Still at the top level for a reason: `AHome` (its daemons run), `Laptop manager` (runs routines and RAG), `Jobs` (personal data), `SIR AI` and `SIR Optimizer` (apps were running), `Obour Academic Hub` (locked), `AI_Models_Hub` (model store), `sirahmed8` (GitHub profile repo), `old projects`, `_SIR`. The plan for each is `_SIR\plans\<slug>.md`; facts per project: `_SIR/ops/PORTFOLIO.md`.
 
 """
