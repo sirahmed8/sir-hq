@@ -7,3 +7,6 @@ ops/stop-guard.json
 ops/inventory/gitleaks/
 # own repos later (platform/ and standard/ split out in their phases)
 platform/
+ops/subagent.log
+ops/usage-ledger.jsonl
+ops/provider-cooling.json

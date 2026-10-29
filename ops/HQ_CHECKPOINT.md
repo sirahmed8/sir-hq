@@ -1,29 +1,27 @@
-# HQ CHECKPOINT — updated 2026-10-29 15:09
+# HQ CHECKPOINT — updated 2026-10-29 15:50
 ## Phase and step
-Phase 0 finished. Next: Phase 1 (`phases/01-workstation.md`), step 1.1. (Read the file first; it is about 19 KB, so read it in parts.)
+Phase 1 (`phases/01-workstation.md`) in progress. Done: 1.1, 1.2, most of 1.3, 1.5 (env only), 1.6, part of 1.8, 1.10. Open: 1.7, rest of 1.8, 1.9, 1.11, 1.12, 1.13, 1.14.
 ## Now
-Phase 0 deliverables are in `_SIR/ops/`: HQ_CHECKPOINT, MISSION_LOG, TOOLS, DISK, PORTFOLIO, OWNER_ACTIONS, IDEAS_INBOX, inventory/SECRETS.md. Memory hooks installed and script-tested. Safety net: `pre-sir-snapshot` branch + tag `pre-sir-2026-10-29` in 18 repos; zips + bundle in `D:\Backups\SIR-2026-10-29\`. Leak #1 (public SIR ModPack) fixed and verified. `_SIR` is now the private repo `sirahmed8/sir-hq` (commit df24880 pushed; later commits: `git -C D:/Projects/_SIR add -A && git commit && git push`).
+Phase 1 part 1 is committed to sir-hq. Facts: Claude Code 2.1.312 latest; Remote Control 404 fixed (two relaunches clean); settings: remoteControlAtStartup true, teams env, 3 deny rules, SubagentStop hook; 18-agent roster; `sir-session-end` skill; pnpm/eas/wrangler installed; Ollama serves 6 models from `D:\Projects\AI_Models_Hub\ollama`; `ask.ps1` tested for local, agy, opencode (free model), kilo, fallback and secret guard. Disk: C: 16 GB free, D: 16 GB free.
 ## Next step
-1. (done) sir-hq exists and is pushed; push again after meaningful changes to the mission files.
-2. Read `phases/01-workstation.md` and start 1.1. Disk first: C: 14 GB and D: 16 GB free. Free the safe regenerables from `ops/DISK.md` (npm-cache 5.6 GB via `npm cache clean --force`, Temp) before any heavy install.
-3. Install missing tools in Phase 1 only (pnpm, eas-cli, wrangler, Android SDK); set `OLLAMA_MODELS=D:\Projects\AI_Models_Hub\ollama`.
+1. **1.7 MCP/plugin clean slate**: inventory with `claude mcp list` (read-only first), record in TOOLS.md what is connected, needs auth, failed, duplicate; do not enable more servers than needed (every server costs context). Candidate cleanup: Output.ai plugin (about 10k tokens per session, Ahmed's call).
+2. **1.8 rest**: JDK 17 for Gradle (JDK 21 present), Android SDK + `ANDROID_HOME` (only platform-tools exist), ImageMagick, ffmpeg, 7-Zip, Playwright browsers, Maestro. Free more disk first (node_modules of inactive projects up to 12.6 GB after a check, AppData Local Temp 2 GB). Keep emulator images to 3.
+3. **1.9** `D:\Projects\AGENTS.md`, `CLAUDE.md` first line `@AGENTS.md` (the workspace CLAUDE.md exists already and must keep its content), `GEMINI.md`; Laptop Manager charter.
+4. Then 1.11 n8n (installed 2.44.6, not started), 1.12 routines, 1.13 parity, 1.14 local AI.
 ## Running in the background
-- none
+- none (the hidden `ollama serve` process was started by HQ at 15:3x)
 ## Decisions since the last milestone
-- Disk is tight (C: 14 GB, D: 16 GB free): full zips of repos skipped (GitHub + snapshot branches cover them); models not backed up (re-pullable); node_modules (12.6 GB) is the first safe win but untouched until Phase 2.4/Phase 1 needs space.
-- Backups sit on D: only; Google Drive copy needs Ahmed (OWNER_ACTIONS).
-- standard/ is committed into sir-hq for now (backup beats purity); split into its own repo when Phase 1/3 installs it. platform/ is ignored.
-- Obour Institute scripts named `ba_quiz_live_solver.py`, `academic_submission_engine.py`, `check_ba_quiz.py`: do not run or extend (rule 14); study-coach reviews in Phase 8.6.
-- Never print any substring of a credential line: only variable name and length.
+- Security/system settings left to Ahmed (power plan, `additionalDirectories`, `autoMode.allow`, logon task); listed in OWNER_ACTIONS. Reason: they loosen security or change the OS, so the agent does not do them on its own.
+- No blanket force-push deny: planned history cleanups (leaks #2-#4) need it; the three narrow denies stay.
+- The other eight rule-9 skills are created when their procedure exists (Phases 4-5), not as empty shells.
+- Never print any substring of a credential line; use `sed`/replace with Edit tool for paths (backslashes get eaten in shell replacements).
 ## Open promises
-- Confirm the hooks fire after the first real compaction: check `ops/memory.log` for a "compaction" line and that the reload block appeared.
-- Leaks #2 (Gemini key, private GTA V repo), #3 (ADMIN_SECRET_KEY), #4 (Telegram bot token, history of AHome): Ahmed rotates (OWNER_ACTIONS); then the agent cleans history (Tier 1) on a backup branch. #3 the agent can regenerate itself once the deploy target is known.
-- Check the 114 MB ModPack release asset `SIR_Apps_Suite.zip` for account files (Phase 5).
-- Phase 5 security notes: restrict Firebase web keys; SIR Restaurant ZATCA pseudo-key is fake crypto (rule 16); SIR Market hard-coded super-admin licence keys.
-- Run `claude doctor` in Phase 1.
+- Confirm hooks fire after a real compaction (`ops/memory.log`).
+- Leaks #2-#4 (OWNER_ACTIONS), ModPack release zip check (Phase 5), Phase 5 security notes (see SECRETS.md).
+- 2-teammate agent-team smoke test; `/usage` reading; read OpenCode free-model and Kilo data terms; confirm from the iPhone that the HQ session shows up.
 ## Owner actions listed (never blocking)
-- 5 open: revoke AHome Telegram token; rotate Gemini key; Google Drive for Desktop sign-in; optional Vercel login; optional GitHub Support purge for the old ModPack commit
+- 10 open (see ops/OWNER_ACTIONS.md): BotFather revoke, Gemini key rotate, Google Drive sign-in, power plan, logon task, AI credit overages "Never", autoMode decision, Output.ai plugin, optional Vercel login, optional GitHub Support purge
 ## Usage
-Not read (`/usage` is a UI command; check at the start of Phase 1 and write the reading here).
+Not read (`/usage` is a UI command). Pace: heavy session so far; prefer Haiku scouts for the MCP inventory and the installs.
 ## Re-read after a reset
-- START_HERE.md · phases/01-workstation.md · ops/DISK.md · ops/OWNER_ACTIONS.md
+- START_HERE.md · phases/01-workstation.md · ops/TOOLS.md · ops/OWNER_ACTIONS.md

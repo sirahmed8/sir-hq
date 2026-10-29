@@ -1,6 +1,6 @@
 # Requirements ledger
 
-Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row says where the mission handles it. HQ updates only the **Status** and **Evidence** columns (⬜ not started · 🔄 in progress · ✅ done with evidence · ➖ not applicable, with the reason), reviews the whole ledger every week and at every milestone, and adds a new row for every new request from the Ideas Inbox. Never delete a row.
+Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row says where the mission handles it. HQ updates only the **Status** and **Evidence** columns (⬜ not started · 🔄 in progress · 🔄 agy, opencode (free model), kilo and local Ollama all answer through `_SIR/scripts/ai/ask.ps1`; fallback and secret guard tested; agy credit overage setting turned off. Data terms of OpenCode free and Kilo still to read
 
 "Phase N.x" means a step in `phases/`; "module NN" means `standard/NN-….md`; A0–A6 are the `core/` files (map in `START_HERE.md`).
 
@@ -13,7 +13,7 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 | R-003 | No money is available: nothing is purchased; free tiers and free channels only | Rule 18; Phase 8.0 ladder | 🔄 | Nothing purchased so far; gitleaks installed from the free winget source. Rule is in the workspace `CLAUDE.md` |
 | R-004 | Subagents coordinate through shared checkpoint files and messages, report to the main agent, and many focused subagents keep usage low | A2 | ⬜ | |
 | R-005 | Team: Sonnet (high) HQ tailors every project's files; a Sonnet (high) manager per project; Haiku (max) builders working from detailed specs | A0, A2 | ⬜ | |
-| R-006 | Use the four Google AI Pro accounts through the Antigravity CLI, OpenCode and Kilo as extra workers, and handle their limits | A2 external workforce; Phase 1.10 | ⬜ | |
+| R-006 | Use the four Google AI Pro accounts through the Antigravity CLI, OpenCode and Kilo as extra workers, and handle their limits | A2 external workforce; Phase 1.10 | 🔄 | agy, OpenCode (free model), Kilo and local Ollama all answer through `scripts/ai/ask.ps1`; fallback and secret guard tested; agy credit overage setting turned off. Data terms of OpenCode free and Kilo still to read |
 | R-007 | Handle errors and usage limits without stopping; continue automatically after limits; main agents watch usage | A2 usage and recovery playbooks | ⬜ | |
 | R-008 | Claude acts as Ahmed's personal AI this month: proactive, on schedules, maximum results for minimum usage | A0; Phase 1.12 | ⬜ | |
 | R-009 | Agents ask themselves: did we forget anything, what's missing, what's next, what would Ahmed think, what might he need | A2 quality loop; AGENTS.md section 9; module 19 | ⬜ | |
@@ -25,8 +25,8 @@ Everything Ahmed has asked for, in one place, so nothing is forgotten. Each row 
 
 | ID | Requirement | Where | Status | Evidence |
 |---|---|---|---|---|
-| R-013 | Fix the Remote Control error ("CCR v2 worker registration failed … 404") | Phase 1.2 | ⬜ | |
-| R-014 | See and continue every laptop session from the iPhone, in any project, any time | Phase 1.3 | ⬜ | |
+| R-013 | Fix the Remote Control error ("CCR v2 worker registration failed … 404") | Phase 1.2 | ✅ | 2026-10-29: 27 stale bridge pointers backed up to `D:\Backups\SIR-2026-10-29\bridge-pointers\` and moved; `scripts/rc-hq.ps1` run twice, worker registered on attempt 1 both times, no HTTP 404. Logon task left to Ahmed (OWNER_ACTIONS) |
+| R-014 | See and continue every laptop session from the iPhone, in any project, any time | Phase 1.3 | 🔄 | `remoteControlAtStartup: true` set; HQ server connects (Capacity 0/8). Not yet confirmed from the iPhone (needs Ahmed to open the Code tab); power plan is in OWNER_ACTIONS |
 | R-015 | Clean connectors; re-enable all skills, MCP servers and connectors that are useful | Phase 1.7 | ⬜ | |
 | R-016 | Android SDK and CLI tools, and everything needed to build and test apps, installed and configured | Phase 1.8 | ⬜ | |
 | R-017 | After this month, Antigravity with Gemini continues at the same quality without breaking anything, and every change it makes improves things | Phase 9; module 14 | ⬜ | |
