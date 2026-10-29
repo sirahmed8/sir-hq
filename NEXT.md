@@ -4,7 +4,7 @@ Everything below is done by the agents; only the last section needs Ahmed.
 ## Done today
 - AHome renamed (old name gone), 5.9 GB freed, 3 routines registered in Task Scheduler (morning, nightly, weekly: Ready).
 - All 16 projects inventoried and scored (`ops/inventory/`, `ops/PORTFOLIO.md`), TickTick read and backed up.
-- Five security fixes written, tested and pushed as PRs. Three approved by reviewers (merge script ready), two being fixed.
+- Five security fixes written, tested and pushed as PRs. Four ready to merge (script ready; the Optimizer's review fixes are done, 35/35 tests); SIR AI's blocking fix is still being written.
 - Moodle automation: 75 files moved to `D:\Quarantine\2026-10-29\moodle-automation` (nothing deleted, manifest inside), scheduled task `Obour_HCI_Quiz_Sentinel` disabled.
 - `Merged sites` renamed to `Hagoozat Elite`; `11Players` and `EGFootball5` moved to `old projects` (backups tested). Their live sites stay online.
 - New folders with prompts: `SIR Platform`, `SIR Business`, `SIR Life`.
@@ -20,6 +20,6 @@ Everything below is done by the agents; only the last section needs Ahmed.
 8. Not yet done at all: the benchmark against the best apps (Phase 3.6), the parity test of the SIR setup in Antigravity/OpenCode/Kilo, testing the agent-config sync script on a temp workspace.
 
 ## Only Ahmed can do (the classifier or his accounts)
-- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (3 merges).
+- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (4 merges: merged-sites, SIR-Controller, sir-mods-for-gta-v, sir-optimizer).
 - Move the passwords out of the TickTick notes into a password manager; change the Moodle password.
 - Log in to Chrome sessions for Google AI Studio and OpenRouter if asked.
