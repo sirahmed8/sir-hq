@@ -46,8 +46,8 @@ Local models only for private text; routine briefs; skill discovery.
 
 ## 8. Milestones
 ### M0 Foundations
-- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-laptop-manager`.
-- [ ] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-laptop-manager`.
+- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
 - [ ] New Firebase project `sir-laptop-manager` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Laptop Manager", logo, support email.
 - [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
 - [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.

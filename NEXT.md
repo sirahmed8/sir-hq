@@ -4,9 +4,12 @@ Program: rebuild every product as a new SIR project. Rules and order: `plans/MAS
 ## NEW-CHAT STARTER (paste or just say "continue")
 "Continue the SIR rebuild. Read D:\Projects\_SIR\NEXT.md, then plans/MASTER_REBUILD_PLAN.md, then do the first item under 'Next' that is not blocked. Update the checkpoint and MISSION_LOG, never ask me, keep replies short."
 
+## Progress
+See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foundations only). Re-run `python plans/generate_plans.py` after ticking boxes.
+
 ## State of the folders (2026-10-30)
 - 17 new SIR project folders exist with plan, agent files, icon (placeholder), Desktop folder (open / start dev / stop dev) and git. Merged products hold their old projects in `legacy\` (SIR Hagoozat, Business, Controller (v1 only so far), Laptop Manager (agent suite), Negm Furniture, Odysseus, Content Creation Studio, ModPack, Mods for GTA V) and the study folder is `SIR Study\materials\obour-year2-term1` (Moodle scripts in `SIR Study\_quarantine`).
-- Still at the top level on purpose: AHome, Laptop manager, Jobs, AI_Models_Hub, sirahmed8, SIR AI (v1 app was running), SIR Optimizer (PowerSync was running), Obour Academic Hub (locked). Re-run `scripts/merge-legacy.ps1` when they are closed.
+- Still at the top level until `finish-merges.ps1` runs (they are locked or running; the safety check does not let agents stop programs): AHome (daemons), Laptop manager, Jobs, sirahmed8, SIR AI (app running), SIR Optimizer (PowerSync running), Obour Academic Hub (locked by an open window). `AI_Models_Hub` stays (model store, not a project).
 - GitHub: 10 new private repos created (sir-platform, sir-obour-hub, sir-hagoozat, sir-business, ... ); old repos get renamed `sir-legacy-*` and archived by `scripts/github-organize.ps1` AFTER the 5 PRs are merged.
 
 ## Next, in this order
@@ -19,6 +22,6 @@ Program: rebuild every product as a new SIR project. Rules and order: `plans/MAS
 ## Only Ahmed can do (the agents already prepared the command)
 1. `pwsh -NoProfile -File D:\Projects\_SIR\scripts\generate-icons-agy.ps1` : makes the AI logo for every product with agy (the safety check blocks agents from launching agy). It rebuilds the folder icons and Desktop shortcuts at the end.
 2. `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` : merges the 5 security PRs (classifier blocks agents from merging). Then agents run github-organize.
-3. Close SIR AI, SIR PowerSync and anything open in `SIR Optimizer` / `Obour Academic Hub`, then `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-legacy.ps1`.
+3. **`pwsh -NoProfile -File D:\Projects\_SIR\scriptsinish-merges.ps1`** (after closing Antigravity/VS Code/Explorer windows that have D:\Projects folders open: they lock folders). It stops the old SIR AI and PowerSync apps, moves SIR AI, SIR Optimizer, Obour Academic Hub, Laptop manager, Jobs and sirahmed8 into their new products, moves AHome into SIR Home\legacy with its daemons repointed (verifies port 8090), and rebuilds icons and Desktop folders. Agents may not stop running programs, so this is the one thing left for the top-level cleanup.
 4. Delete the empty leftover folder `D:\Quarantine` (the safety check does not let agents remove it).
 5. Move passwords out of the TickTick notes; change the Moodle password; be logged in to Google AI Studio and OpenRouter in Chrome when asked; decide the company/publisher entity "SIR" for the stores.

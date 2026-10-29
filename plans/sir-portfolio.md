@@ -42,8 +42,8 @@ Optional small assistant that answers 'what does Ahmed build?' strictly from the
 
 ## 8. Milestones
 ### M0 Foundations
-- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-portfolio`.
-- [ ] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-portfolio`.
+- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
 - [ ] New Firebase project `sir-portfolio` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Portfolio", logo, support email.
 - [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
 - [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
