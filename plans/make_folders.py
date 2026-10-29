@@ -1,6 +1,6 @@
 import os, subprocess
 from products import PRODUCTS
-NEW = {"sir-hagoozat","sir-obour-hub","sir-home","sir-laptop-manager","sir-jobs","sir-negm-furniture","sir-odysseus"}
+NEW = {"sir-controller","sir-content-creation-studio","sir-modpack","sir-mods-for-gta-v","sir-portfolio","sir-study","sir-hagoozat","sir-obour-hub","sir-home","sir-laptop-manager","sir-jobs","sir-negm-furniture","sir-odysseus"}
 for p in PRODUCTS:
     if p["slug"] not in NEW:
         continue

@@ -1,0 +1,87 @@
+{
+ "sir-platform": {
+  "folder": "SIR Platform",
+  "repo": "sir-platform",
+  "display": "SIR Platform"
+ },
+ "sir-obour-hub": {
+  "folder": "SIR Obour Hub",
+  "repo": "sir-obour-hub",
+  "display": "SIR Obour Hub"
+ },
+ "sir-hagoozat": {
+  "folder": "SIR Hagoozat",
+  "repo": "sir-hagoozat",
+  "display": "SIR Hagoozat"
+ },
+ "sir-business": {
+  "folder": "SIR Business",
+  "repo": "sir-business",
+  "display": "SIR Business"
+ },
+ "sir-content-creation-studio": {
+  "folder": "SIR Content Creation Studio",
+  "repo": "sir-content-creation-studio",
+  "display": "SIR Content Creation Studio"
+ },
+ "sir-controller": {
+  "folder": "SIR Controller",
+  "repo": "sir-controller",
+  "display": "SIR Controller"
+ },
+ "sir-ai": {
+  "folder": "SIR AI",
+  "repo": "sir-ai",
+  "display": "SIR AI"
+ },
+ "sir-laptop-manager": {
+  "folder": "SIR Laptop Manager",
+  "repo": "sir-laptop-manager",
+  "display": "SIR Laptop Manager"
+ },
+ "sir-home": {
+  "folder": "SIR Home",
+  "repo": "sir-home",
+  "display": "SIR Home"
+ },
+ "sir-jobs": {
+  "folder": "SIR Jobs",
+  "repo": "sir-jobs",
+  "display": "SIR Jobs"
+ },
+ "sir-negm-furniture": {
+  "folder": "SIR Negm Furniture",
+  "repo": "sir-negm-furniture",
+  "display": "SIR Negm Furniture"
+ },
+ "sir-modpack": {
+  "folder": "SIR ModPack",
+  "repo": "sir-modpack",
+  "display": "SIR ModPack"
+ },
+ "sir-mods-for-gta-v": {
+  "folder": "SIR Mods for GTA V",
+  "repo": "sir-mods-for-gta-v",
+  "display": "SIR Mods for GTA V"
+ },
+ "sir-odysseus": {
+  "folder": "SIR Odysseus",
+  "repo": "sir-odysseus",
+  "display": "SIR Odysseus"
+ },
+ "sir-life": {
+  "folder": "SIR Life",
+  "repo": "sir-life",
+  "display": "SIR Life"
+ },
+ "sir-portfolio": {
+  "folder": "SIR Portfolio",
+  "repo": "sir-portfolio",
+  "display": "SIR Portfolio"
+ },
+ "sir-study": {
+  "folder": "SIR Study",
+  "repo": "sir-study",
+  "display": "SIR Study"
+ }
+}

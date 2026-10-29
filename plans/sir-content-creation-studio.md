@@ -1,6 +1,11 @@
 # PLAN: SIR Content Creation Studio
 Status: planned, not started. Wave 3. Replaces: SIR Content Creation Studio v1 (with the SIR Media idea and ByteVibeHQ publishing). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
+## 0. THIS IS A MERGE PROJECT (read first)
+The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
+- SIR Content Creation Studio (v1)
+Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
+
 ## 1. Mission and audience
 Offline-first AI video studio for Shorts/Reels/TikTok and long form, plus scheduled publishing for ByteVibeHQ's accounts. Audience: Ahmed first, then creators.
 

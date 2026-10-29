@@ -1,0 +1,104 @@
+{
+ "sir-platform": {
+  "folder": "SIR Platform",
+  "display": "SIR Platform",
+  "color": "#1F6FEB",
+  "concept": "stacked geometric layers forming a solid foundation, three offset isometric slabs"
+ },
+ "sir-obour-hub": {
+  "folder": "SIR Obour Hub",
+  "display": "SIR Obour Hub",
+  "color": "#0E8F6E",
+  "concept": "an open book with a small graduation cap and a spark of light above it"
+ },
+ "sir-hagoozat": {
+  "folder": "SIR Hagoozat",
+  "display": "SIR Hagoozat",
+  "color": "#16A34A",
+  "concept": "a five-a-side football pitch seen from above with a football and a location pin"
+ },
+ "sir-business": {
+  "folder": "SIR Business",
+  "display": "SIR Business",
+  "color": "#C2410C",
+  "concept": "a small shop storefront with a striped awning and a rising bar chart"
+ },
+ "sir-content-creation-studio": {
+  "folder": "SIR Content Creation Studio",
+  "display": "SIR Content Creation Studio",
+  "color": "#B91C1C",
+  "concept": "a clapperboard with a play button and a small scissors cut mark"
+ },
+ "sir-controller": {
+  "folder": "SIR Controller",
+  "display": "SIR Controller",
+  "color": "#7C3AED",
+  "concept": "a modern game controller with a subtle speed gauge arc behind it"
+ },
+ "sir-ai": {
+  "folder": "SIR AI",
+  "display": "SIR AI",
+  "color": "#0891B2",
+  "concept": "a friendly assistant speech bubble containing a four-point spark star"
+ },
+ "sir-laptop-manager": {
+  "folder": "SIR Laptop Manager",
+  "display": "SIR Laptop Manager",
+  "color": "#475569",
+  "concept": "a laptop with a wrench and a check mark on the screen"
+ },
+ "sir-home": {
+  "folder": "SIR Home",
+  "display": "SIR Home",
+  "color": "#BE185D",
+  "concept": "a warm house with a heart-shaped window, calm and private feeling"
+ },
+ "sir-jobs": {
+  "folder": "SIR Jobs",
+  "display": "SIR Jobs",
+  "color": "#A16207",
+  "concept": "a briefcase with an upward arrow, career growth"
+ },
+ "sir-negm-furniture": {
+  "folder": "SIR Negm Furniture",
+  "display": "SIR Negm Furniture",
+  "color": "#92400E",
+  "concept": "an elegant armchair in profile, refined furniture showroom feeling"
+ },
+ "sir-modpack": {
+  "folder": "SIR ModPack",
+  "display": "SIR ModPack",
+  "color": "#15803D",
+  "concept": "an isometric cube block with a pickaxe, game modding"
+ },
+ "sir-mods-for-gta-v": {
+  "folder": "SIR Mods for GTA V",
+  "display": "SIR Mods for GTA V",
+  "color": "#CA8A04",
+  "concept": "a sports car silhouette with a wrench, vehicle modding"
+ },
+ "sir-odysseus": {
+  "folder": "SIR Odysseus",
+  "display": "SIR Odysseus",
+  "color": "#1D4ED8",
+  "concept": "a sailing ship with two sails and a compass star, long journey"
+ },
+ "sir-life": {
+  "folder": "SIR Life",
+  "display": "SIR Life",
+  "color": "#0D9488",
+  "concept": "a sunrise over a horizon with a crescent moon, calm daily routine"
+ },
+ "sir-portfolio": {
+  "folder": "SIR Portfolio",
+  "display": "SIR Portfolio",
+  "color": "#111827",
+  "concept": "a grid of four rounded tiles like a gallery of work, one tile highlighted"
+ },
+ "sir-study": {
+  "folder": "SIR Study",
+  "display": "SIR Study",
+  "color": "#4338CA",
+  "concept": "an open notebook with a pencil and a small calendar check mark"
+ }
+}

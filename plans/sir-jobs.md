@@ -1,6 +1,11 @@
 # PLAN: SIR Jobs
 Status: planned, not started. Wave 4. Replaces: Jobs. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
+## 0. THIS IS A MERGE PROJECT (read first)
+The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
+- Jobs (data moves in when imported)
+Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
+
 ## 1. Mission and audience
 Ahmed's honest job and freelance agent: finds fitting remote and local jobs, drafts personalised applications and proposals, tracks real outcomes. Private.
 

@@ -150,3 +150,13 @@ Add new rows here from the Ideas Inbox (R-091 onward), each linked to its inbox 
 
 | ID | Requirement | Where | Status | Evidence |
 |---|---|---|---|---|
+| R-100 | Rebuild every product from the start as a new SIR-named project with its own Firebase and Cloudflare project; old projects may stop working | `plans/MASTER_REBUILD_PLAN.md` | 🔄 | 17 plans + 17 folders created 2026-10-30; no product built yet |
+| R-101 | Merge same-idea projects into one folder (old code, git history and structure moved into `legacy\`) so one AI can finish the product; move `legacy\*` to `old projects\` at M6 | `scripts/merge-legacy.ps1`, plans section 0 | 🔄 | 13 old folders merged; SIR Optimizer and Obour Academic Hub locked (re-run script) |
+| R-102 | Every plan, prompt and start file lets any AI know what is done, next and how to work | `plans/AGENT_PROTOCOL.md`, `.sir/PLAN.md`, NEXT.md | 🔄 | generated from `plans/products_*.py` |
+| R-103 | Unique AI-generated professional icon per product, on the D: folder and the Desktop folder, with open / start dev / stop dev shortcuts | `scripts/generate-icons-agy.ps1`, `make-icons-and-desktop.ps1` | 🔄 | placeholders (monograms) in place; agy launch blocked by the classifier, Ahmed runs the script |
+| R-104 | Company/publisher name SIR on stores and accounts | `plans/MASTER_REBUILD_PLAN.md` addendum | ⬜ | needs a legal entity decision (owner) |
+| R-105 | Personal portfolio site (SIR Portfolio), best site, no personal info | `plans/sir-portfolio.md` | ⬜ | planned, wave 2 |
+| R-106 | Study automation: lectures, deadlines, organization (never graded work) | `plans/sir-study.md` | 🔄 | study folder merged into SIR Study; scripts quarantined in `SIR Study\_quarantine` |
+| R-107 | Jobs and money agent | `plans/sir-jobs.md` | ⬜ | planned, wave 4 |
+| R-108 | Organize GitHub repos: new private SIR repos, archive (never delete) old ones after the PRs merge | `scripts/github-organize.ps1` | 🔄 | 10 new repos created; archive step waits for the merges |
+| R-109 | Nothing created outside D:\Projects | `D:\Projects\AGENTS.md` law | ✅ | quarantine moved into SIR Study |

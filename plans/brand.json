@@ -1,0 +1,104 @@
+{
+ "sir-platform": {
+  "color": "#1F6FEB",
+  "mono": "SP",
+  "folder": "SIR Platform",
+  "display": "SIR Platform"
+ },
+ "sir-obour-hub": {
+  "color": "#0E8F6E",
+  "mono": "OH",
+  "folder": "SIR Obour Hub",
+  "display": "SIR Obour Hub"
+ },
+ "sir-hagoozat": {
+  "color": "#16A34A",
+  "mono": "HG",
+  "folder": "SIR Hagoozat",
+  "display": "SIR Hagoozat"
+ },
+ "sir-business": {
+  "color": "#C2410C",
+  "mono": "SB",
+  "folder": "SIR Business",
+  "display": "SIR Business"
+ },
+ "sir-content-creation-studio": {
+  "color": "#B91C1C",
+  "mono": "CS",
+  "folder": "SIR Content Creation Studio",
+  "display": "SIR Content Creation Studio"
+ },
+ "sir-controller": {
+  "color": "#7C3AED",
+  "mono": "SC",
+  "folder": "SIR Controller",
+  "display": "SIR Controller"
+ },
+ "sir-ai": {
+  "color": "#0891B2",
+  "mono": "AI",
+  "folder": "SIR AI",
+  "display": "SIR AI"
+ },
+ "sir-laptop-manager": {
+  "color": "#475569",
+  "mono": "LM",
+  "folder": "SIR Laptop Manager",
+  "display": "SIR Laptop Manager"
+ },
+ "sir-home": {
+  "color": "#BE185D",
+  "mono": "SH",
+  "folder": "SIR Home",
+  "display": "SIR Home"
+ },
+ "sir-jobs": {
+  "color": "#A16207",
+  "mono": "SJ",
+  "folder": "SIR Jobs",
+  "display": "SIR Jobs"
+ },
+ "sir-negm-furniture": {
+  "color": "#92400E",
+  "mono": "NF",
+  "folder": "SIR Negm Furniture",
+  "display": "SIR Negm Furniture"
+ },
+ "sir-modpack": {
+  "color": "#15803D",
+  "mono": "MP",
+  "folder": "SIR ModPack",
+  "display": "SIR ModPack"
+ },
+ "sir-mods-for-gta-v": {
+  "color": "#CA8A04",
+  "mono": "GV",
+  "folder": "SIR Mods for GTA V",
+  "display": "SIR Mods for GTA V"
+ },
+ "sir-odysseus": {
+  "color": "#1D4ED8",
+  "mono": "OD",
+  "folder": "SIR Odysseus",
+  "display": "SIR Odysseus"
+ },
+ "sir-life": {
+  "color": "#0D9488",
+  "mono": "SL",
+  "folder": "SIR Life",
+  "display": "SIR Life"
+ },
+ "sir-portfolio": {
+  "color": "#111827",
+  "mono": "SA",
+  "folder": "SIR Portfolio",
+  "display": "SIR Portfolio"
+ },
+ "sir-study": {
+  "color": "#4338CA",
+  "mono": "ST",
+  "folder": "SIR Study",
+  "display": "SIR Study"
+ }
+}

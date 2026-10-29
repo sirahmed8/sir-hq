@@ -29,3 +29,29 @@ M0 Foundations: new folder + git repo + `.sir/` files + Firebase and Cloudflare 
 ## Folder naming map (old -> new)
 Hagoozat Elite, 11Players, EGFootball5 -> SIR Hagoozat · Obour Academic Hub -> SIR Obour Hub · SIR Restaurant/Market/Pharmacy/Library -> SIR Business · SIR Optimizer + SIR Controller -> SIR Controller · antigravity-agent-suite + Laptop manager -> SIR Laptop Manager · AHome -> SIR Home (renamed last, with daemons stopped) · Jobs -> SIR Jobs · Negm Furniture -> SIR Negm Furniture · Odysseus app -> SIR Odysseus · SIR AI, SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Platform, SIR Life keep their names.
 When a rebuild starts in a name that already exists, first move the old folder to `old projects\<name> (v1)`, then create the fresh folder.
+
+---
+## ADDENDUM 2026-10-30 (Ahmed): merge groups, new era, publisher identity, personal site, study automation
+### Merge groups (same idea = one product; the old folders are sources only and live in `old projects\`)
+| New product | Absorbs (old folders) |
+|---|---|
+| SIR Hagoozat | Hagoozat Elite (Merged sites), 11Players, EGFootball5 |
+| SIR Business | SIR Restaurant, SIR Market, SIR Pharmacy, SIR Library |
+| SIR Controller | SIR Controller v1, SIR Optimizer |
+| SIR Laptop Manager | Laptop manager, antigravity-agent-suite |
+| SIR Obour Hub | Obour Academic Hub |
+| SIR Study (new, private) | the legitimate study scripts of `Obour Institute Second Year 1st term` |
+| SIR Portfolio (new) | the GitHub profile README and product pages; the one public site about Ahmed's work |
+| SIR Jobs | Jobs (data stays in `D:\Projects\Jobs` until imported) |
+| SIR Home | AHome (renamed last, with its daemons stopped) |
+| SIR AI, SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Odysseus, SIR Negm Furniture, SIR Platform, SIR Life | rebuilt under the same or the SIR-prefixed name |
+Old projects may stop being hosted or working: Ahmed decided the new era replaces them. They are kept as read-only sources under `old projects\` and in their GitHub repos (archive them there when the replacement is live).
+
+### New era / publisher identity
+All stores and accounts use the publisher name **SIR** (Google Play developer name, Apple developer/seller name, GitHub, Cloudflare, Firebase display names, OAuth app names). Verify-first honestly: an Apple developer account sells under the legal name of an individual or a registered company; a company name "SIR" needs a legal entity (and a D-U-N-S number for Apple organizations); Google Play shows the developer name entered on the account, with its own verification. Until the accounts exist: use "SIR" in every app name, package id `app.sir.<slug>`, and legal page, and keep a decision note in `ops/OWNER_ACTIONS.md` when Ahmed registers the entity. Free stores/channels first (Microsoft Store direct installer, F-Droid-style APK, web/PWA) per module 22.
+
+### Timeline target (honest: limited by agent usage; the order never changes, dates move)
+See `plans/TIMELINE.md`. Goal Ahmed set: all products built to a hostable state this month and next (by about 2026-11-30), hosted on Cloudflare; stores follow when developer accounts exist.
+
+### Icons and folders
+Every product has a unique icon (`folder.ico` + `assets/brand/icon.*`, monogram on its colour seed). Its folder in `D:\Projects` and its folder on the Desktop show that icon. Each Desktop folder contains three shortcuts: open the project, start dev server (hidden, in background), stop dev server. Script: `scripts/make-icons-and-desktop.ps1` (re-run after adding a product). Colours and monograms live in `plans/brand.json`.

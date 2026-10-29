@@ -42,6 +42,34 @@ MILESTONES = """### M0 Foundations
 {m6}"""
 
 
+MERGE = {
+    "sir-hagoozat": ["Hagoozat Elite", "11Players", "EGFootball5"],
+    "sir-business": ["SIR Restaurant", "SIR Market", "SIR Pharmacy", "SIR Library"],
+    "sir-controller": ["SIR Controller (v1)", "SIR Optimizer"],
+    "sir-laptop-manager": ["antigravity-agent-suite", "Laptop manager (moves in when replaced)"],
+    "sir-obour-hub": ["Obour Academic Hub"],
+    "sir-study": ["materials/obour-year2-term1 (the old Obour Institute study folder)"],
+    "sir-negm-furniture": ["Negm Furniture"], "sir-odysseus": ["Odysseus app"],
+    "sir-content-creation-studio": ["SIR Content Creation Studio (v1)"], "sir-modpack": ["SIR ModPack (v1)"],
+    "sir-mods-for-gta-v": ["SIR Mods for GTA V (v1)"], "sir-ai": ["SIR AI (v1)"],
+    "sir-home": ["AHome (moves in when SIR Home replaces it, daemons stopped)"], "sir-jobs": ["Jobs (data moves in when imported)"],
+}
+
+
+def merge_block(p):
+    src = MERGE.get(p["slug"])
+    if not src:
+        return ""
+    items = chr(10).join("- " + x for x in src)
+    return f"""## 0. THIS IS A MERGE PROJECT (read first)
+The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
+{items}
+Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
+
+"""
+    return ""
+
+
 def build(p):
     ctx = dict(p)
     ctx["m1"] = "\n".join(f"- [ ] {t}" for t in p["m1"])
@@ -52,7 +80,7 @@ def build(p):
     return f"""# PLAN: {p['display']}
 Status: planned, not started. Wave {p['wave']}. Replaces: {p['replaces']}. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
-## 1. Mission and audience
+{merge_block(p)}## 1. Mission and audience
 {p['mission']}
 
 ## 2. Names and IDs
