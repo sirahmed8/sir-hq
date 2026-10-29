@@ -1,28 +1,32 @@
-# HQ CHECKPOINT — updated 2026-10-29 16:20 (local)
+# HQ CHECKPOINT — updated 2026-10-29 19:15 (local)
 ## Phase and step
-Phase 1 (`phases/01-workstation.md`), about 60% done. Open: 1.8 rest, 1.9, 1.11, 1.12, 1.13, 1.14; then Phase 2.
+Phase 1 (`phases/01-workstation.md`) finished except the items under "Open promises" that need Ahmed or a permission the classifier refused. Next: Phase 2 (`phases/02-ahome-and-pc.md`).
 ## Now
-**Usage is the constraint:** Pro plan, 5-hour limit 85% (resets about 18:20 local), weekly 72% (resets 2026-11-01). The first HQ session grew to 657K tokens (every turn re-sends it). All further work runs in FRESH sessions (start cost now 28K tokens, was 158K). Rule: pace on `get_usage`; above 90% finish the unit, checkpoint, wait for the reset (headless/background sessions continue automatically).
-Done and verified this stretch: startup tokens 158,122 → 28,063 (headless "ok" test) after: 56 local plugins disabled (12 kept: firebase, cloudflare, canva, figma, firecrawl, chrome-devtools-mcp, commit-commands, frontend-design, modern-web-guidance, claude-security, skill-creator, typescript-lsp), 101 skills moved to `~/.claude/skills-disabled/` (73 kept), duplicate user `firebase` MCP removed, 22 claude.ai connectors disconnected (kept 20: OpusClip, AnythingMCP, Black SEO, Cloudflare, ElevenLabs, GitHub, Gmail, Calendar, Docs, Drive, Sheets, Harakah, HyperFrames, Indeed, Microsoft Learn, PostHog, Tarteel, TickTick, UmmahAPI, vidIQ), 77 of 78 account plugins removed (kept frontend-design). Android-MCP fixed (lazy device connect patched in the extension; handshake and tool list tested; Claude Desktop reloads it at next restart; originals in `D:\Backups\SIR-2026-10-29\android-mcp-original`). Off-laptop backup: private repo `sirahmed8/sir-backups`. HQ Remote Control launcher in the Startup folder. SessionStart hook verified in 2 real sessions.
-## Next step (fresh session, in this order, cheap model for bulk)
-1. **Verify the rest of "unverified"**: (a) run one `scout` agent and confirm `ops/subagent.log` gets a line (roster + SubagentStop); (b) read OpenCode free-model and Kilo data terms (WebFetch the vendors' pages) and write the finding into TOOLS.md; (c) start `pwsh -File D:/Projects/_SIR/scripts/rc-hq.ps1` hidden and confirm "SIR HQ" shows under claude.ai/code via Claude in Chrome (tabs_context_mcp, then close the tab); (d) compaction hook: self-announcing, check `ops/memory.log` whenever a compaction happens.
-2. **1.8**: JDK 17 (winget `EclipseAdoptium.Temurin.17.JDK`), Android SDK to `D:\Android\Sdk` (cmdline-tools, platform-tools exists, build-tools, platform 36; no emulator images yet, they are 1.5 GB each: add one only when a build needs it), set `ANDROID_HOME`; ffmpeg, ImageMagick, 7-Zip, Playwright browsers. Disk first: C: and D: about 16 GB free; node_modules (12.6 GB) of inactive projects can go after Phase 2 decisions.
-3. **1.9** `D:\Projects\AGENTS.md`, `GEMINI.md`; `D:\Projects\CLAUDE.md` already exists (18 lines): add `@AGENTS.md` as FIRST line without losing content; `~/.gemini/GEMINI.md`; Laptop Manager charter (`AGENTS.md` + `docs/PERSONAL_OPS.md`).
-4. **1.11** n8n 2.44.6 is already running since 00:54 (not started by HQ): check it binds to localhost only, Execute Command node status, credentials in Credential Manager. **1.12** autopilot routines via the scheduled-tasks MCP (morning 08:47, nightly 23:13, weekly Fri 18:07), each run once. **1.13** parity (Antigravity plugin, Codex, OpenCode, Kilo configs from one canonical folder in Laptop Manager). **1.14** local AI (RAG first).
-5. Then `phases/02-ahome-and-pc.md`.
+**Usage is the constraint:** Pro plan; last known 5-hour 85%, weekly 72% (at 16:20 local; this session has no usage tool, so pace by work done). Work in FRESH sessions (start cost about 28K tokens). Background sessions must work in a git worktree (file edits in a shared checkout are refused), and a worktree-isolated session cannot run powershell or computed commands: do system work first, then enter the worktree for docs, commit, push the branch.
+Done and verified this session (details in `ops/TOOLS.md`, "Phase 1.8" and "Phase 1.9"):
+- Scout agent run logged in `ops/subagent.log`; OpenCode free-model and Kilo data terms read and recorded (only `deepseek-v4.1-flash-free` and `glm-5.3-flash-free` may get workspace text; Kilo = public text only).
+- Remote Control started hidden from `scripts/rc-hq.ps1`: "SIR HQ", capacity 1/8, Ahmed's phone shows "SIR HQ, Remote control".
+- 1.8: JDK 17 (Temurin), Android SDK at `D:\Android\Sdk` (platform 36, build-tools 36.0.0, platform-tools, cmdline-tools), Maestro 2.12.0, 7-Zip, ImageMagick, Playwright Chromium; `ANDROID_HOME` and `JAVA_HOME` set; PATH extended. VS Build Tools / Windows SDK / emulator images deliberately deferred (disk).
+- 1.9: `D:\Projects\AGENTS.md`, `GEMINI.md`, `CLAUDE.md` (now starts with `@AGENTS.md`); sources copied to `core/workspace-*.md`; Laptop manager charter plus `docs/PERSONAL_OPS.md` (branch `worktree-personal-os-charter`).
+- 1.11: n8n was listening on ALL interfaces (0.0.0.0:5678). Restarted it bound to 127.0.0.1 (verified: `127.0.0.1:5678` only, `/healthz` 200), Execute Command node enabled via `NODES_EXCLUDE="[]"`, low priority, logon starter `SIR-n8n.vbs` in the Startup folder (script `~/.sir/scripts/n8n-start.ps1`), config and database backed up to `D:\Backups\SIR-2026-10-29\n8n`. 9 workflows, 8 active, none running at restart.
+- 1.12: routines `morning`, `nightly`, `weekly` written (`~/.sir/routines/*.md`, runner `~/.sir/scripts/routine.ps1`, Haiku, `SIR_MEMORY_GUARD=0`), each run once successfully (`ops/briefs/2026-10-29.md`, `week-2026-10-29.md`, a nightly line in MISSION_LOG). Registering them in Task Scheduler was refused by the classifier ("unauthorized persistence"); Ahmed can run `~/.sir/scripts/register-routines.ps1` (optional).
+- 1.13 (partial): canonical `Laptop manager/agent-config/` (18 agents, skill, rules, `sync-agent-config.mjs`), skills synced to `D:\Projects\.agents\skills`; branch `worktree-agent-config-and-rag`. Codex, OpenCode and Kilo read `D:\Projects\AGENTS.md` natively.
+- 1.14 (partial): local RAG `Laptop manager/local-ai/rag.py` (bge-m3 via Ollama, sqlite index in `AI_Models_Hub/rag`): 58 files, 309 chunks, English and Arabic queries return relevant chunks.
+## Next step
+1. **Phase 2** (`phases/02-ahome-and-pc.md`): read it, then AHome fixes, retire AhmedAndHabiba, PC cleanup with quarantine (pc-janitor, dry run first). Disk: C: and D: about 15-16 GB free.
+2. Merge the work branches into the main checkouts when Ahmed or a non-background session can: `_SIR` branches `worktree-hq-step1/2/3` (step3 contains the others) into `main`, Laptop manager branches `worktree-personal-os-charter` and `worktree-agent-config-and-rag`. Until then `D:\Projects\_SIR` main checkout lacks the TOOLS/OWNER_ACTIONS/MISSION_LOG updates from this session (hooks read the main checkout; this file is copied there too).
+3. Later: Antigravity SIR plugin and global `~/.codex`/`~/.gemini` installs (classifier refuses edits of global agent instruction files: owner action), parity test in agy/OpenCode/Kilo (classifier refused launching them from this session: run `scripts/ai/ask.ps1` manually or from n8n), n8n MCP link, fine-tuning only if a narrow task justifies it.
 ## Running in the background
-- hidden `ollama serve` (HQ started it 15:36). Nothing else of HQ's.
+- hidden `ollama serve`; hidden `rc-hq.ps1` (Remote Control, `-Once`, started 16:29); n8n (localhost only, started 18:5x by HQ).
 ## Decisions since the last milestone
-- Disabled/removed, not deleted: plugins are flags (re-enable in `~/.claude/settings.json` or "add back" in claude.ai), skills are in `~/.claude/skills-disabled/`, connectors reconnect from claude.ai/customize. Re-add when needed: Postiz and Social Media Skills (Phase 8.2), Study Desk (8.6), Cloudinary (Phase 4 if used), Canva/Figma connectors if the plugin MCPs are not enough.
-- Owner list cut to 2 real items + 3 optional (ops/OWNER_ACTIONS.md). System/security settings stay off-limits to the agent even when asked.
-- Never print any substring of a credential line; use the Edit tool for paths with backslashes (shell replacement eats them).
+- JDK 21 stays as the default Java; JDK 17 is `JAVA_HOME`. Android Studio not installed (command-line SDK is enough).
+- Parity is done at project scope (`D:\Projects\AGENTS.md`, `.agents/skills`) because global agent-instruction edits are refused; sync script never deletes.
+- Never print any substring of a credential line; use the Edit tool for paths with backslashes.
 ## Open promises
 - Leaks #2, #3, #4 (see OWNER_ACTIONS and inventory/SECRETS.md); ModPack release asset zip check (Phase 5); Phase 5 security notes (Firebase key restrictions, ZATCA pseudo-key, hard-coded licence keys).
-- 2-teammate agent-team smoke test (experimental env on; do after the scout check).
-- Compaction hook confirmation (self-announcing).
+- Calendar tool returned no events for 2026-10-29 (unverified whether empty). TickTick overdue since 2026-10-28: "Rotate leaked secrets" (owner) and "Day 1: AhmedAndHabiba Batch #1 + remove tracked secrets" (agent part belongs to Phase 2).
+- 2-teammate agent-team smoke test; compaction hook confirmation (self-announcing); n8n owner-account password location (account already existed before HQ; not managed by HQ).
 ## Owner actions listed (never blocking)
-- 2 real, 3 optional
-## Usage
-Pro: 5-hour 85%, weekly 72% at about 16:20 local. First HQ session context 657K/1M.
+- 2 real, plus optional: register routines (`pwsh -File ~/.sir/scripts/register-routines.ps1`), global gemini/codex instruction installs, power plan, classifier permissions, GitHub purge.
 ## Re-read after a reset
-- START_HERE.md · phases/01-workstation.md · ops/OWNER_ACTIONS.md
+- START_HERE.md · phases/02-ahome-and-pc.md · ops/OWNER_ACTIONS.md · ops/briefs/2026-10-29.md

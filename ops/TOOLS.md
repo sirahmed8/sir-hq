@@ -65,3 +65,9 @@ Many plugin servers show "needs authentication" (GitHub connector, Exa, Firecraw
 - `~/.gemini/GEMINI.md`: an append of an SIR section was refused by the safety classifier as a global-instruction edit. Not retried. The workspace `GEMINI.md` already covers work under `D:\Projects`.
 - Remote Control: `scripts/rc-hq.ps1` started hidden; output shows "Remote Control v2.1.312", name "SIR HQ", capacity 1/8 with a session attached. Visual check of claude.ai/code in a browser was not possible (no Claude-in-Chrome tool in this session); Ahmed's phone screenshot shows "SIR HQ, Remote control", which confirms it.
 - Subagent log: a `scout` run wrote `scout finished` to `ops/subagent.log` (roster plus SubagentStop hook confirmed).
+
+## Phase 1.11-1.14 (2026-10-29)
+- n8n 2.44.6: listens on 127.0.0.1:5678 only (restarted with `N8N_LISTEN_ADDRESS`; it had been on all interfaces). Execute Command node on via `NODES_EXCLUDE="[]"`; telemetry off; logon start `SIR-n8n.vbs`; data backup `D:\Backups\SIR-2026-10-29\n8n`. Not done: n8n MCP link to Claude Code.
+- Routines: `~/.sir/routines/{morning,nightly,weekly}.md`, runner `~/.sir/scripts/routine.ps1` (`claude -p --model haiku`, restricted `--allowedTools`, `SIR_MEMORY_GUARD=0`), log `~/.sir/routines/run.log`. Outputs in `ops/briefs/`. Not scheduled yet (owner action).
+- Cross-tool: `Laptop manager/agent-config/` is canonical; `node sync-agent-config.mjs D:/Projects` copies skills to `D:\Projects\.agents\skills` (never deletes). Parity test in agy, OpenCode and Kilo NOT run: launching them from an agent session was refused. Codex is not installed.
+- Local AI: `Laptop manager/local-ai/rag.py` (`index`, `ask`), embeddings `bge-m3`, index at `D:\Projects\AI_Models_Hub\rag\index.sqlite`. Nightly refresh = add `python rag.py index` to the nightly routine later. Fine-tuning not started.
