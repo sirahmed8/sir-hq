@@ -3,6 +3,7 @@
 Read by Claude Code, Codex, OpenCode, Kilo and Antigravity. Keep it short; details live in `_SIR/`.
 
 ## Start every session like this
+0. Read `_SIR/NEXT.md` first: it is the one short list of what is done and what is next.
 1. Read `_SIR/ops/HQ_CHECKPOINT.md` (HQ state) or `<project>/.sir/CHECKPOINT.md` (project state), then continue from "Next step". Never redo finished work.
 2. In an HQ session (folder `D:\Projects`) read `_SIR/START_HERE.md`. In a project folder, read that project's `AGENTS.md`.
 3. Read only what the step needs: one phase file, one module, files in line ranges.
@@ -10,6 +11,7 @@ Read by Claude Code, Codex, OpenCode, Kilo and Antigravity. Keep it short; detai
 ## Laws
 - Never ask Ahmed and never wait for him: decide, log, keep it reversible, continue. What only he can do goes on `_SIR/ops/OWNER_ACTIONS.md`.
 - Run it yourself. When a script or command is Tier 0-1 and prepared, run it in the same session; never hand Ahmed a command to run, never stop at "ready to run". If the safety classifier refuses, change nothing else, do not look for a way around it, finish everything else, and put the single command on `_SIR/ops/OWNER_ACTIONS.md`. Ahmed has said (2026-10-29) to decide, run everything and free all regenerable space without asking; that never covers Tier 3, personal files, game folders, conversation history or security settings.
+- Ahmed owns every repo. Small, safe changes go straight to `main` of his private repos once tests pass. Security-sensitive changes (auth, payments, keys) get a branch and one reviewer pass, then YOU merge them (if the classifier blocks the merge, put the single command in `_SIR/scripts/` and `NEXT.md`). Never create PRs for housekeeping.
 - No budget: nothing is purchased; free tiers and free tools only.
 - Nothing fake and no hype: no mock data, invented users, reviews or numbers where users can see them.
 - Security by default. No secrets in git, none printed, none sent to outside AI providers. AHome is private and never leaves its own systems.
@@ -19,7 +21,7 @@ Read by Claude Code, Codex, OpenCode, Kilo and Antigravity. Keep it short; detai
 - System and security settings (power plan, autoMode, permissions) are off-limits to agents.
 
 ## Portfolio map
-Active projects sit directly in `D:\Projects`: 11Players, AHome (real folder since 2026-10-29; the old name AhmedAndHabiba is retired), EGFootball5, Jobs, Laptop manager, Learning, Merged sites, Negm Furniture, Obour Academic Hub, Odysseus app, SIR AI, SIR Content Creation Studio, SIR Controller, SIR Library, SIR Market, SIR ModPack, SIR Mods for GTA V, SIR Optimizer, SIR Pharmacy, SIR Restaurant, antigravity-agent-suite. Facts per project: `_SIR/ops/PORTFOLIO.md`. Retired folders go to `old projects\`.
+Active projects sit directly in `D:\Projects`: AHome (real folder; old name AhmedAndHabiba retired), Hagoozat Elite (was Merged sites; absorbs 11Players and EGFootball5, now in `old projects`), Jobs, Laptop manager, Negm Furniture, Obour Academic Hub, Obour Institute Second Year 1st term, Odysseus app, SIR AI, SIR Business (new core), SIR Content Creation Studio, SIR Controller, SIR Library, SIR Life (new), SIR Market, SIR ModPack, SIR Mods for GTA V, SIR Optimizer, SIR Platform (new), SIR Pharmacy, SIR Restaurant, antigravity-agent-suite. Facts per project: `_SIR/ops/PORTFOLIO.md`. Retired folders go to `old projects\`.
 
 ## Parallel work and locks
 Several sessions can run at once (laptop, phone via Remote Control, background jobs). Before editing a project, take its lock in `_SIR/ops/locks/` (file named after the project, with owner and time); release it when done; a lock older than 2 hours is stale. Background jobs work in a git worktree and commit there.
