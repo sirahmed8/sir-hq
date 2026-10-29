@@ -4,7 +4,7 @@ Everything below is done by the agents; only the last section needs Ahmed.
 ## Done today
 - AHome renamed (old name gone), 5.9 GB freed, 3 routines registered in Task Scheduler (morning, nightly, weekly: Ready).
 - All 16 projects inventoried and scored (`ops/inventory/`, `ops/PORTFOLIO.md`), TickTick read and backed up.
-- Five security fixes written, tested and pushed as PRs. Four ready to merge (script ready; the Optimizer's review fixes are done, 35/35 tests); SIR AI's blocking fix is still being written.
+- Five security fixes written, tested and pushed as PRs. All five ready to merge (script ready). Optimizer 35/35 and SIR AI 257 passed after the reviewers' fixes; both deserve one quick second review.
 - Moodle automation: 75 files moved to `D:\Quarantine\2026-10-29\moodle-automation` (nothing deleted, manifest inside), scheduled task `Obour_HCI_Quiz_Sentinel` disabled.
 - `Merged sites` renamed to `Hagoozat Elite`; `11Players` and `EGFootball5` moved to `old projects` (backups tested). Their live sites stay online.
 - New folders with prompts: `SIR Platform`, `SIR Business`, `SIR Life`.
@@ -19,7 +19,12 @@ Everything below is done by the agents; only the last section needs Ahmed.
 7. Smaller merges: Optimizer into Controller, agent suite into Laptop manager.
 8. Not yet done at all: the benchmark against the best apps (Phase 3.6), the parity test of the SIR setup in Antigravity/OpenCode/Kilo, testing the agent-config sync script on a temp workspace.
 
+## Known leftovers of the five fixes (agents do these in step 4)
+- Webhooks: put the timestamp inside the signed payload; native Stripe/Paymob formats; idempotent activation.
+- SIR AI: portal chat sends no bearer token so the owner is metered in the web UI; tokeninfo audience check; X-Forwarded-For on support quota; OwnerManager.is_owner hard-coded list; untrack `.env.production` in GTA V.
+- SIR Optimizer: add firebase-admin and verifyIdToken; /transactions and /metrics still public read.
+
 ## Only Ahmed can do (the classifier or his accounts)
-- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (4 merges: merged-sites, SIR-Controller, sir-mods-for-gta-v, sir-optimizer).
+- Run `pwsh -NoProfile -File D:\Projects\_SIR\scripts\merge-approved-prs.ps1` (5 merges: merged-sites, SIR-Controller, sir-mods-for-gta-v, sir-optimizer, SIR-AI).
 - Move the passwords out of the TickTick notes into a password manager; change the Moodle password.
 - Log in to Chrome sessions for Google AI Studio and OpenRouter if asked.

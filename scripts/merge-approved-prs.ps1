@@ -5,10 +5,11 @@ $prs = @(
   @{ repo = 'sirahmed8/SIR-Controller';      n = 1 },   # webhook signature + Gemini key header (21/21)
   @{ repo = 'sirahmed8/sir-mods-for-gta-v';  n = 1 },  # server-verified admin session (10/10)
   @{ repo = 'sirahmed8/sir-optimizer';       n = 1 }   # server-side entitlements, client keys removed (35/35, reviewer fixes applied; re-review recommended)
+  ,@{ repo = 'sirahmed8/SIR-AI';              n = 1 }   # server-verified owner routes, email_verified, browser-callback token check (257 passed; 2 unrelated ecosystem tests count project folders; re-review recommended)
 )
 foreach ($p in $prs) {
   gh pr ready $p.n --repo $p.repo
   gh pr merge $p.n --repo $p.repo --merge
   '{0}#{1}: {2}' -f $p.repo, $p.n, (gh pr view $p.n --repo $p.repo --json state -q .state)
 }
-# SIR-AI#1 is NOT in this list yet: its blocking fix (email_verified, unverified browser-callback sessions) is still being written.
+# After merging, SIR-AI needs OWNER_EMAILS / OWNER_UIDS / FIREBASE_API_KEY set; until then owner access stays off (fail closed). Known leftovers are in the PR body and NEXT.md.
