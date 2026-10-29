@@ -9,6 +9,7 @@ Read by Claude Code, Codex, OpenCode, Kilo and Antigravity. Keep it short; detai
 
 ## Laws
 - Never ask Ahmed and never wait for him: decide, log, keep it reversible, continue. What only he can do goes on `_SIR/ops/OWNER_ACTIONS.md`.
+- Run it yourself. When a script or command is Tier 0-1 and prepared, run it in the same session; never hand Ahmed a command to run, never stop at "ready to run". If the safety classifier refuses, change nothing else, do not look for a way around it, finish everything else, and put the single command on `_SIR/ops/OWNER_ACTIONS.md`. Ahmed has said (2026-10-29) to decide, run everything and free all regenerable space without asking; that never covers Tier 3, personal files, game folders, conversation history or security settings.
 - No budget: nothing is purchased; free tiers and free tools only.
 - Nothing fake and no hype: no mock data, invented users, reviews or numbers where users can see them.
 - Security by default. No secrets in git, none printed, none sent to outside AI providers. AHome is private and never leaves its own systems.
@@ -18,7 +19,7 @@ Read by Claude Code, Codex, OpenCode, Kilo and Antigravity. Keep it short; detai
 - System and security settings (power plan, autoMode, permissions) are off-limits to agents.
 
 ## Portfolio map
-Active projects sit directly in `D:\Projects`: 11Players, AHome (symlink to AhmedAndHabiba), EGFootball5, Jobs, Laptop manager, Learning, Merged sites, Negm Furniture, Obour Academic Hub, Odysseus app, SIR AI, SIR Content Creation Studio, SIR Controller, SIR Library, SIR Market, SIR ModPack, SIR Mods for GTA V, SIR Optimizer, SIR Pharmacy, SIR Restaurant, antigravity-agent-suite. Facts per project: `_SIR/ops/PORTFOLIO.md`. Retired folders go to `old projects\`.
+Active projects sit directly in `D:\Projects`: 11Players, AHome (real folder since 2026-10-29; the old name AhmedAndHabiba is retired), EGFootball5, Jobs, Laptop manager, Learning, Merged sites, Negm Furniture, Obour Academic Hub, Odysseus app, SIR AI, SIR Content Creation Studio, SIR Controller, SIR Library, SIR Market, SIR ModPack, SIR Mods for GTA V, SIR Optimizer, SIR Pharmacy, SIR Restaurant, antigravity-agent-suite. Facts per project: `_SIR/ops/PORTFOLIO.md`. Retired folders go to `old projects\`.
 
 ## Parallel work and locks
 Several sessions can run at once (laptop, phone via Remote Control, background jobs). Before editing a project, take its lock in `_SIR/ops/locks/` (file named after the project, with owner and time); release it when done; a lock older than 2 hours is stale. Background jobs work in a git worktree and commit there.

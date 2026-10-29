@@ -6,7 +6,7 @@ Facts only. Tier, wave, score and platform matrix stay `?` until the Phase 3 sca
 | Project | Branch | Commits | Last commit | Size GB | GitHub repo (sirahmed8/…) | Tier/Wave/Score |
 |---|---|---|---|---|---|---|
 | 11Players | main | 430 | 2026-10-26 | 1.46 | 11Players | ? |
-| AhmedAndHabiba (symlink `AHome`) | main | 28 | 2026-10-28 | 1.23 | ahmed-and-habiba-sanctuary | ? (private, rule: never exposed) |
+| AHome (was AhmedAndHabiba, renamed 2026-10-29) | main | 28 | 2026-10-28 | 1.23 | ahmed-and-habiba-sanctuary | ? (private, rule: never exposed) |
 | EGFootball5 | main | 177 | 2026-10-26 | 1.24 | EGFootball5 | ? |
 | Laptop manager | main | 41 | 2026-10-28 | 2.26 | laptop-manager | ? (3 untracked paths, local snapshot only) |
 | Merged sites | main | 21 | 2026-10-26 | 1.00 | merged-sites | ? (holds Hagoozat Elite launcher target) |
