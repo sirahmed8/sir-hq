@@ -99,6 +99,11 @@ def toolkit_md(p, a):
 ## Skills to load before the matching work
 {bullets('`' + s + '`' for s in a['skills'])}
 
+## Logins already in place (checked 2026-10-30, names only)
+- GitHub CLI: signed in as sirahmed8 (repos, releases). Firebase CLI: signed in (project create, rules, deploy). Cloudflare MCP: signed in (Pages/Workers/D1/KV/R2 via `execute`).
+- Wrangler CLI is NOT signed in: use the Cloudflare MCP, or `wrangler login` (opens Ahmed's browser once; list it in OWNER_ACTIONS if needed, never block on it).
+- Not available without Ahmed: domains, store developer accounts, payment gateway keys (Paymob/Fawry/Stripe). The kit's fallback modes cover these.
+
 ## Discover and install more (verify-first)
 1. Search: `mcp__mcp-registry__search_mcp_registry`, the `skills-discovery-engine` skill, `npx skills find`.
 2. Vet before enabling: publisher, licence, requested permissions, last update; prefer official servers. Never paste secrets into a new tool.
