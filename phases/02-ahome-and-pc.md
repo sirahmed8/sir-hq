@@ -9,7 +9,7 @@
 1. Diff it fully against `D:\Projects\AHome`: files, git remotes, branches and stashes, `.env` files, databases, assets, uncommitted changes.
 2. Migrate anything unique into AHome and commit it.
 3. Update everything that points to the old path: shortcuts, scripts, scheduled tasks, Claude/Antigravity settings, Remote Control.
-4. Zip the old folder into `D:\Backups\` and send it to the Recycle Bin (not a permanent delete).
+4. Zip the old folder into `D:\Projects\Backups\` and send it to the Recycle Bin (not a permanent delete).
 5. Report what was migrated. If you found unique content, migrate it first, then proceed.
 
 **2.3 AHome folder icon.** Make the AHome folder show AHome's app icon (procedure in Standard module 15).

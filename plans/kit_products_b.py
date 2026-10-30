@@ -1,0 +1,86 @@
+"""Per-product blueprint data (part B). Competitor names are research targets to verify at M0, not claims."""
+from kit_platforms import R, O, S
+
+B = {
+    "sir-ai": dict(
+        arch="desktop-engine", personality="calm, capable, a little futuristic without sparkles", signature="a voice orb that reacts to your speech level and morphs into the answer card",
+        modules=["core: Python agent loop, tool use, memory (local), safety rules", "gateway: provider chain extracted into the SIR Platform ai-proxy (this app is its reference client)", "voice: STT/TTS local first (whisper, piper/Kokoro-class), wake word optional",
+                 "vision: screen and image understanding with consent prompts", "shell: Windows tray app + local web UI (127.0.0.1)", "cloud: Pro sync and cloud models via the proxy, quota badge"],
+        entities={"Conversation": "id, title, createdAt, modelRoute", "Memory": "id, kind, text, source, consent", "ToolCall": "id, name, args, resultRef, approvedBy"},
+        compete=["Jan", "LM Studio", "Open WebUI", "Msty", "Windows Copilot (what users compare against)"],
+        adrs=["Local model runtime (Ollama vs llama.cpp direct)", "Tool permission model (ask once, ask always, deny)", "What leaves the machine and when (privacy router)"],
+        overrides={"android": (O, "companion chat and voice (ADR)")},
+        tasks={"M0": ["Privacy data map: which inputs may reach outside providers (none by default)"], "M1": ["Text chat with local model, streaming, memory off by default", "Tool approval prompt UX"], "M2": ["Voice loop under 1.5 s first-token on the reference laptop"]}),
+    "sir-laptop-manager": dict(
+        arch="internal-ops", personality="utilitarian, safe, transparent", signature="every cleanup shows a dry-run table first, then a one-click quarantine you can undo for 30 days",
+        modules=["care: disk audit, cleanup with dry run and quarantine, startup review, health report", "routines: morning/nightly/weekly runner with logs and a usage ledger", "agent-config: the one canonical agents/skills/rules folder synced to Claude, Codex, OpenCode, Kilo, Antigravity",
+                 "rag: local retrieval over docs (bge-m3 via Ollama, sqlite index)", "ops-ui: small local dashboard on 127.0.0.1 for status, locks and OWNER_ACTIONS"],
+        entities={"CleanupPlan": "id, items, bytes, risk, status", "QuarantineItem": "id, originalPath, movedTo, expiresAt", "RoutineRun": "id, name, startedAt, exitCode, summary"},
+        compete=["Microsoft PowerToys", "Windows PC Manager", "Bulk Crap Uninstaller", "WinUtil"],
+        adrs=["Python packaging (uv + PyInstaller?) vs staying PowerShell-first", "How routines register without agents touching persistence settings"],
+        tasks={"M0": ["Port the sync script and agent-config into a tested package; keep it never-delete"], "M1": ["Disk audit + dry-run cleanup + quarantine + undo"], "M2": ["Dashboard, routines, RAG as modules"]}),
+    "ahome": dict(
+        arch="private-local", personality="warm, private, two-person", signature="a shared 'us' timeline where dates, notes and reminders appear as soft cards only the two of you can see",
+        modules=["core: FastAPI on 127.0.0.1, SQLite, two users", "calendar + dates + reminders", "notes and lists", "assistant: local model only, no outside provider", "bridge: Telegram/phone PWA through the private tunnel", "daemons: Windows services kept running during every change"],
+        entities={"Event": "id, title, at, owners, recurrence", "Note": "id, title, body, owners, updatedAt", "Reminder": "id, text, at, channel, doneAt"},
+        compete=["(none: private, not benchmarked against public apps)"], adrs=["Daemon-safe refactor order (never stop the running services without a rollback)", "Tunnel choice and auth for the phone PWA"],
+        overrides={"web": (S, "never public"), "pwa": (O, "phones through the private tunnel only")},
+        tasks={"M0": ["Snapshot and restore drill of the SQLite data before any change", "Threat model: two users, one tunnel, no public ingress"], "M1": ["Clean-architecture split without changing behaviour; same port 8090"]}),
+    "sir-jobs": dict(
+        arch="private-local", personality="plain, honest, relentless", signature="a weekly digest that ranks real openings by fit with the reason for each score",
+        modules=["sources: official APIs and feeds first (jobs MCP, company pages), never login scraping that breaks rules", "match: scoring against Ahmed's real CV facts only", "drafts: tailored applications and proposals, always reviewed before sending",
+                 "tracker: real outcomes only", "digest: weekly run + local dashboard"],
+        entities={"Opening": "id, source, company, title, url, postedAt, fitScore, reasons", "Application": "id, openingId, draftRef, sentAt, outcome", "Fact": "id, kind, text, evidenceRef"},
+        compete=["Huntr", "Teal", "Simplify"], adrs=["Facts store: only verifiable CV facts; no invented experience", "Where drafts are stored (local only)"],
+        tasks={"M0": ["Import `Jobs` data folder read-only into a structured store with a counts report"], "M1": ["Weekly digest from two official sources with scoring explanation"]}),
+    "sir-negm-furniture": dict(
+        arch="static-site", personality="warm, tactile, showroom", signature="a room visualiser: tap a sofa and see it in three finishes with a smooth crossfade",
+        modules=["catalog: categories, products, finishes, dimensions (JSON content, images AVIF/WebP)", "showrooms: Ain Shams and Roxy with map links and hours", "leads: inquiry form on a Worker with rate limit, honeypot and WhatsApp deep link", "bilingual ar/en with RTL, SEO and structured data"],
+        entities={"Product": "id, category, nameAr, nameEn, finishes, dims, images", "Lead": "id, name, phone, productId, message, createdAt", "Showroom": "id, name, address, geo, hours"},
+        compete=["Top furniture sellers in Egypt (research at M0)", "IKEA (UX reference only)"], adrs=["Static generator choice (Astro vs Next export)", "Lead storage (D1) and retention policy"],
+        overrides={"pwa": (O, "browsing offline is not a need")}, tasks={"M0": ["Client brand assets and written permission list"], "M1": ["Catalog and product pages with Lighthouse 95+"], "M2": ["Lead Worker with spam protection and notification"]}),
+    "sir-modpack": dict(
+        arch="game-mod", personality="playful, community, Arabic-first", signature="one-click 'play' that shows the real steps (Java, loader, mods, server) as a friendly timeline",
+        modules=["launcher: profiles, Java management, loader install, mod download with hash check", "server-manager: create/start/stop servers, backups, logs", "hub: website with pack pages, changelog, download, community links", "curation: pack manifest, compatibility tests per release"],
+        entities={"Pack": "id, version, mcVersion, loader, mods, hash", "Profile": "id, packId, javaPath, ramMb", "ServerInstance": "id, packId, port, status"},
+        compete=["Prism Launcher", "Modrinth App", "CurseForge app", "ATLauncher"],
+        adrs=["Launcher shell: Tauri vs pywebview/PyInstaller", "Mod sources and licences: only distributable mods; link, do not bundle others' files", "Public release repo `SIR-ModPack` stays; private source is `sir-modpack-source`"],
+        tasks={"M0": ["Licence check of every mod in the manifest before packaging"], "M1": ["Install and launch one profile end to end with hashes verified"]}),
+    "sir-mods-for-gta-v": dict(
+        arch="game-mod", personality="gritty, polished, single-player", signature="an installer that scans your game folder, shows exactly what changes, and can undo it in one click",
+        modules=["installer: detect game, backup, install/uninstall mods with manifest and hashes", "mods: catalogue with versions and requirements", "portal: web hub, accounts, supporter tier", "npc-server: AI dialogue behind quota, keys server-side only",
+                 "compliance: single-player only; third-party DLLs (ScriptHookV, MinHook etc.) fetched from official sources, not redistributed"],
+        entities={"Mod": "id, name, version, requires, files, hashes", "Install": "id, modId, gamePath, installedAt, backupRef", "Inquiry": "id, uid, text, createdAt"},
+        compete=["OpenIV", "Vortex", "GTA5-Mods.com (catalogue reference)"], adrs=["Electron vs Tauri installer", "Take-Two single-player mod policy review and how the product states it", "NPC server hosting (Workers vs Node on free tier)"],
+        tasks={"M0": ["Licence and policy sweep of every binary; rotate the leaked Gemini key and ADMIN_SECRET_KEY if still live"], "M1": ["Detect game, backup, install one mod, undo"]}),
+    "sir-odysseus": dict(
+        arch="selfhost-oss", personality="open, hackable, quietly premium", signature="one command to a running workspace, with Arabic RTL that is better than upstream",
+        modules=["packaging: Docker image, compose, Windows Electron and Linux AppImage/.deb", "arabic: RTL, fonts, translations contributed back where licence allows", "integration: connect to SIR AI gateway only through documented APIs (no code merge: AGPL boundary)",
+                 "compliance: AGPL-3.0 source offer, notices, attribution to the upstream project"],
+        entities={"Deployment": "id, host, version, composeDigest", "Patch": "id, upstreamCommit, purpose, licence"},
+        compete=["Open WebUI", "LibreChat", "AnythingLLM", "Dify"],
+        adrs=["Decision 2026-10-30 (HQ, reversible): keep SIR Odysseus separate from SIR AI. Odysseus is AGPL-3.0 and upstream-derived; SIR AI is proprietary, so the two share ideas but no code.", "Track upstream by tag and rebase patches vs maintain a hard fork", "Upstream project's rules about naming and branding"],
+        overrides={"android": (O, "PWA first")},
+        tasks={"M0": ["Read `legacy/Odysseus app/LICENSE`, ACKNOWLEDGMENTS and upstream README; write docs/LICENCE-STATUS.md", "Record upstream repo and commit the copy was taken from"], "M1": ["Docker compose up with pinned digests and a health check"], "M2": ["Arabic RTL pass with screenshots"]}),
+    "sir-life": dict(
+        arch="life-app", personality="calm, devout, gentle", signature="a day ring where prayers, water, medication and habits sit as gentle arcs that fill with a soft spring",
+        modules=["prayer: times by city (two sources), qibla, adhan notifications", "adhkar + Quran wird: cited text from the Islamic MCPs, progress tracking", "habits, medication and water reminders", "diet and calories (meal logging; photo AI later)", "gym log and expenses, skill plans",
+                 "sync: local-first, Pro cloud backup, export"],
+        entities={"PrayerDay": "date, city, times, source", "Habit": "id, name, schedule, streak", "Reminder": "id, kind, at, doneAt", "MealLog": "id, at, items, kcal", "WorkoutLog": "id, at, exercises"},
+        compete=["Muslim Pro", "Pillars", "Habitica", "MyFitnessPal", "Loop Habit Tracker"],
+        adrs=["Local DB for Expo (SQLite) and sync design", "Prayer calculation library and method per region", "Notification reliability on Android (exact alarms, battery rules)"],
+        tasks={"M0": ["Source list for every religious text with reference format, verified through the MCPs"], "M1": ["Prayer times + notifications on Android and PWA with tests against two sources"], "M2": ["Habits, medication, water; widgets"]}),
+    "sir-portfolio": dict(
+        arch="static-site", personality="confident, plain-spoken, memorable", signature="a product wall where each card shows its real status and a live build timestamp",
+        modules=["content: products.json generated from `_SIR/ops/PORTFOLIO.md` (status only from real metadata)", "pages: home, products, product detail, work, contact, legal", "contact Worker: rate limit, honeypot, no email exposed", "privacy: build-time scan for phone/email patterns"],
+        entities={"Product": "slug, name, status, links, screenshots", "SocialLink": "platform, url", "Post": "slug, title, body, date"},
+        compete=["Best developer and studio portfolios (research at M0)"], adrs=["Static generator choice", "Domain plan (free pages.dev until a domain is affordable)"],
+        tasks={"M0": ["Write the 'facts allowed on the site' list from PORTFOLIO.md"], "M1": ["Home + products wall at Lighthouse 95+"]}),
+    "sir-study": dict(
+        arch="private-local", personality="quiet, organised, honest", signature="a Today screen that lists what to study next with the exact lecture slide and why",
+        modules=["materials: index only, files stay where they are", "calendar: deadlines from the official iCal feed (read-only)", "convert: PDF/DOCX to markdown", "learn: summaries, flashcards, practice questions with sources (local models, private)",
+                 "guard: no code path may post to submit/attempt endpoints (tested)"],
+        entities={"Course": "id, name, term", "Lecture": "id, courseId, title, materialRef", "Deadline": "id, courseId, title, at", "Flashcard": "id, lectureId, front, back, sourceRef"},
+        compete=["Anki", "Obsidian", "NotebookLM"], adrs=["Where credentials live (Windows Credential Manager) and which official feeds are allowed"],
+        tasks={"M0": ["Index existing materials folder (`materials/`, gitignored) with a counts report"], "M1": ["Deadlines from iCal + Today screen"], "M4": ["Eval: refuses graded work in every attempt"]}),
+}

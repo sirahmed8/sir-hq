@@ -25,8 +25,8 @@ SIR <Product>/
 ## 5. Evidence and honesty
 A box is ticked only with evidence saved in `.sir/evidence/` (command output file or screenshot) and one line in the checkpoint. Report failures and unknowns plainly. Never present a guess as a fact.
 ## 6. Blocked?
-Never ask Ahmed. If a permission or classifier blocks an action: finish everything else, put the single command in `D:\Projects\_SIR\NEXT.md` under "Only Ahmed can do", and continue with the next box. Never work around a refusal.
+Never ask Ahmed. If a permission or classifier blocks an action: finish everything else, put the single command in `D:\Projects\_SIR\ops\OWNER_ACTIONS.md`, and continue with the next box. Never work around a refusal.
 ## 7. End (always)
-Update the checkpoint (Now / Next step with the exact command or file / Open promises / Re-read list), append one line to `_SIR/ops/MISSION_LOG.md`, commit, push (private repo). Then stop.
+Update the checkpoint (Now / Next step with the exact command or file / Open promises / Re-read list), append one line to `_SIR/ops/MISSION_LOG.md`, commit, push straight to `main` of the private repo (Ahmed, 2026-10-30: no pull requests, ever). Then stop.
 ## 8. Never (Tier 3)
 Leak secrets; bypass CAPTCHAs, 2FA or platform security; fake reviews/followers; engagement bots; script X's website; make payments; pose as Ahmed; do graded work for him; expose SIR Home data.

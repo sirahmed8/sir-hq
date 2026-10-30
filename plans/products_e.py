@@ -1,6 +1,6 @@
 E = [
     dict(
-        slug="sir-modpack", display="SIR ModPack", folder="SIR ModPack", repo="sir-modpack", firebase="sir-modpack",
+        slug="sir-modpack", display="SIR ModPack", folder="SIR ModPack", repo="sir-modpack-source", firebase="sir-modpack",
         replaces="SIR ModPack v1", wave=5,
         mission="Minecraft launcher, installer and server manager with a curated modpack and a website. Audience: Arabic-speaking Minecraft players.",
         platforms="Windows launcher (PyInstaller/pywebview or Tauri) + web hub on Cloudflare", money="Free; optional supporter tier in EGP; Launching Soon fallback",

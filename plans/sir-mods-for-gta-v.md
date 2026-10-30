@@ -45,7 +45,7 @@ NPC dialogue server behind quota; no keys in the mod files.
 
 ## 8. Milestones
 ### M0 Foundations
-- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-mods-for-gta-v`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-mods-for-gta-v`.
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
 - [ ] New Firebase project `sir-gta-mods` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Mods for GTA V", logo, support email.
 - [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.

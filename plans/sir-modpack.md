@@ -13,9 +13,9 @@ Minecraft launcher, installer and server manager with a curated modpack and a we
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR ModPack` |
-| GitHub (private) | `sirahmed8/sir-modpack` |
+| GitHub (private) | `sirahmed8/sir-modpack-source` |
 | Firebase project / OAuth app name | `sir-modpack` / "SIR ModPack" |
-| Cloudflare project | `sir-modpack` (`sir-modpack.pages.dev` until a domain is affordable) |
+| Cloudflare project | `sir-modpack-source` (`sir-modpack-source.pages.dev` until a domain is affordable) |
 | App ids | `app.sir.sir-modpack` (Android, iOS, Windows) |
 | Platforms | Windows launcher (PyInstaller/pywebview or Tauri) + web hub on Cloudflare |
 | Money | Free; optional supporter tier in EGP; Launching Soon fallback |
@@ -45,7 +45,7 @@ Optional assistant for crash-log explanations (server proxy).
 
 ## 8. Milestones
 ### M0 Foundations
-- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-modpack`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-modpack-source`.
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
 - [ ] New Firebase project `sir-modpack` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR ModPack", logo, support email.
 - [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.

@@ -1,8 +1,11 @@
 # NEXT (read this first; updated 2026-10-30)
-Program: rebuild every product as a new SIR project. Rules and order: `plans/MASTER_REBUILD_PLAN.md`. How every AI works: `plans/AGENT_PROTOCOL.md`. Targets: `plans/TIMELINE.md`. Each product's big plan: `plans/<slug>.md` (same file in `<folder>/.sir/PLAN.md`). Agents run everything; only the last section needs Ahmed.
+Program: rebuild every product as a new SIR project. Rules and order: `plans/MASTER_REBUILD_PLAN.md`. How every AI works: `plans/AGENT_PROTOCOL.md`. Targets: `plans/TIMELINE.md`. Each product's big plan: `plans/<slug>.md` (same file in `<folder>/.sir/PLAN.md`). Agents run everything.
 
-## NEW-CHAT STARTER (paste or just say "continue")
-"Continue the SIR rebuild. Read D:\Projects\_SIR\NEXT.md, then plans/MASTER_REBUILD_PLAN.md, then do the first item under 'Next' that is not blocked. Update the checkpoint and MISSION_LOG, never ask me, keep replies short."
+## HOW CHATS WORK (Ahmed, 2026-10-30)
+- **HQ chat (folder D:\Projects):** manager only. It prepares and maintains plans, kits, repos, agent and tool setup. It never builds or codes a product.
+- **Project chat (one per project folder):** opens in `D:\Projects\<SIR project>`, says `/continue` (or "continue"), reads `.sir/CHECKPOINT.md` and `.sir/TASKS.md`, and builds with its own sub-agents. Kit overview: `plans/KIT.md`.
+- Start order for Ahmed's project chats: SIR Platform first (everything imports it), then SIR Portfolio, SIR Obour Hub, SIR Hagoozat, SIR Business, then the rest per `plans/TIMELINE.md`.
+- No pull requests anywhere: commit and push straight to `main` once `verify` passes.
 
 ## Progress
 See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foundations only). Re-run `python plans/generate_plans.py` after ticking boxes.
@@ -15,17 +18,10 @@ See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foun
 - Old SIR AI app and SIR PowerSync were stopped at Ahmed's request. A duplicate whisper cache is in AI_Models_Hub/_whisper_duplicate_from_restore.
 - INCIDENT (fixed, nothing lost): a bug in merge-legacy.ps1 moved parts of D:/Projects into a legacy folder; restored with scripts/restore-misplaced.ps1 + restore-finish.ps1; the bug is fixed (a missing alias no longer resolves to the Projects folder).
 - Handy: scripts/who-holds.ps1 lists the programs that keep a folder from moving (agents run it themselves; Ahmed never has to look).
-- GitHub: new private repos created for most products; old repos get renamed sir-legacy-* and archived by scripts/github-organize.ps1 AFTER the 5 PRs are merged; then re-run github-create-new-repos.ps1 for Content Creation Studio, Controller, ModPack, GTA mods.
+- GitHub (done 2026-10-30): the 5 security PRs were merged; 18 old repos renamed `sir-legacy-*` and archived; every product has a new private repo with `origin` set and the kit pushed to `main` (ModPack's private source repo is `sir-modpack-source`; `sir-modpack` is the public release repo). AHome keeps `ahmed-and-habiba-sanctuary` and is never pushed from HQ. Odysseus (`sirahmed8/odysseus`) is left alone: its source is copied into SIR Odysseus\legacy, its PRs are not merged.
+- Public release repos still public on purpose (they hold download links): SIR-*-Public and SIR-ModPack, plus the profile repo `sirahmed8`.
 
-## Next, in this order
-1. Protect live users: rotate keys (Google AI Studio, OpenRouter) in Ahmed's Chrome; fix failing Actions (SIR-Controller build, sir-content-creation-studio CI, odysseus CI + Container scan, agent-suite CI); then `github-organize.ps1`.
-2. Push the latest plan/merge updates of every new repo (commit + push in each new folder).
-3. SIR Platform M0-M2 (`plans/sir-platform.md`), SIR Portfolio M0-M1, then SIR Obour Hub M0-M6 (first full product: new Firebase, login brand check, Cloudflare), then SIR Hagoozat, SIR Business (Restaurant first), the rest per `plans/TIMELINE.md`.
-4. Each merge product: port everything from `legacy\` (inventories in `ops/inventory/`), deploy, push, production mode; at M6 move `legacy\*` to `old projects\`.
-5. Not done yet, never forget: benchmark vs best apps per product (at each M0), parity test of the SIR setup in Antigravity/OpenCode/Kilo, test of the agent-config sync script, Wave 0 leftovers (webhook timestamp-in-payload, native Stripe/Paymob, SIR AI bearer on portal chat, firebase-admin for the Optimizer), x360ce app (no folder), legal truthful-claims sweep, publisher identity "SIR" (owner decision), developer accounts.
-
-## Only Ahmed can do (the agents already prepared the command)
-1. Make the AI logos: pwsh -NoProfile -File D:/Projects/_SIR/scripts/generate-icons-agy.ps1 (the safety check blocks agents from launching agy; icons are temporary letters until you run it).
-2. Merge the 5 security fixes: pwsh -NoProfile -File D:/Projects/_SIR/scripts/merge-approved-prs.ps1 (the safety check blocks agents from merging). Agents then run github-organize.
-3. Accounts and decisions only you can do: move passwords out of the TickTick notes into a password manager; change the Moodle password; be logged in to Google AI Studio and OpenRouter in Chrome when asked; decide the company/publisher entity SIR for the stores.
-Everything else (finding locks, stopping old programs, moving folders, fixing scripts) is done by the agents themselves.
+## Next for HQ (preparation only; HQ never builds)
+1. Close the readiness gaps below, one per session, and keep `plans/KIT.md` current: re-run `python plans/generate_plans.py` then `python plans/generate_kit.py` after any data change.
+2. Gaps still open: real AI logos (headless `agy` writes no image; icons are letters until a working generator is found); key rotation and the leftover Wave 0 items on live old products; parity test of the SIR setup in Antigravity/OpenCode/Kilo; test of the agent-config sync script; legal truthful-claims sweep; x360ce app (no folder); publisher identity "SIR" and developer accounts (owner decisions, logged in OWNER_ACTIONS, never blocking).
+3. Per product the project chat owns: port from `legacy\` (inventories in `ops/inventory/`), build, deploy, push to `main`; at M6 move `legacy\*` to `old projects\`.

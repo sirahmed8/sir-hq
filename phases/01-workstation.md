@@ -28,7 +28,7 @@
 **1.4 Permissions: "full permission", done safely.**
 
 - Set `"permissions": { "defaultMode": "auto" }` in **user** settings (project settings ignore `auto`). Auto mode runs without routine prompts while a safety classifier blocks destructive or data-leaking actions. Do **not** use `bypassPermissions` on this laptop: it holds Ahmed's real accounts, money and social media, and bypass mode removes the safety net. It's meant for disposable containers.
-- `permissions.additionalDirectories` (user settings): `D:\Projects`, `C:\Users\a7med\Desktop`, `D:\Backups`.
+- `permissions.additionalDirectories` (user settings): `D:\Projects`, `C:\Users\a7med\Desktop`, `D:\Projects\Backups`.
 - Deny rules (enforced in every mode) for the Tier 3 cases you can express as tool patterns, for example force pushes. Test that each rule matches what you intend.
 - Write the Tier 2 and Tier 3 boundaries into the global `CLAUDE.md` (1.9); the classifier reads them.
 - **Standing permissions for the classifier:** auto mode blocks some actions by default, including merging a PR no human approved and production deploys. Ahmed's standing instruction is to work without asking him, so add precise natural-language rules to `autoMode.allow` in **user** settings (project settings can't set them). Examples: merging PRs in Ahmed's own repositories once required CI checks pass and the `reviewer` agent approved; deploying to production for products marked pre-launch in `.sir/project.yml`. Describe his GitHub account, Vercel and Firebase projects in `autoMode.environment` as trusted infrastructure. Keep the built-in safety defaults. Check the result with `claude auto-mode config`.

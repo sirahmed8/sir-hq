@@ -12,9 +12,10 @@ $retire = [ordered]@{
   'restaurant-os'='sir-legacy-restaurant'; 'sir-market'='sir-legacy-market'; 'sir-pharmacy'='sir-legacy-pharmacy'; 'sir-library'='sir-legacy-library';
   'sir-optimizer'='sir-legacy-optimizer'; 'SIR-Controller'='sir-legacy-controller'; 'SIR-AI'='sir-legacy-ai';
   'sir-content-creation-studio'='sir-legacy-content-creation-studio'; 'sir-mods-for-gta-v'='sir-legacy-gta-mods'; 'SIR-ModPack-private'='sir-legacy-modpack-private';
-  'obour-academic-hub'='sir-legacy-obour-hub'; 'negm-furniture-eg'='sir-legacy-negm-furniture'; 'odysseus'='sir-legacy-odysseus';
+  'obour-academic-hub'='sir-legacy-obour-hub'; 'negm-furniture-eg'='sir-legacy-negm-furniture';
   'antigravity-agent-suite'='sir-legacy-agent-suite'; 'sir-tele-gateway'='sir-legacy-tele-gateway'
 }
+# NOT touched: odysseus (Ahmed, 2026-10-30: upstream-derived project, not his main one; its source is copied into SIR Odysseus\legacy, its PRs are not reviewed or merged, the repo is left alone).
 # NOT touched now: laptop-manager (runs routines until SIR Laptop Manager replaces it), ahmed-and-habiba-sanctuary (AHome runs from it),
 # sirahmed8 (profile), sir-hq, sir-backups, the SIR-*-Public release repos (download links; archive each when its new product ships), SIR-ModPack (public release).
 foreach ($old in $retire.Keys) {
