@@ -3,7 +3,7 @@
 Updated 2026-10-29 after Ahmed asked for as few as possible. Everything the agent could do itself, it did. What is left cannot be done by an agent because it needs his own account login or changes a system/security setting, and the rules forbid the agent from doing those even when asked.
 
 ## Real items (2)
-- [ ] **Revoke the AHome Telegram bot token.** Telegram → @BotFather → `/mybots` → pick the AHome gateway bot → API Token → Revoke current token → paste the new token only into the local `.env` of `AhmedAndHabiba` (the code already reads `TELEGRAM_BOT_TOKEN` from the environment). Why only you: it needs your Telegram account. Closes leak #4 (old commit 20cd2585 in the private repo). After that, the agent cleans the history by itself.
+- [x] **DONE 2026-10-30 (HQ, in Ahmed's Telegram Web): both bot tokens revoked** (the AHome AI bot and the SIR AI bot) through BotFather. The AHome gateway bot is offline until its chat puts the fresh token in its local env: open BotFather, /mybots, the bot, API Token, then set `TELEGRAM_BOT_TOKEN` where the gateway reads it. History cleanup of the old commit is still an AHome-chat task.
 - [x] **DONE 2026-10-30 (HQ, in Ahmed's Chrome): Gemini and OpenRouter keys of the old products deleted.** Google AI Studio: deleted the key leaked in the GTA mod repo (identified by its last 4 characters in the repo history) plus the stale keys of Gtav, Resturant, Football and 11Players. OpenRouter: deleted the keys named gtav, SIR ModPack, supermarket, restaurant, egfootball5, 11players. Kept on purpose: Obour Institutes keys (the old Obour app was still used 7 days ago; delete them when SIR Obour Hub ships), Manus, opencode, and the AHome/OurSanctuary keys. New keys are created per product at deploy time by that product's chat, never in HQ (a new key would appear in this chat). Still open: leak #3 `ADMIN_SECRET_KEY` (regenerate at deploy) and leak #4 Telegram bot token (BotFather, needs Telegram, not the browser).
 
 ## Optional (nothing depends on them)
@@ -24,3 +24,6 @@ Updated 2026-10-29 after Ahmed asked for as few as possible. Everything the agen
 - HQ Remote Control starts at logon from the Startup folder (`SIR-HQ-RemoteControl.vbs`).
 - Antigravity credit overages off in the CLI (`useG1Credits: false`); Output.ai plugin and 55 other unneeded plugins disabled; 22 unused claude.ai connectors disconnected; 77 unneeded account plugins removed.
 - Vercel login dropped: earning products use Cloudflare Pages or Firebase Hosting (rule 17).
+
+- [x] 2026-10-30 (HQ): Wrangler signed in through Ahmed's Chrome (Google one-click, Authorize). TickTick plan tasks refreshed (wave tasks, old sprint tasks closed or marked replaced, goals text, one new note in My notes); Habiba notes, personal routines, inbox and password notes untouched.
+- [ ] Study portal: quizzes and assignments are not done by agents (graded work). Ahmed signs in to https://elearning.oi.edu.eg in Chrome when he wants the read-only digest (SIR Study).

@@ -76,6 +76,9 @@ The project chat is the **Project Manager** (`.claude/agents/{p['slug']}-pm.md` 
 |---|---|---|
 {rows}
 
+## Model and effort by task level (full table: `D:/Projects/_SIR/plans/MODEL_ROUTING.md`)
+Level 0 search, logs, inventory, simple edits: haiku, low. Level 1 implement from a written spec, tests, UI, translations, app chores: haiku, high (max for big modules). Level 2 design, specs, reviews, hard debugging, refactors: sonnet, high. Level 3 auth, security, payments, migrations, legal: sonnet plus a second sonnet reviewer, high (xhigh for threat models). Level 4 stuck twice or expensive to undo: opus, high or xhigh, with the reason logged. Always spawn with `model` and `effort` set; send independent tasks together; at most 6 agents at once.
+
 ## Rules for this project
 - Spawn only for work that is independent, big, or needs fresh eyes: at most 6 agents at once, 2 heavy builds or emulators at once.
 - Disjoint file ownership per agent; each builder works in its own git worktree and branch, then the PM merges to `main` (no pull requests).
@@ -102,7 +105,7 @@ def toolkit_md(p, a):
 
 ## Logins already in place (checked 2026-10-30, names only)
 - GitHub CLI: signed in as sirahmed8 (repos, releases). Firebase CLI: signed in (project create, rules, deploy). Cloudflare MCP: signed in (Pages/Workers/D1/KV/R2 via `execute`).
-- Wrangler CLI is NOT signed in: use the Cloudflare MCP, or `wrangler login` (opens Ahmed's browser once; list it in OWNER_ACTIONS if needed, never block on it).
+- Wrangler CLI: signed in (OAuth, account a7medorabe7@gmail.com, 2026-10-30); `wrangler whoami` shows it. If the token expires, run `wrangler login --browser=false`, open the printed link in Chrome, continue with Google and Authorize.
 - Not available without Ahmed: domains, store developer accounts, payment gateway keys (Paymob/Fawry/Stripe). The kit's fallback modes cover these.
 
 ## Discover and install more (verify-first)
