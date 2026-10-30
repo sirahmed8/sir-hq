@@ -2,8 +2,8 @@ import type { Register } from 'claude-code'
 
 const PR = /\bgh\s+pr\s+create\b/i
 const DELETE_LEGACY = /(\brm\b|\brmdir\b|\bdel\b|\berase\b|remove-item|git\s+clean|shutil\.rmtree)[^\n;&|]*\blegacy\b/i
-const AHOME = /[\/]AHome[\/](?!\.sir\b|\.claude\b|AGENTS\.md|CLAUDE\.md|GEMINI\.md)/i
-const AHOME_CHAT = /[\/]AHome$/i
+const AHOME = /[\\/]AHome[\\/](?!\.sir\b|\.claude\b|AGENTS\.md|CLAUDE\.md|GEMINI\.md)/i
+const AHOME_CHAT = /[\\/]AHome$/i
 
 export const register: Register = on => {
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {

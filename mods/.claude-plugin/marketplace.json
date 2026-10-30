@@ -13,6 +13,11 @@
       "name": "sir-guards",
       "source": "./sir-guards",
       "description": "Enforces no pull requests, never deleting legacy, and the AHome privacy fence."
+    },
+    {
+      "name": "sir-context",
+      "source": "./sir-context",
+      "description": "Puts the SIR main plan, current project, next task and inbox in every chat's system prompt."
     }
   ]
 }

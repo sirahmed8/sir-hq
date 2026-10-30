@@ -38,6 +38,7 @@ Local models first (private): summarize a lecture, make flashcards and practice 
 ## 7. Security checklist (all must pass)
 - Data stays on Ahmed's machine; nothing about the people involved goes to any outside AI provider, repo, log or artifact (AHome: everything about Habiba stays private).
 - Secrets only in Windows Credential Manager or an untracked `.env` outside git; gitleaks clean in CI and pre-commit; licence audit.
+- Login is required on every surface, never optional: two named accounts only, passkey (WebAuthn) or a strong password plus TOTP, sessions in HttpOnly + Secure + SameSite=Strict cookies, rate limit and lockout, server-side check on every route, a device allow-list for phones. An unauthenticated request gets 401 (tested). Anyone who finds the address still sees nothing.
 - Local server binds to 127.0.0.1 only; any phone access goes through the private tunnel with auth; no public ingress; threat model written and tested.
 - Every destructive action has a dry run and an undo (quarantine); data directory snapshot and restore drill recorded before the first change.
 - Input validated at every boundary (pydantic or zod); subprocess and file paths never built from raw input.
@@ -50,13 +51,14 @@ Local models first (private): summarize a lecture, make flashcards and practice 
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
 - [ ] Data and secrets layout: data directory and `.env` outside git, backup copy to `D:/Projects/Backups`, snapshot and restore drill saved in `.sir/evidence/`.
 - [ ] Threat model and privacy data map (what may leave the machine: nothing private) written in `docs/`.
+- [ ] Authentication design: two named accounts, passkey or password plus TOTP, sessions, lockout, device allow-list, phone access only through a private tunnel with its own identity check (Cloudflare Access limited to the two accounts, or Tailscale; verify current terms first); written as an ADR before any code.
 - [ ] Local verify: lint, typecheck, tests, gitleaks in one command and in CI; first green run.
 ### M1 Core slice
 - [ ] Materials index of the existing course folders; deadline calendar from the iCal feed; Today screen; tests.
 ### M2 Parity with the old project
 - [ ] Converters (PDF/DOCX to markdown), flashcards and practice questions, weekly plan, reminders to phone (Telegram or push) without private content.
 ### M3 Security and reliability
-- [ ] Security checklist above is green with tests (no public bind, bad input, path traversal, secret scan).
+- [ ] Security checklist above is green with tests (no public bind, no route answers without a valid session, brute force locks out, bad input, path traversal, secret scan).
 - [ ] Backup, restore and rollback runbook tested once; `doctor` command prints health in one screen.
 - [ ] Dry-run and undo for every destructive action, tested.
 ### M4 AI

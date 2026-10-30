@@ -24,6 +24,8 @@ SIR <Product>/
 ```
 ## 5. Evidence and honesty
 A box is ticked only with evidence saved in `.sir/evidence/` (command output file or screenshot) and one line in the checkpoint. Report failures and unknowns plainly. Never present a guess as a fact.
+## 5b. Computer use, mods and talking to other projects
+Use the computer for any task and work out how (`plans/COMPUTER_USE.md`). Read `plans/MAIN_PLAN.md`; message other projects in `ops/bus/<slug>.md` and live with ListAgents/SendMessage. The dashboard mods in `_SIR/mods` are shared: improve them or add a pane for your project there.
 ## 6. Blocked?
 Never ask Ahmed. If a permission or classifier blocks an action: finish everything else, put the single command in `D:\Projects\_SIR\ops\OWNER_ACTIONS.md`, and continue with the next box. Never work around a refusal.
 ## 7. End (always)

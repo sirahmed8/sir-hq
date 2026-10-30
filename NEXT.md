@@ -22,6 +22,10 @@ See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foun
 - GitHub (done 2026-10-30): the 5 security PRs were merged; 18 old repos renamed `sir-legacy-*` and archived; every product has a new private repo with `origin` set and the kit pushed to `main` (ModPack's private source repo is `sir-modpack-source`; `sir-modpack` is the public release repo). AHome keeps `ahmed-and-habiba-sanctuary` and is never pushed from HQ. Odysseus (`sirahmed8/odysseus`) is left alone: its source is copied into SIR Odysseus\legacy, its PRs are not merged.
 - Public release repos still public on purpose (they hold download links): SIR-*-Public and SIR-ModPack, plus the profile repo `sirahmed8`.
 
+## Rules every chat follows (from Ahmed)
+- Use the computer, Chrome and apps for any task and work out how (`plans/COMPUTER_USE.md`). Read `plans/MAIN_PLAN.md`. Talk to other projects in `ops/bus/<slug>.md` and with ListAgents/SendMessage. Dashboard mods live in `_SIR/mods` and any chat may improve them or add a pane.
+- Desktop: `Desktop\SIR Projects\<project>\` holds open, start dev (play badge) and stop dev (stop badge) shortcuts, each with its own icon; regenerate with `scripts/make-icons-and-desktop.ps1`.
+
 ## Next for HQ (preparation only; HQ never builds)
 1. Close the readiness gaps below, one per session, and keep `plans/KIT.md` current: re-run `python plans/generate_plans.py` then `python plans/generate_kit.py` after any data change.
 2. Gaps still open: key rotation for the Obour Institutes keys when SIR Obour Hub ships; the Telegram bot token (BotFather, Ahmed's Telegram); `ADMIN_SECRET_KEY` at the GTA deploy; parity test of the shared setup in Antigravity, OpenCode and Kilo and the agent-config sync test (both are tasks in SIR Laptop Manager); legal truthful-claims sweep; x360ce app (no folder); publisher identity "SIR", domains, store accounts and payment keys (owner decisions, never blocking). Done 2026-10-30: logos for all 17 projects (Gemini app), studied wave order, deep-scan-first task in every project, SIR Control Room and SIR Guards mods installed.

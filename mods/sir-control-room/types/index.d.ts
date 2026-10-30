@@ -5,6 +5,8 @@ export type Row = {
   total: number
   next: string
   isPrivate: boolean
+  inbox: number
+  folder: string
 }
 
 declare module 'claude-code' {

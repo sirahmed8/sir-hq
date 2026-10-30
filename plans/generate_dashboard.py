@@ -25,7 +25,7 @@ ATTENTION = [
     ("info", "Owner decision", "Domains, store developer accounts and payment gateway keys (Paymob, Fawry, Stripe) are not set up. Free .pages.dev addresses and the Launching Soon fallback cover them; nothing is blocked."),
     ("info", "Tooling", "Wrangler is not signed in; the Cloudflare connector is, so deployments can go ahead through it."),
     ("info", "Tests", "Parity of the shared setup in Antigravity, OpenCode and Kilo is a task in SIR Laptop Manager."),
-    ("ok", "Done 2026-10-30", "Logos for all 17 projects made in the Gemini app. Leaked GTA Gemini key and 11 stale keys deleted, 5 security PRs merged, 30 old repos archived, kit pushed to 16 private repos. Two mods installed: SIR Control Room and SIR Guards."),
+    ("ok", "Done 2026-10-30", "Logos for all 17 projects made in the Gemini app. Leaked GTA Gemini key and 11 stale keys deleted, 5 security PRs merged, 30 old repos archived, kit pushed to 16 private repos. Three mods installed: SIR Control Room, SIR Context and SIR Guards. Every chat now reads the main plan and has a message inbox."),
 ]
 
 

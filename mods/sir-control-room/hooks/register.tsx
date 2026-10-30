@@ -10,7 +10,7 @@ const BAR = 12
 
 // Change the tag when a row's fields change: it declines what an earlier
 // version stored, which outlives a reload.
-const rows = atom({ plugin: 'sir-control-room', key: 'rows' } as const, [], { shape: 'rows-1' })
+const rows = atom({ plugin: 'sir-control-room', key: 'rows' } as const, [], { shape: 'rows-2' })
 const stamp = atom({ plugin: 'sir-control-room', key: 'stamp' } as const, 0, { shape: 'stamp-1' })
 
 async function text($: EngineInterface, path: string): Promise<string> {
@@ -51,6 +51,8 @@ async function collect($: EngineInterface): Promise<Row[]> {
       total: lines.length,
       next: isPrivate || !open ? '' : open.replace(/^- \[ \] (T-\d+) \| owner: [^|]+\| (\(kit\) )?/, '$1 ').replace(/\s*\| depends:.*$/, '').slice(0, 90),
       isPrivate,
+      inbox: (await text($, `${ROOT}/_SIR/ops/bus/${id}.md`)).split(String.fromCharCode(10)).filter(l => l.startsWith('- [ ]')).length,
+      folder: dir.name,
     })
   }
   return out.sort((a, b) => a.wave - b.wave || a.name.localeCompare(b.name))
@@ -106,7 +108,7 @@ export const register: Register = on => {
         {list.slice(0, room).map(r => (
           <Box flexDirection="column">
             <Text bold={r.done > 0}>
-              W{r.wave} {r.name} {bar(r.done, r.total)} {r.done}/{r.total}
+              W{r.wave} {r.name} {bar(r.done, r.total)} {r.done}/{r.total}{r.inbox > 0 ? `  inbox ${r.inbox}` : ''}
             </Text>
             {r.next !== '' && <Text dimColor>   next: {r.next}</Text>}
           </Box>

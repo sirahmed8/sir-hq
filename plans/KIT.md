@@ -25,8 +25,10 @@ platform-kit (SIR Platform) · web-saas (Obour Hub, Hagoozat) · pos-desktop (Bu
 ## Mods installed for every chat (user scope, source in `_SIR/mods/`, marketplace `sir-mods`)
 - **sir-control-room**: pane beside the chat with every project's wave, task bar and next task; reads each `.sir/TASKS.md` every 30 seconds, so it updates by itself as project chats tick tasks. `/sir` opens it. AHome shows counts only.
 - **sir-guards**: stops `gh pr create`, stops deleting any `legacy` folder, and keeps AHome's files out of every chat not opened in the AHome folder. Tested (`claude plugin test`).
+- **sir-context**: adds a short section to every chat's system prompt (main plan path, this project's wave, task count, next task, unread inbox count, Ahmed's rules), so every chat knows the plan without being told.
+- Inbox: `ops/bus/<slug>.md` per project plus `ops/bus/all.md`; the Control Room pane and status line show unread counts. Live chat-to-chat talk uses ListAgents and SendMessage.
 - Update a mod: edit the folder, then `/reload-plugins`. Add one: put it under `_SIR/mods/`, list it in `.claude-plugin/marketplace.json`, `claude plugin marketplace update sir-mods`, `claude plugin install <name>@sir-mods`.
-- Mod ideas worth building next: a Stop hook mod that refuses to end a project chat until `.sir/CHECKPOINT.md` was updated; a status-line mod showing the current project's next task; a prompt mod that adds the project's first open task to every prompt after a compaction.
+- Already covered elsewhere, so not built as mods: the checkpoint reminder on Stop (existing `scripts/memory/stop-guard.mjs` hook), the per-project status line (inside sir-control-room), the plan digest (sir-context). Next ideas: a per-project pane mod made by the project chat that needs one (for example a booking calendar view for Hagoozat).
 
 ## Studied wave order and deep scan
 `plans/WAVE_STUDY.md` ranks projects (AHome first, then quick cash, then paying products, then internal tools). Every project's first M0 task is a deep scan of `legacy/` (never deleted before M6) and of the plan, written to `.sir/reports/deep-scan.md`, followed by a plan upgrade.

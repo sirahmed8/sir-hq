@@ -1,0 +1,5 @@
+{
+  "name": "sir-context",
+  "version": "0.1.0",
+  "description": "Gives every chat the SIR main plan in a few lines: which project it is in, its wave and next task, unread messages from other projects, and Ahmed's standing rules."
+}

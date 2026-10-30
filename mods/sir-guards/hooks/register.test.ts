@@ -32,3 +32,15 @@ test('AHome files are fenced off outside the AHome chat', async ($, on) => {
   const kit = await $.tool.call({ tool: 'Read', file_path: 'D:/Projects/AHome/.sir/PLAN.md' })
   expect(kit.deny).toBeUndefined()
 })
+
+test('backslash paths to AHome are fenced too', async ($, on) => {
+  const bs = String.fromCharCode(92)
+  on('session.cwd', () => ({ value: ['D:', 'Projects', 'SIR Jobs'].join(bs) }))
+  on('tool.call', () => ({ result: {} }))
+
+  const read = await $.tool.call({ tool: 'Read', file_path: ['D:', 'Projects', 'AHome', 'data', 'notes.db'].join(bs) })
+  expect(read.deny).toContain('private')
+
+  const kit = await $.tool.call({ tool: 'Read', file_path: ['D:', 'Projects', 'AHome', '.sir', 'PLAN.md'].join(bs) })
+  expect(kit.deny).toBeUndefined()
+})
