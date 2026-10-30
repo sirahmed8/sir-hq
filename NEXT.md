@@ -4,7 +4,8 @@ Program: rebuild every product as a new SIR project. Rules and order: `plans/MAS
 ## HOW CHATS WORK (Ahmed, 2026-10-30)
 - **HQ chat (folder D:\Projects):** manager only. It prepares and maintains plans, kits, repos, agent and tool setup. It never builds or codes a product.
 - **Project chat (one per project folder):** opens in `D:\Projects\<SIR project>`, says `/continue` (or "continue"), reads `.sir/CHECKPOINT.md` and `.sir/TASKS.md`, and builds with its own sub-agents. Kit overview: `plans/KIT.md`.
-- Start order for Ahmed's project chats: SIR Platform first (everything imports it), then SIR Portfolio, SIR Obour Hub, SIR Hagoozat, SIR Business, then the rest per `plans/TIMELINE.md`.
+- Start order for Ahmed's project chats (studied, see `plans/WAVE_STUDY.md`): Wave 1 AHome; Wave 2 SIR Platform (only the slice the next project needs) with SIR Jobs, SIR Negm Furniture, SIR Portfolio; Wave 3 SIR Business, SIR Content Creation Studio, SIR Hagoozat, SIR Obour Hub; Wave 4 SIR Controller, SIR ModPack, SIR Mods for GTA V, SIR AI, SIR Life; Wave 5 SIR Laptop Manager, SIR Study, SIR Odysseus.
+- Every project chat starts with its first task: a deep scan of `legacy/` (the source code to port from, never deleted before M6) and of the plan, then improves the plan from what it finds.
 - No pull requests anywhere: commit and push straight to `main` once `verify` passes.
 
 ## Progress
@@ -23,5 +24,5 @@ See `plans/PROGRESS.md` (generated: boxes done per product, now 26 of 233 = foun
 
 ## Next for HQ (preparation only; HQ never builds)
 1. Close the readiness gaps below, one per session, and keep `plans/KIT.md` current: re-run `python plans/generate_plans.py` then `python plans/generate_kit.py` after any data change.
-2. Gaps still open: real AI logos (headless `agy` writes no image; icons are letters until a working generator is found); key rotation and the leftover Wave 0 items on live old products; parity test of the SIR setup in Antigravity/OpenCode/Kilo; test of the agent-config sync script; legal truthful-claims sweep; x360ce app (no folder); publisher identity "SIR" and developer accounts (owner decisions, logged in OWNER_ACTIONS, never blocking).
+2. Gaps still open: key rotation for the Obour Institutes keys when SIR Obour Hub ships; the Telegram bot token (BotFather, Ahmed's Telegram); `ADMIN_SECRET_KEY` at the GTA deploy; parity test of the shared setup in Antigravity, OpenCode and Kilo and the agent-config sync test (both are tasks in SIR Laptop Manager); legal truthful-claims sweep; x360ce app (no folder); publisher identity "SIR", domains, store accounts and payment keys (owner decisions, never blocking). Done 2026-10-30: logos for all 17 projects (Gemini app), studied wave order, deep-scan-first task in every project, SIR Control Room and SIR Guards mods installed.
 3. Per product the project chat owns: port from `legacy\` (inventories in `ops/inventory/`), build, deploy, push to `main`; at M6 move `legacy\*` to `old projects\`.

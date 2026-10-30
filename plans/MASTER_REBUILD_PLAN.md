@@ -13,7 +13,10 @@ Every product is rebuilt from the start as a new "SIR ..." project on the SIR Pl
 7. **Quality bar before anything is called done**: strict TypeScript, files under 300 lines, 5 UI states, Arabic RTL + English + Chinese + Hindi, light/dark/system/high-contrast, WCAG 2.2 AA, owner/admin checks only on the server, signed webhooks, AI only through the server proxy, "Subscriptions Launching Soon" fallback until gateway keys exist, truthful legal pages, tests + CI green, evidence (commands, screenshots).
 8. **No fake anything**: no mock data, invented users/reviews, or unprovable compliance claims.
 
-## Order of work (strictly this order; each line is a milestone with evidence)
+## Order of work
+**SUPERSEDED 2026-10-30 by the studied order in `plans/WAVE_STUDY.md` (AHome first, then money projects, then the rest).** The list below is the older order, kept for history.
+
+## Older order (each line is a milestone with evidence)
 1. SIR Platform kit (owner-auth, signed-webhook, ai-proxy, billing fallback, legal pack, ui kit, project-kit/CI). Everything else imports it.
 2. SIR Obour Hub (first product on the kit; proves the whole path: auth brand check, Cloudflare deploy, Firebase, billing fallback, AI proxy, i18n).
 3. SIR Hagoozat (booking + players + matches; replaces Hagoozat Elite, 11Players, EGFootball5).

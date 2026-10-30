@@ -4,20 +4,20 @@ Overall: 34 / 233 boxes (15%). Boxes are ticked only with evidence.
 
 | Product | Wave | Boxes done | % | Plan |
 |---|---|---|---|---|
-| SIR Obour Hub | wave 1 | 2 / 17 | 12% | `plans/sir-obour-hub.md` |
-| SIR Platform | wave 1 | 2 / 17 | 12% | `plans/sir-platform.md` |
-| SIR Business | wave 2 | 2 / 14 | 14% | `plans/sir-business.md` |
-| SIR Hagoozat | wave 2 | 2 / 15 | 13% | `plans/sir-hagoozat.md` |
+| AHome | wave 1 | 2 / 13 | 15% | `plans/ahome.md` |
+| SIR Jobs | wave 2 | 2 / 13 | 15% | `plans/sir-jobs.md` |
+| SIR Negm Furniture | wave 2 | 2 / 13 | 15% | `plans/sir-negm-furniture.md` |
+| SIR Platform | wave 2 | 2 / 17 | 12% | `plans/sir-platform.md` |
 | SIR Portfolio | wave 2 | 2 / 14 | 14% | `plans/sir-portfolio.md` |
-| SIR AI | wave 3 | 2 / 13 | 15% | `plans/sir-ai.md` |
+| SIR Business | wave 3 | 2 / 14 | 14% | `plans/sir-business.md` |
 | SIR Content Creation Studio | wave 3 | 2 / 13 | 15% | `plans/sir-content-creation-studio.md` |
-| SIR Controller | wave 3 | 2 / 13 | 15% | `plans/sir-controller.md` |
-| SIR Jobs | wave 4 | 2 / 13 | 15% | `plans/sir-jobs.md` |
-| SIR Laptop Manager | wave 4 | 2 / 13 | 15% | `plans/sir-laptop-manager.md` |
-| SIR Negm Furniture | wave 4 | 2 / 13 | 15% | `plans/sir-negm-furniture.md` |
-| SIR Study | wave 4 | 2 / 13 | 15% | `plans/sir-study.md` |
-| AHome | wave 5 | 2 / 13 | 15% | `plans/ahome.md` |
-| SIR Life | wave 5 | 2 / 13 | 15% | `plans/sir-life.md` |
-| SIR ModPack | wave 5 | 2 / 13 | 15% | `plans/sir-modpack.md` |
-| SIR Mods for GTA V | wave 5 | 2 / 13 | 15% | `plans/sir-mods-for-gta-v.md` |
+| SIR Hagoozat | wave 3 | 2 / 15 | 13% | `plans/sir-hagoozat.md` |
+| SIR Obour Hub | wave 3 | 2 / 17 | 12% | `plans/sir-obour-hub.md` |
+| SIR AI | wave 4 | 2 / 13 | 15% | `plans/sir-ai.md` |
+| SIR Controller | wave 4 | 2 / 13 | 15% | `plans/sir-controller.md` |
+| SIR Life | wave 4 | 2 / 13 | 15% | `plans/sir-life.md` |
+| SIR ModPack | wave 4 | 2 / 13 | 15% | `plans/sir-modpack.md` |
+| SIR Mods for GTA V | wave 4 | 2 / 13 | 15% | `plans/sir-mods-for-gta-v.md` |
+| SIR Laptop Manager | wave 5 | 2 / 13 | 15% | `plans/sir-laptop-manager.md` |
 | SIR Odysseus | wave 5 | 2 / 13 | 15% | `plans/sir-odysseus.md` |
+| SIR Study | wave 5 | 2 / 13 | 15% | `plans/sir-study.md` |

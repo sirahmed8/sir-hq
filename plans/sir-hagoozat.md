@@ -1,5 +1,5 @@
 # PLAN: SIR Hagoozat
-Status: planned, not started. Wave 2. Replaces: Hagoozat Elite (Merged sites), 11Players, EGFootball5. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 3. Replaces: Hagoozat Elite (Merged sites), 11Players, EGFootball5. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 0. THIS IS A MERGE PROJECT (read first)
 The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.

@@ -1,0 +1,18 @@
+{
+  "name": "sir-mods",
+  "owner": {
+    "name": "Ahmed Alaa"
+  },
+  "plugins": [
+    {
+      "name": "sir-control-room",
+      "source": "./sir-control-room",
+      "description": "Live pane with every SIR project's task progress, wave and next task."
+    },
+    {
+      "name": "sir-guards",
+      "source": "./sir-guards",
+      "description": "Enforces no pull requests, never deleting legacy, and the AHome privacy fence."
+    }
+  ]
+}

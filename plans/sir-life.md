@@ -1,5 +1,5 @@
 # PLAN: SIR Life
-Status: planned, not started. Wave 5. Replaces: nothing (new, from Ahmed's TickTick ideas). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 4. Replaces: nothing (new, from Ahmed's TickTick ideas). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 1. Mission and audience
 A calm daily-life app for a Muslim student, Arabic first and local-first: prayer-aware routine and tasks, adhkar and Quran wird, habits, medication and water reminders, diet and calories, gym log, expenses, skill plans.

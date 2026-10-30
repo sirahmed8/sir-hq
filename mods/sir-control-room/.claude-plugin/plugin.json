@@ -1,0 +1,6 @@
+{
+  "name": "sir-control-room",
+  "version": "0.1.0",
+  "description": "A pane beside the chat that shows every SIR project's task progress, wave and next task, refreshed from the project files every 30 seconds.",
+  "types": "./types/index.d.ts"
+}

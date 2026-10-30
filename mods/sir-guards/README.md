@@ -1,0 +1,3 @@
+# SIR Guards
+
+Three standing rules from Ahmed, enforced in every Claude chat instead of remembered: a Bash command that runs `gh pr create` is stopped (commit and push straight to main); a command that deletes a folder named `legacy` is stopped (it is the source code each project ports from, moved to old projects at M6, never removed); and any chat not opened in the AHome folder is stopped from reading, writing or running commands on AHome's files, except its `.sir` kit, `.claude` and agent instruction files. Each refusal names the rule. Edit the three patterns at the top of `hooks/register.ts`.

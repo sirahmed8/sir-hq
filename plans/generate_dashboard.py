@@ -21,11 +21,11 @@ ATTENTION = [
     ("bad", "Still open", "A Telegram bot token that appeared in a private repo's history is not revoked yet. It needs BotFather and your Telegram account."),
     ("warn", "Still open", "Two TickTick notes keep account passwords in plain text. Move them to a password manager (Bitwarden is free) and change them."),
     ("warn", "Kept on purpose", "The Obour Institutes API keys stay until SIR Obour Hub ships: the old app was used 7 days ago."),
-    ("warn", "Gap", "Project logos are still letter placeholders. The image generator writes no file when run in the background."),
+    ("info", "Order", "Build order is studied: AHome, then quick cash and the kit slice, then the paying products, then internal tools (plans/WAVE_STUDY.md). Every project starts with a deep scan of its legacy source."),
     ("info", "Owner decision", "Domains, store developer accounts and payment gateway keys (Paymob, Fawry, Stripe) are not set up. Free .pages.dev addresses and the Launching Soon fallback cover them; nothing is blocked."),
     ("info", "Tooling", "Wrangler is not signed in; the Cloudflare connector is, so deployments can go ahead through it."),
     ("info", "Tests", "Parity of the shared setup in Antigravity, OpenCode and Kilo is a task in SIR Laptop Manager."),
-    ("ok", "Done 2026-10-30", "Leaked GTA Gemini key and 11 stale keys deleted, 5 security PRs merged, 30 old repos archived, kit pushed to 16 private repos."),
+    ("ok", "Done 2026-10-30", "Logos for all 17 projects made in the Gemini app. Leaked GTA Gemini key and 11 stale keys deleted, 5 security PRs merged, 30 old repos archived, kit pushed to 16 private repos. Two mods installed: SIR Control Room and SIR Guards."),
 ]
 
 

@@ -11,6 +11,7 @@ def bullets(items):
 def project_yml(p, a, b, brand, matrix):
     plats = "\n".join(f"  {k}: {matrix[k][0]}   # {matrix[k][1]}" for k, _ in PLATFORM_NAMES)
     private = b["arch"] == "private-local"
+    local = b["arch"] in ("private-local", "internal-ops")
     return f"""id: {p['slug']}
 name: {p['display']}
 type: {b['arch']}
@@ -27,8 +28,8 @@ ids:
   bundle_prefix: app.sir
   app_id: app.sir.{p['slug'].replace('sir-', '')}
   github: sirahmed8/{p['repo']}   # private
-  firebase: {p['firebase']}
-  cloudflare: {p['repo']}
+  firebase: {'none' if local else p['firebase']}   # {'local tool: no cloud login' if local else 'new project per product'}
+  cloudflare: {'none' if local else p['repo']}
 brand:
   seed_color: "{brand['color']}"
   monogram: {brand['mono']}
@@ -173,6 +174,7 @@ Four layers, dependencies inward only: presentation, domain (no I/O), data, core
 
 
 def production_md(p, a, matrix):
+    local = a['layout'].startswith('src/')
     return f"""# PRODUCTION: {p['display']}
 
 Target: hosted and installable, not a demo. Free tiers only (module 22). Owner-only steps (domains, store accounts, gateway keys) go to `_SIR/ops/OWNER_ACTIONS.md` and never block work.
@@ -181,7 +183,7 @@ Target: hosted and installable, not a demo. Free tiers only (module 22). Owner-o
 {bullets(a['prod'])}
 
 ## Names
-GitHub `sirahmed8/{p['repo']}` (private) | Firebase `{p['firebase']}` | Cloudflare `{p['repo']}` | app id `app.sir.{p['slug'].replace('sir-', '')}`
+GitHub `sirahmed8/{p['repo']}` (private) | Firebase {'none (local tool)' if local else '`' + p['firebase'] + '`'} | Cloudflare {'none (local tool)' if local else '`' + p['repo'] + '`'} | app id `app.sir.{p['slug'].replace('sir-', '')}`
 
 ## Production-ready checklist (all true before the first public announcement)
 - [ ] CI green on `main`; `pnpm verify` (or the project's verify command) passes from a clean clone.

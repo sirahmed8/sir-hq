@@ -1,0 +1,5 @@
+{
+  "name": "sir-guards",
+  "version": "0.1.0",
+  "description": "Enforces Ahmed's three standing rules in every chat: no pull requests, never delete legacy source folders, and keep AHome's private data out of every other project's chat."
+}

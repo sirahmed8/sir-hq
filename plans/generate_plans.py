@@ -42,6 +42,33 @@ MILESTONES = """### M0 Foundations
 ### M6 Release and retirement
 {m6}"""
 
+LOCAL = {"ahome", "sir-jobs", "sir-study", "sir-laptop-manager"}   # private or internal tools: no Firebase login, no billing, no public hosting
+LOCAL_SECURITY = """- Data stays on Ahmed's machine; nothing about the people involved goes to any outside AI provider, repo, log or artifact (AHome: everything about Habiba stays private).
+- Secrets only in Windows Credential Manager or an untracked `.env` outside git; gitleaks clean in CI and pre-commit; licence audit.
+- Local server binds to 127.0.0.1 only; any phone access goes through the private tunnel with auth; no public ingress; threat model written and tested.
+- Every destructive action has a dry run and an undo (quarantine); data directory snapshot and restore drill recorded before the first change.
+- Input validated at every boundary (pydantic or zod); subprocess and file paths never built from raw input."""
+LOCAL_MILESTONES = """### M0 Foundations
+- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/{repo}`.
+- [ ] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
+- [ ] Data and secrets layout: data directory and `.env` outside git, backup copy to `D:/Projects/Backups`, snapshot and restore drill saved in `.sir/evidence/`.
+- [ ] Threat model and privacy data map (what may leave the machine: nothing private) written in `docs/`.
+- [ ] Local verify: lint, typecheck, tests, gitleaks in one command and in CI; first green run.
+### M1 Core slice
+{m1}
+### M2 Parity with the old project
+{m2}
+### M3 Security and reliability
+- [ ] Security checklist above is green with tests (no public bind, bad input, path traversal, secret scan).
+- [ ] Backup, restore and rollback runbook tested once; `doctor` command prints health in one screen.
+- [ ] Dry-run and undo for every destructive action, tested.
+### M4 AI
+{m4}
+### M5 Quality sweep
+- [ ] Every screen or command has first-use, loading, empty, error and populated states; Arabic and English text correct; keyboard use complete; accessibility checked where there is a UI; performance budget recorded.
+### M6 Release and retirement
+{m6}"""
+
 
 MERGE = {
     "sir-hagoozat": ["Hagoozat Elite", "11Players", "EGFootball5"],
@@ -77,7 +104,7 @@ def build(p):
     ctx["m2"] = "\n".join(f"- [ ] {t}" for t in p["m2"])
     ctx["m4"] = "\n".join(f"- [ ] {t}" for t in p["m4"])
     ctx["m6"] = "\n".join(f"- [ ] {t}" for t in p["m6"])
-    ms = MILESTONES.format(**ctx)
+    ms = (LOCAL_MILESTONES if p["slug"] in LOCAL else MILESTONES).format(**ctx)
     folder = os.path.join(PROJECTS, p["folder"])
     cfg = os.path.join(folder, ".git", "config")
     if os.path.isfile(cfg) and 'remote "origin"' in io.open(cfg, encoding="utf-8", errors="ignore").read():
@@ -116,7 +143,7 @@ Status: planned, not started. Wave {p['wave']}. Replaces: {p['replaces']}. Read 
 {p['ai']}
 
 ## 7. Security checklist (all must pass)
-{COMMON_SECURITY}
+{LOCAL_SECURITY if p["slug"] in LOCAL else COMMON_SECURITY}
 {p['security_extra']}
 
 ## 8. Milestones
