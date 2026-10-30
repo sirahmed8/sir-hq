@@ -19,7 +19,7 @@ platform-kit (SIR Platform) · web-saas (Obour Hub, Hagoozat) · pos-desktop (Bu
 
 ## Decisions made by HQ on 2026-10-30 (reversible)
 - Odysseus: upstream-derived (AGPL-3.0), not Ahmed's main project. Source is copied in `SIR Odysseus/legacy/Odysseus app`; its repo `sirahmed8/odysseus` is left alone (no PRs reviewed or merged, not archived). SIR Odysseus stays separate from SIR AI because mixing AGPL code into proprietary SIR AI is a licence problem; they share ideas through documented APIs only (ADR in its ARCHITECTURE.md).
-- Old repos: 18 renamed `sir-legacy-*` and archived (private); every new product has a new private repo. The public release repos (`SIR-*-Public`, `SIR-ModPack`) and the profile repo `sirahmed8` stay as they are because they hold download links. The ModPack private source repo is `sir-modpack-source` (the name `sir-modpack` is the public release repo).
+- Old repos (updated later the same day on Ahmed's order): 18 renamed `sir-legacy-*` and archived, then the public release repos (`SIR-*-Public`, `SIR-ModPack`), `odysseus` and `laptop-manager` archived too: 30 archived. Archived public repos stay readable, so old download links keep working. Kept active: the 16 new private repos, `ahmed-and-habiba-sanctuary` (AHome), `sir-hq`, `sir-backups` and the profile repo `sirahmed8`. The ModPack private source repo is `sir-modpack-source`.
 - AHome keeps its own private repo and is never pushed from HQ.
 
 ## Mods installed for every chat (user scope, source in `_SIR/mods/`, marketplace `sir-mods`)
