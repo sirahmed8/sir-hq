@@ -139,7 +139,7 @@ CHECKPOINT = """# CHECKPOINT: {display}
 Updated 2026-10-30 (written by HQ; the project chat owns it from the first session)
 
 ## Goal (current phase)
-M0 Foundations: repo, kit, cloud projects, login brand check, CI. HQ has finished the setup; nothing is built yet.
+M0 Foundations, in the order of `.sir/TASKS.md`. HQ has finished the setup; nothing is built yet.
 
 ## Now
 Ready for the first project chat. Private repo `sirahmed8/{repo}` exists with remote `origin`; the kit in `.sir/` is complete.
@@ -195,7 +195,7 @@ def kit(p):
     w(f"{s}/status.json", json.dumps(dict(id=slug, version="0.0.0", status="planned", wave=p["wave"], tasksDone=sum(t["done"] for t in flat), tasksTotal=len(flat),
                                           platforms={k: v[0] for k, v in matrix.items()}, ci="none", blockers=[], ownerActions=0), indent=2))
     cp = os.path.join(s, "CHECKPOINT.md")
-    if not os.path.isfile(cp) or "created by HQ" in io.open(cp, encoding="utf-8").read():
+    if not os.path.isfile(cp) or ("created by HQ" in io.open(cp, encoding="utf-8").read() or "written by HQ" in io.open(cp, encoding="utf-8").read()):
         todo = [x for x in flat if not x["done"]]
         w(cp, CHECKPOINT.format(display=p["display"], repo=p["repo"], first=f"{todo[0]['id']} {todo[0]['text'][:90]}" if todo else "none",
                                 nxt=", ".join(x["id"] for x in todo[1:3]) or "none"))
