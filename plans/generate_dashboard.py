@@ -17,16 +17,32 @@ ROOT = "D:/Projects"
 BRAND = json.load(io.open(os.path.join(HERE, "brand.json"), encoding="utf-8"))
 SHORT = {"web": "Web", "pwa": "PWA", "windows": "Win", "macos": "Mac", "linux": "Linux", "android": "Andr", "ios": "iOS", "ipados": "iPad", "wearos": "Wear",
          "watchos": "Watch", "android_tv": "ATV", "tvos": "tvOS", "android_auto": "Auto", "carplay": "CarP", "widgets": "Widg", "browser_ext": "Ext", "docker": "Dock"}
-ATTENTION = [
-    ("bad", "Still open", "A Telegram bot token that appeared in a private repo's history is not revoked yet. It needs BotFather and your Telegram account."),
-    ("warn", "Still open", "Two TickTick notes keep account passwords in plain text. Move them to a password manager (Bitwarden is free) and change them."),
-    ("warn", "Kept on purpose", "The Obour Institutes API keys stay until SIR Obour Hub ships: the old app was used 7 days ago."),
-    ("info", "Order", "Build order is studied: AHome, then quick cash and the kit slice, then the paying products, then internal tools (plans/WAVE_STUDY.md). Every project starts with a deep scan of its legacy source."),
-    ("info", "Owner decision", "Domains, store developer accounts and payment gateway keys (Paymob, Fawry, Stripe) are not set up. Free .pages.dev addresses and the Launching Soon fallback cover them; nothing is blocked."),
-    ("info", "Tooling", "Wrangler is not signed in; the Cloudflare connector is, so deployments can go ahead through it."),
-    ("info", "Tests", "Parity of the shared setup in Antigravity, OpenCode and Kilo is a task in SIR Laptop Manager."),
-    ("ok", "Done 2026-10-30", "Logos for all 17 projects made in the Gemini app. Leaked GTA Gemini key and 11 stale keys deleted, 5 security PRs merged, 30 old repos archived, kit pushed to 16 private repos. Three mods installed: SIR Control Room, SIR Context and SIR Guards. Every chat now reads the main plan and has a message inbox."),
-]
+def attention():
+    """Needs attention comes from the real files: ops/OWNER_ACTIONS.md (needs Ahmed), ops/AGENT_QUEUE.md (agents), and unread inbox messages."""
+    out = []
+    def lines(path):
+        try:
+            return io.open(path, encoding="utf-8").read().splitlines()
+        except OSError:
+            return []
+    def clean(s):
+        return re.sub(r"\*\*|`", "", s).strip()
+    for ln in lines("D:/Projects/_SIR/ops/OWNER_ACTIONS.md"):
+        if ln.startswith("- [ ]"):
+            out.append(("warn", "Needs you", clean(ln[5:])[:260]))
+    for ln in lines("D:/Projects/_SIR/ops/AGENT_QUEUE.md"):
+        if ln.startswith("- [ ]"):
+            out.append(("info", "Agents are on it", clean(ln[5:])[:260]))
+    unread = 0
+    for f in os.listdir("D:/Projects/_SIR/ops/bus"):
+        if f.endswith(".md") and f != "README.md":
+            unread += sum(1 for ln in lines("D:/Projects/_SIR/ops/bus/" + f) if ln.startswith("- [ ]"))
+    if unread:
+        out.append(("info", "Project messages", f"{unread} unread message(s) between projects in ops/bus."))
+    done = [clean(ln[5:])[:200] for ln in lines("D:/Projects/_SIR/ops/OWNER_ACTIONS.md") if ln.startswith("- [x]")][:2]
+    for d in done:
+        out.append(("ok", "Done", d))
+    return out
 
 
 def parse_tasks(folder):
@@ -79,7 +95,7 @@ def main():
     projects.sort(key=lambda x: (x["wave"], x["name"]))
     log = [ln[2:] for ln in io.open("D:/Projects/_SIR/ops/MISSION_LOG.md", encoding="utf-8").read().splitlines() if ln.startswith("- 2026")][-5:]
     data = dict(generated=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), projects=projects, milestones=sorted(ms_tot.values(), key=lambda m: m["name"]),
-                attention=[dict(level=l, tag=t, text=x) for l, t, x in ATTENTION], log=[x[:230] for x in log], repos=dict(new_private=len([p for p in projects if p["matrix"]]), archived=archived_count()),
+                attention=[dict(level=l, tag=tg, text=x) for l, tg, x in attention()], log=[x[:230] for x in log], repos=dict(new_private=len([p for p in projects if p["matrix"]]), archived=archived_count()),
                 platforms=[dict(key=k, name=n, short=SHORT[k]) for k, n in PLATFORM_NAMES])
     tpl = io.open(os.path.join(HERE, "dashboard_template.html"), encoding="utf-8").read()
     out = tpl.replace("/*__DATA__*/{}", json.dumps(data, ensure_ascii=False))
