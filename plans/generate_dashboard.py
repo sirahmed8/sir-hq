@@ -68,17 +68,29 @@ def checkpoint_now(folder):
     return " ".join(out)[:420]
 
 
+def section_items(path, wanted):
+    """Open items (- [ ]) under the given '## ' headings only."""
+    out, on = [], False
+    for ln in lines(path):
+        if ln.startswith("## "):
+            on = any(ln.startswith("## " + w) for w in wanted)
+            continue
+        if on and ln.startswith("- [ ]"):
+            out.append(clean(ln[5:])[:320])
+    return out
+
+
 def attention():
     out = []
-    for ln in lines(OPS + "/OWNER_ACTIONS.md"):
-        if ln.startswith("- [ ]"):
-            out.append(dict(level="warn", tag="Needs you", text=clean(ln[5:])[:300]))
-    for ln in lines(OPS + "/AGENT_QUEUE.md"):
-        if ln.startswith("- [ ]"):
-            out.append(dict(level="info", tag="Agents are on it", text=clean(ln[5:])[:300]))
-    unread = sum(1 for f in os.listdir(OPS + "/bus") if f.endswith(".md") and f != "README.md" for ln in lines(OPS + "/bus/" + f) if ln.startswith("- [ ]"))
+    for x in section_items(OPS + "/OWNER_ACTIONS.md", ["Open"]):
+        out.append(dict(level="warn", tag="Needs you now", text=x))
+    for x in section_items(OPS + "/AGENT_QUEUE.md", ["Now"]):
+        out.append(dict(level="info", tag="Agents are on it", text=x))
+    for x in section_items(OPS + "/OWNER_ACTIONS.md", ["Optional"]):
+        out.append(dict(level="mute", tag="When you like", text=x))
+    unread = sum(1 for ln in lines(OPS + "/bus/sir-hq.md") if ln.startswith("- [ ]"))
     if unread:
-        out.append(dict(level="info", tag="Messages", text=f"{unread} unread message(s) between projects and HQ in ops/bus."))
+        out.append(dict(level="info", tag="Reports for HQ", text=f"{unread} project report(s) waiting for HQ review in ops/bus/sir-hq.md."))
     return out
 
 

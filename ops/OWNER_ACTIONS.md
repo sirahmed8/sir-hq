@@ -2,8 +2,10 @@
 
 Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard and pane read this file, so keep it true: tick or remove an item the moment it is done.
 
-## Open
+## Open (needs you now)
 - [ ] **AHome first sign-in (you only, 5 minutes).** Open http://127.0.0.1:8090/login, choose "First time here", enter the code in `D:\Projects\AHome\local-vault\auth-setup-ahmed.txt` (agents never read it), pick a password, add the key to an authenticator app, save the 10 recovery codes, delete the file. Habiba does nothing: her account is switched off on purpose (surprise, ADR-002); she keeps using the hosted site and the bot.
+
+## Optional (when you like; shown on the dashboard in grey)
 - [ ] **Study portal (optional): sign in once to https://elearning.oi.edu.eg in Chrome** when you want the read-only digest of new uploads, deadlines and quiz dates in SIR Study. Quizzes and assignments are never done by agents.
 - [ ] **Decide when you like: publisher name SIR, domains, store developer accounts, payment gateway keys (Paymob, Fawry, Stripe).** Free pages.dev addresses and the Launching Soon billing fallback cover it until then.
 
