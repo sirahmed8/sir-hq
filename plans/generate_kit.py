@@ -16,6 +16,8 @@ import kit_render as R  # noqa: E402
 
 ROOT = "D:/Projects"
 DATA = {**A, **B}
+import kit_overrides  # noqa: E402
+kit_overrides.apply(DATA)
 BRAND = json.load(io.open(os.path.join(HERE, "brand.json"), encoding="utf-8"))
 OWNER_RULES = [("create the folder|file set|checkpoint|readme", "docs-keeper"), ("firebase|oauth|security|secret|webhook|owner-auth|owner dashboard|security rules|forged|licence", "security-auditor"), ("ci:|ci |release|store|changelog|installer", "release-manager"),
                ("ai |tutor|assistant|eval|prompt|model", "ai-engineer"), ("legal|privacy|cookie|terms", "legal-compliance-counsel"), ("seo|sitemap|structured", "seo-specialist"),
@@ -55,13 +57,13 @@ def parse_plan(folder):
 
 
 SCAN_LEGACY = ("Deep scan first (nobody has done one yet): read `legacy/` (or `materials/`), the old source code you port from and must never delete before M6, plus `D:/Projects/_SIR/ops/inventory/` for each source. "
-               "Map features, routes, data models, secrets, licences, dead code and hidden bugs; run gitleaks and a dependency and licence audit; write `.sir/reports/deep-scan.md`; then upgrade PLAN.md, ARCHITECTURE.md and TASKS.md with what you found")
+               "Map features, routes, data models, secrets, licences, dead code and hidden bugs; run gitleaks and a dependency and licence audit; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks")
 SCAN_NEW = ("Deep scan first: there is no old code here, so scan the other SIR projects' `legacy/` folders and `ops/inventory/` for reusable parts, read the standard modules that apply, benchmark the category leaders, "
-            "write `.sir/reports/deep-scan.md`, then upgrade PLAN.md, ARCHITECTURE.md and TASKS.md with what you found")
+            "write `.sir/reports/deep-scan.md`, then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks")
 
 
 SCAN_INPLACE = ("Deep scan first (nobody has done one yet): this project is improved in place, so scan this folder itself: map modules, data, daemons and their ports, secrets, licences, dead code and hidden bugs; "
-                "run gitleaks and a dependency audit; snapshot the data first; write `.sir/reports/deep-scan.md`; then upgrade PLAN.md, ARCHITECTURE.md and TASKS.md with what you found. Never put anything about the people involved in a repo, log or outside AI")
+                "run gitleaks and a dependency audit; snapshot the data first; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks. Never put anything about the people involved in a repo, log or outside AI")
 
 
 DESKTOP_TASK = ("Wire the Desktop shortcuts: the folder `Desktop/SIR Projects/<folder name>` has Open, Start dev (green play icon) and Stop dev (red stop icon) shortcuts that run `scripts/dev-start.ps1`, `dev-stop.ps1` and their `.vbs` wrappers; "
@@ -101,12 +103,12 @@ Desktop: your shortcuts live in `Desktop/SIR Projects/<folder>` with their own i
 Computer: use the computer, Chrome and apps for any task and work out how (`D:/Projects/_SIR/plans/COMPUTER_USE.md`); never hand Ahmed steps. Mods: `D:/Projects/_SIR/mods` is his dashboard; improve it or add a pane for this project. Other projects: message them in `D:/Projects/_SIR/ops/bus/<slug>.md`.
 Legacy: `legacy/` (or `materials/`) is the old source code to port from; never delete or edit it, keep it until M6, then move it to `D:/Projects/old projects/`. Your first task is a deep scan of it and of the plan; improve the plan from what you find.
 Rules: commit and push straight to `main` once `verify` passes (no pull requests); never ask Ahmed, put owner-only items in `D:/Projects/_SIR/ops/OWNER_ACTIONS.md`; no mock data, no hype, no secrets in git; legacy/ is read-only.
-End: update the checkpoint (Now, Next step with the exact command, Open promises, Re-read list), append a line to `D:/Projects/_SIR/ops/MISSION_LOG.md`, commit, push.
+Report: after each milestone append a short report to `D:/Projects/_SIR/ops/bus/sir-hq.md` (done, evidence, what to review, questions); HQ reviews and replies. Full start prompt: `D:/Projects/_SIR/plans/START_PROMPT.md`. Never say 'I cannot': try another way. End: update the checkpoint (Now, Next step with the exact command, Open promises, Re-read list), append a line to `D:/Projects/_SIR/ops/MISSION_LOG.md`, commit, push.
 """
 CMD_CONTINUE = """---
 description: Continue this project from the checkpoint
 ---
-Read `.sir/CHECKPOINT.md`, then the first unchecked task in `.sir/TASKS.md` (dependencies done). Use the {slug}-pm role: plan in the checkpoint, delegate per `.sir/TEAM.md`, build, prove with `verify` and evidence, tick the task, update the checkpoint, commit and push to `main`. Never ask Ahmed; keep replies short.
+Follow `D:/Projects/_SIR/plans/START_PROMPT.md` (analyse, make the plan 100x better, build, prove, report to HQ). Read `.sir/CHECKPOINT.md`, then the first unchecked task in `.sir/TASKS.md` (dependencies done). Use the {slug}-pm role: plan in the checkpoint, delegate per `.sir/TEAM.md`, build, prove with `verify` and evidence, tick the task, update the checkpoint, commit and push to `main`. Never ask Ahmed; keep replies short.
 """
 CMD_END = """---
 description: End the session cleanly
@@ -214,6 +216,9 @@ def kit(p):
     t = io.open(ag, encoding="utf-8").read() if os.path.isfile(ag) else ""
     t = re.sub(r"\n?<!-- SIR-KIT:START -->.*?<!-- SIR-KIT:END -->\n?", "", t, flags=re.S)
     w(ag, t.rstrip("\n") + "\n" + AGENTS_BLOCK.format(slug=slug))
+    if slug in ("sir-negm-furniture",):
+        import kit_client
+        kit_client.client_cleanup(folder, p, w, HERE)
     print("kit", slug, len(flat), "tasks")
 
 

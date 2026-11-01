@@ -1,5 +1,5 @@
 # PLAN: SIR Portfolio
-Status: planned, not started. Wave 2. Replaces: the GitHub profile README (sirahmed8) and scattered product pages. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 7. Replaces: the GitHub profile README (sirahmed8) and scattered product pages. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 1. Mission and audience
 Ahmed's personal website, the one link he can give anyone: who he builds for, every SIR product with its real status and link, selected work, and his public social accounts. No personal data (no phone, address, family, study details). It must be the best site in the portfolio: fast, accessible, Arabic and English, memorable design, truthful.

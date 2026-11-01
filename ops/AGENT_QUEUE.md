@@ -7,3 +7,6 @@ Format: `- [ ]` open, `- [x]` done, with the project chat that owns it.
 - [ ] SIR Laptop Manager chat: sync-agent-config test and the parity test in Antigravity, OpenCode and Kilo.
 - [ ] SIR Portfolio chat: keep the GitHub and Linktree shortcuts and their icons in its Desktop folder.
 - [ ] Every project chat: first task is the deep scan of `legacy/`, then the plan upgrade; keep Desktop start and stop shortcuts working.
+- [ ] AHome chat: repoint every script and service that names `D:\AI_Models_Hub` to `D:\Projects\AI_Models_Hub`, restart Ollama so it uses the user variable `OLLAMA_MODELS`, check `ollama list`, then delete the empty duplicate `D:\AI_Models_Hub` (all 25 of its files already exist in the Projects copy).
+- [ ] SIR Negm Furniture: handoff pack is in the repo; Ahmed gives the friend's GitHub username to invite him as a collaborator (or the friend clones with a token); nothing else.
+- [ ] Wave tasks in TickTick follow `plans/WAVE_STUDY.md`; HQ keeps them current.

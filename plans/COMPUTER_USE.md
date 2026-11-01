@@ -2,6 +2,9 @@
 
 Ahmed (2026-10-30): when something is hard or needs a screen, do it yourself and work out how. Never hand him steps. Examples HQ already proved: deleting leaked keys and removing an app from GitHub in his signed-in Chrome, generating all 17 logos in the Gemini desktop app.
 
+## Mindset
+Never say "I cannot" or wait for a permission. Say "let's try a different way": search how to do it, look at the tools, connectors and apps you have, try the browser, try the desktop app, try a smaller step. The Gemini desktop app, Antigravity, OpenCode and Kilo are installed and can be used for work too (`plans/WORKFORCE.md`).
+
 ## Which tool
 1. A direct tool first when it exists: MCP connectors (Cloudflare, Firebase, Google Workspace, PostHog), CLIs (`gh`, `firebase`, `wrangler`, `magick`), APIs.
 2. Web apps and sites: Claude in Chrome (`mcp__claude-in-chrome__*`, his real signed-in Chrome) or the built-in browser pane. Load the tools with one ToolSearch call; start with `tabs_context_mcp`; open your own tab; close it when done. If Chrome says not connected, check `list_connected_browsers`, then `select_browser`.

@@ -8,23 +8,22 @@ Rebuild every product from scratch as a premium, production-hosted SIR project, 
 |---|---|---|---|
 | 1 | AHome | `AHome` | nothing: private, isolated, no data to or from any other project |
 | 2 | SIR Jobs | `SIR Jobs` | income engine: paid freelance and remote work leads |
-| 2 | SIR Negm Furniture | `SIR Negm Furniture` | (consumes the shared kit) |
-| 2 | SIR Platform | `SIR Platform` | owner-auth, signed-webhook, ai-proxy, billing fallback, legal pack, tokens and ui kit, i18n and settings, sir-kit CLI |
-| 2 | SIR Portfolio | `SIR Portfolio` | the public product wall; shows real statuses of every product |
-| 3 | SIR Business | `SIR Business` | (consumes the shared kit) |
-| 3 | SIR Content Creation Studio | `SIR Content Creation Studio` | (consumes the shared kit) |
-| 3 | SIR Hagoozat | `SIR Hagoozat` | (consumes the shared kit) |
-| 3 | SIR Obour Hub | `SIR Obour Hub` | (consumes the shared kit) |
+| 2 | SIR Laptop Manager | `SIR Laptop Manager` | agent-config sync, local RAG, routines, workspace health report |
+| 2 | SIR Study | `SIR Study` | (consumes the shared kit) |
+| 3 | SIR Negm Furniture | `SIR Negm Furniture` | (consumes the shared kit) |
 | 4 | SIR AI | `SIR AI` | the AI gateway idea that became the Platform ai-proxy; local assistant |
-| 4 | SIR Controller | `SIR Controller` | (consumes the shared kit) |
-| 4 | SIR Life | `SIR Life` | (consumes the shared kit) |
-| 4 | SIR ModPack | `SIR ModPack` | (consumes the shared kit) |
-| 4 | SIR Mods for GTA V | `SIR Mods for GTA V` | (consumes the shared kit) |
-| 5 | SIR Laptop Manager | `SIR Laptop Manager` | agent-config sync, local RAG, routines, workspace health report |
-| 5 | SIR Odysseus | `SIR Odysseus` | (consumes the shared kit) |
-| 5 | SIR Study | `SIR Study` | (consumes the shared kit) |
+| 4 | SIR Content Creation Studio | `SIR Content Creation Studio` | (consumes the shared kit) |
+| 5 | SIR Business | `SIR Business` | (consumes the shared kit) |
+| 5 | SIR Hagoozat | `SIR Hagoozat` | (consumes the shared kit) |
+| 5 | SIR Obour Hub | `SIR Obour Hub` | (consumes the shared kit) |
+| 6 | SIR Life | `SIR Life` | (consumes the shared kit) |
+| 6 | SIR ModPack | `SIR ModPack` | (consumes the shared kit) |
+| 6 | SIR Mods for GTA V | `SIR Mods for GTA V` | (consumes the shared kit) |
+| 7 | SIR Platform | `SIR Platform` | owner-auth, signed-webhook, ai-proxy, billing fallback, legal pack, tokens and ui kit, i18n and settings, sir-kit CLI |
+| 7 | SIR Portfolio | `SIR Portfolio` | the public product wall; shows real statuses of every product |
+| 8 | SIR Controller | `SIR Controller` | (consumes the shared kit) |
 
-All web products need: SIR Platform packages (web products), the Cloudflare and Firebase logins, the shared design tokens. Build only the slice of SIR Platform the next project needs.
+All web products need: the Cloudflare and Firebase logins; shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product and extracted into SIR Platform last. SIR Platform and SIR Portfolio are built last, from the finished products.
 
 ## How every project chat works
 1. Read `D:/Projects/_SIR/NEXT.md`, this file, your project's `.sir/CHECKPOINT.md` and `.sir/TASKS.md`; your first task is a deep scan of `legacy/` and the plan, then you improve the plan.

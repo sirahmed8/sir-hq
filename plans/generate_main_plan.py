@@ -17,7 +17,7 @@ PROVIDES = {
     "sir-jobs": "income engine: paid freelance and remote work leads",
     "ahome": "nothing: private, isolated, no data to or from any other project",
 }
-NEEDS = "SIR Platform packages (web products), the Cloudflare and Firebase logins, the shared design tokens"
+NEEDS = "the Cloudflare and Firebase logins; shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product and extracted into SIR Platform last"
 
 
 def main():
@@ -33,7 +33,7 @@ Rebuild every product from scratch as a premium, production-hosted SIR project, 
 |---|---|---|---|
 {table}
 
-All web products need: {NEEDS}. Build only the slice of SIR Platform the next project needs.
+All web products need: {NEEDS}. SIR Platform and SIR Portfolio are built last, from the finished products.
 
 ## How every project chat works
 1. Read `D:/Projects/_SIR/NEXT.md`, this file, your project's `.sir/CHECKPOINT.md` and `.sir/TASKS.md`; your first task is a deep scan of `legacy/` and the plan, then you improve the plan.

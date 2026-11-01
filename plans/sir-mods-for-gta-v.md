@@ -1,5 +1,5 @@
 # PLAN: SIR Mods for GTA V
-Status: planned, not started. Wave 4. Replaces: SIR Mods for GTA V v1. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 6. Replaces: SIR Mods for GTA V v1. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 0. THIS IS A MERGE PROJECT (read first)
 The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.

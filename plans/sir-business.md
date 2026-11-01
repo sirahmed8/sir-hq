@@ -1,5 +1,5 @@
 # PLAN: SIR Business
-Status: planned, not started. Wave 3. Replaces: SIR Restaurant, SIR Market, SIR Pharmacy, SIR Library. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 5. Replaces: SIR Restaurant, SIR Market, SIR Pharmacy, SIR Library. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 0. THIS IS A MERGE PROJECT (read first)
 The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.

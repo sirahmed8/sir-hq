@@ -2,133 +2,92 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one dense control-room page. Summary strip first, then what needs attention, then every project as a scannable row with milestone segments, then the platform grid. */
-:root {
-  --bg: #EDF1F4; --surface: #FFFFFF; --ink: #14202B; --muted: #566878; --line: #D5DCE3; --accent: #0F766E; --accent-soft: #D3EEEA;
-  --ok: #2F8F4E; --warn: #B7791F; --bad: #C23B3B; --track: #E3E9EE;
-  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif; --f-body: "IBM Plex Sans", system-ui, sans-serif; --f-data: "IBM Plex Mono", ui-monospace, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { color-scheme: dark; --bg: #0D141B; --surface: #151E27; --ink: #E6EDF3; --muted: #8DA1B4; --line: #263341; --accent: #3CC4B6; --accent-soft: #123A37; --ok: #4CC17A; --warn: #E0A83A; --bad: #E86A6A; --track: #1F2B37; }
-}
-:root[data-theme="dark"] { color-scheme: dark; --bg: #0D141B; --surface: #151E27; --ink: #E6EDF3; --muted: #8DA1B4; --line: #263341; --accent: #3CC4B6; --accent-soft: #123A37; --ok: #4CC17A; --warn: #E0A83A; --bad: #E86A6A; --track: #1F2B37; }
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--f-body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
-.wrap { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
-h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 600; letter-spacing: -0.01em; }
-h2 { font-size: 18px; font-weight: 600; }
-.label { font: 500 11px/1 var(--f-display); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
-.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
-header { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: end; }
-header p { margin: 4px 0 0; color: var(--muted); max-width: 62ch; text-wrap: pretty; }
-.stamp { font: 12px var(--f-data); color: var(--muted); }
-.strip { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-.strip > div { background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-.big { font: 600 30px/1 var(--f-data); font-variant-numeric: tabular-nums; }
-.bar { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
-.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 4px; min-width: 3px; }
-.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.list li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
-.pill { font: 500 11px/1 var(--f-display); text-transform: uppercase; letter-spacing: .06em; padding: 4px 7px; border-radius: 4px; border: 1px solid currentColor; white-space: nowrap; }
-.pill.warn { color: var(--warn); } .pill.bad { color: var(--bad); } .pill.ok { color: var(--ok); } .pill.info { color: var(--accent); }
-.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.tools input { flex: 1 1 200px; min-width: 0; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
-.chip { font: 500 12px var(--f-display); letter-spacing: .04em; padding: 7px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); cursor: pointer; transition: transform .12s; }
-.chip:active { transform: scale(.97); } .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.rows { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
-details.row { border-top: 1px solid var(--line); } details.row:first-child { border-top: 0; }
-summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 22px minmax(150px, 1.3fr) 1.1fr 56px minmax(150px, 1.4fr) 70px; gap: 12px; align-items: center; padding: 12px 14px; }
-summary::-webkit-details-marker { display: none; }
-summary:hover { background: var(--bg); }
-.dot { width: 14px; height: 14px; border-radius: 3px; }
-.name { font-weight: 600; } .sub { color: var(--muted); font-size: 12px; }
-.segs { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-.segs i { height: 8px; border-radius: 2px; background: var(--track); position: relative; overflow: hidden; }
-.segs i b { position: absolute; inset: 0 auto 0 0; background: var(--accent); }
-.detail { padding: 4px 14px 16px 48px; display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
-.detail ol { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
-.detail a, .detail code { font-family: var(--f-data); font-size: 12px; overflow-wrap: anywhere; }
-.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-table { border-collapse: collapse; width: 100%; min-width: 760px; }
-th, td { padding: 8px 6px; text-align: center; border-bottom: 1px solid var(--line); font-size: 12px; }
-th { font: 500 11px var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-th:first-child, td:first-child { text-align: left; padding-left: 14px; position: sticky; left: 0; background: var(--surface); }
-.cell { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; }
-.cell.required { background: var(--accent); } .cell.optional { border: 2px solid var(--accent); } .cell.skip { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
-.legend { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 12px; align-items: center; }
-.log { font: 12px/1.5 var(--f-data); color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
-@media (max-width: 860px) {
-  .strip { grid-template-columns: 1fr 1fr; } .strip > div:first-child { grid-column: 1 / -1; } .cols, .detail { grid-template-columns: 1fr; }
-  summary { grid-template-columns: 18px 1fr 70px; } summary .arch, summary .segs-wrap, summary .plat { display: none; }
-  .detail { padding-left: 14px; }
-}
-@media (prefers-reduced-motion: reduce) { .chip { transition: none; } }
+/* Layout: sticky section nav, then one page: summary and what needs Ahmed, who is working now, waves as lanes, a filterable project list that opens into the full task list, platform grid, accounts, activity. */
+:root { --bg:#EDF1F4; --surface:#FFFFFF; --ink:#14202B; --muted:#566878; --line:#D5DCE3; --accent:#0F766E; --accent-soft:#D3EEEA; --ok:#2F8F4E; --warn:#B7791F; --bad:#C23B3B; --track:#E3E9EE; --warn-soft:#F7EBD2;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-data:"IBM Plex Mono",ui-monospace,monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme:dark; --bg:#0D141B; --surface:#151E27; --ink:#E6EDF3; --muted:#8DA1B4; --line:#263341; --accent:#3CC4B6; --accent-soft:#123A37; --ok:#4CC17A; --warn:#E0A83A; --bad:#E86A6A; --track:#1F2B37; --warn-soft:#3A2F14; } }
+:root[data-theme="dark"] { color-scheme:dark; --bg:#0D141B; --surface:#151E27; --ink:#E6EDF3; --muted:#8DA1B4; --line:#263341; --accent:#3CC4B6; --accent-soft:#123A37; --ok:#4CC17A; --warn:#E0A83A; --bad:#E86A6A; --track:#1F2B37; --warn-soft:#3A2F14; }
+* { box-sizing:border-box; } html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.5 var(--f-body); padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); padding-block:20px 56px; }
+.wrap { max-width:1240px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
+h1,h2,h3 { font-family:var(--f-display); text-wrap:balance; margin:0; } h1 { font-size:clamp(28px,4vw,40px); font-weight:600; letter-spacing:-.01em; } h2 { font-size:19px; font-weight:600; }
+.label { font:500 11px/1 var(--f-display); text-transform:uppercase; letter-spacing:.09em; color:var(--muted); }
+.num { font-family:var(--f-data); font-variant-numeric:tabular-nums; } .sub { color:var(--muted); font-size:12px; }
+header { display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:end; } header p { margin:6px 0 0; color:var(--muted); max-width:64ch; text-wrap:pretty; }
+nav { position:sticky; top:env(safe-area-inset-top,0px); z-index:5; display:flex; gap:6px; flex-wrap:wrap; padding:8px 0; background:var(--bg); border-bottom:1px solid var(--line); }
+nav a { font:500 12px var(--f-display); letter-spacing:.05em; text-transform:uppercase; padding:7px 11px; border-radius:6px; color:var(--ink); text-decoration:none; border:1px solid transparent; } nav a:hover { border-color:var(--line); background:var(--surface); }
+.grid2 { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; } .tiles { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.tiles>div { background:var(--surface); padding:14px 16px; display:flex; flex-direction:column; gap:6px; } .big { font:600 28px/1 var(--f-data); font-variant-numeric:tabular-nums; }
+.panel { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:12px; } .panel.need { border-color:var(--warn); background:linear-gradient(0deg,var(--surface),var(--surface)); }
+.bar { height:8px; border-radius:4px; background:var(--track); overflow:hidden; } .bar>i { display:block; height:100%; background:var(--accent); border-radius:4px; min-width:2px; }
+.list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; } .list li { display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; }
+.pill { font:500 11px/1 var(--f-display); text-transform:uppercase; letter-spacing:.06em; padding:4px 7px; border-radius:4px; border:1px solid currentColor; white-space:nowrap; } .pill.warn{color:var(--warn)} .pill.info{color:var(--accent)} .pill.ok{color:var(--ok)} .pill.bad{color:var(--bad)}
+.lanes { display:flex; flex-direction:column; gap:10px; } .lane { display:grid; grid-template-columns:150px 1fr; gap:12px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; } .chip { display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid var(--line); border-radius:8px; background:var(--bg); font-weight:500; cursor:pointer; color:var(--ink); font:inherit; } .chip i { width:10px; height:10px; border-radius:2px; }
+.tools { display:flex; flex-wrap:wrap; gap:8px; align-items:center; } .tools input { flex:1 1 220px; min-width:0; font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:8px 10px; }
+.fb { font:500 12px var(--f-display); letter-spacing:.04em; padding:7px 11px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); cursor:pointer; transition:transform .12s; } .fb:active{transform:scale(.97)} .fb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.rows { display:flex; flex-direction:column; border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden; } details.row { border-top:1px solid var(--line); } details.row:first-child{border-top:0}
+summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:18px minmax(150px,1.2fr) 70px minmax(150px,1.3fr) 76px 84px; gap:12px; align-items:center; padding:12px 14px; } summary::-webkit-details-marker{display:none} summary:hover{background:var(--bg)}
+.dot { width:14px; height:14px; border-radius:3px; } .name { font-weight:600; } .segs { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; } .segs i { height:8px; border-radius:2px; background:var(--track); position:relative; overflow:hidden; } .segs i b { position:absolute; inset:0 auto 0 0; background:var(--accent); }
+.st { font:500 11px var(--f-display); text-transform:uppercase; letter-spacing:.06em; padding:3px 7px; border-radius:4px; text-align:center; background:var(--track); } .st.building{background:var(--accent-soft);color:var(--accent)} .st.done{background:var(--accent);color:var(--surface)}
+.detail { padding:6px 14px 18px 46px; display:grid; gap:18px; grid-template-columns:1fr 1.3fr; } .detail h3 { font-size:14px; margin-bottom:6px; } .ms { margin-bottom:10px; } .ms ul { list-style:none; margin:4px 0 0; padding:0; display:flex; flex-direction:column; gap:3px; } .ms li { display:grid; grid-template-columns:18px 1fr; gap:6px; font-size:12.5px; } .ms li.d { color:var(--muted); } .ms code,.num{font-family:var(--f-data)}
+.scroll { overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); } table { border-collapse:collapse; width:100%; min-width:760px; } th,td { padding:8px 6px; text-align:center; border-bottom:1px solid var(--line); font-size:12px; } th { font:500 11px var(--f-display); text-transform:uppercase; letter-spacing:.06em; color:var(--muted); } th:first-child,td:first-child{text-align:left;padding-left:14px;position:sticky;left:0;background:var(--surface)}
+.cell { display:inline-block; width:14px; height:14px; border-radius:3px; vertical-align:middle; } .cell.required{background:var(--accent)} .cell.optional{border:2px solid var(--accent)} .cell.skip{width:5px;height:5px;border-radius:50%;background:var(--line)}
+.legend { display:flex; flex-wrap:wrap; gap:16px; color:var(--muted); font-size:12px; } .log { font:12px/1.5 var(--f-data); color:var(--muted); display:flex; flex-direction:column; gap:8px; } .cols3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; } .cols3 p { margin:0; font-size:13px; text-wrap:pretty; }
+@media (max-width:900px){ .grid2,.detail,.cols3{grid-template-columns:1fr} .tiles{grid-template-columns:1fr 1fr} .lane{grid-template-columns:1fr} summary{grid-template-columns:18px 1fr 70px} summary .segw,summary .syn,summary .stw{display:none} .detail{padding-left:14px} }
+@media (prefers-reduced-motion:reduce){ .fb{transition:none} html{scroll-behavior:auto} }
 </style>
 <div class="wrap">
-  <header>
-    <div><div class="label">HQ for Ahmed Alaa</div><h1>SIR Control Room</h1>
-      <p>Every project, its build progress, repo state, platform coverage and what is waiting on a person. HQ prepares; one chat per project builds.</p></div>
-    <div class="stamp" id="stamp"></div>
-  </header>
-  <section class="strip" aria-label="Summary" id="strip"></section>
-  <section class="cols">
-    <div class="panel"><h2>Needs attention</h2><ul class="list" id="attention"></ul></div>
-    <div class="panel"><h2>Progress by milestone, all projects</h2><div id="ms" class="list"></div></div>
-  </section>
-  <section style="display:flex;flex-direction:column;gap:12px">
-    <h2>Projects</h2>
-    <div class="tools"><input id="q" type="search" placeholder="Search a project or task" aria-label="Search projects"><span id="chips" class="tools"></span></div>
-    <div class="rows" id="rows"></div>
-  </section>
-  <section style="display:flex;flex-direction:column;gap:12px">
-    <h2>Platform coverage</h2>
-    <div class="legend"><span><i class="cell required"></i> required</span><span><i class="cell optional"></i> optional, decide by ADR</span><span><i class="cell skip"></i> skipped, with a reason in PLATFORMS.md</span></div>
-    <div class="scroll"><table id="plat"></table></div>
-  </section>
-  <section class="panel"><h2>Latest from the mission log</h2><div class="log" id="log"></div></section>
+  <header><div><div class="label">HQ for Ahmed Alaa</div><h1>SIR Control Room</h1>
+    <p>Every project, its plan and tasks, what is running, what is waiting for you, and what starts next. HQ keeps it current after each report.</p></div><div class="sub num" id="stamp"></div></header>
+  <nav aria-label="Sections"><a href="#now">Now</a><a href="#waves">Waves</a><a href="#projects">Projects</a><a href="#platforms">Platforms</a><a href="#accounts">Accounts</a><a href="#workforce">Workforce</a><a href="#activity">Activity</a></nav>
+  <section id="now" class="grid2"><div style="display:flex;flex-direction:column;gap:16px"><div class="tiles" id="tiles"></div><div class="panel"><h2>Working now</h2><ul class="list" id="active"></ul><div class="sub" id="nextstart"></div></div></div>
+    <div class="panel need"><h2>Needs attention</h2><ul class="list" id="attention"></ul></div></section>
+  <section id="waves" style="display:flex;flex-direction:column;gap:12px"><h2>Build order, one project at a time</h2><div class="sub">HQ opens a project chat, reviews its reports, then asks you before the next one starts. Platform and Portfolio come last on purpose, built from the finished products.</div><div class="lanes" id="lanes"></div></section>
+  <section id="projects" style="display:flex;flex-direction:column;gap:12px"><h2>Projects</h2><div class="tools"><input id="q" type="search" placeholder="Search a project, task or note" aria-label="Search projects"><span class="tools" id="fchips"></span></div><div class="rows" id="rows"></div></section>
+  <section id="platforms" style="display:flex;flex-direction:column;gap:12px"><h2>Platform coverage</h2><div class="legend"><span><i class="cell required"></i> required</span><span><i class="cell optional"></i> optional, decided by ADR</span><span><i class="cell skip"></i> skipped, reason in PLATFORMS.md</span></div><div class="scroll"><table id="plat"></table></div></section>
+  <section id="accounts" class="panel"><h2>Accounts and registrations, the easy route</h2><div class="cols3">
+    <div><div class="label">Free now</div><p>GitHub, Cloudflare (Wrangler signed in), Firebase. Free pages.dev addresses launch every product. Microsoft Store: individual account is free through storedeveloper.microsoft.com (individual type cannot change later).</p></div>
+    <div><div class="label">Payments in Egypt</div><p>Stripe does not support Egypt. Use Paymob (cards, wallets, Meeza) and Fawry (cash points); Kashier is the alternative. Have ready: national ID, tax card, Egyptian bank account. Until keys exist every product shows Launching Soon.</p></div>
+    <div><div class="label">Later, from income</div><p>Domain at cost through Cloudflare, Google Play (one-time fee) and Apple Developer (yearly fee): verify prices when buying. Agents prepare listings, screenshots, privacy pages and a pre-filled answers sheet; you do sign-in, ID check and payment.</p></div></div></section>
+  <section id="workforce" class="panel"><h2>Workforce</h2><div class="cols3"><div><div class="label">Claude</div><p>Haiku for search and spec-driven work, Sonnet for design, review and security, Opus when stuck. Chosen by task level.</p></div><div><div class="label">Other AIs</div><p>Antigravity CLI (Gemini), OpenCode, Kilo and local models for drafts and bulk work, always reviewed by a Claude agent.</p></div><div><div class="label">Hands</div><p>Computer use, Chrome and the built-in browser: agents open sites and apps themselves and try another way when blocked.</p></div></div></section>
+  <section id="activity" class="panel"><h2>Latest activity</h2><div class="log" id="log"></div></section>
 </div>
 <script>
 const D = /*__DATA__*/{};
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-$("#stamp").textContent = "Snapshot " + D.generated + " (local time)";
 const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
-const tot = D.projects.reduce((s, p) => ({ d: s.d + p.done, t: s.t + p.total }), { d: 0, t: 0 });
-$("#strip").innerHTML = `
-  <div><span class="label">Tasks done with evidence</span><span class="big">${tot.d} / ${tot.t}</span><div class="bar"><i style="width:${pct(tot.d, tot.t)}%"></i></div><span class="sub">${pct(tot.d, tot.t)}% of every project's task list. Nothing is built yet; setup tasks are the ones done.</span></div>
-  <div><span class="label">Projects</span><span class="big">${D.projects.length}</span><span class="sub">${D.projects.filter((p) => p.status === "planned").length} planned, none live</span></div>
-  <div><span class="label">New private repos</span><span class="big">${D.repos.new_private}</span><span class="sub">each with the kit on main</span></div>
-  <div><span class="label">Old repos archived</span><span class="big">${D.repos.archived}</span><span class="sub">sir-legacy-* and the old release repos</span></div>`;
-$("#attention").innerHTML = D.attention.map((a) => `<li><span class="pill ${a.level}">${esc(a.tag)}</span><span>${esc(a.text)}</span></li>`).join("");
-$("#ms").innerHTML = D.milestones.map((m) => `<div><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(m.name)}</span><span class="num">${m.done} / ${m.total}</span></div><div class="bar"><i style="width:${pct(m.done, m.total)}%"></i></div></div>`).join("");
-$("#log").innerHTML = D.log.map((l) => `<div>${esc(l)}</div>`).join("");
+const P = D.projects, bySlug = Object.fromEntries(P.map((p) => [p.slug, p]));
+$("#stamp").textContent = "Updated " + D.generated;
+const tot = P.reduce((s, p) => ({ d: s.d + p.done, t: s.t + p.total }), { d: 0, t: 0 });
+const nDone = P.filter((p) => p.status === "done").length, nBuild = P.filter((p) => p.status === "building").length;
+$("#tiles").innerHTML = `<div><span class="label">Tasks done</span><span class="big">${tot.d}/${tot.t}</span><div class="bar"><i style="width:${pct(tot.d, tot.t)}%"></i></div></div>
+ <div><span class="label">Projects finished</span><span class="big">${nDone}/${P.length}</span><span class="sub">${nBuild} building now</span></div>
+ <div><span class="label">Private repos</span><span class="big">${D.repos.new_private}</span><span class="sub">all on main, no pull requests</span></div>
+ <div><span class="label">Old repos archived</span><span class="big">${D.repos.archived}</span><span class="sub">sources kept in legacy/</span></div>`;
+$("#active").innerHTML = D.active.length ? D.active.map((a) => `<li><span class="pill info">Chat</span><span><b>${esc(a.project)}</b><br><span class="sub">${esc(a.state)}</span></span></li>`).join("") : `<li><span class="pill">Idle</span><span class="sub">No project chat is running.</span></li>`;
+$("#nextstart").textContent = D.nextStart ? "Starts next after your OK: " + D.nextStart : "";
+$("#attention").innerHTML = D.attention.length ? D.attention.map((a) => `<li><span class="pill ${a.level}">${esc(a.tag)}</span><span>${esc(a.text)}</span></li>`).join("") : `<li><span class="pill ok">Clear</span><span>Nothing needs you.</span></li>`;
+$("#lanes").innerHTML = D.waves.map((w) => `<div class="lane"><div><div class="label">Wave ${w.wave}</div><div style="font-weight:600">${esc(w.name)}</div><div class="bar" style="margin-top:6px"><i style="width:${pct(w.done, w.total)}%"></i></div><span class="sub num">${w.done}/${w.total}</span></div>
+ <div class="chips">${w.projects.map((s) => { const p = bySlug[s]; return `<button class="chip" data-go="${s}"><i style="background:${p.color}"></i>${esc(p.name)} <span class="sub num">${p.done}/${p.total}</span></button>`; }).join("")}</div></div>`).join("");
 let wave = "all";
-const waves = ["all", ...[...new Set(D.projects.map((p) => p.wave))].sort((a, b) => a - b)];
-$("#chips").innerHTML = waves.map((w) => `<button class="chip" data-w="${w}" aria-pressed="${w === "all"}">${w === "all" ? "All waves" : "Wave " + w}</button>`).join("");
-function renderRows() {
+$("#fchips").innerHTML = ["all", ...D.waves.map((w) => String(w.wave))].map((w) => `<button class="fb" data-w="${w}" aria-pressed="${w === "all"}">${w === "all" ? "All" : "Wave " + w}</button>`).join("");
+function rows() {
   const q = $("#q").value.trim().toLowerCase();
-  const list = D.projects.filter((p) => (wave === "all" || String(p.wave) === wave) && (!q || (p.name + " " + p.arch + " " + p.next.join(" ")).toLowerCase().includes(q)));
-  $("#rows").innerHTML = list.length ? list.map((p) => `
-  <details class="row"><summary>
-    <i class="dot" style="background:${p.color}"></i>
-    <span><span class="name">${esc(p.name)}</span><br><span class="sub">Wave ${p.wave} &middot; ${esc(p.status)}</span></span>
-    <span class="arch sub">${esc(p.arch)}</span>
-    <span class="num">${p.done}/${p.total}</span>
-    <span class="segs-wrap"><span class="segs">${p.segs.map((s) => `<i title="${esc(s.name)}: ${s.done}/${s.total}"><b style="width:${pct(s.done, s.total)}%"></b></i>`).join("")}</span></span>
-    <span class="plat sub num">${p.required} req.</span>
-  </summary>
-  <div class="detail">
-    <div><div class="label">Next tasks</div><ol>${p.next.map((n) => `<li>${esc(n)}</li>`).join("") || "<li>none</li>"}</ol></div>
-    <div><div class="label">Where it lives</div><p style="margin:6px 0 0">${esc(p.repo)}<br><code>${esc(p.folder)}</code><br><span class="sub">${esc(p.mission)}</span></p></div>
-  </div></details>`).join("") : `<div style="padding:24px;color:var(--muted)">No project matches. Clear the search or pick All waves.</div>`;
+  const list = P.filter((p) => (wave === "all" || String(p.wave) === wave) && (!q || JSON.stringify([p.name, p.arch, p.now, p.mission, p.milestones.map((m) => m.items.map((i) => i.text))]).toLowerCase().includes(q)));
+  $("#rows").innerHTML = list.length ? list.map((p) => `<details class="row" id="p-${p.slug}"><summary><i class="dot" style="background:${p.color}"></i>
+    <span><span class="name">${esc(p.name)}</span><br><span class="sub">Wave ${p.wave} · ${esc(p.arch)}</span></span><span class="num">${p.done}/${p.total}</span>
+    <span class="segw"><span class="segs">${p.milestones.map((m) => `<i title="${esc(m.name)}"><b style="width:${pct(m.items.filter((i) => i.done).length, m.items.length)}%"></b></i>`).join("")}</span></span>
+    <span class="sub syn num">${esc(p.commit)}${p.sync ? " · " + esc(p.sync) : ""}</span><span class="stw"><span class="st ${p.status}">${p.status}</span></span></summary>
+  <div class="detail"><div><h3>Where it stands</h3><p style="margin:0 0 8px">${esc(p.now || "Setup is ready; no chat has started it yet.")}</p><h3>Mission</h3><p style="margin:0 0 8px">${esc(p.mission)}</p><h3>Next tasks</h3><ol style="margin:0;padding-left:18px">${p.next.map((n) => `<li>${esc(n)}</li>`).join("") || "<li>none</li>"}</ol><h3 style="margin-top:10px">Where it lives</h3><p class="sub" style="margin:0">${esc(p.repo)}<br><code>${esc(p.folder)}</code> · Desktop: SIR Projects</p></div>
+  <div><h3>All tasks</h3>${p.milestones.map((m) => `<div class="ms"><div class="label">${esc(m.name)} · ${m.items.filter((i) => i.done).length}/${m.items.length}</div><ul>${m.items.map((i) => `<li class="${i.done ? "d" : ""}"><span>${i.done ? "✓" : "○"}</span><span><code>${i.id}</code> ${esc(i.text)}</span></li>`).join("")}</ul></div>`).join("")}</div></div></details>`).join("") : `<div style="padding:24px;color:var(--muted)">No project matches.</div>`;
 }
-$("#chips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; wave = b.dataset.w; document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === b)); renderRows(); });
-$("#q").addEventListener("input", renderRows);
-renderRows();
-const hdr = D.platforms.map((p) => `<th>${esc(p.short)}</th>`).join("");
-$("#plat").innerHTML = `<thead><tr><th>Project</th>${hdr}</tr></thead><tbody>${D.projects.filter((p) => p.matrix).map((p) => `<tr><td>${esc(p.name)}</td>${D.platforms.map((pl) => `<td><i class="cell ${p.matrix[pl.key]}" title="${esc(pl.name)}: ${p.matrix[pl.key]}"></i></td>`).join("")}</tr>`).join("")}</tbody>`;
+$("#fchips").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; wave = b.dataset.w; document.querySelectorAll(".fb").forEach((c) => c.setAttribute("aria-pressed", c === b)); rows(); });
+$("#q").addEventListener("input", rows);
+$("#lanes").addEventListener("click", (e) => { const b = e.target.closest("[data-go]"); if (!b) return; wave = "all"; rows(); const d = document.getElementById("p-" + b.dataset.go); if (d) { d.open = true; d.scrollIntoView({ block: "start" }); } });
+rows();
+$("#plat").innerHTML = `<thead><tr><th>Project</th>${D.platforms.map((p) => `<th>${esc(p.short)}</th>`).join("")}</tr></thead><tbody>${P.filter((p) => p.matrix).map((p) => `<tr><td>${esc(p.name)}</td>${D.platforms.map((pl) => `<td><i class="cell ${p.matrix[pl.key]}" title="${esc(pl.name)}: ${p.matrix[pl.key]}"></i></td>`).join("")}</tr>`).join("")}</tbody>`;
+$("#log").innerHTML = D.log.map((l) => `<div>${esc(l)}</div>`).join("");
 </script>

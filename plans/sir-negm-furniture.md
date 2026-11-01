@@ -1,5 +1,5 @@
 # PLAN: SIR Negm Furniture
-Status: planned, not started. Wave 2. Replaces: Negm Furniture (client brand). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 3. Replaces: Negm Furniture (client brand). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 0. THIS IS A MERGE PROJECT (read first)
 The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
@@ -45,24 +45,23 @@ Decor assistant: server route with quota; offline rule engine as fallback.
 
 ## 8. Milestones
 ### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-negm-furniture`.
+- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-negm-furniture` (the delivery channel for the friend).
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-negm-furniture` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Negm Furniture", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
+- [ ] Handoff pack in the repo: `HANDOFF.md`, `docs/CLIENT_SETUP.md`, `FRIEND_AGENT_PROMPT.md`, `docs/AGENT_PLAYBOOK.md` (the friend's AI agent works in Antigravity with Gemini high, so write short explicit steps, checklists and exact commands).
+- [ ] No Firebase, Cloudflare or GitHub organization is created by Ahmed for this project: the friend creates his own accounts with the agent's help.
 - [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
 ### M1 Core slice
 - [ ] Catalog from real client-supplied data; inquiry form stored in Firestore with validation.
 ### M2 Parity with the old project
 - [ ] Admin CRUD with real Cloudinary/R2 upload; SEO and structured data.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
+### M3 Security and legal
+- [ ] Lead form protections (rate limit, honeypot, no email exposed), privacy page and cookie consent that match what the site really collects; security checklist green with tests.
 ### M4 AI
 - [ ] Decor suggestions with citations to real catalog items only.
 ### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
+- [ ] 5 states on every screen, ar/en with RTL, 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots at 390 px and 1280 px.
+### M6 Handoff
+- [ ] The friend pulls the repo, follows `docs/CLIENT_SETUP.md` with his agent, and the site is live on his own Cloudflare account; Ahmed's repo access is kept or removed as the friend decides.
 - [ ] Handover checklist to the client; domain `negm-furniture.eg` pointed at Cloudflare.
 
 ## 9. Risks and open decisions

@@ -18,3 +18,6 @@ if os.path.isfile(_wf):  # studied wave order (plans/WAVE_STUDY.md), written by 
     for p in PRODUCTS:
         if p["slug"] in _w:
             p["wave"] = _w[p["slug"]]
+
+REMOVED_SLUGS = {"sir-odysseus"}   # Ahmed 2026-11-01: not his project; source moved into SIR AI/legacy
+PRODUCTS = [p for p in PRODUCTS if p["slug"] not in REMOVED_SLUGS]

@@ -1,5 +1,5 @@
 # PLAN: SIR Platform
-Status: planned, not started. Wave 2. Replaces: nothing (new shared kit). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+Status: planned, not started. Wave 7. Replaces: nothing (new shared kit). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
 
 ## 1. Mission and audience
 The shared `@sir/*` kit that every product imports, so each defect found in 16 inventories is fixed once. Used by Ahmed's agents and every SIR product; not sold.

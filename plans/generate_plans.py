@@ -71,6 +71,27 @@ LOCAL_MILESTONES = """### M0 Foundations
 ### M6 Release and retirement
 {m6}"""
 
+HANDOFF = {"sir-negm-furniture"}   # a friend's project: HQ prepares a handoff pack; no cloud accounts are created for it by Ahmed
+HANDOFF_MILESTONES = """### M0 Foundations
+- [ ] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/{repo}` (the delivery channel for the friend).
+- [ ] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
+- [ ] Handoff pack in the repo: `HANDOFF.md`, `docs/CLIENT_SETUP.md`, `FRIEND_AGENT_PROMPT.md`, `docs/AGENT_PLAYBOOK.md` (the friend's AI agent works in Antigravity with Gemini high, so write short explicit steps, checklists and exact commands).
+- [ ] No Firebase, Cloudflare or GitHub organization is created by Ahmed for this project: the friend creates his own accounts with the agent's help.
+- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
+### M1 Core slice
+{m1}
+### M2 Parity with the old project
+{m2}
+### M3 Security and legal
+- [ ] Lead form protections (rate limit, honeypot, no email exposed), privacy page and cookie consent that match what the site really collects; security checklist green with tests.
+### M4 AI
+{m4}
+### M5 Quality sweep
+- [ ] 5 states on every screen, ar/en with RTL, 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots at 390 px and 1280 px.
+### M6 Handoff
+- [ ] The friend pulls the repo, follows `docs/CLIENT_SETUP.md` with his agent, and the site is live on his own Cloudflare account; Ahmed's repo access is kept or removed as the friend decides.
+{m6}"""
+
 
 MERGE = {
     "sir-hagoozat": ["Hagoozat Elite", "11Players", "EGFootball5"],
@@ -79,9 +100,9 @@ MERGE = {
     "sir-laptop-manager": ["antigravity-agent-suite", "Laptop manager (moves in when replaced)"],
     "sir-obour-hub": ["Obour Academic Hub"],
     "sir-study": ["materials/obour-year2-term1 (the old Obour Institute study folder)"],
-    "sir-negm-furniture": ["Negm Furniture"], "sir-odysseus": ["Odysseus app"],
+    "sir-negm-furniture": ["Negm Furniture"], 
     "sir-content-creation-studio": ["SIR Content Creation Studio (v1)"], "sir-modpack": ["SIR ModPack (v1)"],
-    "sir-mods-for-gta-v": ["SIR Mods for GTA V (v1)"], "sir-ai": ["SIR AI (v1)"],
+    "sir-mods-for-gta-v": ["SIR Mods for GTA V (v1)"], "sir-ai": ["SIR AI (v1)", "Odysseus app (reference only, AGPL, moved in 2026-11-01)"],
     "sir-jobs": ["Jobs (data moves in when imported)"],
 }
 
@@ -106,7 +127,7 @@ def build(p):
     ctx["m2"] = "\n".join(f"- [ ] {t}" for t in p["m2"])
     ctx["m4"] = "\n".join(f"- [ ] {t}" for t in p["m4"])
     ctx["m6"] = "\n".join(f"- [ ] {t}" for t in p["m6"])
-    ms = (LOCAL_MILESTONES if p["slug"] in LOCAL else MILESTONES).format(**ctx)
+    ms = (LOCAL_MILESTONES if p["slug"] in LOCAL else HANDOFF_MILESTONES if p["slug"] in HANDOFF else MILESTONES).format(**ctx)
     folder = os.path.join(PROJECTS, p["folder"])
     cfg = os.path.join(folder, ".git", "config")
     if os.path.isfile(cfg) and 'remote "origin"' in io.open(cfg, encoding="utf-8", errors="ignore").read():
