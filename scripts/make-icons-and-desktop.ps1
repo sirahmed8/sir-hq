@@ -75,8 +75,12 @@ if (Test-Path $pidFile) { $id = Get-Content $pidFile; if ($id) { taskkill /PID $
 # also stop node processes started from this folder
 Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.CommandLine -like "*$root*" } | ForEach-Object { taskkill /PID $_.ProcessId /T /F | Out-Null }
 '@
-  Set-Content "$proj\scripts\dev-start.ps1" $start -Encoding UTF8
-  Set-Content "$proj\scripts\dev-stop.ps1" $stop -Encoding UTF8
+  # A project that wired its own real dev command marks the file with "# SIR-CUSTOM"; keep it.
+  foreach ($pair in @(@('start',$start),@('stop',$stop))) {
+    $f = "$proj\scripts\dev-$($pair[0]).ps1"
+    if ((Test-Path $f) -and (Select-String -Path $f -Pattern '^# SIR-CUSTOM' -Quiet)) { "keep custom $f"; continue }
+    Set-Content $f $pair[1] -Encoding UTF8
+  }
   foreach ($k in 'start','stop') {
     Set-Content "$proj\scripts\dev-$k.vbs" ("CreateObject(""WScript.Shell"").Run ""powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File """"$proj\scripts\dev-$k.ps1"""""", 0, False") -Encoding ASCII
   }
