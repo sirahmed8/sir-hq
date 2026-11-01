@@ -9,6 +9,9 @@ HQ (the chat in `D:\Projects`) manages all projects and the waves. Project chats
 4. **Done:** HQ writes the result into `ops/PORTFOLIO.md` and the dashboard, then tells Ahmed in plain language what the next project needs to start (accounts, decisions, anything only he can do) and waits for his OK.
 5. **Next:** after his approval HQ opens the next project's chat. Only one project chat builds at a time, unless Ahmed says to run two.
 
+## Messaging a busy chat
+A message sent to a chat that is mid-turn is queued and delivered only after that turn ends (Ahmed saw this with the AHome chat, 2026-11-01). So for anything that matters, also write it as an unread line in that project's inbox `ops/bus/<slug>.md`: the sir-context mod shows the unread count in the chat's prompt on every turn, and the chat reads the inbox at the start of each task. Do not expect an answer until its turn ends.
+
 ## Memory (HQ gets compacted often)
 - Keep `ops/HQ_CHECKPOINT.md` current after every step: Now, exact next step, open promises, files to re-read. Keep `NEXT.md`, `plans/BUILD ORDER` (`WAVE_STUDY.md`) and `ops/OWNER_ACTIONS.md` true.
 - After a compaction or resume: read START_HERE.md, NEXT.md, the checkpoint, then `ops/bus/*.md` and `list_sessions {linked: true}` before acting.
