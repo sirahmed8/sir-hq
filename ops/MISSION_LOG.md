@@ -42,3 +42,4 @@
 - 2026-11-01 · HQ · AHome chat pushed 07a794c (login gate, sealed vault, rules, hosted site); owner steps listed; dashboard republished; wave 2 waits for AHome done.
 - 2026-11-01 · HQ · AHome chat started three more agents (web relay side and quick capture, core split, web security review); nothing merged yet; HQ idle.
 - 2026-11-01 · HQ · New build order and HQ protocol; Odysseus removed (source into SIR AI/legacy); Negm friend handoff pack pushed; dashboard rebuilt, pinned and pane mod removed; workforce, accounts, quality playbook and start prompt written; AHome chat messaged; AI_Models_Hub merged, guard blocks the old path.
+- 2026-11-02 · HQ · Reviewed AHome chat; found and fixed HQ overwrite of its .sir task files (generator now skips started projects), told the chat to rebuild its list; read-only study portal digest saved; attention lists cleaned.
