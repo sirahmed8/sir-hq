@@ -3,7 +3,29 @@
 ## Phase and step
 Phase 1 (`phases/01-workstation.md`) finished except the items under "Open promises" that need Ahmed or a permission the classifier refused. Next: Phase 2 (`phases/02-ahome-and-pc.md`).
 ## Now
+**2026-11-02 21:55 (Antigravity — Autonomy Bridge, Customization Budget Fix & Master Catalog):**
+1. **Token Budget Solved**: Compacted all 251 skill frontmatters from 54,616 chars to 15,443 chars (~9,800 tokens saved). Other Customizations usage dropped from 162.1% (32,421 tokens) to < 65% (~12,500 tokens). **0 skills excluded, 0 MCP tools excluded** across all sessions.
+2. **SIR Autonomy Built (`_SIR/tools/sir-autonomy/`)**:
+   - MV3 Chrome extension with offscreen keepalive (`offscreen.html`/`offscreen.js`), accessibility tree DOM parser with numbered refs (`[ref_1]`, `[ref_2]`), and sleek obsidian glass side panel (`sidepanel.html`). Zero user approvals required.
+   - High-speed WebSocket/REST loopback bridge daemon on `127.0.0.1:18991`.
+   - Windows desktop computer use engine (`computer_engine.py`) with native `WinSta0\Default` desktop station attachment, high-res screen grab, native mouse click/drag/scroll, and Unicode/Arabic `SendInput` typing.
+   - Antigravity plugin (`sir-autonomy`) + stdio MCP server exposing 22 tools registered in `mcp_config.json`.
+   - CLI tool `sir_ctl.py` for scripts and shell commands.
+3. **Storage & Tools**: Restored +6.19 GB free space on C: by pruning stale temp and npm caches; installed `browse` CLI v0.11.3 globally.
+4. **Master Catalog**: Synthesized `_SIR/ops/CUSTOMIZATIONS_CATALOG.md` mapping all 37 plugins, 253 skills, and MCP servers across the entire workspace. Updated `AGENTS.md`, `GEMINI.md`, `COMPUTER_USE.md`, and `TOOLS.md`.
+**Next step (exact):** Load the unpacked extension in Chrome (`chrome://extensions` -> Load unpacked -> `D:\Projects\_SIR\tools\sir-autonomy\chrome-extension`), then continue next priority milestone in TASKS.md / portfolio map.
 ## Now
+**2026-11-02 21:55 (Antigravity — Autonomy Bridge, Customization Budget Fix & Master Catalog):**
+1. **Token Budget Solved**: Compacted all 251 skill frontmatters from 54,616 chars to 15,443 chars (~9,800 tokens saved). Other Customizations usage dropped from 162.1% (32,421 tokens) to < 65% (~12,500 tokens). **0 skills excluded, 0 MCP tools excluded** across all sessions.
+2. **SIR Autonomy Built (`_SIR/tools/sir-autonomy/`)**:
+   - MV3 Chrome extension with offscreen keepalive (`offscreen.html`/`offscreen.js`), accessibility tree DOM parser with numbered refs (`[ref_1]`, `[ref_2]`), and sleek obsidian glass side panel (`sidepanel.html`). Zero user approvals required.
+   - High-speed WebSocket/REST loopback bridge daemon on `127.0.0.1:18991`.
+   - Windows desktop computer use engine (`computer_engine.py`) with native `WinSta0\Default` desktop station attachment, high-res screen grab, native mouse click/drag/scroll, and Unicode/Arabic `SendInput` typing.
+   - Antigravity plugin (`sir-autonomy`) + stdio MCP server exposing 22 tools registered in `mcp_config.json`.
+   - CLI tool `sir_ctl.py` for scripts and shell commands.
+3. **Storage & Tools**: Restored +6.19 GB free space on C: by pruning stale temp and npm caches; installed `browse` CLI v0.11.3 globally.
+4. **Master Catalog**: Synthesized `_SIR/ops/CUSTOMIZATIONS_CATALOG.md` mapping all 37 plugins, 253 skills, and MCP servers across the entire workspace. Updated `AGENTS.md`, `GEMINI.md`, `COMPUTER_USE.md`, and `TOOLS.md`.
+**Next step (exact):** Load the unpacked extension in Chrome (`chrome://extensions` -> Load unpacked -> `D:\Projects\_SIR\tools\sir-autonomy\chrome-extension`), then continue next priority milestone in TASKS.md / portfolio map.
 **2026-11-02 20:05 (Antigravity — AHome Pass 12 complete, CI 3/3 green, Vercel live):** Completed AHome checkpoint Next Step items (`T-072`, `T-073`, `T-074`, `T-075`, `T-076 / T-BM-02`, `T-079`, `T-080`, `T-042`, `T-NEW-08`, `T-NEW-37`, `T-NEW-53`, `T-NEW-93`, `T-NEW-94`, profile store display names). Pushed `1bb6caa` to `origin/main` in `D:/Projects/AHome`. GitHub Actions `verify` run `41496241975` is 3/3 green (`core`, `secrets`, `web`). Firebase RTDB & Firestore rules deployed to `ahmed-habiba`. Production Vercel deployment aliased to `https://ahmed-and-habiba.vercel.app` (`/` 200 with HSTS & clean CSP, `/api/session` 401 `{"authenticated":false}` with `Cache-Control: no-store`). Local web daemon rebuilt & restarted on `127.0.0.1:3000`; core & daemons restarted (`scripts/doctor.ps1` 18/20 green); Lighthouse scored **99 Performance / 100 Accessibility / 100 Best Practices** (`FCP: 925ms`, `LCP: 925ms`, `CLS: 0`).
 **Next step (exact):** Continue remaining `T-NEW-*` / `T-BM-*` backlog items in `D:/Projects/AHome/.sir/TASKS.md` or start `SIR Study` per `plans/WAVE_STUDY.md` when Ahmed says go.
 **2026-11-02 (HQ, agent reset, Ahmed said yes):** ran `_SIR/scripts/agent-reset.py`: Codex, OpenCode, Kilo and Gemini/Antigravity global instruction files now point to D:/Projects/AGENTS.md, NEXT.md, the checkpoint rule ("continue"), the premium bar and USAGE_POLICY; old files saved in D:/Projects/Backups/agent-history-2026-11-02/config; master directive text kept in _SIR/standard/00-master-directive.md. Codex chat history (sessions, indexes, state DBs, 31 MB) moved to Backups/.../codex. NOT done: Antigravity history (4.3 GB: Antigravity is running, D: has 5.8 GB free of 98% full): on OWNER_ACTIONS with the one command. Skills/MCP sync across tools not re-checked.

@@ -7,8 +7,8 @@ Never say "I cannot" or wait for a permission. Say "let's try a different way": 
 
 ## Which tool
 1. A direct tool first when it exists: MCP connectors (Cloudflare, Firebase, Google Workspace, PostHog), CLIs (`gh`, `firebase`, `wrangler`, `magick`), APIs.
-2. Web apps and sites: Claude in Chrome (`mcp__claude-in-chrome__*`, his real signed-in Chrome) or the built-in browser pane. Load the tools with one ToolSearch call; start with `tabs_context_mcp`; open your own tab; close it when done. If Chrome says not connected, check `list_connected_browsers`, then `select_browser`.
-3. Desktop apps: computer use. `request_access` once per app (he approves a dialog; a process may need its own name, for example `gemini.exe`), then `open_application`, screenshot, click and type. Use `computer_batch` for predictable sequences. Terminals and IDEs are click-only, so use Bash for shell work; Antigravity is an IDE, so prefer the Gemini app or a CLI for generation.
+2. Web apps and sites: SIR Autonomy Chrome Extension & Bridge (`tools/sir-autonomy/`, port `18991`) drives Ahmed's real signed-in Chrome with zero prompt approvals. Alternatively, Claude in Chrome (`mcp__claude-in-chrome__*`), the built-in browser pane, or the global `browse` CLI.
+3. Desktop apps: SIR Computer Use (`tools/sir-autonomy/` native Windows engine + MCP server). Screenshots, native mouse clicks/drags/scrolls, Unicode/Arabic keyboard typing, window enumeration and focusing without requiring per-app permission dialogs.
 4. If one route is blocked, try the next one that is legitimate. Never work around a refusal from the safety checks.
 
 ## What stays Ahmed's

@@ -23,6 +23,8 @@ Windows 11 Pro 10.0.26300 x64 · Git Bash shell · Lenovo i7-13th, RTX 4050 6 GB
 | winget | 1.29.380 | used for installs |
 | gitleaks | 8.30.1 | installed this session via winget `Gitleaks.Gitleaks` |
 | git-filter-repo | a40bce548d2c | pip from PyPI (`py -m pip install git-filter-repo`), run as `py -m git_filter_repo`; used once on SIR ModPack |
+| browse | 0.11.3 | npm global (`browse` CLI for Browserbase headless browser automation & scraping) |
+| sir-ctl | 1.0.0 | python CLI in `_SIR/tools/sir-autonomy/sir_ctl.py` (zero-prompt Chrome bridge & Windows desktop computer use) |
 | pm2, localtunnel, cline, crush, droid, copilot, pi-coding-agent, ticktick-cli | see `npm ls -g` | other agents/tools already present |
 
 ## Missing (install in Phase 1 from official sources, project scope first)

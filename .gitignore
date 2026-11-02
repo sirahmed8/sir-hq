@@ -11,3 +11,10 @@ ops/subagent.log
 ops/usage-ledger.jsonl
 ops/provider-cooling.json
 .claude/
+
+__pycache__/
+*.pyc
+.venv/
+tools/sir-autonomy/.venv/
+tools/sir-autonomy/*.png
+!tools/sir-autonomy/chrome-extension/icons/*.png
