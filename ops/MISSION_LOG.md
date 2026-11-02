@@ -43,3 +43,10 @@
 - 2026-11-01 · HQ · AHome chat started three more agents (web relay side and quick capture, core split, web security review); nothing merged yet; HQ idle.
 - 2026-11-01 · HQ · New build order and HQ protocol; Odysseus removed (source into SIR AI/legacy); Negm friend handoff pack pushed; dashboard rebuilt, pinned and pane mod removed; workforce, accounts, quality playbook and start prompt written; AHome chat messaged; AI_Models_Hub merged, guard blocks the old path.
 - 2026-11-02 · HQ · Reviewed AHome chat; found and fixed HQ overwrite of its .sir task files (generator now skips started projects), told the chat to rebuild its list; read-only study portal digest saved; attention lists cleaned.
+- 2026-11-02 HQ: reviewed AHome TASKS/BOARD rebuild (32/63 ticked); told the chat to finish the 7 old plan files, verify, push to main, deploy and report.
+- 2026-11-02 HQ: usage policy written (plans/USAGE_POLICY.md), AGENTS.md law added, AHome chat set to medium effort and told to follow it.
+- 2026-11-02 HQ: verified AHome push 216bc20 and site 200; AHome not yet at the done gate (98 open tasks).
+- 2026-11-02 HQ: AHome chat on iPhone-review fix wave 1 (3 agents); HQ waiting, no messages sent to save usage.
+- 2026-11-02 HQ: AHome wave 1 in progress (4dced47, b5255ae local; 3 agents); HQ waiting.
+- 2026-11-02 HQ: weekly usage 93%; AHome chat relayed a batch (Negm plan rewritten, premium code bar written); agent-config reset and history move held until Ahmed confirms in HQ chat.
+- 2026-11-02 HQ: agent-reset.py run (configs of Codex, OpenCode, Kilo, Gemini/Antigravity point to workspace rules; Codex history moved to Backups); Antigravity history waits for closing the app and disk space.

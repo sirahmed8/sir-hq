@@ -5,6 +5,7 @@ Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard and pane read
 ## Open (needs you now)
 
 ## Optional (when you like; shown on the dashboard in grey)
+- [ ] Antigravity chat history (4.3 GB) is not moved yet: close Antigravity and free about 6 GB on D: (the 6.9 GB duplicate models folder is in the Recycle Bin: emptying it is enough), then run `python D:\Projects\_SIR\scriptsgent-reset.py agy-history` (it refuses while Antigravity runs or space is short; it moves, never deletes).
 - [ ] **AHome: empty the Recycle Bin on D: when you like.** It holds the 6.9 GB duplicate models folder that the AHome chat moved there (this frees the space; nothing else needed).
 - [ ] **AHome: tell the AHome chat what looks wrong on your phone** (the new dock, island, calendar and AI chat on the hosted site). Screenshots help.
 - [ ] **Accounts when a product is ready (already chosen, 10 minutes each, HQ walks you through):** Microsoft Store individual account (free, storedeveloper.microsoft.com), Paymob and Fawry merchant accounts (ID, tax card, bank IBAN). Domains, Google Play and Apple wait for income. Nothing else to decide.
@@ -19,3 +20,5 @@ Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard and pane read
 - [x] 2026-10-30 Wrangler signed in (Google one-click and Authorize in your Chrome).
 - [x] 2026-10-30 Leaked GTA Gemini key and four stale Gemini keys deleted; six old OpenRouter keys deleted; Sourcery AI removed from GitHub; 30 old repos archived; five security fixes merged.
 - [x] 2026-10-30 TickTick plans refreshed (wave tasks, goals text, one note); Habiba notes and personal lists untouched.
+- [ ] 2026-11-02 AHome (owner only, never blocking): iOS App Store/TestFlight needs an Apple Developer account (paid); the PWA is the iPhone path now. Windows code signing, Apple notarization and a Play Store listing also need accounts; the unsigned desktop bundles come from the GitHub workflow `desktop-bundles`.
+- [ ] 2026-11-02 AHome: after deploy, Settings > Devices > Add a device, make a code for Habiba, and install the APK from the same screen (the file goes online with `node scripts/publish-apk.mjs` before `vercel deploy`).

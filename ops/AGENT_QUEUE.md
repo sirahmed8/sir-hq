@@ -4,10 +4,10 @@ The dashboard shows only the "Now" section under "Agents are on it". The chat th
 
 ## Now
 - [x] AHome chat: models hub repointed to `D:\Projects\AI_Models_Hub` everywhere, Ollama restarted on it (bge-m3, qwen2.5:1.5b, qwen3:8b listed), the duplicate folder moved to the Recycle Bin (6.9 GB; emptying the bin frees the space).
-- [ ] AHome chat: plan 100x better (research of best private home apps, gaps as tasks) - an architect agent is writing it.
-- [ ] AHome chat: relay end-to-end test, Firebase service-account key rotation, PC quick-capture shortcut, Google Calendar first connection check, Lighthouse run.
+- [x] AHome chat: the 100x plan is written (PLAN, ARCHITECTURE, DESIGN, QUALITY, PRODUCTION, PLATFORMS, BENCHMARK, TEAM, TOOLKIT, TASKS rebuilt, 71 gap tasks merged).
+- [ ] AHome chat: Ahmed's phone review fixes in progress: shell/tabs/design modes done, chat keyboard + media done, relay fallback for all laptop features, relax page + cinema merge, silent services + game mode, Telegram bot quality (3 agents at a time).
 - [x] AHome chat: web review findings (2 high, 5 medium) fixed with tests; relay web side and rules deployed; quick capture; npm audit upgrade done (4 high remain, no fix without a downgrade).
-- [ ] AHome chat: on-screen check of the signed-in screens (light, dark, high contrast, 390 px, RTL): waiting for screenshots from Ahmed's phone or a working Chrome capture.
+- [ ] AHome chat: Android parity of the new shell, APK sign-in without Google (one-time pairing code), remaining OS apps (Windows, Android, macOS, Linux, iOS paths), then remaining TASKS.md top-down; on-screen check from Ahmed's phone screenshots.
 
 ## Later (starts when that project's chat starts)
 - [ ] SIR Study: study guides per subject, portal reader, practice mode (Ahmed signs in once in Chrome).

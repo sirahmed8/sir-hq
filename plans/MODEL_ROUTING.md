@@ -1,6 +1,6 @@
 # MODEL AND EFFORT BY TASK LEVEL (every project chat; Ahmed 2026-10-30: always use subagents, pick model and effort by the task)
 
-The project chat is the Project Manager (Sonnet, high effort). It does not do bulk work itself: it writes the task, picks the level below, and spawns a subagent with the `model` and `effort` set explicitly. Several independent tasks go out in one message, at most 6 at once (2 heavy builds or emulators).
+The project chat is the Project Manager (Sonnet, medium effort; high only for levels 2-3). It does not do bulk work itself: it writes the task, picks the level below, and spawns a subagent with the `model` and `effort` set explicitly. Several independent tasks go out in one message, at most 3 at once (see USAGE_POLICY.md).
 
 | Level | Task | Model | Effort |
 |---|---|---|---|
