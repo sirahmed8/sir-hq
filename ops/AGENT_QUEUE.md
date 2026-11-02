@@ -3,9 +3,11 @@
 The dashboard shows only the "Now" section under "Agents are on it". The chat that owns an item ticks it (`- [x]`) or deletes it when done, and adds new items for its own project here. "Later" is the waiting list per project; it is not shown as attention.
 
 ## Now
-- [ ] AHome chat: repoint every script and service that still names the old hub folder (the one directly on D:, outside Projects) to `D:\Projects\AI_Models_Hub`, restart Ollama with the user variable `OLLAMA_MODELS`, check `ollama list`, then delete that empty duplicate folder.
-- [ ] AHome chat: finish the fixes for the two high and five medium web review findings (with tests), the relay web side and rules, quick capture, npm security upgrades, Firebase service-account key rotation, and the on-screen check of the signed-in screens.
-- [ ] AHome chat: make the plan 100x better (research, gaps as tasks) and report in `ops/bus/sir-hq.md`.
+- [x] AHome chat: models hub repointed to `D:\Projects\AI_Models_Hub` everywhere, Ollama restarted on it (bge-m3, qwen2.5:1.5b, qwen3:8b listed), the duplicate folder moved to the Recycle Bin (6.9 GB; emptying the bin frees the space).
+- [ ] AHome chat: plan 100x better (research of best private home apps, gaps as tasks) - an architect agent is writing it.
+- [ ] AHome chat: relay end-to-end test, Firebase service-account key rotation, PC quick-capture shortcut, Google Calendar first connection check, Lighthouse run.
+- [x] AHome chat: web review findings (2 high, 5 medium) fixed with tests; relay web side and rules deployed; quick capture; npm audit upgrade done (4 high remain, no fix without a downgrade).
+- [ ] AHome chat: on-screen check of the signed-in screens (light, dark, high contrast, 390 px, RTL): waiting for screenshots from Ahmed's phone or a working Chrome capture.
 
 ## Later (starts when that project's chat starts)
 - [ ] SIR Study: study guides per subject, portal reader, practice mode (Ahmed signs in once in Chrome).

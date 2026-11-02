@@ -5,6 +5,8 @@ Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard and pane read
 ## Open (needs you now)
 
 ## Optional (when you like; shown on the dashboard in grey)
+- [ ] **AHome: empty the Recycle Bin on D: when you like.** It holds the 6.9 GB duplicate models folder that the AHome chat moved there (this frees the space; nothing else needed).
+- [ ] **AHome: tell the AHome chat what looks wrong on your phone** (the new dock, island, calendar and AI chat on the hosted site). Screenshots help.
 - [ ] **Accounts when a product is ready (already chosen, 10 minutes each, HQ walks you through):** Microsoft Store individual account (free, storedeveloper.microsoft.com), Paymob and Fawry merchant accounts (ID, tax card, bank IBAN). Domains, Google Play and Apple wait for income. Nothing else to decide.
 
 ## Done (latest first)

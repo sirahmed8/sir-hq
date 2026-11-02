@@ -170,11 +170,23 @@ See `D:/Projects/_SIR/ops/OWNER_ACTIONS.md`.
 """
 
 
+def started(folder):
+    """A project chat owns the .sir files once it has rewritten its checkpoint; HQ must never overwrite them."""
+    cp = os.path.join(folder, ".sir", "CHECKPOINT.md")
+    if not os.path.isfile(cp):
+        return False
+    txt = io.open(cp, encoding="utf-8").read()
+    return not ("written by HQ" in txt or "created by HQ" in txt or "Handoff pack ready" in txt)
+
+
 def kit(p):
     slug = p["slug"]
     folder = os.path.join(ROOT, p["folder"])
     if not os.path.isdir(os.path.join(folder, ".sir")) or slug not in DATA:
         print("skip", slug)
+        return
+    if started(folder):
+        print("skip (project chat has started, its .sir files are not touched):", slug)
         return
     b = DATA[slug]
     a = ARCH[b["arch"]]
