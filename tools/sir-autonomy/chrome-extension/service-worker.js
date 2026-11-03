@@ -54,9 +54,9 @@ async function isBridgeHealthy() {
       method: "GET",
       signal: controller.signal,
       cache: "no-store"
-    });
+    }).catch(() => null);
     clearTimeout(id);
-    return res.ok;
+    return Boolean(res && res.ok);
   } catch {
     return false;
   }
@@ -83,6 +83,13 @@ async function connectToBridge() {
 
   try {
     ws = new WebSocket(BRIDGE_WS_URL);
+    if (ws.addEventListener) {
+      ws.addEventListener("error", () => {
+        try { if (ws) ws.close(); } catch {}
+        ws = null;
+        isConnecting = false;
+      });
+    }
   } catch (e) {
     isConnecting = false;
     scheduleReconnect();
