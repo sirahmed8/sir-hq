@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "SIR Autonomy - Antigravity Bridge",
+  "name": "SIR Autonomy - Browser Bridge",
   "version": "1.0.0",
-  "description": "Zero-approval autonomous browser bridge for Antigravity & SIR agents",
+  "description": "Zero-approval autonomous browser bridge for SIR agents",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",

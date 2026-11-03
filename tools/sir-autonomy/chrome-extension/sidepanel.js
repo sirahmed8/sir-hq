@@ -1,4 +1,4 @@
-// Antigravity AI Companion & Bridge Engine Side Panel Controller
+// SIR Autonomy Companion & Bridge Engine Side Panel Controller
 let activeTab = null;
 let isRecognizing = false;
 let recognition = null;
