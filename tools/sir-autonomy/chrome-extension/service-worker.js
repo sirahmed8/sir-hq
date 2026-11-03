@@ -131,15 +131,19 @@ async function connectToBridge() {
   };
 
   ws.onerror = () => {
-    if (ws) ws.close();
+    try {
+      if (ws) ws.close();
+    } catch {}
+    ws = null;
+    isConnecting = false;
   };
 }
 
 function scheduleReconnect() {
   if (reconnectTimer) clearTimeout(reconnectTimer);
   reconnectAttempts++;
-  // Exponential backoff capped at 8 seconds
-  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 4)), 8000);
+  // Exponential backoff capped at 15 seconds when offline
+  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 5)), 15000);
   reconnectTimer = setTimeout(() => {
     connectToBridge();
   }, delay);
