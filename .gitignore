@@ -17,4 +17,5 @@ __pycache__/
 .venv/
 tools/sir-autonomy/.venv/
 tools/sir-autonomy/*.png
+tools/sir-autonomy/*.log
 !tools/sir-autonomy/chrome-extension/icons/*.png
