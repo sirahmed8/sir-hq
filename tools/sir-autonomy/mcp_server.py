@@ -29,12 +29,14 @@ def ensure_bridge_running():
     # Spawn bridge_server.py in background
     py_exec = VENV_PYTHON if os.path.exists(VENV_PYTHON) else sys.executable
     bridge_script = os.path.join(BASE_DIR, "bridge_server.py")
+    flags = (subprocess.CREATE_NO_WINDOW | 0x00000008) if os.name == "nt" else 0
     subprocess.Popen(
         [py_exec, bridge_script],
         cwd=BASE_DIR,
-        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        creationflags=flags,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
+        stderr=subprocess.DEVNULL,
+        close_fds=True
     )
     # Wait up to 3 seconds for it to bind
     for _ in range(30):

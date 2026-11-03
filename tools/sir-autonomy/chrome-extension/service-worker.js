@@ -142,16 +142,15 @@ async function connectToBridge() {
 function scheduleReconnect() {
   if (reconnectTimer) clearTimeout(reconnectTimer);
   reconnectAttempts++;
-  // If bridge daemon is offline, stop polling after 3 attempts to avoid extension console errors.
-  // Connection will resume automatically when user opens the side panel (via RECONNECT_NOW).
-  if (reconnectAttempts > 3) {
+  // If bridge daemon is offline, do NOT spam reconnects to keep Chrome extensions error badge completely clean.
+  // Connection will resume cleanly when user opens the side panel or clicks reconnect.
+  if (reconnectAttempts > 1) {
     isConnecting = false;
     return;
   }
-  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 4)), 10000);
   reconnectTimer = setTimeout(() => {
     connectToBridge();
-  }, delay);
+  }, 5000);
 }
 
 // Target tab resolution

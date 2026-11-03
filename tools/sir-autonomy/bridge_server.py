@@ -6,8 +6,12 @@ import sys
 import urllib.request
 from aiohttp import web
 
-# Ensure local imports work
+# Ensure local imports and shared packages work
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+_SHARED_SP = r"D:\Projects\AHome\apps\local-core\.venv\Lib\site-packages"
+if os.path.isdir(_SHARED_SP) and _SHARED_SP not in sys.path:
+    sys.path.insert(0, _SHARED_SP)
+
 if sys.stdout is None:
     sys.stdout = open(os.devnull, "w")
 if sys.stderr is None:
@@ -217,6 +221,33 @@ async def ask_handler(request):
             "fallback": "Could not connect to local model. Please ensure Ollama is running."
         }, status=502)
 
+async def synthesize_handler(request):
+    try:
+        data = await request.json()
+        text = (data.get("text") or "").strip()
+        voice = data.get("voice") or "ar-EG-SalmaNeural"
+        if not text:
+            return web.json_response({"error": "Text is required"}, status=400)
+
+        import edge_tts
+        comm = edge_tts.Communicate(text, voice)
+        chunks = []
+        async for chunk in comm.stream():
+            if chunk.get("type") == "audio" and "data" in chunk:
+                chunks.append(chunk["data"])
+
+        audio_bytes = b"".join(chunks)
+        return web.Response(
+            body=audio_bytes,
+            content_type="audio/mpeg",
+            headers={
+                "Cache-Control": "public, max-age=86400",
+                "Access-Control-Allow-Origin": "*"
+            }
+        )
+    except Exception as err:
+        return web.json_response({"error": str(err)}, status=500)
+
 def create_app():
     app = web.Application(middlewares=[cors_middleware])
     app.router.add_get("/ws", websocket_handler)
@@ -224,9 +255,14 @@ def create_app():
     app.router.add_post("/browser", browser_handler)
     app.router.add_post("/computer", computer_handler)
     app.router.add_post("/ask", ask_handler)
+    app.router.add_post("/synthesize", synthesize_handler)
     return app
 
 if __name__ == "__main__":
-    app = create_app()
-    print(f"[Bridge] Starting SIR Autonomy Bridge on http://{HOST}:{PORT}")
-    web.run_app(app, host=HOST, port=PORT, access_log=None)
+    try:
+        app = create_app()
+        web.run_app(app, host=HOST, port=PORT, access_log=None, print=lambda *args: None)
+    except Exception as e:
+        with open(os.path.join(os.path.dirname(__file__), "bridge_crash.log"), "w", encoding="utf-8") as f:
+            import traceback
+            traceback.print_exc(file=f)
