@@ -67,262 +67,114 @@ TOOLS = [
     # Browser tools
     {
         "name": "sir_browser_tabs",
-        "description": "List all open Chrome tabs with their titles, URLs, and active status",
-        "inputSchema": {
-            "type": "object",
-            "properties": {}
-        }
+        "description": "List open Chrome tabs.",
+        "inputSchema": {"type": "object", "properties": {}}
     },
     {
         "name": "sir_browser_open",
-        "description": "Open a URL in a new tab or navigate the current tab in Ahmed's Chrome",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "url": {"type": "string", "description": "URL to open"}
-            },
-            "required": ["url"]
-        }
+        "description": "Open URL in Chrome.",
+        "inputSchema": {"type": "object", "properties": {"url": {"type": "string"}}, "required": ["url"]}
     },
     {
         "name": "sir_browser_navigate",
-        "description": "Navigate the active or specified tab to a new URL",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "url": {"type": "string", "description": "Destination URL"},
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            },
-            "required": ["url"]
-        }
+        "description": "Navigate Chrome tab to URL.",
+        "inputSchema": {"type": "object", "properties": {"url": {"type": "string"}, "tabId": {"type": "integer"}}, "required": ["url"]}
     },
     {
         "name": "sir_browser_snapshot",
-        "description": "Get structured accessibility DOM tree of the active tab with numbered ref tags ([ref_1], [ref_2])",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "tabId": {"type": "integer", "description": "Optional tab ID"},
-                "maxChars": {"type": "integer", "description": "Max text characters to return", "default": 40000}
-            }
-        }
+        "description": "Get accessibility DOM tree with refs.",
+        "inputSchema": {"type": "object", "properties": {"tabId": {"type": "integer"}, "maxChars": {"type": "integer"}}}
     },
     {
         "name": "sir_browser_click",
-        "description": "Click an interactive element in the tab by ref ID (e.g. 'ref_1') or CSS selector",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "target": {"type": "string", "description": "Element ref ID (e.g. 'ref_1') or CSS selector"},
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            },
-            "required": ["target"]
-        }
+        "description": "Click element by ref or CSS selector.",
+        "inputSchema": {"type": "object", "properties": {"target": {"type": "string"}, "tabId": {"type": "integer"}}, "required": ["target"]}
     },
     {
         "name": "sir_browser_fill",
-        "description": "Fill an input field or textarea with text by ref ID or CSS selector",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "target": {"type": "string", "description": "Input ref ID (e.g. 'ref_2') or CSS selector"},
-                "value": {"type": "string", "description": "Text value to fill"},
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            },
-            "required": ["target", "value"]
-        }
+        "description": "Fill input element with text.",
+        "inputSchema": {"type": "object", "properties": {"target": {"type": "string"}, "value": {"type": "string"}, "tabId": {"type": "integer"}}, "required": ["target", "value"]}
     },
     {
         "name": "sir_browser_scroll",
-        "description": "Scroll the active page or element",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "target": {"type": "string", "description": "Optional element ref/selector, or 'window'"},
-                "dx": {"type": "integer", "description": "Horizontal scroll delta", "default": 0},
-                "dy": {"type": "integer", "description": "Vertical scroll delta", "default": 300},
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            }
-        }
+        "description": "Scroll active page or element.",
+        "inputSchema": {"type": "object", "properties": {"target": {"type": "string"}, "dx": {"type": "integer"}, "dy": {"type": "integer"}, "tabId": {"type": "integer"}}}
     },
     {
         "name": "sir_browser_eval",
-        "description": "Evaluate arbitrary JavaScript inside the tab context and return the result",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "expression": {"type": "string", "description": "JavaScript expression to evaluate"},
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            },
-            "required": ["expression"]
-        }
+        "description": "Evaluate JavaScript in tab context.",
+        "inputSchema": {"type": "object", "properties": {"expression": {"type": "string"}, "tabId": {"type": "integer"}}, "required": ["expression"]}
     },
     {
         "name": "sir_browser_screenshot",
-        "description": "Capture visible tab screenshot as base64 PNG",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "tabId": {"type": "integer", "description": "Optional tab ID"}
-            }
-        }
+        "description": "Capture visible tab screenshot.",
+        "inputSchema": {"type": "object", "properties": {"tabId": {"type": "integer"}}}
     },
     {
         "name": "sir_browser_close",
-        "description": "Close a Chrome tab",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "tabId": {"type": "integer", "description": "Tab ID to close"}
-            },
-            "required": ["tabId"]
-        }
+        "description": "Close a Chrome tab.",
+        "inputSchema": {"type": "object", "properties": {"tabId": {"type": "integer"}}, "required": ["tabId"]}
     },
     # Computer Use tools
     {
         "name": "sir_computer_screenshot",
-        "description": "Capture the primary Windows desktop screen (returns image data or saves to path)",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "save_path": {"type": "string", "description": "Optional path to save PNG file"}
-            }
-        }
+        "description": "Capture primary desktop screenshot.",
+        "inputSchema": {"type": "object", "properties": {"save_path": {"type": "string"}}}
     },
     {
         "name": "sir_computer_click",
-        "description": "Click mouse at desktop coordinates (x, y) with left, right, or double click",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "x": {"type": "integer", "description": "Screen X coordinate"},
-                "y": {"type": "integer", "description": "Screen Y coordinate"},
-                "button": {"type": "string", "enum": ["left", "right", "middle"], "default": "left"},
-                "clicks": {"type": "integer", "default": 1}
-            }
-        }
+        "description": "Click mouse at desktop coordinates.",
+        "inputSchema": {"type": "object", "properties": {"x": {"type": "integer"}, "y": {"type": "integer"}, "button": {"type": "string"}, "clicks": {"type": "integer"}}}
     },
     {
         "name": "sir_computer_move",
-        "description": "Move the mouse cursor to (x, y)",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "x": {"type": "integer", "description": "Screen X coordinate"},
-                "y": {"type": "integer", "description": "Screen Y coordinate"}
-            },
-            "required": ["x", "y"]
-        }
+        "description": "Move mouse cursor to coordinates.",
+        "inputSchema": {"type": "object", "properties": {"x": {"type": "integer"}, "y": {"type": "integer"}}, "required": ["x", "y"]}
     },
     {
         "name": "sir_computer_drag",
-        "description": "Click and drag mouse from (x1, y1) to (x2, y2)",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "x1": {"type": "integer", "description": "Start X coordinate"},
-                "y1": {"type": "integer", "description": "Start Y coordinate"},
-                "x2": {"type": "integer", "description": "End X coordinate"},
-                "y2": {"type": "integer", "description": "End Y coordinate"},
-                "duration": {"type": "number", "default": 0.2}
-            },
-            "required": ["x1", "y1", "x2", "y2"]
-        }
+        "description": "Drag mouse from (x1, y1) to (x2, y2).",
+        "inputSchema": {"type": "object", "properties": {"x1": {"type": "integer"}, "y1": {"type": "integer"}, "x2": {"type": "integer"}, "y2": {"type": "integer"}}, "required": ["x1", "y1", "x2", "y2"]}
     },
     {
         "name": "sir_computer_scroll",
-        "description": "Scroll mouse wheel vertically or horizontally",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "dx": {"type": "integer", "default": 0},
-                "dy": {"type": "integer", "default": 0},
-                "x": {"type": "integer", "description": "Optional X coordinate to scroll at"},
-                "y": {"type": "integer", "description": "Optional Y coordinate to scroll at"}
-            }
-        }
+        "description": "Scroll desktop mouse wheel.",
+        "inputSchema": {"type": "object", "properties": {"dy": {"type": "integer"}, "dx": {"type": "integer"}}}
     },
     {
         "name": "sir_computer_type",
-        "description": "Type text into the currently active desktop window (supports Unicode & Arabic)",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "text": {"type": "string", "description": "Text to type"}
-            },
-            "required": ["text"]
-        }
+        "description": "Type text into active desktop window.",
+        "inputSchema": {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]}
     },
     {
         "name": "sir_computer_key",
-        "description": "Press a special keyboard key (enter, esc, tab, win, backspace, etc.)",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "key": {"type": "string", "description": "Key name (e.g. enter, esc, win, tab, f5)"}
-            },
-            "required": ["key"]
-        }
+        "description": "Press special keyboard key.",
+        "inputSchema": {"type": "object", "properties": {"key": {"type": "string"}}, "required": ["key"]}
     },
     {
         "name": "sir_computer_hotkey",
-        "description": "Press a keyboard shortcut combination (e.g. ['ctrl', 'c'] or ['win', 'r'])",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "keys": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "description": "List of keys to press together"
-                }
-            },
-            "required": ["keys"]
-        }
+        "description": "Press keyboard shortcut keys.",
+        "inputSchema": {"type": "object", "properties": {"keys": {"type": "array", "items": {"type": "string"}}}, "required": ["keys"]}
     },
     {
         "name": "sir_computer_windows",
-        "description": "List all open desktop application windows with their titles, bounds, and handles",
-        "inputSchema": {
-            "type": "object",
-            "properties": {}
-        }
+        "description": "List open desktop application windows.",
+        "inputSchema": {"type": "object", "properties": {}}
     },
     {
         "name": "sir_computer_focus_window",
-        "description": "Bring a desktop application window to the foreground by title or HWND",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "title_or_hwnd": {"type": "string", "description": "Window title substring or numeric HWND"}
-            },
-            "required": ["title_or_hwnd"]
-        }
+        "description": "Bring application window to foreground.",
+        "inputSchema": {"type": "object", "properties": {"title_or_hwnd": {"type": "string"}}, "required": ["title_or_hwnd"]}
     },
     {
         "name": "sir_computer_open_app",
-        "description": "Launch any Windows desktop application or file",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "target": {"type": "string", "description": "Application command, executable, or file path"}
-            },
-            "required": ["target"]
-        }
+        "description": "Launch desktop application or command.",
+        "inputSchema": {"type": "object", "properties": {"target": {"type": "string"}}, "required": ["target"]}
     },
     {
         "name": "sir_computer_batch",
-        "description": "Execute a batch sequence of computer actions atomically with delays",
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "actions": {
-                    "type": "array",
-                    "items": {"type": "object"},
-                    "description": "List of action objects: [{action: 'click', params: {x: 100, y: 100}}, {action: 'type', params: {text: 'hi'}}]"
-                }
-            },
-            "required": ["actions"]
-        }
+        "description": "Execute batch of computer actions.",
+        "inputSchema": {"type": "object", "properties": {"actions": {"type": "array", "items": {"type": "object"}}}, "required": ["actions"]}
     }
 ]
 

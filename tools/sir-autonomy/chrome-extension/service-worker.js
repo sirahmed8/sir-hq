@@ -1,13 +1,19 @@
-// SIR Autonomy - Background Service Worker
+// SIR Autonomy - Background Service Worker (Hardened Connection Engine)
 const BRIDGE_WS_URL = "ws://127.0.0.1:18991/ws";
+const BRIDGE_HEALTH_URL = "http://127.0.0.1:18991/health";
+const BRIDGE_ASK_URL = "http://127.0.0.1:18991/ask";
+
 let ws = null;
 let reconnectTimer = null;
 let isConnecting = false;
+let isConnected = false;
+let reconnectAttempts = 0;
 
-// Side panel setup
+// Setup side panel behavior
 chrome.runtime.onInstalled.addListener(() => {
   chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch(() => {});
   ensureOffscreen();
+  connectToBridge();
 });
 
 chrome.runtime.onStartup.addListener(() => {
@@ -27,24 +33,9 @@ async function ensureOffscreen() {
       });
     }
   } catch (err) {
-    console.debug("Offscreen setup note:", err);
+    // Already active
   }
 }
-
-// Keepalive listener
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "SW_KEEPALIVE") {
-    sendResponse({ status: "alive", time: Date.now() });
-    return true;
-  }
-  if (message.type === "GET_STATUS") {
-    sendResponse({
-      connected: ws && ws.readyState === WebSocket.OPEN,
-      url: BRIDGE_WS_URL
-    });
-    return true;
-  }
-});
 
 // Broadcast log to sidepanel
 function logEvent(action, details) {
@@ -54,22 +45,54 @@ function logEvent(action, details) {
   }).catch(() => {});
 }
 
+// Health probe before attempting WebSocket
+async function isBridgeHealthy() {
+  try {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), 1200);
+    const res = await fetch(BRIDGE_HEALTH_URL, {
+      method: "GET",
+      signal: controller.signal,
+      cache: "no-store"
+    });
+    clearTimeout(id);
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 // Connect to local bridge daemon
-function connectToBridge() {
+async function connectToBridge() {
   if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
     return;
   }
+  if (isConnecting) return;
   isConnecting = true;
+
+  const healthy = await isBridgeHealthy();
+  if (!healthy) {
+    isConnecting = false;
+    if (isConnected) {
+      isConnected = false;
+      logEvent("STATUS", "Bridge daemon offline on 127.0.0.1:18991");
+    }
+    scheduleReconnect();
+    return;
+  }
 
   try {
     ws = new WebSocket(BRIDGE_WS_URL);
   } catch (e) {
+    isConnecting = false;
     scheduleReconnect();
     return;
   }
 
   ws.onopen = () => {
     isConnecting = false;
+    isConnected = true;
+    reconnectAttempts = 0;
     logEvent("CONNECTED", "Bridge connected at " + BRIDGE_WS_URL);
     ws.send(JSON.stringify({
       type: "register",
@@ -89,10 +112,10 @@ function connectToBridge() {
     const { id, command, params } = msg;
     try {
       const result = await handleCommand(command, params || {});
-      logEvent(command, "OK");
+      logEvent(command.toUpperCase(), "Success");
       ws.send(JSON.stringify({ id, success: true, result }));
     } catch (err) {
-      logEvent(command, "Error: " + err.message);
+      logEvent(command.toUpperCase(), "Error: " + err.message);
       ws.send(JSON.stringify({ id, success: false, error: err.message }));
     }
   };
@@ -100,7 +123,10 @@ function connectToBridge() {
   ws.onclose = () => {
     isConnecting = false;
     ws = null;
-    logEvent("DISCONNECTED", "Reconnecting in 3s...");
+    if (isConnected) {
+      isConnected = false;
+      logEvent("DISCONNECTED", "Connection closed, retrying...");
+    }
     scheduleReconnect();
   };
 
@@ -111,9 +137,12 @@ function connectToBridge() {
 
 function scheduleReconnect() {
   if (reconnectTimer) clearTimeout(reconnectTimer);
+  reconnectAttempts++;
+  // Exponential backoff capped at 8 seconds
+  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 4)), 8000);
   reconnectTimer = setTimeout(() => {
     connectToBridge();
-  }, 3000);
+  }, delay);
 }
 
 // Target tab resolution
@@ -139,6 +168,24 @@ async function ensureEngineInjected(tabId) {
     });
   } catch (err) {
     throw new Error(`Failed to inject DOM engine into tab ${tabId}: ${err.message}`);
+  }
+}
+
+// Extract page text for AI companion
+async function extractPageText(tabId) {
+  try {
+    const [{ result }] = await chrome.scripting.executeScript({
+      target: { tabId },
+      func: () => {
+        const title = document.title || "";
+        const url = window.location.href;
+        const bodyText = document.body ? (document.body.innerText || "") : "";
+        return `Title: ${title}\nURL: ${url}\n\nContent:\n${bodyText.slice(0, 10000)}`;
+      }
+    });
+    return result;
+  } catch (err) {
+    return `Error reading page: ${err.message}`;
   }
 }
 
@@ -250,6 +297,72 @@ async function handleCommand(cmd, params) {
   }
 }
 
-// Initial connect
+// Runtime message listener for Side Panel UI & Keepalive
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "SW_KEEPALIVE") {
+    sendResponse({ status: "alive", time: Date.now() });
+    return true;
+  }
+
+  if (message.type === "GET_STATUS") {
+    sendResponse({
+      connected: ws && ws.readyState === WebSocket.OPEN,
+      url: BRIDGE_WS_URL,
+      reconnecting: isConnecting
+    });
+    return true;
+  }
+
+  if (message.type === "RECONNECT_NOW") {
+    reconnectAttempts = 0;
+    connectToBridge();
+    sendResponse({ status: "initiated" });
+    return true;
+  }
+
+  if (message.type === "GET_PAGE_TEXT") {
+    (async () => {
+      try {
+        const tab = await getTargetTab();
+        const text = await extractPageText(tab.id);
+        sendResponse({ success: true, text, title: tab.title, url: tab.url });
+      } catch (e) {
+        sendResponse({ success: false, error: e.message });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === "RUN_COMMAND") {
+    (async () => {
+      try {
+        const result = await handleCommand(message.command, message.params || {});
+        sendResponse({ success: true, result });
+      } catch (e) {
+        sendResponse({ success: false, error: e.message });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === "ASK_AI") {
+    (async () => {
+      try {
+        const res = await fetch(BRIDGE_ASK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(message.payload)
+        });
+        const data = await res.json();
+        sendResponse(data);
+      } catch (err) {
+        sendResponse({ success: false, error: err.message });
+      }
+    })();
+    return true;
+  }
+});
+
+// Initial startup
 connectToBridge();
 ensureOffscreen();
