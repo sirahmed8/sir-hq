@@ -56,7 +56,9 @@ async function isBridgeHealthy() {
       cache: "no-store"
     }).catch(() => null);
     clearTimeout(id);
-    return Boolean(res && res.ok);
+    if (!res || !res.ok) return false;
+    const data = await res.json().catch(() => null);
+    return Boolean(data && (data.status === "ok" || data.healthy));
   } catch {
     return false;
   }
