@@ -8,6 +8,10 @@ from aiohttp import web
 
 # Ensure local imports work
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w")
 import computer_engine
 
 HOST = "127.0.0.1"

@@ -142,8 +142,13 @@ async function connectToBridge() {
 function scheduleReconnect() {
   if (reconnectTimer) clearTimeout(reconnectTimer);
   reconnectAttempts++;
-  // Exponential backoff capped at 15 seconds when offline
-  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 5)), 15000);
+  // If bridge daemon is offline, stop polling after 3 attempts to avoid extension console errors.
+  // Connection will resume automatically when user opens the side panel (via RECONNECT_NOW).
+  if (reconnectAttempts > 3) {
+    isConnecting = false;
+    return;
+  }
+  const delay = Math.min(2000 * Math.pow(1.5, Math.min(reconnectAttempts, 4)), 10000);
   reconnectTimer = setTimeout(() => {
     connectToBridge();
   }, delay);
