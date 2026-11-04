@@ -74,7 +74,7 @@ async def health_handler(request):
     # Quick probe of Ollama
     ollama_ok = False
     try:
-        req = urllib.request.Request("http://localhost:11434/api/tags", headers={"User-Agent": "SIR-Autonomy"})
+        req = urllib.request.Request("http://127.0.0.1:11434/api/tags", headers={"User-Agent": "SIR-Autonomy"})
         with urllib.request.urlopen(req, timeout=1.0) as resp:
             ollama_ok = resp.status == 200
     except Exception:
@@ -184,7 +184,7 @@ async def ask_handler(request):
     model = body.get("model", "qwen2.5:1.5b")
 
     system_prompt = (
-        "You are Antigravity, an elite autonomous browser and companion assistant created by Sir Ahmed. "
+        "You are SIR Autonomy, an elite autonomous browser and companion assistant created by Sir Ahmed. "
         "You help the user understand pages, extract data, solve problems, and execute browser actions. "
         "Be concise, actionable, and formatted in clean markdown."
     )
@@ -192,7 +192,7 @@ async def ask_handler(request):
     full_prompt = f"{system_prompt}\n\n"
     if page_context:
         full_prompt += f"--- CURRENT WEBPAGE CONTEXT ---\n{page_context[:8000]}\n-------------------------------\n\n"
-    full_prompt += f"User: {prompt}\n\nAntigravity:"
+    full_prompt += f"User: {prompt}\n\nSIR Autonomy:"
 
     # Call local Ollama
     loop = asyncio.get_running_loop()
@@ -203,7 +203,7 @@ async def ask_handler(request):
             "stream": False
         }).encode("utf-8")
         req = urllib.request.Request(
-            "http://localhost:11434/api/generate",
+            "http://127.0.0.1:11434/api/generate",
             data=req_data,
             headers={"Content-Type": "application/json"}
         )
