@@ -34,4 +34,4 @@ SIR Life organiser (T-100 to T-104):
 - RFC 5545 requires a VTIMEZONE definition for custom timezones and folding lines at 75 octets with CRLF followed by a single space.
 
 ## Owes
-- Resubmitting assignment `asg-0mw7bj7nl-82bd87f0` to manager (pm).
+- None. Assignment `asg-0mw7bj7nl-82bd87f0` was closed by pm; stopped work on SIR Life. Awaiting next assignment from manager.
