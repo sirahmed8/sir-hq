@@ -1,22 +1,22 @@
 [
   {
-    "project": "SIR Laptop Manager",
-    "chat": "loop-laptop-0",
-    "state": "running: M2 complete; building T-014 startup inspector, T-015 updates, T-016 power telemetry"
-  },
-  {
-    "project": "SIR Jobs",
-    "chat": "loop-jobs-0",
-    "state": "running: review dashboard server, bilingual client UI (b4b375b), automated pipeline engine"
+    "project": "SIR Study",
+    "chat": "loop-study-0",
+    "state": "completed: Cycle 0 complete, dynamic hero card, LTR queues, 44px mobile touch targets, 8 packs delivered to Telegram, pushed to main"
   },
   {
     "project": "AHome (private)",
     "chat": "ahome-ui-bugs",
-    "state": "running: polishing mobile tab navigation, broadcast banners, and chat composers"
+    "state": "completed: UI bugs fixed, 941 core + 832 web tests pass, privacy audit 904 files clean, commit 21b5e66 pushed to main"
   },
   {
-    "project": "SIR Study",
-    "chat": "batch-2",
-    "state": "queued: DS/SAD/OR delivered to Telegram; ready for Business Admin, HCI, Electronics, Human Rights QA"
+    "project": "SIR Jobs",
+    "chat": "loop-jobs-0",
+    "state": "completed: Cycle 1 complete, sovereign review dashboard (seed #A16207), 45/45 tests pass, doctor, undo engine, pushed to main"
+  },
+  {
+    "project": "SIR Laptop Manager",
+    "chat": "loop-laptop-0",
+    "state": "completed: M3/M4/M5 complete, startup inspector, power telemetry, agent-config sync, bilingual RAG eval, ops UI, pushed to main"
   }
 ]
