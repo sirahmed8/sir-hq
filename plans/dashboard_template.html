@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SIR Control Room</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -38,9 +43,11 @@ summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1
 @media (max-width:900px){ .grid2,.detail,.cols3{grid-template-columns:1fr} .tiles{grid-template-columns:1fr 1fr} .lane{grid-template-columns:1fr} summary{grid-template-columns:18px 1fr 70px} summary .segw,summary .syn,summary .stw{display:none} .detail{padding-left:14px} }
 @media (prefers-reduced-motion:reduce){ .fb{transition:none} html{scroll-behavior:auto} }
 </style>
+</head>
+<body>
 <div class="wrap">
   <header><div><div class="label">HQ for Ahmed Alaa</div><h1>SIR Control Room</h1>
-    <p>Every project, its plan and tasks, what is running, what is waiting for you, and what starts next. HQ keeps it current after each report.</p></div><div class="sub num" id="stamp"></div></header>
+    <p>Every project, its plan and tasks, what is running, what is waiting for you, and what starts next. Claude manages and reviews; Antigravity workers build; AgentsRoom is retired.</p></div><div class="sub num" id="stamp"></div></header>
   <nav aria-label="Sections"><a href="#now">Now</a><a href="#waves">Waves</a><a href="#projects">Projects</a><a href="#platforms">Platforms</a><a href="#accounts">Accounts</a><a href="#workforce">Workforce</a><a href="#activity">Activity</a></nav>
   <section id="now" class="grid2"><div style="display:flex;flex-direction:column;gap:16px"><div class="tiles" id="tiles"></div><div class="panel"><h2>Working now</h2><ul class="list" id="active"></ul><div class="sub" id="nextstart"></div></div></div>
     <div class="panel need"><h2>Needs attention</h2><ul class="list" id="attention"></ul></div></section>
@@ -51,7 +58,11 @@ summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1
     <div><div class="label">Free now</div><p>GitHub, Cloudflare (Wrangler signed in), Firebase. Free pages.dev addresses launch every product. Microsoft Store: individual account is free through storedeveloper.microsoft.com (individual type cannot change later).</p></div>
     <div><div class="label">Payments in Egypt</div><p>Stripe does not support Egypt. Use Paymob (cards, wallets, Meeza) and Fawry (cash points); Kashier is the alternative. Have ready: national ID, tax card, Egyptian bank account. Until keys exist every product shows Launching Soon.</p></div>
     <div><div class="label">Later, from income</div><p>Domain at cost through Cloudflare, Google Play (one-time fee) and Apple Developer (yearly fee): verify prices when buying. Agents prepare listings, screenshots, privacy pages and a pre-filled answers sheet; you do sign-in, ID check and payment.</p></div></div></section>
-  <section id="workforce" class="panel"><h2>Workforce</h2><div class="cols3"><div><div class="label">Claude</div><p>Haiku for search and spec-driven work, Sonnet for design, review and security, Opus when stuck. Chosen by task level.</p></div><div><div class="label">Other AIs</div><p>Antigravity CLI (Gemini), OpenCode, Kilo and local models for drafts and bulk work, always reviewed by a Claude agent.</p></div><div><div class="label">Hands</div><p>Computer use, Chrome and the built-in browser: agents open sites and apps themselves and try another way when blocked.</p></div></div></section>
+  <section id="workforce" class="panel"><h2>Workforce &amp; Work Model</h2><div class="cols3">
+    <div><div class="label">Claude (Manager &amp; Reviewer)</div><p>Claude Sonnet 5.5 High (Claude desktop) orchestrates all waves, dispatches task briefs in <code>ops/briefs/</code>, inspects diffs and test suites before commit, and delivers verified packs to Ahmed's iPhone via Telegram. The author never grades its own work.</p></div>
+    <div><div class="label">Antigravity Chats (Autonomous Workers)</div><p>Antigravity chats (Gemini 3.8 Flash High) execute project tasks autonomously and signal back on completion via <code>scripts/agy-done.py</code>. Fallbacks: OpenCode, Kilo, and local Ollama for private work. AgentsRoom crashed (React #185) and is retired.</p></div>
+    <div><div class="label">Hands &amp; Private Telemetry</div><p>SIR Autonomy (zero-prompt Chrome extension + desktop engine) controls browsers and desktop apps. Telegram bot (@PersonalAI_1Bot) pushes verified deliveries. AHome and Habiba private data strictly never leave local systems.</p></div>
+  </div></section>
   <section id="activity" class="panel"><h2>Latest activity</h2><div class="log" id="log"></div></section>
 </div>
 <script>
@@ -67,7 +78,7 @@ $("#tiles").innerHTML = `<div><span class="label">Tasks done</span><span class="
  <div><span class="label">Projects finished</span><span class="big">${nDone}/${P.length}</span><span class="sub">${nBuild} building now</span></div>
  <div><span class="label">Private repos</span><span class="big">${D.repos.new_private}</span><span class="sub">all on main, no pull requests</span></div>
  <div><span class="label">Old repos archived</span><span class="big">${D.repos.archived}</span><span class="sub">sources kept in legacy/</span></div>`;
-$("#active").innerHTML = D.active.length ? D.active.map((a) => `<li><span class="pill info">Chat</span><span><b>${esc(a.project)}</b><br><span class="sub">${esc(a.state)}</span></span></li>`).join("") : `<li><span class="pill">Idle</span><span class="sub">No project chat is running.</span></li>`;
+$("#active").innerHTML = D.active.length ? D.active.map((a) => `<li><span class="pill info">${esc(a.chat ? a.chat.toUpperCase() : "WORKER")}</span><span><b>${esc(a.project)}</b><br><span class="sub">${esc(a.state)}</span></span></li>`).join("") : `<li><span class="pill">Idle</span><span class="sub">No project chat is running.</span></li>`;
 $("#nextstart").textContent = D.nextStart ? "Starts next after your OK: " + D.nextStart : "";
 $("#attention").innerHTML = D.attention.length ? D.attention.map((a) => `<li><span class="pill ${a.level}">${esc(a.tag)}</span><span>${esc(a.text)}</span></li>`).join("") : `<li><span class="pill ok">Clear</span><span>Nothing needs you.</span></li>`;
 $("#lanes").innerHTML = D.waves.map((w) => `<div class="lane"><div><div class="label">Wave ${w.wave}</div><div style="font-weight:600">${esc(w.name)}</div><div class="bar" style="margin-top:6px"><i style="width:${pct(w.done, w.total)}%"></i></div><span class="sub num">${w.done}/${w.total}</span></div>
@@ -91,3 +102,5 @@ rows();
 $("#plat").innerHTML = `<thead><tr><th>Project</th>${D.platforms.map((p) => `<th>${esc(p.short)}</th>`).join("")}</tr></thead><tbody>${P.filter((p) => p.matrix).map((p) => `<tr><td>${esc(p.name)}</td>${D.platforms.map((pl) => `<td><i class="cell ${p.matrix[pl.key]}" title="${esc(pl.name)}: ${p.matrix[pl.key]}"></i></td>`).join("")}</tr>`).join("")}</tbody>`;
 $("#log").innerHTML = D.log.map((l) => `<div>${esc(l)}</div>`).join("");
 </script>
+</body>
+</html>

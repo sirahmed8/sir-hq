@@ -1,7 +1,32 @@
 [
- {
-  "project": "AHome (private)",
-  "chat": "AHome: first project chat",
-  "state": "running now: Ahmed's latest screen and chat fixes, web review findings, relay, quick capture; lists and report rules sent by HQ"
- }
+  {
+    "project": "SIR Study",
+    "chat": "study-qa",
+    "state": "running: Data Structures urgent pack delivered (exam today 11:30 Cairo); SAD and OR packs QA in progress"
+  },
+  {
+    "project": "SIR Jobs",
+    "chat": "jobs-review",
+    "state": "running: digest automation engine verified (11/11 tests pass); shortlist v3 audit and proposal checks"
+  },
+  {
+    "project": "SIR Life",
+    "chat": "life-review",
+    "state": "running: sanitizeOutbound privacy chokepoint verification, calendar sync, daily brief feeds"
+  },
+  {
+    "project": "SIR Laptop Manager",
+    "chat": "laptop-scan",
+    "state": "just finished: T-003 deep scan complete, 19 Windhawk mods inventoried, plan upgraded, ready for T-004"
+  },
+  {
+    "project": "AHome (private)",
+    "chat": "ahome-ui-bugs",
+    "state": "running: Pass 67 UI polish, cloak mode zero-states, health telemetry, loopback bind verified"
+  },
+  {
+    "project": "HQ Control Room",
+    "chat": "control-room",
+    "state": "running: refreshing portfolio status, active runs, agent queue, and regenerating dashboard.html"
+  }
 ]

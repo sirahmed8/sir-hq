@@ -96,10 +96,12 @@ def attention():
 
 def archived_count():
     try:
-        r = subprocess.run(["gh", "repo", "list", "sirahmed8", "--limit", "100", "--json", "isArchived", "-q", "[.[]|select(.isArchived)]|length"], capture_output=True, text=True, timeout=60)
-        return int(r.stdout.strip())
+        r = subprocess.run(["gh", "repo", "list", "sirahmed8", "--limit", "100", "--json", "isArchived", "-q", "[.[]|select(.isArchived)]|length"], capture_output=True, text=True, timeout=5)
+        if r.returncode == 0 and r.stdout.strip().isdigit():
+            return int(r.stdout.strip())
     except Exception:
-        return 31
+        pass
+    return 31
 
 
 def main():
