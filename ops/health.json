@@ -1,0 +1,167 @@
+{
+  "timestamp": "2026-11-08T04:28:55.200Z",
+  "overallStatus": "GREEN",
+  "manager": {
+    "status": "GREEN",
+    "managerState": {
+      "exists": true,
+      "mtime": "2026-11-08T04:15:15.904Z",
+      "fresh": true
+    },
+    "managerMemory": {
+      "exists": true,
+      "mtime": "2026-11-08T04:16:43.417Z",
+      "fresh": true
+    }
+  },
+  "readLog": {
+    "status": "GREEN",
+    "count": 6,
+    "lastEntry": {
+      "time": "2026-11-08T04:24:22.016Z",
+      "date": "2026-11-08",
+      "tool": "ahome-daemon",
+      "agent": "ahome-worker",
+      "project": "AHome",
+      "filesRead": "AHome/AGENTS.md@2026-11-07",
+      "nextStep": "Initial session / no checkpoint"
+    },
+    "ageDays": "0.0"
+  },
+  "agents": {
+    "status": "GREEN",
+    "totalAgents": 24,
+    "missing": [],
+    "empty": []
+  },
+  "projects": [
+    {
+      "name": "AHome",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-08T03:28:31.891Z",
+      "checkpointAgeDays": "0.0"
+    },
+    {
+      "name": "SIR AI",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.415Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Business",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.392Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Content Creation Studio",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.399Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Controller",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.408Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Hagoozat",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.384Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Jobs",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.437Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Laptop Manager",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.423Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Life",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-08T04:18:52.670Z",
+      "checkpointAgeDays": "0.0"
+    },
+    {
+      "name": "SIR ModPack",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.472Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Mods for GTA V",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.481Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Negm Furniture",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T16:13:34.541Z",
+      "checkpointAgeDays": "5.5"
+    },
+    {
+      "name": "SIR Obour Hub",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.376Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Platform",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.362Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Portfolio",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-02T01:19:13.508Z",
+      "checkpointAgeDays": "6.1"
+    },
+    {
+      "name": "SIR Study",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-08T04:23:41.133Z",
+      "checkpointAgeDays": "0.0"
+    }
+  ]
+}
