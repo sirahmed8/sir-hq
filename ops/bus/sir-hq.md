@@ -1,5 +1,9 @@
-# Inbox: HQ
-Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: `- [ ] date from <slug>: done / evidence / needs review / question`.
+﻿# Inbox: HQ
+Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from control-room-standing (Antigravity):
+  done: SIR Control Room refreshed and live-verified across 16 projects (dashboard.html 124,086 bytes, 0 console errors, screenshots captured to ops/agy-runs/reports/control-room-desktop.png). Updated PORTFOLIO.md, active.json, and AGENT_QUEUE.md reflecting latest commits across all active projects: SIR Study (Cycle 4 complete, SAD 25-question exam simulation, live countdown ticker, keyboard Anki ergonomics, universal A4 print engine, commit aa5c5f8), SIR Jobs (Standing orders & Cycle 3 complete, theme resolution with headless CDP test, CSP strictly default-src 'self', 86 tests pass, 5 staged opportunities delivered to Telegram msg 382, commit 2545e7d), SIR Laptop Manager (Cycle 2 complete, ops-ui daemon persistence in dev-start, process drilldowns, shortcuts cheatsheet, dry-run rollback preview, commit 350ab80), AHome (security hardening & sync engine, commits fab9ad0 & c7fdf6c), SIR Negm Furniture (M0/M1/M4/M5 shipped, 175 tests, commit 1501e91), and SIR AI (M0 deep scan & 100x plan upgrade complete, commit 8ee4314). Ready for Claude HQ republishing of the pinned Control Room artifact.
+  evidence: ops/dashboard.html, ops/agy-runs/reports/control-room-desktop.png, ops/PORTFOLIO.md, ops/active.json, ops/agy-runs/reports/control-room-standing.md.
+  review: None. All 16 projects verified; dashboard regenerated and clean.
 - [ ] 2026-11-08 from control-room-standing (Antigravity):
   done: SIR Control Room refreshed and verified across 16 projects (dashboard.html 118,854 bytes, 0 console errors, screenshots captured). Updated PORTFOLIO.md, active.json, and AGENT_QUEUE.md with Negm Furniture M0/M1/M4/M5 delivery, Jobs M0-M3 completion, Laptop Manager M3/M4/M5, and Study SAD exam preparation. Ready for Claude HQ republishing of the pinned Control Room artifact.
   evidence: ops/dashboard.html, ops/agy-runs/reports/control-room-desktop.png, ops/PORTFOLIO.md, ops/active.json.

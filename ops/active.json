@@ -2,22 +2,22 @@
   {
     "project": "SIR Study",
     "chat": "loop-study-4",
-    "state": "completed: SAD exam countdown active (09/11 11:30 Cairo), PERT chart calculation verified, all 7 study packs delivered to iPhone via @PersonalAI_1Bot (MsgIds 328-353), pushed to main"
+    "state": "completed: Cycle 4 complete - SAD 25-question exam simulation, live countdown ticker (09/11 11:30 Cairo), keyboard Anki ergonomics, universal A4 print engine, commit aa5c5f8 pushed to main"
   },
   {
     "project": "AHome (private)",
-    "chat": "ahome-ui-bugs",
-    "state": "completed: UI bugs fixed, 941 core + 832 web tests pass, privacy audit 904 files clean, dual deploy live (Vercel + Firebase), commit 21b5e66 pushed to main"
+    "chat": "ahome-standing",
+    "state": "completed: security & sync engine - two-way sync for Google Tasks/TickTick/ICS, telegram contact spoof hardening, drop unsafe-eval from CSP, commits fab9ad0 & c7fdf6c pushed to main"
   },
   {
     "project": "SIR Jobs",
-    "chat": "loop-jobs-2",
-    "state": "completed: Cycles 1, 2, 3 complete, sovereign review dashboard (seed #A16207), 55 tests pass, doctor, undo engine, shortlist v3, task scheduler registered, pushed to main"
+    "chat": "jobs-standing",
+    "state": "completed: Standing orders & Cycle 3 complete - theme window resolution, sw v2 Network-First, CSP strictly default-src 'self', 86 tests pass, 5 staged remote opportunities delivered to Telegram (message_id=382), commit 2545e7d pushed to main"
   },
   {
     "project": "SIR Laptop Manager",
-    "chat": "loop-laptop-2",
-    "state": "completed: M3/M4/M5 complete, startup inspector, power telemetry, agent-config sync, bilingual RAG eval, ops UI server on 127.0.0.1:8765, 38 pytest pass, strict mypy 0 errors, pushed to main"
+    "chat": "laptop-standing",
+    "state": "completed: Cycle 2 complete - ops-ui daemon persistence in dev-start, process drilldowns, shortcuts cheatsheet, dry-run rollback preview, commit 350ab80 pushed to main"
   },
   {
     "project": "SIR Negm Furniture",
@@ -27,6 +27,6 @@
   {
     "project": "SIR AI",
     "chat": "control-room-standing",
-    "state": "in-progress: Deep scan of SIR AI and legacy (agentsroom archive + Telegram gateway) and comprehensive plan upgrade (Ahmed's Jarvis: Telegram bot, iOS/Android apps, PC & agent manager, user subscriptions)"
+    "state": "completed: M0 deep scan & plan upgrade complete - forensic audit of legacy (SIR Tele Gateway, AgentsRoom, SIR AI v1, Odysseus isolation), 44 tasks across M0-M6, 5-layer Clean Architecture, commit 8ee4314 pushed to main"
   }
 ]
