@@ -5,6 +5,7 @@
 // It never fails a session: on any error it ends quietly with exit code 0.
 import path from 'node:path';
 import { SIR_ROOT, readInput, readText, resolveContext } from './lib.mjs';
+import { logSessionStart } from './read-log.mjs';
 
 const LIMIT = 9500; // Claude Code caps hook-added context at 10,000 characters
 
@@ -13,6 +14,17 @@ function main() {
   const ctx = resolveContext(input.cwd);
   if (!ctx) return;
   const source = input.source || 'startup';
+
+  try {
+    logSessionStart({
+      tool: 'claude-code',
+      agent: input.agent_id || 'claude',
+      cwd: input.cwd,
+      ctx,
+    });
+  } catch {
+    // logging error must not fail session
+  }
   const parts = [];
 
   parts.push(`## SIR memory reload (${ctx.mode === 'hq' ? 'HQ session' : `project session: ${ctx.name}`}; ${source})`);
