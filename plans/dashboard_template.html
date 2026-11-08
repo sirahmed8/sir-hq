@@ -64,6 +64,7 @@ summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1
   </header>
   <nav aria-label="Sections">
     <a href="#now">Now</a>
+    <a href="#ci-remote">CI &amp; Remote</a>
     <a href="#waves">Waves</a>
     <a href="#projects">Projects</a>
     <a href="#platforms">Platforms</a>
@@ -83,6 +84,18 @@ summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1
     <div class="panel need">
       <h2>Needs attention</h2>
       <ul class="list" id="attention"></ul>
+    </div>
+  </section>
+  <section id="ci-remote" class="grid2">
+    <div class="panel">
+      <h2>GitHub Actions CI Verification</h2>
+      <div class="sub" style="margin-bottom:6px">Linux runner verification across active repositories.</div>
+      <ul class="list" id="ci-list"></ul>
+    </div>
+    <div class="panel">
+      <h2>Tailscale Remote Access (Phone)</h2>
+      <div class="sub" style="margin-bottom:6px">Stable HTTPS tailnet endpoints for Ahmed's iPhone.</div>
+      <ul class="list" id="remote-list"></ul>
     </div>
   </section>
   <section id="waves" style="display:flex;flex-direction:column;gap:12px">
@@ -266,6 +279,19 @@ $("#lanes").addEventListener("click", (e) => {
 rows();
 $("#plat").innerHTML = `<thead><tr><th>Project</th>${D.platforms.map((p) => `<th>${esc(p.short)}</th>`).join("")}</tr></thead><tbody>${P.filter((p) => p.matrix).map((p) => `<tr><td>${esc(p.name)}</td>${D.platforms.map((pl) => `<td><i class="cell ${p.matrix[pl.key]}" title="${esc(pl.name)}: ${p.matrix[pl.key]}"></i></td>`).join("")}</tr>`).join("")}</tbody>`;
 $("#log").innerHTML = D.log.map((l) => `<div>${esc(l)}</div>`).join("");
+
+if (D.ci && $("#ci-list")) {
+  $("#ci-list").innerHTML = D.ci.map((c) => {
+    const isSuccess = c.status === "success";
+    const isFailure = c.status === "failure";
+    const pillClass = isSuccess ? "ok" : isFailure ? "bad" : "mute";
+    const pillIcon = isSuccess ? "✓ PASS" : isFailure ? "✕ FAIL" : "○ NONE";
+    return `<li><span class="pill ${pillClass}">${pillIcon}</span><span><b>${esc(c.name)}</b> <span class="sub num">${esc(c.repo)}</span><br>${c.url ? `<a href="${esc(c.url)}" target="_blank" class="sub" style="color:var(--accent)">Run #${c.id} ↗</a>` : `<span class="sub">No workflow yet</span>`}</span></li>`;
+  }).join("");
+}
+if (D.remote_access && $("#remote-list")) {
+  $("#remote-list").innerHTML = D.remote_access.map((r) => `<li><span class="pill info">:${r.port}</span><span><b>${esc(r.name)}</b> — <span class="sub">${esc(r.desc)}</span><br><a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11px;text-decoration:none">${esc(r.url)} ↗</a></span></li>`).join("");
+}
 </script>
 </body>
 </html>

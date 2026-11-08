@@ -147,3 +147,6 @@
 - 2026-11-08 HQ: five one-per-project standing-order briefs sent; chats report to Ahmed on Telegram themselves.
 - 2026-11-09 nightly: gitleaks findings 1 (count only, not printed); disk free C 14G (94% used), D 11G (96% used); _SIR git status 204 lines; usage-ledger lines today 0.
 - 2026-11-09 HQ: restarted after the power cut, Telegram poller restarted, AHome chat asked to verify services, next wake 02:30.
+- 2026-11-09 HQ: pushed _SIR ops (aed7747), found Jobs CI failing and no workflows elsewhere, queued CI/401/target/button/phone-access tasks in all five chats.
+- 2026-11-09 HQ: smart wake built and tested by real events; round 3 tasks sent to all five chats.
+- 2026-11-09 Control Room (control-ci2): GitHub Actions CI audited across 6 primary repos; verify.yml added to Negm Furniture (run 42535240191 100% green) and sir-hq (run 42535406012 100% green); Jobs CI root cause isolated and fix instructions dispatched; Tailscale remote access deployed with 4 HTTPS background reverse proxies (:3456, :3300, :8765, :8899) with strict AHome privacy isolation; dashboard regenerated to 131KB and verified in Chrome DevTools with 0 console errors; phone access links delivered to Ahmed via Telegram.

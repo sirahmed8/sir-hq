@@ -166,6 +166,44 @@ def archived_count():
     return 31
 
 
+def get_ci_status():
+    repos = [
+        ("AHome", "sirahmed8/ahmed-and-habiba"),
+        ("SIR Negm Furniture", "sirahmed8/sir-negm-furniture"),
+        ("SIR HQ", "sirahmed8/sir-hq"),
+        ("SIR Jobs", "sirahmed8/sir-jobs"),
+        ("SIR Study", "sirahmed8/sir-study"),
+        ("SIR Laptop Manager", "sirahmed8/sir-laptop-manager"),
+    ]
+    ci = []
+    for name, repo in repos:
+        try:
+            r = subprocess.run(
+                ["gh", "run", "list", "-R", repo, "--limit", "1", "--json", "conclusion,status,databaseId,headBranch,name,url"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            if r.returncode == 0 and r.stdout.strip():
+                runs = json.loads(r.stdout.strip())
+                if runs:
+                    latest = runs[0]
+                    ci.append({
+                        "name": name,
+                        "repo": repo,
+                        "status": latest.get("conclusion") or latest.get("status") or "unknown",
+                        "id": latest.get("databaseId"),
+                        "url": latest.get("url")
+                    })
+                else:
+                    ci.append({"name": name, "repo": repo, "status": "none", "id": None, "url": None})
+            else:
+                ci.append({"name": name, "repo": repo, "status": "none", "id": None, "url": None})
+        except Exception:
+            ci.append({"name": name, "repo": repo, "status": "none", "id": None, "url": None})
+    return ci
+
+
 def main():
     projects = []
     for p in PRODUCTS:
@@ -269,6 +307,13 @@ def main():
             archived=archived_count(),
         ),
         platforms=[dict(key=k, name=n, short=SHORT[k]) for k, n in PLATFORM_NAMES],
+        ci=get_ci_status(),
+        remote_access=[
+            {"name": "SIR Jobs", "port": 3456, "url": "https://ahmed.tail9e9aa7.ts.net:3456/", "desc": "Pipeline & Staged Opportunities"},
+            {"name": "SIR Study", "port": 3300, "url": "https://ahmed.tail9e9aa7.ts.net:3300/START_HERE.html", "desc": "SAD Exam Cram & Live Countdown"},
+            {"name": "SIR Laptop Manager", "port": 8765, "url": "https://ahmed.tail9e9aa7.ts.net:8765/", "desc": "Ops UI & Hardware Gauges"},
+            {"name": "SIR Control Room", "port": 8899, "url": "https://ahmed.tail9e9aa7.ts.net:8899/dashboard.html", "desc": "Portfolio Ground Truth"},
+        ],
     )
     tpl = io.open(
         os.path.join(HERE, "dashboard_template.html"), encoding="utf-8"

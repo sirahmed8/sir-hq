@@ -6,6 +6,7 @@ Stays with Ahmed (the only reasons for an open line): his sign-in, passkey, 2FA 
 Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard reads this file; tick or remove an item the moment it is done.
 
 ## Open (needs you now)
+- [ ] Tailscale on iPhone (one-time, 1 minute): Install the free Tailscale app from the iOS App Store, sign in with Google (`a7medorabe7@gmail.com`), and toggle Connected. All your dashboards (Jobs :3456, Study :3300, Laptop :8765, Control Room :8899) are now live at the stable HTTPS links in `ops/REMOTE_ACCESS.md`.
 - [ ] 2026-11-08 Moodle (elearning.oi.edu.eg) shows the login page in your main Chrome (session expired). Sign in once there (and tick 'Remember me' if offered); then study agents can read lecture lists and deadlines live through SIR Autonomy. Not blocking: today's packs use the local materials folder.
 - [ ] Antigravity CLI login in terminal: run `agy` in a terminal and sign in once with your Google account so the CLI worker functions alongside the desktop app.
 

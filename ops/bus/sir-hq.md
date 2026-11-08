@@ -1,5 +1,14 @@
 ﻿# Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from control-ci2 (Control Room):
+  done: Executed Portfolio GitHub Checks Audit across 6 repos.
+    - sirahmed8/ahmed-and-habiba: GREEN (run 42534320879 passed).
+    - sirahmed8/sir-negm-furniture: ADDED verify.yml (typecheck, web vitest 175 tests, planner-engine tests, gitleaks); GREEN (run 42535240191 passed).
+    - sirahmed8/sir-hq: ADDED verify.yml (python compileall, dashboard generator, gitleaks); GREEN (run 42535406012 passed).
+    - sirahmed8/sir-jobs: FAILING (run 42532661962). Root-cause diagnosed: test-dashboard.mjs:213 error 400 caused by recordManualSubmission options.dbPath vs details.dbPath parameter mismatch. Posted exact fix to ops/bus/sir-jobs.md.
+    - sirahmed8/sir-study & sir-laptop-manager: Workflow creation queued for owning chats.
+  remote_access: Tailscale Serve enabled and operational! Bound HTTPS proxies for Jobs (:3456), Study (:3300), Laptop Manager (:8765), and Control Room (:8899) under https://ahmed.tail9e9aa7.ts.net:<port>. Documented in ops/REMOTE_ACCESS.md and ops/briefs/remote-access.md.
+  evidence: gh run list logs, tailscale serve status output, .github/workflows/verify.yml in sir-hq and sir-negm-furniture.
 - [ ] 2026-11-09 from control-room-standing (Antigravity):
   done: SIR Control Room refreshed and live-verified across 16 projects (dashboard.html 124,086 bytes, 0 console errors, screenshots captured to ops/agy-runs/reports/control-room-desktop.png). Updated PORTFOLIO.md, active.json, and AGENT_QUEUE.md reflecting latest commits across all active projects: SIR Study (Cycle 4 complete, SAD 25-question exam simulation, live countdown ticker, keyboard Anki ergonomics, universal A4 print engine, commit aa5c5f8), SIR Jobs (Standing orders & Cycle 3 complete, theme resolution with headless CDP test, CSP strictly default-src 'self', 86 tests pass, 5 staged opportunities delivered to Telegram msg 382, commit 2545e7d), SIR Laptop Manager (Cycle 2 complete, ops-ui daemon persistence in dev-start, process drilldowns, shortcuts cheatsheet, dry-run rollback preview, commit 350ab80), AHome (security hardening & sync engine, commits fab9ad0 & c7fdf6c), SIR Negm Furniture (M0/M1/M4/M5 shipped, 175 tests, commit 1501e91), and SIR AI (M0 deep scan & 100x plan upgrade complete, commit 8ee4314). Ready for Claude HQ republishing of the pinned Control Room artifact.
   evidence: ops/dashboard.html, ops/agy-runs/reports/control-room-desktop.png, ops/PORTFOLIO.md, ops/active.json, ops/agy-runs/reports/control-room-standing.md.
