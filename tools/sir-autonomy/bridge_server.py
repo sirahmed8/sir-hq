@@ -24,6 +24,7 @@ PORT = 18991
 connected_extensions = set()
 pending_requests = {}
 
+
 @web.middleware
 async def cors_middleware(request, handler):
     if request.method == "OPTIONS":
@@ -34,12 +35,17 @@ async def cors_middleware(request, handler):
         except web.HTTPException as ex:
             response = ex
         except Exception as e:
-            response = web.json_response({"success": False, "error": str(e)}, status=500)
+            response = web.json_response(
+                {"success": False, "error": str(e)}, status=500
+            )
 
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With"
+    response.headers["Access-Control-Allow-Headers"] = (
+        "Content-Type, Authorization, X-Requested-With"
+    )
     return response
+
 
 async def websocket_handler(request):
     ws = web.WebSocketResponse(max_msg_size=32 * 1024 * 1024, heartbeat=20.0)
@@ -61,7 +67,9 @@ async def websocket_handler(request):
                     if not fut.done():
                         fut.set_result(data)
                 elif data.get("type") == "register":
-                    print(f"[Bridge] Registered client: {data.get('client')} v{data.get('version')}")
+                    print(
+                        f"[Bridge] Registered client: {data.get('client')} v{data.get('version')}"
+                    )
             elif msg.type == web.WSMsgType.ERROR:
                 print(f"[Bridge] WebSocket connection error: {ws.exception()}")
     finally:
@@ -70,28 +78,36 @@ async def websocket_handler(request):
 
     return ws
 
+
 async def health_handler(request):
     # Quick probe of Ollama
     ollama_ok = False
     try:
-        req = urllib.request.Request("http://127.0.0.1:11434/api/tags", headers={"User-Agent": "SIR-Autonomy"})
+        req = urllib.request.Request(
+            "http://127.0.0.1:11434/api/tags", headers={"User-Agent": "SIR-Autonomy"}
+        )
         with urllib.request.urlopen(req, timeout=1.0) as resp:
             ollama_ok = resp.status == 200
     except Exception:
         pass
 
-    return web.json_response({
-        "status": "ok",
-        "service": "sir-autonomy-bridge",
-        "port": PORT,
-        "extension_connected": len(connected_extensions) > 0,
-        "connected_clients": len(connected_extensions),
-        "ollama_available": ollama_ok
-    })
+    return web.json_response(
+        {
+            "status": "ok",
+            "service": "sir-autonomy-bridge",
+            "port": PORT,
+            "extension_connected": len(connected_extensions) > 0,
+            "connected_clients": len(connected_extensions),
+            "ollama_available": ollama_ok,
+        }
+    )
+
 
 async def dispatch_browser_cmd(cmd, params, timeout=15.0):
     if not connected_extensions:
-        raise RuntimeError("No Chrome extension connected. Please load the SIR Autonomy extension in Chrome.")
+        raise RuntimeError(
+            "No Chrome extension connected. Please load the SIR Autonomy extension in Chrome."
+        )
 
     req_id = str(uuid.uuid4())
     loop = asyncio.get_running_loop()
@@ -109,11 +125,14 @@ async def dispatch_browser_cmd(cmd, params, timeout=15.0):
     finally:
         pending_requests.pop(req_id, None)
 
+
 async def browser_handler(request):
     try:
         body = await request.json()
     except Exception as e:
-        return web.json_response({"success": False, "error": f"Invalid JSON: {e}"}, status=400)
+        return web.json_response(
+            {"success": False, "error": f"Invalid JSON: {e}"}, status=400
+        )
 
     cmd = body.get("command")
     params = body.get("params", {})
@@ -123,12 +142,16 @@ async def browser_handler(request):
         resp = await dispatch_browser_cmd(cmd, params, timeout)
         return web.json_response(resp)
     except asyncio.TimeoutError:
-        return web.json_response({
-            "success": False,
-            "error": f"Timed out waiting for response from extension ({timeout}s)"
-        }, status=504)
+        return web.json_response(
+            {
+                "success": False,
+                "error": f"Timed out waiting for response from extension ({timeout}s)",
+            },
+            status=504,
+        )
     except Exception as e:
         return web.json_response({"success": False, "error": str(e)}, status=500)
+
 
 async def execute_computer_action(action, params):
     if action == "screenshot":
@@ -158,11 +181,14 @@ async def execute_computer_action(action, params):
     else:
         raise ValueError(f"Unknown action: {action}")
 
+
 async def computer_handler(request):
     try:
         body = await request.json()
     except Exception as e:
-        return web.json_response({"success": False, "error": f"Invalid JSON: {e}"}, status=400)
+        return web.json_response(
+            {"success": False, "error": f"Invalid JSON: {e}"}, status=400
+        )
 
     action = body.get("action")
     params = body.get("params", {})
@@ -173,11 +199,14 @@ async def computer_handler(request):
     except Exception as e:
         return web.json_response({"success": False, "error": str(e)}, status=500)
 
+
 async def ask_handler(request):
     try:
         body = await request.json()
     except Exception as e:
-        return web.json_response({"success": False, "error": f"Invalid JSON: {e}"}, status=400)
+        return web.json_response(
+            {"success": False, "error": f"Invalid JSON: {e}"}, status=400
+        )
 
     prompt = body.get("prompt", "")
     page_context = body.get("page_context", "")
@@ -196,16 +225,15 @@ async def ask_handler(request):
 
     # Call local Ollama
     loop = asyncio.get_running_loop()
+
     def query_ollama():
-        req_data = json.dumps({
-            "model": model,
-            "prompt": full_prompt,
-            "stream": False
-        }).encode("utf-8")
+        req_data = json.dumps(
+            {"model": model, "prompt": full_prompt, "stream": False}
+        ).encode("utf-8")
         req = urllib.request.Request(
             "http://127.0.0.1:11434/api/generate",
             data=req_data,
-            headers={"Content-Type": "application/json"}
+            headers={"Content-Type": "application/json"},
         )
         with urllib.request.urlopen(req, timeout=30.0) as resp:
             return json.loads(resp.read().decode("utf-8"))
@@ -215,11 +243,15 @@ async def ask_handler(request):
         answer = res.get("response", "").strip()
         return web.json_response({"success": True, "answer": answer, "model": model})
     except Exception as err:
-        return web.json_response({
-            "success": False,
-            "error": f"Ollama error: {err}",
-            "fallback": "Could not connect to local model. Please ensure Ollama is running."
-        }, status=502)
+        return web.json_response(
+            {
+                "success": False,
+                "error": f"Ollama error: {err}",
+                "fallback": "Could not connect to local model. Please ensure Ollama is running.",
+            },
+            status=502,
+        )
+
 
 async def synthesize_handler(request):
     try:
@@ -230,6 +262,7 @@ async def synthesize_handler(request):
             return web.json_response({"error": "Text is required"}, status=400)
 
         import edge_tts
+
         comm = edge_tts.Communicate(text, voice)
         chunks = []
         async for chunk in comm.stream():
@@ -242,11 +275,12 @@ async def synthesize_handler(request):
             content_type="audio/mpeg",
             headers={
                 "Cache-Control": "public, max-age=86400",
-                "Access-Control-Allow-Origin": "*"
-            }
+                "Access-Control-Allow-Origin": "*",
+            },
         )
     except Exception as err:
         return web.json_response({"error": str(err)}, status=500)
+
 
 def create_app():
     app = web.Application(middlewares=[cors_middleware])
@@ -258,11 +292,19 @@ def create_app():
     app.router.add_post("/synthesize", synthesize_handler)
     return app
 
+
 if __name__ == "__main__":
     try:
         app = create_app()
-        web.run_app(app, host=HOST, port=PORT, access_log=None, print=lambda *args: None)
+        web.run_app(
+            app, host=HOST, port=PORT, access_log=None, print=lambda *args: None
+        )
     except Exception as e:
-        with open(os.path.join(os.path.dirname(__file__), "bridge_crash.log"), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), "bridge_crash.log"),
+            "w",
+            encoding="utf-8",
+        ) as f:
             import traceback
+
             traceback.print_exc(file=f)

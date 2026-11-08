@@ -1,0 +1,67 @@
+# Antigravity accounts and usage (labels only, never passwords or tokens)
+Updated 2026-11-08 07:58 by pm. Source: Ahmed's orders (4 Antigravity Pro accounts, about 15 free ones), `plans/MANAGER_BRIEF_2026-11-08.md` section 5, `plans/AGENTSROOM_SETUP.md`.
+
+## Accounts (labels from earlier notes; verify in Antigravity Settings > Models)
+| Label | Tier | Use |
+|---|---|---|
+| a7medorabe7 | Pro | default account on this PC |
+| ahmedalaa2006.7.6 | Pro | switch target |
+| 1sir1ahmed1 | Pro | switch target |
+| a01083835229 | Pro (paid, has Claude models) | design, review, security, hard debugging only |
+| about 15 free accounts | Free | overflow for small tasks; labels not recorded yet: add them when seen |
+
+## Rules
+- Switch only at 85 percent of the 5 h meter or 90 percent weekly. Each agent that runs long gets its own login folder when the CLI allows it; otherwise switch the account in the Antigravity app by computer use (SIR Autonomy bridge or desktop engine). Never type a password, 2FA code or solve a CAPTCHA: those go to `OWNER_ACTIONS.md`.
+- AgentsRoom quota rule `qr-1794116165046-ld9wg3` moves running agents to OpenCode when any Antigravity gauge reaches 95 percent (Ahmed: if all agy accounts are used, go to OpenCode or Kilo). Kilo is the second fallback.
+- AgentsRoom `usage_overview` shows Antigravity as `http_error` (no gauge) on 2026-11-08: read the meter from Antigravity Settings > Models by computer use instead.
+- Claude (pm) showed `rate_limited` at 07:40 local; the Gemini manager `manager-gemini` takes over via the 30-minute watch trigger.
+
+## Readings (add a row each time)
+| Time | Account | 5 h meter | Weekly | Note |
+|---|---|---|---|---|
+| 2026-11-08 07:58 | default (system) | not readable (http_error) | not readable | needs a computer-use read of Settings > Models |
+
+## Read from the app 2026-11-08 08:52 (EST, shell clock)
+
+Source: Antigravity Settings (Account, Models & Usage, General). Read only, nothing signed out or switched.
+
+### Accounts
+- Account 1 (active): email shown as "1sir1ahmed1@gmail.com" (display name "Sir Ahmed"). Plan: "Google AI Pro". Upgrade button shown (Google AI Ultra offered; not clicked).
+- No other signed-in account is listed in Settings. Only one account was visible.
+
+### Usage (Models & Usage page, as shown)
+- Gemini models: Weekly limit remaining 95% ("fully refresh in 6 days, 23 hours"). Five-hour limit remaining 81% ("fully refresh in 4 hours, 27 minutes").
+- Claude and GPT models: Weekly limit remaining 100%. Five-hour limit remaining 100%.
+- Model Credits: "Enable AI Credit Overages" toggle is OFF. Left OFF (no purchase or overage enabled).
+
+### Switching accounts
+- No account switcher is shown in Settings. The Account page has only "Sign Out" next to the email.
+- Switching would mean Sign Out, then signing in to the other Google account. That needs the owner's password or 2FA, so it needs the owner. Not done.
+
+## Permissions
+
+Settings > General (read only, nothing changed in this run):
+- Permission Preset: "Turbo" (before: Turbo, after: Turbo, unchanged).
+- Tool Permissions: "Open" button, 118 entries (Modify permissions for file, terminal and MCP tools). Not opened: the click failed twice (user interrupt). Before: not read in detail. After: unchanged.
+- Network Access Rules: "Open" button, 25 entries (allowed and denied URLs for reading). Not opened. After: unchanged.
+- Plan Review Policy: "Always Proceed" (unchanged).
+- Queued Messages: "Queue" selected (unchanged).
+
+Result: no permission was changed. The Tool Permissions page (browser, terminal, file, JavaScript, allowlist) was not reached because two clicks were aborted by user interrupt. Owner or the next operator run should open Tool Permissions and set the per-tool options to always allow for this app.
+
+## Read 2026-11-08 (operator run)
+- Gemini 5-hour quota: BLOCKED. Chat "Laptop Scan Prompt Execution" shows "Individual quota reached. Resets in 4h25m28s." (error banner, Retry button).
+- Weekly % left and reset time: not readable. Settings and the model-chip menu did not open on two clicks each (Antigravity UI did not respond to the clicks).
+- Part B skipped: quota block message present, so no continue lines were sent and the duplicate chat was not deleted.
+
+## Google accounts in Chrome
+- Ahmed Alaa <a7medorabe7@gmail.com>
+- Sir Ahmed <1sir1ahmed1@gmail.com>
+- Ahmed Alaa <ahmedalaa2006.7.6@gmail.com>
+- mashoyatal3abed@gmail.com
+- Ahmed Alaa <a01083835229@gmail.com>
+- Habiba Gamal <habiba.2011.gsht@gmail.com>
+- Rasha Alaa <rashaalasy40807@gmail.com>
+- Rasha <rashakhalay87@gmail.com>
+- Rasha <rashakhalasi@gmail.com>
+- Ibrahim Hamdy <ih9568719@gmail.com>

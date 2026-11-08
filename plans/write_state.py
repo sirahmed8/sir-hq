@@ -30,12 +30,15 @@ io.open(SIR + "/NEXT.md", "w", encoding="utf-8", newline="\n").write(s)
 
 p = SIR + "/ops/HQ_CHECKPOINT.md"
 c = io.open(p, encoding="utf-8").read()
-add = ("**00000. 2026-10-30 FINAL MERGE STATE: read NEXT.md ('State of the folders'). All old projects are inside their new SIR product as legacy/; AHome is separate and keeps its name; "
-       "Quarantine, START_HERE copy and mission zip are inside Projects/_SIR; Android and Backups were moved by Ahmed into D:/Projects (env vars and docs repointed). "
-       "Exact next steps: (1) agents: key rotation in Chrome, fix failing Actions, github-organize after Ahmed runs merge-approved-prs.ps1; (2) SIR Platform M0; (3) per plans/TIMELINE.md. "
-       "Open: icons are letters until Ahmed runs generate-icons-agy.ps1; empty Laptop manager shell. Re-read: NEXT.md, plans/MASTER_REBUILD_PLAN.md, plans/AGENT_PROTOCOL.md, plans/PROGRESS.md.**\n")
+add = (
+    "**00000. 2026-10-30 FINAL MERGE STATE: read NEXT.md ('State of the folders'). All old projects are inside their new SIR product as legacy/; AHome is separate and keeps its name; "
+    "Quarantine, START_HERE copy and mission zip are inside Projects/_SIR; Android and Backups were moved by Ahmed into D:/Projects (env vars and docs repointed). "
+    "Exact next steps: (1) agents: key rotation in Chrome, fix failing Actions, github-organize after Ahmed runs merge-approved-prs.ps1; (2) SIR Platform M0; (3) per plans/TIMELINE.md. "
+    "Open: icons are letters until Ahmed runs generate-icons-agy.ps1; empty Laptop manager shell. Re-read: NEXT.md, plans/MASTER_REBUILD_PLAN.md, plans/AGENT_PROTOCOL.md, plans/PROGRESS.md.**\n"
+)
 c = c.replace("## Next step\n", "## Next step\n" + add, 1)
 io.open(p, "w", encoding="utf-8", newline="\n").write(c)
 io.open(SIR + "/ops/MISSION_LOG.md", "a", encoding="utf-8", newline="\n").write(
-    "- 2026-10-30 late · HQ · Final merge pass: Laptop manager (+.git) into SIR Laptop Manager, SIR AI v1 + SIR Tele Gateway into SIR AI/legacy, AHome restored to its own folder (not a SIR product) with daemons repointed and verified, SIR Home plan folder retired, D:/Quarantine, START_HERE copy and mission zip moved into Projects/_SIR, Android SDK variables and doc paths repointed after Ahmed moved D:/Android and D:/Backups into D:/Projects. Used who-holds.ps1 to find what locks folders (Claude Desktop git helpers and tool servers of an open chat).\n")
+    "- 2026-10-30 late · HQ · Final merge pass: Laptop manager (+.git) into SIR Laptop Manager, SIR AI v1 + SIR Tele Gateway into SIR AI/legacy, AHome restored to its own folder (not a SIR product) with daemons repointed and verified, SIR Home plan folder retired, D:/Quarantine, START_HERE copy and mission zip moved into Projects/_SIR, Android SDK variables and doc paths repointed after Ahmed moved D:/Android and D:/Backups into D:/Projects. Used who-holds.ps1 to find what locks folders (Claude Desktop git helpers and tool servers of an open chat).\n"
+)
 print("state written")

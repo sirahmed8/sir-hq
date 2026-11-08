@@ -1,6 +1,7 @@
 r"""One-shot sync of the docs that must agree with each other after the 2026-10-30 reorganization.
 Run: python D:/Projects/_SIR/plans/sync_docs.py   (idempotent)
 """
+
 import io
 import os
 import re
@@ -29,7 +30,11 @@ Still at the top level for a reason: `AHome` (its daemons run), `Laptop manager`
 """
 t = t[:start] + portfolio + t[end:]
 if "Create nothing outside" not in t:
-    t = t.replace("- No budget:", "- Keep everything inside `D:\\Projects`. Quarantine goes in `<project>\\_quarantine\\` (gitignored), never in a new top-level folder. Icons: every product has a unique icon (agy-generated logo when available) on its folder in `D:\\Projects` and its Desktop folder.\n- No budget:", 1)
+    t = t.replace(
+        "- No budget:",
+        "- Keep everything inside `D:\\Projects`. Quarantine goes in `<project>\\_quarantine\\` (gitignored), never in a new top-level folder. Icons: every product has a unique icon (agy-generated logo when available) on its folder in `D:\\Projects` and its Desktop folder.\n- No budget:",
+        1,
+    )
 wr(WS, t)
 wr(SIR + "/core/workspace-AGENTS.md", t)
 
@@ -41,7 +46,10 @@ for root, _, files in os.walk(SIR):
         if f.endswith(".md"):
             p = os.path.join(root, f)
             x = rd(p)
-            y = x.replace("D:\\Quarantine\\<date>\\", "`<project>\\_quarantine\\<date>\\` (inside D:\\Projects)")
+            y = x.replace(
+                "D:\\Quarantine\\<date>\\",
+                "`<project>\\_quarantine\\<date>\\` (inside D:\\Projects)",
+            )
             if y != x:
                 wr(p, y)
 
@@ -58,7 +66,9 @@ if "AGENT_PROTOCOL" not in s:
 # 4. REQUIREMENTS: new rows
 r = rd(SIR + "/REQUIREMENTS.md")
 if "R-100" not in r:
-    r = r.rstrip("\n") + r"""
+    r = (
+        r.rstrip("\n")
+        + r"""
 | R-100 | Rebuild every product from the start as a new SIR-named project with its own Firebase and Cloudflare project; old projects may stop working | `plans/MASTER_REBUILD_PLAN.md` | 🔄 | 17 plans + 17 folders created 2026-10-30; no product built yet |
 | R-101 | Merge same-idea projects into one folder (old code, git history and structure moved into `legacy\`) so one AI can finish the product; move `legacy\*` to `old projects\` at M6 | `scripts/merge-legacy.ps1`, plans section 0 | 🔄 | 13 old folders merged; SIR Optimizer and Obour Academic Hub locked (re-run script) |
 | R-102 | Every plan, prompt and start file lets any AI know what is done, next and how to work | `plans/AGENT_PROTOCOL.md`, `.sir/PLAN.md`, NEXT.md | 🔄 | generated from `plans/products_*.py` |
@@ -70,18 +80,25 @@ if "R-100" not in r:
 | R-108 | Organize GitHub repos: new private SIR repos, archive (never delete) old ones after the PRs merge | `scripts/github-organize.ps1` | 🔄 | 10 new repos created; archive step waits for the merges |
 | R-109 | Nothing created outside D:\Projects | `D:\Projects\AGENTS.md` law | ✅ | quarantine moved into SIR Study |
 """
+    )
     wr(SIR + "/REQUIREMENTS.md", r)
 
 # 5. product prompts mention the merge
 from_plans = os.path.join(SIR, "plans")
 import sys
+
 sys.path.insert(0, from_plans)
 from generate_plans import MERGE  # noqa: E402
 from products import PRODUCTS  # noqa: E402
+
 for p in PRODUCTS:
     f = os.path.join("D:/Projects", p["folder"], "prompts", "PRODUCT_PROMPT.md")
     if p["slug"] in MERGE and os.path.isfile(f):
         t = rd(f)
         if "MERGE PROJECT" not in t:
-            wr(f, t + "\nMERGE PROJECT: the old projects are inside `legacy/` (or `materials/`). Port everything of value into a clean new structure, fully configured, deployed and pushed in production mode, then move `legacy/*` to `D:/Projects/old projects/`. See `.sir/PLAN.md` section 0.\n")
+            wr(
+                f,
+                t
+                + "\nMERGE PROJECT: the old projects are inside `legacy/` (or `materials/`). Port everything of value into a clean new structure, fully configured, deployed and pushed in production mode, then move `legacy/*` to `D:/Projects/old projects/`. See `.sir/PLAN.md` section 0.\n",
+            )
 print("docs synced")

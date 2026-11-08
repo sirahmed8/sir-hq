@@ -19,3 +19,14 @@ tools/sir-autonomy/.venv/
 tools/sir-autonomy/*.png
 tools/sir-autonomy/*.log
 !tools/sir-autonomy/chrome-extension/icons/*.png
+ops/agy-runs/*.png
+ops/agy-runs/done/
+ops/agy-runs/operator.done
+ops/agy-runs/expected.txt
+ops/agy-runs/smoke.txt
+ops/agy-runs/model-probe.txt
+ops/telegram-offset.txt
+ops/briefs/*.prompt.txt
+ops/agy-runs/reports/*.png
+tools/sir-autonomy/.venv/
+tools/sir-autonomy/__pycache__/

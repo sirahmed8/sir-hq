@@ -8,6 +8,7 @@ Stage agy-history: MOVE Antigravity conversations and brain; needs Antigravity c
 
 Usage: python agent-reset.py config | codex-history | agy-history
 """
+
 import os, shutil, sys, datetime, subprocess
 
 HOME = os.path.expanduser("~")
@@ -77,12 +78,27 @@ def move(src, rel):
 def codex_history():
     busy = subprocess.run(["tasklist"], capture_output=True, text=True).stdout.lower()
     if "codex.exe" in busy:
-        say("Codex is running: close it first"); return
+        say("Codex is running: close it first")
+        return
     base = os.path.join(HOME, ".codex")
-    for name in ("sessions", "archived_sessions", "session_index.jsonl", "dictation-history", "transcription-history.jsonl"):
+    for name in (
+        "sessions",
+        "archived_sessions",
+        "session_index.jsonl",
+        "dictation-history",
+        "transcription-history.jsonl",
+    ):
         move(os.path.join(base, name), os.path.join("codex", name))
     for name in os.listdir(base):
-        if name.startswith(("state_5.sqlite", "thread_history_1.sqlite", "logs_2.sqlite", "goals_1.sqlite", "queue_1.sqlite")):
+        if name.startswith(
+            (
+                "state_5.sqlite",
+                "thread_history_1.sqlite",
+                "logs_2.sqlite",
+                "goals_1.sqlite",
+                "queue_1.sqlite",
+            )
+        ):
             move(os.path.join(base, name), os.path.join("codex", "db", name))
     os.makedirs(os.path.join(base, "sessions"), exist_ok=True)
 
@@ -90,15 +106,30 @@ def codex_history():
 def agy_history():
     busy = subprocess.run(["tasklist"], capture_output=True, text=True).stdout.lower()
     if "antigravity.exe" in busy:
-        say("Antigravity is running: close it first"); return
+        say("Antigravity is running: close it first")
+        return
     base = os.path.join(HOME, ".gemini", "antigravity")
-    need = sum(os.path.getsize(os.path.join(r, f)) for d in ("conversations", "brain", "annotations")
-               for r, _, fs in os.walk(os.path.join(base, d)) for f in fs)
+    need = sum(
+        os.path.getsize(os.path.join(r, f))
+        for d in ("conversations", "brain", "annotations")
+        for r, _, fs in os.walk(os.path.join(base, d))
+        for f in fs
+    )
     free = shutil.disk_usage("D:\\").free
     if free < need + 1.5 * 2**30:
-        say(f"not enough space on D: need {need/2**30:.1f} GB + 1.5 GB reserve, free {free/2**30:.1f} GB"); return
-    for name in ("conversations", "brain", "annotations", "conversation_summaries.db", "conversation_summaries.db-shm",
-                 "conversation_summaries.db-wal", "agyhub_summaries_proto.pb"):
+        say(
+            f"not enough space on D: need {need / 2**30:.1f} GB + 1.5 GB reserve, free {free / 2**30:.1f} GB"
+        )
+        return
+    for name in (
+        "conversations",
+        "brain",
+        "annotations",
+        "conversation_summaries.db",
+        "conversation_summaries.db-shm",
+        "conversation_summaries.db-wal",
+        "agyhub_summaries_proto.pb",
+    ):
         move(os.path.join(base, name), os.path.join("antigravity", name))
     for name in ("conversations", "brain", "annotations"):
         os.makedirs(os.path.join(base, name), exist_ok=True)
@@ -106,4 +137,6 @@ def agy_history():
 
 if __name__ == "__main__":
     stage = sys.argv[1] if len(sys.argv) > 1 else ""
-    {"config": config, "codex-history": codex_history, "agy-history": agy_history}.get(stage, lambda: say(__doc__))()
+    {"config": config, "codex-history": codex_history, "agy-history": agy_history}.get(
+        stage, lambda: say(__doc__)
+    )()

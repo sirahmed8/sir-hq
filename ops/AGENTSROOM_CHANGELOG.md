@@ -12,3 +12,4 @@ Log of system infrastructure, memory tooling, scheduled tasks, and agent configu
 - **M2 Read Log System**: `_SIR/scripts/memory/read-log.mjs` (auto-hooked to `session-start.mjs`, --verify).
 - **M3 Agent Roster Profiles**: `_SIR/scripts/memory/sync-agent-profiles.mjs` and `agent-note.mjs`.
 - **M4 Structure Integrity Check**: `_SIR/scripts/memory/structure-check.mjs`.
+- 2026-11-08 HQ: removed HKCU Run entry com.agentsroom.desktop (value was the AgentsRoom.exe path) and set launchAtLogin false; AgentsRoom retired, archive in SIR AI/legacy/agentsroom.

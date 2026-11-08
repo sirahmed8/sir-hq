@@ -7,6 +7,7 @@ sys.path.insert(0, BASE_DIR)
 import mcp_server
 import computer_engine
 
+
 def print_help():
     print("""
 SIR Autonomy CLI (Browser & Computer Control)
@@ -36,6 +37,7 @@ Usage:
   sir_ctl.py computer open <target>
 """)
 
+
 def main():
     if len(sys.argv) < 3:
         print_help()
@@ -49,24 +51,34 @@ def main():
         if cmd == "tabs":
             res = mcp_server.call_bridge_browser("tabs_list", {})
         elif cmd in ("open", "tab_new"):
-            res = mcp_server.call_bridge_browser("tab_new", {"url": args[0] if args else "about:blank"})
+            res = mcp_server.call_bridge_browser(
+                "tab_new", {"url": args[0] if args else "about:blank"}
+            )
         elif cmd == "navigate":
             tab_id = int(args[1]) if len(args) > 1 else None
-            res = mcp_server.call_bridge_browser("navigate", {"url": args[0], "tabId": tab_id})
+            res = mcp_server.call_bridge_browser(
+                "navigate", {"url": args[0], "tabId": tab_id}
+            )
         elif cmd == "snapshot":
             tab_id = int(args[0]) if args else None
             res = mcp_server.call_bridge_browser("snapshot", {"tabId": tab_id})
         elif cmd == "click":
             tab_id = int(args[1]) if len(args) > 1 else None
-            res = mcp_server.call_bridge_browser("click", {"target": args[0], "tabId": tab_id})
+            res = mcp_server.call_bridge_browser(
+                "click", {"target": args[0], "tabId": tab_id}
+            )
         elif cmd == "fill":
             tab_id = int(args[2]) if len(args) > 2 else None
-            res = mcp_server.call_bridge_browser("fill", {"target": args[0], "value": args[1], "tabId": tab_id})
+            res = mcp_server.call_bridge_browser(
+                "fill", {"target": args[0], "value": args[1], "tabId": tab_id}
+            )
         elif cmd == "scroll":
             target = args[0] if len(args) > 0 else "window"
             dx = int(args[1]) if len(args) > 1 else 0
             dy = int(args[2]) if len(args) > 2 else 300
-            res = mcp_server.call_bridge_browser("scroll", {"target": target, "dx": dx, "dy": dy})
+            res = mcp_server.call_bridge_browser(
+                "scroll", {"target": target, "dx": dx, "dy": dy}
+            )
         elif cmd == "eval":
             res = mcp_server.call_bridge_browser("eval", {"expression": args[0]})
         elif cmd == "screenshot":
@@ -93,7 +105,9 @@ def main():
         elif cmd == "move":
             res = computer_engine.move_mouse(int(args[0]), int(args[1]))
         elif cmd == "drag":
-            res = computer_engine.drag_mouse(int(args[0]), int(args[1]), int(args[2]), int(args[3]))
+            res = computer_engine.drag_mouse(
+                int(args[0]), int(args[1]), int(args[2]), int(args[3])
+            )
         elif cmd == "scroll":
             dy = int(args[0])
             dx = int(args[1]) if len(args) > 1 else 0
@@ -117,6 +131,7 @@ def main():
         print(json.dumps(res, indent=2, ensure_ascii=False))
     else:
         print_help()
+
 
 if __name__ == "__main__":
     main()

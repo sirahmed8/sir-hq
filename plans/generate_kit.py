@@ -1,5 +1,6 @@
 """Writes the per-project readiness kit into every project folder (idempotent; never touches CHECKPOINT.md, PLAN.md or legacy/).
 Run: python D:/Projects/_SIR/plans/generate_kit.py   (after generate_plans.py)"""
+
 import io
 import json
 import os
@@ -17,13 +18,26 @@ import kit_render as R  # noqa: E402
 ROOT = "D:/Projects"
 DATA = {**A, **B}
 import kit_overrides  # noqa: E402
+
 kit_overrides.apply(DATA)
 BRAND = json.load(io.open(os.path.join(HERE, "brand.json"), encoding="utf-8"))
-OWNER_RULES = [("create the folder|file set|checkpoint|readme", "docs-keeper"), ("firebase|oauth|security|secret|webhook|owner-auth|owner dashboard|security rules|forged|licence", "security-auditor"), ("ci:|ci |release|store|changelog|installer", "release-manager"),
-               ("ai |tutor|assistant|eval|prompt|model", "ai-engineer"), ("legal|privacy|cookie|terms", "legal-compliance-counsel"), ("seo|sitemap|structured", "seo-specialist"),
-               ("locale|translation|arabic|i18n", "localizer"), ("screen|design|a11y|screenshot|theme|skeleton", "ui-craftsman"), ("test|e2e|lighthouse", "qa-breaker"),
-               ("adr|decide|spike|merge matrix|inventory|threat|data map", "architect"), ("android|ios|expo|widget|watch|mobile", "mobile-engineer"),
-               ("electron|tauri|installer|desktop|winui", "desktop-engineer")]
+OWNER_RULES = [
+    ("create the folder|file set|checkpoint|readme", "docs-keeper"),
+    (
+        "firebase|oauth|security|secret|webhook|owner-auth|owner dashboard|security rules|forged|licence",
+        "security-auditor",
+    ),
+    ("ci:|ci |release|store|changelog|installer", "release-manager"),
+    ("ai |tutor|assistant|eval|prompt|model", "ai-engineer"),
+    ("legal|privacy|cookie|terms", "legal-compliance-counsel"),
+    ("seo|sitemap|structured", "seo-specialist"),
+    ("locale|translation|arabic|i18n", "localizer"),
+    ("screen|design|a11y|screenshot|theme|skeleton", "ui-craftsman"),
+    ("test|e2e|lighthouse", "qa-breaker"),
+    ("adr|decide|spike|merge matrix|inventory|threat|data map", "architect"),
+    ("android|ios|expo|widget|watch|mobile", "mobile-engineer"),
+    ("electron|tauri|installer|desktop|winui", "desktop-engineer"),
+]
 
 
 def w(path, text, overwrite=True):
@@ -56,18 +70,26 @@ def parse_plan(folder):
     return out
 
 
-SCAN_LEGACY = ("Deep scan first (nobody has done one yet): read `legacy/` (or `materials/`), the old source code you port from and must never delete before M6, plus `D:/Projects/_SIR/ops/inventory/` for each source. "
-               "Map features, routes, data models, secrets, licences, dead code and hidden bugs; run gitleaks and a dependency and licence audit; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks")
-SCAN_NEW = ("Deep scan first: there is no old code here, so scan the other SIR projects' `legacy/` folders and `ops/inventory/` for reusable parts, read the standard modules that apply, benchmark the category leaders, "
-            "write `.sir/reports/deep-scan.md`, then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks")
+SCAN_LEGACY = (
+    "Deep scan first (nobody has done one yet): read `legacy/` (or `materials/`), the old source code you port from and must never delete before M6, plus `D:/Projects/_SIR/ops/inventory/` for each source. "
+    "Map features, routes, data models, secrets, licences, dead code and hidden bugs; run gitleaks and a dependency and licence audit; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks"
+)
+SCAN_NEW = (
+    "Deep scan first: there is no old code here, so scan the other SIR projects' `legacy/` folders and `ops/inventory/` for reusable parts, read the standard modules that apply, benchmark the category leaders, "
+    "write `.sir/reports/deep-scan.md`, then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks"
+)
 
 
-SCAN_INPLACE = ("Deep scan first (nobody has done one yet): this project is improved in place, so scan this folder itself: map modules, data, daemons and their ports, secrets, licences, dead code and hidden bugs; "
-                "run gitleaks and a dependency audit; snapshot the data first; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks. Never put anything about the people involved in a repo, log or outside AI")
+SCAN_INPLACE = (
+    "Deep scan first (nobody has done one yet): this project is improved in place, so scan this folder itself: map modules, data, daemons and their ports, secrets, licences, dead code and hidden bugs; "
+    "run gitleaks and a dependency audit; snapshot the data first; write `.sir/reports/deep-scan.md`; then rewrite PLAN.md, ARCHITECTURE.md, DESIGN.md, TASKS.md, QUALITY.md, PRODUCTION.md and the other .sir files 100x better: research what the best products in this category do (web search, benchmarks), find what this project is missing or needs (features, security, legal, platforms, hosting, monitoring, accessibility, performance, content) and add every gap as tasks. Never put anything about the people involved in a repo, log or outside AI"
+)
 
 
-DESKTOP_TASK = ("Wire the Desktop shortcuts: the folder `Desktop/SIR Projects/<folder name>` has Open, Start dev (green play icon) and Stop dev (red stop icon) shortcuts that run `scripts/dev-start.ps1`, `dev-stop.ps1` and their `.vbs` wrappers; "
-                "make them start and stop the real dev command, check each one works, and re-run `D:/Projects/_SIR/scripts/make-icons-and-desktop.ps1` whenever the logo or scripts change")
+DESKTOP_TASK = (
+    "Wire the Desktop shortcuts: the folder `Desktop/SIR Projects/<folder name>` has Open, Start dev (green play icon) and Stop dev (red stop icon) shortcuts that run `scripts/dev-start.ps1`, `dev-stop.ps1` and their `.vbs` wrappers; "
+    "make them start and stop the real dev command, check each one works, and re-run `D:/Projects/_SIR/scripts/make-icons-and-desktop.ps1` whenever the logo or scripts change"
+)
 
 
 def build_tasks(slug, plan, has_legacy=True):
@@ -75,15 +97,38 @@ def build_tasks(slug, plan, has_legacy=True):
     n, out, prev = 0, [], None
     for ms, items in plan:
         key = ms.split()[0]
-        rows = [(d, x) for d, x in items] + [(False, "(kit) " + x) for x in extra.get(key, [])]
+        rows = [(d, x) for d, x in items] + [
+            (False, "(kit) " + x) for x in extra.get(key, [])
+        ]
         if key == "M0":
-            rows.insert(2 if len(rows) > 2 else 0, (False, "(kit) " + (SCAN_INPLACE if slug == "ahome" else SCAN_LEGACY if has_legacy else SCAN_NEW)))
+            rows.insert(
+                2 if len(rows) > 2 else 0,
+                (
+                    False,
+                    "(kit) "
+                    + (
+                        SCAN_INPLACE
+                        if slug == "ahome"
+                        else SCAN_LEGACY
+                        if has_legacy
+                        else SCAN_NEW
+                    ),
+                ),
+            )
             rows.append((False, "(kit) " + DESKTOP_TASK))
         cur = []
         for done, text in rows:
             n += 1
             tid = f"T-{n:03d}"
-            cur.append(dict(id=tid, done=done, text=text, owner=owner(text), dep=prev if (prev and not done and not cur) else ""))
+            cur.append(
+                dict(
+                    id=tid,
+                    done=done,
+                    text=text,
+                    owner=owner(text),
+                    dep=prev if (prev and not done and not cur) else "",
+                )
+            )
             if not done:
                 prev = tid
         out.append((ms, cur))
@@ -176,7 +221,9 @@ def started(folder):
     if not os.path.isfile(cp):
         return False
     txt = io.open(cp, encoding="utf-8").read()
-    return not ("written by HQ" in txt or "created by HQ" in txt or "Handoff pack ready" in txt)
+    return not (
+        "written by HQ" in txt or "created by HQ" in txt or "Handoff pack ready" in txt
+    )
 
 
 def kit(p):
@@ -192,7 +239,11 @@ def kit(p):
     a = ARCH[b["arch"]]
     matrix = {**a["platforms"], **b.get("overrides", {})}
     brand = BRAND[slug] if slug in BRAND else dict(color="#475569", mono="AH")
-    tasks = build_tasks(slug, parse_plan(folder), any(os.path.isdir(os.path.join(folder, d)) for d in ("legacy", "materials")))
+    tasks = build_tasks(
+        slug,
+        parse_plan(folder),
+        any(os.path.isdir(os.path.join(folder, d)) for d in ("legacy", "materials")),
+    )
     s = os.path.join(folder, ".sir")
     w(f"{s}/project.yml", R.project_yml(p, a, b, brand, matrix))
     w(f"{s}/TASKS.md", R.tasks_md(p, tasks))
@@ -206,30 +257,67 @@ def kit(p):
     w(f"{s}/QUALITY.md", R.quality_md(p, a))
     w(f"{s}/BENCHMARK.md", R.benchmark_md(p, b))
     flat = [t for _, items in tasks for t in items]
-    w(f"{s}/status.json", json.dumps(dict(id=slug, version="0.0.0", status="planned", wave=p["wave"], tasksDone=sum(t["done"] for t in flat), tasksTotal=len(flat),
-                                          platforms={k: v[0] for k, v in matrix.items()}, ci="none", blockers=[], ownerActions=0), indent=2))
+    w(
+        f"{s}/status.json",
+        json.dumps(
+            dict(
+                id=slug,
+                version="0.0.0",
+                status="planned",
+                wave=p["wave"],
+                tasksDone=sum(t["done"] for t in flat),
+                tasksTotal=len(flat),
+                platforms={k: v[0] for k, v in matrix.items()},
+                ci="none",
+                blockers=[],
+                ownerActions=0,
+            ),
+            indent=2,
+        ),
+    )
     cp = os.path.join(s, "CHECKPOINT.md")
-    if not os.path.isfile(cp) or ("created by HQ" in io.open(cp, encoding="utf-8").read() or "written by HQ" in io.open(cp, encoding="utf-8").read()):
+    if not os.path.isfile(cp) or (
+        "created by HQ" in io.open(cp, encoding="utf-8").read()
+        or "written by HQ" in io.open(cp, encoding="utf-8").read()
+    ):
         todo = [x for x in flat if not x["done"]]
-        w(cp, CHECKPOINT.format(display=p["display"], repo=p["repo"], first=f"{todo[0]['id']} {todo[0]['text'][:90]}" if todo else "none",
-                                nxt=", ".join(x["id"] for x in todo[1:3]) or "none"))
+        w(
+            cp,
+            CHECKPOINT.format(
+                display=p["display"],
+                repo=p["repo"],
+                first=f"{todo[0]['id']} {todo[0]['text'][:90]}" if todo else "none",
+                nxt=", ".join(x["id"] for x in todo[1:3]) or "none",
+            ),
+        )
     w(f"{s}/decisions/ADR-000-template.md", ADR_T)
     for d in ("evidence", "reports"):
         w(f"{s}/{d}/.gitkeep", "")
-    w(f"{s}/inbox/orchestrator.md", f"# Inbox: orchestrator ({p['display']})\nEscalations and questions from agents go here. Newest first.\n", overwrite=False)
+    w(
+        f"{s}/inbox/orchestrator.md",
+        f"# Inbox: orchestrator ({p['display']})\nEscalations and questions from agents go here. Newest first.\n",
+        overwrite=False,
+    )
     ctx = dict(slug=slug, display=p["display"], label=a["label"])
     w(f"{folder}/.claude/agents/{slug}-pm.md", PM_AGENT.format(**ctx))
     w(f"{folder}/.claude/commands/continue.md", CMD_CONTINUE.format(**ctx))
     w(f"{folder}/.claude/commands/end.md", CMD_END)
     w(f"{folder}/SECURITY.md", SECURITY, overwrite=False)
     w(f"{folder}/.editorconfig", EDITORCFG, overwrite=False)
-    w(f"{folder}/README.md", f"# {p['display']}\n\n{p['mission']}\n\nStatus: planned, not started. Plan: `.sir/PLAN.md`. Owner: Ahmed Alaa. Private repository.\n", overwrite=False)
+    w(
+        f"{folder}/README.md",
+        f"# {p['display']}\n\n{p['mission']}\n\nStatus: planned, not started. Plan: `.sir/PLAN.md`. Owner: Ahmed Alaa. Private repository.\n",
+        overwrite=False,
+    )
     ag = os.path.join(folder, "AGENTS.md")
     t = io.open(ag, encoding="utf-8").read() if os.path.isfile(ag) else ""
-    t = re.sub(r"\n?<!-- SIR-KIT:START -->.*?<!-- SIR-KIT:END -->\n?", "", t, flags=re.S)
+    t = re.sub(
+        r"\n?<!-- SIR-KIT:START -->.*?<!-- SIR-KIT:END -->\n?", "", t, flags=re.S
+    )
     w(ag, t.rstrip("\n") + "\n" + AGENTS_BLOCK.format(slug=slug))
     if slug in ("sir-negm-furniture",):
         import kit_client
+
         kit_client.client_cleanup(folder, p, w, HERE)
     print("kit", slug, len(flat), "tasks")
 

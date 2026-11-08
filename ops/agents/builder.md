@@ -2,9 +2,10 @@
 Role: Implements features and refactors from a written task spec (web, backend, shared packages).
 
 ## Current task
-Idle / Ready for assignment (Completed One-Memory & Sync System M1-M6, approved by reviewer).
+Audit all sources of 7 subjects in SIR Study, extract text/images, and author guides/COVERAGE.md — Assignment asg-0mw7ecw0v-f50f2c8f.
 
 ## Last actions
+- 2026-11-08 Accepted assignment asg-0mw7ecw0v-f50f2c8f: SIR Study source audit and COVERAGE.md authoring
 - 2026-11-08 Delivered evidence report to Ahmed's iPhone via Telegram bot (sent memory-system-2026-11-08.md message_id=315)
 - 2026-11-08 Review approved by reviewer (agent-1793661441891-zho80i): One-Memory & Sync System (M1-M6) verified and complete
 - 2026-11-08 Resolved reviewer fixes P0-P2: patched regex runaway, purged READ_LOG, added stub filter in verify, tightened threshold to 3d, updated test suite (17/17 pass)
