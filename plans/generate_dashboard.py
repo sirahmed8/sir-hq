@@ -15,8 +15,8 @@ sys.path.insert(0, HERE)
 from products import PRODUCTS  # noqa: E402
 from kit_platforms import PLATFORM_NAMES  # noqa: E402
 
-ROOT = "D:/Projects"
-OPS = ROOT + "/_SIR/ops"
+ROOT = os.environ.get("SIR_ROOT", "D:/Projects")
+OPS = os.environ.get("SIR_OPS", os.path.normpath(os.path.join(HERE, "..", "ops")))
 BRAND = json.load(io.open(os.path.join(HERE, "brand.json"), encoding="utf-8"))
 ORDER = json.load(io.open(os.path.join(HERE, "order.json"), encoding="utf-8"))
 WAVEMAP = json.load(io.open(os.path.join(HERE, "waves.json"), encoding="utf-8"))

@@ -1,0 +1,30 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  python-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Syntax and compile check
+        run: |
+          python -m compileall plans scripts
+      - name: Test dashboard generation
+        run: |
+          python plans/generate_dashboard.py
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
