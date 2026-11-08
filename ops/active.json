@@ -1,32 +1,22 @@
 [
   {
-    "project": "SIR Study",
-    "chat": "study-qa",
-    "state": "running: Data Structures urgent pack delivered (exam today 11:30 Cairo); SAD and OR packs QA in progress"
+    "project": "SIR Laptop Manager",
+    "chat": "loop-laptop-0",
+    "state": "running: M2 complete; building T-014 startup inspector, T-015 updates, T-016 power telemetry"
   },
   {
     "project": "SIR Jobs",
-    "chat": "jobs-review",
-    "state": "running: digest automation engine verified (11/11 tests pass); shortlist v3 audit and proposal checks"
-  },
-  {
-    "project": "SIR Life",
-    "chat": "life-review",
-    "state": "running: sanitizeOutbound privacy chokepoint verification, calendar sync, daily brief feeds"
-  },
-  {
-    "project": "SIR Laptop Manager",
-    "chat": "laptop-scan",
-    "state": "just finished: T-003 deep scan complete, 19 Windhawk mods inventoried, plan upgraded, ready for T-004"
+    "chat": "loop-jobs-0",
+    "state": "running: review dashboard server, bilingual client UI (b4b375b), automated pipeline engine"
   },
   {
     "project": "AHome (private)",
     "chat": "ahome-ui-bugs",
-    "state": "running: Pass 67 UI polish, cloak mode zero-states, health telemetry, loopback bind verified"
+    "state": "running: polishing mobile tab navigation, broadcast banners, and chat composers"
   },
   {
-    "project": "HQ Control Room",
-    "chat": "control-room",
-    "state": "running: refreshing portfolio status, active runs, agent queue, and regenerating dashboard.html"
+    "project": "SIR Study",
+    "chat": "batch-2",
+    "state": "queued: DS/SAD/OR delivered to Telegram; ready for Business Admin, HCI, Electronics, Human Rights QA"
   }
 ]
