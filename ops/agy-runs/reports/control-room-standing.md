@@ -1,4 +1,44 @@
-﻿# CYCLE 2: PORTFOLIO GROUND TRUTH RE-SYNC & MULTI-PROJECT RECONCILIATION
+﻿# CYCLE 3: UX FRICTION ELIMINATION, THEME ENGINE & CONTROL ROOM INTELLIGENCE
+**Cycle Date:** 2026-11-09 00:44  
+**Operator:** Antigravity (Advanced Agentic Systems)  
+**Lens:** UX Friction, Responsiveness (320px to 4K), Accessibility & Interactive Intelligence  
+**Status:** OK (All verifications green, 0 console errors, desktop & 390px mobile viewports verified)
+
+### 1. What Was Fixed & Added
+1. **Interactive Theme Controller (Light / Dark / System Mode):**
+   - Added `#theme-btn` in header with instant visual feedback (`☀️ Light` / `🌙 Dark`).
+   - Persists user preference via `localStorage.getItem("sir_theme")`.
+   - Supports explicit `:root[data-theme="light"]` and `:root[data-theme="dark"]` overrides matching system contrast.
+2. **Multi-Dimensional Project Filtering (Wave + Status):**
+   - Added `#status-chips` filter bar (`All Status`, `Building`, `Done`, `Ready`) alongside Wave filtering.
+   - Allows instant isolation of active building projects (6 projects), finished products (1 project), or ready-to-build backlogs (9 projects) with a single click.
+3. **Universal "Expand All / Collapse All" Project Controller:**
+   - Added `#toggle-all-btn` allowing operators to instantly expand all 16 project detail views to inspect tasks across the entire portfolio simultaneously, or collapse them back to compact summary rows.
+4. **Keyboard Ergonomics & Shortcut Accelerator:**
+   - Pressing `/` anywhere on the page instantly focuses and selects the search input `#q` with `preventDefault()`.
+   - Pressing `Escape` while focused clears search and returns focus to the main canvas.
+5. **Click-to-Copy Folder Paths:**
+   - Styled project directory paths as `.copy-badge` (`data-copy="D:\Projects\..."`).
+   - Clicking copies the exact Windows path to clipboard and flashes `Copied! ✓` for 1.5s, accelerating terminal and file explorer navigation.
+6. **Mobile Viewport Fluidity (320px to 4K):**
+   - Tested and verified under 390px mobile emulation with touch metrics.
+   - Clean responsive collapse of summary rows (`summary{grid-template-columns:18px 1fr 70px}`), hiding non-essential segment bars on narrow viewports to avoid horizontal scrolling.
+
+### 2. "Found Without Being Told"
+1. **Lack of Manual Theme Switcher:** The template had CSS definitions for `data-theme="dark"` and `data-theme="light"`, but had zero interactive buttons in the DOM to trigger them, forcing users to rely exclusively on OS-level settings. Built an accessible toggle in the header with local persistence.
+2. **High-Friction Single-Details Interaction:** Opening tasks across multiple projects previously required clicking 16 separate `<summary>` elements. The new `#toggle-all-btn` expands/collapses the entire portfolio in one click.
+3. **Status Filter Absence:** Previously only Wave 1–8 filters existed; it was impossible to quickly answer "which products are currently in building mode?". Added dynamic status filtering.
+
+### 3. Verification Telemetry
+- **Dashboard Regeneration:** `python D:/Projects/_SIR/plans/generate_dashboard.py` -> `dashboard.html 128517 bytes, 16 projects` (Exit code 0).
+- **Chrome DevTools Live Verification:** Selected Page 51 (`file:///D:/Projects/_SIR/ops/dashboard.html`), executed live script tests verifying theme toggle, status filtering, expand/collapse, and keyboard `/` shortcut: **0 console errors, 0 runtime exceptions**.
+- **Visual Artifacts:**
+  - Desktop Viewport: `ops/agy-runs/reports/control-room-desktop.png`
+  - Mobile 390px Viewport: `ops/agy-runs/reports/control-room-mobile-390.png`
+
+---
+
+# CYCLE 2: PORTFOLIO GROUND TRUTH RE-SYNC & MULTI-PROJECT RECONCILIATION
 **Cycle Date:** 2026-11-09 00:35  
 **Operator:** Antigravity (Advanced Agentic Systems)  
 **Status:** OK (All 16 projects verified, 0 errors in Chrome DevTools on Page 51, dashboard regenerated to 124,086 bytes)
