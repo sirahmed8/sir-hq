@@ -5,6 +5,7 @@ Role: Implements features and refactors from a written task spec (web, backend, 
 Make the one-memory system real (sync pointers, read log, health check, per-agent files) — Assignment asg-0mw7bis5l-eccc6422 (M1-M6).
 
 ## Last actions
+- 2026-11-08 Resolved reviewer fixes P0-P2: patched regex runaway, purged READ_LOG, added stub filter in verify, tightened threshold to 3d, updated test suite (17/17 pass)
 - 2026-11-08 Completed M6 dashboard.html update, full test suite pass (15/15), and generated evidence report
 - 2026-11-08 Completed M5: Windows Scheduled Task SIR-Nightly-Structure-Check created and verified; logged in AGENTSROOM_CHANGELOG.md
 - 2026-11-08 Completed M4 structure-check.mjs with HEALTH_REPORT.md and health.json; fixed Negm zero-byte files

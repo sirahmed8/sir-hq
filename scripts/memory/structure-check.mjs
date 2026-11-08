@@ -34,7 +34,7 @@ export function checkProject(projectDir) {
   const name = path.basename(projectDir);
   const fileIssues = [];
   const now = Date.now();
-  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+  const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000;
 
   for (const rel of REQUIRED_FILES) {
     const full = path.join(projectDir, rel);
@@ -51,7 +51,7 @@ export function checkProject(projectDir) {
   const cpPath = path.join(projectDir, '.sir', 'CHECKPOINT.md');
   const cpTime = mtime(cpPath);
   const cpAgeDays = cpTime ? ((now - cpTime) / (24 * 60 * 60 * 1000)).toFixed(1) : null;
-  const cpStale = !cpTime || (now - cpTime > SEVEN_DAYS_MS);
+  const cpStale = !cpTime || (now - cpTime > THREE_DAYS_MS);
 
   const pointerIssues = inspectProjectPointers(projectDir);
 
@@ -69,6 +69,7 @@ export function checkProject(projectDir) {
     pointerIssuesCount: pointerIssues.length,
     checkpointMtime: cpTime ? new Date(cpTime).toISOString() : null,
     checkpointAgeDays: cpAgeDays,
+    checkpointStale: cpStale,
   };
 }
 
@@ -157,7 +158,7 @@ export function runStructureCheck() {
     `- **Agent Profiles**: ${agentsResult.status} (${agentsResult.totalAgents} roster agents verified)`,
     '',
     '## Projects Health Table',
-    '| Project | Status | Required Files Issues | Pointers | Checkpoint Age |',
+    '| Project | Status | Required Files Issues | Pointers | Checkpoint Age (Stale >3d) |',
     '|---|---|---|---|---|',
   ];
 

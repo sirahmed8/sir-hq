@@ -11,8 +11,8 @@ export const LOG_FILE = path.join(SIR_ROOT, 'ops', 'READ_LOG.md');
 
 export function extractNextStep(checkpointText) {
   if (!checkpointText) return 'Initial session / no checkpoint';
-  const match = checkpointText.match(/(?:Next(?:\s+step)?|### Next step|## Next step)[:\s]+([^\r\n]+)/i);
-  if (match) return match[1].trim();
+  const match = checkpointText.match(/(?:Next\s+step\s*\(exact\)|Next(?:\s+step)?|###\s*Next step|##\s*Next step)[:\s*]+([^\r\n]+)/i);
+  if (match) return match[1].replace(/^\*+|\*+$/g, '').trim();
   const lines = checkpointText.split('\n');
   for (const l of lines) {
     if (/next step/i.test(l)) return l.replace(/^[^a-zA-Z0-9]+/, '').trim();
@@ -29,11 +29,16 @@ export function extractFilesRead(checkpointText, ctx, defaultFiles = []) {
     files.push(path.join(WORKSPACE, ctx.name, 'AGENTS.md'));
   }
   if (checkpointText) {
-    const section = checkpointText.match(/Re-read after a reset[:\s]*([\s\S]*?)(?:\n##|\n#|$)/i);
-    if (section) {
-      const items = section[1].split(/[\n,]+/).map(s => s.replace(/^[-*`\s]+|[`\s]+$/g, '').trim()).filter(Boolean);
-      for (const it of items) {
-        if (!files.includes(it)) files.push(it);
+    const section = checkpointText.match(/Re-read after a reset[:\s]*([^\r\n]+(?:\r?\n\s*[-*]\s+[^\r\n]+)*)/i);
+    if (section && section[1]) {
+      const rawTokens = section[1].split(/[\r\n,]+/).map(s => s.replace(/^[-*`\s]+|[`\s]+$/g, '').trim()).filter(Boolean);
+      for (const tok of rawTokens) {
+        if (!/^[a-zA-Z0-9_\-./\\]+$/.test(tok) || tok.includes('..') || tok.length > 120) continue;
+        const hasExt = /\.[a-zA-Z0-9]{1,10}$/.test(tok);
+        const hasSlash = tok.includes('/') || tok.includes('\\');
+        if (hasExt || hasSlash) {
+          if (!files.includes(tok)) files.push(tok);
+        }
       }
     }
   }
@@ -157,8 +162,21 @@ export function verifyTodaySessions(logPath = LOG_FILE) {
       const aPath = path.join(agentsDir, af);
       const aName = path.basename(af, '.md').toLowerCase();
       const content = fs.readFileSync(aPath, 'utf8');
+
+      // Distinguish scaffolded/idle profile stubs from active agent sessions.
+      const isIdleStub = /## Current task\s*\n\s*Idle \/ Ready for assignment\./i.test(content) &&
+        content.includes('Initialized agent profile.') &&
+        (content.match(/^\s*-\s*\d{4}-\d{2}-\d{2}/gm) || []).length <= 1;
+
+      if (isIdleStub) {
+        continue;
+      }
+
+      // Check if this active profile has meaningful actions added today beyond initialization
+      const actionLines = content.match(new RegExp(`^\\s*-\\s*${today}\\s+(?!Initialized agent profile).*$`, 'gmi'));
       const statDate = new Date(fs.statSync(aPath).mtimeMs).toISOString().slice(0, 10);
-      const wroteToday = statDate === today || content.includes(today);
+      const wroteToday = actionLines !== null && actionLines.length > 0;
+
       if (wroteToday && !loggedAgents.has(aName)) {
         unverified.push({ target: `_SIR/ops/agents/${af}`, type: 'agent', agent: aName, date: statDate });
       }
