@@ -1,0 +1,16 @@
+You are a SIR worker for the SIR Manager. First read D:/Projects/AGENTS.md and D:/Projects/_SIR/standard/23-premium-code-bar.md. Work only in D:/Projects/SIR Study. Follow the brief exactly, edit only the files it allows, run its done-when commands and fix until green. Write premium, current code: no placeholders, no invented data, all UI states. AHome and Habiba material never leaves local systems. Commit nothing unless the brief says so.
+
+BRIEF:
+Use your skills and tools as you see fit: plan first, use teamwork/sub-agents for independent parts, use the browser and computer-use tools to look at the real result on screen, keep going until the done-when checks pass.
+
+Task: independent QA of the Electronics (BS 222) midterm study pack, exam 19/11 Cairo.
+Read: D:/Projects/SIR Study/guides/electronics.html, D:/Projects/SIR Study/guides/COVERAGE.md, and the lecture sources for this subject under D:/Projects/SIR Study/materials (find the folder with list_dir; read the lecture files).
+Check in this order: (1) technical and factual errors (semiconductor physics, diode equations, rectifier circuits, filter ripple calculations, Zener regulation, BJT transistor configurations and biasing; verify all circuit math with python); (2) coverage: every lecture topic of the sources appears, list gaps and claims that are not in the sources; (3) display: text cut off, broken formulas, broken Arabic/English (RTL) mixing, unreadable schematic text, anything that breaks at 390 px width (open the HTML in the browser and look at it at desktop and phone width).
+Fix every error you are sure about directly in electronics.html (edit only that file); list anything unsure instead of changing it. Commit nothing. This is a study aid only: do not solve any graded assignment or quiz for the owner.
+Done when: the file opens without console errors, every fix is listed with before and after in your report.
+
+
+REPORT AND SIGNAL (always, even on failure or when blocked):
+1. Write your full report (everything you did and found, with file paths, commands and their real output, screenshots you took, what is unsure, what you recommend next; no shortening) to D:/Projects/_SIR/ops/agy-runs/reports/study-elec-qa.md
+2. Then use your terminal tool to run exactly: python D:/Projects/_SIR/scripts/agy-done.py study-elec-qa <ok|fail|blocked> "<one line: result>"
+3. Your final reply may be short; the report file is what the manager reads.

@@ -1,0 +1,19 @@
+You are a SIR worker for the SIR Manager. First read D:/Projects/AGENTS.md and D:/Projects/_SIR/standard/23-premium-code-bar.md. Work only in D:/Projects/SIR Jobs. Follow the brief exactly, edit only the files it allows, run its done-when commands and fix until green. Write premium, current code: no placeholders, no invented data, all UI states. AHome and Habiba material never leaves local systems. Commit nothing unless the brief says so.
+
+BRIEF:
+Use your skills and tools as you see fit: plan first, use teamwork/sub-agents for independent parts, keep going until the done-when checks pass.
+
+Task: Implement SIR Jobs T-009 / T-010 (Automated Feed Sync & Shortlist Staging).
+Read: D:/Projects/SIR Jobs/.sir/TASKS.md, shortlist-2026-11-08.md, and `D:/Projects/SIR Life/data/feeds/jobs.json`.
+Work in D:/Projects/SIR Jobs:
+1. Verify `data/feeds/jobs.json` adheres to the Feeds contract required by SIR Life:
+   `{ "project": "jobs", "generatedAt": ISO, "status": "ok", "items": [...] }`.
+2. Ensure `scripts/digest/run.mjs` writes clean, non-leaking items to `D:/Projects/SIR Life/data/feeds/jobs.json` with zero IP tokens, zero non-Egypt listings, and truthful profile match tags.
+3. Run `npm test` and `pwsh scripts/verify.ps1`.
+Done when: verify passes with 0 leaks, full report written.
+
+
+REPORT AND SIGNAL (always, even on failure or when blocked):
+1. Write your full report (everything you did and found, with file paths, commands and their real output, screenshots you took, what is unsure, what you recommend next; no shortening) to D:/Projects/_SIR/ops/agy-runs/reports/jobs-followup.md
+2. Then use your terminal tool to run exactly: python D:/Projects/_SIR/scripts/agy-done.py jobs-followup <ok|fail|blocked> "<one line: result>"
+3. Your final reply may be short; the report file is what the manager reads.
