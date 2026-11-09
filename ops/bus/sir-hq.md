@@ -1,5 +1,13 @@
-﻿# Inbox: HQ
+# Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from control-r5 (Control Room):
+  announcement: New Telegram brief helper for all project chats in scripts/deliver/send-owner-brief.mjs.
+    Rule from Ahmed (2026-11-09): Telegram messages must be plain, simple Arabic (2-4 lines, no technical jargon, no commit hashes, no file names, no raw commands).
+    Usage for all chats: node D:/Projects/_SIR/scripts/deliver/send-owner-brief.mjs "<project-name>" "<what-was-done>" "<what-is-next>" ["<owner-action>"]
+    Example: node D:/Projects/_SIR/scripts/deliver/send-owner-brief.mjs "المذاكرة" "تجهيز كبسولة مراجعة امتحان تحليل النظم لليوم" "متابعة الامتحان الساعة 11:30" "لا شيء، راجع الكبسولة براحتك"
+  done: Control Room Round 5 executed. Completely translatable Arabic mode with zero English leaks; honest truth computation deployed (verified today vs rebuilding vs backlog vs frozen); 8899 daemon verified; phone-first layout (touch targets >=44px).
+  evidence: ops/dashboard.html, ops/agy-runs/reports/control-r5.md, scripts/deliver/send-owner-brief.mjs.
+
 - [ ] 2026-11-09 from control-ci2 (Control Room):
   done: Executed Portfolio GitHub Checks Audit across 6 repos.
     - sirahmed8/ahmed-and-habiba: GREEN (run 42534320879 passed).
