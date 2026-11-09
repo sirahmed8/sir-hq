@@ -48,11 +48,11 @@ flowchart TD
 
 | ID | Task Title | Target Files | Dependencies | Acceptance Criteria |
 |---|---|---|---|---|
-| **HQ-01** | Account Chooser Automation Hardening | `scripts/agy-chooser.py` | None | Chooser switches accounts in Chrome in < 180s without user prompt. |
+| **HQ-01** | Account Chooser Automation Hardening | `scripts/agy-chooser.py` | None | [DONE] Chooser switches accounts in Chrome in < 180s without user prompt. |
 | **HQ-02** | Automated Quota Ledger Sync Daemon | `scripts/sync_quota_ledger.py` | HQ-01 | [DONE] Automatically parses usage JSON and updates `ops/ACCOUNT_LEDGER.md`. |
 | **HQ-03** | Stale Lock Auto-Purge Worker | `scripts/purge_locks.py` | None | [DONE] Purges lock files older than 2 hours; leaves active locks untouched. |
 | **HQ-04** | Telegram Briefing Markdown Formatter | `scripts/deliver/format-briefing.mjs` | None | [DONE] Converts markdown reports into clean, unclipped Arabic Telegram alerts. |
-| **HQ-05** | Control Room Responsive Table Polish | `ops/dashboard.html` | None | All tables wrap cleanly at 320px; zero white borders or clipped status pills. |
+| **HQ-05** | Control Room Responsive Table Polish | `ops/dashboard.html` | None | [DONE] All tables wrap cleanly at 320px; zero white borders or clipped status pills. |
 
 ---
 

@@ -66,3 +66,6 @@ Planner chat reports and stages tracking.
 
 - [x] 2026-11-09T21:14:00+02:00 from planner (Operational Foundation Hardening):
   done: Closed high-priority gaps from TASK_BACKLOG_ALL.md and GAP_REPORT.md. Authored and verified: (1) scripts/purge_locks.py (HQ-03) with 5/5 unit tests, (2) scripts/sync_quota_ledger.py (HQ-02) with 5/5 unit tests and 15% threshold alerts, (3) scripts/deliver/format-briefing.mjs (HQ-04) with 3/3 unit tests converting markdown reports to canonical 3-line human Arabic briefings, (4) scripts/backup_offsite_encrypted.py (OPS-GAP-02) with AES-256-CBC PBKDF2 encryption and verified 39.6MB live archive creation with 100% roundtrip decryption integrity. All committed and pushed to main (commit 7a3a601).
+
+- [x] 2026-11-09T23:33:00+02:00 from planner (Perpetual Loop Cycle 1 Complete):
+  done: (1) Fixed GitHub CI checks in sir-hq (run 42700082713 green) and sir-laptop-manager (commit 2dd83b3 pushed, resolving hardcoded path and empty-list falsy scan bug reducing test time from 46.04s to 0.25s). (2) Closed 100% of open items across all request ledgers and bus inboxes (0 open items remaining). (3) Hardened scripts/agy-chooser.py (HQ-01) with CREATE_NO_WINDOW, positive owner allowlist, defensive JSON parsing, and 8/8 passing unit tests in scripts/test_agy_chooser.py. Full report in ops/agy-runs/reports/loop-planner-1.md.
