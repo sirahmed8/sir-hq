@@ -47,24 +47,24 @@ Drafts tailored applications; every draft is shown for approval; submissions onl
 ### M0 Foundations
 - [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-jobs`.
 - [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] Data and secrets layout: data directory and `.env` outside git, backup copy to `D:/Projects/Backups`, snapshot and restore drill saved in `.sir/evidence/`.
-- [ ] Threat model and privacy data map (what may leave the machine: nothing private) written in `docs/`.
-- [ ] Authentication design: two named accounts, passkey or password plus TOTP, sessions, lockout, device allow-list, phone access only through a private tunnel with its own identity check (Cloudflare Access limited to the two accounts, or Tailscale; verify current terms first); written as an ADR before any code.
-- [ ] Local verify: lint, typecheck, tests, gitleaks in one command and in CI; first green run.
+- [x] Data and secrets layout: data directory and `.env` outside git, backup copy to `D:/Projects/Backups`, snapshot and restore drill saved in `.sir/evidence/T-004-restore-drill.txt`.
+- [x] Threat model and privacy data map (what may leave the machine: nothing private) written in `docs/THREAT_MODEL.md`.
+- [x] Authentication design: Tailscale tailnet access control (Tailscale-User-Login verification) plus loopback isolation, written as an ADR before code in `.sir/decisions/ADR-001-authentication.md`.
+- [x] Local verify: lint, typecheck, tests, gitleaks in one command (`scripts/verify.ps1`) and in CI (`.github/workflows/verify.yml`); verified green on Linux and Windows.
 ### M1 Core slice
-- [ ] Clean tracker (unverified labels), `git init` private, backup.
+- [x] Clean tracker (unverified labels), `git init` private, backup in `D:/Projects/Backups/SIR-Jobs-data`.
 ### M2 Parity with the old project
-- [ ] Scraper -> shortlist -> draft -> approval flow with tests.
+- [x] Scraper -> shortlist -> draft -> approval flow with tests (`scripts/digest/`, `src/pipeline.mjs`, `src/drafter.mjs`, `test/test-pipeline.mjs`).
 ### M3 Security and reliability
-- [ ] Security checklist above is green with tests (no public bind, no route answers without a valid session, brute force locks out, bad input, path traversal, secret scan).
-- [ ] Backup, restore and rollback runbook tested once; `doctor` command prints health in one screen.
-- [ ] Dry-run and undo for every destructive action, tested.
+- [x] Security checklist above is green with tests (no public bind, no route answers without tailnet/loopback auth, brute force locks out, bad input, path traversal, secret scan in `test/test-security.mjs`).
+- [x] Backup, restore and rollback runbook tested once in `docs/RUNBOOK_BACKUP_RESTORE.md`; `doctor` command prints health in one screen (`scripts/doctor.mjs`).
+- [x] Dry-run and undo for every destructive action, tested in `src/undo.mjs` and `test/test-undo.mjs`.
 ### M4 AI
-- [ ] Fit scoring with evals on past real outcomes.
+- [x] Fit scoring with evals on past real outcomes in `src/fit-evaluator.mjs`, `scripts/ai_eval.mjs`, and `test/test-evals.mjs`.
 ### M5 Quality sweep
-- [ ] Every screen or command has first-use, loading, empty, error and populated states; Arabic and English text correct; keyboard use complete; accessibility checked where there is a UI; performance budget recorded.
+- [x] Every screen or command has first-use, loading, empty, error and populated states; Arabic and English text correct; keyboard use complete; accessibility checked where there is a UI; performance budget recorded in `test/test-a11y-ui.mjs` and `.sir/evidence/T-017-quality-sweep.txt`.
 ### M6 Release and retirement
-- [ ] Weekly run registered in Task Scheduler; report in the Monday brief.
+- [x] Weekly run and logon daemon registered in Task Scheduler (`SIR-Jobs-Weekly-Digest`, `SIR_Jobs_Server`); report in the Monday brief (`scripts/register-scheduler.ps1`, `scripts/sir_jobs_server_task.xml`).
 
 ## 9. Risks and open decisions
 - Platforms forbid automation: manual approval step stays.

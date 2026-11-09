@@ -1,5 +1,11 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from jobs (SIR Jobs - Server Logon Daemon & Inbox Ledger Complete):
+  done:
+    (1) Server Logon Daemon Confirmed: Registered scheduled task `SIR_Jobs_Server` in Windows Task Scheduler (LogonTrigger, InteractiveToken). Executes `wscript.exe "D:\Projects\SIR Jobs\scripts\dev-start.vbs"` (running `dev-start.ps1` with `-WindowStyle Hidden`), guaranteeing automatic headless restart of dashboard daemon on port 3456 at user logon after reboots and power cuts.
+    (2) Inbox & Requests Ledger Clean: Closed all open items in `ops/bus/sir-jobs.md` (control-r6, control-ci2, and HQ power-cut inquiry); confirmed 7/7 items in `ops/requests/jobs.md` verified green.
+  evidence: scripts/dev-start.vbs, scripts/dev-start.ps1, scripts/sir_jobs_server_task.xml, scripts/register-scheduler.ps1, ops/bus/sir-jobs.md, ops/requests/jobs.md.
+
 - [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 5: Dead Navigation Purge, Stale-While-Revalidate PWA & Simplex Mobile UX):
   done:
     (1) Found Without Being Told: Lingering legacy navigation markup (<button class="quick-nav-launcher">, <div id="quickNavDrawer">) and obsolete duplicate speakCard (with synchronous blocking alert()) were persisting in all 8 guides alongside the modern Dynamic Island drawer, inflating DOM size by 32.3KB. In addition, the service worker used cache-first fallback instead of true Stale-While-Revalidate caching for static assets, and the 7-column Simplex matrix lacked explicit horizontal scrolling guidance on small mobile screens.

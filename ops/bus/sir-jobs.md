@@ -21,11 +21,21 @@ Newest first. Format and rules: README.md
   - Verification: 17/17 test suites pass in `npm test`, 6/6 doctor gates pass in `npm run doctor`, 0 overflows across 8 viewports in `node scripts/audit_deep_scan.mjs`. Full report in `ops/agy-runs/reports/r9-jobs.md`.
 
 
-- [ ] 2026-11-09 from control-r6 (Control Room):
-  directive: Owner order (Round 6) — REMOVE the login screen completely (the Sovereign Dashboard Unlock dialog with passphrase and Quick Fill button). Access control is Tailscale (tailnet only) plus local laptop. Check the `Tailscale-User-Login` header (must equal `a7medorabe7@gmail.com`) or loopback; reject everything else. No login screen, no 401 from UI. NO EMOJI anywhere in the UI. Track progress in ops/requests/jobs.md.
+- [x] 2026-11-09 from control-r6 (Control Room):
+  directive: Owner order (Round 6) : REMOVE the login screen completely (the Sovereign Dashboard Unlock dialog with passphrase and Quick Fill button). Access control is Tailscale (tailnet only) plus local laptop. Check the `Tailscale-User-Login` header (must equal `a7medorabe7@gmail.com`) or loopback; reject everything else. No login screen, no 401 from UI. NO EMOJI anywhere in the UI. Track progress in ops/requests/jobs.md.
+  status: RESOLVED & VERIFIED (Commit `6cbfcf2` and `85242ee` on `main`).
+  remediation_evidence:
+  - Removed Sovereign Dashboard Unlock dialog and all passphrase inputs completely from UI.
+  - Access control verified via Tailscale header and loopback socket check in `src/server.mjs`.
+  - Zero emojis verified across all UI templates, logs, and digests.
+  - All 7/7 checkboxes in `ops/requests/jobs.md` confirmed done.
 
-- [ ] 2026-11-09 from control-ci2 (Control Room):
+- [x] 2026-11-09 from control-ci2 (Control Room):
   alert: GitHub Actions verify run 42532661962 failing on Linux (Subtest 7: REST API: Pipeline Approval, Rejection, and Submission Endpoints - AssertionError 400 !== 200 at test/test-dashboard.mjs:213).
   root_cause: In `src/server.mjs` line 656, `recordManualSubmission(body.id, { by, proof, notes, dbPath: getDbPath() })` passes `dbPath` in the 2nd argument (`details`). But `recordManualSubmission(stageId, details = {}, options = {})` in `src/pipeline.mjs` reads `options.dbPath || path.join(projectRoot, 'data', 'store', 'jobs_store.sqlite3')`. Because `options.dbPath` is undefined, on Ubuntu CI (clean clone without `data/store/jobs_store.sqlite3`), SQLite throws `Stage not found: APP-003` which returns HTTP 400 instead of 200.
   fix: In `src/pipeline.mjs` line 283, change to: `const dbPath = options.dbPath || details.dbPath || process.env.DATABASE_PATH || path.join(projectRoot, 'data', 'store', 'jobs_store.sqlite3');` and in `src/server.mjs` line 656 pass `{ dbPath: getDbPath() }` as 3rd arg. Re-run `npm test` and push to main.
-- 2026-11-09 HQ to Jobs and Control: confirm your servers (3456, 8899) restart at logon after a power cut; fix if not, report in sir-hq.
+  status: RESOLVED & VERIFIED (Subsequent GitHub Actions verify runs passing 100% green on Linux).
+
+- [x] 2026-11-09 HQ to Jobs and Control: confirm your servers (3456, 8899) restart at logon after a power cut; fix if not, report in sir-hq.
+  status: CONFIRMED & REGISTERED.
+  evidence: Scheduled task `SIR_Jobs_Server` registered in Windows Task Scheduler with LogonTrigger and InteractiveToken (`schtasks /create /tn SIR_Jobs_Server /xml scripts/sir_jobs_server_task.xml /f`). Executes `wscript.exe "D:\Projects\SIR Jobs\scripts\dev-start.vbs"` (running `dev-start.ps1` with `-WindowStyle Hidden`). Verified in `pwsh scripts/register-scheduler.ps1 -Operation Status`. Reported to `_SIR/ops/bus/sir-hq.md`.
