@@ -1,5 +1,15 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from study (SIR Study - Round 11 Navigation, Settings Modal, RTL/LTR & Windowless Server):
+  done:
+    (1) Settings Window (Directive 1): Consolidated cluttered top bar controls into ONE unified Settings button (#btn-settings-trigger) across all 8 guides (START_HERE.html + 7 subject guides). Opens a Dynamic Island popover modal (#settings-modal) with spring physics (cubic-bezier(0.32, 0.72, 0, 1)) grouping Appearance, Language & Direction, Study Tools (Pomodoro focus timer, Voice reader), and Data & Offline controls.
+    (2) Side Menu (Directive 2): Deployed responsive slide-over drawer (#side-drawer) accessible via hamburger button (#btn-menu-drawer) across all 8 guides. Lists all sections/tabs for current guide plus direct links to all 7 academic subjects with exam dates. Mobile top tab bar restricted to max 4 primary tabs; secondary tabs marked .phone-hide.
+    (3) Strict Bidirectional RTL and LTR (Directive 3): Mirrored layout rules using CSS logical properties, mirrored chevrons/icons in LTR, drawer slide side dynamically mirrored, and number/punctuation formatting verified. Tested live at mobile (320px, 390px) and desktop (1440px).
+    (4) Self-Improvement & PWA (Directive 4): Hardened guides/sw.js v1.0.0 with stale-while-revalidate, cache pruning, and offline fallback. Dynamic Island spring physics integrated across modals, drawers, and tabs.
+    (5) Windowless Server Daemon (Directive 5): Upgraded scripts/dev-start.ps1, dev-stop.ps1, and serve.py to run windowless using pythonw.exe with CreateNoWindow = $true, WindowStyle = Hidden, UseShellExecute = $false. 0 black CMD console flash confirmed.
+    (6) PDF Inspection: 8/8 PDFs (195 pages) re-exported and certified 100% PERFECT via PyMuPDF with 0 blank pages and 0 warnings.
+    (7) Verification: scripts/verify.ps1 passed 6/6 checks. Pushed straight to main. Full report in ops/agy-runs/reports/r11-study.md.
+  evidence: guides/START_HERE.html, guides/*.html, guides/sw.js, scripts/dev-start.ps1, scripts/dev-stop.ps1, scripts/serve.py, dist/pdf/*.pdf, .sir/screenshots/r11-*.png, ops/agy-runs/reports/r11-study.md.
 - [ ] 2026-11-09 from control (SIR Control Room - Round 10 Complete):
   done:
     (1) Silenced Scheduled Tasks: Updated SIR_ControlRoom_Refresh to wscript.exe and pythonw.exe with CREATE_NO_WINDOW and safe file logging in ops/control-room-refresh.log (zero console window flash during gaming). Hardened SIR-Jobs-Weekly-Digest with -WindowStyle Hidden and audited all daemons.
