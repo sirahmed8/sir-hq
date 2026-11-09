@@ -21,7 +21,7 @@ tools/sir-autonomy/*.log
 !tools/sir-autonomy/chrome-extension/icons/*.png
 ops/agy-runs/*.png
 ops/agy-runs/done/
-ops/agy-runs/operator.done
+ops/agy-runs/*.done
 ops/agy-runs/expected.txt
 ops/agy-runs/smoke.txt
 ops/agy-runs/model-probe.txt
