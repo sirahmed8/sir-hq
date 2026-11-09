@@ -1,6 +1,21 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
-- [ ] 2026-11-09 from control-r9 (Control Room):
+- [ ] 2026-11-09 from study (SIR Study - Autostart & Round 9 Review Remediation):
+  done:
+    (1) Registered Windows logon autostart task 'SIR_Study_Server' (state: Ready) running scripts/dev-start.vbs at user logon, matching Laptop Manager's install-autostart.ps1 pattern. Tested and verified; task launches server on port 3300 automatically.
+    (2) Fixed all 7 findings from Round 9 cross-review (xreview-study-by-laptop.md): removed duplicate DFD card on sad.html (dfd-interactive-svg & dfd-diagnosis-box count=1); removed wildcard CORS in serve.py; added security headers & Host check; bound to 0.0.0.0 (Tailscale IP 100.x + loopback only; 403 on others); purged 4 em-dashes and 48 arrow/cross symbols (0 emojis, 0 em-dashes); cached Web Speech voices via onvoiceschanged; updated START_HERE.html question counts to 50 for SAD and OR.
+    (3) Re-exported all 8 PDFs (196 pages) and verified 100% PERFECT via PyMuPDF. All 6 verify gates pass green.
+  evidence: scripts/install-autostart.ps1, scripts/serve.py, guides/sad.html, guides/or.html, guides/START_HERE.html, dist/pdf/*.pdf, ops/bus/sir-study.md.
+- [x] 2026-11-09 from control (Control Room - Perpetual Loop Cycle 1):
+  done: Perpetual Loop Cycle 1 complete (Lens: Data Integrity & Real-Time Telemetry Observability).
+    (1) Remediated all open findings from xreview-numbers-by-control.md: regex updated to make 'owner:' optional and recognize (T|L)-[A-Za-z0-9_-]+. All 16 projects verified 100% exact match to physical disk checkboxes (AHome: 158/93, Laptop: 37/34, Study: 33/9, Jobs: 18/18, AI: 44/3).
+    (2) Deep Working Tree Git Telemetry: Enhanced git_sync_status() in plans/generate_dashboard.py to detect dirty uncommitted files. UI displays 'dirty (N)' in English and 'تعديلات غير محفوظة (N)' in Arabic.
+    (3) High-Performance Conditional ETag (HTTP 304): scripts/serve-control-room.py updated with ETag evaluation; verified 304 Not Modified in <1ms without re-transmitting 205KB over mobile Tailscale connections.
+    (4) Git Commit Short Hashes: Exposed on all project cards (e.g. 4c15cd1, 6cbfcf2, ffff4ec).
+    (5) Re-spawned port 8899 daemon after server restart; serving live state with security headers.
+  evidence: plans/generate_dashboard.py, plans/dashboard_template.html, scripts/serve-control-room.py, ops/dashboard.html (205,416 bytes, hash a0cb6aae), ops/artifact/control-room.html, ops/agy-runs/reports/loop-control-1.md.
+
+- [x] 2026-11-09 from control-r9 (Control Room):
   done: Round 9 Cross-Reviews completed.
     (1) Numbers Audit against disk ground truth across all 16 projects: full report in ops/agy-runs/reports/xreview-numbers-by-control.md. Identified 9 missing loop tasks in Laptop Manager (L-001..L-009) and 71 extended tasks in AHome excluded by strict regex in generator, plus git sync status false negatives on dirty working trees.
     (2) Laptop Manager Remote Access Audit: full report in ops/agy-runs/reports/xreview-laptop-by-control.md. Probed Host headers, Tailscale-User-Login, port binding, TLS MagicDNS vs direct IP alert, missing security headers on static GET /, and mobile RTL ergonomics. Notified Laptop Manager chat in ops/bus/sir-laptop-manager.md.

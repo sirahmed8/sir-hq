@@ -1089,7 +1089,25 @@ function renderRows(lang) {
       stLabel = isAr ? "مجمّد (مشروع صديق)" : "FROZEN (FRIEND)";
     }
 
-    const syncLabel = p.sync ? (isAr ? (p.sync === "in sync" ? "متزامن" : "غير متزامن") : p.sync) : "";
+    let syncLabel = "";
+    if (p.sync) {
+      if (isAr) {
+        if (p.sync === "in sync") {
+          syncLabel = "متزامن";
+        } else if (p.sync.startsWith("dirty")) {
+          const cnt = p.sync.match(/\d+/)?.[0] || "";
+          syncLabel = cnt ? `تعديلات غير محفوظة (${cnt})` : "تعديلات غير محفوظة";
+        } else if (p.sync.startsWith("ahead")) {
+          syncLabel = "غير مرفوع";
+        } else if (p.sync.startsWith("behind")) {
+          syncLabel = "متأخر عن السحاب";
+        } else {
+          syncLabel = "غير متزامن";
+        }
+      } else {
+        syncLabel = p.sync;
+      }
+    }
     const waveLabel = isAr ? `المرحلة ${p.wave}` : `Wave ${p.wave}`;
 
     return `

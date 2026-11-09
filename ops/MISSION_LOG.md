@@ -188,3 +188,9 @@
 - 06:55 HQ: r8 all done; round 9 (cross-review) briefs written.
 - 06:57 HQ: round 9 (cross-review) sent to 5 chats; artifact v18 published (b2dd0ba5).
 - 07:17 HQ: checkpoint updated; round 9 cross-review in progress, artifact v18, smart wake armed.
+- 08:17 HQ: checkpoint updated; round 9 nearly done (laptop pending), artifact republish pending.
+- 09:06 HQ: r9 all done; artifact v19 (735c2a2d); chats nudged to close xreview findings; account a01083835229 weekly 18% (next: 1sir1ahmed1).
+- 09:07 HQ: checkpoint updated; r9 complete, chats closing xreview findings, artifact v19.
+- 12:47 HQ: power cut recovery: restarted Study/Laptop servers, autostart tasks, telegram listener, smart wake; all chats Working.
+- 12:48 HQ: power cut recovery done (servers restarted, SIR_Laptop_Manager + SIR_Study_Server logon tasks, listener, smart wake); SIR_ControlRoom_Refresh task exists; Jobs autostart unverified.
+- 12:48 HQ: Study autostart not registered (access denied), note left in bus/sir-study.md.

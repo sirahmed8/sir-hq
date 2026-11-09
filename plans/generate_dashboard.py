@@ -364,6 +364,33 @@ def git(folder, *args):
         return ""
 
 
+def git_sync_status(folder):
+    try:
+        sb = git(folder, "status", "-sb")
+        lines = [l for l in sb.splitlines() if l.strip()]
+        if not lines:
+            return "in sync"
+        first = lines[0]
+        dirty = len(lines) - 1
+        is_ahead = "ahead" in first
+        is_behind = "behind" in first
+        if is_ahead and is_behind:
+            branch_st = "diverged"
+        elif is_ahead:
+            branch_st = "ahead"
+        elif is_behind:
+            branch_st = "behind"
+        else:
+            branch_st = "in sync"
+
+        if branch_st == "in sync":
+            return "in sync" if dirty == 0 else f"dirty ({dirty})"
+        else:
+            return f"{branch_st}" if dirty == 0 else f"{branch_st} & dirty ({dirty})"
+    except Exception:
+        return "in sync"
+
+
 def parse_tasks(folder, private):
     ms, cur = [], None
     for ln in lines(os.path.join(folder, ".sir", "TASKS.md")):
@@ -372,7 +399,7 @@ def parse_tasks(folder, private):
             cur = dict(name=(m.group(1) + " " + m.group(2)).strip(), items=[])
             ms.append(cur)
         elif cur and (
-            m2 := re.match(r"- \[([ x])\] ((?:T|L)-[A-Za-z0-9_-]+) \| owner: [^|]+\| (.*)", ln)
+            m2 := re.match(r"- \[([ x])\] ((?:T|L)-[A-Za-z0-9_-]+)\s*(?:\|\s*owner:\s*[^|]+\s*)?\|\s*(.*)", ln)
         ):
             text = re.sub(r"\s*\| depends:.*", "", m2.group(3)).replace("(kit) ", "")
             text = re.sub(r"habiba", "private data", text, flags=re.IGNORECASE)
@@ -776,16 +803,7 @@ def main():
                 folder="withheld" if private else "D:\\Projects\\" + p["folder"],
                 commit=git(folder, "log", "-1", "--format=%cs") if not private else "",
                 hash=git(folder, "rev-parse", "--short", "HEAD") if not private else "",
-                sync=(
-                    ""
-                    if private
-                    else (
-                        "in sync"
-                        if "ahead" not in git(folder, "status", "-sb").split("\n")[0]
-                        and "behind" not in git(folder, "status", "-sb").split("\n")[0]
-                        else "not in sync"
-                    )
-                ),
+                sync="" if private else git_sync_status(folder),
                 required=sum(1 for v in st["platforms"].values() if v == "required"),
                 matrix=None if private else st["platforms"],
             )

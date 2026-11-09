@@ -24,6 +24,8 @@ class ControlRoomHandler(SimpleHTTPRequestHandler):
         self.send_header("X-Frame-Options", "SAMEORIGIN")
         self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
         self.send_header("Permissions-Policy", "geolocation=(), camera=(), microphone=()")
+        if getattr(self, "_current_etag", None):
+            self.send_header("ETag", self._current_etag)
         if self.path.endswith((".html", "/")):
             self.send_header("Cache-Control", "no-cache, must-revalidate")
         super().end_headers()
@@ -35,6 +37,25 @@ class ControlRoomHandler(SimpleHTTPRequestHandler):
             self.send_header("Location", "/dashboard.html")
             self.end_headers()
             return
+
+        # ETag conditional validation for dashboard.html
+        clean_path = self.path.split("?")[0]
+        if clean_path == "/dashboard.html":
+            hash_file = os.path.join(OPS_DIR, "artifact", "CHANGED.txt")
+            if os.path.exists(hash_file):
+                try:
+                    with open(hash_file, "r", encoding="utf-8") as f:
+                        current_etag = f'"{f.read().strip()}"'
+                    client_etag = self.headers.get("If-None-Match", "").strip()
+                    if client_etag and client_etag == current_etag:
+                        self.send_response(304)
+                        self.send_header("ETag", current_etag)
+                        self.send_header("Cache-Control", "no-cache, must-revalidate")
+                        self.end_headers()
+                        return
+                    self._current_etag = current_etag
+                except Exception:
+                    pass
         super().do_GET()
 
     def handle_one_request(self):
