@@ -1,7 +1,7 @@
 # Inbox: Planner
 Planner chat reports and stages tracking.
 
-- [ ] 2026-11-09T18:56:00+02:00 from planner (Stage 0: Initialized):
+- [x] 2026-11-09T18:56:00+02:00 from planner (Stage 0: Initialized):
   status: Started planner-1 mission. Brief read completely. Five-step master execution plan initialized.
 
 - [x] 2026-11-09T18:57:30+02:00 from planner (Stage 1 Complete):
