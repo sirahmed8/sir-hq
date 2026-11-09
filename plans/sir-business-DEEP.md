@@ -189,3 +189,50 @@ SIR Business is an agency-grade, offline-resilient point-of-sale (POS) and inven
 - **Files**: `scripts/verify.ps1`, `tests/test_business_integrity.py`
 - **Steps**: Validate offline checkout, barcode math, ESC/POS generator, drug substitution, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-business`), clean Supabase project (`sir-business-prod`), target domain `sirbusiness.app` or `sirbusiness.eg` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 static + SSR).
+  - Desktop (Windows / macOS / Linux): `npm run tauri build` (Tauri v2 native shell with embedded SQLite).
+  - Tablet (Android / iPadOS): `npx cap sync && npx cap build` (Capacitor tablet POS).
+- **Security Tasks**:
+  - Server-side role-based access control (Admin, Manager, Cashier).
+  - HMAC-SHA256 signature verification and 5-minute replay window on all Paymob webhooks.
+  - Encryption-at-rest for local offline SQLite database using SQLCipher.
+- **Fair EGP Subscription Model**:
+  - Starter Plan: 350 EGP / month or 3,500 EGP / year.
+  - Growth Plan: 650 EGP / month or 6,500 EGP / year.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets, Meeza) and Fawry.
+  - Fallback Mode: When live payment keys are missing, displays "Subscriptions Launching Soon - Contact Sales" with email capture.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirbusiness.app` on Namecheap (~$12.00 / 550 EGP) and point DNS CNAME to Vercel.
+  2. Paste Paymob keys into `D:\Projects\SIR Business\.env`.
+  3. Verify: Open `/pricing`, test 350 EGP checkout in test mode, verify receipt renders with ETA compliance.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-business.md` with cited sources comparing against Daftra, Loyverse, Foodics, and Odoo.
+- **Regional Regulatory & Tax Compliance**:
+  - Egypt: Full compliance with Egyptian Tax Authority (ETA) e-receipt v1.0 standard and Egyptian Data Protection Law 151/2020.
+  - Saudi Arabia: Compliance with ZATCA (Fatoora) Phase 2 QR code standards.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring transaction velocity and error stack traces; zero customer phone numbers or basket item details captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, SLA, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد التاجر" - embedded support assistant grounded in POS user manuals, printer setup guides, and ETA tax guidelines.
+- **Operations Runbook**: Nightly database snapshots, automated offline transaction reconciliation daemon, error log digests, and health check route (`/api/v1/status`).
+- **12-Week Marketing Launch Calendar**: Pre-launch merchant waitlist (Weeks -2 to 0), local retail onboarding in Obour City and New Cairo (Weeks 1 to 4), pharmacy network outreach (Weeks 5 to 8), restaurant chain referral blitz (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $4.00/day. Chairman notified via Telegram bot ONLY for tax server disconnections or payment gateway disruptions.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"برنامج كاشير سحابي مصر", "برنامج الفاتورة الإلكترونية المصرية", "سيستم إدارة مطاعم ونقاط بيع"*
+  - Egyptian Slang: *"أفضل سيستم كاشير للمحلات", "برنامج فواتير للمحل سهل ورخيص", "كاشير بالجنيه"*
+  - English: *"Egyptian POS software", "ETA e-invoicing ERP Egypt", "cloud retail point of sale"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured POS pricing, tax capabilities, and direct entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

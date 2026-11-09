@@ -186,3 +186,47 @@ SIR Controller is a high-performance game controller emulation, input remapping,
 - **Files**: `scripts/verify.ps1`, `tests/test_controller_integrity.py`
 - **Steps**: Run linter, typecheck, virtual driver checks, timer resolution tests, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-controller`), clean desktop build pipeline, target domain `sircontroller.app` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Windows Desktop (Primary): `npm run tauri build` (Produces signed `.msi` and `.exe` installer).
+  - Web Companion: `npm run build` (Next.js 15 web tuning portal).
+- **Security & Integrity Tasks**:
+  - Zero Anti-Cheat Risk: Operates strictly in user-mode via Win32 APIs; never injects code into protected game memory.
+  - Automated pre-tweak registry backup (`.reg` snapshot) before any system modification.
+  - Silent execution via `CREATE_NO_WINDOW = 0x08000000`.
+- **Fair EGP Commercial Model**:
+  - 100% free core tier: Full ViGEmBus controller mapping, deadzone calibration, and timer resolution tuner.
+  - Pro Gamer Tier: 199 EGP one-time lifetime license.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets, Meeza) and Stripe.
+  - Fallback Mode: When live payment keys are missing, displays "Pro Features Launching Soon - Free During Beta".
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sircontroller.app` on Namecheap (~$12.00 / 550 EGP) and deploy static landing page.
+  2. Paste Paymob keys into `D:\Projects\SIR Controller\.env`.
+  3. Verify: Run installer, launch CS2, verify timer resolution locks to 0.5ms and anti-cheat safe mode activates.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-controller.md` with cited sources comparing against CCleaner, Razer Cortex, Hone, and built-in Windows Game Mode.
+- **Hardware Safety Compliance**: Adheres to Microsoft Hardware Quality Lab guidelines; limits tweaks strictly to certified safe user-mode boundaries.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring gamepad disconnect rates and average input latency; zero personal computer files scanned.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Use, Hardware Safety Disclaimer, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد الأداء والألعاب" - embedded support assistant grounded in controller troubleshooting, Bluetooth latency fixes, and Windows game optimization.
+- **Operations Runbook**: Automated profile sync verification, crash log dump analysis, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Esports forum teaser (Weeks -2 to 0), Reddit r/pcmasterrace launch blitz (Weeks 1 to 4), Arab gaming influencer benchmark reviews (Weeks 5 to 8), competitive tournament giveaway (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $2.00/day. Chairman notified via Telegram bot ONLY for driver certificate expirations or anti-cheat false-positive reports.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"تسريع ويندوز 11 للألعاب", "برنامج تقليل اللاج والبنق", "تشغيل دراع بلايستيشن على الكمبيوتر"*
+  - Egyptian Slang: *"إزاي أسرع الجهاز للألعاب بدون فورمات", "تقليل البنج في ببجي وفالورانت", "تظبيط دراع الكمبيوتر"*
+  - English: *"Windows PC gaming optimizer", "input lag reducer Windows 11", "virtual Xbox 360 controller mapper"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured benchmark metrics, timer resolution explanations, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

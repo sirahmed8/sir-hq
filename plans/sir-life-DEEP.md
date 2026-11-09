@@ -184,3 +184,50 @@ SIR Life is Ahmed Alaa's personal lifestyle operating system, mindfulness journa
 - **Files**: `scripts/verify.ps1`, `tests/test_life_integrity.py`
 - **Steps**: Validate prayer calculation accuracy, habit streak math, encryption invariants, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 2 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-life`), clean architecture, target domain `sirlife.app` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 App Router static + SSR).
+  - Mobile (Android / iOS): `npx cap sync && npx cap build` (Capacitor PWA shell).
+  - Watch (Wear OS / watchOS): Glance tile showing next prayer countdown and daily habit progress ring.
+- **Security & Privacy Tasks**:
+  - Zero Ads, Zero Location Data Tracking: Calculation runs completely offline using mathematical coordinates for Cairo/Giza.
+  - Client-side AES-256 encryption for personal journal entries.
+  - Complete data ownership: 1-click JSON data export and irreversible database wipe.
+- **Fair EGP Commercial Model**:
+  - 100% Free Core Tier: Full offline habit tracking, prayer times, fasting hero, and journal sheets.
+  - Pro Cloud Sync Tier: 99 EGP / year.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets, Meeza) and Stripe.
+  - Fallback Mode: When live payment keys are missing, displays "Sync Features Launching Soon - 100% Free During Beta".
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirlife.app` on Namecheap (~$12.00 / 550 EGP) and point DNS to Vercel.
+  2. Paste Paymob keys into `D:\Projects\SIR Life\.env`.
+  3. Verify: Open web app, tick a habit, verify prayer time displays within 60s of Egyptian Survey Authority schedule.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-life.md` with cited sources comparing against Streaks, Fabulous, Habitica, and Muslim Pro.
+- **Regional Regulatory Compliance**:
+  - Full compliance with Egyptian Data Protection Law 151/2020.
+  - Medical Limitation Disclaimer: Habits and eye rest guides do not constitute certified medical treatment.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring app launch frequency and error rates; zero journal text or habit names captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, Wellness Disclaimer, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد التوازن والعادات" - embedded support assistant grounded in habit formation science, sleep hygiene, and prayer time calculations.
+- **Operations Runbook**: Nightly database snapshots, automated calendar leap year calculations, error log digests, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Product Hunt teaser (Weeks -2 to 0), Ramadan spiritual preparation launch blitz (Weeks 1 to 4), productivity blogger outreach (Weeks 5 to 8), New Year habit challenge (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $2.00/day. Chairman notified via Telegram bot ONLY for sync database outages.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"تطبيق متابعة العادات اليومية", "برنامج مواقيت الصلاة بدون إعلانات", "مفكرة يومية وتدوين شخصي"*
+  - Egyptian Slang: *"برنامج تنظيم الوقت والعادات بالعامية", "مواقيت الصلاة القاهرة بدون إعلانات رخمة"*
+  - English: *"holistic habit tracker app", "ad-free prayer times Cairo", "daily evening reflection journal"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured habit science methodologies, prayer calculation formulas, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `HealthAndFitnessApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

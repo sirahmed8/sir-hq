@@ -187,3 +187,50 @@ SIR AI is Ahmed Alaa's personal sovereign intelligence system ("Jarvis"). It bri
 - **Files**: `scripts/verify.ps1`, `tests/test_master_plan_ai.py`
 - **Steps**: Author comprehensive integration test validating daemon ingress, bot commands, voice pipeline, and security gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-ai`), clean local/cloud architecture, target domain `sirai.app` or `sirai.dev` (~$14.00 / ~650 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Windows Desktop (Primary): `npm run tauri build` (Lightweight native installer < 60MB RAM).
+  - Web & PWA: `npm run build` (Next.js 15 PWA interface).
+  - Mobile (Android / iOS): PWA wrapper via Capacitor (`npx cap sync && npx cap build`).
+- **Security & Privacy Tasks**:
+  - Zero cloud leakage of private documents indexed in local RAG.
+  - Tailscale WireGuard ingress validation (`Tailscale-User-Login`).
+  - Strict AES-256 encryption-at-rest for SQLite conversation vault.
+- **Fair EGP Commercial Model**:
+  - 100% Free Core Tier: Unlimited local model execution via Ollama and `AI_Models_Hub`.
+  - Pro Cloud Sync Tier: 149 EGP / month or 1,490 EGP / year.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets, Meeza) and Stripe.
+  - Fallback Mode: When live payment keys are missing, displays "Subscriptions Launching Soon - 100% Free During Local Beta".
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirai.app` on Namecheap (~$14.00 / 650 EGP) and point DNS to Vercel.
+  2. Paste OpenRouter and Paymob API keys into `D:\Projects\SIR AI\.env`.
+  3. Verify: Press `Alt+Space`, ask a question, verify local model streams reply in < 50ms with zero console windows.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-ai.md` with cited sources comparing against LM Studio, Jan.ai, ChatGPT/Claude Desktop, and Ollama CLI.
+- **Regional Regulatory & Safety Compliance**:
+  - Full compliance with Egyptian Data Protection Law 151/2020 and GDPR; zero user prompt surveillance.
+  - AI Output Transparency: Discloses that AI outputs may contain errors and should not be used as certified medical/legal advice.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring local token throughput and crash logs; zero prompt or response text captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, Acceptable Use Policy, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "وكيل الذكاء الاصطناعي" - embedded support assistant grounded in model compatibility, GPU requirements, and local setup guides.
+- **Operations Runbook**: Nightly database snapshots, automated model file integrity verification daemon, error log digests, and health check route (`/api/v1/ping`).
+- **12-Week Marketing Launch Calendar**: Hacker News Show HN launch (Weeks -2 to 0), Reddit r/LocalLLaMA launch blitz (Weeks 1 to 4), developer tutorial series (Weeks 5 to 8), local AI workshop demos (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $3.00/day. Chairman notified via Telegram bot ONLY for daemon crashes or cloud API authentication failures.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"تطبيق ذكاء اصطناعي محلي", "تشغيل نماذج الذكاء الاصطناعي على الكمبيوتر", "بديل شات جي بي تي بدون إنترنت"*
+  - Egyptian Slang: *"برنامج ذكاء اصطناعي يشتغل من غير نت", "شات جي بي تي على اللابتوب مجاناً"*
+  - English: *"local LLM desktop assistant", "private offline AI agent Windows", "Ollama desktop GUI client"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured model capability matrices, hardware requirements, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

@@ -185,3 +185,42 @@ SIR Obour Hub is a high-craft, student-centric academic companion and campus por
 - **Files**: `scripts/verify.ps1`, `tests/test_obour_hub.py`
 - **Steps**: Run linter, strict TypeScript typecheck, GPA math test suites, and schedule rendering tests.
 - **Acceptance**: `verify.ps1` runs in under 2 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-obour-hub`), clean backend, target domain `obourhub.com` or `sir-obour.com` (~$10.00 / ~450 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 App Router static export + edge functions).
+  - Mobile (Android / iOS PWA): `npx cap sync && npx cap build`.
+- **Security & Integrity Tasks**:
+  - Zero Quiz Automation: strictly prohibited; learning support, schedules, and materials only.
+  - Rate limiting on grade lookups: max 15 requests/minute per IP to prevent DDoS during results release.
+- **Fair EGP Model**: 100% free for all students to view timetables, GPA calculators, hall maps, and download syllabus sheets. Optional campus marketplace business listing: 30 EGP / semester.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `obourhub.com` on Namecheap (~$10.00 / 450 EGP) and point DNS to Vercel / Cloudflare.
+  2. Setup Cloudflare R2 bucket `obour-academic-docs` for PDF lecture notes.
+  3. Verify: Visit `/timetable`, test search for "Hall 533", confirm schedule loads offline in Airplane mode.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-obour-hub.md` with cited sources comparing against official Obour SIS portal, unofficial Telegram groups, and global platforms like Chegg/Studocu.
+- **Regional Regulatory Compliance**: Complies with Egyptian Data Protection Law 151/2020.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring peak traffic hours and popular lecture notes; zero grades or personal data captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Campus Marketplace and Fair Use Notice, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مرشد العبور الأكاديمي" - embedded support assistant grounded in Obour Institute credit-hour bylaws, registration timetables, and academic calendars.
+- **Operations Runbook**: Nightly database snapshots, automated edge cache purging on exam result releases, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Student representative outreach (Weeks -2 to 0), campus launch blitz (Weeks 1 to 4), midterm review session guides (Weeks 5 to 8), final exam cram-sheet release (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $2.00/day. Chairman notified via Telegram bot ONLY for grade mirror downtime or DDoS anomalies during result releases.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"معهد العبور للهندسة والتكنولوجيا", "جدول امتحانات معهد العبور", "ملخصات مواد حاسبات ومعلومات العبور"*
+  - Egyptian Slang: *"شيتات وملخصات العبور", "مكان مدرج 533 العبور", "حساب الـ GPA معهد العبور"*
+  - English: *"Obour Higher Institute student portal", "Obour engineering exam schedule", "Obour campus study guides"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured department lists, course catalogs, and campus locations.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `EducationalApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

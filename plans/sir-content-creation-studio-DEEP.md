@@ -185,3 +185,51 @@ SIR Content Creation Studio is an autonomous programmatic video generation studi
 - **Files**: `scripts/verify.ps1`, `tests/test_studio_integrity.py`
 - **Steps**: Validate FFmpeg filtergraph syntax, video codecs, social publisher schemas, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-content-creation-studio`), clean backend, target domain `sircreator.studio` or `sircontent.io` (~$20.00 / ~950 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 static + SSR).
+  - Desktop (Windows / macOS): `npm run tauri build` (Tauri v2 with local NVENC GPU access).
+  - Mobile: PWA for approving drafts and viewing analytics (`npx cap sync && npx cap build`).
+- **Security Tasks**:
+  - Encrypted storage of social media OAuth2 refresh tokens using AES-256.
+  - Strict compliance with Meta Graph API and YouTube Data API v3 terms; zero unauthorized scraping of X.
+  - Rate limiting on rendering endpoints: max 5 concurrent renders per subscriber.
+- **Fair EGP Subscription Model**:
+  - Free Tier: 3 free video exports / month with watermarked corner badge.
+  - Creator Pro Plan: 290 EGP / month or 2,900 EGP / year.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets: Vodafone Cash, Meeza) and Fawry.
+  - Fallback Mode: When live payment keys are missing, displays "Subscriptions Launching Soon - Join Waitlist" with email capture.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sircreator.studio` on Namecheap (~$20.00 / 950 EGP) and point DNS to Vercel.
+  2. Create Meta Developer App (Instagram Graph API) and Google Cloud Project (YouTube Data API v3).
+  3. Paste Client IDs and Secrets into `D:\Projects\SIR Content Creation Studio\.env`.
+  4. Verify: Import a 30s test video, generate kinetic subtitles, export MP4, verify render completes in < 15s.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-content-creation-studio.md` with cited sources comparing against Opus Clip, CapCut Pro, Buffer, and InVideo.
+- **Regional Regulatory & Copyright Compliance**:
+  - Full compliance with Egyptian Data Protection Law 151/2020 and Egyptian Intellectual Property Rights Law 82/2002.
+  - Fair use guidelines for automated quote videos; copyright-free commercial audio licensing.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring rendering latency and format popularity; zero creator script content or private raw footage uploaded to third parties.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, Acceptable Use Policy, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد المونتاج وصانع المحتوى" - embedded support assistant grounded in social media video dimensions, subtitle formatting, and export presets.
+- **Operations Runbook**: Nightly temporary video cache cleanup, automated token refresh daemons, error log digests, and health check route (`/api/status`).
+- **12-Week Marketing Launch Calendar**: Creator waitlist (Weeks -2 to 0), YouTube Shorts case study series (Weeks 1 to 4), podcaster partnership outreach (Weeks 5 to 8), regional creator affiliate program (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $3.00/day. Chairman notified via Telegram bot ONLY for social API token revocations or video render server errors.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"برنامج مونتاج ذكاء اصطناعي", "عمل فيديوهات ريلز بالذكاء الاصطناعي", "توليد ترجمة متحركة للفيديو"*
+  - Egyptian Slang: *"مونتاج ريلز وشورتس أوتوماتيك", "برنامج ترجمة فيديو عربي تلقائي", "أتمتة السوشيال ميديا"*
+  - English: *"AI video repurposing tool", "auto subtitle generator Arabic", "short form video automation"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured pricing, export format specs, and entity linking to ByteVibeHQ.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

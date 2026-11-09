@@ -184,3 +184,43 @@ SIR Portfolio is Ahmed Alaa's authoritative public engineering showcase and sove
 - **Files**: `scripts/verify.ps1`, `tests/test_portfolio_integrity.py`
 - **Steps**: Validate data synchronization, Truth Rule compliance, zero broken links, zero emojis, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 2 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-portfolio`), clean static hosting, target domain `sirahmed.com` or `ahmedoraby.dev` (~$10.00 / ~450 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 App Router static export).
+  - Mobile Companion: Responsive web view adapted for mobile Safari / Chrome.
+- **Security Tasks**:
+  - Cloudflare DDoS protection; Content Security Policy (CSP) blocking unauthorized external scripts.
+  - Rate limiting on contact form: max 2 submissions per 10 minutes per IP.
+  - Zero private credentials, secrets, or unverified claims in public source code.
+- **Fair Model**: 100% free and open access to all case studies, technical documentation, and project links.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirahmed.com` on Namecheap (~$10.00 / 450 EGP) and point DNS to Vercel / Cloudflare Pages.
+  2. Add Google Search Console and Bing Webmaster property via DNS TXT record.
+  3. Verify: Visit `https://sirahmed.com`, submit contact message, verify Telegram ping arrives on Ahmed's phone.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-portfolio.md` with cited sources comparing against generic template sites, static GitHub READMEs, and heavy 3D portfolios.
+- **Truth Rule Invariant**: Every project described on the portfolio strictly reflects reality today—no unverified certifications, no inflated metrics, no fake client logos.
+- **Privacy-First Analytics**: Cookie-less, privacy-friendly analytics (Plausible / Umami) collecting aggregated page counts with zero individual user tracking.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Use, Copyright Notice, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد سيرة أحمد" - embedded support assistant grounded in Ahmed's real bio, project case studies, and engineering philosophy. Answers in Arabic and English with zero invented credentials.
+- **Operations Runbook**: Automated static build verification, broken link checker, and health check route (`/api/health`).
+- **12-Week Marketing & Authority Calendar**: Launch announcement on LinkedIn and X (Weeks -2 to 0), weekly architecture deep dive articles (Weeks 1 to 4), case study videos on YouTube (Weeks 5 to 8), GitHub trending feature release (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Contact form submissions delivered directly to Ahmed's Telegram bot; spam automatically filtered by Honeypot.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"أحمد عرابي مهندس ذكاء اصطناعي", "مؤسس مجموعة مشاريع SIR", "مبرمج نظم ذكاء اصطناعي مصر"*
+  - Egyptian Slang: *"المطور أحمد عرابي", "أحسن مبرمج ذكاء اصطناعي في مصر"*
+  - English: *"Ahmed Oraby AI engineer", "SIR portfolio founder", "autonomous agent software architect Egypt"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured biography, educational background, and verified project directory.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid schema.org `Person` and `ProfilePage` JSON-LD schemas, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

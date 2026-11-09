@@ -185,3 +185,47 @@ SIR Mods for GTA V is an executive mod manager, vehicle physics overhaul, and vi
 - **Files**: `scripts/verify.ps1`, `tests/test_gtav_integrity.py`
 - **Steps**: Validate safety interlock logic, handling math syntax, package installer, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-mods-for-gta-v`), clean desktop build pipeline, target domain `sirgtamods.app` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Windows Desktop (Primary): `npm run tauri build` (Produces signed `.msi` and `.exe` installer).
+  - Web Companion: `npm run build` (Next.js 15 web handling configurator).
+- **Security & Integrity Tasks**:
+  - Zero Anti-Cheat Ban Guarantee: Air-gap interlock automatically quarantines all mod files into `_quarantine\` before GTA Online launches.
+  - Non-destructive symlink architecture: original game archives are never permanently overwritten.
+  - Silent background monitoring via `CREATE_NO_WINDOW = 0x08000000`.
+- **Fair EGP Commercial Model**:
+  - 100% Free Core Mod Manager: Full safe-mode switcher, `.oiv` package installer, and handling editor.
+  - Optional Curated Audio & Vehicle Packs: 49 EGP one-time pack fee (Paymob test checkout integrated with "Launching Soon" fallback).
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirgtamods.app` on Namecheap (~$12.00 / 550 EGP) and deploy static landing page.
+  2. Paste Paymob keys into `D:\Projects\SIR Mods for GTA V\.env`.
+  3. Verify: Click "Enable Safe Mode", launch GTA V, verify `dinput8.dll` is renamed and GTA Online loads with zero warning.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-mods-for-gta-v.md` with cited sources comparing against OpenIV, GTA5-Mods manual installs, FiveM, and Vortex.
+- **Publisher Policy Compliance**:
+  - Complies strictly with Rockstar Games' official policy statement on single-player modding (offline single-player only; zero impact on GTA Online multiplayer).
+  - Fair use DMCA safe harbor: Distributes zero proprietary Rockstar game code or copyrighted textures.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring game launch success rates and mod load times; zero gaming hours or personal computer files scanned.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, Single-Player EULA Disclaimer, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مرشد تعديل GTA" - embedded support assistant grounded in ScriptHookV version tables, `.meta` XML syntax, and ENB shader tuning.
+- **Operations Runbook**: Nightly game build version tracking, automated ScriptHookV update alerts, error log digests, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: GTA modding forum release (Weeks -2 to 0), YouTube handling showcase (Weeks 1 to 4), automotive modder Discord outreach (Weeks 5 to 8), realistic graphics demo release (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $2.00/day. Chairman notified via Telegram bot ONLY for game update breakages affecting all users.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"برنامج تركيب سيارات قراند 5 بدون باند", "تسريع لعبة GTA V للكمبيوتر", "مود القيادة الواقعية للسيارات قراند"*
+  - Egyptian Slang: *"طريقة تشغيل مودات جاتا 5 من غير ما يجيلك باند", "تركيب عربيات في جاتا 5 بضغطة واحدة"*
+  - English: *"safe GTA V mod manager single player", "anti-cheat safe GTA 5 mods", "realistic vehicle handling mod GTA V"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured handling parameters, safe-mode documentation, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

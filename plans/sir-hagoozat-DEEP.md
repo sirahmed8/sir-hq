@@ -187,3 +187,49 @@ SIR Hagoozat is the definitive football community and facility management platfo
 - **Files**: `scripts/verify.ps1`, `tests/test_hagoozat_integrity.py`
 - **Steps**: Run linter, typecheck, slot race condition simulations, webhook cryptographic checks, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-hagoozat`), clean Supabase project (`sir-hagoozat-prod`), target domain `hagoozat.com` or `hagoozat.eg` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: `npm run build` (Next.js 15 static + SSR).
+  - Mobile (Android / iOS): `npx cap sync && npx cap build` (Capacitor native wrapper).
+  - Watch (Wear OS): Glance tile showing upcoming match countdown (`cd wear && ./gradlew assembleRelease`).
+  - Car: Skipped for v1 (match navigation route backlog).
+- **Security Tasks**:
+  - HMAC-SHA256 signature check and 5-minute replay window on all Paymob webhooks.
+  - Rate limiting: max 10 booking requests/minute per IP; SMS OTP limited to 3 per hour.
+  - Server-side session validation; HttpOnly secure cookies; zero PII in client logs.
+- **Fair EGP Subscription Model**:
+  - Free for individual players to browse, book, and split payments.
+  - Venue Owner Tier: 450 EGP / month or 4,500 EGP / year.
+  - Payment Gateway: Paymob (Cards, Mobile Wallets: Vodafone Cash, Orange Money, Etisalat Cash, WE Pay, Meeza) and Fawry.
+  - Fallback Mode: When live payment keys are missing, displays "Online Booking Launching Soon - Reserve via WhatsApp" with email capture.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `hagoozat.com` on Namecheap (~$12.00 / 550 EGP) and point DNS CNAME to Vercel.
+  2. Paste Paymob keys into `D:\Projects\SIR Hagoozat\.env`.
+  3. Verify: Book test 5 EGP slot via Vodafone Cash, verify booking status changes to Confirmed and WhatsApp ticket arrives.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-hagoozat.md` with cited sources comparing against Playtomic, Malaeb, and Grinta.
+- **Regional Regulatory & Tax Compliance**: Complies with Egyptian Data Protection Law 151/2020 and ETA e-receipt v1.0 standard.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry tracking venue search volume and booking conversion rates; zero phone numbers or private messages captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Reservation, Pitch Cancellation Policy, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "كابتن حجوزات" - embedded support assistant grounded in pitch ground rules, cancellation policies, and pitch directions.
+- **Operations Runbook**: Nightly database backups, automatic slot lock cleanup daemon, error log digests, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Pre-launch waitlist (Weeks -2 to 0), Cairo university blitz (Weeks 1 to 4), local sports academy partnerships (Weeks 5 to 8), regional padel tournament sponsorship (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $3.00/day. Chairman notified via Telegram bot ONLY for double-booking disputes or payment gateway disruptions.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"حجز ملاعب كرة قدم القاهرة", "تطبيق حجز ملاعب بادل", "تأجير ملاعب خماسي"*
+  - Egyptian Slang: *"احجز ملعب كورة في دقيقة", "ملاعب كورة قريبة مني", "حجز بادل التجمع"*
+  - English: *"football pitch booking Cairo", "padel court rental Egypt", "5v5 soccer turf reservation"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured venue pricing, platform availability, and direct entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SportsApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

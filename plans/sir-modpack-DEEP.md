@@ -184,3 +184,47 @@ SIR ModPack is a curated, high-performance Minecraft modding suite and sovereign
 - **Files**: `scripts/verify.ps1`, `tests/test_modpack_integrity.py`
 - **Steps**: Validate modlist hashes, JVM flag syntax, launcher compilation, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-modpack`), clean desktop distribution pipeline, target domain `sirmodpack.app` (~$12.00 / ~550 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Windows Desktop (Primary): `npm run tauri build` (Produces lightweight native `.msi` and `.exe` installer).
+  - macOS / Linux: `cargo tauri build --target x86_64-unknown-linux-gnu`.
+- **Security & Integrity Tasks**:
+  - Official Microsoft / Mojang OAuth2 authentication; zero storage of user Minecraft passwords.
+  - Cryptographic verification: All downloaded mod files validated against remote SHA-1 / SHA-256 hashes.
+  - Silent background updates via `CREATE_NO_WINDOW = 0x08000000`.
+- **Fair EGP Commercial Model**:
+  - 100% Free Core Modpack & Launcher: Zero ads, zero Overwolf bloat.
+  - Optional Curated Server Hosting: 89 EGP / month (Paymob test checkout integrated with "Launching Soon" fallback).
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirmodpack.app` on Namecheap (~$12.00 / 550 EGP) and deploy static landing page.
+  2. Register Azure AD Application for Microsoft OAuth2 authentication.
+  3. Verify: Click "Sign in with Microsoft", authenticate via browser, verify modpack launches into title screen at 120 FPS.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-modpack.md` with cited sources comparing against CurseForge, Modrinth App, Prism Launcher, and ATLauncher.
+- **Commercial Usage & Gaming EULA Compliance**:
+  - Adheres strictly to the official Microsoft / Mojang Commercial Usage Guidelines.
+  - COPPA Compliance: Age gate (13+) for online multiplayer and Discord integration.
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring launch crash frequency and average FPS; zero username or chat telemetry captured.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Service, EULA Disclaimer, and Privacy Policy, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مرشد المودباك" - embedded support assistant grounded in Fabric mod compatibility lists, Java runtime troubleshooting, and shader optimization.
+- **Operations Runbook**: Nightly mod manifest verification, broken download mirror auto-failover, error log digests, and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Reddit r/Minecraft teaser (Weeks -2 to 0), YouTube performance benchmark comparison vs CurseForge (Weeks 1 to 4), Arab gaming Discord server partnerships (Weeks 5 to 8), community building contest (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Maximum daily external AI spend capped at $2.00/day. Chairman notified via Telegram bot ONLY for Mojang OAuth2 authentication deprecations or download CDN failures.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"مودباك ماين كرافت لتسريع اللعبة", "تشغيل ماين كرافت 120 فريم على اللابتوب", "أفضل لانشر ماين كرافت بدون إعلانات"*
+  - Egyptian Slang: *"إزاي أزود فريمات ماين كرافت بدون لاج", "أحسن لانشر ماين كرافت خفيف"*
+  - English: *"performance Minecraft modpack Fabric 1.21", "lightweight Minecraft launcher Windows", "120 FPS laptop Minecraft setup"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured benchmark tables, mod lists, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareApplication` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).

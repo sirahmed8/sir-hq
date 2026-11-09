@@ -199,3 +199,43 @@ flowchart TD
 - **Files**: `scripts/verify.ps1`, `tests/test_platform_integrity.py`
 - **Steps**: Validate package build outputs, exports, typing definitions, and verify gates.
 - **Acceptance**: `verify.ps1` runs in under 3 seconds with 100% green gates.
+
+
+---
+
+## 5. Mandatory Standards 24 to 27 Architecture
+
+### 5.1 Launch Package (Standard 24)
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-platform`), clean pnpm monorepo pipeline, target domain `sirplatform.dev` (~$14.00 / ~650 EGP/yr).
+- **Supported Platforms & Build Commands**:
+  - Monorepo Build: `pnpm build` (Compiles all TypeScript packages and exports ESM/CJS bundles).
+  - Documentation Portal: `npm run build` (Next.js 15 developer portal).
+  - CLI Tooling: `npm link` (Provides global `sir` command across system).
+- **Security & Integrity Tasks**:
+  - Cryptographic timing-safe HMAC validation in `@sir/signed-webhook`.
+  - Zero PII transmission in `@sir/ai-proxy`.
+  - Mandatory AST CI linter (`scripts/lint_design_tokens.py`) preventing yellow buttons and emoji regressions.
+- **Fair Model**: Internal shared library powering all portfolio ventures; documentation portal 100% free and open.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Buy domain `sirplatform.dev` on Namecheap (~$14.00 / 650 EGP) and deploy documentation portal to Vercel.
+  2. Verify: Run `pnpm test`, confirm all 7 packages pass tests with 100% green exit code.
+
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-platform.md` with cited sources comparing against shadcn/ui, Radix UI, Mantine, and Ant Design.
+- **Licensing Compliance**: Dual licensing architecture (MIT for open UI primitives; proprietary for proprietary business integrations).
+- **Privacy-First Design**: Zero tracking code embedded in UI libraries.
+- **Legal Pack with Lawyer Disclaimer**: Pre-drafted Open Source License and Commercial Terms, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*
+
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مرشد منصة SIR" - embedded support assistant grounded in component prop tables, hook signatures, and spring parameters.
+- **Operations Runbook**: Nightly bundle size auditing, dependency CVE scans (`npm audit`), and health check route (`/api/health`).
+- **12-Week Marketing Launch Calendar**: Developer community preview on GitHub (Weeks -2 to 0), documentation release (Weeks 1 to 4), tech blog case studies (Weeks 5 to 8), regional hackathon sponsorship (Weeks 9 to 12).
+- **Escalation & Guard Rails**: Monorepo updates automated via CI; Chairman notified via Telegram bot ONLY for breaking API deprecations.
+
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"مكتبة مكونات برمجية سريعة", "نظام تصميم وتصميم واجهات باللغة العربية", "أفضل مكتبة واجهات عربية"*
+  - Egyptian Slang: *"مكتبة أزرار ومكونات جاهزة للمواقع", "أحسن تصميم واجهات عربي بالجنيه"*
+  - English: *"Dynamic Island spring UI library", "Arabic RTL first React components", "accessible design system Next.js 15"*
+- **Generative Engine Optimization (GEO)**: Publishes validated `llms.txt` and `/facts` page with structured component specifications, spring constants, and entity definitions.
+- **Technical SEO & Structured Data**: Pre-rendered Next.js metadata, valid `SoftwareSourceCode` JSON-LD schema, and automated weekly AI visibility testing script (`scripts/check_ai_visibility.py`).
