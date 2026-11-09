@@ -5,7 +5,7 @@ target_file = "D:/Projects/_SIR/plans/generate_dashboard.py"
 with open(target_file, "r", encoding="utf-8") as f:
     code = f.read()
 
-helper_function = '''def extract_tasks_from_markdown(file_path, limit=10):
+helper_function = r'''def extract_tasks_from_markdown(file_path, limit=10):
     """Robustly extracts up to limit tasks from any MASTER_PLAN.md, *-DEEP.md, or TASKS.md file."""
     tasks = []
     if not os.path.isfile(file_path):

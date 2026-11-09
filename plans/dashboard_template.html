@@ -398,6 +398,8 @@ nav .nav-tab.active .tab-label {
     left: 0;
     right: auto;
     width: 285px;
+    height: 100vh;
+    height: 100dvh;
     z-index: 100;
     background: var(--surface);
     border-right: 1px solid var(--line);
@@ -776,9 +778,46 @@ bdi, .num, code, .hash, .port, .mono {
 }
 .fb:focus-visible,
 button:focus-visible,
-.copy-badge:focus-visible {
+.copy-badge:focus-visible,
+.sidebar-link:focus-visible,
+.quick-pill:focus-visible,
+.seg-btn:focus-visible,
+.chip:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  inset-inline-start: 16px;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font: 600 13px var(--f-display);
+  border-radius: 8px;
+  z-index: 1000;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus-visible {
+  top: 16px;
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -1079,6 +1118,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link" id="skip-link">Skip to main content</a>
 <div class="wrap">
   <header>
     <div class="header-brand">
@@ -1146,24 +1186,24 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     <div class="settings-body">
       <div class="settings-group">
         <div class="settings-group-title" id="txt-set-appearance">Appearance</div>
-        <div class="segmented-control" role="group" aria-label="Theme selection">
-          <button class="seg-btn" data-theme-val="light" id="theme-btn-light">Light</button>
-          <button class="seg-btn" data-theme-val="dark" id="theme-btn-dark">Dark</button>
-          <button class="seg-btn" data-theme-val="system" id="theme-btn-system">System</button>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-appearance">
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="light" id="theme-btn-light">Light</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="dark" id="theme-btn-dark">Dark</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="system" id="theme-btn-system">System</button>
         </div>
       </div>
       <div class="settings-group">
         <div class="settings-group-title" id="txt-set-language">Language &amp; Direction</div>
-        <div class="segmented-control" role="group" aria-label="Language selection">
-          <button class="seg-btn" data-lang-val="en" id="lang-btn-en">English (LTR)</button>
-          <button class="seg-btn" data-lang-val="ar" id="lang-btn-ar">العربية (RTL)</button>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-language">
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="en" id="lang-btn-en">English (LTR)</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="ar" id="lang-btn-ar">العربية (RTL)</button>
         </div>
       </div>
       <div class="settings-group">
         <div class="settings-group-title" id="txt-set-density">Display Density</div>
-        <div class="segmented-control" role="group" aria-label="Density selection">
-          <button class="seg-btn active" data-density-val="comfortable" id="density-btn-comfort">Comfortable</button>
-          <button class="seg-btn" data-density-val="compact" id="density-btn-compact">Compact</button>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-density">
+          <button class="seg-btn active" role="radio" aria-checked="true" data-density-val="comfortable" id="density-btn-comfort">Comfortable</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-density-val="compact" id="density-btn-compact">Compact</button>
         </div>
       </div>
       <div class="settings-group">
@@ -1182,7 +1222,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
 
   <!-- Mobile Quick Navigation Bar (Top 4 sections + More) -->
   <nav class="mobile-quick-bar" aria-label="Quick navigation">
-    <a href="#now" class="quick-pill active" id="qp-now"><span id="qp-now-text">Now</span></a>
+    <a href="#now" class="quick-pill active" id="qp-now" aria-current="page"><span id="qp-now-text">Now</span></a>
     <a href="#handover" class="quick-pill" id="qp-handover"><span id="qp-handover-text">Handover</span></a>
     <a href="#ci-remote" class="quick-pill" id="qp-ci"><span id="qp-ci-text">CI</span></a>
     <a href="#projects" class="quick-pill" id="qp-projects"><span id="qp-projects-text">Projects</span></a>
@@ -1204,7 +1244,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
         </button>
       </div>
       <nav class="sidebar-nav">
-        <a href="#now" id="side-now" class="sidebar-link active">
+        <a href="#now" id="side-now" class="sidebar-link active" aria-current="page">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span id="side-now-text">Now</span>
         </a>
@@ -1247,7 +1287,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       </nav>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content" id="main-content" tabindex="-1">
 
 
   <section id="now" class="grid2">
@@ -1345,6 +1385,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <input id="q" type="search" placeholder="Search a project, task or note (Press '/' to search)" aria-label="Search projects">
       <span class="tools" id="fchips"></span>
       <span class="tools" id="status-chips"></span>
+      <div id="search-sr-feedback" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
     <div class="rows" id="rows"></div>
   </section>
@@ -1398,7 +1439,9 @@ function applyTheme(mode) {
   document.documentElement.setAttribute("data-theme", effectiveTheme);
   
   document.querySelectorAll("[data-theme-val]").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.themeVal === mode);
+    const isSelected = btn.dataset.themeVal === mode;
+    btn.classList.toggle("active", isSelected);
+    btn.setAttribute("aria-checked", isSelected ? "true" : "false");
   });
 }
 
@@ -1411,7 +1454,9 @@ function applyDensity(density) {
     document.documentElement.removeAttribute("data-density");
   }
   document.querySelectorAll("[data-density-val]").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.densityVal === density);
+    const isSelected = btn.dataset.densityVal === density;
+    btn.classList.toggle("active", isSelected);
+    btn.setAttribute("aria-checked", isSelected ? "true" : "false");
   });
 }
 
@@ -1427,6 +1472,52 @@ if (window.matchMedia) {
 applyTheme(themeMode);
 applyDensity(densityMode);
 
+// Focus Trapping & Accessibility Management (WCAG 2.1 AA)
+let activeTrapElement = null;
+let previousFocusedBeforeTrap = null;
+
+function trapFocus(container) {
+  previousFocusedBeforeTrap = document.activeElement;
+  const getFocusables = () => Array.from(container.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(el => el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement);
+  const focusables = getFocusables();
+  if (focusables.length > 0) {
+    setTimeout(() => focusables[0].focus(), 50);
+  }
+  function handleTrap(e) {
+    if (e.key !== "Tab") return;
+    const fList = getFocusables();
+    if (!fList.length) return;
+    const first = fList[0];
+    const last = fList[fList.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first || !container.contains(document.activeElement)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last || !container.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+  if (container._trapHandler) container.removeEventListener("keydown", container._trapHandler);
+  container._trapHandler = handleTrap;
+  container.addEventListener("keydown", handleTrap);
+}
+
+function releaseFocus(container, fallbackTrigger) {
+  if (container && container._trapHandler) {
+    container.removeEventListener("keydown", container._trapHandler);
+    container._trapHandler = null;
+  }
+  const target = previousFocusedBeforeTrap || fallbackTrigger;
+  if (target && typeof target.focus === "function") {
+    target.focus();
+  }
+  previousFocusedBeforeTrap = null;
+}
+
 // Settings Popover / Dialog
 const settingsModal = $("#settings-modal");
 const settingsBackdrop = $("#settings-backdrop");
@@ -1437,12 +1528,15 @@ function openSettings() {
   settingsModal.classList.add("open");
   settingsBackdrop.classList.add("open");
   settingsBtn.setAttribute("aria-expanded", "true");
+  trapFocus(settingsModal);
 }
 
 function closeSettings() {
+  if (!settingsModal.classList.contains("open")) return;
   settingsModal.classList.remove("open");
   settingsBackdrop.classList.remove("open");
   settingsBtn.setAttribute("aria-expanded", "false");
+  releaseFocus(settingsModal, settingsBtn);
 }
 
 settingsBtn.addEventListener("click", () => {
@@ -1462,18 +1556,33 @@ const menuToggleBtn = $("#menu-toggle-btn");
 const mobileMenuTrigger = $("#mobile-menu-trigger");
 const drawerCloseBtn = $("#drawer-close-btn");
 
+function updateSidebarAria() {
+  if (window.innerWidth < 1024) {
+    sidebarEl.setAttribute("aria-hidden", sidebarEl.classList.contains("open") ? "false" : "true");
+  } else {
+    sidebarEl.removeAttribute("aria-hidden");
+  }
+}
+window.addEventListener("resize", updateSidebarAria);
+updateSidebarAria();
+
 function openSidebarDrawer() {
   sidebarEl.classList.add("open");
   drawerBackdrop.classList.add("open");
+  sidebarEl.setAttribute("aria-hidden", "false");
   if (menuToggleBtn) menuToggleBtn.setAttribute("aria-expanded", "true");
   if (mobileMenuTrigger) mobileMenuTrigger.setAttribute("aria-expanded", "true");
+  trapFocus(sidebarEl);
 }
 
 function closeSidebarDrawer() {
+  if (!sidebarEl.classList.contains("open")) return;
   sidebarEl.classList.remove("open");
   drawerBackdrop.classList.remove("open");
+  if (window.innerWidth < 1024) sidebarEl.setAttribute("aria-hidden", "true");
   if (menuToggleBtn) menuToggleBtn.setAttribute("aria-expanded", "false");
   if (mobileMenuTrigger) mobileMenuTrigger.setAttribute("aria-expanded", "false");
+  releaseFocus(sidebarEl, menuToggleBtn);
 }
 
 if (menuToggleBtn) menuToggleBtn.addEventListener("click", openSidebarDrawer);
@@ -1484,8 +1593,8 @@ if (drawerBackdrop) drawerBackdrop.addEventListener("click", closeSidebarDrawer)
 // Escape key to dismiss modals/drawers
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    closeSettings();
-    closeSidebarDrawer();
+    if (settingsModal.classList.contains("open")) closeSettings();
+    if (sidebarEl.classList.contains("open")) closeSidebarDrawer();
   }
 });
 
@@ -1512,6 +1621,7 @@ $("#set-refresh-btn").addEventListener("click", () => {
 // i18n Dictionary (Strictly NO EMOJI)
 const i18n = {
   en: {
+    skipLink: "Skip to main content",
     menuBtn: "Menu",
     settingsBtn: "Settings",
     settingsTitle: "Settings & Preferences",
@@ -1605,6 +1715,7 @@ const i18n = {
     verifiedByControlTag: "Verified by Control Room"
   },
   ar: {
+    skipLink: "الانتقال إلى المحتوى الرئيسي",
     menuBtn: "القائمة",
     settingsBtn: "الإعدادات",
     settingsTitle: "الإعدادات والتفضيلات",
@@ -1893,9 +2004,16 @@ function renderRows(lang) {
     return matchWave && matchStatus && matchQuery;
   });
 
+  const feedbackEl = $("#search-sr-feedback");
+  if (feedbackEl) {
+    feedbackEl.textContent = isAr ? "لم يتم العثور على أي مشروع مطابق للبحث" : "No projects match the current query";
+  }
   if (!list.length) {
     $("#rows").innerHTML = `<div style="padding:24px;color:var(--muted);text-align:center">${t.noMatch}</div>`;
     return;
+  }
+  if (feedbackEl) {
+    feedbackEl.textContent = isAr ? `عرض ${list.length} من أصل ${P.length} مشروع` : `Showing ${list.length} of ${P.length} projects`;
   }
 
   $("#rows").innerHTML = list.map((p) => {
@@ -1941,8 +2059,8 @@ function renderRows(lang) {
 
     return `
       <details class="row" id="p-${p.slug}">
-        <summary>
-          <i class="dot" style="background:${p.color}"></i>
+        <summary aria-label="${esc(displayName)} details">
+          <i class="dot" style="background:${p.color}" aria-hidden="true"></i>
           <span class="summary-title">
             <span class="name">${esc(displayName)}</span><br>
             <span class="sub">${waveLabel} &middot; ${esc(p.arch)}</span>
@@ -2257,13 +2375,18 @@ function applyLang(lang) {
   if ($("#theme-btn-dark")) $("#theme-btn-dark").textContent = t.themeDark;
   if ($("#theme-btn-system")) $("#theme-btn-system").textContent = t.themeSystem;
   if ($("#txt-set-language")) $("#txt-set-language").textContent = t.languageGroup;
+  if ($("#skip-link")) $("#skip-link").textContent = t.skipLink;
   if ($("#lang-btn-en")) {
     $("#lang-btn-en").textContent = t.langEn;
-    $("#lang-btn-en").classList.toggle("active", lang === "en");
+    const isEn = lang === "en";
+    $("#lang-btn-en").classList.toggle("active", isEn);
+    $("#lang-btn-en").setAttribute("aria-checked", isEn ? "true" : "false");
   }
   if ($("#lang-btn-ar")) {
     $("#lang-btn-ar").textContent = t.langAr;
-    $("#lang-btn-ar").classList.toggle("active", lang === "ar");
+    const isAr = lang === "ar";
+    $("#lang-btn-ar").classList.toggle("active", isAr);
+    $("#lang-btn-ar").setAttribute("aria-checked", isAr ? "true" : "false");
   }
   if ($("#txt-set-density")) $("#txt-set-density").textContent = t.densityGroup;
   if ($("#density-btn-comfort")) $("#density-btn-comfort").textContent = t.densityComfortable;
@@ -2482,10 +2605,14 @@ function setActiveNavSection(targetId) {
   sidebarLinks.forEach(link => {
     const isTarget = link.getAttribute("href") === targetId;
     link.classList.toggle("active", isTarget);
+    if (isTarget) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
   });
   quickPills.forEach(pill => {
     const isTarget = pill.getAttribute("href") === targetId;
     pill.classList.toggle("active", isTarget);
+    if (isTarget) pill.setAttribute("aria-current", "page");
+    else pill.removeAttribute("aria-current");
   });
 }
 
