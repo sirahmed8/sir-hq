@@ -22,6 +22,7 @@ OPS = os.environ.get("SIR_OPS", os.path.normpath(os.path.join(HERE, "..", "ops")
 BRAND = json.load(io.open(os.path.join(HERE, "brand.json"), encoding="utf-8"))
 ORDER = json.load(io.open(os.path.join(HERE, "order.json"), encoding="utf-8"))
 WAVEMAP = json.load(io.open(os.path.join(HERE, "waves.json"), encoding="utf-8"))
+CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 
 SHORT = {
     "web": "Web",
@@ -359,6 +360,7 @@ def git(folder, *args):
             capture_output=True,
             text=True,
             timeout=20,
+            creationflags=CREATE_NO_WINDOW,
         ).stdout.strip()
     except Exception:
         return ""
@@ -541,6 +543,7 @@ def archived_count():
             capture_output=True,
             text=True,
             timeout=5,
+            creationflags=CREATE_NO_WINDOW,
         )
         if r.returncode == 0 and r.stdout.strip().isdigit():
             return int(r.stdout.strip())
@@ -577,6 +580,7 @@ def get_ci_status():
                 capture_output=True,
                 text=True,
                 timeout=5,
+                creationflags=CREATE_NO_WINDOW,
             )
             if r.returncode == 0 and r.stdout.strip():
                 runs = json.loads(r.stdout.strip())
@@ -686,6 +690,7 @@ def get_git_short_hash():
             capture_output=True,
             text=True,
             timeout=5,
+            creationflags=CREATE_NO_WINDOW,
         )
         if r.returncode == 0 and r.stdout.strip():
             return r.stdout.strip()
