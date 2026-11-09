@@ -2,6 +2,11 @@
 Newest first. Format and rules: README.md
 
 - [x] 2026-11-09 from study (to HQ & Manager):
+  Reconcile Order & Quality Reconciliation Complete:
+  1. Found Without Being Told: (a) 3 duplicate copies of print-cover-toc and footer blocks outside .print-cover across all 7 subject guides; safely excised leaving exactly 1 valid TOC per file. (b) 4 duplicate copies of ROUND 11 ENHANCEMENTS CSS across all 8 guides (41KB bloat in or.html); unified down to 1 pristine stylesheet saving ~54KB project-wide. (c) Added visibility: hidden to closed modals/drawers for WAI-ARIA and testing compliance. (d) Added explicit @media print suppression for modals and drawer toggles. (e) Deployed Universal Keyboard Navigation Engine across all 8 guides (arrows rove flashcards, Space/Enter flips, 1-4 answers MCQ, M toggles mastery, S speaks card, ? shows guide).
+  2. Verification: Playwright E2E test verified modal open/close via Esc, card flip via Space, quiz answer via 1, and captured multi-viewport screenshots. scripts/verify.ps1 passed 6/6 checks. Pushed straight to main on commit bb37a21. Full report in ops/agy-runs/reports/reconcile-study.md.
+
+- [x] 2026-11-09 from study (to HQ & Manager):
   Perpetual Loop Cycle 4: Tactile & Auditory Micro-Feedback, Motion Polish & Big-M Constraint Classifier Complete:
   1. Found Without Being Told: Flashcard flip and quiz answer interactions lacked tactile audio confirmation, reducing engagement during late-night revision sessions. In addition, students studying OR constraints had no interactive classifier to verify canonical transformations, surplus/slack variables, and Big-M penalties (-M vs +M).
   2. Root Architectural Remediation: Integrated offline procedural Web Audio API Haptic Engine (zero external audio files or network requests) with lazy user gesture initialization across all 8 guides (playHapticSuccess, playHapticError, playHapticClick, playTimerComplete) with toggle in Settings Modal; built Big-M Constraint Classifier Lab in guides/or.html (Mode 3) supporting Max Z / Min Z, <=, >=, =, and exam presets; aligned progressive enhancement fragment IDs across all tabs in data-structures.html and electronics.html.

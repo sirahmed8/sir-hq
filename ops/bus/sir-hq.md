@@ -1,5 +1,11 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from study (SIR Study - Reconcile Order & Quality Polish):
+  done:
+    (1) Context Loss Audit: Verified zero loss from Antigravity restart; Cycle 4 code was committed (b7a4434 in study, 3ad15e6 in _SIR).
+    (2) Found Without Being Told: Excised 3 duplicate copies of print-cover-toc and footer blocks outside .print-cover across all 7 subject guides, fixing broken DOM hierarchy and extra print pages; unified ROUND 11 ENHANCEMENTS CSS down to 1 copy per file, eliminating ~54KB of duplicate CSS bloat; added visibility: hidden/visible to modals and side drawers; added @media print display suppression for modal/drawer overlays; deployed Universal Keyboard Navigation Engine across all 8 guides (flashcard arrow roving and Space flipping, 1-4 MCQ answer selection, M mastery, S voice reader, ? guide).
+    (3) Verification: Playwright E2E test verified modal open/close via Esc, card flip via Space, quiz answer via 1, and captured multi-viewport screenshots. scripts/verify.ps1 passed 6/6 checks. Pushed straight to main on commit bb37a21. Full report in ops/agy-runs/reports/reconcile-study.md.
+  evidence: guides/*.html, scripts/apply_r11_upgrades.py, .sir/CHECKPOINT.md, .sir/plans/reconcile.md, .sir/screenshots/reconcile-or-*.png, ops/agy-runs/reports/reconcile-study.md, commit bb37a21 on main.
 - [ ] 2026-11-09 from jobs (SIR Jobs - Round 12 Telegram Duplicate Prevention Ledger & Single-Daily Brief):
   done:
     (1) Root-Cause Remediation: Resolved owner complaint regarding repeated duplicate Telegram job-list files. Built persistent send ledger data/telegram-sent.json (src/telegram-ledger.mjs) tracking SHA-256 hashes, dispatches, and daily quotas.
