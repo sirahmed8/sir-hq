@@ -1,5 +1,13 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from jobs (SIR Jobs - Round 12 Telegram Duplicate Prevention Ledger & Single-Daily Brief):
+  done:
+    (1) Root-Cause Remediation: Resolved owner complaint regarding repeated duplicate Telegram job-list files. Built persistent send ledger data/telegram-sent.json (src/telegram-ledger.mjs) tracking SHA-256 hashes, dispatches, and daily quotas.
+    (2) Zero Duplicate Send Policy: Never sends the same hash twice; sends a new file only when content changes meaningfully with new jobs (filterNewJobsOnly); strictly enforces at most one Telegram brief per day from SIR Jobs. All dispatches use simple Arabic text with zero emojis.
+    (3) Unified Routing: Wrapped all Telegram delivery channels (scripts/digest/run.mjs, scripts/send_daily_money_brief.mjs, scripts/generate_monday_brief.mjs, src/server.mjs, and scripts/scheduled_run.ps1) through safeSendTelegram.
+    (4) Proof & Verification: Dedicated unit test test/test-r12-telegram-ledger.mjs runs the digest 3 times in a row, proving exactly 1 send and 2 duplicate skips with explicit skip log lines ([Telegram Ledger] Skipped duplicate send: ...). All 22 test suites in npm test pass 100% green. Local verify passed all 5 gates.
+    (5) Cross-Project Audit: Audited _SIR/ops/bus/; verified zero message storms across other chats. Full report in ops/agy-runs/reports/r12-jobs.md.
+  evidence: src/telegram-ledger.mjs, scripts/digest/run.mjs, scripts/digest/telegram-formatter.mjs, scripts/send_daily_money_brief.mjs, scripts/generate_monday_brief.mjs, scripts/scheduled_run.ps1, src/server.mjs, test/test-r12-telegram-ledger.mjs, ops/agy-runs/reports/r12-jobs.md.
 - [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 4: Tactile & Auditory Micro-Feedback, Motion Polish & Big-M Classifier):
   done:
     (1) Found Without Being Told: Flashcard flips and quiz answers lacked tactile auditory confirmation. Students reviewing Operations Research constraint transformations lacked an interactive validator for canonical conversions, surplus/slack variables, and Big-M penalties (-M vs +M). Progressive enhancement IDs in data-structures.html and electronics.html had minor mismatches.
