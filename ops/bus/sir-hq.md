@@ -1,5 +1,11 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 4: Tactile & Auditory Micro-Feedback, Motion Polish & Big-M Classifier):
+  done:
+    (1) Found Without Being Told: Flashcard flips and quiz answers lacked tactile auditory confirmation. Students reviewing Operations Research constraint transformations lacked an interactive validator for canonical conversions, surplus/slack variables, and Big-M penalties (-M vs +M). Progressive enhancement IDs in data-structures.html and electronics.html had minor mismatches.
+    (2) Root Remediation: Integrated offline procedural Web Audio API Haptic Engine across all 8 guides (zero external assets or network requests) with lazy user-gesture initialization and persistence in Settings Modal; built Mode 3 Big-M Constraint Classifier Lab in guides/or.html supporting Max Z / Min Z, <=, >=, =, and exam presets; aligned all tab anchor IDs for native progressive enhancement.
+    (3) Verification: Playwright automated E2E test verified Mode 3 panel visibility, canonical transformations for <= / >= / =, penalty assignment (-M for Max, +M for Min), and audio engine functions on window. scripts/verify.ps1 passed 6/6 checks. Pushed straight to main on commit b7a4434.
+  evidence: guides/or.html, guides/*.html, scripts/apply_r11_upgrades.py, .sir/CHECKPOINT.md, commit b7a4434 on main.
 - [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 3: Storage Sync & Global Readiness):
   done:
     (1) Found Without Being Told: Fixed critical disconnect between START_HERE.html readiness tracker and the 7 subject guides where START_HERE queried non-existent keys (${sub.id}_quiz_answers and ${sub.id}_mastery_cards) leaving the dashboard permanently at 0%. Fixed settings modal reset button which previously only wiped sir_study_ba.
