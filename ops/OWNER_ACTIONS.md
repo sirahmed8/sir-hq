@@ -27,3 +27,6 @@ Format: `- [ ]` open, `- [x]` done. The SIR Control Room dashboard reads this fi
 - [x] 2026-10-30 Wrangler signed in (Google one-click and Authorize in Chrome).
 - [x] 2026-10-30 Leaked GTA Gemini key and four stale Gemini keys deleted; six old OpenRouter keys deleted; Sourcery AI removed from GitHub; 30 old repos archived; five security fixes merged.
 - [x] 2026-10-30 TickTick plans refreshed (wave tasks, goals text, one note); Habiba notes and personal lists untouched.
+
+## 2026-11-09 night: Antigravity is signed out (needs one tap)
+Antigravity updated and signed out; the SIR Autonomy Chrome extension is not connected, so the operator cannot finish the Google sign-in. Steps (about 30 seconds): 1) In the Antigravity window press Continue with Google. 2) In the Chrome page that opens, tap the account a01083835229@gmail.com (Chrome is already signed in to it), then tap Sign in. 3) Back in Antigravity untick the data-sharing box and tap Get started. After that the operator (Haiku) resumes: reconcile message to all chats, account survey, r12 briefs (ops/agy-runs/operator16.done has the details).

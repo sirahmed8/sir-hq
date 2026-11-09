@@ -25,3 +25,5 @@ Accessibility and keyboard support, localization quality review by a native read
 
 ## Definition of done for the plan
 A plan is market-grade only when every product has: a dated competitor study with sources, a per-country rules table with tasks, a privacy-first insight design, drafted legal pack with the lawyer-review step, and the extra-coverage list marked done, skipped with reason, or scheduled.
+
+> AHome exception (owner, 2026-11-09): AHome is private, so it does NOT get the commercial parts of this standard (no subscription, store launch, marketing, SEO, market law packs, public analytics, public legal pages). It still gets everything about quality: best-in-class design, features, animation, security, privacy, reliability, local AI, backups, self-repair. Competitor study for AHome is only feature and design inspiration from the best couple/home/organizer apps.

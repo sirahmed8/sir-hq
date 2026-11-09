@@ -736,6 +736,60 @@ def notify_hq_artifact_outdated(content_hash):
         print(f"Warning: could not notify HQ: {e}")
 
 
+def extract_tasks_from_markdown(file_path, limit=10):
+    """Robustly extracts up to limit tasks from any MASTER_PLAN.md, *-DEEP.md, or TASKS.md file."""
+    tasks = []
+    if not os.path.isfile(file_path):
+        return tasks
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        in_tasks = False
+        for line in lines:
+            line_str = line.strip()
+            # Recognize section headers like:
+            # ## 6. The Next 25 Prioritized Tasks
+            # ## 5. The First 25 Prioritized Tasks
+            # ## 4. Prioritized Engineering Backlog (First 25 Tasks)
+            # ## Next 10 Tasks
+            # ## Current Sprint
+            if line_str.startswith("## ") and re.search(r"(?:Tasks|Backlog|Sprint|Blueprint)", line_str, re.I):
+                in_tasks = True
+                continue
+            if in_tasks and line_str.startswith("## ") and not re.search(r"(?:Tasks|Backlog|Sprint|Blueprint)", line_str, re.I):
+                break
+            if in_tasks:
+                # 1. Table row: | **01** | Task Title | ...
+                m_tbl = re.match(r"^\|\s*\*{0,2}\d+\*{0,2}\s*\|\s*([^|]+?)\s*\|", line_str)
+                # 2. H3 heading: ### CR-101 | ... or ### Task 1: ...
+                m_h3 = re.match(r"^###\s*(?:Task\s*\d+:|[A-Z0-9]+-\d+\s*\||\d+\.)\s*(.*)", line_str)
+                # 3. Numbered list: 1. ...
+                m_num = re.match(r"^\d+\.\s*(.*)", line_str)
+                # 4. Checkbox item: - [ ] ...
+                m_chk = re.match(r"^-\s*\[\s*\]\s*(.*)", line_str)
+
+                clean_t = None
+                if m_tbl and not m_tbl.group(1).startswith("---") and "Task Title" not in m_tbl.group(1):
+                    clean_t = m_tbl.group(1)
+                elif m_h3:
+                    clean_t = m_h3.group(1)
+                elif m_num:
+                    clean_t = m_num.group(1)
+                elif m_chk:
+                    clean_t = m_chk.group(1)
+
+                if clean_t:
+                    clean_t = re.sub(r"\|\s*owner:\s*[^|]+\|", "", clean_t)
+                    clean_t = re.sub(r"[*_`]", "", clean_t).strip()
+                    if clean_t and not clean_t.startswith("---") and clean_t not in tasks:
+                        tasks.append(clean_t[:120])
+                        if len(tasks) >= limit:
+                            break
+    except Exception:
+        pass
+    return tasks
+
+
 def parse_gemini_handover(projects):
     """Parses per-project master plans (.sir/MASTER_PLAN.md) and extracts next 10 tasks,
     building an honest readiness checklist for autonomous Gemini execution."""
@@ -744,28 +798,7 @@ def parse_gemini_handover(projects):
     # 1. First add Control Room / HQ itself
     hq_folder = os.path.normpath(os.path.join(HERE, ".."))
     hq_mp = os.path.join(hq_folder, ".sir", "MASTER_PLAN.md")
-    hq_tasks = []
-    if os.path.isfile(hq_mp):
-        try:
-            with open(hq_mp, "r", encoding="utf-8") as f:
-                lines = f.readlines()
-            in_tasks = False
-            for line in lines:
-                line_str = line.strip()
-                if re.match(r"^##\s*(?:\d+\.?)?\s*(?:Next\s*10\s*Tasks|Current\s*Sprint)", line_str, re.I):
-                    in_tasks = True
-                    continue
-                if in_tasks and re.match(r"^##\s+[A-Za-z0-9]", line_str) and not re.search(r"Next\s*10|Current\s*Sprint", line_str, re.I):
-                    break
-                if in_tasks:
-                    m_h3 = re.match(r"^###\s*(?:Task\s*\d+:|\d+\.)\s*(.*)", line_str)
-                    m_num = re.match(r"^\d+\.\s*(.*)", line_str)
-                    if m_h3:
-                        hq_tasks.append(re.sub(r"[*_`]", "", m_h3.group(1)).strip())
-                    elif m_num:
-                        hq_tasks.append(re.sub(r"[*_`]", "", m_num.group(1)).strip())
-        except Exception:
-            pass
+    hq_tasks = extract_tasks_from_markdown(hq_mp)
 
     handover_projects.append({
         "slug": "control",
@@ -785,11 +818,14 @@ def parse_gemini_handover(projects):
         private = slug == "ahome"
         folder = os.path.join(ROOT, "AHome") if private else p["folder"]
         mp_path = os.path.join(folder, ".sir", "MASTER_PLAN.md")
-        has_mp = os.path.isfile(mp_path)
+        deep_plan = os.path.join(HERE, f"{slug}-DEEP.md")
+        tasks_file = os.path.join(folder, ".sir", "TASKS.md")
+
+        has_mp = False
         tasks = []
+        display_path = f"_SIR/plans/{slug}.md"
 
         if private:
-            # Privacy safe tasks for AHome: zero personal identifiers or sensitive keywords
             has_mp = True
             tasks = [
                 "1. Viewport flex column keyboard alignment in messaging UI",
@@ -804,66 +840,19 @@ def parse_gemini_handover(projects):
                 "10. Bespoke project emblem brand verification in top bar",
             ]
             display_path = "AHome/.sir/MASTER_PLAN.md (protected)"
-        elif has_mp:
-            try:
-                with open(mp_path, "r", encoding="utf-8") as f:
-                    lines = f.readlines()
-                in_tasks = False
-                for line in lines:
-                    line_str = line.strip()
-                    if re.match(r"^##\s*(?:\d+\.?)?\s*(?:Next\s*10\s*Tasks|Current\s*Sprint)", line_str, re.I):
-                        in_tasks = True
-                        continue
-                    if in_tasks and re.match(r"^##\s+[A-Za-z0-9]", line_str) and not re.search(r"Next\s*10|Current\s*Sprint", line_str, re.I):
-                        break
-                    if in_tasks:
-                        m_h3 = re.match(r"^###\s*(?:Task\s*\d+:|\d+\.)\s*(.*)", line_str)
-                        m_num = re.match(r"^\d+\.\s*(.*)", line_str)
-                        if m_h3:
-                            clean_t = re.sub(r"[*_`]", "", m_h3.group(1)).strip()
-                            tasks.append(clean_t)
-                        elif m_num:
-                            clean_t = re.sub(r"[*_`]", "", m_num.group(1)).strip()
-                            tasks.append(clean_t)
-            except Exception:
-                pass
-
-            # Fallback to .sir/TASKS.md if section was empty
-            if not tasks:
-                tasks_file = os.path.join(folder, ".sir", "TASKS.md")
-                if os.path.isfile(tasks_file):
-                    try:
-                        with open(tasks_file, "r", encoding="utf-8") as tf:
-                            for l in tf:
-                                ls = l.strip()
-                                if ls.startswith("- [ ]"):
-                                    clean_t = re.sub(r"^-\s*\[\s*\]\s*", "", ls)
-                                    clean_t = re.sub(r"\|\s*owner:\s*[^|]+\|", "", clean_t)
-                                    clean_t = re.sub(r"[*_`]", "", clean_t).strip()
-                                    tasks.append(clean_t[:120])
-                                    if len(tasks) >= 10:
-                                        break
-                    except Exception:
-                        pass
+        elif os.path.isfile(mp_path):
+            has_mp = True
+            tasks = extract_tasks_from_markdown(mp_path)
             display_path = f"{p['name']}/.sir/MASTER_PLAN.md"
-        else:
-            # Fallback to .sir/TASKS.md
-            tasks_file = os.path.join(folder, ".sir", "TASKS.md")
-            if os.path.isfile(tasks_file):
-                try:
-                    with open(tasks_file, "r", encoding="utf-8") as tf:
-                        for l in tf:
-                            ls = l.strip()
-                            if ls.startswith("- [ ]"):
-                                clean_t = re.sub(r"^-\s*\[\s*\]\s*", "", ls)
-                                clean_t = re.sub(r"\|\s*owner:\s*[^|]+\|", "", clean_t)
-                                clean_t = re.sub(r"[*_`]", "", clean_t).strip()
-                                tasks.append(clean_t[:120])
-                                if len(tasks) >= 10:
-                                    break
-                except Exception:
-                    pass
-            display_path = f"_SIR/plans/{slug}.md (Charter Master Plan pending R10)"
+        
+        if not tasks and os.path.isfile(deep_plan):
+            has_mp = True
+            tasks = extract_tasks_from_markdown(deep_plan)
+            display_path = f"_SIR/plans/{slug}-DEEP.md"
+            
+        if not tasks and os.path.isfile(tasks_file):
+            tasks = extract_tasks_from_markdown(tasks_file)
+            display_path = f"{p['name']}/.sir/TASKS.md"
 
         # Double check privacy filter on tasks
         safe_tasks = []

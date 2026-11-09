@@ -24,3 +24,5 @@ Goal: when someone searches for a product category, a competitor, a problem we s
 
 ## Definition of done for the plan
 Each public product has the keyword and intent map, the page list with dates, the structured-data spec, the GEO content plan with `llms.txt` and facts page, the authority plan, the store plan, the weekly measurement script and report, and the owner steps (Search Console, Bing, Business Profile, social handles).
+
+> AHome exception (owner, 2026-11-09): AHome is private, so it does NOT get the commercial parts of this standard (no subscription, store launch, marketing, SEO, market law packs, public analytics, public legal pages). It still gets everything about quality: best-in-class design, features, animation, security, privacy, reliability, local AI, backups, self-repair. Competitor study for AHome is only feature and design inspiration from the best couple/home/organizer apps.

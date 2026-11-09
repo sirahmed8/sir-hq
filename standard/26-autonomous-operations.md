@@ -26,3 +26,5 @@ Goal: after launch, every product is operated by AI. A manager AI (Claude today,
 
 ## Definition of done for the plan
 Each product has: the in-product support assistant and AI feature specified with evals, the full operations runbook, the marketing and launch plan with a dated calendar, the management ladder with handover files, the Telegram report format, the emergency list, and the guard-rail limits.
+
+> AHome exception (owner, 2026-11-09): AHome is private, so it does NOT get the commercial parts of this standard (no subscription, store launch, marketing, SEO, market law packs, public analytics, public legal pages). It still gets everything about quality: best-in-class design, features, animation, security, privacy, reliability, local AI, backups, self-repair. Competitor study for AHome is only feature and design inspiration from the best couple/home/organizer apps.

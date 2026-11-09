@@ -24,3 +24,5 @@ Each plan ends with a numbered checklist of tiny steps with exact clicks, in pla
 
 ## Definition of ready
 A product is "ready to launch" only when: all platforms in the plan build; security tasks pass; billing works in test mode and in fallback mode; the legal pages are generated from real data use; the activation checklist exists; a reviewer verified everything end to end on the same day.
+
+> AHome exception (owner, 2026-11-09): AHome is private, so it does NOT get the commercial parts of this standard (no subscription, store launch, marketing, SEO, market law packs, public analytics, public legal pages). It still gets everything about quality: best-in-class design, features, animation, security, privacy, reliability, local AI, backups, self-repair. Competitor study for AHome is only feature and design inspiration from the best couple/home/organizer apps.

@@ -39,3 +39,17 @@ Ledger: ops/ACCOUNT_LEDGER.md holds, for every account, the 5h and weekly % left
 
 ## Open item (owner, 2026-11-09)
 The signed-in account a7medorabe7 offers only Claude 4.6 (too old) and shows 'Gemini 4 Argon: Unavailable'. The owner says ANOTHER account offers Argon, Sonnet 5.5 and Claude 5.5 models. At the next rotation the operator signs in to the accounts in order, opens Settings > Models for each, and records its full model list and numbers in ACCOUNT_LEDGER.md (note which account has Argon and the 5.5 models); that account is held in reserve per the order above. Current numbers (a7medorabe7): Gemini 3.8 5h 100%, weekly 10% (resets in 4 d 6 h); next switch target: the Pro account with the highest weekly %, then free accounts.
+
+## FINAL ORDER (owner, 2026-11-09, replaces the order above)
+1. Gemini 3.8 Flash High on the Pro accounts (promotion Pro, not paid), one after another, switching at 15% (5h) or weekly 10% or less.
+2. Gemini 3.8 on the free accounts (about 15).
+3. The ONE PAID account (the only one that shows Claude Sonnet 5.5, Opus 5.5 and Gemini 4 Argon; the Pro accounts are promotions, so Google hides Argon there). Warnings: Claude 5.5 burns out in about two minutes when several chats use it, so use it for ONE chat at a time or for hard tasks only; Gemini 4 Argon has NO 5-hour window (weekly only), so prefer Argon on this account and keep Claude 5.5 for the hardest work. Never Claude 4.x.
+4. OpenCode and Kilo: they have daily limits and often offer unnamed or stealth models from strong companies that test with users: use them (they are free and strong). Before switching to them, every chat must have committed and checkpointed (see the save rule below).
+5. Codex (OpenAI): the Pro Google accounts also have free Codex accounts. Haiku opens Codex, reads when the monthly usage returns, records it in ACCOUNT_LEDGER.md; use them very late.
+6. Other AI tools worth a free-tier check and monitoring: Devin, Windsurf, GLM (Z.ai), Cursor. Haiku surveys them once; HQ decides what to add after Antigravity, OpenCode, Kilo and Codex.
+7. HQ (Claude manager) last and sparingly.
+SAVE RULE (all chats, all tools): commit and push after every finished step and write the checkpoint after each step, so a model switch or a quota cut in the middle never loses work; the next tool reads the checkpoint, the plan file and the last commit and continues.
+HQ keeps the ledger of every account and tool (limits, reset times) and returns to an account when its window resets, so nothing ever has to stop.
+
+## Sign-in without the SIR Autonomy extension (works, used 2026-11-09 night)
+1) In Antigravity: Settings > profile > Sign Out, then Continue with Google. 2) `python D:/Projects/_SIR/scripts/agy-oauth-url.py 90 > /tmp/oauth_url.txt` waits for Chrome to log the new accountchooser URL and prints it. 3) Open that exact URL in a claude-in-chrome tab (it keeps the localhost callback), wait for it to load, click the wanted account (find 'account link <email>'), wait, click Sign in at about (845,508) on the 'Make sure you downloaded this app' page. 4) Back in Antigravity untick the data-sharing box (click at about (462,346), verify) and click Get started (727,686). The owner authorised this by instruction on 2026-11-09 (act, do not wait for him). Settings > General > Queued Messages: set 'Send Immediately' so messages are not queued.
