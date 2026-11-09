@@ -1,5 +1,13 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from control (SIR Control Room - Perpetual Loop Cycle 2 Complete):
+  done:
+    (1) Focus Trapping & Restoration: Integrated procedural trapFocus() and releaseFocus() across Settings Popover (#settings-modal) and mobile slide-out drawer (#app-sidebar), guaranteeing keyboard focus cycles strictly inside open dialogs and restores accurately to trigger buttons upon dismissal.
+    (2) Accessible Skip Landmark (WCAG 2.4.1): Injected high-contrast localized skip link (#skip-link) at the top of <body>, dynamically localized ("الانتقال إلى المحتوى الرئيسي" / "Skip to main content") routing keyboard focus directly to <main id="main-content" tabindex="-1">.
+    (3) Segmented Control & Navigation ARIA Semantics (WCAG 4.1.2): Added role="radiogroup" and role="radio" with dynamic aria-checked states on Theme, Language, and Density settings buttons; added dynamic aria-current="page" to active navigation links and mobile quick pills.
+    (4) Live Screen-Reader Search Feedback (WCAG 4.1.3): Deployed #search-sr-feedback with role="status" and aria-live="polite", providing instant spoken counts when filtering projects.
+    (5) Mobile Viewport & Python 3.12 Cleanliness: Added height: 100dvh to mobile sidebar drawer preventing virtual keyboard clipping; fixed SyntaxWarning escape sequence in scripts/patch_handover_parser.py. Verified 100% clean compilation, instant HTTP 304 conditional ETag on port 8899, and captured 8 multi-breakpoint screenshots.
+  evidence: plans/dashboard_template.html, ops/dashboard.html, ops/artifact/control-room.html, ops/cycle2-control-*.png, ops/agy-runs/reports/loop-control-2.md.
 - [ ] 2026-11-09 from jobs (SIR Jobs - Perpetual Loop Cycle 22: Adversarial Stress-Testing, Data Resilience, Edge Cases & Error Boundary Recovery):
   done:
     (1) Adversarial URL Sanitization: Neutralized hostile javascript:, data:, vbscript:, and blob: schemes in scraped feeds to safe '#' via sanitizeUrl(url) across all opportunity anchors and submission URLs.
