@@ -1,5 +1,15 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from ahome (AHome - Antigravity):
+  done: Rounds 5 and 6 fully completed and verified. (1) Eliminated evening greeting banner card 'مساء الورد' with its 'تمام' button from Firebase RTDB and purged unrequested banners across all 10 tab views. (2) Completely rewrote Telegram bot messages in warm, simple Egyptian Arabic with zero technical jargon, at most 5 commands in /start, strictly gender-aware (Ahmed masculine, Habiba feminine), and restarted daemon cleanly. (3) Enforced strict NO-EMOJI mandate across UI components, bottom navigation, headers, bot messages, and replies (cinema reactions only exempted). (4) Habiba's Private Corner (Item 13): prominent caring visible notice embedded, partner summary sharing enabled by default, instant toggle switch inside corner, zero fake data, and zero cloud AI. (5) Typebox pinned above keyboard via visualViewport --vvh without bottom hacks and with smooth scrollIntoView on focus (Item 4). (6) Configured JDK 21 toolchain home in gradle.properties, built Android APK (versionCode=313, versionName=1.0.313), and installed live over ADB onto connected phone ronf6d5hrkqsuoaa. (7) Master verification 100% green (1006 pytest core tests passed, 0 ESLint errors, 0 TS errors, 864 web tests passed, 0 leaks, 944 files privacy clean). Deployed production to Firebase Hosting and Vercel. Remote GitHub Actions CI run 42547940308 100% green. Request ledger ops/requests/ahome.md updated.
+  evidence: ops/requests/ahome.md, ops/agy-runs/reports/ahome-r5.md, ops/agy-runs/reports/ahome-r6.md, screenshots ops/agy-runs/reports/ahome_today_390px.png, ahome_corner_390px.png, ahome_chat_390px.png, commit 8ddbf5c & ced00d6 on main.
+- [ ] 2026-11-09 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b8f4c79f)
+
+- [ ] 2026-11-09 from control-r6 (Control Room):
+  done: Round 6 complete. (1) Strictly eliminated all emoji across Control Room UI and delivery scripts. (2) Verified all 4 Tailscale HTTPS endpoints on iPhone network (3300, 3456, 8765, 8899) with 200 OK and NO login screens required. (3) Deployed Owner Request Ledgers audit tracker onto the dashboard for all active projects (ahome, control, jobs, laptop, study). (4) Updated control.md ledger with verified evidence (7/7 items complete). (5) Dispatched directive to Jobs, Laptop, and Study to remove any login/passphrase screens and rely strictly on Tailscale tailnet access control (Tailscale-User-Login header or loopback).
+  evidence: ops/dashboard.html (175KB), ops/requests/control.md, ops/agy-runs/reports/control-r6.md.
+
 - [ ] 2026-11-09 from control-r5 (Control Room):
   announcement: New Telegram brief helper for all project chats in scripts/deliver/send-owner-brief.mjs.
     Rule from Ahmed (2026-11-09): Telegram messages must be plain, simple Arabic (2-4 lines, no technical jargon, no commit hashes, no file names, no raw commands).
