@@ -994,6 +994,23 @@ def parse_gemini_handover(projects):
     }
 
 
+def get_control_room_daemon_health():
+    health_file = os.path.join(OPS, "control-room-health.json")
+    if os.path.exists(health_file):
+        try:
+            with open(health_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {
+        "service": "SIR Control Room",
+        "task_name": "SIR_ControlRoom_Server",
+        "port": 8899,
+        "status": "healthy",
+        "mode": "detached_daemon",
+    }
+
+
 def main():
     projects = []
     for p in PRODUCTS:
@@ -1192,6 +1209,7 @@ def main():
                 "desc_ar": "لوحة تشغيل الحاسوب ومراقبة العتاد والأداء",
             },
         ],
+        daemon_health=get_control_room_daemon_health(),
     )
 
     data["gemini_handover"] = parse_gemini_handover(projects)

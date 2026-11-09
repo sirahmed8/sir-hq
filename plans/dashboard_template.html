@@ -1475,6 +1475,13 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <h2><span class="live-dot"></span><span id="txt-remote-title">Tailscale Remote Access (Phone)</span></h2>
       <div class="sub" id="txt-remote-sub" style="margin-bottom:6px">Stable HTTPS tailnet endpoints for Ahmed's iPhone (ahmed.tail9e9aa7.ts.net).</div>
       <ul class="list" id="remote-list"></ul>
+      <div id="service-health-card" style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:10px;border:1px solid var(--line);font-size:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="pill ok" id="txt-daemon-status-pill" style="font-size:10.5px;text-transform:uppercase;font-weight:600">Autostart Active</span>
+          <span style="font-family:var(--f-data);color:var(--text)" id="txt-daemon-task-info">Task: <b>SIR_ControlRoom_Server</b> (:8899)</span>
+        </div>
+        <span class="sub" id="txt-daemon-mode-info" style="font-family:var(--f-data)">Mode: Detached wscript/pythonw &middot; Supervisor: Auto-recovery</span>
+      </div>
     </div>
   </section>
 
@@ -2057,6 +2064,18 @@ function renderCI(lang) {
 
 function renderRemote(lang) {
   const isAr = lang === "ar";
+  if ($("#txt-daemon-status-pill")) {
+    const isHealthy = D.daemon_health && (D.daemon_health.status === "healthy" || D.daemon_health.status === "running");
+    $("#txt-daemon-status-pill").className = `pill ${isHealthy ? "ok" : "warn"}`;
+    $("#txt-daemon-status-pill").textContent = isHealthy
+      ? (isAr ? "التشغيل التلقائي نشط" : "Autostart Active")
+      : (isAr ? "جاري الفحص" : "Checking Status");
+    if ($("#txt-daemon-mode-info")) {
+      $("#txt-daemon-mode-info").innerHTML = isAr
+        ? "النمط: منفصل wscript/pythonw &middot; المشرف: تعافي ذاتي"
+        : "Mode: Detached wscript/pythonw &middot; Supervisor: Auto-recovery";
+    }
+  }
   if (!D.remote_access || !$("#remote-list")) return;
   $("#remote-list").innerHTML = D.remote_access.map((r) => {
     const name = isAr ? (r.name_ar || r.name) : r.name;
