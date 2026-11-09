@@ -169,7 +169,6 @@ def archived_count():
 def get_ci_status():
     repos = [
         ("AHome", "sirahmed8/ahmed-and-habiba"),
-        ("SIR Negm Furniture", "sirahmed8/sir-negm-furniture"),
         ("SIR HQ", "sirahmed8/sir-hq"),
         ("SIR Jobs", "sirahmed8/sir-jobs"),
         ("SIR Study", "sirahmed8/sir-study"),
@@ -217,12 +216,17 @@ def main():
         done = sum(i["done"] for i in items)
         yml = "\n".join(lines(folder + "/.sir/project.yml"))
         arch = re.search(r"archetype: (.*)", yml)
+        is_negm = p["slug"] == "negm-furniture"
         status = (
-            "done"
-            if items and done == len(items)
-            else "building"
-            if done > 2
-            else "ready"
+            "frozen"
+            if is_negm
+            else (
+                "done"
+                if items and done == len(items)
+                else "building"
+                if done > 2
+                else "ready"
+            )
         )
         projects.append(
             dict(
@@ -239,11 +243,13 @@ def main():
                 total=len(items),
                 milestones=[dict(name=m["name"], items=m["items"]) for m in ms],
                 next=[]
-                if private
+                if (private or is_negm)
                 else [i["id"] + " " + i["text"][:150] for i in items if not i["done"]][
                     :4
                 ],
-                now="" if private else checkpoint_now(folder),
+                now="Frozen, friend's project. Private repo; not touched or deployed until handover."
+                if is_negm
+                else ("" if private else checkpoint_now(folder)),
                 mission="Private. Counts only." if private else p["mission"][:260],
                 repo=(
                     "private repo (not pushed from HQ)"
@@ -309,10 +315,10 @@ def main():
         platforms=[dict(key=k, name=n, short=SHORT[k]) for k, n in PLATFORM_NAMES],
         ci=get_ci_status(),
         remote_access=[
-            {"name": "SIR Jobs", "port": 3456, "url": "https://ahmed.tail9e9aa7.ts.net:3456/", "desc": "Pipeline & Staged Opportunities"},
-            {"name": "SIR Study", "port": 3300, "url": "https://ahmed.tail9e9aa7.ts.net:3300/START_HERE.html", "desc": "SAD Exam Cram & Live Countdown"},
-            {"name": "SIR Laptop Manager", "port": 8765, "url": "https://ahmed.tail9e9aa7.ts.net:8765/", "desc": "Ops UI & Hardware Gauges"},
-            {"name": "SIR Control Room", "port": 8899, "url": "https://ahmed.tail9e9aa7.ts.net:8899/dashboard.html", "desc": "Portfolio Ground Truth"},
+            {"name": "SIR Study (SAD Exam)", "port": 3300, "url": "https://ahmed.tail9e9aa7.ts.net:3300/sad.html", "ip_url": "https://100.85.112.10:3300/sad.html", "desc": "SAD Exam Cram Capsule (Today 11:30 AM Cairo)"},
+            {"name": "SIR Jobs", "port": 3456, "url": "https://ahmed.tail9e9aa7.ts.net:3456/", "ip_url": "https://100.85.112.10:3456/", "desc": "Pipeline & Staged Opportunities"},
+            {"name": "SIR Control Room", "port": 8899, "url": "https://ahmed.tail9e9aa7.ts.net:8899/dashboard.html", "ip_url": "https://100.85.112.10:8899/dashboard.html", "desc": "Portfolio Ground Truth & Agent Ops"},
+            {"name": "SIR Laptop Manager", "port": 8765, "url": "https://ahmed.tail9e9aa7.ts.net:8765/", "ip_url": "https://100.85.112.10:8765/", "desc": "Ops UI & Hardware Gauges"},
         ],
     )
     tpl = io.open(
