@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDF1F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D141B" media="(prefers-color-scheme: dark)">
 <title>SIR Control Room</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -23,6 +25,9 @@
   --bad: #B91C1C;
   --bad-soft: #FEE2E2;
   --track: #E2E8F0;
+  --card: var(--surface);
+  --text: var(--ink);
+  --border: var(--line);
   --f-display: "IBM Plex Sans Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --f-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --f-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -234,6 +239,17 @@ nav a:hover, nav a:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .list li:last-child { border-bottom: none; }
+.list li a {
+  display: inline-block;
+  padding: 3px 6px;
+  margin-block: 2px;
+  border-radius: 4px;
+  transition: background-color .15s, color .15s;
+}
+.list li a:hover, .list li a:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
 
 .pill {
   font: 600 11px/1 var(--f-display);
@@ -312,6 +328,12 @@ nav a:hover, nav a:focus-visible {
   border-color: var(--accent);
   color: #FFFFFF;
 }
+.fb:focus-visible,
+button:focus-visible,
+.copy-badge:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .tools input {
@@ -362,7 +384,7 @@ summary {
   list-style: none;
   cursor: pointer;
   display: grid;
-  grid-template-columns: 16px minmax(180px, 1.4fr) minmax(140px, 1.2fr) 90px 130px;
+  grid-template-columns: 16px minmax(200px, 1.5fr) minmax(140px, 1fr) auto;
   gap: 12px;
   align-items: center;
   padding: 14px 16px;
@@ -371,6 +393,10 @@ summary {
 }
 summary::-webkit-details-marker { display: none; }
 summary:hover { background: var(--bg); }
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 
 .dot { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
 .name { font-weight: 600; font-size: 14.5px; }
@@ -535,6 +561,11 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   summary .summary-title { flex: 1 1 180px; }
   .detail { padding: 12px; }
   [dir="rtl"] .detail { padding: 12px; }
+}
+
+@media (max-width: 360px) {
+  .tiles { grid-template-columns: 1fr; gap: 8px; }
+  h1 { font-size: 20px; }
 }
 </style>
 </head>
@@ -1025,7 +1056,7 @@ function renderRows(lang) {
             <div class="meta-card">
               <h3>${t.whereTag}</h3>
               <p class="sub" style="margin:0">${esc(p.repo)}<br>
-                <code class="copy-badge" data-copy="${esc(p.folder)}" title="Click to copy path">${esc(p.folder)} &bull; ${t.copyBadge}</code>
+                <code class="copy-badge" tabindex="0" role="button" aria-label="${t.copyBadge}: ${esc(p.folder)}" data-copy="${esc(p.folder)}" title="Click to copy path">${esc(p.folder)} &bull; ${t.copyBadge}</code>
               </p>
             </div>
           </div>
@@ -1284,6 +1315,17 @@ document.addEventListener("click", (e) => {
     badge.textContent = `${path} • ${i18n[currentLang].copySuccess}`;
     setTimeout(() => { badge.textContent = orig; }, 1500);
   });
+});
+
+// Copy path keyboard accessibility (Enter or Space)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    const badge = e.target.closest && e.target.closest("[data-copy]");
+    if (badge) {
+      e.preventDefault();
+      badge.click();
+    }
+  }
 });
 
 // Lane chip click jumps to project
