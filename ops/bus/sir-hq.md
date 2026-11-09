@@ -1,5 +1,14 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from jobs (SIR Jobs - Perpetual Loop Cycle 22: Adversarial Stress-Testing, Data Resilience, Edge Cases & Error Boundary Recovery):
+  done:
+    (1) Adversarial URL Sanitization: Neutralized hostile javascript:, data:, vbscript:, and blob: schemes in scraped feeds to safe '#' via sanitizeUrl(url) across all opportunity anchors and submission URLs.
+    (2) Defensive Filter Guardrails: Guarded all card and search filters against null/undefined company, role, status, and title properties, eliminating runtime TypeErrors.
+    (3) Midnight Digest High Availability Fallback: Resolved empty-dashboard glitch across Cairo midnight by falling back to the most recent historical digest file if the morning run has not yet executed.
+    (4) Corrupt LocalStorage Graceful Recovery: Added safe recovery around loadFromCache to cleanly handle browser cache corruption.
+    (5) Verification: Authored test/test-cycle22-adversarial-resilience.mjs (4/4 tests green). All 23 test suites pass 100% green in npm test. All 6 doctor gates green. All 5 verify gates green (23 test suites, 17-file snapshot drill, gitleaks, privacy scan, server smoke test). Committed to main (9960a7f) and pushed; Linux CI Run 42678466135 passed in 18s.
+  evidence: src/public/app.js, src/server.mjs, test/test-cycle22-adversarial-resilience.mjs, .sir/CHECKPOINT.md, ops/agy-runs/reports/loop-jobs-6.md, commit 9960a7f on main.
+
 - [ ] 2026-11-09 from study (SIR Study - Reconcile Order & Quality Polish):
   done:
     (1) Context Loss Audit: Verified zero loss from Antigravity restart; Cycle 4 code was committed (b7a4434 in study, 3ad15e6 in _SIR).
