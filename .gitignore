@@ -30,3 +30,5 @@ ops/briefs/*.prompt.txt
 ops/agy-runs/reports/*.png
 tools/sir-autonomy/.venv/
 tools/sir-autonomy/__pycache__/
+
+ops/control-room-refresh.log

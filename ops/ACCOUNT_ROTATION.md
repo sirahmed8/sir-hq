@@ -26,3 +26,16 @@ Read Settings > Models & Usage (bottom-left Settings, then Models). Switch when 
 - Switch the Antigravity account when ANY quota (5h Gemini window or weekly) reaches 15% left or less, even while chats are working. Do not wait for 30% or for a stall.
 - After signing in on the new account, send "continue" to EVERY chat and make it go out at once: type it, then press ctrl+Return (or alt+Return) so it is sent immediately and not queued as a waiting message. If a chat shows an error with a Retry button, press Retry.
 - Who does it: a Haiku 5.5 operator at the lowest effort, never the HQ model (saves Claude tokens).
+
+## Model and account order (Ahmed, 2026-11-09, final)
+Quota is watched for ALL accounts; nothing may stop. Order of use:
+1. Gemini 3.8 Flash High on the Pro accounts, one after another (a7medorabe7, a01083835229, 1sir1ahmed1, ahmedalaa2006.7.6), switching at 15% left (5h window) or when the weekly figure is 10% or less. Drain Gemini 3.8 on every Pro account first.
+2. Then Gemini 3.8 on the free accounts (about 15 of them), same switching rule.
+3. Then, on the account that offers Claude models (Opus/Sonnet 5.5, shown in its model menu): Claude Sonnet 5.5 / Opus 5.5. NEVER Claude 4.x (4.6 is too old).
+4. Then OpenCode and Kilo with the strongest cheap model available (the Haiku operator or the manager checks what they offer; Gemini-3.8-class strength, low cost).
+5. Last: the Claude manager (HQ) does the work itself, sparingly.
+If every option is exhausted, the operator must report it to HQ at once, and HQ tells Ahmed on Telegram.
+Ledger: ops/ACCOUNT_LEDGER.md holds, for every account, the 5h and weekly % left, the reset times (read from Models and Usage: 'resets in ...'), and the last read time; the operator appends a row at each rotation and HQ returns to an account when its window has reset.
+
+## Open item (owner, 2026-11-09)
+The signed-in account a7medorabe7 offers only Claude 4.6 (too old) and shows 'Gemini 4 Argon: Unavailable'. The owner says ANOTHER account offers Argon, Sonnet 5.5 and Claude 5.5 models. At the next rotation the operator signs in to the accounts in order, opens Settings > Models for each, and records its full model list and numbers in ACCOUNT_LEDGER.md (note which account has Argon and the 5.5 models); that account is held in reserve per the order above. Current numbers (a7medorabe7): Gemini 3.8 5h 100%, weekly 10% (resets in 4 d 6 h); next switch target: the Pro account with the highest weekly %, then free accounts.
