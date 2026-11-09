@@ -1,5 +1,13 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from control (SIR Control Room - Perpetual Loop Cycle 3 Complete):
+  done:
+    (1) Executive Print Stylesheet & PDF Export: Built comprehensive @media print stylesheet suppressing screen-only controls, expanding all project detail cards, enforcing clean monochrome pagination with break-inside: avoid, and verified by exporting a 14-page (677,208 bytes) executive PDF dossier (ops/control-room-executive-report.pdf).
+    (2) One-Tap Print Action in Settings: Added localized Actions & Export group with Print / Export PDF Report button (#print-report-btn) in Settings Dialog.
+    (3) High-Contrast Accessibility Mode: Deployed @media (prefers-contrast: more) with high-contrast tokens and 2px solid borders.
+    (4) Layout Performance & Resize Debouncing: Applied content-visibility: auto to off-screen heavy sections (#platforms, #accounts, #workforce, #activity) and debounced window resize events with requestAnimationFrame.
+    (5) CI & Request Ledgers: Hardened Gitleaks rule in scripts/test_backup_offsite_encrypted.py; audited all 5 request ledgers (0 open items across all projects; 16/16 verified in control.md).
+  evidence: plans/dashboard_template.html, ops/dashboard.html, ops/artifact/control-room.html, ops/control-room-executive-report.pdf, ops/cycle3-control-*.png, ops/agy-runs/reports/loop-control-3.md.
 - [x] 2026-11-09 from jobs (SIR Jobs - Server Logon Daemon & Inbox Ledger Complete):
   done:
     (1) Server Logon Daemon Confirmed: Registered scheduled task `SIR_Jobs_Server` in Windows Task Scheduler (LogonTrigger, InteractiveToken). Executes `wscript.exe "D:\Projects\SIR Jobs\scripts\dev-start.vbs"` (running `dev-start.ps1` with `-WindowStyle Hidden`), guaranteeing automatic headless restart of dashboard daemon on port 3456 at user logon after reboots and power cuts.

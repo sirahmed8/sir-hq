@@ -1115,6 +1115,117 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     scroll-behavior: auto !important;
   }
 }
+
+/* Performance: Content visibility for off-screen heavy sections */
+#platforms, #accounts, #workforce, #activity {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* High-Contrast Accessibility Mode (prefers-contrast: more) */
+@media (prefers-contrast: more) {
+  :root {
+    --bg: #FFFFFF !important;
+    --surface: #FFFFFF !important;
+    --ink: #000000 !important;
+    --muted: #202020 !important;
+    --line: #000000 !important;
+    --accent: #005F56 !important;
+    --accent-soft: #E6F7F5 !important;
+    --ok: #006020 !important;
+    --ok-soft: #D0F5DC !important;
+    --warn: #803000 !important;
+    --warn-soft: #FFE8A0 !important;
+    --bad: #900000 !important;
+    --bad-soft: #FFD5D5 !important;
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000 !important;
+    --surface: #0A0A0A !important;
+    --ink: #FFFFFF !important;
+    --muted: #E2E8F0 !important;
+    --line: #FFFFFF !important;
+    --accent: #33F0D6 !important;
+    --accent-soft: #00332B !important;
+    --ok: #40FF80 !important;
+    --warn: #FFD030 !important;
+    --bad: #FF5050 !important;
+  }
+  .fb, button, .chip, .copy-badge, .quick-pill, .sidebar-link, details.row, .panel, .tile {
+    border-width: 2px !important;
+  }
+}
+
+/* Executive Print Stylesheet (Ctrl+P / PDF Export Fidelity) */
+@media print {
+  .skip-link, .mobile-quick-bar, .sidebar, .modal-backdrop, .drawer-backdrop, .settings-dialog, .header-actions, .tools, #offline-pill, #toggle-all-btn, .copy-badge, button, .menu-toggle-btn {
+    display: none !important;
+  }
+  html, body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .wrap {
+    max-width: 100% !important;
+    margin: 0 !important;
+    gap: 14px !important;
+  }
+  .app-layout {
+    display: block !important;
+    margin: 0 !important;
+  }
+  .main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  header {
+    border-bottom: 2pt solid #0F766E !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 14px !important;
+  }
+  .brand-logo-wrap {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .panel, .truth-card, .verification-card, .meta-card, .handover-card, details.row, .tile {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border: 1pt solid #D0D7DE !important;
+    background: #FFFFFF !important;
+    box-shadow: none !important;
+    border-radius: 6px !important;
+  }
+  details.row > .detail {
+    display: block !important;
+  }
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  th, td {
+    border: 1pt solid #CBD5E1 !important;
+    padding: 6px 8px !important;
+    font-size: 9pt !important;
+  }
+  th {
+    background: #F1F5F9 !important;
+    color: #0F172A !important;
+  }
+  @page {
+    margin: 1.2cm;
+    size: A4 portrait;
+  }
+}
 </style>
 </head>
 <body>
@@ -1215,6 +1326,13 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
         <button id="set-refresh-btn" class="fb" style="width:100%;justify-content:center;gap:8px">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           <span id="txt-refresh-now">Refresh Telemetry Now</span>
+        </button>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-actions">Actions &amp; Export</div>
+        <button id="print-report-btn" class="fb" style="width:100%;justify-content:center;gap:8px" aria-label="Print / Export PDF Report">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span id="txt-print-report">Print / Export PDF Report</span>
         </button>
       </div>
     </div>
@@ -1563,7 +1681,13 @@ function updateSidebarAria() {
     sidebarEl.removeAttribute("aria-hidden");
   }
 }
-window.addEventListener("resize", updateSidebarAria);
+let resizeRafId = null;
+window.addEventListener("resize", () => {
+  if (resizeRafId) cancelAnimationFrame(resizeRafId);
+  resizeRafId = requestAnimationFrame(() => {
+    updateSidebarAria();
+  });
+});
 updateSidebarAria();
 
 function openSidebarDrawer() {
@@ -1618,6 +1742,17 @@ $("#set-refresh-btn").addEventListener("click", () => {
   }, 450);
 });
 
+// Print / PDF Export Report Handler
+const printReportBtn = $("#print-report-btn");
+if (printReportBtn) {
+  printReportBtn.addEventListener("click", () => {
+    closeSettings();
+    setTimeout(() => {
+      window.print();
+    }, 300);
+  });
+}
+
 // i18n Dictionary (Strictly NO EMOJI)
 const i18n = {
   en: {
@@ -1641,6 +1776,8 @@ const i18n = {
     gitLabel: "Git: ",
     refreshNow: "Refresh Telemetry Now",
     refreshing: "Refreshing...",
+    actionsGroup: "Actions & Export",
+    printReport: "Print / Export PDF Report",
     navDrawerTitle: "Navigation",
     navDrawerClose: "Close navigation",
     moreNav: "More",
@@ -1735,6 +1872,8 @@ const i18n = {
     gitLabel: "إصدار Git: ",
     refreshNow: "تحديث البيانات الآن",
     refreshing: "جاري التحديث...",
+    actionsGroup: "الإجراءات والتصدير",
+    printReport: "طباعة وتصدير تقرير PDF",
     navDrawerTitle: "التنقل السريع",
     navDrawerClose: "إغلاق القائمة",
     moreNav: "المزيد",
@@ -2391,6 +2530,9 @@ function applyLang(lang) {
   if ($("#txt-set-density")) $("#txt-set-density").textContent = t.densityGroup;
   if ($("#density-btn-comfort")) $("#density-btn-comfort").textContent = t.densityComfortable;
   if ($("#density-btn-compact")) $("#density-btn-compact").textContent = t.densityCompact;
+  if ($("#txt-set-actions")) $("#txt-set-actions").textContent = t.actionsGroup;
+  if ($("#txt-print-report")) $("#txt-print-report").textContent = t.printReport;
+  if ($("#print-report-btn")) $("#print-report-btn").setAttribute("aria-label", t.printReport);
   if ($("#txt-set-telemetry")) $("#txt-set-telemetry").textContent = t.telemetryGroup;
   if ($("#txt-hash-lbl")) $("#txt-hash-lbl").textContent = t.artifactHashLabel;
   if ($("#txt-git-lbl")) $("#txt-git-lbl").textContent = t.gitLabel;
