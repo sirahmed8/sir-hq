@@ -1,5 +1,5 @@
 # PORTFOLIO LINKS: Inter-Project Topology & Shared Platform Matrix
-**Standard**: SIR Workspace Architecture Specification  
+**Standard**: SIR Workspace Architecture Specification & Standards 23–27  
 **Scope**: All 17 Workspace Projects (`D:\Projects`)  
 **Network Mesh**: Local Loopback (`127.0.0.1`) & Private WireGuard Tailnet (`ahmed.tail9e9aa7.ts.net`)  
 **Version**: 1.0.0 (Strictly enforced)
@@ -30,12 +30,13 @@ graph TD
     end
 
     subgraph Products["Commercial & Community Applications"]
-        Business["SIR Business (POS & Inventory)"]
-        Hagoozat["SIR Hagoozat (Pitch Booking & 5v5)"]
-        Obour["SIR Obour Hub (Campus Timetable)"]
+        Business["SIR Business (POS & ETA Invoicing)"]
+        Hagoozat["SIR Hagoozat (Pitch Booking & Split Pay)"]
+        Obour["SIR Obour Hub (Campus Hub & Notes)"]
+        Negm["SIR Negm Furniture (3D WebGL Studio & Handoff)"]
         Life["SIR Life (Habits & Cairo Prayer)"]
-        Studio["SIR Content Creation Studio (ByteVibeHQ)"]
-        Portfolio["SIR Portfolio (Public Wall)"]
+        Studio["SIR Content Creation Studio (AI Subtitles)"]
+        Portfolio["SIR Portfolio (Public Founder Brand)"]
     end
 
     subgraph Gaming["Gaming & Performance Optimizers"]
@@ -44,113 +45,64 @@ graph TD
         GTAMods["SIR Mods for GTA V (Physics & Single-Player)"]
     end
 
-    subgraph Isolated["Isolated & Frozen"]
-        Negm["SIR Negm Furniture (FROZEN - Handoff Pack)"]
-    end
-
-    %% Dependencies & Service Ingestion
-    Platform --> Business
-    Platform --> Hagoozat
-    Platform --> Obour
-    Platform --> Life
-    Platform --> Studio
-    Platform --> Portfolio
-
-    Laptop -->|Game Mode Relief| AI
-    Laptop -->|Game Mode Relief| Studio
-    Laptop -->|Game Mode Relief| Controller
-
-    AI -->|Local LLM Fallback Proxy| Jobs
-    AI -->|Voice Synthesis| Studio
-    AI -->|Voice Assistant| Laptop
-
-    Study -->|Curriculum Data & Links| Obour
-    Jobs -->|Verified Portfolio Snippets & CV| Portfolio
-    HQ -->|Live Telemetry & State| Portfolio
-
-    Controller -->|Input Remapping| ModPack
-    Controller -->|Gamepad Telemetry| GTAMods
-    Controller -->|Timer 0.5ms Tuning| Laptop
-
-    %% AHome Sacred Isolation
-    AHome -.-x|SACRED ISOLATION - Zero External Ingress| Platform
-    AHome -.-x|SACRED ISOLATION - Zero Cloud Leaks| AI
+    Platform --> Products
+    Platform --> Flagships
 ```
 
 ---
 
-## 2. Port & Daemon Registry (Single Source of Truth)
+## 2. Port & Service Allocation Map
 
-| Port | Protocol | Owning Project | Daemon Launcher | Ingress Security Gate |
-| :---: | :---: | :--- | :--- | :--- |
-| **3000** | HTTP / WS | **AHome** (Web) | `dev-start.vbs` (Next.js) | Loopback / Tailnet only (Zero Public Ingress) |
-| **3300** | HTTP | **SIR Study** | `scripts/dev-start.vbs` (`pythonw.exe`) | Loopback / `Tailscale-User-Login: a7medorabe7@gmail.com` |
-| **3456** | HTTP / SSE | **SIR Jobs** | `scripts/dev-start.vbs` (`node.exe`) | Loopback / `Tailscale-User-Login: a7medorabe7@gmail.com` |
-| **8090** | HTTP / WS | **AHome** (Local Core) | `scripts/core-restart.ps1` (FastAPI) | Loopback only (`127.0.0.1:8090`, DPAPI AES-256 Vault) |
-| **8765** | HTTP / REST | **SIR Laptop Manager** | `scripts/dev-start.vbs` (`pythonw.exe`) | Loopback / `Tailscale-User-Login: a7medorabe7@gmail.com` |
-| **8899** | HTTP / WS | **SIR Control Room** | `scripts/run-refresh-hidden.vbs` | Loopback / `Tailscale-User-Login` (Sub-ms ETag 304) |
-| **8900** | HTTP / WS | **SIR AI** (Jarvis) | `scripts/dev-start.vbs` (FastAPI) | Loopback / `Tailscale-User-Login: a7medorabe7@gmail.com` |
-| **8905** | UDP | **SIR Mods for GTA V** | `plugins/sir_telemetry.asi` | Localhost loopback UDP broadcast for telemetry |
-
----
-
-## 3. Cross-Project Provider & Consumer Matrix
-
-| Project | What It Provides to Others | What It Consumes from Others |
-| :--- | :--- | :--- |
-| **AHome** | **Nothing** (Sacred privacy boundary; zero couple data ever leaves local vault). | Consumes nothing from outside; completely isolated and self-contained. |
-| **SIR Laptop Manager** | Hardware telemetry, Game Mode process suspension events, cross-IDE agent config sync, reversible quarantine storage. | Consumes 0.5ms timer resolution from `SIR Controller`; voice commands from `SIR AI`. |
-| **SIR Study** | Academic curriculum structures, cram sheets, and subject mastery maps. | Consumes campus timetable context and exam dates from `SIR Obour Hub`. |
-| **SIR Jobs** | Real cash income engine, verified developer portfolio snippets, agency-grade A4 CV PDF generator. | Consumes AI fit scoring models from `SIR AI`; git health metrics from `SIR Control Room`. |
-| **SIR Control Room** | Portfolio-wide real-time intelligence, dirty git tracking, CI gate monitoring, and attention queue. | Consumes status reports and request ledgers from all 16 projects. |
-| **SIR AI** | Central local LLM gateway (`AI_Models_Hub`), speech-to-text (Whisper), neural TTS (Piper), and Telegram bot infrastructure. | Consumes process lifecycle APIs from `SIR Laptop Manager`; project metadata from `_SIR`. |
-| **SIR Business** | Multi-vertical POS transaction processing, thermal receipt ESC/POS engine, and inventory models. | Consumes `@sir/owner-auth` and `@sir/signed-webhook` from `SIR Platform`. |
-| **SIR Hagoozat** | Amateur sports tournament engine, pitch scheduling state machine, and player matchmaking. | Consumes `@sir/signed-webhook` and `@sir/tokens-and-ui` from `SIR Platform`. |
-| **SIR Obour Hub** | Campus timetable, professor directory, lecture hall locator, and GPA simulation engine. | Consumes study guides from `SIR Study`; design tokens from `SIR Platform`. |
-| **SIR Content Creation Studio** | Programmatic FFmpeg video rendering, kinetic subtitles, and multi-channel social posting. | Consumes speech synthesis from `SIR AI`; release logs from `_SIR`. |
-| **SIR Controller** | 0.5ms high-precision Windows timer resolution, virtual Xbox 360 controller driver, and low-latency network tweaks. | Consumes Game Mode events from `SIR Laptop Manager`. |
-| **SIR ModPack** | 120 FPS Fabric mod matrix and JVM ZGC memory configuration. | Consumes virtual gamepad controller profile from `SIR Controller`. |
-| **SIR Mods for GTA V** | Vehicle handling physics models and single-player safe air-gap switch. | Consumes gamepad trigger calibration from `SIR Controller`. |
-| **SIR Life** | Personal habit tracking, Egyptian General Survey prayer calculations, and daily reflection logs. | Consumes morning agenda briefings from `SIR AI`; study focus timers from `SIR Study`. |
-| **SIR Platform** | Shared packages: `@sir/owner-auth`, `@sir/signed-webhook`, `@sir/ai-proxy`, `@sir/tokens-and-ui`, `@sir/i18n`, `sir-kit`. | Built by harvesting and standardizing verified modules from all completed products. |
-| **SIR Portfolio** | Authoritative public developer showcase wall, live commit ticker, and interactive project demos. | Consumes live project statuses from `SIR Control Room`; CV PDF from `SIR Jobs`. |
-| **SIR Negm Furniture** | **Turn-key Handoff Pack** (architecture blueprints, catalog schema, friend's agent prompt). | **FROZEN**. Consumes zero active SIR services. |
+| Project | Local Port | Health Check Route | Protocol | Data Boundary | Primary Dependencies |
+|---|---|---|---|---|---|
+| **AHome** | `:3000` / `:8090` | `http://127.0.0.1:8090/health` | HTTP / WS | **Air-gapped (Private)** | Local Zigbee Hub, `AI_Models_Hub` |
+| **SIR Laptop Manager**| `:8765` | `http://127.0.0.1:8765/api/status` | HTTP / IPC | Local Host Hardware | Windows API, Task Scheduler, Tailscale |
+| **SIR Control Room** | `:8899` | `http://127.0.0.1:8899/api/health` | HTTP / SSE | Headquarters Ops | Telegram Bot, Git CLI, Antigravity |
+| **SIR Study** | `:3300` | `http://127.0.0.1:3300/healthz` | HTTP | Private Local Desk | Local KaTeX, Local SQLite |
+| **SIR Jobs** | `:3456` | `http://127.0.0.1:3456/health` | HTTP | Private Local Desk | Local ATS Parser, Ollama Bridge |
+| **SIR AI** | `:8900` | `http://127.0.0.1:8900/api/v1/ping` | HTTP / WS | Hybrid (Local + Cloud) | `AI_Models_Hub`, OpenRouter |
+| **SIR Hagoozat** | `:4000` | `http://127.0.0.1:4000/api/health` | HTTP / WS | Commercial Public | Paymob, WhatsApp Cloud API, Supabase |
+| **SIR Business** | `:4200` | `http://127.0.0.1:4200/api/v1/status`| HTTP | Commercial Public | ETA e-Invoicing, Paymob, Fawry |
+| **SIR Obour Hub** | `:4300` | `http://127.0.0.1:4300/api/health` | HTTP | Campus Community | Cloudflare R2, Supabase |
+| **SIR Negm Furniture**| `:4400` | `http://127.0.0.1:4400/api/health` | HTTP | Commercial Handoff | Three.js WebGL, Paymob, WhatsApp API |
+| **SIR Content Studio**| `:4500` | `http://127.0.0.1:4500/api/status` | HTTP / IPC | Creator SaaS | Local FFmpeg, Meta Graph API, YouTube |
+| **SIR Life** | `:4600` | `http://127.0.0.1:4600/api/health` | HTTP | Personal / Public | Cairo Prayer Calculator, Local IndexedDB |
+| **SIR Controller** | `:5050` | `http://127.0.0.1:5050/api/health` | HTTP / IPC | Local PC Optimizer | Windows Multimedia Timer, ViGEmBus |
+| **SIR ModPack** | Desktop | IPC / Local Sockets | Local | Gaming Desktop | Fabric API, Java Runtime |
+| **SIR Mods for GTA V**| Desktop | File System Hooks | Local | Gaming Desktop | ScriptHookV, OpenIV Archive |
+| **SIR Portfolio** | `:3100` | `http://127.0.0.1:3100/api/health` | HTTP | Public Founder Showcase | Next.js App Router, GEO `llms.txt` |
+| **SIR Platform** | Monorepo | Monorepo package build | NPM / Pnpm | Shared Library | Tailwind CSS v4, Framer Motion Springs |
 
 ---
 
-## 4. Shared Packages to Extract into `SIR Platform`
+## 3. Inter-Service Communication & Shared Package Matrix
 
-```
-D:\Projects\SIR Platform\packages\
-├── owner-auth/          # Loopback + Tailscale WireGuard identity verification
-├── signed-webhook/      # RFC 9110 timing-safe HMAC-SHA256 signature verifier
-├── ai-proxy/            # Privacy-preserving local LLM router with cloud fallback
-├── tokens-and-ui/       # Dynamic Island spring curves, active tab bar, semantic palettes
-├── i18n/                # Bilingual Cairo/Inter dictionary engine with logical CSS mirroring
-├── legal-pack/          # Truthful Egyptian & international privacy policy & terms
-└── sys-utils/           # Subprocess window silencer (CREATE_NO_WINDOW / wscript)
-```
+### 3.1 `@sir/owner-auth`
+- Shared authentication middleware verifying HMAC signatures for inter-service communication across local ports.
+- Prevents cross-site request forgery when local web apps talk to background daemon ports (`:8765`, `:8899`, `:8900`).
+
+### 3.2 `@sir/tokens-and-ui` & `@sir/springs`
+- Houses the Dynamic Island spring curves (`cubic-bezier(0.16, 1, 0.3, 1)`), active-only tab bar logic, and semantic color palette (Sapphire, Emerald, Crimson, Slate; **zero yellow**).
+- Reusable across Next.js, Vite, and Tauri frontends.
+
+### 3.3 `@sir/payments`
+- Universal payment checkout modal supporting Paymob (Cards, Mobile Wallets, Meeza) and Fawry with automated "Launching Soon" fallback on missing live keys.
 
 ---
 
-## 5. Inter-Project Communication Protocols
+## 4. Master Document & Plan Index
 
-### 5.1 Durable Message Bus (`D:\Projects\_SIR\ops\bus\<slug>.md`)
-- **Format**: Append-only markdown log documenting major state changes, API breaks, or requests.
-- **Entry Structure**:
-  ```markdown
-  - [ ] YYYY-MM-DDTHH:MM:SS from <sender-slug>:
-    notice / request / done: <description>
-    evidence: <file path or git commit hash>
-  ```
-- **Auditing**: Checked at the start of each session and round. Once acknowledged or acted upon, the receiving chat ticks `[x]`.
-
-### 5.2 Real-Time Tailscale WireGuard Ingress
-- **Host Endpoint**: `https://ahmed.tail9e9aa7.ts.net:<PORT>/`
-- **Identity Enforcement**:
-  ```python
-  tailscale_user = request.headers.get("Tailscale-User-Login")
-  if tailscale_user != "a7medorabe7@gmail.com" and request.client.host != "127.0.0.1":
-      return Response(status_code=403, content="Forbidden: Unauthorized Tailnet Node")
-  ```
-- **Zero Login Dialog**: No password or passphrase prompts for Ahmed on authenticated Tailnet devices; access is granted via cryptographic transport headers.
+| Document | Path | Purpose |
+|---|---|---|
+| **Instructions for Antigravity** | `_SIR/plans/INSTRUCTIONS_FOR_ANTIGRAVITY.md` | Standing orders for Gemini chats: planning, coding, test, review |
+| **Instructions for Manager** | `_SIR/plans/INSTRUCTIONS_FOR_MANAGER.md` | Autonomous manager takeover: daily loop, dispatching, quota rotation |
+| **Coding Standards** | `_SIR/plans/CODING_STANDARDS.md` | Stack choices, folder layout, spring CSS/JS code, RTL rules |
+| **Chat Prompt Templates** | `_SIR/plans/CHAT_PROMPT_TEMPLATES.md` | Ready-to-paste prompts for builders, auditors, and reviews |
+| **Quota & Model Rotation** | `_SIR/plans/QUOTA_AND_MODELS.md` | Hierarchy of models and accounts, automated 15% threshold rotation |
+| **Launch Checklist All** | `_SIR/plans/LAUNCH_CHECKLIST_ALL.md` | Value-ordered owner activation checklist with exact steps |
+| **Market Grade Checklist** | `_SIR/plans/MARKET_GRADE_CHECKLIST.md` | Cross-project compliance matrix against Standard 25 |
+| **Operations Playbook** | `_SIR/plans/OPERATIONS_PLAYBOOK_ALL.md` | Portfolio-level daily, weekly, and monthly manager operations |
+| **Marketing Plan** | `_SIR/plans/MARKETING_PLAN_ALL.md` | 12-week launch calendar, positioning, official social APIs |
+| **Visibility Plan** | `_SIR/plans/VISIBILITY_PLAN_ALL.md` | SEO, GEO `llms.txt`, AEO, ASO, and weekly check script |
+| **Master Task Backlog** | `_SIR/plans/TASK_BACKLOG_ALL.md` | Consolidated next 25 tasks per project with dependencies |
+| **Gap Hunt Report** | `_SIR/plans/GAP_REPORT.md` | Adversarial audit of portfolio single points of failure & blindspots |

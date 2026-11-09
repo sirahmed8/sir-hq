@@ -1,184 +1,115 @@
 # DEEP PLAN & MASTER SPEC: SIR Negm Furniture
 **Project**: SIR Negm Furniture (`D:/Projects/SIR Negm Furniture`)  
-**Status**: **FROZEN BY OWNER ORDER (2026-11-09)**. Friend's commercial project.  
-**Rule**: **PLAN ONLY. ZERO BUILD CODE, ZERO CI, ZERO DEPLOYMENT.**  
-**Deliverable**: Complete turn-key handoff pack for the friend's AI agent.  
+**Status**: **ACTIVE PLAN PROJECT (Unfrozen per Owner Order 2026-11-09)**.  
+**Rule**: **PLANS ONLY FOR NOW**. Elevated to the highest quality bar, ready for turnkey handover to Ahmed's friend. No building code, CI, or deployment until explicitly ordered by owner.  
+**Target Handover**: Ahmed's Friend & Negm Furniture Brand  
 **Version**: 1.0.0 (Strictly enforced)  
-**Standard**: `_SIR/standard/23-premium-code-bar.md` & `_SIR/plans/GEMINI_QUALITY_CHARTER.md`
+**Standard**: Standards 23 to 27 (`23-premium-code-bar.md` to `27-visibility.md`)
 
 ---
 
-## 1. Executive Summary & Handoff Charter
-SIR Negm Furniture is a bespoke luxury furniture commerce platform and interactive 3D room layout studio built for Ahmed's friend ("Negm Furniture"). Per explicit owner instructions on 2026-11-09, **this project is strictly frozen**: no SIR agent writes product code, configures CI workflows, or deploys instances to hosting accounts. Instead, SIR HQ prepares a comprehensive, turn-key **Handoff Pack** (architecture blueprints, prompt instructions for the friend's AI agent, data schemas, and clean setup scripts) so the friend can clone and build it independently.
+## 1. Executive Summary & Brand Charter
+SIR Negm Furniture is a premier digital atelier and 3D WebGL room visualization suite engineered for "Negm Furniture"—a high-end bespoke furniture brand based in Egypt. Previously held in a frozen state, the owner updated instructions on 2026-11-09: **Negm Furniture is active for planning**, to be elevated to the exact same rigorous architectural and market-grade standards as all other SIR products, with a complete turn-key package prepared for handover to his friend.
+
+### Core Product Capabilities:
+1. **Interactive 3D WebGL Room Studio**: Drag-and-drop custom furniture pieces onto customizable room floor plans with real-time PBR fabric, wood, and leather material customization.
+2. **WebXR Instant Mobile AR**: One-click projected AR preview allowing clients to inspect sofas and dining sets in their actual living spaces at 100% physical scale.
+3. **Bespoke Manufacturing Order & Deposit Gateway**: Custom dimensions calculator with integrated 50% Paymob deposit checkout and automated production milestone tracking.
+4. **Turnkey Friend Handoff Portal**: Intuitive Arabic management dashboard allowing Ahmed's friend to manage catalog items, update prices, upload swatches, and track customer inquiries without technical expertise.
 
 ---
 
-## 2. Legacy Forensic Audit & Porting Analysis
+## 2. Legacy Forensic Audit & Porting Strategy
 
 ### 2.1 Existing Legacy Assets (`SIR Negm Furniture/legacy/`)
-1. **`Negm Furniture`**: WordPress/WooCommerce export with bespoke luxury furniture product catalog, photography, pricing tables, fabric variations, and customer inquiry forms.
-2. **`floor-plan-generator-nov`**: React & Three.js canvas prototype allowing users to drag and drop furniture pieces onto a 2D floor plan with isometric 3D preview.
+1. **`Negm Furniture`**: WooCommerce store dump containing product catalog, dimensions, photography, fabric types, and past customer inquiries.
+2. **`floor-plan-generator-nov`**: React & Three.js 2D/3D floor plan layout prototype with boundary collision detection and camera controls.
 
-### 2.2 What is Valuable to Extract for the Handoff Pack
-- **Catalog Data & Models**: 3D GLTF models, dimensions (height, width, depth in cm), material variations (velvet, leather, oak, walnut), and high-resolution photography.
-- **Floor Plan Engine Core**: Mathematical room boundary calculations, wall collision detection, and canvas coordinate transformations.
-- **Direct WhatsApp Order Bridge**: Pre-formatted WhatsApp order message generator detailing selected items, dimensions, fabric codes, and delivery address.
-
-### 2.3 What Must Be Discarded
-- Bloated WordPress database dumps, PHP plugins, and insecure WooCommerce endpoints.
-- Hardcoded phone numbers and unverified production API keys.
+### 2.2 Reusable Architecture vs. Legacy Discard
+- **Extract & Standardize**: High-poly 3D models converted to optimized `.gltf` / `.webp` Draco-compressed assets; room coordinate collision algorithms; WhatsApp order payload format.
+- **Strictly Discarded**: PHP/WordPress dependencies, slow WooCommerce plugins, hardcoded phone numbers, unvalidated API keys.
 
 ---
 
-## 3. Architecture & Design Identity for Handoff
+## 3. Technology Stack & Design System
 
-### 3.1 Recommended Architecture (For Friend's Agent)
-- **Frontend**: Next.js 14 App Router, Three.js / React Three Fiber for 3D room rendering, Tailwind CSS.
-- **Backend / CMS**: Headless Strapi or Supabase PostgreSQL database for product inventory.
-- **Commerce / Checkout**: Direct WhatsApp business checkout + regional payment gateway (Paymob / Fawry).
-- **Deployment**: Vercel frontend + Supabase backend (to be provisioned by the friend).
-
-### 3.2 Design Identity
-- **Brand Aesthetic**: Luxury Artisanal Atelier. Warm, architectural, tactile, and prestigious.
-- **Palette**:
-  - Primary Bronze Gold: `#D97706` (Amber 600) / `#B45309` (Amber 700)
+- **Frontend Core**: Next.js 15 (App Router, React 19) + Three.js / React Three Fiber / Drei.
+- **Styling**: Tailwind CSS v4 + CSS Logical Properties (RTL first).
+- **Backend / Persistence**: Supabase PostgreSQL + Cloudflare R2 for 3D GLTF asset hosting.
+- **Commerce**: Paymob (Cards, Mobile Wallets, Meeza) + Meta WhatsApp Cloud API.
+- **Design Tokens**:
+  - Primary Bronze Gold: `#D97706` (Amber 600)
   - Secondary Warm Sand: `#F59E0B` (Amber 500)
-  - Dark Surface Base: Deep Charcoal Obsidian (`#0F1115` / `#16191E`)
+  - Surface Base: Deep Charcoal Obsidian (`#0F1115` / `#16191E`)
   - Elevated Glass: Translucent Bronze Slate (`rgba(22, 25, 30, 0.8)`)
-- **Typography**: Editorial typography (`Cinzel` / `Playfair Display` for headlines, `Cairo` for Arabic, `Inter` for technical specifications).
-- **Emblem**: Vector SVG interlocking geometric carpenter's square and golden ratio spiral.
+  - Typography: `Alexandria` & `Cairo` for Arabic; `Playfair Display` & `Inter` for Latin.
 
 ---
 
-## 4. Dependencies & Security Isolation
-- **Isolation**: Zero SIR infrastructure shared. No Firebase, no Cloudflare, no shared secrets.
-- **Handoff Target**: Stored exclusively within the private git repository until transferred to the friend.
+## 4. Prioritized Engineering Backlog (First 25 Tasks)
+
+| # | Task Title | Target Files | Steps & Scope | Acceptance Criteria |
+|---|---|---|---|---|
+| **01** | WebGL 3D Room Studio Canvas | `src/components/3d/RoomStudio.tsx` | Setup R3F Canvas with PBR lighting, shadows, and orbit controls. | Renders 3D floor grid at 60fps with smooth camera rotation. |
+| **02** | Draco-Compressed GLTF Furniture Loader | `src/services/3d/gltfLoader.ts` | Author GLTF loader with Draco decompression and progress cache. | Loads sofa model (< 2MB) in under 800ms with zero memory leak. |
+| **03** | Real-Time Fabric & Leather Switcher | `src/components/3d/MaterialSwitcher.tsx` | Shader material swapper updating roughness, normal, and albedo maps. | Clicking fabric swatch updates sofa texture smoothly in < 100ms. |
+| **04** | WebXR Mobile AR Placement Button | `src/components/3d/ArPlacement.tsx` | Integrates WebXR Device API and Apple QuickLook `.usdz` export. | Tapping button on mobile opens camera feed with 1:1 scale model. |
+| **05** | Custom Room Dimension Slider | `src/components/studio/RoomConfig.tsx` | Interactive width/length/height sliders updating room walls dynamically. | Wall mesh scales smoothly without distorting baseboard textures. |
+| **06** | 2D/3D Dual-View Toggle | `src/components/studio/ViewToggle.tsx` | Orthographic top-down 2D floor plan vs. perspective 3D camera flip. | Smooth spring camera transition between top-down and 3D views. |
+| **07** | Furniture Collision & Wall Snapping | `src/services/physics/snappingEngine.ts` | Bounding box raycasting snapping furniture to nearest wall within 15cm. | Dragging sofa near wall snaps back edge flush against wall. |
+| **08** | Arabic Dynamic Island Navigation Island | `src/components/ui/StudioIsland.tsx` | Spring-animated floating bar with Save, Share, AR, and Order pills. | Easing uses cubic-bezier(0.16, 1, 0.3, 1); active tabs expand. |
+| **09** | WhatsApp Pre-Filled Order Generator | `src/services/export/whatsappOrder.ts` | Encodes room layout screenshot, SKU, fabric codes, and client dimensions. | Generates clean WhatsApp URL opening direct chat with Negm sales. |
+| **10** | Paymob 50% Manufacturing Deposit Checkout| `src/services/payments/depositPaymob.ts` | Creates Paymob checkout session with "Launching Soon" fallback. | Renders payment modal; logs deposit reference ID. |
+| **11** | Customer Quotation PDF Generator | `src/services/pdf/quoteGenerator.ts` | Generates branded PDF quotation with dimensions, render snapshot, and terms. | Client can download clean PDF quote in Arabic and English. |
+| **12** | Client Production Milestone Tracker | `src/components/tracking/OrderTracker.tsx` | Visual progress bar: (Woodworking -> Upholstery -> QC -> Delivery). | Client enters order ID and sees live milestone and photo updates. |
+| **13** | Friend Turnkey Arabic Admin Dashboard | `src/components/admin/FriendDashboard.tsx` | Simplified Arabic portal for adding furniture products and photos. | Non-technical friend can upload product and set price in < 2 mins. |
+| **14** | Mobile Safari WebGL Context Recovery | `src/components/3d/ContextRecovery.tsx` | Handles `webglcontextlost` gracefully with 360-degree turntable fallback. | Simulating WebGL context loss triggers clean fallback without crash. |
+| **15** | Wood Finish Stain Customizer | `src/components/3d/WoodStainPicker.tsx` | Real-time PBR shader switcher for Walnut, Natural Oak, Mahogany, and Ash. | Visual grain changes realistically with roughness variation. |
+| **16** | Modular Sectional Sofa Reconfigurator | `src/components/3d/SectionalBuilder.tsx` | Add/remove chaise lounge, 2-seater, and corner modules dynamically. | Modular units snap together seamlessly with shared upholstery. |
+| **17** | Lighting Environment Presets | `src/components/3d/EnvironmentPresets.tsx` | Toggle Daylight (5500K), Warm Evening (3000K), and Studio Showroom. | HDRI ambient map updates lighting and shadows organically. |
+| **18** | Dimension Label Measurement Overlays | `src/components/3d/DimensionLabels.tsx` | Floating 3D HTML labels displaying width, depth, and height in cm. | Labels billboard to face camera and hide when occluded. |
+| **19** | R2 3D Model CDN Sync Daemon | `scripts/sync_models_r2.py` | Uploads compressed GLTF assets to Cloudflare R2 bucket with cache tags. | Scripts upload models and verify public CDN URLs. |
+| **20** | Offline Floor Plan LocalStorage Sync | `src/services/storage/localProject.ts` | Auto-saves room draft to browser IndexedDB every 15 seconds. | Refreshing page restores client's customized room state perfectly. |
+| **21** | Client Moodboard & Color Palette Extractor| `src/components/studio/PaletteExtractor.tsx`| Extracts dominant colors from uploaded living room photo to suggest fabrics. | Uploading living room photo highlights matching velvet swatches. |
+| **22** | Damietta Workshop Order Spec Sheet | `src/services/export/workshopSpecSheet.ts`| Generates technical carpentry cut-list and upholstery yardage spec. | Outputs printable factory cut sheet for workshop artisans. |
+| **23** | Customer Review & Photo Gallery | `src/components/reviews/PhotoGallery.tsx` | Masonry grid of real client living rooms with verified buyer badges. | Responsive image gallery with high-speed LCP optimization. |
+| **24** | Turnkey Setup & Friend Handover Guide | `docs/HANDOVER_GUIDE_FOR_FRIEND.md` | Plain-language Arabic and English manual explaining daily operations. | Complete step-by-step guide tested for zero technical jargon. |
+| **25** | Comprehensive E2E Playwright Test Suite | `tests/e2e/furnitureStudio.spec.ts` | End-to-end smoke test verifying 3D load, fabric switch, and WhatsApp quote. | All Playwright tests pass green with 0 errors. |
 
 ---
 
-## 5. The 25 Handoff Pack & Architecture Tasks (For Friend's Agent)
+## 5. Mandatory Sections per Standards 24 to 27
 
-### NF-101 | Master Handoff Readme & Friend's Agent Instruction Prompt
-- **Files**: `HANDOFF.md`, `prompts/agent_kickoff.prompt.txt`
-- **Steps**: Author comprehensive handoff guide explaining project setup, tech stack selection, environment variables, and initial prompt for the friend's AI agent.
-- **Acceptance**: Provides 1-click prompt that enables any external coding agent to bootstrap the project cleanly.
+### 5.1 Launch Package (Standard 24)
+- **Platforms**: Responsive Web (Desktop, Tablet, Mobile) + PWA + WebXR Mobile AR.
+- **Security & Privacy**: Client photos uploaded for room matching are processed client-side and never stored permanently without consent; Paymob webhooks signed via HMAC; strict rate limiting on quote requests.
+- **Fair EGP Commercial Terms**:
+  - Web 3D room planner and catalog are 100% free for all customers.
+  - Bespoke manufacturing requires a 50% advance deposit via Paymob (Vodafone Cash, Cards, Meeza), with balance due upon delivery and inspection.
+  - When live payment keys are absent, checkout displays "Deposits Launching Soon - Contact via WhatsApp" fallback.
+- **Real Data Only**: All product dimensions, wood species, and fabric codes represent real Damietta carpentry specifications; zero placeholder items.
+- **Plain-Language Owner Activation Checklist**:
+  1. Buy Domain: `negmfurniture.com` or `negm-furniture.eg` (~500 EGP/year via local accredited registrar).
+  2. Setup Paymob: Enter commercial registration details, paste `PAYMOB_API_KEY` into `.env`.
+  3. Enter WhatsApp Business Number: Add friend's phone into `NEXT_PUBLIC_WHATSAPP_NUMBER`.
+  4. Verify: Customize a sofa, tap "Order via WhatsApp", confirm WhatsApp message arrives on friend's phone with complete spec.
 
-### NF-102 | Product Catalog JSON Schema & Clean Dataset Extraction
-- **Files**: `data/products_schema.json`, `data/extracted_catalog.json`
-- **Steps**: Extract and normalize products from legacy WordPress dump into clean JSON schema (SKU, title, dimensions, materials, price, images).
-- **Acceptance**: 100% valid JSON validating against schema with zero missing dimension values.
+### 5.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `plans/competitors/sir-negm-furniture.md` comparing against IKEA Egypt, Kabbani, and local Damietta workshops.
+- **Regional Laws & Consumer Protection**: Complies with Egyptian Consumer Protection Law (Law 181/2018) for bespoke manufacturing contracts (clear delivery timeline, written specifications, 14-day defect warranty).
+- **Privacy-First Analytics**: Opt-in anonymized telemetry measuring popular fabric choices and room dimensions; zero personal customer data captured.
+- **Legal Pack with Lawyer Disclaimer**: Includes Terms of Custom Manufacturing, Delivery Policy, and Warranty Terms, marked *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian commercial lawyer before official commercial launch."*
 
-### NF-103 | 3D Furniture Asset Optimization Pipeline Spec
-- **Files**: `docs/3D_ASSET_PIPELINE.md`, `scripts/optimize_gltf.mjs`
-- **Steps**: Document specifications for converting 3D models to Draco-compressed `.glb` under 2MB for fast mobile loading.
-- **Acceptance**: Pipeline script optimizes sample 3D sofa model from 18MB to 1.4MB without visual degradation.
+### 5.3 Autonomous Operations (Standard 26)
+- **In-Product Assistant**: "مساعد نجم للأثاث" - answers customer questions regarding wood types (beech wood vs. oak), fabric durability, cleaning methods, and delivery lead times in fluent Egyptian Arabic.
+- **Operations Runbook**: Nightly database backups of custom orders, automated model compression pipeline, webhook reconciliation.
+- **Telegram & WhatsApp Notifications**: Instant notification to the brand owner on WhatsApp when a customer completes a 3D layout or places a deposit.
+- **Guard Rails**: Daily external AI API spending capped at $3.00/day.
 
-### NF-104 | 2D/3D Room Canvas Architecture Specification
-- **Files**: `docs/FLOOR_PLAN_ARCHITECTURE.md`
-- **Steps**: Document coordinate system, wall polygon extrusion, snap-to-grid math, and camera orbit controls for React Three Fiber.
-- **Acceptance**: Complete mathematical model specified for 2D-to-3D projection.
-
-### NF-105 | WhatsApp Business Checkout Payload Generator Spec
-- **Files**: `specs/whatsapp_checkout_spec.md`
-- **Steps**: Design URL-encoded WhatsApp message template with itemized cart list, calculated total, and custom fabric choices.
-- **Acceptance**: Generates valid `https://wa.me/` deep links with structured Arabic order message.
-
-### NF-106 | Bespoke Brand SVG Logo & Identity Vector Assets
-- **Files**: `assets/brand/logo.svg`, `assets/brand/favicon.svg`
-- **Steps**: Craft vector logo featuring golden carpenter's joint and typography; export to standard icon sizes.
-- **Acceptance**: Clean vector SVG rendering crisply across dark and light backgrounds.
-
-### NF-107 | Room Lighting & Photorealistic Shadow Shader Spec
-- **Files**: `specs/threejs_lighting_spec.md`
-- **Steps**: Document ambient occlusion, contact shadows, and realistic PBR wood/fabric material shaders.
-- **Acceptance**: Shader configuration produces soft realistic shadows under furniture models.
-
-### NF-108 | Responsive Dynamic Island Navigation Layout Spec
-- **Files**: `specs/ui_design_system.md`
-- **Steps**: Define design tokens, Dynamic Island active-only navigation, and mobile bottom sheet specifications.
-- **Acceptance**: Complete CSS token map defined for bronze, sand, and charcoal surfaces.
-
-### NF-109 | Supabase Database Schema Migration Scripts
-- **Files**: `database/migrations/001_initial_schema.sql`
-- **Steps**: Author PostgreSQL DDL schema for categories, products, finishes, orders, and customer inquiries with RLS rules.
-- **Acceptance**: Clean SQL migration runs without errors on vanilla PostgreSQL 15+.
-
-### NF-110 | Multi-Language Arabic/English Localization Dictionary
-- **Files**: `locales/ar.json`, `locales/en.json`
-- **Steps**: Create exhaustive bilingual translation dictionary covering furniture terminology (sofa, credenza, boucle, brass, lacquer).
-- **Acceptance**: 100% parity across Arabic and English translation keys.
-
-### NF-111 | Custom Dimension & Made-to-Measure Cost Calculator Spec
-- **Files**: `specs/custom_pricing_formula.md`
-- **Steps**: Mathematical formula calculating pricing adjustments based on non-standard width/depth dimensions and premium fabric multipliers.
-- **Acceptance**: Correctly computes pricing delta with configurable margin buffers.
-
-### NF-112 | Augmented Reality (WebXR & Apple QuickLook) Blueprint
-- **Files**: `specs/ar_quicklook_spec.md`
-- **Steps**: Specification for generating iOS `.usdz` and Android `model-viewer` tags for live camera AR projection in customer rooms.
-- **Acceptance**: Documents exact meta tags and file requirements for 1-tap mobile AR preview.
-
-### NF-113 | Showroom Appointment Booking Flow Specification
-- **Files**: `specs/appointment_booking_spec.md`
-- **Steps**: Architecture for customer showroom visit scheduler with date/time pickers and automated SMS/WhatsApp confirmations.
-- **Acceptance**: Complete state machine defined from time slot selection to confirmation.
-
-### NF-114 | Client Testimonial & Real Interior Project Gallery Spec
-- **Files**: `specs/gallery_portfolio_spec.md`
-- **Steps**: Blueprint for high-resolution masonry photo gallery with tagged furniture hotspots linking directly to catalog items.
-- **Acceptance**: Interactive hotspot schema maps pixel coordinates to product SKUs.
-
-### NF-115 | SEO & GEO Local Discovery Optimization Blueprint
-- **Files**: `docs/SEO_STRATEGY.md`
-- **Steps**: Schema.org JSON-LD structured data for LocalBusiness and Product schemas targeting Cairo/Giza bespoke furniture searches.
-- **Acceptance**: Includes valid Google Rich Results test snippets.
-
-### NF-116 | Docker Compose Self-Hosted Evaluation Stack
-- **Files**: `docker-compose.yml`, `docs/DOCKER_GUIDE.md`
-- **Steps**: Provide optional local Docker Compose stack running Next.js frontend, Strapi CMS, and PostgreSQL for offline testing.
-- **Acceptance**: `docker compose up -d` boots entire environment locally in one command.
-
-### NF-117 | Fabric Swatch Physical Sample Request Flow
-- **Files**: `specs/sample_request_flow.md`
-- **Steps**: Design user flow for requesting a physical swatch box of 5 fabric samples delivered to customer address.
-- **Acceptance**: Complete form specification with address validation and delivery fee logic.
-
-### NF-118 | High-Performance Image Optimization & CDN Caching Spec
-- **Files**: `docs/IMAGE_PERFORMANCE_SPEC.md`
-- **Steps**: Document responsive WebP/AVIF srcset generation, blur placeholders, and CDN caching headers for 4K showroom photos.
-- **Acceptance**: Guarantees sub-1s LCP on 4G mobile connections.
-
-### NF-119 | Interactive Color & Wood Finish Customizer Spec
-- **Files**: `specs/material_picker_spec.md`
-- **Steps**: Interactive UI component specification allowing real-time material swapping on 3D models with thumbnail swatches.
-- **Acceptance**: Defines Three.js texture replacement pipeline without model reloading.
-
-### NF-120 | Security Checklist for Commercial Production Deployment
-- **Files**: `docs/SECURITY_CHECKLIST.md`
-- **Steps**: Comprehensive security checklist covering OWASP Top 10, payment webhook HMAC signatures, CSP, and form sanitization.
-- **Acceptance**: 20-point actionable pre-launch security audit table.
-
-### NF-121 | Order Status Tracking Portal Specification
-- **Files**: `specs/order_tracking_spec.md`
-- **Steps**: Customer tracking interface where entering phone number and order ID displays manufacturing stage (Cutting, Carpentry, Upholstery, Delivery).
-- **Acceptance**: Clean progress tracker UI specification with milestone timestamps.
-
-### NF-122 | Environmental & Solid Wood Certification Badging
-- **Files**: `specs/certifications_badges.md`
-- **Steps**: Design tokens and badge specifications for kiln-dried beechwood, anti-termite treatment, and craftsmanship warranties.
-- **Acceptance**: SVG badge assets and placement guidelines across product detail cards.
-
-### NF-123 | PDF Showroom Lookbook & Tear Sheet Generator Spec
-- **Files**: `specs/tear_sheet_pdf_spec.md`
-- **Steps**: Automated specification for generating elegant, printable 1-page A4 architectural tear sheets for interior designers.
-- **Acceptance**: Template layouts specified for product photo, dimensional CAD drawing, and material options.
-
-### NF-124 | Clean Git Repository Handoff Archive Script
-- **Files**: `scripts/prepare_handoff_archive.ps1`
-- **Steps**: Script packaging all blueprints, schemas, assets, and kickoff prompts into clean standalone ZIP bundle for friend.
-- **Acceptance**: Generates verified ZIP archive with zero internal SIR artifacts or sensitive keys.
-
-### NF-125 | End-to-End Handoff Validation & Verification Check
-- **Files**: `scripts/verify_handoff_pack.py`
-- **Steps**: Automated verification script confirming all 24 handoff specifications, schemas, and brand assets exist and validate cleanly.
-- **Acceptance**: Script confirms 100% handoff pack completeness.
+### 5.4 Visibility & Discovery (Standard 27)
+- **High-Intent Search Queries**:
+  - Arabic: *"أثاث مودرن دمياط", "تفصيل أثاث حسب الطلب", "غرف نوم مودرن القاهرة", "معاينة الأثاث 3D"*
+  - Egyptian Slang: *"عفش مودرن بالتقسيط", "معرض موبيليا راقي", "كنب كورنر عمولة"*
+  - English: *"bespoke luxury furniture Cairo", "custom furniture Egypt 3D preview"*
+- **Generative Engine Optimization (GEO)**: Hosts `llms.txt` and `/facts` detailing brand history, manufacturing materials, custom dimensions policy, and showroom locations.
+- **JSON-LD Schema**: Implements `Product` and `LocalBusiness` schemas with validated review and pricing attributes.
