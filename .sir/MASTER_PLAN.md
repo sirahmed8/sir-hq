@@ -222,3 +222,40 @@ flowchart TD
 - **Files**: `scripts/verify.ps1`, `tests/test_control_room_integrity.py`
 - **Steps**: Validate single-source hash equality, 0 privacy leaks, zero emojis, zero yellow buttons, 100% dictionary coverage, and port 8899 response.
 - **Acceptance**: `verify.ps1` runs in under 1 second with 100% green gates.
+
+
+---
+
+## 6. Mandatory Standards 24 to 27 Architecture
+
+### 6.1 Launch Package (Standard 24 - Sovereign Operations Ingress)
+- **Identity & Infrastructure**: Dedicated repository (`sirahmed8/sir-hq`), local port 8899 via `scripts/serve-control-room.py`, silent Windows logon task (`SIR_ControlRoom_Refresh`).
+- **Supported Platforms & Build Commands**:
+  - Web & PWA: Serves `ops/dashboard.html` with sub-ms ETag 304 caching.
+  - Claude Desktop Artifact: Pinned `ops/artifact/control-room.html` generated identically byte-for-byte by `plans/generate_dashboard.py`.
+  - Mobile (iPhone / Android): PWA shell accessed via WireGuard Tailnet at `http://100.90.16.89:8899`.
+- **Security & Integrity Tasks**:
+  - Hard build-time assert terminating build if private terms or Habiba data appear in output HTML.
+  - Silent Windows execution: all subprocesses use `CREATE_NO_WINDOW = 0x08000000` via `pythonw.exe` and `wscript.exe`.
+  - Zero third-party cloud trackers; local execution only.
+- **Fair Model**: Internal operations console for founder and autonomous workforce.
+- **Owner Activation Checklist (Plain Arabic & English for Ahmed)**:
+  1. Confirm port 8899 service is active via Windows Task Scheduler.
+  2. Verify: Open `http://127.0.0.1:8899`, confirm single-source dashboard loads in < 5ms with zero console windows.
+
+### 6.2 Market-Grade Compliance (Standard 25)
+- **Competitor Study**: Documented in `plans/competitors/sir-control-room.md` with cited sources comparing against Datadog, Portainer, Grafana, and Retool.
+- **Observability Standard**: Combines real-time git state, CI badges, task ledgers, and Antigravity multi-agent handovers into a unified zero-cost console.
+- **Privacy-First Architecture**: 100% on-premises; zero metrics leave local workstation.
+- **Legal Pack**: Internal Headquarters Operations Protocol and Master Directive.
+
+### 6.3 Autonomous Operations (Standard 26)
+- **Autonomous Takeover Blueprint**: Full takeover specification documented in `plans/INSTRUCTIONS_FOR_MANAGER.md` enabling Gemini 3.8 Flash High to execute the 6-phase daily loop independently.
+- **Operations Runbook**: Automated stale lock cleaner, account rotation triggers at <=15% threshold, and daily dashboard compilation.
+- **Telegram Delivery Bridge**: Automated morning operations briefing sent to Ahmed's iPhone via `node scripts/deliver/send-telegram.mjs`.
+
+### 6.4 Visibility & Discovery (Standard 27)
+- **Private Headquarters Exemption (Strict Noindex)**:
+  - Per Standard 27 section 5 and workspace laws, `_SIR` is an internal command headquarters.
+  - `robots.txt` set to `Disallow: /`; all generated HTML contains `<meta name="robots" content="noindex, nofollow">`.
+  - Unlisted; zero public search indexing.
