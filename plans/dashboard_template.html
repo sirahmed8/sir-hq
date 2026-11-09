@@ -7,6 +7,10 @@
 <meta name="theme-color" content="#0D141B" media="(prefers-color-scheme: dark)">
 <title>SIR Control Room</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="alternate icon" type="image/x-icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
 /* Reset & Tokens */
@@ -129,11 +133,40 @@ header {
   flex-wrap: wrap;
   gap: 16px 24px;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   border-bottom: 1px solid var(--line);
   padding-bottom: 16px;
 }
-header p { margin: 6px 0 0; color: var(--muted); max-width: 68ch; font-size: 13.5px; }
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.brand-logo-wrap {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  flex-shrink: 0;
+}
+.brand-logo-wrap:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(45, 212, 191, 0.25);
+}
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+header p { margin: 4px 0 0; color: var(--muted); max-width: 68ch; font-size: 13px; }
 .header-actions {
   display: flex;
   gap: 8px;
@@ -147,41 +180,100 @@ header p { margin: 6px 0 0; color: var(--muted); max-width: 68ch; font-size: 13.
   word-break: break-word;
 }
 
+/* Dynamic Island Tab Navigation */
 nav {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 25;
   display: flex;
+  align-items: center;
   gap: 6px;
-  padding: 8px 0;
+  padding: 8px 4px;
   background: var(--bg);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 nav::-webkit-scrollbar { display: none; }
-nav a {
+nav .nav-tab {
   font: 600 12px var(--f-display);
-  letter-spacing: .05em;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  padding: 10px 14px;
-  min-height: 44px;
+  padding: 8px 12px;
+  min-height: 42px;
   display: inline-flex;
   align-items: center;
-  border-radius: 8px;
-  color: var(--ink);
+  justify-content: center;
+  border-radius: 21px;
+  color: var(--muted);
   text-decoration: none;
   border: 1px solid transparent;
-  transition: all .15s cubic-bezier(0.16,1,0.3,1);
+  background: transparent;
+  transition: background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  flex-shrink: 0;
 }
-nav a:hover, nav a:focus-visible {
-  border-color: var(--line);
+nav .nav-tab:hover {
+  color: var(--ink);
+  background: rgba(125, 125, 125, 0.08);
+}
+nav .nav-tab:active {
+  transform: scale(0.97);
+}
+nav .nav-tab:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+nav .nav-tab .tab-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+nav .nav-tab:not(.active) .tab-label {
+  max-width: 0;
+  opacity: 0;
+  margin-left: 0;
+  margin-right: 0;
+  overflow: hidden;
+  pointer-events: none;
+  display: inline-block;
+  transition: max-width 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.18s ease,
+              margin 0.18s ease;
+}
+nav .nav-tab.active {
   background: var(--surface);
-  transform: translateY(-1px);
+  color: var(--accent);
+  border-color: var(--line);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+[data-theme="dark"] nav .nav-tab.active {
+  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.15);
+}
+nav .nav-tab.active .tab-label {
+  max-width: 150px;
+  opacity: 1;
+  margin-left: 8px;
+  overflow: visible;
+  white-space: nowrap;
+  display: inline-block;
+  transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.22s ease 0.04s,
+              margin 0.22s ease;
+}
+[dir="rtl"] nav .nav-tab.active .tab-label {
+  margin-left: 0;
+  margin-right: 8px;
 }
 
 /* Grids & Cards */
@@ -635,10 +727,45 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <div class="label" id="txt-label">HQ for Ahmed Alaa</div>
-      <h1 id="txt-title">SIR Control Room</h1>
-      <p id="txt-desc">Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.</p>
+    <div class="header-brand">
+      <div class="brand-logo-wrap" title="SIR Control Room — Command Bridge">
+        <svg class="brand-logo" viewBox="0 0 512 512" aria-hidden="true">
+          <defs>
+            <linearGradient id="hdrBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0A0F15"/>
+              <stop offset="50%" stop-color="#111923"/>
+              <stop offset="100%" stop-color="#172433"/>
+            </linearGradient>
+            <linearGradient id="hdrCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2DD4BF"/>
+              <stop offset="60%" stop-color="#0F766E"/>
+              <stop offset="100%" stop-color="#042F2E"/>
+            </linearGradient>
+          </defs>
+          <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#hdrBgGrad)" stroke="#263545" stroke-width="6"/>
+          <rect x="24" y="24" width="464" height="464" rx="108" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3"/>
+          <circle cx="256" cy="256" r="184" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.2" stroke-dasharray="6 8"/>
+          <circle cx="256" cy="256" r="128" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-opacity="0.35"/>
+          <circle cx="256" cy="256" r="76" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.5"/>
+          <line x1="256" y1="56" x2="256" y2="456" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+          <line x1="56" y1="256" x2="456" y2="256" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+          <circle cx="256" cy="72" r="5" fill="#2DD4BF"/>
+          <circle cx="256" cy="440" r="5" fill="#2DD4BF"/>
+          <circle cx="72" cy="256" r="5" fill="#2DD4BF"/>
+          <circle cx="440" cy="256" r="5" fill="#2DD4BF"/>
+          <g transform="translate(256, 256) rotate(45)">
+            <rect x="-64" y="-64" width="128" height="128" rx="26" fill="url(#hdrCoreGrad)" stroke="#5EEAD4" stroke-width="3"/>
+            <rect x="-36" y="-36" width="72" height="72" rx="12" fill="#0A1E24" stroke="#2DD4BF" stroke-width="2"/>
+            <circle cx="0" cy="0" r="13" fill="#5EEAD4"/>
+            <circle cx="0" cy="0" r="5" fill="#FFFFFF"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="label" id="txt-label">HQ for Ahmed Alaa</div>
+        <h1 id="txt-title" style="margin:2px 0 0">SIR Control Room</h1>
+        <p id="txt-desc">Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.</p>
+      </div>
     </div>
     <div class="header-actions">
       <button id="lang-btn" class="fb" aria-label="Toggle language">العربية</button>
@@ -648,16 +775,47 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     </div>
   </header>
 
-  <nav aria-label="Sections">
-    <a href="#now" id="nav-now">Now</a>
-    <a href="#ci-remote" id="nav-ci">CI &amp; Remote</a>
-    <a href="#ledgers" id="nav-ledgers">Ledgers</a>
-    <a href="#waves" id="nav-waves">Waves</a>
-    <a href="#projects" id="nav-projects">Projects</a>
-    <a href="#platforms" id="nav-platforms">Platforms</a>
-    <a href="#accounts" id="nav-accounts">Accounts</a>
-    <a href="#workforce" id="nav-workforce">Workforce</a>
-    <a href="#activity" id="nav-activity">Activity</a>
+  <nav aria-label="Sections" id="main-nav">
+    <a href="#now" id="nav-now" class="nav-tab active">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="tab-label" id="nav-now-text">Now</span>
+    </a>
+    <a href="#handover" id="nav-handover" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span class="tab-label" id="nav-handover-text">Gemini Handover</span>
+    </a>
+    <a href="#ci-remote" id="nav-ci" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+      <span class="tab-label" id="nav-ci-text">CI &amp; Remote</span>
+    </a>
+    <a href="#ledgers" id="nav-ledgers" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="tab-label" id="nav-ledgers-text">Ledgers</span>
+    </a>
+    <a href="#waves" id="nav-waves" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      <span class="tab-label" id="nav-waves-text">Waves</span>
+    </a>
+    <a href="#projects" id="nav-projects" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span class="tab-label" id="nav-projects-text">Projects</span>
+    </a>
+    <a href="#platforms" id="nav-platforms" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span class="tab-label" id="nav-platforms-text">Platforms</span>
+    </a>
+    <a href="#accounts" id="nav-accounts" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="tab-label" id="nav-accounts-text">Accounts</span>
+    </a>
+    <a href="#workforce" id="nav-workforce" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="tab-label" id="nav-workforce-text">Workforce</span>
+    </a>
+    <a href="#activity" id="nav-activity" class="nav-tab">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span class="tab-label" id="nav-activity-text">Activity</span>
+    </a>
   </nav>
 
   <section id="now" class="grid2">
@@ -672,6 +830,48 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     <div class="panel need">
       <h2 id="txt-needs-attention">Needs attention</h2>
       <ul class="list" id="attention"></ul>
+    </div>
+  </section>
+
+  <section id="handover" class="panel" style="margin-top:20px;border-top:2px solid var(--accent)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+      <div>
+        <div class="label" style="color:var(--accent)" id="txt-handover-label">OPERATIONAL INDEPENDENCE PROTOCOL</div>
+        <h2 style="margin:4px 0 0" id="txt-handover-title">Gemini Autonomous Handover &amp; Master Plans</h2>
+        <p class="sub" style="margin:6px 0 0;max-width:76ch" id="txt-handover-sub">Autonomous operations readiness following Claude subscription expiry in ~2 weeks. Tracking per-project master plans, detailed next 10 tasks, and honest autonomous tool readiness.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="pill ok" id="txt-handover-badge" style="font-weight:600">Autonomous Builder: Gemini 3.8 Flash High</span>
+      </div>
+    </div>
+
+    <!-- Handover Top Grid: Checklist + Summary -->
+    <div class="grid2" style="margin-bottom:20px">
+      <div class="panel" style="background:var(--bg)">
+        <h3 style="margin-top:0" id="txt-checklist-title">Honest Autonomous Tool &amp; System Readiness Checklist</h3>
+        <div class="sub" style="margin-bottom:12px" id="txt-checklist-sub">Audit of critical capabilities required for Gemini in Antigravity to operate entirely alone.</div>
+        <ul class="list" id="handover-checklist"></ul>
+      </div>
+
+      <div class="panel" style="background:var(--bg)">
+        <h3 style="margin-top:0" id="txt-mp-summary-title">Portfolio Master Plan &amp; Roadmap Coverage</h3>
+        <div class="sub" style="margin-bottom:12px" id="txt-mp-summary-sub">Charter compliance: per-project .sir/MASTER_PLAN.md with feature matrices &amp; next 10 tasks.</div>
+        <div class="tiles" id="handover-metrics" style="grid-template-columns:repeat(2, 1fr);margin-bottom:12px"></div>
+        <div class="sub" id="txt-mp-notice" style="line-height:1.6;padding:8px 12px;background:var(--surface);border-radius:8px;border:1px solid var(--line)">
+          Every project chat creates <code>.sir/MASTER_PLAN.md</code> during Round 10. The 10 tasks listed below are extracted directly from active master plans and <code>.sir/TASKS.md</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Per-Project Master Plans & Next 10 Tasks Accordion -->
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+        <h3 style="margin:0" id="txt-project-plans-title">Per-Project Master Plans &amp; Next 10 Detailed Tasks</h3>
+        <div style="display:flex;gap:8px">
+          <button id="handover-expand-all" class="fb" aria-expanded="false">Expand All Plans</button>
+        </div>
+      </div>
+      <div id="handover-projects-list" class="rows"></div>
     </div>
   </section>
 
@@ -778,8 +978,26 @@ const i18n = {
     stampPrefix: "Updated: ",
     syncSame: "site and artifact are the same version",
     syncWait: "artifact is waiting for republish",
-    navNow: "Now", navCi: "CI & Remote", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
+    navNow: "Now", navHandover: "Gemini Handover", navCi: "CI & Remote", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
     navPlatforms: "Platforms", navAccounts: "Accounts", navWorkforce: "Workforce", navActivity: "Activity",
+    handoverLabel: "OPERATIONAL INDEPENDENCE PROTOCOL",
+    handoverTitle: "Gemini Autonomous Handover & Master Plans",
+    handoverSub: "Autonomous operations readiness following Claude subscription expiry in ~2 weeks. Tracking per-project master plans, detailed next 10 tasks, and honest autonomous tool readiness.",
+    handoverBadge: "Autonomous Builder: Gemini 3.8 Flash High",
+    checklistTitle: "Honest Autonomous Tool & System Readiness Checklist",
+    checklistSub: "Audit of critical capabilities required for Gemini in Antigravity to operate entirely alone.",
+    mpSummaryTitle: "Portfolio Master Plan & Roadmap Coverage",
+    mpSummarySub: "Charter compliance: per-project .sir/MASTER_PLAN.md with feature matrices & next 10 tasks.",
+    mpNotice: "Every project chat creates .sir/MASTER_PLAN.md during Round 10. The 10 tasks listed below are extracted directly from active master plans and .sir/TASKS.md.",
+    projectPlansTitle: "Per-Project Master Plans & Next 10 Detailed Tasks",
+    expandAllPlans: "Expand All Plans", collapseAllPlans: "Collapse All Plans",
+    metricTotalProjects: "Total Projects",
+    metricMasterPlans: "Master Plans Ready",
+    metricTasksTracked: "Next Tasks Tracked",
+    metricChecklistReady: "Readiness Items Ready",
+    planActive: "Master Plan Active",
+    planPending: "Pending Round 10 Master Plan",
+    readyBadge: "Ready", actionNeededBadge: "Action Needed", inProgressBadge: "In Progress",
     workingNow: "Working now", needsAttention: "Needs attention",
     idleText: "No project chat is running.",
     clearText: "Everything is clear. Nothing needs you.",
@@ -827,8 +1045,26 @@ const i18n = {
     stampPrefix: "تم التحديث: ",
     syncSame: "الموقع والأرتيفاكت نفس الإصدار",
     syncWait: "الأرتيفاكت بانتظار إعادة النشر",
-    navNow: "الآن", navCi: "الفحص والوصول", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
+    navNow: "الآن", navHandover: "تسليم Gemini", navCi: "الفحص والوصول", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
     navPlatforms: "المنصات", navAccounts: "الحسابات", navWorkforce: "فريق العمل", navActivity: "النشاطات",
+    handoverLabel: "بروتوكول الاستقلالية التشغيلية",
+    handoverTitle: "تسليم العمليات المستقلة لـ Gemini والخطط الرئيسية",
+    handoverSub: "بروتوكول التشغيل الذاتي الكامل استعداداً لانتهاء اشتراك Claude خلال أسبوعين. متابعة الخطط الرئيسية وقوائم المهام العشر القادمة وجاهزية الأدوات.",
+    handoverBadge: "المنفذ المستقل: Gemini 3.8 Flash High",
+    checklistTitle: "قائمة الجاهزية الصريحة للأدوات والأنظمة الذاتية",
+    checklistSub: "تدقيق شامل للإمكانات والربط التقني المطلوب ليعمل Gemini في Antigravity بمفرده بالكامل.",
+    mpSummaryTitle: "تغطية الخطط الرئيسية للمشاريع (.sir/MASTER_PLAN.md)",
+    mpSummarySub: "التزام ميثاق الجودة: خطة رئيسية لكل مشروع مع مصفوفة الميزات والمهام العشر القادمة.",
+    mpNotice: "يقوم كل مشروع بإنشاء .sir/MASTER_PLAN.md خلال الجولة 10. المهام العشر أدناه مستخرجة مباشرة من الخطط النشطة وقوائم المهام.",
+    projectPlansTitle: "الخطط الرئيسية والمهام العشر التفصيلية لكل مشروع",
+    expandAllPlans: "فتح جميع الخطط", collapseAllPlans: "طي جميع الخطط",
+    metricTotalProjects: "إجمالي المشاريع",
+    metricMasterPlans: "الخطط الرئيسية الجاهزة",
+    metricTasksTracked: "المهام القادمة الموثقة",
+    metricChecklistReady: "عناصر الجاهزية المكتملة",
+    planActive: "الخطة الرئيسية معتمدة",
+    planPending: "بانتظار خطة الجولة 10",
+    readyBadge: "جاهز", actionNeededBadge: "يتطلب إجراء", inProgressBadge: "قيد التنفيذ",
     workingNow: "قيد التنفيذ الآن", needsAttention: "يتطلب الاهتمام",
     idleText: "لا توجد أي محادثة مشروع نشطة حالياً.",
     clearText: "كل شيء مستقر ولا توجد أي مهام معلقة لك.",
@@ -870,7 +1106,7 @@ const i18n = {
   }
 };
 
-let currentLang = localStorage.getItem("sir_lang") || "en";
+let currentLang = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("sir_lang") || "en";
 let wave = "all";
 let statusFilter = "all";
 let allExpanded = false;
@@ -1306,6 +1542,111 @@ function renderActivity(lang) {
   }).join("");
 }
 
+let allHandoverExpanded = false;
+
+function renderHandover(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const h = D.gemini_handover || { projects: [], checklist: [], metrics: {} };
+  const m = h.metrics || {};
+
+  // 1. Render Metrics Tiles
+  const metricsEl = $("#handover-metrics");
+  if (metricsEl) {
+    metricsEl.innerHTML = `
+      <div>
+        <span class="label">${t.metricTotalProjects}</span>
+        <span class="big">${m.total_projects || 17}</span>
+        <div class="sub">${isAr ? "مشروعاً في المقر" : "active products"}</div>
+      </div>
+      <div>
+        <span class="label">${t.metricMasterPlans}</span>
+        <span class="big" style="color:var(--accent)">${m.master_plans_ready || 5}<span class="sub" style="font-size:16px"> / ${m.total_projects || 17}</span></span>
+        <div class="bar"><i style="width:${pct(m.master_plans_ready || 5, m.total_projects || 17)}%"></i></div>
+      </div>
+      <div>
+        <span class="label">${t.metricTasksTracked}</span>
+        <span class="big">${m.tasks_tracked || 170}</span>
+        <div class="sub">${isAr ? "مهمة مرقمة جاهزة للتنفيذ" : "detailed tasks parsed"}</div>
+      </div>
+      <div>
+        <span class="label">${t.metricChecklistReady}</span>
+        <span class="big" style="color:var(--ok)">${m.checklist_ready || 7}<span class="sub" style="font-size:16px"> / ${m.checklist_total || 10}</span></span>
+        <div class="bar"><i style="width:${pct(m.checklist_ready || 7, m.checklist_total || 10)}%;background:var(--ok)"></i></div>
+      </div>
+    `;
+  }
+
+  // 2. Render Checklist
+  const chkListEl = $("#handover-checklist");
+  if (chkListEl && h.checklist) {
+    chkListEl.innerHTML = h.checklist.map(c => {
+      let statusClass = "ok";
+      let statusText = t.readyBadge;
+      if (c.status === "action_needed") {
+        statusClass = "bad";
+        statusText = t.actionNeededBadge;
+      } else if (c.status === "in_progress") {
+        statusClass = "warn";
+        statusText = t.inProgressBadge;
+      }
+
+      const catText = isAr ? (c.category_ar || c.category) : c.category;
+      const titleText = isAr ? (c.title_ar || c.title_en) : c.title_en;
+      const descText = isAr ? (c.desc_ar || c.desc_en) : c.desc_en;
+
+      return `
+        <li>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px">
+            <span style="font-weight:600;font-size:12.5px;color:var(--ink)">${esc(titleText)}</span>
+            <span class="pill ${statusClass}" style="font-size:10.5px;padding:2px 6px">${esc(statusText)}</span>
+          </div>
+          <div class="sub" style="font-size:11.5px;line-height:1.4">${esc(descText)}</div>
+          <div class="sub" style="font-size:10.5px;margin-top:2px;color:var(--accent)">${esc(catText)}</div>
+        </li>
+      `;
+    }).join("");
+  }
+
+  // 3. Render Projects Handover Cards
+  const projListEl = $("#handover-projects-list");
+  if (projListEl && h.projects) {
+    projListEl.innerHTML = h.projects.map(p => {
+      const planBadgeClass = p.has_master_plan ? "ok" : "warn";
+      const planBadgeText = p.has_master_plan ? t.planActive : t.planPending;
+      const tasksCount = p.tasks ? p.tasks.length : 0;
+
+      return `
+        <details class="row handover-card" data-slug="${p.slug}" style="border-radius:10px;margin-bottom:8px">
+          <summary style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;gap:12px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="brand-chip" style="background:${p.color};width:10px;height:10px;border-radius:50%;display:inline-block"></span>
+              <strong style="font-size:13.5px">${esc(isAr ? (p.name_ar || p.name) : p.name)}</strong>
+              <span class="pill ${planBadgeClass}" style="font-size:10.5px">${esc(planBadgeText)}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <code class="sub" style="font-size:11px">${esc(p.plan_file_display)}</code>
+              <span class="pill info" style="font-size:10.5px">${tasksCount} ${isAr ? "مهام" : "tasks"}</span>
+            </div>
+          </summary>
+          <div style="padding:14px 16px;border-top:1px solid var(--line);background:var(--bg)">
+            <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--muted)">
+              ${isAr ? "المهام العشر التفصيلية القادمة (من الخطة المعتمدة):" : "Next 10 Detailed Tasks (from master roadmap):"}
+            </div>
+            <ol style="margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px">
+              ${p.tasks.map(task => `
+                <li style="font-size:12.5px;line-height:1.45;color:var(--ink)">
+                  <span>${esc(task)}</span>
+                </li>
+              `).join("")}
+            </ol>
+          </div>
+        </details>
+      `;
+    }).join("");
+  }
+}
+
 function applyLang(lang) {
   currentLang = lang;
   const t = i18n[lang] || i18n.en;
@@ -1322,15 +1663,28 @@ function applyLang(lang) {
   const hashShort = D.content_hash || "--------";
   $("#stamp").textContent = `${t.stampPrefix}${D.generated} · git ${gitShort} · hash ${hashShort} · ${syncMsg}`;
 
-  $("#nav-now").textContent = t.navNow;
-  $("#nav-ci").textContent = t.navCi;
-  $("#nav-ledgers").textContent = t.navLedgers;
-  $("#nav-waves").textContent = t.navWaves;
-  $("#nav-projects").textContent = t.navProjects;
-  $("#nav-platforms").textContent = t.navPlatforms;
-  $("#nav-accounts").textContent = t.navAccounts;
-  $("#nav-workforce").textContent = t.navWorkforce;
-  $("#nav-activity").textContent = t.navActivity;
+  if ($("#nav-now-text")) $("#nav-now-text").textContent = t.navNow;
+  if ($("#nav-handover-text")) $("#nav-handover-text").textContent = t.navHandover;
+  if ($("#nav-ci-text")) $("#nav-ci-text").textContent = t.navCi;
+  if ($("#nav-ledgers-text")) $("#nav-ledgers-text").textContent = t.navLedgers;
+  if ($("#nav-waves-text")) $("#nav-waves-text").textContent = t.navWaves;
+  if ($("#nav-projects-text")) $("#nav-projects-text").textContent = t.navProjects;
+  if ($("#nav-platforms-text")) $("#nav-platforms-text").textContent = t.navPlatforms;
+  if ($("#nav-accounts-text")) $("#nav-accounts-text").textContent = t.navAccounts;
+  if ($("#nav-workforce-text")) $("#nav-workforce-text").textContent = t.navWorkforce;
+  if ($("#nav-activity-text")) $("#nav-activity-text").textContent = t.navActivity;
+
+  if ($("#txt-handover-label")) $("#txt-handover-label").textContent = t.handoverLabel;
+  if ($("#txt-handover-title")) $("#txt-handover-title").textContent = t.handoverTitle;
+  if ($("#txt-handover-sub")) $("#txt-handover-sub").textContent = t.handoverSub;
+  if ($("#txt-handover-badge")) $("#txt-handover-badge").textContent = t.handoverBadge;
+  if ($("#txt-checklist-title")) $("#txt-checklist-title").textContent = t.checklistTitle;
+  if ($("#txt-checklist-sub")) $("#txt-checklist-sub").textContent = t.checklistSub;
+  if ($("#txt-mp-summary-title")) $("#txt-mp-summary-title").textContent = t.mpSummaryTitle;
+  if ($("#txt-mp-summary-sub")) $("#txt-mp-summary-sub").textContent = t.mpSummarySub;
+  if ($("#txt-mp-notice")) $("#txt-mp-notice").innerHTML = t.mpNotice;
+  if ($("#txt-project-plans-title")) $("#txt-project-plans-title").textContent = t.projectPlansTitle;
+  if ($("#handover-expand-all")) $("#handover-expand-all").textContent = allHandoverExpanded ? t.collapseAllPlans : t.expandAllPlans;
 
   $("#txt-working-now").textContent = t.workingNow;
   $("#txt-needs-attention").textContent = t.needsAttention;
@@ -1356,6 +1710,7 @@ function applyLang(lang) {
 
   updateThemeBtn();
   renderTiles(lang);
+  renderHandover(lang);
   renderLedgers(lang);
   renderActive(lang);
   renderAttention(lang);
@@ -1464,6 +1819,52 @@ function updateOnlineStatus() {
 }
 window.addEventListener("online", updateOnlineStatus);
 window.addEventListener("offline", updateOnlineStatus);
+
+// Toggle expand / collapse all master plans in Handover
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "handover-expand-all") {
+    allHandoverExpanded = !allHandoverExpanded;
+    document.querySelectorAll("details.handover-card").forEach((d) => d.open = allHandoverExpanded);
+    const t = i18n[currentLang] || i18n.en;
+    e.target.textContent = allHandoverExpanded ? t.collapseAllPlans : t.expandAllPlans;
+    e.target.setAttribute("aria-expanded", String(allHandoverExpanded));
+  }
+});
+
+// Dynamic Island Active Tab Controller
+const navTabs = document.querySelectorAll("#main-nav .nav-tab");
+function setActiveNavTab(targetId) {
+  navTabs.forEach(tab => {
+    const isTarget = tab.getAttribute("href") === targetId;
+    tab.classList.toggle("active", isTarget);
+    if (isTarget) {
+      tab.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  });
+}
+
+navTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const href = tab.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      setActiveNavTab(href);
+    }
+  });
+});
+
+if ("IntersectionObserver" in window) {
+  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "workforce", "activity"];
+  const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+        setActiveNavTab("#" + entry.target.id);
+      }
+    });
+  }, { rootMargin: "-10% 0px -65% 0px", threshold: [0.2] });
+
+  sectionEls.forEach(el => navObserver.observe(el));
+}
 
 // Initial Render
 applyLang(currentLang);

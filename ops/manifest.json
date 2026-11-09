@@ -1,0 +1,23 @@
+{
+  "name": "SIR Control Room",
+  "short_name": "Control Room",
+  "description": "Central operations command center and autonomous agent orchestration room for Ahmed Alaa's workspace.",
+  "start_url": "/dashboard.html",
+  "display": "standalone",
+  "background_color": "#0D141B",
+  "theme_color": "#0F766E",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

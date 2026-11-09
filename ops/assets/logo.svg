@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F15"/>
+      <stop offset="50%" stop-color="#111923"/>
+      <stop offset="100%" stop-color="#172433"/>
+    </linearGradient>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="60%" stop-color="#0F766E"/>
+      <stop offset="100%" stop-color="#042F2E"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="coreGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Squircle -->
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#bgGrad)" stroke="#263545" stroke-width="4"/>
+  <rect x="22" y="22" width="468" height="468" rx="110" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.25"/>
+
+  <!-- Telemetry Radar Rings -->
+  <circle cx="256" cy="256" r="184" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.15" stroke-dasharray="6 8"/>
+  <circle cx="256" cy="256" r="128" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3"/>
+  <circle cx="256" cy="256" r="76" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.45"/>
+
+  <!-- Crosshair Reticles -->
+  <line x1="256" y1="56" x2="256" y2="456" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="8 6"/>
+  <line x1="56" y1="256" x2="456" y2="256" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="8 6"/>
+
+  <!-- Telemetry Coordinate Markers -->
+  <circle cx="256" cy="72" r="4.5" fill="#2DD4BF" opacity="0.9"/>
+  <circle cx="256" cy="440" r="4.5" fill="#2DD4BF" opacity="0.9"/>
+  <circle cx="72" cy="256" r="4.5" fill="#2DD4BF" opacity="0.9"/>
+  <circle cx="440" cy="256" r="4.5" fill="#2DD4BF" opacity="0.9"/>
+
+  <!-- Orbital Sensor Nodes -->
+  <circle cx="166" cy="166" r="4" fill="#2DD4BF" opacity="0.5"/>
+  <circle cx="346" cy="166" r="4" fill="#2DD4BF" opacity="0.5"/>
+  <circle cx="166" cy="346" r="4" fill="#2DD4BF" opacity="0.5"/>
+  <circle cx="346" cy="346" r="4" fill="#2DD4BF" opacity="0.5"/>
+
+  <!-- Center Command Core (Prism / Diamond) -->
+  <g transform="translate(256, 256) rotate(45)" filter="url(#coreGlow)">
+    <!-- Outer Diamond -->
+    <rect x="-68" y="-68" width="136" height="136" rx="28" fill="url(#coreGrad)" stroke="#5EEAD4" stroke-width="3"/>
+    <!-- Inner Radiant Core -->
+    <rect x="-38" y="-38" width="76" height="76" rx="14" fill="#0A1E24" stroke="#2DD4BF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="14" fill="#5EEAD4"/>
+    <circle cx="0" cy="0" r="6" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Precision Corner Telemetry Accents -->
+  <path d="M 64 128 L 64 64 L 128 64" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+  <path d="M 448 128 L 448 64 L 384 64" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+  <path d="M 64 384 L 64 448 L 128 448" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+  <path d="M 448 384 L 448 448 L 384 448" fill="none" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+</svg>

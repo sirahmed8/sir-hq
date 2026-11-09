@@ -85,9 +85,10 @@ def refresh_loop():
     """Background worker that refreshes dashboard and artifact every 15 minutes."""
     # Initial sleep of 10 seconds after server launch
     time.sleep(10)
+    flags = 0x08000000 if sys.platform == "win32" else 0
     while True:
         try:
-            subprocess.run([sys.executable, REFRESH_SCRIPT], capture_output=True, text=True)
+            subprocess.run([sys.executable, REFRESH_SCRIPT], capture_output=True, text=True, creationflags=flags)
         except Exception as e:
             print(f"[refresh_loop] Error during refresh: {e}")
         time.sleep(900)  # 15 minutes
