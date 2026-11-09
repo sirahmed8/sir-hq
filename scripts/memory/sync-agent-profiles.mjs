@@ -32,7 +32,7 @@ export function parseRoster(rosterPath = ROSTER_FILE) {
 }
 
 export function getDefaultModel(name) {
-  if (name === 'pm') return 'Claude Sonnet 3.5 / AgentsRoom "Projects manager"';
+  if (name === 'pm') return 'Claude Sonnet 5.5 (Manager & Reviewer)';
   if (['reviewer', 'architect', 'security-auditor', 'security-shield-auditor'].includes(name)) {
     return 'Claude Sonnet / Gemini Pro (High thinking)';
   }

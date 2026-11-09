@@ -135,6 +135,12 @@ header p { margin: 6px 0 0; color: var(--muted); max-width: 68ch; font-size: 13.
   align-items: center;
   flex-wrap: wrap;
 }
+#stamp {
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--muted);
+  word-break: break-word;
+}
 
 nav {
   position: sticky;
@@ -327,8 +333,8 @@ nav a:hover, nav a:focus-visible {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: 6px;
+  padding: 4px 10px;
   min-height: 32px;
   border-radius: 6px;
   border: 1px solid var(--line);
@@ -439,8 +445,18 @@ summary:hover { background: var(--bg); }
 
 .ms { margin-bottom: 8px; }
 .ms ul { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.ms li { display: grid; grid-template-columns: 18px 1fr; gap: 6px; font-size: 12.5px; }
+.ms li { display: grid; grid-template-columns: 24px 1fr; gap: 6px; font-size: 12.5px; align-items: center; }
 .ms li.d { color: var(--muted); }
+.task-mark {
+  font-family: var(--f-data);
+  font-weight: 600;
+  font-size: 11.5px;
+  display: inline-block;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--track);
+}
+.task-mark.done { color: var(--ok); background: var(--ok-soft); }
 
 /* Table */
 .scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
@@ -499,6 +515,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
 
 @media (max-width: 600px) {
   body { padding-inline: 12px; }
+  #stamp { width: 100%; margin-top: 4px; }
   h1 { font-size: 22px; }
   .tiles { grid-template-columns: 1fr 1fr; gap: 6px; }
   .tiles > div { padding: 12px; border-radius: 8px; }
@@ -530,8 +547,8 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <p id="txt-desc">Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.</p>
     </div>
     <div class="header-actions">
-      <button id="lang-btn" class="fb" aria-label="Toggle language">🇸🇦 العربية</button>
-      <button id="theme-btn" class="fb" aria-label="Toggle theme">🌙 Dark</button>
+      <button id="lang-btn" class="fb" aria-label="Toggle language">العربية</button>
+      <button id="theme-btn" class="fb" aria-label="Toggle theme">Dark</button>
       <div class="sub num" id="stamp"></div>
     </div>
   </header>
@@ -539,6 +556,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   <nav aria-label="Sections">
     <a href="#now" id="nav-now">Now</a>
     <a href="#ci-remote" id="nav-ci">CI &amp; Remote</a>
+    <a href="#ledgers" id="nav-ledgers">Ledgers</a>
     <a href="#waves" id="nav-waves">Waves</a>
     <a href="#projects" id="nav-projects">Projects</a>
     <a href="#platforms" id="nav-platforms">Platforms</a>
@@ -565,7 +583,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   <section id="ci-remote" class="grid2">
     <div class="panel">
       <h2><span class="live-dot"></span><span id="txt-ci-title">GitHub Actions CI Verification</span></h2>
-      <div class="sub" id="txt-ci-sub" style="margin-bottom:6px">Linux runner verification across active repositories. 🛡️ Dependabot: Enabled.</div>
+      <div class="sub" id="txt-ci-sub" style="margin-bottom:6px">Linux runner verification across active repositories. Security Scans: Enabled.</div>
       <ul class="list" id="ci-list"></ul>
     </div>
     <div class="panel">
@@ -573,6 +591,14 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <div class="sub" id="txt-remote-sub" style="margin-bottom:6px">Stable HTTPS tailnet endpoints for Ahmed's iPhone (ahmed.tail9e9aa7.ts.net).</div>
       <ul class="list" id="remote-list"></ul>
     </div>
+  </section>
+
+  <section id="ledgers" class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <h2 id="txt-ledgers-title">Owner Request Ledgers</h2>
+      <div class="sub" id="txt-ledgers-sub">Tracking every numbered request made by Ahmed across all active projects.</div>
+    </div>
+    <div class="tiles" id="ledgers-tiles" style="grid-template-columns:repeat(auto-fit, minmax(210px, 1fr))"></div>
   </section>
 
   <section id="waves" style="display:flex;flex-direction:column;gap:12px">
@@ -636,7 +662,7 @@ document.documentElement.setAttribute("data-theme", savedTheme);
 function updateThemeBtn() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   const isAr = currentLang === "ar";
-  $("#theme-btn").textContent = isDark ? (isAr ? "☀️ فاتح" : "☀️ Light") : (isAr ? "🌙 داكن" : "🌙 Dark");
+  $("#theme-btn").textContent = isDark ? (isAr ? "فاتح" : "Light") : (isAr ? "داكن" : "Dark");
 }
 
 $("#theme-btn").addEventListener("click", () => {
@@ -647,24 +673,28 @@ $("#theme-btn").addEventListener("click", () => {
   updateThemeBtn();
 });
 
-// i18n Dictionary
+// i18n Dictionary (Strictly NO EMOJI)
 const i18n = {
   en: {
-    btn: "🇸🇦 العربية",
+    btn: "العربية",
     label: "HQ for Ahmed Alaa",
     title: "SIR Control Room",
     desc: "Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.",
     stampPrefix: "Updated: ",
-    navNow: "Now", navCi: "CI & Remote", navWaves: "Waves", navProjects: "Projects",
+    syncSame: "site and artifact are the same version",
+    syncWait: "artifact is waiting for republish",
+    navNow: "Now", navCi: "CI & Remote", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
     navPlatforms: "Platforms", navAccounts: "Accounts", navWorkforce: "Workforce", navActivity: "Activity",
     workingNow: "Working now", needsAttention: "Needs attention",
     idleText: "No project chat is running.",
     clearText: "Everything is clear. Nothing needs you.",
     nextStartPrefix: "Starts next after your OK: ",
     ciTitle: "GitHub Actions CI Verification",
-    ciSub: "Linux runner verification across active repositories. 🛡️ Dependabot: Enabled.",
+    ciSub: "Linux runner verification across active repositories. Security Scans: Enabled.",
     remoteTitle: "Tailscale Remote Access (Phone)",
     remoteSub: "Stable HTTPS tailnet endpoints for Ahmed's iPhone (ahmed.tail9e9aa7.ts.net).",
+    ledgersTitle: "Owner Request Ledgers",
+    ledgersSub: "Tracking every numbered request made by Ahmed across all active projects.",
     wavesTitle: "Build order, one project at a time",
     wavesSub: "HQ opens a project chat, reviews its reports, then asks you before the next one starts. Platform and Portfolio come last on purpose, built from the finished products.",
     projectsTitle: "Projects & Portfolios",
@@ -682,30 +712,35 @@ const i18n = {
     wfTitle: "Workforce & Work Model",
     actTitle: "Latest activity",
     noMatch: "No project matches your filters.",
-    truthExists: "📦 What exists today",
-    truthVerified: "✅ Verified end-to-end today",
-    truthMissing: "⏳ Missing for production release",
-    missionTag: "🎯 Mission",
-    whereTag: "📍 Where it lives",
-    tasksTag: "📋 Rebuild Blueprint Tasks",
-    copySuccess: "Copied! ✓"
+    truthExists: "What exists today",
+    truthVerified: "Verified end-to-end today",
+    truthMissing: "Missing for production release",
+    missionTag: "Mission",
+    whereTag: "Where it lives",
+    tasksTag: "Rebuild Blueprint Tasks",
+    copyBadge: "Copy Path",
+    copySuccess: "Copied"
   },
   ar: {
-    btn: "🇬🇧 English",
+    btn: "English",
     label: "المقر الرئيسي للمهندس أحمد علاء",
     title: "غرفة التحكم — SIR Control Room",
     desc: "المنظومة التشغيلية المبنية على الصدق التام: حالة التحقق الفعلية لكل مشروع، روابط آمنة للوصول من الآيفون، فحوصات الجودة الحية، ومراحل البناء من الصفر.",
     stampPrefix: "تم التحديث: ",
-    navNow: "الآن", navCi: "الفحص والوصول", navWaves: "المراحل", navProjects: "المشاريع",
+    syncSame: "الموقع والأرتيفاكت نفس الإصدار",
+    syncWait: "الأرتيفاكت بانتظار إعادة النشر",
+    navNow: "الآن", navCi: "الفحص والوصول", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
     navPlatforms: "المنصات", navAccounts: "الحسابات", navWorkforce: "فريق العمل", navActivity: "النشاطات",
     workingNow: "قيد التنفيذ الآن", needsAttention: "يتطلب الاهتمام",
     idleText: "لا توجد أي محادثة مشروع نشطة حالياً.",
     clearText: "كل شيء مستقر ولا توجد أي مهام معلقة لك.",
     nextStartPrefix: "يبدأ تالياً بعد موافقتك: ",
     ciTitle: "فحص التكامل المستمر (GitHub CI)",
-    ciSub: "فحص آلي على خوادم لينكس لكافة المستودعات النشطة. 🛡️ فحص الثغرات: مفعّل.",
+    ciSub: "فحص آلي على خوادم لينكس لكافة المستودعات النشطة. فحص الثغرات: مفعّل.",
     remoteTitle: "الوصول السحابي الخاص عبر الآيفون (Tailscale)",
     remoteSub: "عناوين HTTPS مباشرة ومستقرة للوصول من هاتف الآيفون (ahmed.tail9e9aa7.ts.net).",
+    ledgersTitle: "سجل طلبات المالك",
+    ledgersSub: "متابعة دقيقة لكل طلب مرقّم للمهندس أحمد عبر كافة المشاريع النشطة.",
     wavesTitle: "ترتيب البناء: مشروع واحد في كل مرحلة",
     wavesSub: "تفتح إدارة المقر محادثة المشروع، وتراجع تقاريره، ثم تستأذنك قبل بدء المشروع التالي. المنصة ومعرض الأعمال يأتيان أخيراً ليعتمدا على المنتجات المكتملة.",
     projectsTitle: "المشاريع والمنظومات",
@@ -723,13 +758,14 @@ const i18n = {
     wfTitle: "فريق العمل ونموذج التشغيل",
     actTitle: "آخر الأنشطة والعمليات",
     noMatch: "لا يوجد مشروع يطابق معايير البحث.",
-    truthExists: "📦 ما تم بناؤه فعلياً",
-    truthVerified: "✅ تم اختباره والتحقق منه اليوم",
-    truthMissing: "⏳ ما ينقصه للإطلاق النهائي",
-    missionTag: "🎯 الهدف الأساسي للمشروع",
-    whereTag: "📍 مكان المجلد والمستودع",
-    tasksTag: "📋 مهام مخطط البناء الجديد",
-    copySuccess: "تم النسخ! ✓"
+    truthExists: "ما تم بناؤه فعلياً",
+    truthVerified: "تم اختباره والتحقق منه اليوم",
+    truthMissing: "ما ينقصه للإطلاق النهائي",
+    missionTag: "الهدف الأساسي للمشروع",
+    whereTag: "مكان المجلد والمستودع",
+    tasksTag: "مهام مخطط البناء الجديد",
+    copyBadge: "نسخ المسار",
+    copySuccess: "تم النسخ"
   }
 };
 
@@ -769,6 +805,26 @@ function renderTiles(lang) {
   `;
 }
 
+function renderLedgers(lang) {
+  const isAr = lang === "ar";
+  const ledgers = D.request_ledgers || [];
+  if (!ledgers.length || !$("#ledgers-tiles")) return;
+  
+  $("#ledgers-tiles").innerHTML = ledgers.map((l) => {
+    const name = isAr ? l.name_ar : l.name_en;
+    const progress = pct(l.done, l.total);
+    const isComplete = l.done === l.total && l.total > 0;
+    return `
+      <div>
+        <span class="label">${esc(name)}</span>
+        <span class="big">${l.done}/${l.total}</span>
+        <div class="bar ${isComplete ? "ok" : ""}"><i style="width:${progress}%"></i></div>
+        <span class="sub">${isAr ? `${l.open} طلب مفتوح` : `${l.open} open request(s)`}</span>
+      </div>
+    `;
+  }).join("");
+}
+
 function renderActive(lang) {
   const isAr = lang === "ar";
   if (D.active && D.active.length) {
@@ -806,13 +862,13 @@ function renderCI(lang) {
     const isSuccess = c.status === "success";
     const isFailure = c.status === "failure";
     const pillClass = isSuccess ? "ok" : isFailure ? "bad" : "mute";
-    const pillText = isSuccess ? (isAr ? "✓ ناجح" : "✓ PASS") : isFailure ? (isAr ? "✕ فشل" : "✕ FAIL") : (isAr ? "○ لا يوجد" : "○ NONE");
+    const pillText = isSuccess ? (isAr ? "ناجح" : "PASS") : isFailure ? (isAr ? "فشل" : "FAIL") : (isAr ? "لا يوجد" : "NONE");
     return `
       <li>
         <span class="pill ${pillClass}">${pillText}</span>
         <span>
           <b>${esc(c.name)}</b> <span class="sub num">${esc(c.repo)}</span><br>
-          ${c.url ? `<a href="${esc(c.url)}" target="_blank" class="sub" style="color:var(--accent);text-decoration:none">${isAr ? "تقرير الفحص #" : "Run #"}${c.id} ↗</a>` : `<span class="sub">${isAr ? "لا توجد تدفقات بعد" : "No workflow yet"}</span>`}
+          ${c.url ? `<a href="${esc(c.url)}" target="_blank" class="sub" style="color:var(--accent);text-decoration:none">${isAr ? "تقرير الفحص #" : "Run #"}${c.id} &rarr;</a>` : `<span class="sub">${isAr ? "لا توجد تدفقات بعد" : "No workflow yet"}</span>`}
         </span>
       </li>
     `;
@@ -829,9 +885,9 @@ function renderRemote(lang) {
       <li>
         <span class="pill info">:${r.port}</span>
         <span>
-          <b>${esc(name)}</b> — <span class="sub">${esc(desc)}</span><br>
-          <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} ↗</a>
-          ${r.ip_url ? `· <a href="${esc(r.ip_url)}" target="_blank" class="sub" style="color:var(--muted);font-family:var(--f-data);font-size:11.5px;text-decoration:none">[${isAr ? "عنوان IP المباشر" : "Direct IP"} ↗]</a>` : ""}
+          <b>${esc(name)}</b> &mdash; <span class="sub">${esc(desc)}</span><br>
+          <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} &rarr;</a>
+          ${r.ip_url ? `&middot; <a href="${esc(r.ip_url)}" target="_blank" class="sub" style="color:var(--muted);font-family:var(--f-data);font-size:11.5px;text-decoration:none">[${isAr ? "عنوان IP المباشر" : "Direct IP"} &rarr;]</a>` : ""}
         </span>
       </li>
     `;
@@ -858,7 +914,7 @@ function renderLanes(lang) {
             const p = bySlug[slug];
             if (!p) return "";
             const pName = isAr ? (p.name_ar || p.name) : p.name;
-            const badge = p.status === "verified" ? (isAr ? "✓ تحقق" : "✓ VERIFIED") : p.status === "rebuilding" ? (isAr ? "بناء" : "REBUILD") : p.status === "frozen" ? (isAr ? "مجمّد" : "FROZEN") : (isAr ? "انتظار" : "BACKLOG");
+            const badge = p.status === "verified" ? (isAr ? "متحقق" : "VERIFIED") : p.status === "rebuilding" ? (isAr ? "بناء" : "REBUILD") : p.status === "frozen" ? (isAr ? "مجمّد" : "FROZEN") : (isAr ? "انتظار" : "BACKLOG");
             return `<button class="chip" data-go="${slug}"><i style="background:${p.color}"></i><b>${esc(pName)}</b> <span class="sub">${badge}</span></button>`;
           }).join("")}
         </div>
@@ -923,7 +979,7 @@ function renderRows(lang) {
     let stLabel = isAr ? "في قائمة الانتظار" : "IN BACKLOG";
     if (p.status === "verified") {
       stClass = "verified";
-      stLabel = isAr ? "✓ تم التحقق اليوم" : "✓ VERIFIED TODAY";
+      stLabel = isAr ? "تم التحقق اليوم" : "VERIFIED TODAY";
     } else if (p.status === "rebuilding") {
       stClass = "rebuilding";
       stLabel = isAr ? "قيد إعادة البناء" : "REBUILDING";
@@ -941,9 +997,9 @@ function renderRows(lang) {
           <i class="dot" style="background:${p.color}"></i>
           <span class="summary-title">
             <span class="name">${esc(displayName)}</span><br>
-            <span class="sub">${waveLabel} · ${esc(p.arch)}</span>
+            <span class="sub">${waveLabel} &middot; ${esc(p.arch)}</span>
           </span>
-          <span class="sub syn num">${esc(p.commit)}${syncLabel ? " · " + esc(syncLabel) : ""}</span>
+          <span class="sub syn num">${esc(p.commit)}${syncLabel ? " &middot; " + esc(syncLabel) : ""}</span>
           <span class="stw"><span class="st ${stClass}">${stLabel}</span></span>
         </summary>
         <div class="detail">
@@ -969,7 +1025,7 @@ function renderRows(lang) {
             <div class="meta-card">
               <h3>${t.whereTag}</h3>
               <p class="sub" style="margin:0">${esc(p.repo)}<br>
-                <code class="copy-badge" data-copy="${esc(p.folder)}" title="Click to copy path">${esc(p.folder)} 📋</code>
+                <code class="copy-badge" data-copy="${esc(p.folder)}" title="Click to copy path">${esc(p.folder)} &bull; ${t.copyBadge}</code>
               </p>
             </div>
           </div>
@@ -981,7 +1037,7 @@ function renderRows(lang) {
                 <ul>
                   ${m.items.map((i) => `
                     <li class="${i.done ? "d" : ""}">
-                      <span>${i.done ? "✓" : "○"}</span>
+                      <span class="task-mark ${i.done ? "done" : ""}">${i.done ? "[x]" : "[ ]"}</span>
                       <span><code>${i.id}</code> ${esc(i.text || (isAr ? "مهمة معمارية" : "Architecture task"))}</span>
                     </li>
                   `).join("")}
@@ -1052,15 +1108,42 @@ function renderAccounts(lang) {
 
 function renderWorkforce(lang) {
   const isAr = lang === "ar";
+  const m = D.models || {
+    manager: { name: "Claude Sonnet 5.5", role_en: "Claude Sonnet 5.5 High (Manager & Reviewer)", role_ar: "كلود سونيت 5.5 هاي (المدير والمراجع)" },
+    workers: { name: "Gemini 3.8 Flash High", role_en: "Gemini 3.8 Flash High (Autonomous Workers)", role_ar: "جيميني 3.8 فلاش هاي (الوكلاء المنفذون المستقلون)" },
+    claude_family: [
+      { name: "Claude Fable 5.1", tier: "Fast / Light", tier_ar: "سريع / خفيف" },
+      { name: "Claude Sonnet 5.5", tier: "Main / Manager", tier_ar: "الرئيسي / المدير" },
+      { name: "Claude Opus 5.5", tier: "Deep Thinking", tier_ar: "تفكير عميق" },
+      { name: "Claude Haiku 5.5", tier: "Bulk / High Speed", tier_ar: "مهام مجمعة وسريعة" }
+    ],
+    antigravity_family: [
+      { name: "Gemini 3.8 Flash High", tier: "Primary Builder", tier_ar: "البناء الأساسي" },
+      { name: "Gemini 3.8 Pro", tier: "Complex Architecture", tier_ar: "المعمارية المعقدة" },
+      { name: "Gemini 3.8 Flash-Lite", tier: "Fast Scanning", tier_ar: "الفحص السريع" }
+    ],
+    fallbacks: [
+      { name: "OpenCode", role: "Free model fallback" },
+      { name: "Kilo", role: "Fast fallback" },
+      { name: "Local Ollama", role: "Private local execution" }
+    ]
+  };
+
+  const mgrTitle = isAr ? esc(m.manager.role_ar || m.manager.name) : esc(m.manager.role_en || m.manager.name);
+  const wrkTitle = isAr ? esc(m.workers.role_ar || m.workers.name) : esc(m.workers.role_en || m.workers.name);
+  const claudeFam = (m.claude_family || []).map(c => `${esc(c.name)} (${esc(isAr ? (c.tier_ar || c.tier) : c.tier)})`).join(" &middot; ");
+  const agyFam = (m.antigravity_family || []).map(g => `${esc(g.name)} (${esc(isAr ? (g.tier_ar || g.tier) : g.tier)})`).join(" &middot; ");
+  const fbList = (m.fallbacks || []).map(f => esc(f.name)).join(isAr ? "، " : ", ");
+
   if (isAr) {
     $("#workforce-cols").innerHTML = `
       <div>
-        <div class="label">كلود (المدير والمراجع)</div>
-        <p>نموذج Claude Sonnet 3.7 / 3.5 High (تطبيق سطح المكتب) يدير كافة المراحل، ويرسل التكليفات الدقيقة في مجلد ops/briefs/، ويفحص التغييرات ونتائج الاختبارات قبل الاعتماد، ويرسل التقارير المعتمدة لهاتف أحمد عبر تليجرام. الكاتب لا يراجع عمله بنفسه.</p>
+        <div class="label">${mgrTitle}</div>
+        <p>نموذج ${esc(m.manager.name)} (تطبيق سطح المكتب) يدير كافة المراحل، ويرسل التكليفات الدقيقة في مجلد ops/briefs/، ويفحص التغييرات ونتائج الاختبارات قبل الاعتماد، ويرسل التقارير المعتمدة لهاتف أحمد عبر تليجرام. عائلة كلود: ${claudeFam}. الكاتب لا يراجع عمله بنفسه.</p>
       </div>
       <div>
-        <div class="label">وكلاء أنتيجرافيتي (المنفذون المستقلون)</div>
-        <p>وكلاء أنتيجرافيتي (Gemini 2.5 Flash High) ينفذون مهام المشاريع باستقلالية تامة ويرسلون إشارة الإنجاز عبر scripts/agy-done.py. البدائل الجاهزة: أوبن كود وكيلو ونماذج أولاما المحلية. منصة AgentsRoom متوقفة وتمت إحالتها للتقاعد.</p>
+        <div class="label">${wrkTitle}</div>
+        <p>وكلاء أنتيجرافيتي (${esc(m.workers.name)}) ينفذون مهام المشاريع باستقلالية تامة ويرسلون إشارة الإنجاز عبر scripts/agy-done.py. عائلة النماذج: ${agyFam}. البدائل الجاهزة: ${fbList}. منصة AgentsRoom متوقفة وتمت إحالتها للتقاعد.</p>
       </div>
       <div>
         <div class="label">الأدوات والخصوصية التامة</div>
@@ -1070,12 +1153,12 @@ function renderWorkforce(lang) {
   } else {
     $("#workforce-cols").innerHTML = `
       <div>
-        <div class="label">Claude (Manager &amp; Reviewer)</div>
-        <p>Claude Sonnet 3.7 / 3.5 High (Claude desktop) orchestrates all waves, dispatches task briefs in <code>ops/briefs/</code>, inspects diffs and test suites before commit, and delivers verified packs to Ahmed's iPhone via Telegram. The author never grades its own work.</p>
+        <div class="label">${mgrTitle}</div>
+        <p>${esc(m.manager.name)} (Claude desktop) orchestrates all waves, dispatches task briefs in <code>ops/briefs/</code>, inspects diffs and test suites before commit, and delivers verified packs to Ahmed's iPhone via Telegram. Approved Claude family: ${claudeFam}. The author never grades its own work.</p>
       </div>
       <div>
-        <div class="label">Antigravity Chats (Autonomous Workers)</div>
-        <p>Antigravity chats (Gemini 2.5 Flash High) execute project tasks autonomously and signal back on completion via <code>scripts/agy-done.py</code>. Fallbacks: OpenCode, Kilo, and local Ollama for private work. AgentsRoom crashed (React #185) and is retired.</p>
+        <div class="label">${wrkTitle}</div>
+        <p>Antigravity chats (${esc(m.workers.name)}) execute project tasks autonomously and signal back on completion via <code>scripts/agy-done.py</code>. Model family: ${agyFam}. Fallbacks: ${fbList}. AgentsRoom crashed (React #185) and is retired.</p>
       </div>
       <div>
         <div class="label">Hands &amp; Private Telemetry</div>
@@ -1105,10 +1188,14 @@ function applyLang(lang) {
   $("#txt-label").textContent = t.label;
   $("#txt-title").textContent = t.title;
   $("#txt-desc").textContent = t.desc;
-  $("#stamp").textContent = t.stampPrefix + D.generated;
+  const syncMsg = D.artifact_synced ? t.syncSame : t.syncWait;
+  const gitShort = D.git_hash || "main";
+  const hashShort = D.content_hash || "--------";
+  $("#stamp").textContent = `${t.stampPrefix}${D.generated} · git ${gitShort} · hash ${hashShort} · ${syncMsg}`;
 
   $("#nav-now").textContent = t.navNow;
   $("#nav-ci").textContent = t.navCi;
+  $("#nav-ledgers").textContent = t.navLedgers;
   $("#nav-waves").textContent = t.navWaves;
   $("#nav-projects").textContent = t.navProjects;
   $("#nav-platforms").textContent = t.navPlatforms;
@@ -1122,6 +1209,8 @@ function applyLang(lang) {
   $("#txt-ci-sub").textContent = t.ciSub;
   $("#txt-remote-title").textContent = t.remoteTitle;
   $("#txt-remote-sub").textContent = t.remoteSub;
+  $("#txt-ledgers-title").textContent = t.ledgersTitle;
+  $("#txt-ledgers-sub").textContent = t.ledgersSub;
   $("#txt-waves-title").textContent = t.wavesTitle;
   $("#txt-waves-sub").textContent = t.wavesSub;
   $("#txt-projects-title").textContent = t.projectsTitle;
@@ -1138,6 +1227,7 @@ function applyLang(lang) {
 
   updateThemeBtn();
   renderTiles(lang);
+  renderLedgers(lang);
   renderActive(lang);
   renderAttention(lang);
   renderCI(lang);
@@ -1183,7 +1273,7 @@ $("#toggle-all-btn").addEventListener("click", () => {
   $("#toggle-all-btn").setAttribute("aria-expanded", String(allExpanded));
 });
 
-// Copy path click handler
+// Copy path click handler (No Emojis)
 document.addEventListener("click", (e) => {
   const badge = e.target.closest("[data-copy]");
   if (!badge) return;
@@ -1191,7 +1281,7 @@ document.addEventListener("click", (e) => {
   if (!path || path === "withheld") return;
   navigator.clipboard.writeText(path).then(() => {
     const orig = badge.textContent;
-    badge.textContent = i18n[currentLang].copySuccess;
+    badge.textContent = `${path} • ${i18n[currentLang].copySuccess}`;
     setTimeout(() => { badge.textContent = orig; }, 1500);
   });
 });

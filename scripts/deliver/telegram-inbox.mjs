@@ -34,6 +34,12 @@ async function poll() {
     const stamp = new Date(m.date * 1000).toISOString();
     appendFileSync(INBOX, `- ${stamp} from Ahmed (Telegram): ${text}\n`);
     console.log(`AHMED (Telegram ${stamp}): ${text}`);
+    if (/^\/status/i.test(text)) {
+      try {
+        const brief = execFileSync('python', ['D:/Projects/_SIR/scripts/deliver/status-brief.py'], { encoding: 'utf8', timeout: 90000 });
+        execFileSync('node', ['D:/Projects/_SIR/scripts/deliver/send-telegram.mjs', brief], { encoding: 'utf8' });
+      } catch (e) { console.log('status reply failed: ' + e.message); }
+    }
   }
 }
 

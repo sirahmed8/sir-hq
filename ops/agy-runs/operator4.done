@@ -1,0 +1,6 @@
+SIR Control Room (control): queued, not sent immediately. Chat was busy; message sits in Queued Messages and sends after the agent finishes.
+SIR Study (study): queued, not sent immediately. Same as above.
+AHome (ahome): queued, not sent immediately. Same as above.
+SIR Jobs (jobs): queued, not sent immediately. Same as above.
+SIR Laptop Manager (laptop): queued, not sent immediately. Same as above.
+No errors, no Retry buttons seen, no overage or password actions taken.

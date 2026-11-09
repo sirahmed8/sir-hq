@@ -6,7 +6,7 @@ Status: partly verified on 2026-11-08. Steps 1 to 3 were tested. The prompt was 
 
 1. Open the app. Use `open_application` with "Antigravity" (not "Antigravity IDE" for chats). The window opens maximized, dark theme. The left sidebar has "New Conversation", "Automations", "Customizations", and a "Projects" list. The top right has "Open IDE".
 2. Start a chat. Click "New Conversation" in the top-left of the sidebar (about x=60, y=97 in full-size coordinates). The main area shows "Hi Sir, what can we get done today?".
-3. Pick the model. The model chip sits at the bottom of the input box, left side, labelled "Gemini 3.0 Flash High" (about x=580, y=766 full-size). Click it, and a menu opens with "Model" as heading. Options seen: Gemini 3.0 Flash High (selected), Claude Sonnet 4.6 (Thinking), Claude Opus 4.6 (Thinking), GPT-OSS 120B (Medium). "Gemini 3.8 Flash (High)" was NOT in the list, so keep the closest option and record that. Press Escape to close.
+3. Pick the model. The model chip sits at the bottom of the input box, left side, labelled "Gemini 3.8 Flash High" (about x=580, y=766 full-size). Click it, and a menu opens with "Model" as heading. Options: Gemini 3.8 Flash High (selected), Claude Sonnet 5.5 (Thinking), Claude Opus 5.5 (Thinking), Gemini 3.8 Pro. Press Escape to close.
 4. Set the workspace. The input bar has a "Projects" dropdown and a "Local Checkout" dropdown above the box. Check that the project is D:\Projects if it asks.
 5. Paste the prompt. Click the input box (about x=800, y=733 full-size). Put the text on the clipboard with `write_clipboard`, then press ctrl+v, then check with a screenshot that the text is there, then press Return.
 6. Wait up to 90 seconds. Then check for the done marker: `ls D:/Projects/_SIR/ops/agy-runs/done/hello.done`. The chat should run `python D:/Projects/_SIR/scripts/agy-done.py hello ok test-chat-works` through its terminal tool. That script writes the marker file.
@@ -53,3 +53,6 @@ The first prompt often ends after planning or scanning. So after pressing Return
 
 ## Chats are now one per project (Ahmed organised them, 2026-11-08)
 Sidebar chats: "SIR Study", "AHome", "SIR Jobs", "SIR Laptop manager", "SIR Control Room". Never create others. To re-task a chat: click it, click its input box, type "Read D:/Projects/_SIR/ops/briefs/<slug>-standing.prompt.txt completely and do exactly what it says." (slugs: study, ahome, jobs, laptop, control-room), Return, then type the content of ops/briefs/_CONTINUE_LINE.txt and Return. For a plain nudge type only: continue
+
+## Owner update 2026-11-09: who drives the computer
+All computer control (Antigravity typing, account rotation, nudges, screenshots) is done by a Haiku 5.5 sub-agent at the lowest effort (Agent tool, model "haiku", effort "low"). HQ does not drive the screen itself. Nudge = type "continue" then ctrl+Return so it sends at once; press Retry on any error. Rotation thresholds: see ops/ACCOUNT_ROTATION.md (15% left).

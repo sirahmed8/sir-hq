@@ -1,3 +1,75 @@
+# Run Report: SIR Laptop Manager - Standing Loop Cycle 5
+**Date**: 2026-11-09  
+**Agent**: Antigravity Autonomous Worker  
+**Target Project**: `D:\Projects\SIR Laptop Manager`  
+**Status**: OK (Cycle 5 Complete, Verified, Pushed to `origin/main`)  
+
+---
+
+## 1. Executive Summary & Lens
+- **Perpetual Loop Cycle**: Cycle 5
+- **Auditing Lens**: **Defensive Resiliency & Edge-Case Telemetry (Process Crashes, Subsystem Timeouts, Offline Ollama, and Auto-Recovery)**
+- **Baseline Status**: 108 passing tests prior to cycle; WebUI threw naked unhandled connection errors on lost server connection; local RAG threw uncaught exceptions when Ollama was unreachable; server suffered TIME_WAIT socket lockouts on rapid restart (`[WinError 10048]`); windowless Python background executions crashed on naked stdout print statements (`[Errno 22]`).
+- **Outcome**: 114/114 automated tests green; ruff format clean (62 files); strict mypy clean (43 source files); live Chrome visual evidence captured across desktop, mobile, and Knowledge & Docs tab; offline Ollama lexical token search fallback operational; changes committed and pushed to `sirahmed8/sir-laptop-manager` branch `main` (`b4d77a0`).
+
+---
+
+## 2. Changes Implemented & Root Cause Fixes
+
+### A. Offline Ollama Resiliency & Lexical Search Fallback (`src/sir_laptop_manager/rag/engine.py`)
+1. **Ollama Online Probe (`is_ollama_online`)**:
+   - Implemented lightweight HTTP probe (`http://127.0.0.1:11434/api/tags` with a 1.2s timeout) checking whether the local Ollama daemon is responsive.
+2. **Deterministic Lexical Token Search (`search_lexical`)**:
+   - Zero-dependency full-text keyword token matching across SQLite chunks.
+   - Extracts alphanumeric search terms, scans all chunk texts, scores frequencies, and returns top results formatted identically to vector semantic hits with `score` metric.
+3. **Graceful Query Fallback (`search_bilingual`)**:
+   - When Ollama is unreachable or embedding generation fails, queries automatically fall back to lexical search without raising exceptions or breaking the UI.
+
+### B. Live Telemetry Daemon State Reporting (`src/sir_laptop_manager/ops_ui/routes.py`)
+- `get_rag_stats_telemetry()` checks `is_ollama_online()` and reports `ollama_online: True|False` and `daemon_status: "Active (bge-m3)" | "Offline (Lexical Fallback Active)"`.
+- `get_rag_search_results()` handles exceptions defensively, returning `{ "query": q, "results": [], "count": 0, "error": str(e) }` rather than failing with HTTP 500.
+
+### C. WebUI Auto-Reconnection & Backoff Banner (`src/sir_laptop_manager/ops_ui/static/index.html`)
+- Updated `fetchTelemetry()` to count consecutive connection failures.
+- Displays an exponential backoff auto-reconnection countdown banner (`Auto-reconnecting in Xs (attempt Y)...`) when the daemon is temporarily offline.
+- When connection restores, automatically hides the banner and announces recovery via toast notification (`Connection Restored`).
+
+### D. Windows Socket TIME_WAIT Immunity & Windowless Execution (`server.py`, `dev-start.ps1`)
+- Subclassed `OpsServer(ThreadingHTTPServer)` with `allow_reuse_address = True` in `src/sir_laptop_manager/ops_ui/server.py` to prevent `[WinError 10048]` socket collisions on reload.
+- Wrapped all CLI logging in `try ... except OSError: pass` to protect against `[Errno 22] Invalid argument` when running windowless Python (`pythonw.exe`).
+- Updated `scripts/dev-start.ps1` to launch cleanly via `pythonw.exe`.
+
+### E. Automated Test Suite (`tests/test_defensive_resiliency.py`)
+- Created 6 unit tests (85 lines) verifying:
+  1. `test_rag_engine_is_ollama_online_handles_unreachable`
+  2. `test_rag_search_lexical_fallback_finds_matches`
+  3. `test_rag_search_falls_back_to_lexical_when_embed_fails`
+  4. `test_get_rag_stats_telemetry_reports_daemon_status`
+  5. `test_get_rag_search_results_defensive_against_exceptions`
+  6. `test_index_html_contains_auto_reconnect_and_offline_badge`
+
+---
+
+## 3. Found Without Being Told
+1. **Windows Socket TIME_WAIT Lockout**: Standard `ThreadingHTTPServer` does not set `SO_REUSEADDR` by default on Windows, causing `[WinError 10048]` when stopping and immediately restarting the daemon. Subclassing with `allow_reuse_address = True` eliminated the issue.
+2. **Windowless Python `print()` Crash**: Running windowless background Python (`pythonw.exe` or PowerShell `-WindowStyle Hidden`) without redirecting standard streams crashes on naked `print()` calls with `[Errno 22] Invalid argument`. All CLI print statements in `server.py` are now safely protected.
+3. **Fragile Local AI Offline Behavior**: When Ollama was down or downloading a model, RAG search threw unhandled exceptions. The lexical token frequency fallback over SQLite chunks ensures 100% search availability regardless of Ollama status.
+
+---
+
+## 4. Verification & Evidence
+- **Automated Tests**: 114 passed in 27.26s (`pytest`).
+- **Formatting & Linting**: 62 files formatted cleanly (`ruff format`), zero lint errors (`ruff check`).
+- **Strict Typing**: Strict `mypy` passed across 43 source files with zero errors.
+- **Code Bar**: All source files strictly under 300 lines (`routes.py`: 284, `server.py`: 240, `engine.py`: 198, `dpi.py`: 98, `windhawk_manager.py`: 289).
+- **Visual Screenshots**:
+  - `D:\Projects\_SIR\ops\agy-runs\reports\loop-laptop-5-resiliency-desktop.png` (1920x1080)
+  - `D:\Projects\_SIR\ops\agy-runs\reports\loop-laptop-5-resiliency-mobile-390.png` (390x844)
+  - `D:\Projects\_SIR\ops\agy-runs\reports\loop-laptop-5-rag-tab.png` (Knowledge & Docs view)
+- **Git Push**: Commit `b4d77a0` pushed directly to `origin main` on `sirahmed8/sir-laptop-manager`.
+
+---
+
 # Run Report: SIR Laptop Manager - Standing Loop Cycle 4
 **Date**: 2026-11-09  
 **Agent**: Antigravity Autonomous Worker  

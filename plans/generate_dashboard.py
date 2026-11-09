@@ -4,6 +4,7 @@ AHome is private: counts and status only, never task text or notes.
 Truth rule: Every project is being rebuilt from zero. A project is only 'verified' if verified end-to-end today."""
 
 import datetime
+import hashlib
 import io
 import json
 import os
@@ -374,6 +375,42 @@ def attention():
     return out
 
 
+def parse_request_ledgers():
+    req_dir = os.path.join(OPS, "requests")
+    ledgers = []
+    if not os.path.isdir(req_dir):
+        return ledgers
+    names = {
+        "ahome": ("AHome (Private)", "منظومة AHome (خاصة)"),
+        "control": ("SIR Control Room", "غرفة التحكم — المقر"),
+        "jobs": ("SIR Jobs", "منظومة فرص العمل"),
+        "laptop": ("SIR Laptop Manager", "مدير الحاسوب والأداء"),
+        "study": ("SIR Study", "منصة المذاكرة الذكية"),
+    }
+    for fname in sorted(os.listdir(req_dir)):
+        if not fname.endswith(".md"):
+            continue
+        slug = fname[:-3]
+        fpath = os.path.join(req_dir, fname)
+        text = io.open(fpath, encoding="utf-8").read()
+        open_items = len(re.findall(r"^\d+\.\s*\[\s* \s*\]", text, re.M))
+        in_progress = len(re.findall(r"^\d+\.\s*\[\s*~\s*\]", text, re.M))
+        done = len(re.findall(r"^\d+\.\s*\[\s*x\s*\]", text, re.M))
+        blocked = len(re.findall(r"^\d+\.\s*\[\s*!\s*\]", text, re.M))
+        total = open_items + in_progress + done + blocked
+        en_name, ar_name = names.get(slug, (slug.upper(), slug))
+        ledgers.append({
+            "slug": slug,
+            "name_en": en_name,
+            "name_ar": ar_name,
+            "open": open_items + in_progress,
+            "done": done,
+            "blocked": blocked,
+            "total": total,
+        })
+    return ledgers
+
+
 def archived_count():
     try:
         r = subprocess.run(
@@ -512,6 +549,72 @@ def translate_log_entry(text):
         return "مدير الحاسوب: اجتياز كافة اختبارات بايثون بنسبة 100%، واستقرار خدمة مراقبة العتاد والأداء."
     # Generic natural Arabic summary
     return f"عملية تشغيلية: {t[:160]}"
+
+
+def load_models():
+    models_file = os.path.join(OPS, "MODELS.json")
+    if os.path.exists(models_file):
+        try:
+            return json.load(io.open(models_file, encoding="utf-8"))
+        except Exception:
+            pass
+    return {
+        "manager": {"name": "Claude Sonnet 5.5", "role_en": "Claude Sonnet 5.5 High (Manager & Reviewer)", "role_ar": "كلود سونيت 5.5 هاي (المدير والمراجع)"},
+        "workers": {"name": "Gemini 3.8 Flash High", "role_en": "Gemini 3.8 Flash High (Autonomous Workers)", "role_ar": "جيميني 3.8 فلاش هاي (الوكلاء المنفذون المستقلون)"},
+    }
+
+
+def get_git_short_hash():
+    try:
+        r = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=os.path.normpath(os.path.join(HERE, "..")),
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if r.returncode == 0 and r.stdout.strip():
+            return r.stdout.strip()
+    except Exception:
+        pass
+    return "main"
+
+
+def get_published_hash():
+    pub_file = os.path.join(OPS, "artifact", "PUBLISHED.txt")
+    if os.path.exists(pub_file):
+        try:
+            with open(pub_file, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:
+            pass
+    return ""
+
+
+def notify_hq_artifact_outdated(content_hash):
+    hq_bus = os.path.join(OPS, "bus", "sir-hq.md")
+    if not os.path.exists(hq_bus):
+        return
+    try:
+        content = open(hq_bus, "r", encoding="utf-8").read()
+        target_msg = "artifact outdated: republish ops/artifact/control-room.html"
+        if target_msg in content:
+            return
+
+        lines = content.splitlines()
+        insert_idx = 2
+        for idx, line in enumerate(lines):
+            if line.startswith("- [ ]") or line.startswith("- [x]"):
+                insert_idx = idx
+                break
+
+        today = datetime.datetime.now().strftime("%Y-%m-%d")
+        notice = f"- [ ] {today} from control-room-daemon:\n  notice: {target_msg} (hash {content_hash})\n"
+        lines.insert(insert_idx, notice)
+        with open(hq_bus, "w", encoding="utf-8", newline="\n") as f:
+            f.write("\n".join(lines) + "\n")
+    except Exception as e:
+        print(f"Warning: could not notify HQ: {e}")
 
 
 def main():
@@ -673,6 +776,7 @@ def main():
             archived=archived_count(),
         ),
         platforms=[dict(key=k, name=n, short=SHORT[k]) for k, n in PLATFORM_NAMES],
+        request_ledgers=parse_request_ledgers(),
         ci=get_ci_status(),
         remote_access=[
             {
@@ -714,12 +818,60 @@ def main():
         ],
     )
 
+    models = load_models()
+    git_hash = get_git_short_hash()
+    published_hash = get_published_hash()
+
+    data["models"] = models
+    data["git_hash"] = git_hash
+
+    # Deterministic content hash computed over data payload excluding generated timestamp and hash fields
+    hash_seed_dict = {
+        k: v for k, v in data.items()
+        if k not in ("content_hash", "artifact_synced", "generated")
+    }
+    hash_seed = json.dumps(hash_seed_dict, sort_keys=True, ensure_ascii=False)
+    content_hash = hashlib.sha256(hash_seed.encode("utf-8")).hexdigest()[:8]
+    data["content_hash"] = content_hash
+    data["artifact_synced"] = bool(published_hash and published_hash == content_hash)
+
     tpl = io.open(
         os.path.join(HERE, "dashboard_template.html"), encoding="utf-8"
     ).read()
     out = tpl.replace("/*__DATA__*/{}", json.dumps(data, ensure_ascii=False))
-    io.open(OPS + "/dashboard.html", "w", encoding="utf-8", newline="\n").write(out)
-    print("dashboard.html", len(out), "bytes,", len(projects), "projects")
+
+    # Assertive check: Generator fails if any outdated model name appears in generated output
+    forbidden_models = [
+        "Sonnet 3.5",
+        "Sonnet 3.7",
+        "Sonnet 4.",
+        "Gemini 2.5",
+        "Gemini 2.0",
+        "Gemini 3.0",
+        "Opus 4.",
+        "claude-3-5",
+        "claude-3-7",
+        "gemini-2.5",
+        "gemini-2.0",
+    ]
+    for fm in forbidden_models:
+        if fm.lower() in out.lower():
+            raise ValueError(f"CRITICAL: Outdated model string '{fm}' detected in generated dashboard HTML!")
+
+    # Single source: Write to both website and Claude artifact
+    os.makedirs(os.path.join(OPS, "artifact"), exist_ok=True)
+    site_path = os.path.join(OPS, "dashboard.html")
+    artifact_path = os.path.join(OPS, "artifact", "control-room.html")
+    changed_path = os.path.join(OPS, "artifact", "CHANGED.txt")
+
+    io.open(site_path, "w", encoding="utf-8", newline="\n").write(out)
+    io.open(artifact_path, "w", encoding="utf-8", newline="\n").write(out)
+    io.open(changed_path, "w", encoding="utf-8", newline="\n").write(content_hash + "\n")
+
+    if not data["artifact_synced"]:
+        notify_hq_artifact_outdated(content_hash)
+
+    print(f"dashboard.html & control-room.html generated ({len(out)} bytes, hash {content_hash}, git {git_hash}, synced={data['artifact_synced']})")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,35 @@
+{
+  "checked": "2026-11-09",
+  "manager": {
+    "family": "Claude",
+    "name": "Claude Sonnet 5.5",
+    "id": "claude-sonnet-5-5",
+    "level": "High",
+    "role_en": "Claude Sonnet 5.5 High (Manager & Reviewer)",
+    "role_ar": "كلود سونيت 5.5 هاي (المدير والمراجع)"
+  },
+  "workers": {
+    "family": "Gemini",
+    "name": "Gemini 3.8 Flash High",
+    "id": "gemini-3.8-flash-high",
+    "level": "High",
+    "role_en": "Gemini 3.8 Flash High (Autonomous Workers)",
+    "role_ar": "جيميني 3.8 فلاش هاي (الوكلاء المنفذون المستقلون)"
+  },
+  "claude_family": [
+    { "name": "Claude Fable 5.1", "id": "claude-fable-5-1", "tier": "Fast / Light" },
+    { "name": "Claude Sonnet 5.5", "id": "claude-sonnet-5-5", "tier": "Main / Manager" },
+    { "name": "Claude Opus 5.5", "id": "claude-opus-5-5", "tier": "Deep Thinking" },
+    { "name": "Claude Haiku 5.5", "id": "claude-haiku-5-5", "tier": "Bulk / High Speed" }
+  ],
+  "antigravity_family": [
+    { "name": "Gemini 3.8 Flash High", "id": "gemini-3.8-flash-high", "tier": "Primary Builder" },
+    { "name": "Gemini 3.8 Pro", "id": "gemini-3.8-pro", "tier": "Complex Architecture" },
+    { "name": "Gemini 3.8 Flash-Lite", "id": "gemini-3.8-flash-lite", "tier": "Fast Scanning" }
+  ],
+  "fallbacks": [
+    { "name": "OpenCode", "role": "Free model fallback" },
+    { "name": "Kilo", "role": "Fast fallback" },
+    { "name": "Local Ollama", "role": "Private local execution" }
+  ]
+}
