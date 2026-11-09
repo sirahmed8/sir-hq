@@ -28,7 +28,7 @@ CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 PROJECTS_ROOT = Path("D:/Projects")
 DEFAULT_BACKUP_DIR = PROJECTS_ROOT / "Backups" / "encrypted"
 DEFAULT_KEY_ENV = "SIR_BACKUP_KEY"
-DEFAULT_FALLBACK_KEY = "sir-master-offline-backup-2026"
+DEFAULT_FALLBACK_KEY = "sir_local_backup_passphrase"
 
 EXCLUDE_PATTERNS = {
     ".git",

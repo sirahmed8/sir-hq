@@ -34,7 +34,7 @@ class TestEncryptedBackup(unittest.TestCase):
         node_modules.mkdir()
         (node_modules / "junk.js").write_text("console.log('junk');", encoding="utf-8")
 
-        self.test_password = "test-encryption-key-12345"
+        self.test_password = "unit_test_mock_passphrase"  # gitleaks:allow
 
     def tearDown(self):
         if self.temp_dir.exists():
