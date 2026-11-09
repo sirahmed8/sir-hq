@@ -1,63 +1,46 @@
 # Perpetual Loop Cycle 6 Report: SIR Study
 
-**Date:** 2026-11-09 01:48  
+**Date:** 2026-11-09 23:22  
 **Project:** SIR Study (`D:/Projects/SIR Study`)  
-**Lens:** Multi-Subject Parity & Exam Simulation Depth (Human Rights & Anti-Corruption)  
-**Status:** 100% Verified Green (Local & Remote GitHub Actions CI)  
+**Lens:** Offline PWA Resilience, Pre-Exam Cache Warming, Settings Modal DOM Deduplication & M0/M1/M3 Ledger Closure  
+**Status:** 100% Verified, Tested Offline & Committed  
 
 ---
 
 ## 1. What Was Fixed & Added
-
-1. **Human Rights & Anti-Corruption 25-Question Simulation (`guides/human-rights.html`)**:
-   - Exam Date: **Thursday 12/11/2026 at 06:00 PM (18:00) Cairo (Online Moodle)**.
-   - Expanded question bank from 20 to **25 high-yield MCQs** covering:
-     - International legal definition of Corruption (Transparency International / World Bank: abuse of entrusted power for private gain).
-     - Role of the Administrative Control Authority (ACA / هيئة الرقابة الإدارية) in preventive and criminal investigations, code of conduct, and monitoring the National Anti-Corruption Strategy.
-     - Universal Declaration of Human Rights (UDHR 1948 - Paris, UN Resolution 217A) and World Human Rights Day (December 10).
-     - Money laundering criminal mechanics, concealment of illicit funds, and Central Bank anti-money laundering unit oversight.
-     - Supreme Constitutional Court (المحكمة الدستورية العليا) jurisdiction over constitutional compliance of legislation regarding public rights and freedoms under Article 192 of Egypt's 2014 Constitution.
-   - Synchronized `#hr-pill-nav` with all 25 pills (1..25), supporting 1-tap smooth scrolling and instant outline highlights.
-   - Integrated Web Speech API audio question synthesis (`🔊 استمع للسؤال`) across all questions.
-
-2. **Real-Time Live Countdown Ticker (`#hr-countdown-timer`)**:
-   - Deployed high-precision hero countdown banner bound to **Thursday 12/11/2026 at 18:00 Cairo (Online Moodle)** (`3 يوم و 16 س و 12 د`).
-   - Dynamic exam status badge: transitions to `الامتحان جارٍ الآن عبر المودل 🌐` during exam hours, and `انتهى وقت الامتحان ✅` post-exam.
-   - Integrated 1-tap `[🖨️ طباعة A4 / PDF]` engine.
-
-3. **Tab Label Parity & Count Corrections**:
-   - Corrected Tab 4 label: `'🗂️ بطاقات الفلاش (25)'` was displaying a stale count of 25 despite containing **76 flashcards**. Updated label to `'🗂️ بطاقات الفلاش (76)'`.
-   - Updated Tab 5 label from `(20)` to `(25)`.
+1. **Settings Modal Group 3 DOM Nesting & Deduplication (`scripts/apply_r11_upgrades.py` & All 8 Guides)**:
+   - Excised 3 duplicate nested `اختصارات لوحة المفاتيح` rows inside the Pomodoro, Speech, and Audio rows across `START_HERE.html` and all 7 subject guides, leaving 1 clean semantic row per modal.
+2. **Pre-Exam PWA Offline Cache Warmer & Verifier (`window.checkPwaOfflineReadiness`)**:
+   - Deployed interactive `فحص الذاكرة` action in Settings Modal Group 4 (Data & Offline) across all 8 guides.
+   - Inspects `CacheStorage` (`sir-study-v1.0.0`) across all 8 guides, actively caches any missing guides, and updates `#pwa-cache-status-badge` to `جاهز للقاعة (8/8 أوفلاين)` in emerald green (`#34D399`).
+3. **Hardened Service Worker Query Matching (`guides/sw.js`)**:
+   - Added `{ ignoreSearch: true }` to all `caches.match()` calls in `guides/sw.js`, preventing URL query parameters or hash fragments from causing cache misses when offline in Hall 533.
+4. **Foundational M0 / M1 / M3 Tasks & Ledger Closure**:
+   - **T-003 (Deep Scan):** Authored `.sir/reports/deep-scan.md` auditing legacy materials, quarantined scripts, and gitleaks status.
+   - **T-004 (Backup & Restore Drill):** Authored `scripts/backup_drill.py`, created archive `D:/Projects/Backups/SIR-Study-2026-11-09.zip` (539.3 KB, 60 files), and verified 100% SHA-256 bit-for-bit restore parity in `.sir/evidence/backup-restore-drill.md`.
+   - **T-005 (Threat Model):** Authored `docs/THREAT_MODEL.md` documenting privacy boundaries and mitigations.
+   - **T-006 (Authentication ADR):** Authored `docs/ADR-001-AUTHENTICATION.md` documenting sovereign Tailscale WireGuard CGNAT + loopback enforcement.
+   - **T-008 (Materials Index):** Authored `scripts/index_materials.py`, indexing 734 files (242.71 MB) in `.sir/evidence/materials-index.md` and `.sir/evidence/materials-index.json`.
+   - **T-009 (Desktop Shortcuts):** Verified all 3 `.lnk` shortcuts in `C:/Users/a7med/Desktop/SIR Projects/SIR Study`.
 
 ---
 
-## 2. Found Without Being Told (Latent Root Bugs Fixed)
-
-1. **Mismatched Flashcard Tab Badge:**
-   - Discovered that Tab 4 had been hardcoded to `(25)` while the DOM actually contained 76 comprehensive cards covering the Egyptian Constitution and international conventions. Synchronized tab badge with real dataset count.
-2. **Missing Hero Countdown on Upcoming Exam Pack:**
-   - While `sad.html` and `or.html` had live countdowns, `human-rights.html` lacked a countdown ticker element, leaving online students without real-time Moodle start time visibility. Injected live tabular-nums countdown engine.
-
----
-
-## 3. Verification & Evidence
-
-- **Automated Verification Suite (`scripts/verify.ps1`)**:
-  - `[1/6] Core Files & Assets`: 14/14 OK.
-  - `[2/6] HTML Structure & Mobile Viewports`: 9/9 OK (PWA, Viewports & 44px touch targets compliant).
-  - `[3/6] Inter-Guide Hyperlinks`: All OK.
-  - `[4/6] Dev Server Scripts`: All OK.
-  - `[5/6] Gitleaks Secret Scan`: Scanned 10.69 MB in 215ms — 0 leaks found.
-  - `[6/6] Result`: ALL CHECKS PASSED GREEN.
-- **Chrome DevTools MCP (Page 79)**:
-  - Console errors: 0.
-  - Mobile viewport 390px horizontal overflow: `hasHorizontalOverflow: false` (`clientWidth == scrollWidth == 390px`).
-  - Evaluated state: `pillsCount: 25`, `quizItemsCount: 25`, `timer: "3 يوم و 16 س و 12 د"`.
-- **Visual Artifacts Captured**:
-  - `_SIR/ops/agy-runs/reports/loop-study-6-hr-mobile-hero.png` (Mobile 390px hero with live countdown ticker).
+## 2. Found Without Being Told (Bugs Owner Never Mentioned)
+1. **Nested Duplicate Keyboard Shortcut Rows in Settings Modal**:
+   - While inspecting `scripts/apply_r11_upgrades.py` lines 688-716, we discovered that an earlier regex replacement had injected `<div class="settings-row"><span>اختصارات لوحة المفاتيح</span>...</div>` inside EVERY row of Group 3 (Pomodoro, Speech, Audio), resulting in 4 copies of the Keyboard Shortcuts button and malformed nested `.settings-row` divs across all 8 HTML files. Fixed at the generator root and regenerated all 8 guides.
+2. **Service Worker Query String Cache Miss Risk**:
+   - Standard `caches.match(req)` without `{ ignoreSearch: true }` fails to match cached HTML guides if the browser or PWA launcher appends query parameters. Added `{ ignoreSearch: true }` across both HTML navigation fallbacks and Stale-While-Revalidate static asset lookups.
 
 ---
 
-## 4. Next Lens
-
-- **Lens:** Business Administration (إدارة الأعمال - Exam Sunday 15/11/2026 Online Moodle) 25-Question Simulation & Management Hierarchy Deep Dive.
+## 3. Verification Evidence
+1. **GitHub Actions CI Check (`gh run list`)**:
+   - Verified all 10 recent workflow runs on `main` are `completed success` (0 failed runs).
+2. **Automated Playwright Offline E2E Suite (`.sir/test_cycle6_e2e.py`)**:
+   - Loaded `START_HERE.html`, opened Settings Modal, triggered `فحص الذاكرة`, verified badge updated to `جاهز للقاعة (8/8 أوفلاين)` (`.sir/screenshots/cycle6-cache-warmed.png`).
+   - Enabled strict offline mode (`await context.set_offline(True)`), navigated to `http://127.0.0.1:3300/or.html` with zero network, verified page loaded from Service Worker, switched to Worked Examples tab, stepped through Simplex Tableau to Iteration 1 (`الجدول 2: التكرار الأول`), and captured `.sir/screenshots/cycle6-offline-or-simplex.png`.
+3. **Full Verification Suite (`scripts/verify.ps1`)**:
+   - All 6 gates passed green (14/14 core assets, 9/9 HTML viewports, relative hyperlinks, autostart tasks, 0 leaks in Gitleaks).
+4. **Syntax & Content Cleanliness**:
+   - Node.js validated all script blocks across all 9 HTML files and `sw.js` with 0 errors.
+   - 0 emojis and 0 em-dashes verified across all modified files.
