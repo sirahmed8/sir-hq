@@ -176,3 +176,4 @@
 - 05:31 HQ: artifact v16 published (repo name patched by hand), PUBLISHED.txt written; round 8 briefs written (r8-<slug>.prompt.txt).
 - 06:26 HQ: stall -> Haiku rotated to a01083835229 (5h 100%, weekly 28%); all 5 chats Working. CI laptop green again.
 - 06:27 HQ: checkpoint updated; round 8 in progress, account a01083835229, smart wake armed.
+- 06:44 HQ: artifact v17 published (hash 18bdb75a); r8-study and r8-control done; review-r8 found Jobs test 13476!=13475 and Laptop ruff violations (CI).

@@ -18,6 +18,16 @@ class ControlRoomHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=OPS_DIR, **kwargs)
 
+    def end_headers(self):
+        # Strict security headers & cache controls
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "SAMEORIGIN")
+        self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
+        self.send_header("Permissions-Policy", "geolocation=(), camera=(), microphone=()")
+        if self.path.endswith((".html", "/")):
+            self.send_header("Cache-Control", "no-cache, must-revalidate")
+        super().end_headers()
+
     def do_GET(self):
         # Redirect root / to dashboard.html
         if self.path in ("/", "/index.html", "/app"):
@@ -26,6 +36,28 @@ class ControlRoomHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             return
         super().do_GET()
+
+    def handle_one_request(self):
+        try:
+            super().handle_one_request()
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, TimeoutError, OSError):
+            pass
+
+    def handle(self):
+        try:
+            super().handle()
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, TimeoutError, OSError):
+            pass
+
+
+class RobustHTTPServer(HTTPServer):
+    def handle_error(self, request, client_address):
+        exc_type, exc_val, _ = sys.exc_info()
+        if exc_type in (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, TimeoutError):
+            return
+        if isinstance(exc_val, OSError) and getattr(exc_val, "winerror", None) in (10053, 10054):
+            return
+        super().handle_error(request, client_address)
 
 
 def refresh_loop():
@@ -45,7 +77,7 @@ def main():
     t = threading.Thread(target=refresh_loop, daemon=True, name="ControlRoomRefreshWorker")
     t.start()
 
-    server = HTTPServer(("127.0.0.1", 8899), ControlRoomHandler)
+    server = RobustHTTPServer(("127.0.0.1", 8899), ControlRoomHandler)
     print(f"Serving SIR Control Room on http://127.0.0.1:8899 from {OPS_DIR} (15-min auto-refresh active)")
     try:
         server.serve_forever()
