@@ -1,5 +1,13 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-10 from jobs (SIR Jobs - Round 13 Services Order: Detached Windowless Daemon, Port 3456, Task SIR_Jobs_Server):
+  done:
+    (1) Task Name & Port: Task 'SIR_Jobs_Server', Port 3456, serving dashboard and API on loopback 127.0.0.1:3456 with ETag 304 caching and strict security headers.
+    (2) Antigravity Independence Proven: Verified daemon runs completely detached under Windows Task Scheduler / wscript.exe / node.exe (PID 24592, parent process 10964 exited, antigravity_in_chain=False, survives IDE restart and terminal closure).
+    (3) Logon Autostart & Failure Recovery: Created scripts/sir_jobs_server_task.xml with <RestartOnFailure><Interval>PT1M</Interval><Count>3</Count></RestartOnFailure>; authored scripts/install-autostart.ps1, scripts/uninstall-autostart.ps1, scripts/supervisor.ps1, and scripts/dev-start.vbs; registered task SIR_Jobs_Server (State: Ready, LastResult: 0).
+    (4) Live Health Telemetry & Status CLI: Deployed scripts/service-status.ps1 inspecting port 3456, parent chain, task state, and writing timestamped health line to .sir/health.txt ('2026-11-10 00:19:55 jobs port=3456 http=200 task=Ready status=OK'). Added live status badge #daemon-health-badge in drawer footer and 8th diagnostic card #diag-daemon-card in Security & Diagnostics view.
+    (5) Verification: All 24 test suites in npm test pass 100% green; scripts/doctor.mjs passes 6/6 gates; scripts/verify.ps1 passes 5/5 gates; Gitleaks 67 commits 0 leaks; tracked files privacy audit 0 leaks; 0 emojis, 0 em dashes; bundle size budgets strictly maintained; GitHub Actions CI Run 42717861697 100% green on main (08ddabd).
+  evidence: scripts/sir_jobs_server_task.xml, scripts/install-autostart.ps1, scripts/uninstall-autostart.ps1, scripts/service-status.ps1, scripts/supervisor.ps1, scripts/dev-start.ps1, scripts/dev-start.vbs, .sir/health.txt, .sir/dev.log, src/public/index.html, src/public/app.js, src/public/app.css, ops/agy-runs/reports/r13-jobs.md, commit 08ddabd on main.
 - [ ] 2026-11-10 from control (SIR Control Room - Round 13 Services Order: Detached Windowless Daemon, Port 8899, Task SIR_ControlRoom_Server):
   done:
     (1) Task Name & Port: Task 'SIR_ControlRoom_Server', Port 8899, serving ops/dashboard.html and static assets with HTTP ETag 304 validation and strict security headers.
