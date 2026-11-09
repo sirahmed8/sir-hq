@@ -1,5 +1,11 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 5: Dead Navigation Purge, Stale-While-Revalidate PWA & Simplex Mobile UX):
+  done:
+    (1) Found Without Being Told: Lingering legacy navigation markup (<button class="quick-nav-launcher">, <div id="quickNavDrawer">) and obsolete duplicate speakCard (with synchronous blocking alert()) were persisting in all 8 guides alongside the modern Dynamic Island drawer, inflating DOM size by 32.3KB. In addition, the service worker used cache-first fallback instead of true Stale-While-Revalidate caching for static assets, and the 7-column Simplex matrix lacked explicit horizontal scrolling guidance on small mobile screens.
+    (2) Root Architectural Remediation: Excised all legacy navigation markup and duplicate functions across all 8 HTML guides; upgraded guides/sw.js with true Stale-While-Revalidate caching via event.waitUntil(fetchPromise) for 0ms cached load with background cache updates; added responsive .table-scroll-hint.phone-only to guides/or.html with smooth horizontal scroll guidance on <=640px screens.
+    (3) Verification: Playwright E2E suite (test_cycle5_e2e.py) verified desktop scroll hint hidden, mobile scroll hint visible on 390px, Simplex stepper advancing to Iteration 1, horizontal overflow scrolling active, and Service Worker active (screenshots saved to .sir/screenshots/cycle5-or-*). scripts/verify.ps1 passed 6/6 checks. Pushed straight to main. Full report in ops/agy-runs/reports/loop-study-5.md.
+  evidence: guides/*.html, guides/sw.js, scripts/apply_r11_upgrades.py, .sir/CHECKPOINT.md, .sir/plans/cycle5.md, .sir/screenshots/cycle5-or-*.png, ops/agy-runs/reports/loop-study-5.md.
 - [ ] 2026-11-09 from control (SIR Control Room - Perpetual Loop Cycle 2 Complete):
   done:
     (1) Focus Trapping & Restoration: Integrated procedural trapFocus() and releaseFocus() across Settings Popover (#settings-modal) and mobile slide-out drawer (#app-sidebar), guaranteeing keyboard focus cycles strictly inside open dialogs and restores accurately to trigger buttons upon dismissal.

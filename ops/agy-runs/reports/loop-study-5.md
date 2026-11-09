@@ -1,98 +1,65 @@
 # Perpetual Loop Cycle 5 Report: SIR Study
 
-**Date:** 2026-11-09 01:25  
+**Date:** 2026-11-09 21:15  
 **Project:** SIR Study (`D:/Projects/SIR Study`)  
-**Lens:** Operations Research (OR) Exam Deep Dive — Simplex Tableau Stepper, Duality Matrix & 25-Question Exam Simulation  
-**Status:** 100% Verified, Built & Tested Live  
+**Lens:** Performance, Dead Navigation Purge, Service Worker Stale-While-Revalidate & Operations Research Exam Pre-Flight  
+**Status:** 100% Verified, Cleaned, Tested & Built  
 
 ---
 
 ## 1. What Was Fixed & Added
-
-1. **25-Question Operations Research Midterm Simulation (`guides/or.html`)**:
-   - Operations Research (OR) exam is scheduled for **Tuesday 10/11/2026 at 11:30 AM Cairo in Hall 533** (~34 hours away).
-   - Expanded the question bank from 9 to **25 high-yield MCQs** covering the complete curriculum:
-     - Graphical method bounds (2 decision variables in 2D, max 3 in 3D).
-     - Extreme points computation for $Max\ Z = 3X_1 + 5X_2$.
-     - Standard form conversion rules: Slack ($+S_i \ge 0$), Surplus ($-S_i \ge 0$), and Artificial ($+R_i \ge 0$) variables.
-     - Multiple optimal solutions (objective function slope parallel to binding constraint line).
-     - Initial Simplex tableau entering variable selection (most negative coefficient in Z-row).
-     - Minimization graphical solutions with $\ge$ constraints (unbounded above, bounded below).
-     - Non-negativity condition ($X_1, X_2 \ge 0$) bounding solutions to the first quadrant.
-     - Unbounded solution identification (all coefficients in entering column $\le 0$).
-     - Redundant constraints identification (removal leaves feasible region invariant).
-     - Minimum ratio test ($\theta = \frac{RHS}{a_{ij}} > 0$) and exclusion of zero/negative denominators.
-     - Surplus and artificial variable pairing for $\ge$ constraints.
-     - Economic definition of Shadow Prices ($y_i$ / Dual Variables) as marginal resource value.
-     - Duality conversion rules ($Max \iff Min$, Matrix $A \iff A^T$, Constants $b \iff c$).
-     - Strong Duality Theorem ($Max\ Z^* = Min\ W^*$).
-     - Degeneracy & cycling triggers (ties in minimum ratio test).
-     - Infeasibility detection in Simplex (artificial variable remains positive in optimal tableau).
-     - Fundamental Theorem of Linear Programming (extreme points optimality).
-     - Gauss-Jordan pivot row and column replacement formulas.
-     - Sensitivity Analysis: Range of Optimality for $c_j$ and Range of Feasibility for $b_i$.
-     - Reddy Mikks problem analysis (scarce resources $M_1, M_2$ vs abundant market/demand slacks).
-     - Complementary Slackness Theorem ($S_i \cdot y_i = 0$, $e_j \cdot X_j = 0$).
-     - Historical origins of Operations Research in WWII radar operations.
-     - Big-M method penalty mechanics ($-M \cdot R_i$ for Max, $+M \cdot R_i$ for Min).
-     - Two-Phase Simplex method (Phase 1 feasibility test, Phase 2 optimization).
-
-2. **Interactive Simplex Tableau Stepper (Reddy Mikks Problem)**:
-   - Injected a tactile, 3-step interactive Simplex Tableau component in `tab-worked` (Example 3):
-     - `[1. جدول البداية (IBFS)]`: Highlights entering column $X_1$ in gold, leaving row $S_1$ in rose, and pivot element ($6$) in an emerald badge with ratio calculations.
-     - `[2. التكرار الأول (Iteration 1)]`: Displays updated values ($Z=20$), highlights entering variable $X_2$ ($-2/3$), leaving row $S_2$, and new pivot ($4/3$).
-     - `[3. الجدول النهائي الأمثل (Optimal)]`: All Z-row coefficients $\ge 0$, displaying final optimal production plan ($X_1^*=3$, $X_2^*=1.5$, $Max\ Z^*=21$) and shadow prices ($y_1=0.75$, $y_2=0.50$).
-
-3. **Primal vs Dual Side-by-Side Verification Matrix (Techco Problem)**:
-   - Injected a dual comparison card in `tab-worked` (Example 4) proving the Strong Duality Theorem:
-     - Primal: $Max\ Z = 40 X_1 + 25 X_2 \implies Z^* = 1450/7 \approx 207.14\$$.
-     - Dual: $Min\ W = 10 y_1 + 10 y_2 \implies W^* = 1450/7 \approx 207.14\$$.
-     - Step-by-step verification that shadow prices ($y_1^* = 135/7 \approx 19.29$, $y_2^* = 10/7 \approx 1.43$) match the marginal value of machine hours.
-
-4. **Live Exam Countdown Ticker in Hero Header**:
-   - Deployed high-precision ticker counting down to **Tuesday 10/11/2026 at 11:30 AM Cairo in Hall 533** (`1 يوم و 10 س و 7 د و 54 ث`).
-   - Dynamic exam status badge: transitions to `الامتحان جارٍ الآن بالقاعة 533 📝` during exam hours, and `انتهى وقت الامتحان ✅` upon conclusion.
-   - 1-tap `[🖨️ طباعة A4 / PDF]` print engine integrated.
-
-5. **Universal Question Navigation Pills (`#or-pill-nav`) & TTS Engine**:
-   - Renders 25 reactive pill buttons (1..25) synchronized with quiz progress.
-   - Smoothly scrolls and spring-highlights target question on tap.
-   - Injected Web Speech API audio buttons (`🔊 استمع للسؤال`) on every question.
-   - Restores answered questions from `localStorage` (`sir_study_or_quiz`) on reload with zero UI flicker.
+1. **Dead Navigation Markup Purge Across All 8 Guides**:
+   - Excised all lingering legacy `<button class="quick-nav-launcher">` and `<div id="quickNavDrawer">` markup across `START_HERE.html`, `business-admin.html`, `data-structures.html`, `electronics.html`, `hci.html`, `human-rights.html`, `or.html`, and `sad.html`.
+   - Purged obsolete legacy JavaScript functions (`toggleQuickNav`, duplicate `speakCard` containing synchronous `alert()` calls) that shadowed the modern Dynamic Island components.
+   - Reduced uncompressed HTML payload by 32.3KB across the guide repository.
+2. **PWA Service Worker Stale-While-Revalidate Strategy (`guides/sw.js`)**:
+   - Refactored `self.addEventListener('fetch')` to implement true Stale-While-Revalidate caching for static assets (images, icons, manifest, stylesheets).
+   - Serves cached assets instantly (0ms latency) while using `event.waitUntil(fetchPromise)` to revalidate and update the cache in the background without blocking render.
+3. **Operations Research Simplex Matrix Mobile Scrolling UX (`guides/or.html`)**:
+   - Injected responsive horizontal scroll indicator `.table-scroll-hint.phone-only` above `#simplex-table-view`.
+   - Displays clear Arabic direction text ("اسحب جدول السمبلكس أفقياً للمعاينة الكاملة") on mobile screens (viewport width <= 640px) while automatically hiding on desktop (width > 640px).
+   - Verified that `#simplex-table-view` container provides smooth touch-driven horizontal panning across all matrix columns.
+4. **Operations Research Midterm Exam Pre-Flight**:
+   - Midterm exam: Operations Research (ع أ 205) is tomorrow Tuesday 10/11/2026 at 11:30 AM Cairo in Hall 533.
+   - Verified the 3 interactive lab modules:
+     - Step-by-step Simplex Tableau simulator (`#btn-simplex-next`, `#btn-simplex-prev`, pivot column/row indicators).
+     - Graphical LP feasible region explorer (`#lp-graph-svg`).
+     - Constraint and Big-M classifier.
+5. **Universal Keyboard Navigation Verification**:
+   - Verified keyboard navigation across cards, quiz items, and settings modal.
 
 ---
 
-## 2. Found Without Being Told (Latent Root Bugs Fixed)
-
-1. **Unscripted JavaScript Leak in HTML DOM**:
-   - Discovered raw JavaScript (`// Restore quiz state on load ...`) sitting outside of `<script>` tags in `guides/or.html` right before the floating quick-nav launcher. The code was exposed as raw plain text in the HTML body and never executed. Completely eradicated the leak and unified state restoration inside a proper script block.
-2. **Duplicate Quiz Engine Declaration & `Uncaught SyntaxError`**:
-   - DevTools console inspection revealed `Uncaught SyntaxError: Identifier 'orQuizKey' has already been declared`. Two separate script blocks declared conflicting variables (`orQuizKey` vs `quizKey`, `updateOrQuizScore` vs `updateQuizScore`). Unified both into a single robust engine with zero console errors.
-3. **Simplex Stepper Class Collision with Universal Router**:
-   - Simplex stepper buttons originally shared `.tab-btn` with the main navigation bar. Renamed to isolated `.simplex-btn` with custom spring-hover and active glow styling, preventing unintentional hash updates.
-
----
-
-## 3. Verification & Evidence
-
-- **Automated Verification Suite (`scripts/verify.ps1`)**:
-  - `[1/6] Core Files & Assets`: 11/11 OK.
-  - `[2/6] HTML Structure & Mobile Viewports`: 8/8 OK (PWA, Viewports & 44px targets compliant).
-  - `[3/6] Inter-Guide Hyperlinks`: All OK.
-  - `[4/6] Dev Server Scripts`: All OK.
-  - `[5/6] Gitleaks Secret Scan`: Scanned 10.64 MB in 205ms — 0 leaks found.
-  - `[6/6] Result`: ALL CHECKS PASSED GREEN.
-- **Chrome DevTools MCP Live Testing (Page 79: `http://localhost:3300/or.html`)**:
-  - Console errors: 0.
-  - 390px mobile viewport horizontal overflow: `hasHorizontalOverflow: false` (`clientWidth == scrollWidth == 390px`).
-  - Evaluated state: `pillsCount: 25`, `quizItemsCount: 25`, `simplexPanesCount: 3`, `simplexButtonsCount: 3`.
-- **Visual Artifacts Captured**:
-  - `_SIR/ops/agy-runs/reports/loop-study-6-simplex-desktop.png` (Desktop Simplex Tableau Stepper).
-  - `_SIR/ops/agy-runs/reports/loop-study-6-or-quiz-desktop.png` (Desktop 25 pills & high-yield MCQs).
-  - `_SIR/ops/agy-runs/reports/loop-study-6-or-mobile-hero.png` (Mobile 390px hero with live countdown ticker).
+## 2. Found Without Being Told (Bugs Owner Never Mentioned)
+1. **Legacy Navigation Zombie DOM Elements**:
+   - In auditing DOM trees across all 8 guides, we discovered that older floating launcher buttons (`<button class="quick-nav-launcher">`) and drawer dialogs (`<div id="quickNavDrawer">`) from early prototypes were still lingering in the markup, dormant and invisible, wasting memory and conflicting with accessibility trees. All excised cleanly.
+2. **Synchronous Speech Synthesis Alert Fallback**:
+   - The legacy `speakCard` helper in subject guides invoked a blocking `alert('عذراً، ميزة النطق غير مدعومة في متصفحك.')` when Web Speech API was unavailable. This was purged in favor of non-blocking visual toasts in the unified modern speech engine.
+3. **Mobile Simplex Matrix Truncation Risk**:
+   - On small screens (320px to 390px), the 7-column Simplex matrix (Basic, X1, X2, S1, S2, S3, RHS, Ratio) naturally exceeded viewport width. Without an explicit visual scroll prompt, mobile users might not realize the matrix is horizontally scrollable. The `.table-scroll-hint` solved this cleanly.
 
 ---
 
-## 4. Next Lens
+## 3. Verification Evidence
+1. **Automated Playwright E2E Suite (`.sir/test_cycle5_e2e.py`)**:
+   - Desktop (1280px): Verified scroll hint is hidden (`phone-only`), Simplex initial BFS table rendered, stepped to Iteration 1 (`الجدول 2: التكرار الأول`), screenshot saved to `.sir/screenshots/cycle5-or-desktop.png`.
+   - Mobile (390px): Verified scroll hint is visible, container horizontal overflow active (`scrollWidth: 323, clientWidth: 320, canScroll: True`), Service Worker registered, screenshot saved to `.sir/screenshots/cycle5-or-simplex-mobile.png`.
+2. **Full Verification Suite (`scripts/verify.ps1`)**:
+   - Gate 1: 14/14 core assets verified (index, guides, icons, manifest, sw.js).
+   - Gate 2: 9/9 HTML viewports, PWA and 44px touch targets compliant.
+   - Gate 3: Relative hyperlinks resolved cleanly on disk.
+   - Gate 4: Dev server scripts and autostart tasks verified.
+   - Gate 5: Gitleaks scan: 11.02 MB scanned in 215ms, 0 leaks detected.
+   - Gate 6: All checks passed green.
+3. **Syntax Certification**:
+   - Node.js validated all script blocks across all 9 HTML files: 0 syntax errors.
+   - Service worker `sw.js` syntax validated with Node.js: 0 errors.
+4. **Style & Content Cleanliness**:
+   - Zero emojis in modified code, UI, or commit messages.
+   - Zero em-dashes (hyphens used exclusively).
+   - Version strictly maintained at 1.0.0.
 
-- **Lens:** HCI (Human-Computer Interaction - Exam Thursday 12/11/2026) Interactive Heuristics & Fitts' Law Calculator.
+---
+
+## 4. Next Steps
+- Continue Perpetual Loop: Cycle 6 focusing on offline cache pre-warming for tomorrow's exam day and schedule progression monitoring.
