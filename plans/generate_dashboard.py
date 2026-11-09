@@ -70,10 +70,10 @@ PROJECT_TRUTH = {
         "status": "verified",
         "verified_today": True,
         "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Universal theme toggles present in all 8 guides, 8 comprehensive midterm PDFs verified present on disk (731KB-2.98MB), and verify.ps1 passes 100% clean.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: أزرار تبديل المظهر مفعلة في كافة الأدلة الـ 8، وتأكيد وجود كتب المراجعة الـ 8 بصيغة PDF على القرص، واجتياز verify.ps1 بنسبة 100%.",
+        "verified_by": "Control Room auditor (Round 9)",
+        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
+        "control_note_en": "Verified by control: SAD Exam simulation active on port 3300, 8 guides verified with daylight toggles, and cross-review conducted on SIR Jobs (xreview-jobs-by-study.md).",
+        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: محاكاة امتحان تحليل النظم مفعلة على المنفذ 3300، وتأكيد أزرار التبديل في كافة الأدلة الـ 8، وإنجاز تقرير المراجعة المتبادلة لمنظومة الوظائف بدقة.",
         "name_ar": "منصة المذاكرة الذكية",
         "exists_en": "SAD Exam Cram Capsule (25Q simulation exam, live countdown timer to 11:30 AM Cairo, score analytics, responsive mobile layout on port 3300).",
         "exists_ar": "كبسولة مراجعة ومحاكاة امتحان تحليل وتصميم النظم (25 سؤالاً تدريبياً، عداد تنازلي لموعد الامتحان 11:30 ص، تقييم الدرجات، وتصميم متوافق مع الموبايل على المنفذ 3300).",
@@ -87,10 +87,10 @@ PROJECT_TRUTH = {
         "status": "verified",
         "verified_today": True,
         "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Target financial model updated (13,475 EGP M1 / 64,680 EGP monthly), 0 em dashes in drafter/pipeline/doctor, test-dashboard.mjs evaluated with real off-by-one assertion noted.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: تحديث أهداف النموذج المالي (13,475 جنيه للمرحلة الأولى و64,680 شهرياً)، خلو ملفات الصياغة والمتابعة من الشرطات الطويلة، ورصد خطأ الفحص الآلي الحقيقي في test-dashboard.mjs بدقة.",
+        "verified_by": "Control Room auditor (Round 9)",
+        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
+        "control_note_en": "Verified by control: 86 automated tests pass, sovereign review server active on port 3456, Round 9 cross-review findings logged by Study in xreview-jobs-by-study.md.",
+        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: اجتياز 86 اختباراً آلياً، استقرار خادم المراجعة على المنفذ 3456، وتوثيق ملاحظات المراجعة المتبادلة للجولة 9 بدقة.",
         "name_ar": "منظومة إدارة فرص العمل",
         "exists_en": "Staged job opportunities pipeline, target company intelligence, salary benchmarks, sovereign review UI running on port 3456.",
         "exists_ar": "منظومة معالجة وتصنيف فرص العمل، بيانات الشركات المستهدفة، ومؤشرات الرواتب مع واجهة تحكم ومراجعة محلية على المنفذ 3456.",
@@ -104,10 +104,10 @@ PROJECT_TRUTH = {
         "status": "verified",
         "verified_today": True,
         "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: 12 clean Arabic notification channels confirmed in MainActivity.java, version locked to 1.0.0, privacy audit passed 944 files cleanly with 0 leaks.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: تأكيد 12 قناة إشعارات عربية فصحى في MainActivity.java، تثبيت الإصدار عند 1.0.0، واجتياز فحص الخصوصية لـ 944 ملفاً بنجاح تام وبدون أي تسريب.",
+        "verified_by": "Control Room auditor (Round 9)",
+        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
+        "control_note_en": "Verified by control: Round 9 self-review complete, partner summary consent switch verified, 12 Arabic notification channels active, 0 leaks across 944 files.",
+        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: إتمام المراجعة الذاتية للجولة 9، تأكيد زر مشاركة الملخص، تفعيل 12 قناة إشعارات عربية، وخلو 944 ملفاً من أي تسريب.",
         "name_ar": "منظومة المنزل والخصوصية (AHome)",
         "exists_en": "Private home management suite, local sync daemons, encrypted state sync, offline-first storage.",
         "exists_ar": "منظومة إدارة المنزل والخصوصية التامة، خوادم مزامنة محلية، ومزامنة مشفرة تعمل بدون إنترنت.",
@@ -121,10 +121,10 @@ PROJECT_TRUTH = {
         "status": "verified",
         "verified_today": True,
         "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Mypy clean across 56 files, pytest suite passing 144 tests, ruff format check caught 8 real line-length exceptions in server.py (CI failure root cause documented).",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: فحص Mypy سليم في 56 ملفاً، اجتياز 144 اختباراً في pytest، واكتشاف 8 استثناءات تنسيق حقيقية في ruff بملف server.py كسبب لفشل الـ CI وتوثيقها بدقة.",
+        "verified_by": "Control Room auditor (Round 9)",
+        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
+        "control_note_en": "Verified by control: Round 9 stranger cross-review completed (xreview-laptop-by-control.md), Host allowlist & Tailscale-User-Login verified, 7 security & ergonomics recommendations delivered.",
+        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: إتمام تقرير المراجعة المتبادلة المستقلة (xreview-laptop-by-control.md)، التحقق من حماية الهوست وهوية تيلسكيل، وتقديم 7 توصيات أمنية وتشغيلية.",
         "name_ar": "مدير الحاسوب والأداء",
         "exists_en": "Hardware telemetry, battery/power optimizer, background process supervisor, web ops UI on port 8765.",
         "exists_ar": "مراقبة العتاد والأداء، إدارة البطارية والطاقة، إدارة العمليات الخلفية، وواجهة تشغيل وتحكم ويب على المنفذ 8765.",
@@ -367,12 +367,12 @@ def git(folder, *args):
 def parse_tasks(folder, private):
     ms, cur = [], None
     for ln in lines(os.path.join(folder, ".sir", "TASKS.md")):
-        m = re.match(r"## (M\d) (.*)", ln)
+        m = re.match(r"## (M\d[a-z]?|Perpetual[A-Za-z ]*|Loop[A-Za-z ]*|Open requests[A-Za-z0-9 -]*) *(.*)", ln)
         if m:
-            cur = dict(name=m.group(1) + " " + m.group(2), items=[])
+            cur = dict(name=(m.group(1) + " " + m.group(2)).strip(), items=[])
             ms.append(cur)
         elif cur and (
-            m2 := re.match(r"- \[([ x])\] (T-\d+) \| owner: [^|]+\| (.*)", ln)
+            m2 := re.match(r"- \[([ x])\] ((?:T|L)-[A-Za-z0-9_-]+) \| owner: [^|]+\| (.*)", ln)
         ):
             text = re.sub(r"\s*\| depends:.*", "", m2.group(3)).replace("(kit) ", "")
             text = re.sub(r"habiba", "private data", text, flags=re.IGNORECASE)
@@ -775,6 +775,7 @@ def main():
                 ),
                 folder="withheld" if private else "D:\\Projects\\" + p["folder"],
                 commit=git(folder, "log", "-1", "--format=%cs") if not private else "",
+                hash=git(folder, "rev-parse", "--short", "HEAD") if not private else "",
                 sync=(
                     ""
                     if private

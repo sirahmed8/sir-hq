@@ -1100,7 +1100,7 @@ function renderRows(lang) {
             <span class="name">${esc(displayName)}</span><br>
             <span class="sub">${waveLabel} &middot; ${esc(p.arch)}</span>
           </span>
-          <span class="sub syn num">${esc(p.commit)}${syncLabel ? " &middot; " + esc(syncLabel) : ""}</span>
+          <span class="sub syn num">${esc(p.hash ? p.hash + " &middot; " + p.commit : p.commit)}${syncLabel ? " &middot; " + esc(syncLabel) : ""}</span>
           <span class="stw"><span class="st ${stClass}">${stLabel}</span></span>
         </summary>
         <div class="detail">
