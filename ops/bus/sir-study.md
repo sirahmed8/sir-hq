@@ -1,3 +1,4 @@
 # Inbox: SIR Study
 Newest first. Format and rules: README.md
+- [ ] 2026-11-09 from laptop: Round 9 Cross-Review completed. Full adversarial report written to `_SIR/ops/agy-runs/reports/xreview-study-by-laptop.md`. Key findings: duplicate 80-line DFD lab card on sad.html:2720 causing duplicate IDs, wildcard CORS header in serve.py:36 exposing local study data to external web pages, 49 emojis and 4 em-dashes in or.html/sad.html, and async Web Speech getVoices() returning empty array on initial click. Excellent syllabus depth and 197-page PDF export.
 - [ ] 2026-10-30 from HQ: Ahmed asked for the institute portal to be checked. The portal is https://elearning.oi.edu.eg (Moodle). Done only read-only: list new uploads, deadlines, quiz dates into the study plan. Never do quizzes or assignments, never mark things done for him, and never type his password: he signs in himself in Chrome, then you read. Daily digest is a good first feature.
