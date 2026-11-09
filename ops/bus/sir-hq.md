@@ -1,5 +1,27 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-10 from control (SIR Control Room - Round 13 Services Order: Detached Windowless Daemon, Port 8899, Task SIR_ControlRoom_Server):
+  done:
+    (1) Task Name & Port: Task 'SIR_ControlRoom_Server', Port 8899, serving ops/dashboard.html and static assets with HTTP ETag 304 validation and strict security headers.
+    (2) Antigravity Independence Proven: Verified daemon runs completely detached under Task Scheduler / wscript.exe / pythonw.exe (PID 22956, parent process wscript.exe exited, 0 console windows, independent of Antigravity or pwsh sessions).
+    (3) Logon Autostart & Failure Recovery: Created scripts/dev-start.vbs (SW_HIDE=0 windowless execution) and scripts/install-autostart.ps1 / uninstall-autostart.ps1; registered scheduled task SIR_ControlRoom_Server with -AtLogOn and battery exemptions; wrapped scripts/serve-control-room.py in supervisor loop with automatic restart on unexpected exit.
+    (4) Live Health Telemetry & Dashboard Integration: Deployed /health endpoint and ops/control-room-health.json tracking PID, uptime, port, host, and heartbeat; added live health badge in Control Room dashboard (#service-health-card) displaying 'Autostart Active: Task SIR_ControlRoom_Server (:8899)'.
+    (5) Laptop Manager Awareness: Updated SERVICES_CATALOG in D:/Projects/SIR Laptop Manager/src/sir_laptop_manager/startup/logon_automation.py to use launcher_type='vbs' and target_path=r'D:\Projects\_SIR\scripts\dev-start.vbs' on port 8899; verified Laptop Manager unit tests pass 100% green.
+    (6) Portfolio Services Record:
+        - jobs: Port 3456, Task 'SIR_Jobs_Server'
+        - study: Port 3300, Task 'SIR_Study_Server'
+        - laptop: Port 8765, Task 'SIR_Laptop_Manager'
+        - control: Port 8899, Task 'SIR_ControlRoom_Server' (plus Tailscale serve mapping https://ahmed.tail9e9aa7.ts.net:8899 -> 127.0.0.1:8899 and 15-min background refresh daemon)
+  evidence: scripts/serve-control-room.py, scripts/dev-start.vbs, scripts/install-autostart.ps1, scripts/uninstall-autostart.ps1, ops/control-room-server.log, plans/generate_dashboard.py, plans/dashboard_template.html, ops/dashboard.html, D:/Projects/SIR Laptop Manager/src/sir_laptop_manager/startup/logon_automation.py, ops/agy-runs/reports/r13-control.md.
+- [ ] 2026-11-10 from study (SIR Study - Round 13 Services Order: Headless Logon Daemon, Port 3300, Task SIR_Study_Server):
+  done:
+    (1) Task Name & Port: Task 'SIR_Study_Server', Port 3300, serving guides/ with loopback and Tailscale WireGuard CGNAT access control.
+    (2) Antigravity Independence Proven: Verified daemon survived Antigravity server restart (PID 34252 pythonw.exe, parent process exited, antigravity_in_chain = False).
+    (3) Logon Autostart & Failure Recovery: Hardened scripts/install-autostart.ps1 with -RestartCount 3 -RestartInterval 1min and battery exemptions; registered task SIR_Study_Server (State: Ready); wrapped scripts/serve.py in resilient auto-restart supervisor loop.
+    (4) Health Check Endpoint & Dashboard Integration: Deployed /api/health returning server status, PID, uptime, port; added live health badge in guides/START_HERE.html header displaying 'الخادم المحلي: متصل ومستقل (Port 3300 • PID 34252)' verified via Playwright E2E test (.sir/test_r13_health.py).
+    (5) Laptop Manager Awareness: Verified SIR Study Server is registered in SERVICES_CATALOG in D:/Projects/SIR Laptop Manager/src/sir_laptop_manager/startup/logon_automation.py (launcher_type="vbs", target_path=r"D:\Projects\SIR Study\scripts\dev-start.vbs", port=3300).
+    (6) Verification: scripts/service-status.ps1 exit code 0, scripts/verify.ps1 6/6 green, 0 Gitleaks leaks in 232ms, 0 emojis, 0 em-dashes.
+  evidence: scripts/serve.py, scripts/install-autostart.ps1, scripts/service-status.ps1, guides/START_HERE.html, .sir/test_r13_health.py, .sir/screenshots/r13-service-health-badge.png, ops/agy-runs/reports/r13-study.md.
 - [ ] 2026-11-09 from jobs (SIR Jobs - Perpetual Loop Cycle 23: Complete View Retry Coverage, ETag Conditional Caching, HTTP HEAD Support & Logon Task Doctor Gate):
   done:
     (1) Complete View Retry Coverage: Expanded `retryLoad(view)` in `src/public/app.js` to include `cash` (`loadCashHub()`) and `security` (`loadDiagnostics()`), ensuring 100% retry coverage across all 6 dashboard views.

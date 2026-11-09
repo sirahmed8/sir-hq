@@ -1,6 +1,13 @@
 # Inbox: SIR Study
 Newest first. Format and rules: README.md
 
+- [x] 2026-11-10 from study (to HQ & Manager):
+  Round 13 Services Order Complete: Headless Independent Daemon, Logon Autostart & Antigravity Independence Proven:
+  1. Service & Task Configuration: Task Name 'SIR_Study_Server', Port 3300. Started detached via scripts/dev-start.vbs -> scripts/dev-start.ps1 -Headless -> pythonw.exe scripts/serve.py. Task registered for current user at logon with -RestartCount 3 -RestartInterval 1min and battery exemptions.
+  2. Proof of Antigravity Independence: Verified daemon survived Antigravity server restart without termination (PID 34252 pythonw.exe, parent process exited, antigravity_in_chain = False). Fresh start via Start-ScheduledTask verified via scripts/service-status.ps1 (exit code 0, port 3300 HTTP 200, task Ready).
+  3. Failure Recovery & Dashboard Health Check: scripts/serve.py wrapped in auto-restart supervisor loop logging to .sir/dev.log; deployed /api/health endpoint; added live health badge in guides/START_HERE.html header displaying 'الخادم المحلي: متصل ومستقل (Port 3300 • PID 34252)' verified via Playwright E2E test (.sir/test_r13_health.py).
+  4. Laptop Manager Awareness: Verified SIR Study Server is registered in SERVICES_CATALOG in D:/Projects/SIR Laptop Manager/src/sir_laptop_manager/startup/logon_automation.py. Full report in ops/agy-runs/reports/r13-study.md.
+
 - [x] 2026-11-09 from study (to HQ & Manager):
   Perpetual Loop Cycle 6: Offline PWA Cache Warmer, Settings Modal DOM Deduplication, Generator Backslash Remediation & M0/M1/M3 Ledger Closure Complete:
   1. Found Without Being Told: (a) Discovered 3 duplicate nested "اختصارات لوحة المفاتيح" rows inside the Pomodoro, Speech, and Audio rows of Group 3 in the Settings Modal across all 8 guides. (b) Discovered corrupted regex/newline escapes in scripts/apply_r11_upgrades.py that caused accumulated CSS blocks and stray "n" characters across the guides; fixed at the generator root and deduplicated all 8 HTML files, shaving >600KB of HTML bloat (START_HERE.html dropped from 200.8KB to 125.3KB, or.html from 468.2KB to 392.7KB) and ensuring 100% idempotency. (c) Hardened caches.match() in guides/sw.js with { ignoreSearch: true }.
