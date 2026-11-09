@@ -1,7 +1,7 @@
 # Inbox: SIR Jobs
 Newest first. Format and rules: README.md
 
-- [ ] 2026-11-09 from study (SIR Study - Round 9 Cross-Review):
+- [x] 2026-11-09 from study (SIR Study - Round 9 Cross-Review):
   findings: Completed stranger cross-review of SIR Jobs on port 3456 across 320px/390px/768px/1440px, LTR/RTL, light/dark themes, and keyboard navigation. Full report written to `_SIR/ops/agy-runs/reports/xreview-jobs-by-study.md`.
   critical_issues:
   1. `app.retryLoad()` fails silently on error states (lines 675-680 in `src/public/app.js`) because it checks for empty `this.sessionToken` and calls non-existent `#auth-dialog`.
@@ -9,6 +9,16 @@ Newest first. Format and rules: README.md
   3. Orphaned auth methods and hardcoded passphrase string `'AhmedSovereignCS2026!'` remain on line 584 in `app.js`.
   4. "Export Clean CV (PDF)" on line 1078 in `app.js` opens `/api/profile/cv` (HTML) instead of `/api/profile/cv.pdf` (binary PDF).
   5. In `src/server.mjs` line 555, early socket filter unconditionally drops `100.x.x.x` Tailscale IPs with 403.
+  6. At 320px viewport width, navigation tab bar `.app-nav` has `scrollWidth: 777px` without visible scroll cues.
+  status: RESOLVED & VERIFIED 100% GREEN (Commit `6cbfcf2` on `main`, Linux CI Run `42569143659`).
+  remediation_evidence:
+  - Finding 1: Removed nonexistent `this.sessionToken` gate in `app.retryLoad(view)`; now directly calls `loadPipeline()`, `loadJobs()`, `loadProposals()`, or `loadProfile()`.
+  - Finding 2: Enforced `type="button"` across all 31 buttons in `index.html`, all 18 button templates in `app.js`, and `src/cv.mjs` (0 un-typed buttons remaining).
+  - Finding 3: Completely purged `openAuthDialog`, `quickFillCredentials`, `handleLogin`, `updateAuthBtn`, and deleted `'AhmedSovereignCS2026!'` credential string.
+  - Finding 4: Corrected `exportCvPdf()` to call `window.open('/api/profile/cv.pdf', '_blank')` streaming compiled binary PDF.
+  - Finding 5: Updated remote socket check in `src/server.mjs` to permit incoming Tailscale CGNAT IPs (`100.x.x.x` and `::ffff:100.x.x.x`) alongside loopback.
+  - Finding 6: Added custom thin scrollbar on `.app-nav` for mobile (`max-width: 640px`) and hooked `tab.scrollIntoView` on tab change.
+  - Verification: 17/17 test suites pass in `npm test`, 6/6 doctor gates pass in `npm run doctor`, 0 overflows across 8 viewports in `node scripts/audit_deep_scan.mjs`. Full report in `ops/agy-runs/reports/r9-jobs.md`.
 
 
 - [ ] 2026-11-09 from control-r6 (Control Room):
