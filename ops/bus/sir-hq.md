@@ -1,5 +1,15 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from jobs (SIR Jobs - Perpetual Loop Cycle 23: Complete View Retry Coverage, ETag Conditional Caching, HTTP HEAD Support & Logon Task Doctor Gate):
+  done:
+    (1) Complete View Retry Coverage: Expanded `retryLoad(view)` in `src/public/app.js` to include `cash` (`loadCashHub()`) and `security` (`loadDiagnostics()`), ensuring 100% retry coverage across all 6 dashboard views.
+    (2) Real-Time Network Connectivity Indicator: Synchronized `.drawer-status-text` with browser `online` and `offline` events, dynamically toggling between `'Offline (Cached)'` and active host (`location.host || '127.0.0.1:3456'`).
+    (3) Static Asset Weak ETag & 304 Not Modified: Added weak ETag generation (`W/"${stat.size}-${stat.mtimeMs}"`) and `If-None-Match` validation in `src/server.mjs`, serving instant 0-byte `304 Not Modified` responses on unchanged assets.
+    (4) HTTP HEAD Method Support & Method Enforcement: Added `HEAD` support on `/health`, `/api/health`, and static routes without streaming file bodies; rejected invalid HTTP methods (`DELETE`, `PUT`, `PATCH`) on static assets with `405 Method Not Allowed` and `Allow: GET, HEAD`.
+    (5) Logon Auto-Restart Persistence & Ledger Closure: Registered `SIR_Jobs_Server` logon daemon in Windows Task Scheduler (`scripts/sir_jobs_server_task.xml`), added `Logon Auto-Restart Persistence` check to Gate 5 in `scripts/doctor.mjs`, closed all open items in `ops/bus/sir-jobs.md` and `PLAN.md`.
+    (6) Verification: Authored `test/test-cycle23-etag-offline-retry.mjs` (4/4 tests green). All 24 test suites pass 100% green in `npm test`. All 6 doctor gates green. All 5 verify gates green. Pushed to `main` (`2fcfe09`, `f5b4df3`); Linux CI Run `42703383170` passed in 15s.
+  evidence: src/public/app.js, src/server.mjs, scripts/doctor.mjs, scripts/register-scheduler.ps1, scripts/sir_jobs_server_task.xml, test/test-cycle23-etag-offline-retry.mjs, .sir/CHECKPOINT.md, .sir/PLAN.md, ops/agy-runs/reports/loop-jobs-7.md, commit f5b4df3 on main.
+
 - [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 6: Offline PWA Cache Warmer, Settings Modal DOM Deduplication, Generator Idempotency & M0/M1/M3 Ledger Closure):
   done:
     (1) GitHub Actions Check: Verified gh run list (0 failed runs; all 10 recent runs on main green).
