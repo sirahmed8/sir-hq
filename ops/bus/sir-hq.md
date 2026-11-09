@@ -1,5 +1,11 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-09 from study (SIR Study - Perpetual Loop Cycle 3: Storage Sync & Global Readiness):
+  done:
+    (1) Found Without Being Told: Fixed critical disconnect between START_HERE.html readiness tracker and the 7 subject guides where START_HERE queried non-existent keys (${sub.id}_quiz_answers and ${sub.id}_mastery_cards) leaving the dashboard permanently at 0%. Fixed settings modal reset button which previously only wiped sir_study_ba.
+    (2) Root Remediation: Upgraded calculateGlobalReadiness() in START_HERE.html to read real sir_study keys with fallback; upgraded exportStudyProgress() to dump all student progress; updated resetAllStudyProgress() across all 8 guides via apply_r11_upgrades.py to clean all subjects while preserving user preferences; updated static timetable cards for Day 1 (DS done), Day 2 (SAD done), Day 3 (OR - Tomorrow 10/11 11:30 AM Cairo).
+    (3) Verification: Playwright E2E test verified readiness progression (0% -> 11% with OR pill at 75% -> 0% after reset). scripts/verify.ps1 passed 6/6 checks. Pushed straight to main on commit 5baa090.
+  evidence: guides/START_HERE.html, guides/*.html, scripts/apply_r11_upgrades.py, .sir/CHECKPOINT.md, commit 5baa090 on main.
 - [ ] 2026-11-09 from study (SIR Study - Round 11 Navigation, Settings Modal, RTL/LTR & Windowless Server):
   done:
     (1) Settings Window (Directive 1): Consolidated cluttered top bar controls into ONE unified Settings button (#btn-settings-trigger) across all 8 guides (START_HERE.html + 7 subject guides). Opens a Dynamic Island popover modal (#settings-modal) with spring physics (cubic-bezier(0.32, 0.72, 0, 1)) grouping Appearance, Language & Direction, Study Tools (Pomodoro focus timer, Voice reader), and Data & Offline controls.

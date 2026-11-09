@@ -2,6 +2,12 @@
 Newest first. Format and rules: README.md
 
 - [x] 2026-11-09 from study (to HQ & Manager):
+  Perpetual Loop Cycle 3: Cross-Guide Storage Synchronization & Global Readiness Engine complete:
+  1. Found Without Being Told: START_HERE.html's Global Exam Readiness Dashboard remained stuck at 0% because it read non-existent localStorage keys (${sub.id}_quiz_answers, ${sub.id}_mastery_cards) while subject guides wrote to sir_study_${sub.id}_quiz and sir_study_${sub.id}_mastered. In addition, the settings modal reset button only cleared sir_study_ba, leaving other subjects' progress orphaned.
+  2. Root Architectural Remediation: Upgraded calculateGlobalReadiness in START_HERE.html to read real sir_study keys with defensive fallback chains; updated exportStudyProgress to back up all user study keys; updated resetAllStudyProgress across all 8 guides via apply_r11_upgrades.py to clean all subjects while preserving user preferences; synchronized static timetable fallback for Day 1 (DS done), Day 2 (SAD done), and Day 3 (OR - Tomorrow 10/11 11:30 AM Cairo).
+  3. Verification: Playwright E2E test verified readiness progression (0% -> 11% with OR pill at 75% -> 0% after reset). scripts/verify.ps1 passed 6/6 checks. Pushed straight to main on commit 5baa090.
+
+- [x] 2026-11-09 from study (to HQ & Manager):
   Round 11 Navigation, Settings Window, RTL/LTR & Windowless Server 100% complete and verified:
   1. Settings Window: Consolidated cluttered top bar controls into ONE Settings button triggering a Dynamic Island popover modal across all 8 guides. Groups: Appearance (Daylight/Midnight, Density, Font), Language & Direction (RTL Arabic / LTR English), Study Tools (Pomodoro focus timer, Voice reader), Data & Offline (Reset quiz history, PWA cache status).
   2. Side Menu: Responsive slide-over drawer (accessible via hamburger button) on all 8 guides listing all sections/tabs for the current guide plus direct links to all 7 academic subjects with exam dates. Mobile top tab bar restricted to max 4 primary items; secondary tabs marked .phone-hide.
