@@ -10,7 +10,7 @@ Set WshShell = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
 scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
-opsDir = fso.BuildPath(scriptDir, "..", "ops")
+opsDir = fso.BuildPath(fso.BuildPath(scriptDir, ".."), "ops")
 pyScript = fso.BuildPath(scriptDir, "serve-control-room.py")
 lockFile = fso.BuildPath(opsDir, "control-room.lock")
 cfgFile = fso.BuildPath(opsDir, "pythonw.path")
