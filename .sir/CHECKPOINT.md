@@ -78,3 +78,7 @@
 - Next step: `python D:/Projects/_SIR/scripts/ai-status.py`; then `gh run list --limit 3` in SIR Study and AHome. HQ does not edit this file while ZCode writes in this project.
 - Open promises: r22-study brief (D:/Projects/_SIR/ops/briefs/r22-study.md) queued after r20-study; TickTick update of HQ projects after GLM finishes; C: and D: nearly full (7 GB and 6 GB free).
 - Re-read after a reset: D:/Projects/_SIR/plans/AI_TOOLS_CONTROL.md, D:/Projects/_SIR/ops/briefs/r20-study.md, .sir/R19_CHECKLIST.md.
+
+## HQ note (2026-11-11 01:05)
+- Added hq_watchdog.py (task SIR_HQ_Watchdog, every 10 min) and an hourly HQ cron (session only). Added AHome brief item 12: linked apps (TickTick, Google Tasks) "ربط الحساب" does nothing, must work end to end with OAuth, no private data read by agents. GLM Flash daily quota almost used; ZCode may be idle soon. Autopilot starts a CLI worker on AHome at its next tick (idle 28 min).
+- Next step: read ops/watchdog.log and ai-status.py; if ZCode quota is gone, rotate account via Haiku (approved list in scripts/agy-chooser.py), Full access, send continue.
