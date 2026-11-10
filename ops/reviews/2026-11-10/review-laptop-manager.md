@@ -97,3 +97,8 @@ Fix: read `data.services`, use `is_running` and `category`, add empty and error 
 
 ## What I could not check
 Live Game Mode pause/restore (would stop real services), the live clean, weekly task execution, Arabic RAG score, screenshots at 768/1280/1920 (checked overflow numerically at 320 and ~500/1038; one screenshot at 320 px was inspected), 5-state coverage of every tab.
+
+## Status update (re-checked later on 2026-11-10, after r15 and during r16)
+- Fixed since the review: the 20 broken tests (r15 commit `2cfcf2f`; full suite now 226 passed locally), `/api/game-mode/undo` is in `VALID_POSTS`, the Startup Services panel reads `payload.services`, the fake Telegram `--listen` entry is gone, Game Mode launches daemons with `popen_hidden`, `docs/THREAT_MODEL.md` exists, ruff, ruff format and mypy are clean (101 files).
+- Caveat: several of these fixes are still uncommitted in the working tree (git status shows modified `.gitignore`, `.sir/DESIGN.md`, deleted `.sir/game_services_snapshot.json`). GitHub Actions on `main` was red again on the three r15 commits, failing at the "ruff format" step; the working tree formats clean, so pushing the r16 work should turn it green. Check `gh run list` after the push.
+- Still open (not re-fixed when I looked): Arabic coverage (only 2 `i18n` hits in a now 7,765-line `index.html`), the monolithic `index.html`, hard-coded paths, slow dry-run clean, `rag-eval.md` evidence, route modules named by round. Treat the rest of this file as the open list except items listed as fixed above.

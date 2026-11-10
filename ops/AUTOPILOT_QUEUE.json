@@ -28,5 +28,23 @@
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "Laptop Manager: fix review findings",
     "done": true
+  },
+  {
+    "name": "r16-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs round 16",
+    "done": false
+  },
+  {
+    "name": "r16-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study round 16",
+    "done": false
+  },
+  {
+    "name": "r16-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room round 16",
+    "done": false
   }
 ]

@@ -827,18 +827,7 @@ def parse_gemini_handover(projects):
 
         if private:
             has_mp = True
-            tasks = [
-                "1. Viewport flex column keyboard alignment in messaging UI",
-                "2. Friends Mode camouflage cloak wording refinement",
-                "3. Custom dropdown component replacing native select",
-                "4. Eliminate white focus flashes on tab switches",
-                "5. Responsive arcade HUD computed grid layout",
-                "6. Active-only tab label styling across all navigation bars",
-                "7. Smooth spring physics expansion for voice recording",
-                "8. Safe 7-to-4 page consolidation with redirects",
-                "9. Verified two-way app connection states without mock data",
-                "10. Bespoke project emblem brand verification in top bar",
-            ]
+            tasks = ["Private project: task details stay on its own systems."]
             display_path = "AHome/.sir/MASTER_PLAN.md (protected)"
         elif os.path.isfile(mp_path):
             has_mp = True
