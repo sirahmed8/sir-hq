@@ -23,3 +23,9 @@
 - Next step: `tail -20 ops/agy-runs/cli-r16-jobs.log`; `git status -sb` here (the r15-control worker reported uncommitted files); verify r15-control, r16-study, r16-control against `ops/reviews/2026-11-10/`; then queue the next round with `python scripts/queue-add.py`.
 - Open promises: verification of every overnight and today's claim; Control Room C1 (server serves all of ops/) confirmed fixed by test.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/autopilot.log`.
+
+## HQ note (2026-11-10 14:55)
+- Now: r16-jobs reported done 14:20 (SIR Jobs commit d07076a; claim, unverified). Only r17-ahome-verify is open in the queue (runner log last written 14:44). Owner's phone review of AHome is written as `ops/briefs/PASTE_AHOME_5.txt` (27 items, done signal `r18-ahome-phone`); the owner pastes it into the Antigravity AHome chat himself.
+- Next step: `git -C D:/Projects/_SIR diff --stat` and review the uncommitted Control Room worker files (`plans/generate_dashboard.py`, `plans/dashboard_template.html`, `scripts/agy-worker.py`, dashboard outputs), then commit; then verify r16-jobs, r16-study, r16-control against `ops/reviews/2026-11-10/` (Control Room C1: `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8899/OWNER_ACTIONS.md` must not print 200); then queue the next round with `python scripts/queue-add.py`.
+- Open promises: verify every claim from today and last night; commit the Control Room worker files after review; mark the Antigravity sign-in item done in `ops/OWNER_ACTIONS.md`.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/autopilot.log`, `ops/briefs/PASTE_AHOME_5.txt`.
