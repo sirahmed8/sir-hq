@@ -34,6 +34,8 @@ tools/sir-autonomy/__pycache__/
 ops/control-room-refresh.log
 ops/control-room-server.log
 ops/control-room-health.json
+ops/control-room.lock
+ops/telegram-listener.pid
 _quarantine/
 
 # CLI runner logs: large, local only

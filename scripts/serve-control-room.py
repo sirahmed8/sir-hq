@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """SIR Control Room dashboard server on port 8899.
 Serves only ops/public, binds loopback, and enforces Host allow-list.
+Single-instance guard: named mutex (Windows) + pid file lock + SO_EXCLUSIVEADDRUSE.
 """
 from __future__ import annotations
 
@@ -14,6 +15,9 @@ import threading
 import subprocess
 import socket
 import msvcrt
+import psutil
+import ctypes
+import ctypes.wintypes
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, unquote
 
@@ -28,6 +32,8 @@ PORT = 8899
 HOST = "127.0.0.1"
 ALLOWED_HOSTS = {"127.0.0.1", "localhost", "ahmed.tail9e9aa7.ts.net", "[::1]", "::1"}
 INSTANCE_LOCK_FH = None
+INSTANCE_MUTEX = None
+MUTEX_NAME = "Global\\SIR_ControlRoom_Server_Mutex"
 
 _state_lock = threading.Lock()
 _state = {
@@ -165,9 +171,39 @@ def _host_allowed(raw: str | None) -> bool:
 
 
 def take_instance_lock() -> bool:
-    global INSTANCE_LOCK_FH
+    global INSTANCE_LOCK_FH, INSTANCE_MUTEX
     try:
         os.makedirs(OPS_DIR, exist_ok=True)
+        
+        # Try to create named mutex (Windows cross-process lock)
+        if sys.platform == "win32":
+            kernel32 = ctypes.windll.kernel32
+            INSTANCE_MUTEX = kernel32.CreateMutexW(None, False, MUTEX_NAME)
+            error = kernel32.GetLastError()
+            if error == 183:  # ERROR_ALREADY_EXISTS
+                LOGGER.info("another instance runs (mutex)")
+                return False
+        
+        # Check if lock file exists and the PID is still alive
+        if os.path.exists(LOCK_FILE):
+            try:
+                with open(LOCK_FILE, "r", encoding="utf-8") as f:
+                    pid_str = f.read().strip()
+                if pid_str.isdigit():
+                    pid = int(pid_str)
+                    if psutil.pid_exists(pid):
+                        # Verify it's actually our server process
+                        try:
+                            proc = psutil.Process(pid)
+                            if "serve-control-room.py" in " ".join(proc.cmdline()):
+                                LOGGER.info("another instance runs (PID %s)", pid)
+                                return False
+                        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                            pass
+            except Exception:
+                pass
+        
+        # Create/update lock file with current PID
         INSTANCE_LOCK_FH = open(LOCK_FILE, "a+b")
         msvcrt.locking(INSTANCE_LOCK_FH.fileno(), msvcrt.LK_NBLCK, 1)
         INSTANCE_LOCK_FH.seek(0)
@@ -319,6 +355,15 @@ class Server(ThreadingHTTPServer):
     allow_reuse_address = False
     daemon_threads = True
 
+    def server_bind(self):
+        # On Windows, use SO_EXCLUSIVEADDRUSE to prevent multiple processes binding to same port
+        if sys.platform == "win32":
+            try:
+                self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+            except Exception:
+                pass
+        super().server_bind()
+
 
 def run_refresh_once() -> None:
     flags = 0x08000000 if sys.platform == "win32" else 0
@@ -348,6 +393,25 @@ def heartbeat_loop():
         compute_health_status()
 
 
+def release_instance_lock() -> None:
+    global INSTANCE_LOCK_FH, INSTANCE_MUTEX
+    try:
+        if INSTANCE_LOCK_FH:
+            msvcrt.locking(INSTANCE_LOCK_FH.fileno(), msvcrt.LK_UNLCK, 1)
+            INSTANCE_LOCK_FH.close()
+            INSTANCE_LOCK_FH = None
+        if os.path.exists(LOCK_FILE):
+            os.unlink(LOCK_FILE)
+    except Exception:
+        pass
+    try:
+        if INSTANCE_MUTEX and sys.platform == "win32":
+            ctypes.windll.kernel32.CloseHandle(INSTANCE_MUTEX)
+            INSTANCE_MUTEX = None
+    except Exception:
+        pass
+
+
 def run_server():
     LOGGER.info("SIR Control Room Daemon initializing (PID %s).", os.getpid())
     os.makedirs(PUBLIC_DIR, exist_ok=True)
@@ -375,7 +439,10 @@ def run_server():
 def main():
     if not take_instance_lock():
         return
-    run_server()
+    try:
+        run_server()
+    finally:
+        release_instance_lock()
 
 
 if __name__ == "__main__":
