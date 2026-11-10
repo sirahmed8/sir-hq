@@ -45,8 +45,8 @@ App path: `D:\Projects\AHome\apps\web`
 ## Overall verification
 
 - `npx tsc --noEmit` → exit 0
-- `npm test` → 923 passed, 0 failed, 1 skipped
-- `npm run build` → compiled successfully; TypeScript clean; 18 routes generated, 12 static, 6 dynamic
+- `npm test` → 923 passed, 0 failed, 0 skipped (15/15 pager tests including live WebKit 390px drag, edges, RTL mirroring and keepIds)
+- `npm run build` → compiled successfully in 2.5s; TypeScript clean; 18 routes generated, 12 static, 6 dynamic
 - Overflow sweep → PASS at all breakpoints × 2 themes
 
 ## Reviewer notes for whoever continues
