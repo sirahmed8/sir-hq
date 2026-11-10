@@ -92,3 +92,8 @@
 - Done by HQ in his logged-in Chrome: TickTick developer app "AHome" (client id and redirect URL set), Google Cloud project ahmed-habiba OAuth client "AHome Tasks Sync" (Tasks API was already enabled, consent screen already In production). Ids in _local/ahome-oauth.env (gitignored); brief r21-ahome tells the worker to use them. TickTick read: no dates or countdowns about the two of them exist there; "SIR HQ" project and sprint tasks updated.
 - WhatsApp Web is logged in in his Chrome: first read-only digest sent on Telegram; cron d383b42b every 2 hours (session only).
 - Next step: hourly watch (cron 9b8288f7); WhatsApp digest (cron d383b42b); check r21-ahome progress and CI.
+
+## HQ note (2026-11-11 03:00)
+- Done: leaked Playwright test browsers killed (they read an Arabic law guide aloud), watchdog now kills them after 25 min, worker rule 11 (close and mute browsers) and rule 12 (clean message format) added; AHome brief items 13-14 (events from real calendar data, more integrations, clean Telegram format); events exported to _local/ahome-events-import.json from the owner Google Calendar (birthdays, 4 midterms); crons: hourly watch (9b8288f7), WhatsApp digest every 2h incl. archive, work and job groups (5394854a), morning life brief 07:05 (db14a089). Habobty is the Gmail contact name for Habiba; no folder or note with that name found in Drive, TickTick or local disk.
+- Not done: TickTick "My notes" not read yet (it holds a note with account passwords; need a title-only listing first), Antigravity sign-in, ZCode sign-in.
+- Next step: read My notes by id after listing titles only; update stale TickTick tasks; run Antigravity sign-in with scripts/agy-chooser.py.
