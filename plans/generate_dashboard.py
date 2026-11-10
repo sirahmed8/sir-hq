@@ -525,6 +525,133 @@ def parse_request_ledgers():
     return ledgers
 
 
+def tail_lines(path, n=12):
+    try:
+        with io.open(path, encoding="utf8") as f:
+            return f.read().splitlines()[-n:]
+    except OSError:
+        return []
+
+
+PRIVATE_TASK_RE = re.compile(r"[\w.-]*(?:ahome|habiba)[\w.-]*", re.I)
+
+
+def sanitize_autopilot_text(value):
+    text = str(value)
+    text = PRIVATE_TASK_RE.sub("private-task", text)
+    return text
+
+
+def parse_autopilot():
+    state = {}
+    try:
+        state = json.load(io.open(OPS + "/autopilot_state.json", encoding="utf8")) or {}
+    except Exception:
+        state = {}
+    queue = []
+    try:
+        queue = json.load(io.open(OPS + "/AUTOPILOT_QUEUE.json", encoding="utf8")) or []
+    except Exception:
+        queue = []
+    runners = state.get("runners", {}) if isinstance(state, dict) else {}
+    safe_queue = []
+    for item in queue if isinstance(queue, list) else []:
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "")
+        title = str(item.get("title") or name)
+        private = bool(
+            PRIVATE_TASK_RE.search(name)
+            or PRIVATE_TASK_RE.search(title)
+            or PRIVATE_TASK_RE.search(str(item.get("folder") or ""))
+        )
+        safe_queue.append(
+            {
+                "name": "private-task" if private else name,
+                "title": "Private project task" if private else title,
+                "done": bool(item.get("done")),
+                "private": private,
+            }
+        )
+    pending = [q for q in safe_queue if not q["done"]]
+    return {
+        "listener_pid": state.get("listener_pid") if isinstance(state, dict) else None,
+        "last_tick": state.get("last_tick") if isinstance(state, dict) else None,
+        "runner_count": len(runners) if isinstance(runners, dict) else 0,
+        "queue": safe_queue,
+        "pending": pending,
+        "pending_count": len(pending),
+        "log_tail": [sanitize_autopilot_text(ln) for ln in tail_lines(OPS + "/autopilot.log", 10)],
+    }
+
+
+def parse_account_ledger():
+    rows = []
+    for ln in lines(OPS + "/ACCOUNT_LEDGER.md"):
+        if not ln.strip().startswith("|"):
+            continue
+        cells = [p.strip() for p in ln.strip().strip("|").split("|")]
+        if not cells:
+            continue
+        if cells[0].lower() == "time":
+            continue
+        if all(set(c) <= set("-: ") for c in cells):
+            continue
+        if len(cells) >= 8:
+            rows.append(
+                {
+                    "time": cells[0],
+                    "account": cells[1],
+                    "models": cells[2],
+                    "five_h": cells[3],
+                    "weekly": cells[4],
+                    "five_reset": cells[5],
+                    "weekly_reset": cells[6],
+                    "note": cells[7],
+                }
+            )
+        elif len(cells) == 7:
+            rows.append(
+                {
+                    "time": cells[0],
+                    "account": cells[1],
+                    "models": "—",
+                    "five_h": cells[2],
+                    "weekly": cells[3],
+                    "five_reset": cells[4],
+                    "weekly_reset": cells[5],
+                    "note": cells[6],
+                }
+            )
+        elif len(cells) == 6:
+            rows.append(
+                {
+                    "time": cells[0],
+                    "account": cells[1],
+                    "models": "—",
+                    "five_h": cells[2],
+                    "weekly": cells[3],
+                    "five_reset": cells[4],
+                    "weekly_reset": "—",
+                    "note": cells[5],
+                }
+            )
+        elif len(cells) >= 3:
+            rows.append(
+                {
+                    "time": cells[0],
+                    "account": cells[1],
+                    "models": "—",
+                    "five_h": "—",
+                    "weekly": "—",
+                    "five_reset": "—",
+                    "weekly_reset": "—",
+                    "note": " · ".join(cells[2:]),
+                }
+            )
+    return rows[-10:]
+
+
 def archived_count():
     try:
         r = subprocess.run(
@@ -1199,6 +1326,8 @@ def main():
             },
         ],
         daemon_health=get_control_room_daemon_health(),
+        autopilot=parse_autopilot(),
+        account_ledger=parse_account_ledger(),
     )
 
     data["gemini_handover"] = parse_gemini_handover(projects)
@@ -1251,15 +1380,33 @@ def main():
         if pl in out.lower():
             raise ValueError(f"CRITICAL PRIVACY VIOLATION: Forbidden private string '{pl}' detected in generated dashboard/artifact HTML!")
 
-    # Single source: Write to both website and Claude artifact
+    # Write public site (served) and artifact copy
+    public_dir = os.path.join(OPS, "public")
+    os.makedirs(public_dir, exist_ok=True)
     os.makedirs(os.path.join(OPS, "artifact"), exist_ok=True)
-    site_path = os.path.join(OPS, "dashboard.html")
+    site_path = os.path.join(public_dir, "dashboard.html")
     artifact_path = os.path.join(OPS, "artifact", "control-room.html")
     changed_path = os.path.join(OPS, "artifact", "CHANGED.txt")
 
     io.open(site_path, "w", encoding="utf-8", newline="\n").write(out)
     io.open(artifact_path, "w", encoding="utf-8", newline="\n").write(out)
     io.open(changed_path, "w", encoding="utf-8", newline="\n").write(content_hash + "\n")
+    # copy static assets to public if they exist in ops
+    for asset in ("favicon.ico", "favicon.svg", "manifest.json"):
+        src = os.path.join(OPS, asset)
+        if os.path.isfile(src):
+            try:
+                with open(src, "rb") as fsrc, open(os.path.join(public_dir, asset), "wb") as fdst:
+                    fdst.write(fsrc.read())
+            except Exception:
+                pass
+    # write public health placeholder only if missing; server manages live health
+    health_pub = os.path.join(public_dir, "health.json")
+    if not os.path.exists(health_pub):
+        try:
+            io.open(health_pub, "w", encoding="utf-8").write("{}")
+        except Exception:
+            pass
 
     if not data["artifact_synced"]:
         notify_hq_artifact_outdated(content_hash)
