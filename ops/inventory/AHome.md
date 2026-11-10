@@ -6,7 +6,7 @@ Scanned 2026-10-29, read-only. No installs or builds run. Local files and git on
 Private couple app for Ahmed and Habiba: chat, reminders, study, arcade, memories, local AI companion. Business ops (videos, social, jobs, company): not covered.
 
 ## Build, run, deploy
-- Web: Next.js in apps/web. Last build passed per checkpoint (not re-run). Vercel. Live URL in config: https://ahmed-and-habiba.vercel.app (200 not yet confirmed).
+- Web: Next.js in apps/web. Last build passed per checkpoint (not re-run). Vercel. Live URL in config: https://ahmed-and-private.vercel.app (200 not yet confirmed).
 - Local core: FastAPI on 127.0.0.1:8090, Python 3.14.2 venv in apps/local-core/.venv.
 - Firebase Hosting: redirect-only (firebase-redirect/).
 

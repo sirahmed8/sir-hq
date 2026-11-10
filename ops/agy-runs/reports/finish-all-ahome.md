@@ -91,8 +91,8 @@
   - تأكيد قنوات الإشعارات عبر Dumpsys: 12 قناة فعالة ومفعلة، ومحو القنوات القديمة بالكامل.
   - الصلاحيات: `SCHEDULE_EXACT_ALARM: allow`, `SYSTEM_ALERT_WINDOW: allow`, `deviceidle whitelist`: whitelisted.
 - **النشر الإنتاجي (Production Deployments)**:
-  - Firebase Hosting: منشورة بنجاح على `https://ahmed-habiba.web.app`.
-  - Vercel: منشورة بنجاح على `https://ahmed-and-habiba.vercel.app`.
+  - Firebase Hosting: منشورة بنجاح على `https://ahmed-private.web.app`.
+  - Vercel: منشورة بنجاح على `https://ahmed-and-private.vercel.app`.
 
 ---
 

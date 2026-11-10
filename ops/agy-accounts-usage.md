@@ -60,7 +60,7 @@ Result: no permission was changed. The Tool Permissions page (browser, terminal,
 - Ahmed Alaa <ahmedalaa2006.7.6@gmail.com>
 - mashoyatal3abed@gmail.com
 - Ahmed Alaa <a01083835229@gmail.com>
-- Habiba Gamal <habiba.2011.gsht@gmail.com>
+- account 3
 - Rasha Alaa <rashaalasy40807@gmail.com>
 - Rasha <rashakhalay87@gmail.com>
 - Rasha <rashakhalasi@gmail.com>

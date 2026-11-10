@@ -34,3 +34,7 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 
 ## History
 `ops/archive/HQ_CHECKPOINT_until_2026-11-10.md` (full old file, 131 KB, including the 2026-10-29/30 phase notes, wave 0 PR notes and the old Open promises list). Mission log: `ops/MISSION_LOG.md`.
+
+## Done (r16-control)
+
+- 0da1e8c r16-control task 1: serve only ops/public with host gate

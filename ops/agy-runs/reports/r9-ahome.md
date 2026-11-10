@@ -175,8 +175,8 @@ verify: all green
 ```
 
 ### 7.2 Production Deploys
-- **Firebase Hosting**: `https://ahmed-habiba.web.app` (105 files uploaded, release complete).
-- **Vercel Production**: `https://ahmed-and-habiba.vercel.app` (Aliased, build successful).
+- **Firebase Hosting**: `https://ahmed-private.web.app` (105 files uploaded, release complete).
+- **Vercel Production**: `https://ahmed-and-private.vercel.app` (Aliased, build successful).
 - **Debug APK**: `apps/web/public/downloads/AHome-v1.0.0.apk` (sha256 `2b998707...`, 6.98 MB, installed on connected device).
 
 ---

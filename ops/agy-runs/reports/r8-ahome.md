@@ -106,8 +106,8 @@
   - فحص Gitleaks: 0 تسريبات لأسرار عبر جميع الالتزامات.
   - فحص الخصوصية: 944 ملفاً مفحوصاً وخالياً تماماً من أي محتوى غير مصرح به.
 - **النشر المباشر**:
-  - Firebase Hosting: منشور على `https://ahmed-habiba.web.app`.
-  - Vercel Production: منشور على `https://ahmed-and-habiba.vercel.app`.
+  - Firebase Hosting: منشور على `https://ahmed-private.web.app`.
+  - Vercel Production: منشور على `https://ahmed-and-private.vercel.app`.
   - حزمة APK debug: الإصدار 1.0.0، الحجم 6.98 ميجابايت، sha256 `2b998707...`، مثبتة ومحدثة على هاتف المالك عبر ADB، ومنشورة في التنزيلات العامة.
 
 ---

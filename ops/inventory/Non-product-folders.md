@@ -21,5 +21,5 @@ Tracked: README, AGENTS/CLAUDE/GEMINI (identical 24 KB internal directives, in a
 - Decision: rewrite the README after the portfolio is final (Phase 3.4/8): remove hype, unverifiable claims and emoji headers; untrack the internal directive files from the public repo; AHome is never listed.
 
 ## old projects (top level)
-`SIR Tele Gateway/` 75 MB: private repo (verified), last commit 2026-10-25, 8 uncommitted items, `.venv` with 1,497 files, no retired-note README. Three files hold AIza-format strings (39 chars): `app/index.html:1137`, `web/static/auth-popup.html:116`, `web/static/js/dashboard.js:265` (probably Firebase web config: verify and restrict the key; not printed). `Desktop_SIR_Tele_Gateway/` has 3 .lnk files pointing to a path that no longer exists.
+`SIR Tele Gateway/` 75 MB: private repo (verified), last commit 2026-10-25, 8 uncommitted items, `.venv` with 1,497 files, no retired-note README. Three files hold [removed] strings (39 chars): `app/index.html:1137`, `web/static/auth-popup.html:116`, `web/static/js/dashboard.js:265` (probably Firebase web config: verify and restrict the key; not printed). `Desktop_SIR_Tele_Gateway/` has 3 .lnk files pointing to a path that no longer exists.
 Decision: commit/branch the 8 dirty items, add a pointer README, delete the dead shortcuts and the regenerable `.venv`. Sprint Day 27 decides revive vs archive.

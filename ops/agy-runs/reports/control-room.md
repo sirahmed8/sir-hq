@@ -60,7 +60,7 @@ Every project folder under `D:/Projects` was inspected via `git log --since=2026
 - **Commits:** 93 commits since 2026-11-02 (latest `fb3ce28`, `bb00e9c`, `b5165cf`, `60d7029`, `f4644f0`).
 - **Tests & Verification:** 696 pytest tests pass, 722+ web Vitest tests pass, 0 lint/tsc errors, gitleaks 0, privacy-audit 819 files clean.
 - **Security Check:** `T-014` completed: local web daemon and scripts bound strictly to loopback (`127.0.0.1`), verified by `test_security_bind.py`.
-- **Deployments:** Live on Vercel (`https://ahmed-and-habiba.vercel.app`) and Firebase Hosting (`https://ahmed-habiba.web.app`). Android APK installed on Redmi Note 12 Pro+ over ADB.
+- **Deployments:** Live on Vercel (`https://ahmed-and-private.vercel.app`) and Firebase Hosting (`https://ahmed-private.web.app`). Android APK installed on Redmi Note 12 Pro+ over ADB.
 - **Privacy:** Strict compliance maintained. Zero private strings exposed. Counts and milestone tallies only.
 
 ### SIR Study (Wave 2)

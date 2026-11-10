@@ -39,8 +39,8 @@ During Perpetual Loop Cycle 5 for AHome, a deep-dive audit of offline persistenc
   - Privacy audit: 951 files scanned, 0 denylist matches.
   - Master `scripts/verify.ps1`: **100% all green**.
 - **Deployments**:
-  - Firebase Hosting: `https://ahmed-habiba.web.app` (Release finalized).
-  - Vercel Production: `https://ahmed-and-habiba.vercel.app` (Aliased).
+  - Firebase Hosting: `https://ahmed-private.web.app` (Release finalized).
+  - Vercel Production: `https://ahmed-and-private.vercel.app` (Aliased).
 - **Git Commit**: Pushed straight to `main` in `AHome`.
 
 ---
