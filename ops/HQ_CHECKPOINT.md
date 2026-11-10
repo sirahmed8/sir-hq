@@ -13,6 +13,8 @@ Older blocks (2026-10-29 to 2026-11-10) are in `ops/archive/HQ_CHECKPOINT_until_
 - Installed and logged in by the owner: Devin CLI (free model swe-2-flash-medium) and ZCode (GLM-5.3, free Start plan). Gemini CLI free tier is discontinued; Antigravity (`agy`) and the free CLI agents are the builders.
 - Claude Fable reset reminder: scheduled task SIR_Reminder_Claude_Reset, Wed 2026-11-11 13:00. Press Reset once when weekly usage is about 90%, never later than 2026-11-16.
 
+- 14:10: r15-control, r16-study, r16-control reported done by free CLIs (unverified); r16-jobs and r17-ahome-verify running; Antigravity signed in by the owner and working AHome; Chrome extensions (Claude, SIR Autonomy) installed. Details: `.sir/CHECKPOINT.md` HQ note.
+
 ## Next step (exact)
 1. If Claude is running: read `ops/autopilot.log`, `git log -5` in the queue's project folders and `ops/agy-runs/done/`; review new reports in `ops/agy-runs/reports/`; keep going down the queue.
 2. If a fresh session of any model starts: read this file, `ops/AUTOPILOT_QUEUE.json`, `ops/autopilot.log`, then `plans/CLI_AGENT_INSTRUCTIONS.md`.
@@ -36,5 +38,6 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 `ops/archive/HQ_CHECKPOINT_until_2026-11-10.md` (full old file, 131 KB, including the 2026-10-29/30 phase notes, wave 0 PR notes and the old Open promises list). Mission log: `ops/MISSION_LOG.md`.
 
 ## Done (r16-control)
-
 - 0da1e8c r16-control task 1: serve only ops/public with host gate
+- 42cf9d7 r16-control task 2: redact private email and key patterns from ops
+
