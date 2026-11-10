@@ -33,3 +33,5 @@ Then run the done signal:
 ```bat
 python D:/Projects/_SIR/scripts/agy-done.py r15-jobs ok "phase-1 inbox assistant built; awaiting verification commands above"
 ```
+
+- 2026-11-10 09:50: Antigravity is signed out (Welcome screen). One tap: press "Continue with Google" in Antigravity and choose sir1ahmed2006 (or any free account) in the Chrome chooser. Not blocking: the free CLIs took the AHome verification task (r17-ahome-verify). The SIR Autonomy Chrome extension is also disconnected (click its icon once to reconnect).
