@@ -37,3 +37,11 @@
 - Open promises: verify r16-jobs, r16-study, r16-control (other findings), r15/r16-laptop, r14-ahome; mark the Antigravity sign-in item done in `ops/OWNER_ACTIONS.md`; remove the other person's email from `ops/agy-accounts-usage.md:63`; republish the Control Room artifact.
 - The owner switches this chat to Sonnet 5.5, medium effort, after tonight.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/autopilot.log`, `ops/briefs/r18-ahome-phone.md`.
+
+## HQ note (2026-11-10 21:10)
+- Now: AHome round 15 finish runs on a free CLI (task r18-ahome-phone, started 19:35; local tests 930 pass; it is fixing the red `verify` workflow, then deploy and phone install). Antigravity quota is out on every free account until 2026-11-11 00:04.
+- Verified by HQ today: SIR Jobs r16 (local tests pass, H1 H3 H4 M1 M3 fixed; CI RED on windows Theme Dropdown test, M6 cookie open, 6 files over 300 lines, 66 lint warnings). SIR Study r16 (M2 M4 H1 fixed; CI RED: hard-coded D:/Projects path in button wiring check; exam weekday for 2026-11-12 is Thursday, checkpoint says Wednesday). Control Room: 11 stale server copies killed, one listener now, /OWNER_ACTIONS.md 404.
+- Queued for the CLIs (autopilot, 2 at once): r19-study, r19-jobs, r19-control (briefs in ops/briefs/r19-*.md).
+- Next step: when ops/autopilot.log shows "task done: r18-ahome-phone", read its report, run `gh run list` in AHome, open both live addresses. Then verify each r19 task the same way (CI green is the gate) and queue r20.
+- Open promises: republish Control Room artifact after r19-control; verify r15/r16-laptop; ZCode via Haiku operator before 2026-11-14; Telegram approval end-to-end check.
+- Owner plan: this chat returns to Sonnet 5.5 medium after the weekly reset.

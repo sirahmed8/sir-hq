@@ -58,5 +58,23 @@
     "folder": "D:/Projects/AHome",
     "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
     "done": false
+  },
+  {
+    "name": "r19-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
+    "done": false
+  },
+  {
+    "name": "r19-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
+    "done": false
+  },
+  {
+    "name": "r19-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+    "done": false
   }
 ]

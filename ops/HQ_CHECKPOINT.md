@@ -45,3 +45,11 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - 14:50 r16-jobs reported done 14:20 (commit d07076a, claim, unverified). Owner phone review of AHome written as ops/briefs/PASTE_AHOME_5.txt (27 items, done signal r18-ahome-phone); owner pastes it into the Antigravity AHome chat. Still open: verify today claims; Control Room worker files in _SIR are uncommitted (generate_dashboard.py, dashboard_template.html, agy-worker.py and outputs): review then commit.
 
 - 19:30 Antigravity free accounts all out. AHome r15 items 1-23 committed by Antigravity (claims), 24-27 open: queued r18-ahome-phone for CLIs. Control Room C1 verified fixed after stopping 11 stale server copies (404 on ops files). Worker files committed. Details: .sir/CHECKPOINT.md 19:30 note.
+
+## HQ note (2026-11-10 21:10)
+- Now: AHome round 15 finish runs on a free CLI (task r18-ahome-phone, started 19:35; local tests 930 pass; it is fixing the red `verify` workflow, then deploy and phone install). Antigravity quota is out on every free account until 2026-11-11 00:04.
+- Verified by HQ today: SIR Jobs r16 (local tests pass, H1 H3 H4 M1 M3 fixed; CI RED on windows Theme Dropdown test, M6 cookie open, 6 files over 300 lines, 66 lint warnings). SIR Study r16 (M2 M4 H1 fixed; CI RED: hard-coded D:/Projects path in button wiring check; exam weekday for 2026-11-12 is Thursday, checkpoint says Wednesday). Control Room: 11 stale server copies killed, one listener now, /OWNER_ACTIONS.md 404.
+- Queued for the CLIs (autopilot, 2 at once): r19-study, r19-jobs, r19-control (briefs in ops/briefs/r19-*.md).
+- Next step: when ops/autopilot.log shows "task done: r18-ahome-phone", read its report, run `gh run list` in AHome, open both live addresses. Then verify each r19 task the same way (CI green is the gate) and queue r20.
+- Open promises: republish Control Room artifact after r19-control; verify r15/r16-laptop; ZCode via Haiku operator before 2026-11-14; Telegram approval end-to-end check.
+- Owner plan: this chat returns to Sonnet 5.5 medium after the weekly reset.

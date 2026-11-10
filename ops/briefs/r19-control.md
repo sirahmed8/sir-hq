@@ -1,0 +1,11 @@
+SIR Control Room, round 19 (2026-11-10). Folder D:/Projects/_SIR. Read AGENTS.md and .sir/CHECKPOINT.md (the last HQ note) first.
+
+Rules: no pull requests, commit and push to main after every item. No emoji. Nothing about the private data of AHome or its people in any dashboard, log or artifact. Do not touch ops/briefs, ops/AUTOPILOT_QUEUE.json, scripts/hq_autopilot.py or scripts/cli-run2.sh.
+
+1. Today HQ found 11 copies of scripts/serve-control-room.py running at once on port 8899; the old copies still ran old code and served every file under ops/. Cause: the scheduled task SIR_ControlRoom_Server (wscript scripts/dev-start.vbs) starts a new copy every time and Windows lets several processes listen on the same port. Fix: the server must refuse to start when another copy is alive (a pid file checked against the live process list, plus SO_EXCLUSIVEADDRUSE on the socket), and the start script must not launch a second copy. Add a test that starts two copies and asserts the second exits. Proof in the report: process count is 1 after running the task three times; `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8899/OWNER_ACTIONS.md` prints 404.
+2. `git status` shows ops/control-room.lock as modified and unreadable ("Permission denied") on every commit. It is a runtime file: remove it from git (`git rm --cached`) and add it to .gitignore, same for any other runtime lock or pid file under ops/.
+3. Read ops/reviews/2026-11-10/review-control-room.md fully. For every finding write one line in .sir/R19_CHECKLIST.md: fixed (file and line as proof) or still open, and fix every one still open.
+4. ops/agy-accounts-usage.md line 63 contains the email address of a person who is not the owner. Replace it with a neutral label ("family account 4") there and anywhere else it appears in tracked files.
+5. Open ops/public/dashboard.html in a browser at 390 px and 1280 px, Arabic and English, light and dark. Every number must match its source file today (queue, tasks, CI state of each repo from `gh run list`). Projects whose CI is red must show red, not "ok". Ship at least 10 visible improvements with before and after screenshots under .sir/evidence/r19/.
+
+Finish: regenerate the dashboard with plans/generate_dashboard.py, update .sir/CHECKPOINT.md by appending a note (do not delete HQ notes), append one line to ops/bus/sir-hq.md, commit and push.

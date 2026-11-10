@@ -271,3 +271,4 @@
 - 2026-11-10 09:30 HQ: after the usage reset: autopilot finished r14-ahome, r15-laptop, r15-jobs, r16-laptop overnight on free CLIs (unverified); allowlist extended; operator18 signing Antigravity in for the AHome verification brief; reviewers resumed; account switching answer written in ACCOUNT_ROTATION.md.
 - 2026-11-10 14:10 HQ: status to owner; queue 3 of 5 done by free CLIs (unverified), r16-jobs and r17-ahome-verify running; Antigravity signed in by owner.
 - 2026-11-10 19:30 HQ: Antigravity quota out; AHome round 15 remainder queued to CLIs (r18-ahome-phone); Control Room C1 verified fixed; worker files committed.
+2026-11-10 21:10 HQ: verified r16 jobs and study (both CI red, briefs written), queued r19-study, r19-jobs, r19-control; AHome r18 running on CLI.
