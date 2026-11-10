@@ -1,0 +1,52 @@
+AHome, round 15 (2026-11-10): owner's phone review. Read AGENTS.md and .sir/CHECKPOINT.md first. Finish what is left of your current round, then do this list in order.
+
+Rules: source under apps/ only. Never open the vault, messages, notes or photos. No private data leaves this machine or goes into commits, logs or screenshots sent anywhere. No pull requests: commit and push to main after every item. Version stays 1.0.0. Run `git pull --rebase` before each item; never revert another tool's edits. Write the list below into .sir/R15_CHECKLIST.md and tick an item only after you saw it working on a 390 px phone screen (iPhone Safari PWA and the Android device), in Arabic (RTL) and English, light and dark. Save one screenshot per item under .sir/evidence/r15/ (UI only, no private content).
+
+The owner tested on his iPhone today. Every item below is something he saw broken or does not like.
+
+A. Tab bars (every page that has a top or bottom tab bar: settings, the couple page, AI page, chat, emoji panel)
+1. When a bar has few tabs, the tabs start from the right and the left side is empty. Center the group of tabs inside the bar, in RTL and LTR.
+2. The active tab stretches to fill the bar when its text is short and there are few tabs (seen on the couple page: one tab as wide as the whole bar). The active tab must be only as wide as its icon plus its text plus normal padding. Never stretch a tab.
+3. Make this one shared tab bar component so every bar behaves the same. When tabs do not fit, the bar scrolls sideways and the active tab scrolls into view.
+
+B. Naming and the "Our life" page
+4. Rename the tab label "قصتنا" to "مهامنا" (and the English label to match: "Our tasks"). Check every place the old word appears, including translations and page titles.
+5. Rename the page "نحن" to "حياتنا" ("Our life") everywhere: navigation, titles, routes labels, translations.
+6. Rebuild "حياتنا" as the main home of everything about the couple's life. It keeps everything that is in the old page today, nothing removed, but organized: clear sections, one purpose per section, nothing overlapping or nested inside something unrelated, every section reachable in at most two taps. Before coding, write the section map (what goes where and why) into .sir/plans/r15-our-life.md, then build it. Simple, tidy, easy to reach, same design language as the rest of the app.
+
+C. Home page cards
+7. The care card at the top of the home page touches the card under it. Add the standard vertical gap used between the other cards (check all home cards for the same defect).
+8. Remove the green status pill "بخير وعافية" from that card.
+9. The lectures and lessons card: the two-option switch wraps its labels onto two lines at 390 px and squeezes the title. Make it fit on one line or move it under the title.
+
+D. AI page
+10. The message box still does not rise above the keyboard on iPhone. When the keyboard opens, the box must sit directly above it and the last message must stay visible. Use the visualViewport API (resize and scroll events) and safe-area insets; test in the installed PWA, not only in a desktop browser.
+11. With the keyboard closed, the message box is cropped at the bottom behind the bottom navigation bar. The whole box, including its bottom border and the send button, must be visible above the navigation bar.
+12. Apply the same two fixes to the normal chat page and verify both.
+
+E. Emoji, stickers and GIF panel (all three tabs)
+13. The panel has not been updated: its colors do not match the app themes. Rebuild it with the theme tokens so it follows every theme, light and dark.
+14. The three tabs are old and unpolished. Redesign all three to the current design language: calmer, less crowded. The stickers and GIF tabs feel overdone: smaller tiles, less decoration, no long text labels under each tile, fewer category chips on screen at once.
+15. GIF tiles that show "THIS CONTENT IS NOT AVAILABLE" must never appear: detect failed or removed GIFs and hide them, and show a proper loading skeleton and an empty state.
+16. The message box must stay visible and usable while the panel is open (like a keyboard: the panel sits under the box). Today the box disappears behind the dark background.
+17. The panel opens and closes with the same spring animation as the rest of the app.
+
+F. Message context menu (long press on a message)
+18. It is still broken: on long press and release it appears and then disappears. It must open on long press, stay open after the finger lifts, and close only on tapping outside, choosing an action, or pressing back.
+19. It must open with a spring animation growing from the pressed message (scale and fade from the bubble), and close back into it. The pressed message stays visible above or below the menu and the menu never goes off screen.
+20. No text selection, no iOS callout and no page scroll during the long press.
+
+G. Reply and voice recording
+21. Reply to a message: the reply preview must grow out of the message box with a spring animation, like the dynamic island, and shrink back into it when cancelled. Today it appears with no animation.
+22. Voice recording: opening the recorder must use the same grow-from-the-box animation, and it is still not smooth, especially when closing or cancelling the recording. Fix opening, cancelling, and sending so none of them jumps or flickers. Target 60 fps on the phone: animate transform and opacity only.
+
+H. Find more yourself
+23. The owner said the app still needs many more fixes than the ones he listed. After items 1 to 22, walk every page on a 390 px phone screen and find at least 15 more visible defects (things touching, cropped, off center, wrong theme colors, missing animation, leftover old words, dead buttons). Fix them and list each one with before and after under "Found without being told" in .sir/CHECKPOINT.md.
+
+I. Ship it
+24. `npx tsc --noEmit` and `npm test` pass with zero errors.
+25. Open the GitHub Actions page of the repo with `gh run list --limit 10`; every workflow on main must be green. Fix any failing workflow, do not disable it.
+26. Deploy the web app to Firebase Hosting and to Vercel. Open both live addresses after the deploy and confirm the new build is the one served (check a string changed in this round, for example the "حياتنا" title). Write both addresses and the result in the checkpoint.
+27. Build the Android app and install it on the Android device connected to this laptop: `adb devices` must list it, then `adb install -r <apk>`. Open the app on the device and check items 1, 10, 16 and 18 there. If no device is listed, say so in the checkpoint and continue.
+
+Finish: update .sir/CHECKPOINT.md (Now, exact Next step, Open promises), append one line to D:/Projects/_SIR/ops/bus/sir-hq.md with the counts (items done, items not done and why, extra defects fixed, deploy and install results), commit and push. Then run: python D:/Projects/_SIR/scripts/agy-done.py r18-ahome-phone

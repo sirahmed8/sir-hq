@@ -41,3 +41,5 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - 0da1e8c r16-control task 1: serve only ops/public with host gate
 - 42cf9d7 r16-control task 2: redact private email and key patterns from ops
 
+
+- 14:50 r16-jobs reported done 14:20 (commit d07076a, claim, unverified). Owner phone review of AHome written as ops/briefs/PASTE_AHOME_5.txt (27 items, done signal r18-ahome-phone); owner pastes it into the Antigravity AHome chat. Still open: verify today claims; Control Room worker files in _SIR are uncommitted (generate_dashboard.py, dashboard_template.html, agy-worker.py and outputs): review then commit.
