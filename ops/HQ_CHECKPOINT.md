@@ -75,3 +75,9 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Owner screenshots analysed and turned into briefs: r22-laptop, r22-control, r22-jobs, r22-study (queued after r21-ahome and r20-study). ZCode (GLM-5.3 Max, Full access, workspace D:\Projects) was blocked by the provider content filter while writing graded-work refusal patterns for SIR Study (reason=content_filter, not a quota). Haiku operator asked to stop that chat and start r21-ahome in ZCode; CLI runner on AHome stopped (one writer per project).
 - Owner request, not started: after GLM finishes, update TickTick (his own projects: Daily/Weekly/Monthly routine, My life, Yearly goals, 2026 Goals, 30-Day Projects Sprint, notes) with current plans and tasks. Dates about the two of them go into the app events from real data inside the app only (sync feature built in AHome); HQ and outside agents must not read that data (AHome privacy line).
 - Next step: python scripts/ai-status.py; read the Haiku result; check gh run list in AHome and Study.
+
+## HQ note (2026-11-11 00:55)
+- Now: ZCode (GLM-5.3 Flash after the Max quota ended) writes in SIR Study under brief r20-study (commits every ~10 min, CI green). AHome has no writer since 00:33 (CLI worker stopped by HQ); the autopilot restarts a CLI worker there after 25 minutes idle. Owner wants GLM on AHome: proposal pending, Haiku operator would open a new ZCode chat there and the CLI would take Study.
+- Next step: `python D:/Projects/_SIR/scripts/ai-status.py`; then `gh run list --limit 3` in SIR Study and AHome. HQ does not edit this file while ZCode writes in this project.
+- Open promises: r22-study brief (D:/Projects/_SIR/ops/briefs/r22-study.md) queued after r20-study; TickTick update of HQ projects after GLM finishes; C: and D: nearly full (7 GB and 6 GB free).
+- Re-read after a reset: D:/Projects/_SIR/plans/AI_TOOLS_CONTROL.md, D:/Projects/_SIR/ops/briefs/r20-study.md, .sir/R19_CHECKLIST.md.
