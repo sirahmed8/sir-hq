@@ -49,3 +49,8 @@ Read in this order: `_SIR/START_HERE.md`, this file, `ops/HQ_CHECKPOINT.md` (las
 | Qwen CLI | broken install (`cli.js` missing) | reinstall with npm and a browser login by the owner if wanted |
 | Codex CLI | not callable from this shell (wrapper points at a missing file) | repair before use; reset date unknown |
 Rule: one writer per project at any time (CLI runner OR ZCode OR Antigravity). The autopilot treats any commit or edit in the last 25 minutes as "someone is working" and starts nothing.
+
+## 8. Owner rules added 2026-11-10 night
+- ZCode (and any app-based agent): the workspace is the whole `D:\Projects` folder, never one project, so every agent sees every project and reads the file it is told to read. The owner already set this up in ZCode. The brief names the project folder to work in.
+- Permissions: agents get full access (ZCode "Full access", Devin `--permission-mode dangerous`, Kilo `--auto`) so they never stop to ask for approval. The owner decided this; the limits that remain are the laws in `D:/Projects/AGENTS.md` (private data, no secrets in git, no payments, no sign-in tricks).
+- One writer per project at a time still applies (two agents editing one folder overwrite each other).
