@@ -10,6 +10,12 @@ Quota is watched for ALL accounts and tools; nothing may stop. Use the first lin
 6. The paid reserve account a01083835229: Gemini 4 Argon (weekly only, no 5-hour window), then Claude Sonnet 5.5 or Opus 5.5 (burns out in minutes: ONE chat at a time, hardest tasks only). Never Claude 4.x.
 7. Codex (read its reset date into `ACCOUNT_LEDGER.md`), very late.
 8. HQ (Claude manager) last and sparingly.
+
+## How switching happens without the owner (answer to Ahmed, 2026-11-10)
+- CLI agents: automatic. `scripts/cli-run2.sh` moves Kilo, then OpenCode, then Devin CLI when one reports a limit; the autopilot retries every 60 minutes when all three are out. Nobody has to be awake.
+- Antigravity: half automatic. It has no command-line account switch, so a Haiku operator (lowest effort) clicks Sign in and then runs `python scripts/agy-chooser.py <email>`, which picks the account in Chrome's chooser without a password. The script accepts only the owner's accounts in its `APPROVED_OWNER_ACCOUNTS` list (the four Pro accounts, the second-profile free accounts, mashoyatal3abed). Usage read at each switch goes in `ops/agy-accounts-usage.md`.
+- When Claude is gone (about 2026-11-23): the CLI path keeps working alone. For Antigravity the owner taps the account himself (one tap in the chooser), or any tool with screen control follows the steps under "Steps" below.
+
 Rotation thresholds: switch an Antigravity account at 15 percent left in the 5-hour window, or when the weekly figure is 10 percent or less, even while chats are working.
 Who operates the screen: a Haiku operator at the lowest effort, never HQ itself. After a switch: type "continue" in EVERY chat and press ctrl+Return so it sends at once; press Retry on any error.
 SAVE RULE (all chats, all tools): commit, push and checkpoint after every finished step, so a model switch or a quota cut never loses work.

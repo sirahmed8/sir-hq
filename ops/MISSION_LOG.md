@@ -266,3 +266,4 @@
 - 2026-11-10 HQ: CLI loop paused (owner uses Antigravity free accounts first); web research allowed; profile-switch plan (Haiku, computer use) written.
 - 02:53 HQ: autopilot (SIR_HQ_Autopilot) + telegram buttons + queue (r14-ahome, r15-laptop, r15-jobs, r15-control) + reminder task installed; owner asleep.
 - 2026-11-10 04:40 HQ: instructions audit closed (generators guarded), owner standing requests digest written (ops/OWNER_STANDING_REQUESTS.md), Haiku operator rotating free Antigravity accounts for AHome r14, three review agents still running.
+- 2026-11-10 09:30 HQ: after the usage reset: autopilot finished r14-ahome, r15-laptop, r15-jobs, r16-laptop overnight on free CLIs (unverified); allowlist extended; operator18 signing Antigravity in for the AHome verification brief; reviewers resumed; account switching answer written in ACCOUNT_ROTATION.md.
