@@ -64,3 +64,9 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Found why rounds failed: free quotas hit by both tasks at once, Devin in smart mode refused all tool calls, workers used bash syntax in PowerShell and left main broken. Fixed: scripts/cli_pool.py (shared model pool with cooldowns, 12 free models), scripts/cli-run2.sh rewritten, ops/WORKER_PREAMBLE.md, kilo and opencode configs load the manual, scripts/ai-status.py, plans/AI_TOOLS_CONTROL.md.
 - r19-jobs and r19-control restarted 23:11 on Devin (dangerous mode); autopilot restarted 23:16 with the new runner pids.
 - Next step: run python scripts/ai-status.py; check r19-jobs/r19-control progress and that gh run list in SIR Jobs turns green; then r20-study starts by itself.
+
+## HQ note (2026-11-10 23:55)
+- Now: queue order r21-ahome (CLI pool, owner second phone review plus self-audit loop), r19-jobs, r19-control, r20-study (ZCode via a Haiku operator was asked to start it; result not yet known). One writer per project.
+- Next step: run `python scripts/ai-status.py`; read the Haiku operator result for ZCode; check `gh run list` in SIR Jobs and AHome; confirm .sir/plans/r21-tabs.md exists in AHome (HQ guard blocks reading AHome files from this chat, ask the AHome worker or its report).
+- Open promises: Antigravity quota returns 2026-11-11 00:04 (use the 19 accounts via ops/ACCOUNT_ROTATION.md); repair Codex and Qwen CLIs; republish Control Room artifact after r19-control; verify r15/r16-laptop.
+- Re-read after a reset: plans/AI_TOOLS_CONTROL.md, ops/WORKER_PREAMBLE.md, ops/briefs/r21-ahome.md, scripts/cli_pool.py.
