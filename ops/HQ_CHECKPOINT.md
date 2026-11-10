@@ -70,3 +70,8 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Next step: run `python scripts/ai-status.py`; read the Haiku operator result for ZCode; check `gh run list` in SIR Jobs and AHome; confirm .sir/plans/r21-tabs.md exists in AHome (HQ guard blocks reading AHome files from this chat, ask the AHome worker or its report).
 - Open promises: Antigravity quota returns 2026-11-11 00:04 (use the 19 accounts via ops/ACCOUNT_ROTATION.md); repair Codex and Qwen CLIs; republish Control Room artifact after r19-control; verify r15/r16-laptop.
 - Re-read after a reset: plans/AI_TOOLS_CONTROL.md, ops/WORKER_PREAMBLE.md, ops/briefs/r21-ahome.md, scripts/cli_pool.py.
+
+## HQ note (2026-11-11 01:00)
+- Owner screenshots analysed and turned into briefs: r22-laptop, r22-control, r22-jobs, r22-study (queued after r21-ahome and r20-study). ZCode (GLM-5.3 Max, Full access, workspace D:\Projects) was blocked by the provider content filter while writing graded-work refusal patterns for SIR Study (reason=content_filter, not a quota). Haiku operator asked to stop that chat and start r21-ahome in ZCode; CLI runner on AHome stopped (one writer per project).
+- Owner request, not started: after GLM finishes, update TickTick (his own projects: Daily/Weekly/Monthly routine, My life, Yearly goals, 2026 Goals, 30-Day Projects Sprint, notes) with current plans and tasks. Dates about the two of them go into the app events from real data inside the app only (sync feature built in AHome); HQ and outside agents must not read that data (AHome privacy line).
+- Next step: python scripts/ai-status.py; read the Haiku result; check gh run list in AHome and Study.
