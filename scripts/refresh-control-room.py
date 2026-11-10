@@ -18,9 +18,28 @@ CHANGED_FILE = os.path.join(OPS_DIR, "artifact", "CHANGED.txt")
 PUBLISHED_FILE = os.path.join(OPS_DIR, "artifact", "PUBLISHED.txt")
 
 CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+LOG_MAX_BYTES = 1_000_000
+LOG_BACKUPS = 3
+
+
+def rotate_log_if_needed():
+    try:
+        if not os.path.exists(LOG_FILE) or os.path.getsize(LOG_FILE) < LOG_MAX_BYTES:
+            return
+        oldest = f"{LOG_FILE}.{LOG_BACKUPS}"
+        if os.path.exists(oldest):
+            os.remove(oldest)
+        for i in range(LOG_BACKUPS - 1, 0, -1):
+            src = f"{LOG_FILE}.{i}"
+            if os.path.exists(src):
+                os.replace(src, f"{LOG_FILE}.{i + 1}")
+        os.replace(LOG_FILE, f"{LOG_FILE}.1")
+    except Exception:
+        pass
 
 
 def log(msg: str):
+    rotate_log_if_needed()
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted = f"[{now_str}] {msg}"
     try:

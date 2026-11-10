@@ -53,3 +53,4 @@ scratch/
 .sir/LAST_CONTEXT.md
 .sir/.memory/
 ops/serve-control-room.out
+ops/pythonw.path
