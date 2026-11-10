@@ -7,17 +7,18 @@
 // One instance only: the pid is written to ops/telegram-listener.pid (hq_autopilot.py restarts it when it dies).
 // Usage: node telegram-inbox.mjs   (runs until stopped; long-polls the Bot API)
 import { execFile, execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
 
 const OPS = 'D:/Projects/_SIR/ops';
 const OFFSET_FILE = `${OPS}/telegram-offset.txt`;
 const INBOX = `${OPS}/bus/ahmed-telegram.md`;
 const ACTIONS = `${OPS}/telegram-actions.json`;
 const APPROVALS = `${OPS}/approvals.jsonl`;
+const APPROVALS_JSON = `${OPS}/bus/approvals.json`;
 const PID_FILE = `${OPS}/telegram-listener.pid`;
 const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
 const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
-const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'قايمة الشغل=queue', 'تنضيف المساحة=clean_disk'];
+const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off'];
 
 function userEnv(name) {
   if (process.env[name]) return process.env[name];
@@ -69,6 +70,26 @@ async function runAction(name) {
   } finally { running.delete(name); }
 }
 
+function readApprovals() {
+  try { return JSON.parse(readFileSync(APPROVALS_JSON, 'utf8')); } catch { return []; }
+}
+
+function recordApproval(id, answer) {
+  const rows = readApprovals();
+  const now = new Date().toISOString();
+  const existing = rows.find((row) => row && row.id === id);
+  if (existing) {
+    existing.answer = answer;
+    existing.status = answer;
+    existing.answered_at = now;
+  } else {
+    rows.push({ id, text: null, status: answer, answer, created_at: now, answered_at: now });
+  }
+  const tmp = APPROVALS_JSON + '.tmp';
+  writeFileSync(tmp, JSON.stringify(rows, null, 2) + '\n', 'utf8');
+  try { renameSync(tmp, APPROVALS_JSON); } catch { writeFileSync(APPROVALS_JSON, JSON.stringify(rows, null, 2) + '\n', 'utf8'); }
+}
+
 async function handleButton(cq) {
   if (String(cq.message?.chat?.id) !== String(chatId) || String(cq.from?.id) !== String(chatId)) return;
   const data = String(cq.data || '').slice(0, 80);
@@ -80,6 +101,15 @@ async function handleButton(cq) {
   if (approval) {
     const answer = approval[1] === 'ok' ? 'approved' : 'rejected';
     appendFileSync(APPROVALS, JSON.stringify({ id: approval[2], answer, at: new Date().toISOString() }) + '\n');
+    recordApproval(approval[2], answer);
+    await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
+    await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    return;
+  }
+  const appApproval = /^(approve_ok|approve_no):([\w.-]{1,50})$/.exec(data);
+  if (appApproval) {
+    const answer = appApproval[1] === 'approve_ok' ? 'approved' : 'rejected';
+    recordApproval(appApproval[2], answer);
     await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
     await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
     return;

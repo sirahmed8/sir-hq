@@ -43,3 +43,5 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 
 
 - 14:50 r16-jobs reported done 14:20 (commit d07076a, claim, unverified). Owner phone review of AHome written as ops/briefs/PASTE_AHOME_5.txt (27 items, done signal r18-ahome-phone); owner pastes it into the Antigravity AHome chat. Still open: verify today claims; Control Room worker files in _SIR are uncommitted (generate_dashboard.py, dashboard_template.html, agy-worker.py and outputs): review then commit.
+
+- 19:30 Antigravity free accounts all out. AHome r15 items 1-23 committed by Antigravity (claims), 24-27 open: queued r18-ahome-phone for CLIs. Control Room C1 verified fixed after stopping 11 stale server copies (404 on ops files). Worker files committed. Details: .sir/CHECKPOINT.md 19:30 note.

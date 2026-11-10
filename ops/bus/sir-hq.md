@@ -275,3 +275,171 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-10 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash a8b0013f)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b806bfcc)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 480724ea)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f15f2ad3)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash ca4abffa)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7ca127aa)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 14d1998e)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2242bc91)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3f25ee38)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2bd424ab)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8cbbe88a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8fba8c9a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0665dc93)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 28f048d8)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5d9c8017)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 80cffb10)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash bd706fa3)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 11d348e5)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 96ce044e)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 61e9150f)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 379c4244)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash ee9aad2f)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 94a949ec)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9bb7b93c)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9c4ea825)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f1fe16f9)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 78869a3d)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 4a7ea65c)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 75b1793a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 195c5781)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 6e81b0e8)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1a7000b7)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash bb4d3994)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d0e1bbfb)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 32ecd217)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 706c59f0)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 22ad19b4)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7dff15c1)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7f336e19)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash fea4f108)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f6256bfd)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 54cf65cf)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 242183b6)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 001cd976)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5cf2fdb9)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash cf5731f7)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 166d4359)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 06a807ec)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1ab50126)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash dc791586)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2d7799db)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash fc3468cb)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash aee35f8a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5b87261e)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f95f2d10)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a3f65260)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 47b6ec1a)

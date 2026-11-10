@@ -11,6 +11,9 @@ import os
 import re
 import subprocess
 import sys
+from datetime import date
+from status_rules import state_for
+from dashboard_privacy import assert_no_private_leaks
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -66,280 +69,6 @@ WAVE_NAMES_AR = {
     8: "إضافي، في النهاية",
 }
 
-PROJECT_TRUTH = {
-    "sir-study": {
-        "status": "verified",
-        "verified_today": True,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 9)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
-        "control_note_en": "Verified by control: SAD Exam simulation active on port 3300, 8 guides verified with daylight toggles, and cross-review conducted on SIR Jobs (xreview-jobs-by-study.md).",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: محاكاة امتحان تحليل النظم مفعلة على المنفذ 3300، وتأكيد أزرار التبديل في كافة الأدلة الـ 8، وإنجاز تقرير المراجعة المتبادلة لمنظومة الوظائف بدقة.",
-        "name_ar": "منصة المذاكرة الذكية",
-        "exists_en": "SAD Exam Cram Capsule (25Q simulation exam, live countdown timer to 11:30 AM Cairo, score analytics, responsive mobile layout on port 3300).",
-        "exists_ar": "كبسولة مراجعة ومحاكاة امتحان تحليل وتصميم النظم (25 سؤالاً تدريبياً، عداد تنازلي لموعد الامتحان 11:30 ص، تقييم الدرجات، وتصميم متوافق مع الموبايل على المنفذ 3300).",
-        "verified_en": "Verified live in browser on port 3300 (sad.html), passing unit tests, GitHub Actions CI green.",
-        "verified_ar": "تم التحقق الفعلي عبر المتصفح على المنفذ 3300، واجتياز كافة الاختبارات الآلية، وفحص GitHub CI ناجح 100%.",
-        "missing_en": "Full academic curriculum modules beyond SAD, persistent exam history database, authentication.",
-        "missing_ar": "باقي المواد الدراسية، قاعدة بيانات دائمة لتخزين نتائج الاختبارات، ونظام تسجيل الدخول.",
-        "mission_ar": "كبسولات مراجعة مكثفة وامتحانات تدريبية تفاعلية للطلاب، متوافقة كلياً مع الهواتف الذكية.",
-    },
-    "sir-jobs": {
-        "status": "verified",
-        "verified_today": True,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 9)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
-        "control_note_en": "Verified by control: 86 automated tests pass, sovereign review server active on port 3456, Round 9 cross-review findings logged by Study in xreview-jobs-by-study.md.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: اجتياز 86 اختباراً آلياً، استقرار خادم المراجعة على المنفذ 3456، وتوثيق ملاحظات المراجعة المتبادلة للجولة 9 بدقة.",
-        "name_ar": "منظومة إدارة فرص العمل",
-        "exists_en": "Staged job opportunities pipeline, target company intelligence, salary benchmarks, sovereign review UI running on port 3456.",
-        "exists_ar": "منظومة معالجة وتصنيف فرص العمل، بيانات الشركات المستهدفة، ومؤشرات الرواتب مع واجهة تحكم ومراجعة محلية على المنفذ 3456.",
-        "verified_en": "86 unit/integration tests passing 100%, server active on port 3456, GitHub Actions CI passing.",
-        "verified_ar": "اجتياز 86 اختباراً آلياً بنسبة 100%، استقرار عمل الخادم على المنفذ 3456، وفحص GitHub CI ناجح.",
-        "missing_en": "Live auto-apply worker integration, external job portal sync APIs, production email dispatching.",
-        "missing_ar": "الربط المباشر مع منصات التوظيف الخارجية، التقديم الآلي، وإرسال الرسائل الحية للشركات.",
-        "mission_ar": "إدارة الفرص الوظيفية للمهندس أحمد علاء، والتقديم ومتابعة المقابلات بأمان واستقلالية.",
-    },
-    "ahome": {
-        "status": "verified",
-        "verified_today": True,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 9)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
-        "control_note_en": "Verified by control: Round 9 self-review complete, partner summary consent switch verified, 12 Arabic notification channels active, 0 leaks across 944 files.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: إتمام المراجعة الذاتية للجولة 9، تأكيد زر مشاركة الملخص، تفعيل 12 قناة إشعارات عربية، وخلو 944 ملفاً من أي تسريب.",
-        "name_ar": "منظومة المنزل والخصوصية (AHome)",
-        "exists_en": "Private home management suite, local sync daemons, encrypted state sync, offline-first storage.",
-        "exists_ar": "منظومة إدارة المنزل والخصوصية التامة، خوادم مزامنة محلية، ومزامنة مشفرة تعمل بدون إنترنت.",
-        "verified_en": "941 test suite passing 100%, background daemons active and syncing locally with zero leaks.",
-        "verified_ar": "اجتياز 941 اختباراً بنسبة 100%، وتشغيل خوادم المزامنة المحلية بنجاح تام وبدون أي تسريب للبيانات.",
-        "missing_en": "Multi-device biometric sync hardening, private cloud backup encryption verification.",
-        "missing_ar": "تدقيق المزامنة الحيوية عبر الأجهزة المتعددة، والتحقق الإضافي من تشفير النسخ الاحتياطية السحابية الخاصة.",
-        "mission_ar": "منظومة AHome الرقمية الخاصة، تعمل محلياً بخصوصية صارمة ولا تغادر الأجهزة المحلية إطلاقاً.",
-    },
-    "sir-laptop-manager": {
-        "status": "verified",
-        "verified_today": True,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 9)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 9)",
-        "control_note_en": "Verified by control: Round 9 stranger cross-review completed (xreview-laptop-by-control.md), Host allowlist & Tailscale-User-Login verified, 7 security & ergonomics recommendations delivered.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: إتمام تقرير المراجعة المتبادلة المستقلة (xreview-laptop-by-control.md)، التحقق من حماية الهوست وهوية تيلسكيل، وتقديم 7 توصيات أمنية وتشغيلية.",
-        "name_ar": "مدير الحاسوب والأداء",
-        "exists_en": "Hardware telemetry, battery/power optimizer, background process supervisor, web ops UI on port 8765.",
-        "exists_ar": "مراقبة العتاد والأداء، إدارة البطارية والطاقة، إدارة العمليات الخلفية، وواجهة تشغيل وتحكم ويب على المنفذ 8765.",
-        "verified_en": "38 pytest tests passing, local service running on port 8765, GitHub Actions CI passing.",
-        "verified_ar": "اجتياز 38 اختبار pytest بنسبة 100%، استقرار الخدمة المحلية على المنفذ 8765، وفحص GitHub CI ناجح.",
-        "missing_en": "Tailscale host-header whitelist expansion, automated thermal curve fan profiles.",
-        "missing_ar": "إتاحة الوصول عبر تيلسكيل من الآيفون بدون قيود الهوست، والتحكم الآلي المتقدم في سرعة المراوح.",
-        "mission_ar": "إدارة وصيانة عتاد اللابتوب الشخصي، تسريع الأداء، وتوفير بيئة تشغيل مستقرة للوكلاء.",
-    },
-    "sir-ai": {
-        "status": "rebuilding",
-        "verified_today": False,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Rebuild initiated from zero, old code quarantined in legacy/, TASKS.md scrubbed of private data references, zero end-to-end features claimed.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: بدء إعادة البناء من الصفر، عزل الكود القديم في legacy/، تنظيف ملف المهام من أي إشارة للبيانات الخاصة، والالتزام بعدم ادعاء جاهزية أي ميزة قبل إتمامها.",
-        "name_ar": "المساعد الذكي (جارفيس)",
-        "exists_en": "Rebuild initiated from scratch. M0 forensic architecture scan completed, old code isolated in legacy/.",
-        "exists_ar": "بدء إعادة البناء الشامل من الصفر. تم إنجاز الفحص المعماري الشامل وعزل الكود القديم في مجلد legacy/.",
-        "verified_en": "Clean workspace initialized, dependencies verified. No end-to-end feature verification yet.",
-        "verified_ar": "تهيئة بيئة عمل نظيفة والتحقق من التبعات. لم يتم التحقق النهائي من الميزات بعد.",
-        "missing_en": "Core LLM router pipeline, model adapter modules, streaming API endpoints, desktop client UI.",
-        "missing_ar": "محرك توجيه النماذج الذكية، وحدات الاتصال بالنظام، واجهات البرمجة اللحظية، وتطبيق سطح المكتب.",
-        "mission_ar": "المساعد الرقمي الشخصي المستقل متعدد الوكلاء لإدارة المهام والتحكم الصوتي والآلي.",
-    },
-    "sir-negm-furniture": {
-        "status": "frozen",
-        "verified_today": False,
-        "verified_date": "2026-11-09",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Frozen friend's commercial repository; verify workflow reverted, excluded from CI watch, zero modifications allowed.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: مستودع تجاري مجمد لصديق؛ تم سحب تدفقات الفحص واستبعاده من مراقبة الـ CI ومنع أي تعديل عليه.",
-        "name_ar": "مفروشات نجم (مشروع صديق)",
-        "exists_en": "Friend's commercial catalog repository. Kept isolated and private.",
-        "exists_ar": "مستودع كتالوج تجاري وتطبيق أثاث لصديق. معزول تماماً وخاص.",
-        "verified_en": "Frozen by owner order; not modified, tested, or deployed until handover.",
-        "verified_ar": "مجمّد بأمر المالك؛ لا يتم تعديله أو اختباره أو نشره حتى موعد التسليم الرسمي.",
-        "missing_en": "Client handover and explicit authorization before unfreezing.",
-        "missing_ar": "التسليم الرسمي للعميل والحصول على إذن استئناف العمل.",
-        "mission_ar": "كتالوج الأثاث واستوديو التصميم الداخلي وعروض الأسعار عبر واتساب لصالح عمر نجم.",
-    },
-    "sir-platform": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "منصة الأدوات والمكونات المشتركة",
-        "exists_en": "Clean project skeleton, shared design tokens, component architecture specification.",
-        "exists_ar": "هيكل مشروع نظيف، ومحددات التصميم المشترك والمكونات الأساسية.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Core multi-platform UI components, theme tokens engine, distribution package.",
-        "missing_ar": "المكونات البرمجية المشتركة لمختلف المنصات، حزم التوزيع، ومحرك الأنماط.",
-        "mission_ar": "مكتبة الواجهات والأنماط المشتركة لتوحيد تجربة المستخدم في كافة منتجات SIR.",
-    },
-    "sir-obour-hub": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "بوابة العبور الأكاديمية",
-        "exists_en": "Clean project skeleton, academic syllabus maps, student portal requirements.",
-        "exists_ar": "هيكل مشروع نظيف، وخرائط المناهج الأكاديمية ومواصفات بوابة الطلاب.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Lecture material ingestor, schedule synchronizer, GPA tracker, multi-tenant auth.",
-        "missing_ar": "نظام استيراد المحاضرات، مزامنة الجداول، حاسبة المعدل التراكمي، وتسجيل الدخول.",
-        "mission_ar": "البوابة الذكية لطلاب معاهد العبور لتنظيم المحاضرات والنتائج والتقويم الدراسي.",
-    },
-    "sir-hagoozat": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "منظومة حجوزات الملاعب",
-        "exists_en": "Clean project skeleton, unified booking domain model, court management specs.",
-        "exists_ar": "هيكل مشروع نظيف، ونموذج بيانات حجوزات الملاعب وإدارة الصالات الرياضية.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Real-time reservation engine, SMS confirmation, payment gateway integration.",
-        "missing_ar": "محرك الحجوزات اللحظي، إشعارات التأكيد، وبوابة الدفع الإلكتروني.",
-        "mission_ar": "منظومة حجز وإدارة ملاعب البادل وكرة القدم وتأكيد الحجوزات والدفع إلكترونياً.",
-    },
-    "sir-business": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "منظومة إدارة الأعمال التجارية",
-        "exists_en": "Clean project skeleton, commercial ERP architecture (restaurant, market, pharmacy, library).",
-        "exists_ar": "هيكل مشروع نظيف، ومعمارية إدارة الأعمال والمبيعات للمطاعم والمتاجر والصيدليات والمكتبات.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Point of sale (POS) terminal, inventory synchronization, invoicing, thermal print.",
-        "missing_ar": "نظام نقاط البيع السريع، مزامنة المخزون، الفواتير، والطباعة الحرارية.",
-        "mission_ar": "برنامج مبيعات ونقاط بيع وإدارة مخزون شامل للأنشطة التجارية في السوق المصري.",
-    },
-    "sir-content-creation-studio": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "استوديو صناعة المحتوى",
-        "exists_en": "Clean project skeleton, video generation pipelines, creative automation plans.",
-        "exists_ar": "هيكل مشروع نظيف، وخطط معالجة الفيديو وإنتاج المحتوى الآلي.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "FFmpeg timeline renderer, caption generator, social publishing sidecars.",
-        "missing_ar": "محرك مونتاج الفيديو، توليد النصوص التلقائية، وجدولة النشر على المنصات.",
-        "mission_ar": "استوديو آلي لإنتاج الفيديوهات والمحتوى الرقمي التسويقي ونشره على منصات التواصل.",
-    },
-    "sir-controller": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "مدير أذرع التحكم والألعاب",
-        "exists_en": "Clean project skeleton, gamepad mapping schema, low-latency input engine design.",
-        "exists_ar": "هيكل مشروع نظيف، ومخطط تعيين أزرار أذرع التحكم وتصميم محرك الاستجابة السريعة.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "DirectInput/XInput hook driver, profile cloud storage, UI overlay HUD.",
-        "missing_ar": "تعريفات أذرع التحكم، حفظ التفضيلات السحابية، وواجهة العرض التفاعلية أثناء اللعب.",
-        "mission_ar": "تطبيق لضبط وتعيين أزرار أذرع التحكم المختلفة للحواسيب والألعاب بزمن استجابة فائق.",
-    },
-    "sir-modpack": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "مدير حزم تعديلات الألعاب",
-        "exists_en": "Clean project skeleton, mod repository manifests, package validator specs.",
-        "exists_ar": "هيكل مشروع نظيف، ومواصفات فحص وتثبيت حزم التعديلات.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Mod downloader engine, hash verification, conflict resolver, game launcher hook.",
-        "missing_ar": "محرك تحميل وتثبيت التعديلات، فحص السلامة، وحل التعارضات مع الألعاب.",
-        "mission_ar": "منصة لتنظيم وتثبيت إضافات ومودات الألعاب بأمان وسهولة بضغطة زر واحدة.",
-    },
-    "sir-mods-for-gta-v": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "تعديلات لعبة GTA V",
-        "exists_en": "Clean project skeleton, script mod specifications, security audit documentation.",
-        "exists_ar": "هيكل مشروع نظيف، وتوثيق فحص الأمان وتعديلات سكربتات لعبة GTA V.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "ScriptHookV bridge, native ASI launcher, clean configuration UI.",
-        "missing_ar": "جسر الربط مع محرك اللعبة، مشغل الحزم، وواجهة ضبط الإعدادات.",
-        "mission_ar": "حزمة تعديلات وسكربتات واقعية للعبة GTA V مع واجهة تثبيت وتشغيل مبسطة.",
-    },
-    "sir-life": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "منظومة الحياة والعادات",
-        "exists_en": "Clean project skeleton, personal life tracking models (habits, wellness, milestones).",
-        "exists_ar": "هيكل مشروع نظيف، ونماذج تتبع العادات اليومية والأهداف الشخصية والمالية.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Daily logging interface, habit streak algorithms, encrypted personal storage.",
-        "missing_ar": "واجهة التسجيل اليومي، خوارزميات الاستمرارية، والتخزين المشفر للبيانات.",
-        "mission_ar": "تطبيق شخصي لتتبع الأهداف، العادات اليومية، الصحة، والمصاريف بخصوصية تامة.",
-    },
-    "sir-portfolio": {
-        "status": "backlog",
-        "verified_today": False,
-        "verified_date": "Pending Rebuild",
-        "verified_by": "Control Room auditor (Round 8)",
-        "verified_by_ar": "مدقق غرفة التحكم (الجولة 8)",
-        "control_note_en": "Verified by control: Clean skeleton in backlog awaiting wave turn; 0 fabricated features or false completion claims.",
-        "control_note_ar": "تم التحقق بواسطة غرفة التحكم: هيكل أولي نظيف في قائمة الانتظار بانتظار مرحلته؛ خلو تام من أي ادعاءات وهمية بالإنجاز.",
-        "name_ar": "معرض الأعمال الشخصي",
-        "exists_en": "Clean project skeleton, portfolio showcase blueprints, Ahmed Alaa CV data.",
-        "exists_ar": "هيكل مشروع نظيف، ومخطط معرض المشاريع والبيانات المهنية للمهندس أحمد علاء.",
-        "verified_en": "None (clean skeleton awaiting wave rebuild from zero).",
-        "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء من الصفر).",
-        "missing_en": "Interactive live demo viewer, case study write-ups, deployment to custom domain.",
-        "missing_ar": "نظام عرض التجارب الحية، دراسات الحالة للمنتجات، والنشر النهائي على النطاق الشخصي.",
-        "mission_ar": "الموقع الرسمي للمهندس أحمد علاء لعرض المشاريع المكتملة ودراسات الحالة والتواصل.",
-    },
-}
 
 
 def lines(path):
@@ -369,11 +98,13 @@ def git(folder, *args):
 def git_sync_status(folder):
     try:
         sb = git(folder, "status", "-sb")
-        lines = [l for l in sb.splitlines() if l.strip()]
-        if not lines:
+        if sb == "" and not os.path.isdir(os.path.join(folder, ".git")):
+            return "unknown"
+        rows = [l for l in sb.splitlines() if l.strip()]
+        if not rows:
             return "in sync"
-        first = lines[0]
-        dirty = len(lines) - 1
+        first = rows[0]
+        dirty = len(rows) - 1
         is_ahead = "ahead" in first
         is_behind = "behind" in first
         if is_ahead and is_behind:
@@ -384,36 +115,36 @@ def git_sync_status(folder):
             branch_st = "behind"
         else:
             branch_st = "in sync"
-
         if branch_st == "in sync":
             return "in sync" if dirty == 0 else f"dirty ({dirty})"
-        else:
-            return f"{branch_st}" if dirty == 0 else f"{branch_st} & dirty ({dirty})"
+        return f"{branch_st}" if dirty == 0 else f"{branch_st} & dirty ({dirty})"
     except Exception:
-        return "in sync"
+        return "unknown"
 
 
 def parse_tasks(folder, private):
-    ms, cur = [], None
-    for ln in lines(os.path.join(folder, ".sir", "TASKS.md")):
-        m = re.match(r"## (M\d[a-z]?|Perpetual[A-Za-z ]*|Loop[A-Za-z ]*|Open requests[A-Za-z0-9 -]*) *(.*)", ln)
-        if m:
-            cur = dict(name=(m.group(1) + " " + m.group(2)).strip(), items=[])
-            ms.append(cur)
-        elif cur and (
-            m2 := re.match(r"- \[([ x])\] ((?:T|L)-[A-Za-z0-9_-]+)\s*(?:\|\s*owner:\s*[^|]+\s*)?\|\s*(.*)", ln)
-        ):
-            text = re.sub(r"\s*\| depends:.*", "", m2.group(3)).replace("(kit) ", "")
-            text = re.sub(r"habiba", "private data", text, flags=re.IGNORECASE)
-            text = re.sub(r"ahmed-and-habiba", "ahome", text, flags=re.IGNORECASE)
-            cur["items"].append(
-                dict(
-                    id=m2.group(2),
-                    done=m2.group(1) == "x",
-                    text="" if private else text[:240],
-                )
-            )
-    return ms
+    path = os.path.join(folder, ".sir", "TASKS.md")
+    items = []
+    try:
+        with io.open(path, encoding="utf-8", errors="ignore") as f:
+            for ln in f:
+                m = re.match(r"^\s*- \[([ xX])\]\s+(.+)$", ln.rstrip("\n"))
+                if not m:
+                    continue
+                raw = m.group(2).strip()
+                m2 = re.match(r"((?:T|L)-[A-Za-z0-9_-]+)\s*(?:\|\s*owner:[^|]+\s*)?\|\s*(.*)", raw)
+                if m2:
+                    tid = m2.group(1)
+                    ttext = re.sub(r"\s*\| depends:.*", "", m2.group(2)).replace("(kit) ", "")
+                else:
+                    tid = raw[:40]
+                    ttext = raw
+                ttext = re.sub(r"habiba", "private data", ttext, flags=re.I)
+                ttext = re.sub(r"ahmed-and-habiba", "ahome", ttext, flags=re.I)
+                items.append({"id": tid, "done": m.group(1).lower() == "x", "text": "" if private else ttext[:240]})
+    except Exception:
+        pass
+    return [dict(name="Tasks", items=items)] if items or os.path.isfile(path) else []
 
 
 def checkpoint_now(folder):
@@ -676,7 +407,7 @@ def archived_count():
             return int(r.stdout.strip())
     except Exception:
         pass
-    return 31
+    return None
 
 
 def get_ci_status():
@@ -693,67 +424,28 @@ def get_ci_status():
         display_repo = "AHome (private repo)" if is_ahome else repo
         try:
             r = subprocess.run(
-                [
-                    "gh",
-                    "run",
-                    "list",
-                    "-R",
-                    repo,
-                    "--limit",
-                    "1",
-                    "--json",
-                    "conclusion,status,databaseId,headBranch,name,url",
-                ],
-                capture_output=True,
-                text=True,
-                timeout=5,
-                creationflags=CREATE_NO_WINDOW,
+                ["gh", "run", "list", "-R", repo, "--limit", "1",
+                 "--json", "conclusion,status,databaseId,headBranch,name,url,createdAt"],
+                capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW,
             )
             if r.returncode == 0 and r.stdout.strip():
                 runs = json.loads(r.stdout.strip())
                 if runs:
                     latest = runs[0]
-                    ci.append(
-                        {
-                            "name": name,
-                            "repo": display_repo,
-                            "status": latest.get("conclusion")
-                            or latest.get("status")
-                            or "unknown",
-                            "id": None if is_ahome else latest.get("databaseId"),
-                            "url": None if is_ahome else latest.get("url"),
-                        }
-                    )
-                else:
-                    ci.append(
-                        {
-                            "name": name,
-                            "repo": display_repo,
-                            "status": "none",
-                            "id": None,
-                            "url": None,
-                        }
-                    )
-            else:
-                ci.append(
-                    {
+                    ci.append({
                         "name": name,
                         "repo": display_repo,
-                        "status": "none",
-                        "id": None,
-                        "url": None,
-                    }
-                )
+                        "status": latest.get("conclusion") or latest.get("status") or "unknown",
+                        "createdAt": latest.get("createdAt"),
+                        "id": None if is_ahome else latest.get("databaseId"),
+                        "url": None if is_ahome else latest.get("url"),
+                    })
+                else:
+                    ci.append({"name": name, "repo": display_repo, "status": "unknown", "createdAt": None, "id": None, "url": None, "note": "no runs"})
+            else:
+                ci.append({"name": name, "repo": display_repo, "status": "unknown", "createdAt": None, "id": None, "url": None, "note": "gh failed"})
         except Exception:
-            ci.append(
-                {
-                    "name": name,
-                    "repo": display_repo,
-                    "status": "none",
-                    "id": None,
-                    "url": None,
-                }
-            )
+            ci.append({"name": name, "repo": display_repo, "status": "unknown", "createdAt": None, "id": None, "url": None, "note": "gh failed"})
     return ci
 
 
@@ -788,10 +480,6 @@ def translate_log_entry(text):
         return "مفروشات نجم: استكمال محرك التصميم الهندسي ثلاثي الأبعاد وإرسال عروض الأسعار (مجمّد لاحقاً بطلب الأونر)."
     if "AHome deploy batch" in t:
         return "المقر: بدء حزمة النشر المحلي لمنظومة المنزل والانتظار حتى انتهاء دورة الفحص."
-    if "SIR Jobs" in t:
-        return "منظومة فرص العمل: تدقيق الواجهة، استقرار الفحوصات الآلية، وتشغيل لوحة التحكم والمراجعة بنجاح."
-    if "SIR Laptop Manager" in t:
-        return "مدير الحاسوب: اجتياز كافة اختبارات بايثون بنسبة 100%، واستقرار خدمة مراقبة العتاد والأداء."
     # Generic natural Arabic summary
     return f"عملية تشغيلية: {t[:160]}"
 
@@ -841,24 +529,29 @@ def notify_hq_artifact_outdated(content_hash):
     hq_bus = os.path.join(OPS, "bus", "sir-hq.md")
     if not os.path.exists(hq_bus):
         return
+    lock_path = os.path.join(OPS, "locks", "sir-hq-bus.lock")
+    os.makedirs(os.path.dirname(lock_path), exist_ok=True)
     try:
-        content = open(hq_bus, "r", encoding="utf-8").read()
-        target_msg = "artifact outdated: republish ops/artifact/control-room.html"
+        if os.path.isfile(lock_path):
+            try:
+                with open(lock_path, "r", encoding="utf-8") as f:
+                    if f.read().strip() == content_hash:
+                        return
+            except Exception:
+                pass
+        with open(hq_bus, "r", encoding="utf-8") as f:
+            content = f.read()
+        target_msg = f"artifact outdated: republish ops/artifact/control-room.html (hash {content_hash})"
         if target_msg in content:
+            with open(lock_path, "w", encoding="utf-8") as f:
+                f.write(content_hash)
             return
-
-        lines = content.splitlines()
-        insert_idx = 2
-        for idx, line in enumerate(lines):
-            if line.startswith("- [ ]") or line.startswith("- [x]"):
-                insert_idx = idx
-                break
-
         today = datetime.datetime.now().strftime("%Y-%m-%d")
-        notice = f"- [ ] {today} from control-room-daemon:\n  notice: {target_msg} (hash {content_hash})\n"
-        lines.insert(insert_idx, notice)
-        with open(hq_bus, "w", encoding="utf-8", newline="\n") as f:
-            f.write("\n".join(lines) + "\n")
+        notice = f"- [ ] {today} from control-room-daemon:\n  notice: {target_msg}\n"
+        with open(hq_bus, "a", encoding="utf-8", newline="\n") as f:
+            f.write("\n" + notice)
+        with open(lock_path, "w", encoding="utf-8") as f:
+            f.write(content_hash)
     except Exception as e:
         print(f"Warning: could not notify HQ: {e}")
 
@@ -930,7 +623,7 @@ def parse_gemini_handover(projects):
     handover_projects.append({
         "slug": "control",
         "name": "SIR Control Room (HQ)",
-        "name_ar": "غرفة التحكم — المقر الرئيسي",
+        "name_ar": "غرفة التحكم: المقر الرئيسي",
         "color": "#0F766E",
         "status": "verified",
         "has_master_plan": os.path.isfile(hq_mp),
@@ -1105,9 +798,88 @@ def parse_gemini_handover(projects):
             "tasks_tracked": sum(len(p["tasks"]) for p in handover_projects),
             "checklist_ready": ready_count,
             "checklist_total": len(checklist),
-            "handover_countdown_days": 14,
+            "handover_countdown_days": handover_countdown_days(),
         }
     }
+
+
+def handover_countdown_days():
+    try:
+        cfg = json.load(io.open(os.path.join(OPS, "config.json"), encoding="utf-8"))
+        end = datetime.date.fromisoformat(cfg.get("claude_ends", "2026-11-23"))
+        return (end - datetime.date.today()).days
+    except Exception:
+        return None
+
+
+def load_checklist():
+    p = os.path.join(OPS, "checklist.json")
+    if not os.path.isfile(p):
+        return {"items": [], "metrics": {"ready": 0, "total": 0}}
+    try:
+        items = json.load(io.open(p, encoding="utf-8")) or []
+    except Exception:
+        items = []
+    today = datetime.date.today()
+    out = []
+    ready = 0
+    for it in items:
+        checked = it.get("checked")
+        age_days = None
+        status = it.get("status", "unknown")
+        stale = False
+        try:
+            if checked:
+                d = datetime.date.fromisoformat(str(checked))
+                age_days = (today - d).days
+                if age_days > 3 and status not in ("action_needed", "in_progress"):
+                    status = "unknown"
+                    stale = True
+        except Exception:
+            stale = True
+        if status == "ready":
+            ready += 1
+        row = dict(it)
+        row["status"] = status
+        row["age_days"] = age_days
+        row["stale"] = stale
+        out.append(row)
+    return {"items": out, "metrics": {"ready": ready, "total": len(out)}}
+
+
+def load_active():
+    p = os.path.join(OPS, "active.json")
+    meta = {"items": [], "mtime": None, "age_hours": None, "stale": False}
+    try:
+        st = os.stat(p)
+        mtime = datetime.datetime.fromtimestamp(st.st_mtime)
+        age_h = (datetime.datetime.now() - mtime).total_seconds() / 3600.0
+        meta["mtime"] = mtime.isoformat(timespec="seconds")
+        meta["age_hours"] = round(age_h, 1)
+        meta["stale"] = age_h > 6
+        meta["items"] = json.load(io.open(p, encoding="utf-8")) or []
+    except Exception:
+        pass
+    return meta
+
+
+def load_models_info():
+    p = os.path.join(OPS, "MODELS.json")
+    info = {"data": load_models(), "source": "ops/MODELS.json", "checked": None, "age_days": None, "stale": False}
+    try:
+        data = json.load(io.open(p, encoding="utf-8"))
+        info["data"] = data
+        checked = data.get("checked")
+        if checked:
+            info["checked"] = str(checked)
+            d = datetime.date.fromisoformat(str(checked))
+            age = (datetime.date.today() - d).days
+            info["age_days"] = age
+            info["stale"] = age > 1
+    except Exception:
+        pass
+    return info
+
 
 
 def get_control_room_daemon_health():
@@ -1128,82 +900,121 @@ def get_control_room_daemon_health():
 
 
 def main():
+    today = datetime.date.today().isoformat()
     projects = []
     for p in PRODUCTS:
         folder = ROOT + "/" + p["folder"]
         if not os.path.isfile(folder + "/.sir/TASKS.md"):
             continue
         private = p["slug"] == "ahome"
-        st = json.load(io.open(folder + "/.sir/status.json", encoding="utf-8"))
+        try:
+            st = json.load(io.open(folder + "/.sir/status.json", encoding="utf-8"))
+        except Exception:
+            st = {"platforms": {}}
         ms = parse_tasks(folder, private)
         items = [i for m in ms for i in m["items"]]
-        done = sum(i["done"] for i in items)
+        done_count = sum(1 for i in items if i.get("done"))
+        total_count = len(items)
         yml = "\n".join(lines(folder + "/.sir/project.yml"))
         arch = re.search(r"archetype: (.*)", yml)
 
-        truth = PROJECT_TRUTH.get(
-            p["slug"],
-            {
-                "status": "backlog",
-                "verified_today": False,
-                "name_ar": p["display"],
-                "exists_en": "Project skeleton initialized.",
-                "exists_ar": "تم إنشاء هيكل المشروع الأساسي.",
-                "verified_en": "None (clean skeleton awaiting wave rebuild).",
-                "verified_ar": "لا يوجد (هيكل نظيف بانتظار مرحلة إعادة البناء).",
-                "missing_en": "Full rebuild from zero.",
-                "missing_ar": "إعادة البناء الكاملة من الصفر.",
-                "mission_ar": p["mission"][:260],
-            },
-        )
+        ev_state = state_for(folder, today)
+        cp_path = os.path.join(folder, ".sir", "CHECKPOINT.md")
+        cp_lines = [ln.strip() for ln in lines(cp_path) if ln.strip()]
+        goal_text = ""
+        next_text = ""
+        for i, ln in enumerate(cp_lines):
+            low = ln.lower()
+            if low.startswith("## goal") and i + 1 < len(cp_lines):
+                goal_text = cp_lines[i + 1][:200]
+            if low.startswith("## next") and i + 1 < len(cp_lines):
+                next_text = cp_lines[i + 1][:200]
+        if ev_state == "verified":
+            status = "verified"
+            verified_today = True
+            verified_date = today
+        elif ev_state == "built_unverified":
+            status = "built_unverified"
+            verified_today = False
+            verified_date = "Pending"
+        else:
+            status = "not_started"
+            verified_today = False
+            verified_date = "Pending"
 
-        status = truth["status"]
+        name_ar = p.get("name_ar") or p.get("display") or p["display"]
+        if private:
+            ms_out = []
+            next_items = []
+            now_text = ""
+            mission = "Private. Counts only."
+            mission_ar = "خاص. الأعداد والحالة فقط."
+            folder_disp = "withheld"
+            commit = ""
+            ghash = ""
+            sync = ""
+            matrix = None
+            arch_s = "private, details withheld"
+            name = "AHome (private)"
+            name_ar = "AHome (خاص ومحمي)"
+        else:
+            ms_out = [dict(name=m.get("name", "Tasks"), items=m.get("items", [])) for m in ms]
+            next_items = [f"{i['id']} {i['text'][:150]}" for i in items if not i.get("done")][:4]
+            now_text = checkpoint_now(folder)
+            mission = p.get("mission", "")[:260]
+            mission_ar = p.get("mission", "")[:260]
+            folder_disp = "D:\\Projects\\" + p["folder"]
+            commit = git(folder, "log", "-1", "--format=%cs")
+            ghash = git(folder, "rev-parse", "--short", "HEAD")
+            sync = git_sync_status(folder)
+            matrix = st.get("platforms")
+            arch_s = (arch.group(1) if arch else "")
+            name = p["display"]
 
-        projects.append(
-            dict(
-                slug=p["slug"],
-                name="AHome (private)" if private else p["display"],
-                name_ar="AHome (خاص ومحمي)" if private else truth.get("name_ar", p["display"]),
-                wave=WAVEMAP.get(p["slug"], 9),
-                order=ORDER.index(p["slug"]) if p["slug"] in ORDER else 99,
-                color=BRAND.get(p["slug"], {}).get("color", "#64748B"),
-                arch="private, details withheld"
-                if private
-                else (arch.group(1) if arch else ""),
-                status=status,
-                verified_today=truth["verified_today"],
-                verified_date=truth.get("verified_date", "2026-11-09" if status == "verified" else "Pending Rebuild"),
-                verified_by=truth.get("verified_by", "Control Room auditor (Round 8)"),
-                verified_by_ar=truth.get("verified_by_ar", "مدقق غرفة التحكم (الجولة 8)"),
-                control_note_en=truth.get("control_note_en", ""),
-                control_note_ar=truth.get("control_note_ar", ""),
-                truth=truth,
-                done=done,
-                total=len(items),
-                milestones=[dict(name=m["name"], items=m["items"]) for m in ms],
-                next=[]
-                if (private or status == "frozen")
-                else [i["id"] + " " + i["text"][:150] for i in items if not i["done"]][
-                    :4
-                ],
-                now="Frozen, friend's project. Private repo; not touched or deployed until handover."
-                if status == "frozen"
-                else ("" if private else checkpoint_now(folder)),
-                mission="Private. Counts only." if private else p["mission"][:260],
-                mission_ar=truth.get("mission_ar", p["mission"][:260]),
-                repo=(
-                    "AHome (private repo)"
-                    if private
-                    else "github.com/sirahmed8/" + p["repo"] + " (private)"
-                ),
-                folder="withheld" if private else "D:\\Projects\\" + p["folder"],
-                commit=git(folder, "log", "-1", "--format=%cs") if not private else "",
-                hash=git(folder, "rev-parse", "--short", "HEAD") if not private else "",
-                sync="" if private else git_sync_status(folder),
-                required=sum(1 for v in st["platforms"].values() if v == "required"),
-                matrix=None if private else st["platforms"],
-            )
-        )
+        truth = {
+            "status": status,
+            "verified_today": verified_today,
+            "name_ar": name_ar,
+            "exists_en": (goal_text or "State derived from checkpoint.").replace("habiba", "private data"),
+            "exists_ar": "",
+            "verified_en": "Evidence verified today." if verified_today else "No evidence file dated today.",
+            "verified_ar": "",
+            "missing_en": next_text or "See checkpoint next step.",
+            "missing_ar": "",
+            "mission_ar": mission_ar,
+        }
+
+        projects.append(dict(
+            slug=p["slug"],
+            name=name,
+            name_ar=name_ar,
+            wave=WAVEMAP.get(p["slug"], 9),
+            order=ORDER.index(p["slug"]) if p["slug"] in ORDER else 99,
+            color=BRAND.get(p["slug"], {}).get("color", "#64748B"),
+            arch=arch_s,
+            status=status,
+            verified_today=verified_today,
+            verified_date=verified_date,
+            verified_by=("evidence file" if verified_today else "none"),
+            verified_by_ar=("ملف دليل" if verified_today else "لا يوجد"),
+            control_note_en="",
+            control_note_ar="",
+            truth=truth,
+            done=done_count,
+            total=total_count,
+            milestones=ms_out,
+            next=next_items,
+            now=now_text,
+            mission=mission,
+            mission_ar=mission_ar,
+            repo=("AHome (private repo)" if private else "github.com/sirahmed8/" + p["repo"] + " (private)"),
+            folder=folder_disp,
+            commit=commit,
+            hash=ghash,
+            sync=sync,
+            required=sum(1 for v in st.get("platforms", {}).values() if v == "required"),
+            matrix=matrix,
+        ))
 
     projects.sort(key=lambda x: (x["wave"], x["order"]))
 
@@ -1233,11 +1044,8 @@ def main():
             w["verified"] += 1
         w["projects"].append(pr["slug"])
 
-    active = []
-    try:
-        active = json.load(io.open(OPS + "/active.json", encoding="utf-8"))
-    except Exception:
-        pass
+    active_info = load_active()
+    active = active_info.get("items", [])
 
     nxt = next(
         (pr for pr in projects if pr["status"] == "rebuilding"),
@@ -1255,15 +1063,14 @@ def main():
 
     log_entries = []
     for l in reversed(raw_logs):
+        if "ahome" in l.lower():
+            continue
         clean_l = re.sub(r"ahmed-and-habiba", "AHome", l, flags=re.IGNORECASE)
         clean_l = re.sub(r"habiba", "AHome private data", clean_l, flags=re.IGNORECASE)
-        log_entries.append(
-            {
-                "en": clean_l,
-                "ar": translate_log_entry(clean_l),
-            }
-        )
+        log_entries.append({"en": clean_l, "ar": translate_log_entry(clean_l)})
 
+    checklist_info = load_checklist()
+    models_info = load_models_info()
     data = dict(
         generated=datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
         projects=projects,
@@ -1277,54 +1084,57 @@ def main():
         waves=sorted(waves.values(), key=lambda w: w["wave"]),
         attention=attention(),
         active=active,
+        active_info=active_info,
         nextStart=(nxt["name"] if nxt else ""),
         nextStart_ar=(nxt["name_ar"] if nxt else ""),
         log=log_entries,
         repos=dict(
-            new_private=len([p for p in projects if p["matrix"]]),
+            new_private=len([p for p in projects if p.get("matrix")]),
             archived=archived_count(),
         ),
         platforms=[dict(key=k, name=n, short=SHORT[k]) for k, n in PLATFORM_NAMES],
         request_ledgers=parse_request_ledgers(),
         ci=get_ci_status(),
-        remote_access=[
+        checklist=checklist_info,
+        models_info=models_info,
+        remote_access=(lambda cfg: [
             {
-                "name": "SIR Study (SAD Exam)",
-                "name_ar": "منصة المذاكرة (امتحان تحليل النظم)",
+                "name": "SIR Study",
+                "name_ar": "منصة المذاكرة",
                 "port": 3300,
-                "url": "https://ahmed.tail9e9aa7.ts.net:3300/sad.html",
-                "ip_url": "https://100.85.112.10:3300/sad.html",
-                "desc_en": "SAD Exam Cram Capsule (Today 11:30 AM Cairo)",
-                "desc_ar": "كبسولة مراجعة ومحاكاة امتحان تحليل وتصميم النظم (اليوم 11:30 ص)",
+                "url": f"https://{cfg.get('tailnet_host','ahmed.tail9e9aa7.ts.net')}:3300/START_HERE.html",
+                "ip_url": f"https://{cfg.get('tailnet_ip','100.85.112.10')}:3300/START_HERE.html",
+                "desc_en": "Study hub",
+                "desc_ar": "صفحة البداية",
             },
             {
                 "name": "SIR Jobs",
                 "name_ar": "منظومة فرص العمل",
                 "port": 3456,
-                "url": "https://ahmed.tail9e9aa7.ts.net:3456/",
-                "ip_url": "https://100.85.112.10:3456/",
-                "desc_en": "Pipeline & Staged Opportunities Review",
-                "desc_ar": "منظومة إدارة فرص العمل ومراجعة التقديم",
+                "url": f"https://{cfg.get('tailnet_host','ahmed.tail9e9aa7.ts.net')}:3456/",
+                "ip_url": f"https://{cfg.get('tailnet_ip','100.85.112.10')}:3456/",
+                "desc_en": "Jobs review UI",
+                "desc_ar": "واجهة مراجعة فرص العمل",
             },
             {
                 "name": "SIR Control Room",
-                "name_ar": "غرفة التحكم — المقر الرئيسي",
+                "name_ar": "غرفة التحكم: المقر الرئيسي",
                 "port": 8899,
-                "url": "https://ahmed.tail9e9aa7.ts.net:8899/dashboard.html",
-                "ip_url": "https://100.85.112.10:8899/dashboard.html",
-                "desc_en": "Portfolio Ground Truth & Agent Ops",
-                "desc_ar": "لوحة الحقيقة التشغيلية والمتابعة الشاملة للمشاريع",
+                "url": f"https://{cfg.get('tailnet_host','ahmed.tail9e9aa7.ts.net')}:8899/dashboard.html",
+                "ip_url": f"https://{cfg.get('tailnet_ip','100.85.112.10')}:8899/dashboard.html",
+                "desc_en": "Portfolio ground truth",
+                "desc_ar": "لوحة الحقيقة التشغيلية",
             },
             {
                 "name": "SIR Laptop Manager",
                 "name_ar": "مدير الحاسوب والأداء",
                 "port": 8765,
-                "url": "https://ahmed.tail9e9aa7.ts.net:8765/",
-                "ip_url": "https://100.85.112.10:8765/",
-                "desc_en": "Ops UI & Hardware Gauges",
-                "desc_ar": "لوحة تشغيل الحاسوب ومراقبة العتاد والأداء",
+                "url": f"https://{cfg.get('tailnet_host','ahmed.tail9e9aa7.ts.net')}:8765/",
+                "ip_url": f"https://{cfg.get('tailnet_ip','100.85.112.10')}:8765/",
+                "desc_en": "Ops UI",
+                "desc_ar": "لوحة التشغيل",
             },
-        ],
+        ])(json.load(io.open(os.path.join(OPS, "config.json"), encoding="utf-8")) if os.path.isfile(os.path.join(OPS, "config.json")) else {}),
         daemon_health=get_control_room_daemon_health(),
         autopilot=parse_autopilot(),
         account_ledger=parse_account_ledger(),
@@ -1337,21 +1147,26 @@ def main():
 
     data["models"] = models
     data["git_hash"] = git_hash
+    data["published_hash"] = (published_hash or "").split()[0] if isinstance(published_hash, str) else ""
 
-    # Deterministic content hash computed over data payload excluding generated timestamp and hash fields
     hash_seed_dict = {
-        k: v for k, v in data.items()
-        if k not in ("content_hash", "artifact_synced", "generated")
+        "projects": [{k: v for k, v in p.items() if k not in ("commit", "hash", "sync", "now", "next")} for p in data.get("projects", [])],
+        "ci": data.get("ci"),
+        "models": data.get("models_info", {}).get("data"),
+        "checklist": [{k: v for k, v in i.items() if k not in ("age_days", "stale")} for i in data.get("checklist", {}).get("items", [])],
+        "truth_metrics": data.get("truth_metrics"),
     }
     hash_seed = json.dumps(hash_seed_dict, sort_keys=True, ensure_ascii=False)
     content_hash = hashlib.sha256(hash_seed.encode("utf-8")).hexdigest()[:8]
     data["content_hash"] = content_hash
-    data["artifact_synced"] = bool(published_hash and published_hash == content_hash)
+    data["published_hash"] = (published_hash or "").split()[0] if isinstance(published_hash, str) else ""
+    data["artifact_synced"] = bool(data.get("published_hash") and data["published_hash"] == content_hash)
 
     tpl = io.open(
         os.path.join(HERE, "dashboard_template.html"), encoding="utf-8"
     ).read()
     out = tpl.replace("/*__DATA__*/{}", json.dumps(data, ensure_ascii=False))
+    assert_no_private_leaks(out)
 
     # Assertive check: Generator fails if any outdated model name appears in generated output
     forbidden_models = [

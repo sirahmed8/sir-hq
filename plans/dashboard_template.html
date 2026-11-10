@@ -1394,6 +1394,14 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           <span id="side-accounts-text">Accounts</span>
         </a>
+        <a href="#autopilot" id="side-autopilot" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12.01" y2="12"/><line x1="12" y1="12" x2="16" y2="12"/></svg>
+          <span id="side-autopilot-text">Autopilot &amp; State</span>
+        </a>
+        <a href="#account-ledger" id="side-account-ledger" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="6" y1="3" x2="6" y2="21"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/></svg>
+          <span id="side-account-ledger-text">Account Ledger</span>
+        </a>
         <a href="#workforce" id="side-workforce" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span id="side-workforce-text">Workforce</span>
@@ -1528,6 +1536,36 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   <section id="accounts" class="panel">
     <h2 id="txt-acc-title">Accounts and registrations, the easy route</h2>
     <div class="cols3" id="accounts-cols"></div>
+  </section>
+
+  <section id="autopilot" class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+      <div>
+        <div class="label" id="txt-autopilot-label">Autopilot &amp; System State</div>
+        <h2 style="margin:4px 0 0" id="txt-autopilot-title">Autopilot &amp; System State</h2>
+        <p class="sub" style="margin:6px 0 0;max-width:76ch" id="txt-autopilot-sub">Live telemetry from the background autopilot: Telegram listener, task queue state, and recent log lines.</p>
+      </div>
+      <span class="pill info" id="autopilot-state-pill">--</span>
+    </div>
+    <div class="grid2" id="autopilot-state"></div>
+    <div class="panel" id="autopilot-queue" style="margin-top:12px"></div>
+    <div class="panel" id="autopilot-log-panel" style="margin-top:12px">
+      <div class="label" id="txt-autopilot-log-title">Autopilot Log (Latest)</div>
+      <div class="log" id="autopilot-log"></div>
+    </div>
+  </section>
+
+  <section id="account-ledger" class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <div>
+        <div class="label" id="txt-acct-ledger-title">Account Ledger (Usage and Resets)</div>
+        <p class="sub" id="txt-acct-ledger-sub" style="margin:4px 0 0">Usage rows from ops/ACCOUNT_LEDGER.md, newest rows last.</p>
+      </div>
+    </div>
+    <div class="scroll">
+      <table id="acct-ledger-table"></table>
+    </div>
+    <div id="acct-ledger-empty" style="padding:14px;color:var(--muted);font-size:13px"></div>
   </section>
 
   <section id="workforce" class="panel">
@@ -1856,7 +1894,39 @@ const i18n = {
     copySuccess: "Copied",
     verifiedDateTag: "Verified Date",
     verifiedByTag: "Auditor",
-    verifiedByControlTag: "Verified by Control Room"
+    verifiedByControlTag: "Verified by Control Room",
+    navAutopilot: "Autopilot & State",
+    navAccountLedger: "Account Ledger",
+    autopilotLabel: "Autopilot & System State",
+    autopilotTitle: "Autopilot & System State",
+    autopilotSub: "Live telemetry from the background autopilot: Telegram listener, task queue state, and recent log lines.",
+    autopilotPillRunning: "Autopilot running",
+    autopilotPillStopped: "Autopilot stopped",
+    stateListener: "Telegram listener",
+    stateListenerActive: "Listener active",
+    stateListenerInactive: "Listener stopped",
+    stateRunners: "Active runner chats",
+    stateRunnerSub: "Project chats managed by the autopilot",
+    stateLastTick: "Last autopilot tick",
+    stateQueue: "Pending queue items",
+    stateQueueSub: "Tasks not finished in AUTOPILOT_QUEUE.json",
+    queueTitle: "Task queue",
+    queueNone: "No autopilot queue items.",
+    queuePrivate: "Private project task",
+    queueDone: "Done",
+    queueNotDone: "Pending",
+    logTitle: "Autopilot log (latest)",
+    logNone: "No autopilot log available.",
+    acctLedgerTitle: "Account ledger (usage and resets)",
+    acctLedgerSub: "Usage rows from ops/ACCOUNT_LEDGER.md, newest rows last.",
+    acctColTime: "Time",
+    acctColAccount: "Account",
+    acctColModels: "Models",
+    acctColFive: "5h left",
+    acctColWeekly: "Weekly left",
+    acctColResets: "Resets",
+    acctColNote: "Note",
+    acctLedgerNone: "No account ledger rows available.",
   },
   ar: {
     skipLink: "الانتقال إلى المحتوى الرئيسي",
@@ -1952,7 +2022,39 @@ const i18n = {
     copySuccess: "تم النسخ",
     verifiedDateTag: "تاريخ الفحص والتدقيق",
     verifiedByTag: "جهة التدقيق",
-    verifiedByControlTag: "فحص وتدقيق غرفة التحكم"
+    verifiedByControlTag: "فحص وتدقيق غرفة التحكم",
+    navAutopilot: "المساعد التلقائي والحالة",
+    navAccountLedger: "سجل الحسابات",
+    autopilotLabel: "الحالة والنظام التلقائي",
+    autopilotTitle: "الحالة والنظام التلقائي",
+    autopilotSub: "بيانات حية من المساعد التلقائي في الخلفية: مستلم تليجرام، قائمة المهام، وآخر أسطر السجل.",
+    autopilotPillRunning: "المساعد التلقائي يعمل",
+    autopilotPillStopped: "المساعد التلقائي متوقف",
+    stateListener: "مستلم تليجرام",
+    stateListenerActive: "المستلم يعمل",
+    stateListenerInactive: "المستلم متوقف",
+    stateRunners: "محادثات المشاريع النشطة",
+    stateRunnerSub: "محادثات المشاريع التي يديرها المساعد",
+    stateLastTick: "آخر نبضة للمساعد",
+    stateQueue: "عناصر قائمة المهام المعلقة",
+    stateQueueSub: "مهام لم تنته بعد في AUTOPILOT_QUEUE.json",
+    queueTitle: "قائمة المهام",
+    queueNone: "لا توجد عناصر في قائمة المساعد التلقائي.",
+    queuePrivate: "مهمة خاصة",
+    queueDone: "تمت",
+    queueNotDone: "معلقة",
+    logTitle: "سجل المساعد التلقائي (الأحدث)",
+    logNone: "لا يوجد سجل للمساعد التلقائي.",
+    acctLedgerTitle: "سجل الحسابات (الاستخدام وإعادة التعيين)",
+    acctLedgerSub: "صفوف الاستخدام من ملف ops/ACCOUNT_LEDGER.md، أحدث الصفوف في الأسفل.",
+    acctColTime: "الوقت",
+    acctColAccount: "الحساب",
+    acctColModels: "النماذج",
+    acctColFive: "بقي 5 ساعات",
+    acctColWeekly: "بقي الأسبوعي",
+    acctColResets: "إعادة التعيين",
+    acctColNote: "الملاحظة",
+    acctLedgerNone: "لا توجد صفوف سجل حسابات متاحة.",
   }
 };
 
@@ -2340,6 +2442,118 @@ function renderAccounts(lang) {
   }
 }
 
+function formatAutopilotTime(value, lang) {
+  const n = Number(value);
+  if (!Number.isFinite(n) || n <= 0) return "—";
+  return new Date(n * 1000).toLocaleString(lang === "ar" ? "ar-EG" : "en-US", { dateStyle: "medium", timeStyle: "short" });
+}
+
+function renderAutopilot(lang) {
+  const t = i18n[lang] || i18n.en;
+  const a = D.autopilot || {};
+  const stateBox = $("#autopilot-state");
+  const queueBox = $("#autopilot-queue");
+  const logBox = $("#autopilot-log");
+  const pill = $("#autopilot-state-pill");
+  const running = a.listener_pid != null;
+
+  if (pill) {
+    pill.textContent = running ? t.autopilotPillRunning : t.autopilotPillStopped;
+    pill.className = `pill ${running ? "ok" : "warn"}`;
+  }
+
+  if (stateBox) {
+    const runnerCount = typeof a.runner_count === "number" ? a.runner_count : 0;
+    const pendingCount = typeof a.pending_count === "number" ? a.pending_count : 0;
+    stateBox.innerHTML = `
+      <div>
+        <span class="label">${esc(t.stateListener)}</span>
+        <span class="big num">${esc(a.listener_pid != null ? String(a.listener_pid) : "—")}</span>
+        <span class="sub">${esc(running ? t.stateListenerActive : t.stateListenerInactive)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateRunners)}</span>
+        <span class="big num">${runnerCount}</span>
+        <span class="sub">${esc(t.stateRunnerSub)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateLastTick)}</span>
+        <span class="big num" style="font-size:18px">${esc(formatAutopilotTime(a.last_tick, lang))}</span>
+        <span class="sub">${esc(t.autopilotSub)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateQueue)}</span>
+        <span class="big num">${pendingCount}</span>
+        <span class="sub">${esc(t.stateQueueSub)}</span>
+      </div>
+    `;
+  }
+
+  if (queueBox) {
+    const queue = Array.isArray(a.queue) ? a.queue : [];
+    const rows = queue.length
+      ? queue.map((q) => {
+          const done = Boolean(q.done);
+          const label = q.private ? esc(t.queuePrivate) : esc(q.title || q.name || "—");
+          const name = q.private ? "private-task" : esc(q.name || "");
+          return `
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)">
+              <span class="pill ${done ? "ok" : "warn"}">${esc(done ? t.queueDone : t.queueNotDone)}</span>
+              <div style="min-width:0;flex:1 1 220px">
+                <div class="sub">${label}</div>
+                ${name ? `<div class="sub num mono">${name}</div>` : ""}
+              </div>
+            </div>
+          `;
+        }).join("")
+      : `<div class="sub">${esc(t.queueNone)}</div>`;
+    queueBox.innerHTML = `
+      <div class="label">${esc(t.queueTitle)}</div>
+      ${rows}
+    `;
+  }
+
+  if (logBox) {
+    const tail = Array.isArray(a.log_tail) ? a.log_tail : [];
+    logBox.innerHTML = tail.length
+      ? tail.map((ln) => `<div class="log-item">${esc(ln)}</div>`).join("")
+      : `<div class="log-item sub">${esc(t.logNone)}</div>`;
+  }
+}
+
+function renderAccountLedger(lang) {
+  const t = i18n[lang] || i18n.en;
+  const table = $("#acct-ledger-table");
+  const empty = $("#acct-ledger-empty");
+  const rows = Array.isArray(D.account_ledger) ? D.account_ledger : [];
+  if (!table) return;
+  if (!rows.length) {
+    if (empty) empty.textContent = t.acctLedgerNone;
+    table.innerHTML = "";
+    return;
+  }
+  if (empty) empty.textContent = "";
+  const cols = [t.acctColTime, t.acctColAccount, t.acctColModels, t.acctColFive, t.acctColWeekly, t.acctColResets, t.acctColNote];
+  table.innerHTML = `
+    <thead>
+      <tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr>
+    </thead>
+    <tbody>
+      ${rows.map((r) => `
+        <tr>
+          <td class="sub num mono">${esc(r.time)}</td>
+          <td class="sub">${esc(r.account)}</td>
+          <td class="sub">${esc(r.models)}</td>
+          <td class="sub num">${esc(r.five_h)}</td>
+          <td class="sub num">${esc(r.weekly)}</td>
+          <td class="sub num mono">${esc(r.five_reset)} / ${esc(r.weekly_reset)}</td>
+          <td class="sub">${esc(r.note)}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
 function renderWorkforce(lang) {
   const isAr = lang === "ar";
   const m = D.models || {
@@ -2573,6 +2787,8 @@ function applyLang(lang) {
   if ($("#side-projects-text")) $("#side-projects-text").textContent = t.navProjects;
   if ($("#side-platforms-text")) $("#side-platforms-text").textContent = t.navPlatforms;
   if ($("#side-accounts-text")) $("#side-accounts-text").textContent = t.navAccounts;
+  if ($("#side-autopilot-text")) $("#side-autopilot-text").textContent = t.navAutopilot;
+  if ($("#side-account-ledger-text")) $("#side-account-ledger-text").textContent = t.navAccountLedger;
   if ($("#side-workforce-text")) $("#side-workforce-text").textContent = t.navWorkforce;
   if ($("#side-activity-text")) $("#side-activity-text").textContent = t.navActivity;
 
@@ -2633,6 +2849,12 @@ function applyLang(lang) {
   $("#txt-acc-title").textContent = t.accTitle;
   $("#txt-wf-title").textContent = t.wfTitle;
   $("#txt-act-title").textContent = t.actTitle;
+  $("#txt-autopilot-label").textContent = t.autopilotLabel;
+  $("#txt-autopilot-title").textContent = t.autopilotTitle;
+  $("#txt-autopilot-sub").textContent = t.autopilotSub;
+  $("#txt-autopilot-log-title").textContent = t.logTitle;
+  $("#txt-acct-ledger-title").textContent = t.acctLedgerTitle;
+  $("#txt-acct-ledger-sub").textContent = t.acctLedgerSub;
 
   renderTiles(lang);
   renderHandover(lang);
@@ -2646,6 +2868,8 @@ function applyLang(lang) {
   renderRows(lang);
   renderPlatforms(lang);
   renderAccounts(lang);
+  renderAutopilot(lang);
+  renderAccountLedger(lang);
   renderWorkforce(lang);
   renderActivity(lang);
 }
@@ -2799,7 +3023,7 @@ quickPills.forEach(pill => {
 });
 
 if ("IntersectionObserver" in window) {
-  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "workforce", "activity"];
+  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "account-ledger", "workforce", "activity"];
   const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

@@ -13,3 +13,4 @@ AgentsRoom 1.259.0 crashed on every agent terminal (React error #185, log `C:\Us
 3. The manager (Claude) reviews each diff (git diff, tests, on-screen check) before commit and push to main. The author never grades its own work.
 4. Fallback workers when Antigravity credits are out: OpenCode (`opencode run`), Kilo, Pi, local Ollama for private work. Private data (AHome, Habiba, study material) stays on local models.
 5. Study stays coaching only (guides, practice, hints); no graded work is solved.
+- 2026-11-10: Task 'AgentsRoom Wake' unregistered by r16-control.

@@ -5,7 +5,10 @@ Writes the reply to D:/Projects/_SIR/ops/agy-runs/<name>.md and exits with agy's
 The model id gemini-3.8-flash-high already carries the thinking level, so no --effort flag is passed.
 """
 
-import subprocess, sys, pathlib, datetime
+import subprocess
+
+CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+import sys, sys, pathlib, datetime
 
 RUNS = pathlib.Path("D:/Projects/_SIR/ops/agy-runs")
 PREAMBLE = (
@@ -44,6 +47,7 @@ def main() -> int:
         text=True,
         encoding="utf-8",
         errors="replace",
+        creationflags=CREATE_NO_WINDOW,
     )
     out.write_text(
         f"# agy run {name}\nstarted {started}, exit {proc.returncode}, cwd {cwd}\n\n## reply\n{proc.stdout}\n\n## stderr\n{proc.stderr[-2000:]}\n",

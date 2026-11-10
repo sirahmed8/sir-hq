@@ -44,3 +44,7 @@ ops/autopilot.log.old
 ops/autopilot_state.json
 ops/telegram-listener.log
 scratch/
+
+.sir/LAST_CONTEXT.md
+.sir/.memory/
+ops/serve-control-room.out

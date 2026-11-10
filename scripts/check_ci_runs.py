@@ -1,4 +1,7 @@
 import subprocess
+import sys
+
+CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 import json
 
 repos = [
@@ -10,7 +13,7 @@ repos = [
 ]
 
 for name, r in repos:
-    res = subprocess.run(['gh', 'run', 'list', '-R', r, '--limit', '2', '--json', 'databaseId,conclusion,status,headBranch,headSha,createdAt,name'], capture_output=True, text=True)
+    res = subprocess.run(['gh', 'run', 'list', '-R', r, '--limit', '2', '--json', 'databaseId,conclusion,status,headBranch,headSha,createdAt,name'], capture_output=True, text=True, creationflags=CREATE_NO_WINDOW)
     if res.returncode == 0:
         runs = json.loads(res.stdout)
         print(f'{name} ({r}):')

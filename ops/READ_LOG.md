@@ -81,3 +81,11 @@ A session with work but no line here is flagged by the nightly structure check a
 2026-11-10T03:29:16.182Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)
 2026-11-10T05:14:36.786Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)
 2026-11-10T05:47:14.641Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-10 | (exact)
+2026-11-10T07:25:58.304Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-10 | (exact)
+2026-11-10T08:16:13.349Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-10 | (exact)
+2026-11-10T08:16:20.550Z | claude-code | claude | SIR Jobs | SIR Jobs/AGENTS.md@2026-11-02, .sir/CHECKPOINT.md@2026-11-10, .sir/jobs/TRACKER.md@2026-11-10, .sir/PROFILE.md@2026-11-10 | (exact)
+2026-11-10T09:24:18.037Z | claude-code | claude | SIR Study | SIR Study/AGENTS.md@2026-11-02 | (exact)
+2026-11-10T11:09:24.907Z | claude-code | claude | SIR Jobs | SIR Jobs/AGENTS.md@2026-11-02, .sir/CHECKPOINT.md@2026-11-10, .sir/jobs/TRACKER.md@2026-11-10, .sir/PROFILE.md@2026-11-10 | (exact)
+2026-11-10T12:13:21.158Z | claude-code | claude | AHome | AHome/AGENTS.md@2026-11-10, .sir/R14_CHECKLIST.md@2026-11-10, .sir/MASTER_PLAN.md@2026-11-10, .sir/UI_RULES.md@2026-11-10, plans/GEMINI_QUALITY_CHARTER.md.@2026-11-10 | Continue Perpetual Loop (Cycle 9: Motion Continuity, Audio Synthesis Fidelity & Offline Cache Stress Testing).
+2026-11-10T12:45:21.167Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-10, ops/HQ_CHECKPOINT.md@2026-11-10, ops/AUTOPILOT_QUEUE.json@2026-11-10 | (exact)
+2026-11-10T17:15:25.765Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-10, ops/HQ_CHECKPOINT.md@2026-11-10, ops/AUTOPILOT_QUEUE.json@2026-11-10 | (exact)

@@ -1,6 +1,8 @@
 import os
 import sys
 import subprocess
+
+CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 import json
 import re
 
@@ -26,7 +28,7 @@ for p in PRODUCTS:
         print(f"{slug:<28} | {'withheld (private)':<18} | {'withheld':<12} | {'withheld':<10} | {'withheld (private)'}")
         continue
     if os.path.exists(os.path.join(folder, '.git')):
-        log_out = subprocess.run(['git', '-C', folder, 'log', '-1', '--format=%cs|%h|%s'], capture_output=True, text=True).stdout.strip()
+        log_out = subprocess.run(['git', '-C', folder, 'log', '-1', '--format=%cs|%h|%s'], capture_output=True, text=True, creationflags=CREATE_NO_WINDOW).stdout.strip()
         parts = log_out.split('|', 2)
         if len(parts) == 3:
             d_date, d_hash, d_subj = parts

@@ -21,7 +21,7 @@
     "name": "r15-control",
     "folder": "D:/Projects/_SIR",
     "title": "Control Room and Telegram menu",
-    "done": false
+    "done": true
   },
   {
     "name": "r16-laptop",
@@ -33,24 +33,30 @@
     "name": "r16-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs round 16",
-    "done": false
+    "done": true
   },
   {
     "name": "r16-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study round 16",
-    "done": false
+    "done": true
   },
   {
     "name": "r16-control",
     "folder": "D:/Projects/_SIR",
     "title": "Control Room round 16",
-    "done": false
+    "done": true
   },
   {
     "name": "r17-ahome-verify",
     "folder": "D:/Projects/AHome",
     "title": "AHome round 14 verification",
+    "done": true
+  },
+  {
+    "name": "r18-ahome-phone",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
     "done": false
   }
 ]

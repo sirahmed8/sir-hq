@@ -4,6 +4,8 @@ import json
 import re
 import subprocess
 
+CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+
 ROOT = 'D:/Projects'
 sys.path.insert(0, 'D:/Projects/_SIR/plans')
 from products import PRODUCTS
@@ -69,9 +71,9 @@ for p in PRODUCTS:
     disk_sync = ""
     if not is_private and os.path.exists(os.path.join(folder, '.git')):
         try:
-            disk_commit = subprocess.run(['git', '-C', folder, 'log', '-1', '--format=%cs'], capture_output=True, text=True, timeout=5).stdout.strip()
-            disk_hash = subprocess.run(['git', '-C', folder, 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True, timeout=5).stdout.strip()
-            status_sb = subprocess.run(['git', '-C', folder, 'status', '-sb'], capture_output=True, text=True, timeout=5).stdout.strip()
+            disk_commit = subprocess.run(['git', '-C', folder, 'log', '-1', '--format=%cs'], capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW).stdout.strip()
+            disk_hash = subprocess.run(['git', '-C', folder, 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW).stdout.strip()
+            status_sb = subprocess.run(['git', '-C', folder, 'status', '-sb'], capture_output=True, text=True, timeout=5, creationflags=CREATE_NO_WINDOW).stdout.strip()
             first_line = status_sb.split('\n')[0] if status_sb else ''
             if 'ahead' in first_line or 'behind' in first_line:
                 disk_sync = 'not in sync'

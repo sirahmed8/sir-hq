@@ -82,6 +82,8 @@ flowchart TD
 | **Deep Git Telemetry** | `plans/generate_dashboard.py` | VERIFIED | Tracks dirty file count, short commit hashes across 16 projects. |
 | **Gemini Handover Panel** | `plans/dashboard_template.html`| VERIFIED | Tracks 166 tasks across 17 projects with 10-item readiness audit. |
 | **Bespoke Brand Logo Assets** | `ops/assets/logo.svg` | VERIFIED | SVG radar aperture, 192/512 PNGs, favicon, desktop folder icon. |
+| **Telegram Owner Menu & Approvals** | `scripts/deliver/telegram-inbox.mjs`, `scripts/deliver/ask-approval.mjs` | IMPLEMENTED | `/menu` sends status, disk clean, and games off buttons; `approve_ok` / `approve_no` answers persist in `ops/bus/approvals.json`. |
+| **Autopilot & Account Ledger Telemetry** | `plans/generate_dashboard.py`, `plans/dashboard_template.html` | IMPLEMENTED | Dashboard renders sanitized autopilot state, queue, log tail, and `ops/ACCOUNT_LEDGER.md` rows in Arabic and English. |
 | **Dynamic Island Tab Navigation**| `plans/dashboard_template.html`| VERIFIED | Spring motion, active-only label, zero focus outline flash. |
 | **Bilingual RTL/LTR Parity** | `plans/dashboard_template.html`| VERIFIED | 100% Arabic and English dictionary coverage; zero missing keys. |
 | **Zero Emojis & Zero Yellows** | Entire codebase | VERIFIED | Purged across UI, templates, and logs; executive design tokens. |
