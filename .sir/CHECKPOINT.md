@@ -86,3 +86,9 @@
 ## HQ note (2026-11-11 01:35)
 - ZCode is signed out (quota gone on both GLM models); Haiku refused to finish the Z.ai OAuth consent (sign-in stays with the owner). One tap added to ops/OWNER_ACTIONS.md and sent on Telegram. CLI workers carry all projects (autopilot MAX_PARALLEL=4; r21-ahome and r22-laptop running; Study picks up when ZCode idles 25 min; r22-control and r22-jobs wait for a free slot). TickTick project "SIR HQ" created with the owner tasks and round tracking (owner own data only). Fallback manager tick task exists (SIR_HQ_ManagerTick).
 - Next step: hourly watch (cron 9b8288f7): ai-status.py, watchdog.log, gh run list per project; if C: under 3 GB the watchdog cleans; do not retry ZCode sign-in without the owner.
+
+## HQ note (2026-11-11 02:25)
+- Owner rules changed in D:/Projects/AGENTS.md line 20: agents may click OAuth consent and pick his own listed accounts; no waiting; no test messages to tools. Haiku still refused to relay the ZCode consent (it cannot verify approval relayed by another agent); GLM also runs through OpenCode/Kilo free models in the pool, so ZCode is optional.
+- Done by HQ in his logged-in Chrome: TickTick developer app "AHome" (client id and redirect URL set), Google Cloud project ahmed-habiba OAuth client "AHome Tasks Sync" (Tasks API was already enabled, consent screen already In production). Ids in _local/ahome-oauth.env (gitignored); brief r21-ahome tells the worker to use them. TickTick read: no dates or countdowns about the two of them exist there; "SIR HQ" project and sprint tasks updated.
+- WhatsApp Web is logged in in his Chrome: first read-only digest sent on Telegram; cron d383b42b every 2 hours (session only).
+- Next step: hourly watch (cron 9b8288f7); WhatsApp digest (cron d383b42b); check r21-ahome progress and CI.
