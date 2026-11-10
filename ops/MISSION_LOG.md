@@ -276,3 +276,4 @@
 2026-11-10 23:10 HQ: r18-ahome-phone and r19-study checked (CI green); r19-jobs, r19-control running; r20-study queued.
 2026-11-10 nightly: gitleaks findings=5 | disk free C=9.6G D=6.8G (D 98% used) | uncommitted _SIR files=30 | usage-ledger lines today=2
 2026-11-10 23:25 HQ: fixed worker runner (pool, manual, devin mode), wrote AI_TOOLS_CONTROL.md.
+2026-11-11 00:20 r19-control worker: review findings fixed (M3 accepted tech debt); single server instance proven, privacy routes 404, approval expiry/replay tests pass, dashboard truth fixes + 16 screenshots; committing and pushing.

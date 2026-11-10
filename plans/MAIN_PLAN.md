@@ -33,7 +33,7 @@ All web products need: the Cloudflare and Firebase logins; shared concerns (owne
 3. Use the computer for any task: `plans/COMPUTER_USE.md`. Work out how yourself; never hand Ahmed steps. Quality checklist and quota hand-over: `D:/Projects/GEMINI.md`.
 4. Commit and push straight to `main` when `verify` passes. No pull requests. Never delete `legacy/`.
 5. Talk to other projects: durable messages in `D:/Projects/_SIR/ops/bus/<slug>.md` (see `ops/bus/README.md`), live with ListAgents and SendMessage. Ask for what you need from a project that provides it; tell a project when you change something it depends on.
-6. Dashboards: `D:/Projects/_SIR/mods` holds Ahmed's dashboard mods (SIR Control Room, SIR Context, SIR Guards). Improve them when something is missing, or add a pane or dashboard for your project as a new mod there (register it in `.claude-plugin/marketplace.json`, `claude plugin install <name>@sir-mods`). Keep the shared ones generic.
+6. Dashboards: `D:/Projects/_SIR/mods` holds Ahmed's dashboard mods (SIR Context, SIR Guards; the Control Room dashboard itself lives in `plans/generate_dashboard.py` + `ops/public/`, not as a mod). Improve them when something is missing, or add a pane or dashboard for your project as a new mod there (register it in `.claude-plugin/marketplace.json`, `claude plugin install <name>@sir-mods`). Keep the shared ones generic.
 7. End (and after every finished step): update `.sir/CHECKPOINT.md` (Now, Next step with the exact command, Open promises, Re-read), one line in `_SIR/ops/MISSION_LOG.md`, commit and push to `main`.
 
 ## Privacy and safety lines

@@ -443,3 +443,61 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-10 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 47b6ec1a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 641d7045)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 414ba95b)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a97bf437)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d4a5da96)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5cd0c5f9)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 4a15e9a8)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f20bd915)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8c89c2e4)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash edf5952e)
+- [ ] 2026-11-10 from r18-ahome-phone (AHome R15 finish): 27/27 items verified; CI verify 42893143542 green on d0e8c45 (web npm 929 pass, secrets gitleaks clean, core pytest green; local pytest 1007); flaky-WebKit fixed-wait files switched to polling; race fix ee03e07; firebase+vercel serving v1.0.0; APK installed on ronf6d5hrkqsuoaa; report ops/agy-runs/reports/r18-ahome-phone.md; device re-walkthrough not repeated (test-only change).
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5cbb1fef)
+2026-11-10T20:33:00Z r19-study: OK — CI green (run 42895799544), verify 10/10, unittest 17/17, integrity eval 93/93, shared assets extracted, exam dates fixed
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 173b88bb)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash c80ed42a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 26793e71)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3c97eb78)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0640bbb0)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e5e96c1e)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2cc289f3)
+
+- [x] 2026-11-10 from sir-jobs (r19): review remediation complete - all H/M findings fixed, H5 watchdog restart proven live (kill -> RESTART_TRIGGERED -> health 200), lint 0 warnings with --max-warnings 0, all files <300 lines, CI verify green on main (run 42907830627); L1 CSP unsafe-inline honestly still open pending inline-handler refactor; 12 UI improvements shipped with before/after evidence in .sir/evidence/r19/
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash ce15260a)

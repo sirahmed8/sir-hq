@@ -408,7 +408,9 @@ nav .nav-tab.active .tab-label {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     padding: 16px;
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility: hidden;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0s linear 0.3s;
   }
   [dir="rtl"] .sidebar {
     left: auto;
@@ -419,6 +421,9 @@ nav .nav-tab.active .tab-label {
   }
   .sidebar.open {
     transform: translateX(0) !important;
+    visibility: visible;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0s;
   }
   .sidebar-header {
     display: flex;
@@ -445,20 +450,27 @@ nav .nav-tab.active .tab-label {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 120;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: scale(0.92) translateY(-10px);
   transform-origin: top right;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.2s ease,
-              box-shadow 0.25s ease;
+              box-shadow 0.25s ease,
+              visibility 0s linear 0.28s;
 }
 [dir="rtl"] .settings-dialog {
   transform-origin: top left;
 }
 .settings-dialog.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: scale(1) translateY(0);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.2s ease,
+              box-shadow 0.25s ease,
+              visibility 0s;
 }
 @media (max-width: 480px) {
   .settings-dialog {
@@ -472,6 +484,10 @@ nav .nav-tab.active .tab-label {
   }
   .settings-dialog.open {
     transform: scale(1) translateY(0);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.2s ease,
+                box-shadow 0.25s ease,
+                visibility 0s;
   }
 }
 .settings-header {
@@ -1100,6 +1116,14 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   summary .summary-title { flex: 1 1 180px; }
   .detail { padding: 12px; }
   [dir="rtl"] .detail { padding: 12px; }
+  .seg-btn { min-height: 44px; }
+  .copy-badge { min-height: 44px; }
+  .list li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 8px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -1233,7 +1257,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
 <div class="wrap">
   <header>
     <div class="header-brand">
-      <div class="brand-logo-wrap" title="SIR Control Room — Command Bridge">
+      <div class="brand-logo-wrap" title="SIR Control Room - Command Bridge">
         <svg class="brand-logo" viewBox="0 0 512 512" aria-hidden="true">
           <defs>
             <linearGradient id="hdrBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1960,7 +1984,7 @@ const i18n = {
     qpProjects: "المشاريع",
     btn: "English",
     label: "المقر الرئيسي للمهندس أحمد علاء",
-    title: "غرفة التحكم — SIR Control Room",
+    title: "غرفة التحكم - SIR Control Room",
     desc: "المنظومة التشغيلية المبنية على الصدق التام: حالة التحقق الفعلية لكل مشروع، روابط آمنة للوصول من الآيفون، فحوصات الجودة الحية، ومراحل البناء من الصفر.",
     stampPrefix: "تم التحديث: ",
     syncSame: "الموقع والأرتيفاكت نفس الإصدار",
@@ -2008,7 +2032,7 @@ const i18n = {
     statusFrozen: "مجمّد (صديق)",
     platTitle: "تغطية المنصات والأجهزة",
     platReq: "مطلوب أساسي", platOpt: "اختياري، يحدده القرار المعماري", platSkip: "مستبعد، السبب في وثيقة المنصات",
-    accTitle: "الحسابات والاشتراكات — المسار الأسهل",
+    accTitle: "الحسابات والاشتراكات - المسار الأسهل",
     wfTitle: "فريق العمل ونموذج التشغيل",
     actTitle: "آخر الأنشطة والعمليات",
     noMatch: "لا يوجد مشروع يطابق معايير البحث.",
@@ -2116,15 +2140,19 @@ function renderLedgers(lang) {
 
 function renderActive(lang) {
   const isAr = lang === "ar";
+  const ai = D.active_info || {};
+  const staleNote = ai.stale
+    ? `<li><span class="pill warn">${isAr ? "قديمة" : "STALE"}</span><span class="sub">${isAr ? "بيانات العمل الآن أقدم من 6 ساعات" : "Working-now feed is older than 6 hours"}</span></li>`
+    : "";
   if (D.active && D.active.length) {
-    $("#active").innerHTML = D.active.map((a) => `
+    $("#active").innerHTML = staleNote + D.active.map((a) => `
       <li>
         <span class="pill info">${esc(a.chat ? a.chat.toUpperCase() : "WORKER")}</span>
         <span><b>${esc(a.project)}</b><br><span class="sub">${esc(a.state)}</span></span>
       </li>
     `).join("");
   } else {
-    $("#active").innerHTML = `<li><span class="pill mute">${isAr ? "خامل" : "Idle"}</span><span class="sub">${i18n[lang].idleText}</span></li>`;
+    $("#active").innerHTML = staleNote + `<li><span class="pill mute">${isAr ? "خامل" : "Idle"}</span><span class="sub">${i18n[lang].idleText}</span></li>`;
   }
   const nextName = isAr ? (D.nextStart_ar || D.nextStart) : D.nextStart;
   $("#nextstart").textContent = nextName ? i18n[lang].nextStartPrefix + nextName : "";
@@ -2136,7 +2164,7 @@ function renderAttention(lang) {
     $("#attention").innerHTML = D.attention.map((a) => `
       <li>
         <span class="pill ${a.level}">${esc(isAr ? (a.tag_ar || a.tag_en) : a.tag_en)}</span>
-        <span>${esc(isAr ? (a.text_ar || a.text_en) : a.text_en)}</span>
+        <span>${esc(isAr ? (a.text_ar || a.text_en) : a.text_en)}${a.stale ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "قديمة" : "stale"}</span>` : ""}</span>
       </li>
     `).join("");
   } else {
@@ -2152,11 +2180,12 @@ function renderCI(lang) {
     const isFailure = c.status === "failure";
     const pillClass = isSuccess ? "ok" : isFailure ? "bad" : "mute";
     const pillText = isSuccess ? (isAr ? "ناجح" : "PASS") : isFailure ? (isAr ? "فشل" : "FAIL") : (isAr ? "لا يوجد" : "NONE");
+    const ageTxt = c.createdAt ? ` · ${relTime(c.createdAt, isAr)}` : "";
     return `
       <li>
         <span class="pill ${pillClass}">${pillText}</span>
         <span>
-          <b>${esc(c.name)}</b> <span class="sub num">${esc(c.repo)}</span><br>
+          <b>${esc(c.name)}</b> <span class="sub num">${esc(c.repo)}${esc(ageTxt)}</span><br>
           ${c.url ? `<a href="${esc(c.url)}" target="_blank" class="sub" style="color:var(--accent);text-decoration:none">${isAr ? "تقرير الفحص #" : "Run #"}${c.id} &rarr;</a>` : `<span class="sub">${isAr ? (c.repo && c.repo.includes("private") ? "مستودع خاص - لا توجد روابط خارجية" : "لا توجد تدفقات بعد") : (c.repo && c.repo.includes("private") ? "Private repo &bull; Local sovereign code" : "No workflow yet")}</span>`}
         </span>
       </li>
@@ -2164,18 +2193,43 @@ function renderCI(lang) {
   }).join("");
 }
 
+function relTime(iso, isAr) {
+  if (!iso) return "";
+  const t = new Date(iso);
+  if (isNaN(t)) return "";
+  const mins = Math.max(0, Math.round((Date.now() - t.getTime()) / 60000));
+  if (mins < 1) return isAr ? "الآن" : "just now";
+  if (mins < 60) return isAr ? `منذ ${mins} د` : `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 48) return isAr ? `منذ ${hrs} س` : `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  return isAr ? `منذ ${days} يوم` : `${days}d ago`;
+}
+
 function renderRemote(lang) {
   const isAr = lang === "ar";
   if ($("#txt-daemon-status-pill")) {
-    const isHealthy = D.daemon_health && (D.daemon_health.status === "healthy" || D.daemon_health.status === "running");
-    $("#txt-daemon-status-pill").className = `pill ${isHealthy ? "ok" : "warn"}`;
+    const h = D.daemon_health || {};
+    const st = String(h.status || "");
+    const isHealthy = st === "healthy" || st === "running";
+    const isStale = st === "stale";
+    const isUnknown = st === "unknown" || st === "";
+    $("#txt-daemon-status-pill").className = `pill ${isHealthy ? "ok" : isStale ? "warn" : isUnknown ? "mute" : "bad"}`;
     $("#txt-daemon-status-pill").textContent = isHealthy
-      ? (isAr ? "التشغيل التلقائي نشط" : "Autostart Active")
-      : (isAr ? "جاري الفحص" : "Checking Status");
+      ? (isAr ? "الخادم يعمل" : "Server Running")
+      : isStale
+        ? (isAr ? "التحديث متأخر" : "Refresh Stale")
+        : isUnknown
+          ? (isAr ? "الحالة غير معروفة" : "Status Unknown")
+          : (isAr ? "متوقف" : "Stopped");
     if ($("#txt-daemon-mode-info")) {
-      $("#txt-daemon-mode-info").innerHTML = isAr
-        ? "النمط: منفصل wscript/pythonw &middot; المشرف: تعافي ذاتي"
-        : "Mode: Detached wscript/pythonw &middot; Supervisor: Auto-recovery";
+      const bits = [
+        isAr ? "منفصل" : "detached",
+        h.pid ? `pid ${h.pid}` : "",
+        h.port ? `:${h.port}` : "",
+        h.last_refresh_time ? (isAr ? `آخر تحديث ${relTime(h.last_refresh_time, true)}` : `refreshed ${relTime(h.last_refresh_time, false)}`) : "",
+      ].filter(Boolean);
+      $("#txt-daemon-mode-info").textContent = bits.join(" · ");
     }
   }
   if (!D.remote_access || !$("#remote-list")) return;
@@ -2186,7 +2240,7 @@ function renderRemote(lang) {
       <li>
         <span class="pill info">:${r.port}</span>
         <span>
-          <b>${esc(name)}</b> &mdash; <span class="sub">${esc(desc)}</span><br>
+          <b>${esc(name)}</b> - <span class="sub">${esc(desc)}</span><br>
           <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} &rarr;</a>
           ${r.ip_url ? `&middot; <a href="${esc(r.ip_url)}" target="_blank" class="sub" style="color:var(--muted);font-family:var(--f-data);font-size:11.5px;text-decoration:none">[${isAr ? "عنوان IP المباشر" : "Direct IP"} &rarr;]</a>` : ""}
         </span>
@@ -2444,7 +2498,7 @@ function renderAccounts(lang) {
 
 function formatAutopilotTime(value, lang) {
   const n = Number(value);
-  if (!Number.isFinite(n) || n <= 0) return "—";
+  if (!Number.isFinite(n) || n <= 0) return "-";
   return new Date(n * 1000).toLocaleString(lang === "ar" ? "ar-EG" : "en-US", { dateStyle: "medium", timeStyle: "short" });
 }
 
@@ -2468,7 +2522,7 @@ function renderAutopilot(lang) {
     stateBox.innerHTML = `
       <div>
         <span class="label">${esc(t.stateListener)}</span>
-        <span class="big num">${esc(a.listener_pid != null ? String(a.listener_pid) : "—")}</span>
+        <span class="big num">${esc(a.listener_pid != null ? String(a.listener_pid) : "-")}</span>
         <span class="sub">${esc(running ? t.stateListenerActive : t.stateListenerInactive)}</span>
       </div>
       <div>
@@ -2494,7 +2548,7 @@ function renderAutopilot(lang) {
     const rows = queue.length
       ? queue.map((q) => {
           const done = Boolean(q.done);
-          const label = q.private ? esc(t.queuePrivate) : esc(q.title || q.name || "—");
+          const label = q.private ? esc(t.queuePrivate) : esc(q.title || q.name || "-");
           const name = q.private ? "private-task" : esc(q.name || "");
           return `
             <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)">
@@ -2639,23 +2693,23 @@ function renderHandover(lang) {
     metricsEl.innerHTML = `
       <div>
         <span class="label">${t.metricTotalProjects}</span>
-        <span class="big">${m.total_projects || 17}</span>
+        <span class="big">${m.total_projects ?? 0}</span>
         <div class="sub">${isAr ? "مشروعاً في المقر" : "active products"}</div>
       </div>
       <div>
         <span class="label">${t.metricMasterPlans}</span>
-        <span class="big" style="color:var(--accent)">${m.master_plans_ready || 5}<span class="sub" style="font-size:16px"> / ${m.total_projects || 17}</span></span>
-        <div class="bar"><i style="width:${pct(m.master_plans_ready || 5, m.total_projects || 17)}%"></i></div>
+        <span class="big" style="color:var(--accent)">${m.master_plans_ready ?? 0}<span class="sub" style="font-size:16px"> / ${m.total_projects ?? 0}</span></span>
+        <div class="bar"><i style="width:${pct(m.master_plans_ready ?? 0, m.total_projects ?? 0)}%"></i></div>
       </div>
       <div>
         <span class="label">${t.metricTasksTracked}</span>
-        <span class="big">${m.tasks_tracked || 170}</span>
+        <span class="big">${m.tasks_tracked ?? 0}</span>
         <div class="sub">${isAr ? "مهمة مرقمة جاهزة للتنفيذ" : "detailed tasks parsed"}</div>
       </div>
       <div>
         <span class="label">${t.metricChecklistReady}</span>
-        <span class="big" style="color:var(--ok)">${m.checklist_ready || 7}<span class="sub" style="font-size:16px"> / ${m.checklist_total || 10}</span></span>
-        <div class="bar"><i style="width:${pct(m.checklist_ready || 7, m.checklist_total || 10)}%;background:var(--ok)"></i></div>
+        <span class="big" style="color:var(--ok)">${m.checklist_ready ?? 0}<span class="sub" style="font-size:16px"> / ${m.checklist_total ?? 0}</span></span>
+        <div class="bar"><i style="width:${pct(m.checklist_ready ?? 0, m.checklist_total ?? 0)}%;background:var(--ok)"></i></div>
       </div>
     `;
   }
@@ -2684,7 +2738,7 @@ function renderHandover(lang) {
             <span style="font-weight:600;font-size:12.5px;color:var(--ink)">${esc(titleText)}</span>
             <span class="pill ${statusClass}" style="font-size:10.5px;padding:2px 6px">${esc(statusText)}</span>
           </div>
-          <div class="sub" style="font-size:11.5px;line-height:1.4">${esc(descText)}</div>
+          <div class="sub" style="font-size:11.5px;line-height:1.4">${esc(descText)}${c.stale ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "معلومة قديمة" : "stale"}</span>` : ""}</div>
           <div class="sub" style="font-size:10.5px;margin-top:2px;color:var(--accent)">${esc(catText)}</div>
         </li>
       `;
@@ -2803,7 +2857,8 @@ function applyLang(lang) {
   const syncMsg = D.artifact_synced ? t.syncSame : t.syncWait;
   const gitShort = D.git_hash || "main";
   const hashShort = D.content_hash || "--------";
-  $("#stamp").textContent = `${t.stampPrefix}${D.generated} · git ${gitShort} · hash ${hashShort} · ${syncMsg}`;
+  const ageTxt = D.generated ? relTime(D.generated.replace(" ", "T"), lang === "ar") : "";
+  $("#stamp").textContent = `${t.stampPrefix}${D.generated}${ageTxt ? " · " + ageTxt : ""} · git ${gitShort} · hash ${hashShort} · ${syncMsg}`;
 
   if ($("#nav-now-text")) $("#nav-now-text").textContent = t.navNow;
   if ($("#nav-handover-text")) $("#nav-handover-text").textContent = t.navHandover;

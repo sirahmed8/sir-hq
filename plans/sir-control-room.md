@@ -13,7 +13,7 @@ One page that tells Ahmed the true state of every project (what is built, what i
 | Telegram sender | `scripts/deliver/send-telegram.mjs` | **verified today**: `node --test scripts/deliver/send-telegram.test.mjs` = 6 of 6 pass (mock server) |
 | Telegram buttons and approvals | `scripts/deliver/send-buttons.mjs`, `approval.py`, `telegram-inbox.mjs` | built, unverified |
 | Briefing formatter | `scripts/deliver/format-briefing.mjs` with `test-format-briefing.mjs` | built, unverified |
-| Mods | `mods/sir-context` (injects plan and inbox into every chat), `mods/sir-guards` (no PRs, no deleting legacy, AHome privacy fence) | built, unverified; the older "SIR Control Room" mod named in MAIN_PLAN step 6 does not exist in `mods/` (only two mods) |
+| Mods | `mods/sir-context` (injects plan and inbox into every chat), `mods/sir-guards` (no PRs, no deleting legacy, AHome privacy fence) | built, unverified; the dashboard is not a mod - MAIN_PLAN step 6 now points to `plans/generate_dashboard.py` + `ops/public/` (doc gap fixed 2026-11-10) |
 | CI | `.github/workflows/verify.yml` (compiles Python, generates the dashboard) | built, unverified |
 
 ## 3. Current state

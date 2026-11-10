@@ -227,7 +227,7 @@ def parse_request_ledgers():
         return ledgers
     names = {
         "ahome": ("AHome (Private)", "منظومة AHome (خاصة)"),
-        "control": ("SIR Control Room", "غرفة التحكم — المقر"),
+        "control": ("SIR Control Room", "غرفة التحكم - المقر"),
         "jobs": ("SIR Jobs", "منظومة فرص العمل"),
         "laptop": ("SIR Laptop Manager", "مدير الحاسوب والأداء"),
         "study": ("SIR Study", "منصة المذاكرة الذكية"),
@@ -346,7 +346,7 @@ def parse_account_ledger():
                 {
                     "time": cells[0],
                     "account": cells[1],
-                    "models": "—",
+                    "models": "-",
                     "five_h": cells[2],
                     "weekly": cells[3],
                     "five_reset": cells[4],
@@ -359,11 +359,11 @@ def parse_account_ledger():
                 {
                     "time": cells[0],
                     "account": cells[1],
-                    "models": "—",
+                    "models": "-",
                     "five_h": cells[2],
                     "weekly": cells[3],
                     "five_reset": cells[4],
-                    "weekly_reset": "—",
+                    "weekly_reset": "-",
                     "note": cells[5],
                 }
             )
@@ -372,11 +372,11 @@ def parse_account_ledger():
                 {
                     "time": cells[0],
                     "account": cells[1],
-                    "models": "—",
-                    "five_h": "—",
-                    "weekly": "—",
-                    "five_reset": "—",
-                    "weekly_reset": "—",
+                    "models": "-",
+                    "five_h": "-",
+                    "weekly": "-",
+                    "five_reset": "-",
+                    "weekly_reset": "-",
                     "note": " · ".join(cells[2:]),
                 }
             )
@@ -894,7 +894,7 @@ def get_control_room_daemon_health():
         "service": "SIR Control Room",
         "task_name": "SIR_ControlRoom_Server",
         "port": 8899,
-        "status": "healthy",
+        "status": "unknown",
         "mode": "detached_daemon",
     }
 

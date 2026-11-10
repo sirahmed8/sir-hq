@@ -62,3 +62,8 @@
 - Next step: run `python scripts/ai-status.py`; read the Haiku operator result for ZCode; check `gh run list` in SIR Jobs and AHome; confirm .sir/plans/r21-tabs.md exists in AHome (HQ guard blocks reading AHome files from this chat, ask the AHome worker or its report).
 - Open promises: Antigravity quota returns 2026-11-11 00:04 (use the 19 accounts via ops/ACCOUNT_ROTATION.md); repair Codex and Qwen CLIs; republish Control Room artifact after r19-control; verify r15/r16-laptop.
 - Re-read after a reset: plans/AI_TOOLS_CONTROL.md, ops/WORKER_PREAMBLE.md, ops/briefs/r21-ahome.md, scripts/cli_pool.py.
+
+## r19-control worker note (2026-11-11 00:20)
+- Done: all review findings fixed except M3 (accepted tech debt, documented). Server single-instance proven live: 1 process (PID 36916, pythoncore-3.14 pythonw.exe); /OWNER_ACTIONS.md /HQ_CHECKPOINT.md /agy-accounts-usage.md /locks/ all 404, /dashboard.html 200, /health 200. SIR_ControlRoom_Refresh task deleted; SIR_ControlRoom_Server has 5-min repeat + IgnoreNew. Approval flow: pending registration + 24h expiry + replay rejection, 7 tests pass; suite 19/19 OK.
+- Dashboard: 16 before/after screenshots in .sir/evidence/r19/shots-src/ (390/1280, en/ar, light/dark). Invented fallbacks removed (?? 0, Status Unknown state). CI badges read live gh run list: SIR Jobs green again, SIR Laptop Manager red (its own repo, other task).
+- Next step: commit + push, confirm gh run list green on sirahmed8/sir-hq main, write ops/agy-runs/reports/r19-control.md, run agy-done.py.
