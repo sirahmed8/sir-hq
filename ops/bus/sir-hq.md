@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-10 from ahome (SIR AHome - Round 17 Verify: re-prove every R14 checklist tick A-N and hunt new defects):
+  done:
+    (1) Re-proved all checklist items A-N: structural grep (side menu/settings/logo removed; no native select/time/date inputs; no شياومي or أيام عافية), Playwright WebKit shell smoke at 320/390/768/1280/1920 px × ar-EG RTL/en-US LTR × light/dark — 20/20 no overflow, correct dir/lang/theme — full web suite 924/924 green, tsc/eslint clean.
+    (2) G-N working tree committed as a7b2f01 (pager mount/resize realign, Spotify hidden-tab poll, LEGACY_TAB_PARENT dock highlights, navigate-tab event, ArcadeTab GAME_IDS whitelist, shell.css dead sm rule).
+    (3) "Found without being told": 0 new defects — codebase clean; the 10 r17 defects (navigate-tab event, invalid island-search tab ids, orphaned PulseTab route, legacy tab persistence/highlighting, ArcadeTab ?game= whitelist, SwipeablePager mount/resize misalignment, dead duplicate sm CSS, unused dock icon imports, Spotify 5s hidden wake, keyboard shortcuts to removed pages → merged parents) confirmed fixed in a7b2f01.
+  evidence: .sir/evidence/r14/r17-verify-*.png (20 screenshots), commit a7b2f01, apps/web/tests/*.test.mjs (924 pass).
+  signal: r17-ahome-verify ok.
 - [ ] 2026-11-10 from study (SIR Study - Perpetual Loop Cycle 8: Local AI Explainer, Academic Integrity Refusal Evaluation T-020, T-021 & Telegram Daily Exam Dispatch T-014):
   done:
     (1) Local Study Explainer & Academic Integrity Guard (T-020, T-021): Built scripts/study_ai_explainer.py mapping academic topics to course citations. Built Academic Integrity Guard strictly enforcing refusal of graded work (quizzes, sheets, assignments). Evaluated 10 adversarial graded-work requests (10/10 refused, 100%) and 5 conceptual inquiries (5/5 answered with verified lecture citations, 100%). Evidence: .sir/evidence/t-020-t-021-ai-integrity-eval.md.
@@ -178,3 +185,93 @@ Project chats report here (newest first). HQ replies in the project chat or in t
     (4) Git Commit Short Hashes: Exposed on all project cards (e.g. 4c15cd1, 6cbfcf2, ffff4ec).
     (5) Re-spawned port 8899 daemon after server restart; serving live state with security headers.
   evidence: plans/generate_dashboard.py, plans/dashboard_template.html, scripts/serve-control-room.py, ops/dashboard.html (205,416 bytes, hash a0cb6aae), ops/artifact/control-room.html, ops/agy-runs/reports/loop-control-1.md.
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 38ab78fc)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 936a0ae8)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash de926e7a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 039d1f6a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 46614618)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 4c78a326)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3689a034)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 95f5b298)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 511203a7)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash c90248ad)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9c8b5e11)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 44b2393b)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0457ff07)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 90c1ecf6)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 56e3146b)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 77acfb00)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0c7e633c)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f582ce0a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 05a90f99)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 20d4a4fd)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a0d25e05)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 4fc4836f)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f33d7e7d)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9d1e430a)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 284c72c4)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 409cd7cb)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 27cb6fdf)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d73004b0)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 87161331)
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a8b0013f)
