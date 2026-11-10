@@ -95,3 +95,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Done by HQ in his logged-in Chrome: TickTick developer app "AHome" (client id and redirect URL set), Google Cloud project ahmed-habiba OAuth client "AHome Tasks Sync" (Tasks API was already enabled, consent screen already In production). Ids in _local/ahome-oauth.env (gitignored); brief r21-ahome tells the worker to use them. TickTick read: no dates or countdowns about the two of them exist there; "SIR HQ" project and sprint tasks updated.
 - WhatsApp Web is logged in in his Chrome: first read-only digest sent on Telegram; cron d383b42b every 2 hours (session only).
 - Next step: hourly watch (cron 9b8288f7); WhatsApp digest (cron d383b42b); check r21-ahome progress and CI.
+## HQ note (2026-11-11 01:37) [watch] Study active (0 min idle), Laptop/_SIR green, AHome CI shows failure (r21 owns it), raised MAX_PARALLEL to 5 so SIR Jobs starts; C: 8.3 GB.
