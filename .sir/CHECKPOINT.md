@@ -51,3 +51,8 @@
 - Running on free CLIs: r19-jobs (started 22:25, nothing pushed yet, CI still red), r19-control (started 22:40).
 - Queued: r20-study (closes the open checklist lines; exam table must be confirmed against the timetable).
 - Next step: when autopilot.log shows task done for r19-jobs and r19-control, check `gh run list` in SIR Jobs (must be green) and that one server copy listens on 8899; then queue AHome round 16 (phone walkthrough of items 1, 10, 16, 18 and Dependabot alerts) and republish the Control Room artifact.
+
+## HQ note (2026-11-10 23:25)
+- Found why rounds failed: free quotas hit by both tasks at once, Devin in smart mode refused all tool calls, workers used bash syntax in PowerShell and left main broken. Fixed: scripts/cli_pool.py (shared model pool with cooldowns, 12 free models), scripts/cli-run2.sh rewritten, ops/WORKER_PREAMBLE.md, kilo and opencode configs load the manual, scripts/ai-status.py, plans/AI_TOOLS_CONTROL.md.
+- r19-jobs and r19-control restarted 23:11 on Devin (dangerous mode); autopilot restarted 23:16 with the new runner pids.
+- Next step: run python scripts/ai-status.py; check r19-jobs/r19-control progress and that gh run list in SIR Jobs turns green; then r20-study starts by itself.

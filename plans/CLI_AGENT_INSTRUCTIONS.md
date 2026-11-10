@@ -1,4 +1,5 @@
 # Instructions for the free coding agents (Kilo, OpenCode, Devin CLI, ZCode) - 2026-11-10
+nSee also plans/AI_TOOLS_CONTROL.md (how the workers, pool and autopilot fit together) and ops/WORKER_PREAMBLE.md (the manual every worker gets each round).
 
 These tools do the building when Antigravity quota is out. Every one of them follows D:/Projects/AGENTS.md, plans/GEMINI_QUALITY_CHARTER.md and the project's .sir files. Rules for all of them:
 1. Read first: D:/Projects/AGENTS.md and D:/Projects/GEMINI.md, the project's AGENTS.md, .sir/CHECKPOINT.md, the checklist file, the brief; then `git status` and the last commits (another tool may have edited before you; never revert its edits).

@@ -274,3 +274,5 @@
 2026-11-10 21:10 HQ: verified r16 jobs and study (both CI red, briefs written), queued r19-study, r19-jobs, r19-control; AHome r18 running on CLI.
 2026-11-10 22:19 AHome r18-ahome-phone done: R15 checklist 27/27 ticked; CI verify 42893143542 green on d0e8c45 (web npm 929, local pytest 1007, gitleaks clean); 3 flaky fixed-wait WebKit test files switched to waitForFunction polling; firebase+vercel v1.0.0 live; APK installed on ronf6d5hrkqsuoaa.
 2026-11-10 23:10 HQ: r18-ahome-phone and r19-study checked (CI green); r19-jobs, r19-control running; r20-study queued.
+2026-11-10 nightly: gitleaks findings=5 | disk free C=9.6G D=6.8G (D 98% used) | uncommitted _SIR files=30 | usage-ledger lines today=2
+2026-11-10 23:25 HQ: fixed worker runner (pool, manual, devin mode), wrote AI_TOOLS_CONTROL.md.

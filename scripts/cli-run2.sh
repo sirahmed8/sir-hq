@@ -1,27 +1,38 @@
 #!/usr/bin/env bash
-# Run a brief through the free CLI agents in turns until its done marker appears.
+# Run a brief through the free CLI agents until its done marker appears.
 # Usage: cli-run2.sh <task-name> <project-folder>
-# Reads ops/briefs/<task-name>.prompt.txt, done marker ops/agy-runs/done/<task-name>.done, log ops/agy-runs/cli-<task-name>.log
+# Reads ops/WORKER_PREAMBLE.md + ops/briefs/<task>.prompt.txt, done marker ops/agy-runs/done/<task>.done, log ops/agy-runs/cli-<task>.log
+# Which model runs next comes from scripts/cli_pool.py (shared cooldown file, so two tasks never hammer a model that is out of quota).
 NAME="$1"; DIR="$2"
-PROMPT=/d/Projects/_SIR/ops/briefs/$NAME.prompt.txt
-DONE=/d/Projects/_SIR/ops/agy-runs/done/$NAME.done
-LOG=/d/Projects/_SIR/ops/agy-runs/cli-$NAME.log
+ROOT=/d/Projects/_SIR
+PROMPT=$ROOT/ops/briefs/$NAME.prompt.txt
+PREAMBLE=$ROOT/ops/WORKER_PREAMBLE.md
+DONE=$ROOT/ops/agy-runs/done/$NAME.done
+LOG=$ROOT/ops/agy-runs/cli-$NAME.log
 DEVIN="$LOCALAPPDATA/devin/cli/bin/devin.exe"
-# order: strongest free first; a tool that reports a limit is skipped by the next round automatically
-TOOLS=(kilo:kilo/kilo-auto/free opencode:opencode/big-pickle devin:swe-2-flash-medium opencode:openrouter/nvidia/nemotron-3-ultra-550b-a55b:free opencode:opencode/glm-5.3-flash-free kilo:kilo/kilo-auto/free opencode:opencode/deepseek-v4.1-flash-free opencode:openrouter/openrouter/free)
-CONT="Continue: read .sir/CHECKPOINT.md, the checklist file named in the brief, the brief file $PROMPT and git status plus the last commits; finish every unticked item completely (commit and checkpoint after each item), then write the report and run the done command. Web research is allowed (if the web search tool crashes use curl or fetch), never put private data in a query. Do not stop until every item is ticked."
+CONT="Continue task $NAME. Read $PREAMBLE, then .sir/CHECKPOINT.md, the checklist file named in the brief, the brief $PROMPT, git status, git diff --stat and the last commits. Repair anything broken first, then finish every unticked item completely (commit, push and checkpoint after each item), then write the report and run the done command from the manual. Do not stop until every item is ticked and CI on main is green."
 cd "$DIR" || exit 1
-for round in $(seq 1 24); do
+for round in $(seq 1 40); do
   [ -e "$DONE" ] && { echo "done marker present" >> "$LOG"; exit 0; }
-  entry=${TOOLS[$(( (round-1) % ${#TOOLS[@]} ))]}
-  tool=${entry%%:*}; model=${entry#*:}
+  pick=$(python $ROOT/scripts/cli_pool.py pick)
+  case "$pick" in
+    WAIT*)
+      secs=${pick#WAIT }
+      echo "=== all free models cooling down, usage limit, next try in $((secs/60)) min $(date +%H:%M)" >> "$LOG"
+      echo "=== usage limit: pool empty, runner exits so the autopilot retries later" >> "$LOG"
+      exit 0 ;;
+  esac
+  tool=${pick%%|*}; model=${pick#*|}
   echo "=== round $round $tool $model $(date +%H:%M)" >> "$LOG"
-  if [ "$round" -eq 1 ]; then msg="$(cat "$PROMPT")"; else msg="$CONT"; fi
+  if [ "$round" -eq 1 ] && [ ! -s "$LOG.started" ]; then msg="$(cat "$PREAMBLE" "$PROMPT")"; touch "$LOG.started"; echo x > "$LOG.started"; else msg="$CONT"; fi
+  offset=$(stat -c %s "$LOG"); t0=$(date +%s)
   case "$tool" in
     kilo) timeout 3300 kilo run --auto -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     opencode) timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
-    devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode smart --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
+    devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode dangerous --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
   esac
-  echo "=== round $round ended code $? $(date +%H:%M)" >> "$LOG"
-  sleep 30
+  code=$?
+  why=$(python $ROOT/scripts/cli_pool.py report "$pick" $code "$LOG" $offset $(( $(date +%s) - t0 )))
+  echo "=== round $round ended code $code ($why) $(date +%H:%M)" >> "$LOG"
+  sleep 20
 done
