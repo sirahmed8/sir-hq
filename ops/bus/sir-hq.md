@@ -501,3 +501,5 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-10 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash ce15260a)
+
+- [x] 2026-11-11 from r19-control: all review findings fixed (M3 accepted tech debt); 1 server process proven, privacy routes 404, approvals expiry/replay tested, dashboard truth fixes + 16 screenshots in .sir/evidence/r19/; CI green on main (run 42908844938); report ops/agy-runs/reports/r19-control.md
