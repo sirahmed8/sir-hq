@@ -85,3 +85,7 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 ## HQ note (2026-11-11 01:05)
 - Added hq_watchdog.py (task SIR_HQ_Watchdog, every 10 min) and an hourly HQ cron (session only). Added AHome brief item 12: linked apps (TickTick, Google Tasks) "ربط الحساب" does nothing, must work end to end with OAuth, no private data read by agents. GLM Flash daily quota almost used; ZCode may be idle soon. Autopilot starts a CLI worker on AHome at its next tick (idle 28 min).
 - Next step: read ops/watchdog.log and ai-status.py; if ZCode quota is gone, rotate account via Haiku (approved list in scripts/agy-chooser.py), Full access, send continue.
+
+## HQ note (2026-11-11 01:35)
+- ZCode is signed out (quota gone on both GLM models); Haiku refused to finish the Z.ai OAuth consent (sign-in stays with the owner). One tap added to ops/OWNER_ACTIONS.md and sent on Telegram. CLI workers carry all projects (autopilot MAX_PARALLEL=4; r21-ahome and r22-laptop running; Study picks up when ZCode idles 25 min; r22-control and r22-jobs wait for a free slot). TickTick project "SIR HQ" created with the owner tasks and round tracking (owner own data only). Fallback manager tick task exists (SIR_HQ_ManagerTick).
+- Next step: hourly watch (cron 9b8288f7): ai-status.py, watchdog.log, gh run list per project; if C: under 3 GB the watchdog cleans; do not retry ZCode sign-in without the owner.
