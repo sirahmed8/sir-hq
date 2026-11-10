@@ -1,75 +1,77 @@
-# PLAN: SIR Content Creation Studio
-Status: planned, not started. Wave 4. Replaces: SIR Content Creation Studio v1 (with the SIR Media idea and ByteVibeHQ publishing). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Content Creation Studio (Wave 4, public product, not started)
+Audited 2026-11-10. Replaces `SIR Content Creation Studio (v1)` (in `legacy/`, kept until M6). Free local editing, paid cloud queue and scheduler in EGP. It also runs the owner's brand-channel publishing, so it doubles as the engine for standard 26 marketing of the other products.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- SIR Content Creation Studio (v1)
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-Offline-first AI video studio for Shorts/Reels/TikTok and long form, plus scheduled publishing for ByteVibeHQ's accounts. Audience: Ahmed first, then creators.
+## 1. Purpose (plain words)
+A desktop program that turns an idea into a short vertical video (Shorts, Reels, TikTok) or a longer video: script, voice, captions, footage or images, music, render. It can schedule posts to a brand's accounts through the platforms' official APIs, always with a human-approved draft first.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Content Creation Studio` |
 | GitHub (private) | `sirahmed8/sir-content-creation-studio` |
-| Firebase project / OAuth app name | `sir-content-studio` / "SIR Content Creation Studio" |
-| Cloudflare project | `sir-content-creation-studio` (`sir-content-creation-studio.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-content-creation-studio` (Android, iOS, Windows) |
-| Platforms | Windows desktop (Electron) + local engine (Python FastAPI, Remotion) + web dashboard |
-| Money | Free local editing; Pro for cloud render queue and scheduler (EGP); Launching Soon fallback |
+| Stack (planned) | Electron + Vite + React shell, local engine Python 3.12 (FastAPI on 127.0.0.1) with Remotion for rendering, one Python version pinned everywhere (legacy had 3.10, 3.11 and 3.13 mixed); web dashboard on Cloudflare Pages for the scheduler |
+| Domain | candidate `sirstudio.app` (owner checks and buys; price "(unsourced, verify)"); `pages.dev` until then |
+| Platforms | Windows desktop (first), web dashboard; macOS and Linux Electron builds: later, only if a user asks; Android/iOS: skipped; browser extension: skipped |
+| Money | Free local editing with a watermark-free export; Pro in EGP for the cloud render queue and the scheduler (price to test, "(unsourced, verify)"); "subscriptions launching soon" + email capture until keys |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- No server-side token check (owner gating by env in 6 files), personal state files tracked in git (profile, uid, pro flag, studio.db), unsigned stale installer, Python 3.10/3.11/3.13 mismatch, CI failing.
-- No Launching Soon fallback; payment SDK names scattered in 5 files.
+## 3. Current state
+Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30); 9 commits, all setup/plan. PORTFOLIO.md: 2 of 19 tasks.
+Legacy facts (`ops/inventory/SIR-Content-Creation-Studio.md`, 2026-10-29, tests not run): 120 test files; personal state tracked in git (profile, uid, pro flag, `studio.db`, audio files); no server-side token check (owner by env in 6 files); unsigned installer older than the last source commit; CI failing; Python version mismatch; no social publishing code exists (the "ByteVibeHQ publishing" idea has no spec). Treat all legacy claims as unverified.
 
-## 4. What to port from the old project
-- Engine: transcript, captions, reframing, b-roll, sound effects pipeline, Remotion templates, 120 test files (keep the good ones).
-- UI flows for project, timeline, export.
+## 4. Security and conduct rules
+1. Personal state files are not tracked; history purge for the legacy repo happens at M6 (owner action only if a rewrite is needed).
+2. Pro and owner checks are server-side (verified ID token, allow-list). Test: forged local `.studio_pro.json` unlocks nothing.
+3. Provider keys live in the OS credential store (desktop) or server secrets, never in the renderer bundle or git.
+4. Publishing: official APIs only, human-approved draft, a posting rate cap per account, an audit log. No engagement bots, no automated likes, follows or comments, no fake accounts, no scripting X's website, no CAPTCHA bypass. Tests: scheduler refuses to publish an unapproved draft; refuses more than the cap.
+5. Brand voice accounts post as the brand; they never pose as Ahmed in live conversations.
+6. Media rights: every music, font, stock clip and model used has a licence entry in `docs/LICENSES.csv`; the exporter refuses an asset with no licence. AI-generated media labeled where a platform requires it.
+7. Remotion licence terms for commercial use: "(unsourced, verify)" at M0; default is read the official licence page and record the answer before selling Pro.
+8. Local-only mode works offline with local models; nothing is uploaded without a visible switch.
 
-## 5. Screens and entities
-**Screens:** Projects, Import, Transcript editor, Timeline, Captions, Templates, Export queue, Scheduler (ByteVibeHQ calendar), Settings, Owner dashboard, Help
-**Entities:** Project, Asset, Transcript, Caption, Template, RenderJob, ScheduledPost, Account (official API tokens stored server-side)
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces
+Platform `owner-auth`, `ai-proxy` (script/voice providers with fallback), `billing-fallback`, `legal-pack`, `i18n`, `ui`, Telegram sender (approval taps for posts). The scheduler and approval flow here is also the engine other plans call for their own marketing calendars; do not build another scheduler in other products. Laptop Manager's game mode must be able to pause renders (small endpoint).
 
-## 6. AI at the core
-Flagship: AI clip finder + caption writer. Providers via ai-proxy; local Whisper/Ollama for private media.
+## 6. Screens and entities
+Home (projects), Idea to script, Storyboard/timeline, Voice and captions, Media library, Render queue, Schedule (calendar of drafts, approved, posted), Accounts, Analytics (real numbers from APIs only), Pricing, Settings and Profile, Help. Entities: Project, Scene, Asset, License, RenderJob, Draft, ScheduledPost, Account, AuditEntry, Subscription.
+Five states, Arabic RTL (captions with correct Arabic shaping) and English, themes, 320 px to 4K for the dashboard, WCAG 2.2 AA, own logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Personal state never in git; Python version pinned once; installer signed when possible; social tokens only server-side; no X website scripting (official APIs/schedulers only).
+## 7. AI
+Script writer, caption translator, voice (local TTS first, provider fallback), thumbnail suggestions. Chain via `ai-proxy`, cost cap per day, kill switch; evals: caption accuracy on 20 Arabic clips (word error rate recorded), script safety (no false claims in sample health or finance prompts: refuses). Support assistant grounded in docs; free users 5 per day; owner unmetered.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-content-creation-studio`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-content-studio` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Content Creation Studio", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Local engine health endpoint, project create/open, transcript from a sample clip, tests for each.
-### M2 Parity with the old project
-- [ ] Captions, reframing, export; scheduler for Instagram/TikTok/Facebook/Reddit via official APIs; calendar with 24-hour veto window.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] Clip finder and caption writer with eval clips; hashtag and title helper.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Rebuilt installer, update channel, retire v1 folder.
+## 8. Operations
+Render failure alerts, disk-space guard (render budget and cleanup), weekly Telegram report (renders, posts published, errors, cost), update channel with signed installer (owner certificate), status JSON for the dashboard.
 
-## 9. Risks and open decisions
-- Platform API approvals take time (owner accounts); keep drafts-only mode.
-- GPU/disk limits on Ahmed's laptop: render budgets and cleanup.
+## 9. Launch, legal and visibility
+Owner buys domain, code-signing certificate, payment accounts, platform developer app approvals (YouTube, Meta, TikTok review queues take time; keep drafts-only mode until approved). Legal pack: privacy, terms, refunds, DPA, sub-processors, AI-output disclosure, DMCA process. Visibility: Arabic queries ("برنامج عمل فيديوهات ريلز"), tutorial videos made with the product itself, comparison pages once sourced, `llms.txt`, facts page.
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Deep scan, setup, CI | scan report; one Python version pinned; green Actions URL; Remotion licence answer recorded |
+| M1 | Core slice | script to 15 second rendered MP4 with captions on the laptop; render time recorded |
+| M2 | Parity | feature checklist from legacy ticked; media library with license table |
+| M3 | Security, legal, billing | token tests, unapproved-publish test, billing fallback test |
+| M4 | AI | caption word error rate and script safety evals recorded |
+| M5 | Quality | screenshots, offline test, a11y, installer smoke test on a clean profile |
+| M6 | Release | signed installer (owner), scheduler live for one brand account in drafts-then-approved mode |
+
+## 11. Next 10 tasks (each under 2 hours)
+1. Deep scan of legacy: feature list and tracked personal files (names only) into `.sir/reports/deep-scan.md`. Check: file lists each feature with keep/drop.
+2. Pin Python 3.12 (`.python-version`, `pyproject.toml`, CI) and create the engine skeleton with `/health`. Check: `uv run pytest` green; health returns 200.
+3. CI workflow with gitleaks. Check: green Actions URL.
+4. Remotion minimal composition rendering a 5 second caption clip from JSON. Files: `apps/render/`. Check: MP4 file exists, ffprobe prints duration 5 s.
+5. Arabic caption shaping test with a fixture sentence (RTL, diacritics) in the rendered frame. Check: image diff against a golden frame.
+6. License table `docs/LICENSES.csv` and the exporter check. Check: test fails when an asset has no licence row.
+7. Credential store wrapper (Windows Credential Manager) for provider keys. Check: key round-trips; no key in repo (gitleaks).
+8. Draft model and approval flow (draft, approved, scheduled, posted) with tests. Check: unapproved publish is refused.
+9. Posting cap and audit log tests. Check: the cap test passes; audit lines are append-only.
+10. Dry-run publisher against a mock platform server. Check: mock receives the right payload; no real network call.
+
+## 12. Risks and open questions (defaults)
+- Platform API approvals and policy changes: default is drafts-only mode first; check each platform's current rules when connecting ("(unsourced, verify)").
+- GPU, disk and time limits on the laptop: default is a render budget and a queue with cleanup.
+- Music and stock-media licensing: default is only assets with a recorded licence.
+- Competitor and pricing claims: `plans/competitors/sir-content-creation-studio.md` must carry links or "(unsourced, verify)".
+
+## 13. Only the owner can do
+Sign in to platform developer consoles and approve app reviews; buy domain and certificate; create payment accounts and paste keys; approve each connected brand account; lawyer review before paid launch.

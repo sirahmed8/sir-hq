@@ -1,12 +1,14 @@
 # BUILD ORDER (Ahmed, 2026-11-01)
 
-Order of waves, one project chat at a time. HQ opens a project chat, reviews its reports, and asks Ahmed to approve before the next project starts.
+Order of waves. HQ opens a project chat, reviews its reports, and starts the next project when the finished one meets the definition of done in `PERPETUAL_LOOP.md` (Ahmed, 2026-11-08: agents do not stop; he is told on Telegram, he is not asked and nothing waits for him). Chats running at the same time: at most 2 while `LOW_USAGE_MODE.md` is active (2026-11-10), otherwise as many as the quota allows, at most 5.
+
+Priority override (Ahmed, 2026-11-08, newest): SIR Study comes first among wave 2 because of his exams (coaching only), and SIR AI ("Jarvis" for his laptop) starts right after the wave 2 projects, before the Negm plans. The wave numbers in `waves.json` and `order.json` are unchanged on purpose (changing them regenerates every plan); this paragraph wins where the table differs.
 
 | Wave | Why | Projects (in order) |
 |---|---|---|
 | 1 | AHome (private, first) | ahome |
 | 2 | Automations that make his life easier | sir-study, sir-jobs, sir-laptop-manager |
-| 3 | Friend's project: handoff pack only (no accounts created by Ahmed) | sir-negm-furniture |
+| 3 | Friend's project: PLANS and handoff pack only. No build work, chat, CI or deploy until Ahmed says so (2026-11-09) | sir-negm-furniture |
 | 4 | AI and content | sir-ai, sir-content-creation-studio |
 | 5 | Products that earn the most | sir-business, sir-hagoozat, sir-obour-hub |
 | 6 | Other paying products | sir-modpack, sir-mods-for-gta-v, sir-life |

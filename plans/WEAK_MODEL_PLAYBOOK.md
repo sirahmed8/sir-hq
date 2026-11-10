@@ -1,13 +1,13 @@
-# QUALITY PLAYBOOK FOR ANY AI AGENT (written so a smaller model still produces premium work)
+# QUALITY PLAYBOOK FOR ANY AI AGENT (written so a smaller model still produces premium work; updated 2026-11-10)
 
-Use this when the agent is not a top model (for example Gemini high in Antigravity, OpenCode, Kilo, Codex). The goal is the same quality as the best models: correct, secure, tested, accessible, beautiful, and boring to maintain.
+Use this when the agent is not a top model (for example Gemini in Antigravity, OpenCode, Kilo, Devin CLI, ZCode, Codex). After 2026-11-23 that is every agent. The short checklist for chats is `D:/Projects/GEMINI.md`; the design contract is `GEMINI_QUALITY_CHARTER.md`. The goal is the same quality as the best models: correct, secure, tested, accessible, beautiful, and boring to maintain.
 
 ## How to work (always, in this order)
 1. **Read before writing.** Read the README, `AGENTS.md`, the plan and the task list of the project. Open the files you will change and one finished file of the same kind. Never guess a file name, function or command: search for it.
 2. **Write the plan in 5 lines** in the checkpoint file: goal, approach, files to change, how to prove it works, risks.
 3. **One small task at a time.** Finish it completely (code, tests, docs, check on screen) before starting the next. If a task needs more than about 150 lines of change, split it.
 4. **Prove it.** Run the project's verify command (typecheck, lint, tests, build) after every task. Fix every error. Never mark a task done while anything is red. Show the command output.
-5. **Look at it.** For anything visual, open the page in a browser or the app, take a screenshot at phone width (390 px) and desktop width (1280 px), in light and dark, left-to-right and right-to-left. Fix what looks wrong.
+5. **Look at it.** For anything visual, open the page in a browser or the app and take a screenshot at 320, 390, 768, 1280 and 1920 px, in light and dark, left-to-right and right-to-left (at most 6 screenshots per check: pick the riskiest screens). Check there is no horizontal scrollbar. Fix what looks wrong.
 6. **Review yourself as a stranger.** Before finishing, re-read your diff and ask: what breaks with empty data, a slow network, a very long text, a wrong input, two clicks at once, a screen reader, Arabic?
 7. **Commit small, clear commits** (type: what). Update the checkpoint file with what is done and the exact next step.
 
@@ -26,5 +26,20 @@ Use this when the agent is not a top model (for example Gemini high in Antigravi
 - Do not say "I can't". Try another route: search the docs, read the error fully, check the tools and connectors you have, try the browser, try a smaller version of the task, try a different library only if the current one is truly the problem.
 - If something needs a person (sign-in, payment, a code sent to a phone), do everything around it, write the single remaining step in the checkpoint, and continue with the next task.
 
-## Definition of done for any task
-Code written, tests added and passing, verify command green, checked on screen, no console errors, docs and checkpoint updated, committed.
+## Definition of done for any task (with evidence)
+Every line needs proof saved in `.sir/evidence/` or pasted in the report. No proof means not done.
+1. Code written, tests added and passing. Proof: the verify command and the last lines of its output.
+2. Checked on screen at five widths in light, dark, LTR and RTL. Proof: file names of the screenshots.
+3. No console errors. Proof: the console log is empty after using the feature.
+4. Five states handled (first use, loading, empty, error with Retry, populated).
+5. Docs and checkpoint updated, committed, pushed to `main` (no pull requests), GitHub check green.
+6. The report lists what you did NOT verify. Writing "not verified" is allowed; claiming without proof is not.
+
+## Examples of vague versus concrete (read these twice)
+- Vague: "make it responsive". Concrete: "at 320 px the two action buttons wrap under the title with a 12 px gap and no horizontal scroll".
+- Vague: "add tests". Concrete: "add tests for empty list, one item, 10,000 items, and a failed fetch with Retry".
+- Vague: "fix the UI". Concrete: "the tab bar flashes a white outline on switch; remove the focus ring flash by using `:focus-visible` and a 2 px token-colour ring".
+- Vague: "it works". Concrete: "I opened /jobs at 390 px, added a job, reloaded, and it was still there (screenshot jobs-390.png)".
+
+## Hand over when quota ends
+Do this at the first quota warning, not after the cut. Clean tree, run verify, commit, push, update `.sir/CHECKPOINT.md` (Now, exact Next step, Open promises, which tool and account), append one line to `_SIR/ops/MISSION_LOG.md`, write the report, run `python D:/Projects/_SIR/scripts/agy-done.py <task> ok "<line>"`, stop. Steps in full: `D:/Projects/GEMINI.md` section 6.

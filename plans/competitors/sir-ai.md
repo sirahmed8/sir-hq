@@ -1,4 +1,6 @@
 # Competitor Study: SIR AI (Frontier Desktop Agent & Local Router)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: Desktop AI Client, Local LLM Inference, Hybrid Multi-Provider Router  
 **Target Audience**: Power Users, Developers, Privacy-Conscious Professionals
@@ -29,3 +31,8 @@
 2. **Ultra-Fast Native Tauri v2 Desktop Shell**: Built with Rust and lightweight web frontend, consuming under **60MB RAM** when idle—10x lighter than typical Electron wrappers.
 3. **Encrypted Zero-Knowledge Local Vault**: Chat history, vector embeddings, and indexed documents are stored strictly in AES-256 encrypted local SQLite database with zero external cloud transmission.
 4. **Dynamic Island Desktop Floating Bar**: Global hotkey (`Alt+Space`) summons a spring-animated command island for instant queries, document summarization, and task execution.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Open the pricing pages of the 3 assistants named here and copy plan names, prices and dates with links.
+2. Search GitHub for 5 local-assistant projects for Windows; record licence, last commit date and stars with links.
+3. Find 5 user complaints on public forums (link each) about local AI setup difficulty.

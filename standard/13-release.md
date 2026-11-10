@@ -1,4 +1,6 @@
-# 13 — Release and versioning
+# 13 - Release and versioning
+
+> **Owner rule (Ahmed, 2026-11-09): every project and app stays at version 1.0.0 while under development.** Never bump, tag or release a higher version, and do not use the `-alpha`, `-beta` or `-rc` steps below until the owner says a product is released. The scheme below describes what happens after he does. Until then the version in `package.json`, `.sir/project.yml`, manifests and the UI is exactly `1.0.0`.
 
 - **Semantic Versioning: MAJOR.MINOR.PATCH.**
   - `1.0.0` is the first public release. Before that: `1.0.0-alpha.N` → `1.0.0-beta.N` → `1.0.0-rc.N`.

@@ -1,4 +1,5 @@
 # MASTER REBUILD PLAN (decided by Ahmed on 2026-10-29; read after START_HERE.md and NEXT.md)
+> Status 2026-11-10: the rules below stand. Any build order in this file is superseded by `plans/WAVE_STUDY.md`. Who builds: Gemini in Antigravity, then the free CLI agents; Claude manages (`D:/Projects/AGENTS.md`). Version stays 1.0.0.
 
 ## The decision
 Every product is rebuilt from the start as a new "SIR ..." project on the SIR Platform. The old projects are not patched into quality; they stay live and get only the Wave 0 security stopgaps until their replacement reaches parity, then move to `old projects\`. Reasons Ahmed gave and the inventories confirm: bad old code (copy-pasted shells, 300+ line files, fake auth/AI/payments), weak UI/UX, weak frontend and backend, and Firebase project IDs that appear on the Google sign-in screen.

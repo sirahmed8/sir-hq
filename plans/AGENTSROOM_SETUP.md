@@ -1,3 +1,5 @@
+> SUPERSEDED (2026-11-10) by `ops/AGENTSROOM_RETIRED.md`: AgentsRoom was retired on 2026-11-08 (it crashed on every agent terminal). Claude now manages from the Claude desktop app and Antigravity plus the free CLI agents build. Kept only as history; do not follow its steps.
+
 # AGENTSROOM SETUP: Claude manages and reviews, Antigravity builds (Ahmed, 2026-11-07)
 
 Why: Ahmed has 1 Claude Pro (weekly limit gone after one day of heavy work) and 4 Antigravity Pro accounts plus about 15 free ones. So Claude Code is the manager and reviewer and writes short, exact briefs; Antigravity CLI (`agy`, Gemini 3.8 flash, high effort) writes the code. AgentsRoom (`C:\Program Files\AgentsRoom`, data in `C:\Users\a7med\.agentsroom`) runs every CLI in one window and already has what this needs.

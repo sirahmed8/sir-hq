@@ -1,4 +1,6 @@
 # Competitor Study: SIR Negm Furniture (Luxury Furniture & 3D WebGL Showroom)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: E-Commerce Furniture, Interior Design 3D WebGL, Bespoke Manufacturing  
 **Target Markets**: Egypt (Cairo, Giza, Alexandria, Damietta), GCC Export
@@ -29,3 +31,8 @@
 2. **Instant Mobile AR Room Placement**: With a single tap on iPhone Safari or Android Chrome, the WebXR camera opens and projects the custom sofa into their living room at 100% true-to-life physical scale.
 3. **Transparent Deposit Gateway & Real-Time Tracking**: 50% custom manufacturing deposits processed securely through Paymob with immediate digital contract PDF and live workshop production milestones (Woodworking -> Upholstery -> Quality Check -> Delivery).
 4. **Turnkey Friend Handoff Interface**: Clean, mobile-friendly Arabic admin portal allowing Ahmed's friend to manage catalog items, upload new wood/fabric swatches, update order statuses, and receive instant WhatsApp order alerts.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Find 5 Egyptian furniture showroom sites and record features: catalog, 3D, pricing display (links).
+2. Check IKEA Kreativ and similar room planners: platforms and cost (links, dates).
+3. Read Google Business Profile guidelines for showrooms (link).

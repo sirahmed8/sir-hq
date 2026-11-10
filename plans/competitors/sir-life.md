@@ -1,4 +1,6 @@
 # Competitor Study: SIR Life (Habits, Health & Balanced Daily Routines)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: Habit Tracking, Productivity, Holistic Wellness, Islamic Routine Sync  
 **Target Audience**: Students, Young Professionals, Health-Conscious Individuals in MENA & Globally
@@ -29,3 +31,8 @@
 2. **Beautiful Visual Heatmap & Evening Reflection**: GitHub-style interactive habit heatmaps paired with a smooth spring-animated bottom sheet for 60-second evening gratitude and reflection.
 3. **Dual Gregorian & Hijri Support**: Seamless toggle between Gregorian and Hijri calendar systems with localized Egyptian Arabic typography.
 4. **Fair, Transparent EGP Pricing**: 100% free core tier for essential daily habits; optional 99 EGP/year Pro tier for multi-device sync with 1-click self-serve cancellation.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Record features and prices of 3 prayer-time and habit apps from their store pages (links, dates).
+2. Source the Egyptian General Authority of Survey method parameters used by a published calculation library (link).
+3. Read store policy pages for health data apps (Google Play, Apple) and record the rules (links, dates).

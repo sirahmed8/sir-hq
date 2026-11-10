@@ -13,43 +13,11 @@ To ensure that all 17 projects progress autonomously around the clock without ev
 
 ---
 
-## 2. Model & Account Hierarchy (Strict Order of Execution)
+## 2. Model & Account Hierarchy
 
-Work proceeds down this strict priority ladder:
+> Status 2026-11-10: the order of models and accounts changed several times on 2026-11-09 and 2026-11-10. The single canonical order is `ops/ACCOUNT_ROTATION.md`, section "CURRENT ORDER". The five-step ladder that stood here (Pro accounts, free accounts, Claude 5.5, OpenCode and Kilo, HQ) was replaced; it is not repeated here so the two files cannot disagree. Words "Tier" in older notes mean a step on that ladder, not the autonomy tiers of `core/02-rules.md`.
 
-```mermaid
-flowchart TD
-    Tier1["Tier 1: Google AI Pro Accounts (Gemini 3.8 Flash High)"] --> Tier2["Tier 2: Free Accounts (~15 Accounts) (Gemini 3.8)"]
-    Tier2 --> Tier3["Tier 3: Claude 5.5 Models (Sonnet 5.5 / Opus 5.5)"]
-    Tier3 --> Tier4["Tier 4: OpenCode / Kilo (Local & Cheap Frontier Models)"]
-    Tier4 --> Tier5["Tier 5: Claude HQ Manager (Sparingly, Coordination Only)"]
-```
-
-### Tier 1: Google AI Pro Accounts (Gemini 3.8 Flash High)
-All builder and auditor work runs first on Ahmed's Pro accounts in this verified order:
-1. `a7medorabe7@gmail.com` (Primary Pro account)
-2. `a01083835229@gmail.com` (Secondary Pro account)
-3. `1sir1ahmed1@gmail.com` (Tertiary Pro account)
-4. `ahmedalaa2006.7.6@gmail.com` (Quaternary Pro account)
-
-*Protocol*: Run Gemini 3.8 Flash High until the 5-hour limit drops to <=15% or weekly drops to <=10%. Then immediately switch to the next account in the list.
-
-### Tier 2: Free Tier Accounts (~15 Accounts)
-When all Tier 1 accounts are temporarily constrained by their 5-hour rolling windows:
-- Rotate through the pool of verified free Google accounts using the exact same chooser script.
-- Free accounts handle spec reading, unit test authoring, linting, formatting, documentation, and verification sweeps.
-
-### Tier 3: High-Tier Claude Models (Sonnet 5.5 / Opus 5.5)
-- Reserved exclusively for complex architectural deadlocks, deep security reviews, or when Gemini encounters a recursive blocker.
-- **Prohibited**: Claude 4.x (e.g., Claude 4.6 is obsolete and strictly banned per owner directive).
-
-### Tier 4: OpenCode / Kilo CLI Operators
-- Local or API-backed cheap high-throughput models executing automated bulk refactors, script executions, and AST linting.
-
-### Tier 5: Autonomous HQ Manager
-- Operates sparingly as the master coordinator. HQ dispatches tasks to workers rather than doing heavy code synthesis directly.
-
----
+Rules that do not change: switch before exhaustion (15 percent left in the 5-hour window, or 10 percent weekly); never Claude 4.x; never buy credits or turn on overages; use only Ahmed's own accounts and accounts given with consent; Claude 5.5 burns out in minutes when several chats use it, so one chat at a time and only for hard tasks; commit, push and checkpoint before every switch (save rule).
 
 ## 3. Account Rotation Automation Procedure
 
@@ -86,7 +54,7 @@ Every rotation must append a timestamped entry to `D:/Projects/_SIR/ops/ACCOUNT_
 
 | Risk Scenario | Probability | Impact | Automated Mitigation & Recovery |
 |---|---|---|---|
-| **5h Window Cap Hit on all Pro Accounts** | Medium | Low | Switch to Tier 2 (free accounts) or wait for rolling 5h window to unlock (oldest account resets in <2 hours). |
+| **5h Window Cap Hit on all Pro Accounts** | Medium | Low | Switch to the free accounts (see ACCOUNT_ROTATION.md) or wait for rolling 5h window to unlock (oldest account resets in <2 hours). |
 | **Weekly Pro Quota Depleted across all 4 Pro Accounts** | Low | High | Shift all autonomous building to Free Tier pool and local Ollama models (`AI_Models_Hub`) for non-stop offline progress. |
 | **Session Cookie Invalidation / Password Required** | Low | Medium | Chooser script flags "Auth Challenge"; task is paused; single 1-click notification sent to Chairman via Telegram. |
 | **Complete Portfolio Quota Collapse (All accounts exhausted)** | Very Low | Critical | 1. Immediately pause batch task runners.<br>2. Force write all in-memory buffers to `.sir/CHECKPOINT.md`.<br>3. Commit all repos straight to `main`.<br>4. Dispatch Telegram Emergency Alert to Ahmed with exact reset timestamps. |

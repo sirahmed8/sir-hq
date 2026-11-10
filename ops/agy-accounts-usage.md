@@ -74,3 +74,5 @@ Result: no permission was changed. The Tool Permissions page (browser, terminal,
 2026-11-09 18:52 operator12: account 1sir1ahmed1@gmail.com, Gemini weekly 21%, five-hour 65% (no rotation; above 15%)
 - 2026-11-09 18:59 operator13: account 1sir1ahmed1@gmail.com (Google AI Pro) read in Settings > Models: Gemini weekly 16% left (resets 5d 13h), 5h 49% left (resets 3h 52m). Above 15% threshold, no rotation.
 2026-11-09 operator14: signed in a7medorabe7@gmail.com (Google AI Pro). Models & Usage: Gemini weekly 10% left (refresh in 4 d 6 h), Gemini 5 h 100%; Claude and GPT weekly 100%, 5 h 100%. Picker: Gemini 3.8 Flash High, Claude Sonnet 4.6 (Thinking), Claude Opus 4.6 (Thinking), GPT-OSS 120B (Medium), Gemini 4 Argon (Unavailable). No switch done.
+2026-11-10 04:25 | account sirahmedalaa2006@gmail.com (read in Settings > Models) | Gemini weekly 28% left, resets in 6d 23h | Gemini five-hour: not shown on this page | Claude and GPT weekly 100% left | Plan: Antigravity Starter Quota
+2026-11-10 04:45 sirahmedalaa2006@gmail.com: Gemini exhausted (Model quota reached), refresh 11/17 02:36

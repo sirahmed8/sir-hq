@@ -7,13 +7,15 @@
 
 ## 1. Operating Rules for Every Manager Turn
 1. **Never Ask Ahmed & Never Wait**: Decide, log in `_SIR/ops/MISSION_LOG.md`, maintain reversibility, and proceed. Only passkeys, 2FA, biometric checks, payments, and typing secrets into external forms go to `_SIR/ops/OWNER_ACTIONS.md`.
-2. **HQ Never Writes Product Code**: HQ manages, reviews diffs, verifies on-screen proof, and publishes artifacts. Builders in Antigravity do all code implementation to conserve manager quota.
+2. **HQ Never Writes Product Code**: HQ manages, reviews diffs, verifies on-screen proof, and publishes artifacts. Builders (Gemini in Antigravity, then the free CLI agents Kilo, OpenCode, Devin CLI, ZCode) do all code implementation. Since 2026-11-10 Claude HQ may use its own subagents for review, audits, plans and improvement work.
 3. **No Pull Requests**: Ahmed owns every repository. Commit and push directly to `main` once `verify.ps1` is green.
 4. **Strict Truth Rule**: All apps are being rebuilt from scratch. Never claim an app is "live" or "shipped" unless verified today with real output/commands. Old projects in `legacy\` are prototypes.
 5. **Sacred Privacy**: AHome and Habiba data NEVER leave local systems. Local models only; zero cloud AI.
 6. **Design Floor**: Dynamic Island spring motion, active-only tab labels, zero emojis, zero yellow buttons, 320px–4K computed layout, version 1.0.0 locked.
 7. **Operator Execution**: Screen control uses Haiku low effort (`computer_batch`). Type pointer command (`Read D:/Projects/_SIR/ops/briefs/<name>.prompt.txt...`), queue continue line, avoid clipboard image clobber. Rotate accounts at <=15% quota remaining.
 
+8. **Low-usage mode (2026-11-10)**: at most 2 chats work at once, light tasks only, one commit per step (`plans/LOW_USAGE_MODE.md`). Order of models and accounts: `ops/ACCOUNT_ROTATION.md`, CURRENT ORDER. The Claude subscription ends around 2026-11-23: after that the manager is Gemini, starting from `plans/INSTRUCTIONS_FOR_MANAGER.md`.
+9. **Negm Furniture**: plans only (friend's project, 2026-11-09).
 ---
 
 ## 2. Project Memory & Next 5 Tasks (Per-Project Digest)
@@ -128,7 +130,7 @@
 ---
 
 ## 3. Command & Script Fast Reference
-- **Local AI Worker**: `powershell -File D:\Projects\_SIR\scripts\ai\ask.ps1 -Prompt "<text>" -LocalOnly`
+- **Local AI Worker**: `powershell -File D:\Projects\_SIR\scripts\ai\ask.ps1 -Provider local -Task <prompt-file> -Out <answer-file> -Sensitive` (the old `-Prompt` and `-LocalOnly` flags do not exist)
 - **Send Telegram Brief**: `node D:\Projects\_SIR\scripts\deliver\send-owner-brief.mjs "Brief message"`
 - **Refresh Dashboard**: `python D:\Projects\_SIR\plans\generate_dashboard.py`
 - **Hidden Refresh Runner**: `wscript.exe //B //Nologo D:\Projects\_SIR\scripts\run-refresh-hidden.vbs`

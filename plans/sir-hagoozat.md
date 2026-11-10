@@ -1,82 +1,81 @@
-# PLAN: SIR Hagoozat
-Status: planned, not started. Wave 5. Replaces: Hagoozat Elite (Merged sites), 11Players, EGFootball5. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Hagoozat (Wave 5, public product, not started)
+Audited 2026-11-10. Replaces `Hagoozat Elite` (Merged sites), `11Players` and `EGFootball5` (all in `legacy/`, kept until M6). Public product, free for players, paid tier in EGP, pitch owners pay a monthly fee.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- Hagoozat Elite
-- 11Players
-- EGFootball5
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-Five-a-side football in Egypt: book a pitch, split the cost, balance squads, rate players, run matches and communities. Audience: players, captains and pitch owners.
+## 1. Purpose (plain words)
+Book a five-a-side football pitch in Egypt in a few taps, split the price between the players, and get balanced teams. Players find a game and a pitch; pitch owners fill empty hours and see who booked.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Hagoozat` |
 | GitHub (private) | `sirahmed8/sir-hagoozat` |
-| Firebase project / OAuth app name | `sir-hagoozat` / "SIR Hagoozat" |
-| Cloudflare project | `sir-hagoozat` (`sir-hagoozat.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-hagoozat` (Android, iOS, Windows) |
-| Platforms | Web + PWA (Cloudflare), Android/iOS (Expo), owner dashboard web |
-| Money | Free for players; Pro 59 EGP/month (priority booking, stats, FUT cards, no ads); pitch owners pay a monthly fee; Launching Soon fallback until Paymob/Fawry keys |
+| Stack (default) | Next.js App Router on Cloudflare Pages/Workers, Firebase Auth (Google) with server-verified ID token, Firestore with deny-by-default rules and transactions, R2 for private receipt images |
+| Domain | candidates `hagoozat.app`, `hagoozat.com` (owner checks and buys; price "(unsourced, verify)"). Until then `sir-hagoozat.pages.dev` |
+| Platforms | Web + PWA: planned (first). Android and iOS via Expo: M6+ after web has real bookings. Owner dashboard: web. Windows, macOS, Linux, watch, TV: skipped (no need). Widgets: skipped for v1 |
+| Money | Free for players. Pro (priority booking, stats, player cards, no ads) at 59 EGP/month is the old plan's number: treat as a test price, "(unsourced, verify)". Pitch owners pay a monthly fee (amount decided after talking to 3 real owners). EGP first, USD/SAR/AED toggle. "Subscriptions launching soon" + email capture until Paymob/Fawry keys exist |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Three apps with overlapping code; the merge in `Hagoozat Elite` has 29 pages vs 55 and 36 in the originals.
-- Critical `dev_signature` payment bypass (stopgap PR merged separately), client-side owner gate, 62 files over 300 lines in 11Players, API routes dead on static hosting in EGFootball5.
-- Fake players generator in 11Players admin, placeholder Firebase config.
+## 3. Current state
+Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30, "nothing is built yet"); commits are setup and plan only (10).
+Legacy facts (from `ops/inventory/Merged-sites.md`, 2026-10-29, nothing re-run): the merged app has 29 pages and 7 API routes against 55 and 36 pages in the originals, so it is not a complete merge; admin gate is client-side; a `dev_signature` payment bypass existed in an original (stopgap separate); 11Players has 62 files over 300 lines and a fake-players generator in admin; EGFootball5 API routes are dead on static hosting; README claims such as "281/281 tests" were not verified.
+Real data status: no real pitches, owners or players are loaded anywhere. A marketplace with no real pitches is empty, so seeding is a growth task (section 10), never fake rows.
 
-## 4. What to port from the old project
-- From EGFootball5: 15-minute slot lock, deposit receipt upload + verification queue, Hagaz lobbies, jersey designer, owner dashboards, achievements/XP, notifications, support tickets, Cloud Functions logic.
-- From 11Players: AI layer, captain draft room, communities, global ranking, owner analytics, pro pass.
-- From Hagoozat Elite: pitches, players, tactics, split-bill, VAR voting, data deletion, unsubscribe.
+## 4. Security and conduct rules
+1. Owner/admin from a server-verified token plus allow-list, fail closed. Test: client-side flag change grants nothing.
+2. Payments: webhook signature with timestamp inside the signed body, idempotent activation. Test: tampered, replayed and unsigned events are rejected. No `dev_signature` or any bypass flag in any build.
+3. Booking and deposits are Firestore transactions with idempotency keys and a 15 minute slot lock. Test: 20 parallel requests for one slot produce exactly one booking.
+4. Receipt images (InstaPay, Vodafone Cash screenshots) are private files in R2 with signed URLs, size and type checked, auto-deleted 90 days after verification (default, adjust with lawyer). Players' phone numbers are visible to a pitch owner only after a booking.
+5. Rules deny by default, per-user and per-pitch-owner claims, emulator tests (cross-tenant read fails).
+6. Sessions in HttpOnly SameSite=Strict cookies, rate limits on auth, booking and AI, zod validation.
+7. Merge old accounts by verified email only, never by display name.
+8. No fake players, ratings or bookings in any non-test path.
 
-## 5. Screens and entities
-**Screens:** Landing, Sign in, Onboarding, Home, Find pitch, Pitch page, Booking wizard (linear stepper), Deposit/payment, My bookings, Match lobby, Squad balancer, Draft room, Live match, Player card, Rankings, Communities + chat, Notifications, Pro pass, Owner/pitch dashboard, Support, Settings, Legal
-**Entities:** User, PlayerCard, Pitch, Slot, Booking, Deposit, Match, Squad, Community, Message, Rating, Notification, Subscription, SupportTicket
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces (SIR Platform; build as internal packages first)
+`owner-auth`, `signed-webhook`, `billing-fallback`, `ai-proxy`, `legal-pack`, `i18n`, `ui/styles/hooks` (the first kit already has the spring tab bar and Paymob test modal; Platform checkpoint names Hagoozat as the first consumer), Telegram sender. Pitch-owner dashboard analytics reuse the common owner-dashboard pattern from SIR Business.
 
-## 6. AI at the core
-Flagship: squad balancer and position coach (explains what the player must do in each situation). Assistant: booking help and rules Q&A grounded in the app docs. Server proxy only.
+## 6. Screens and entities
+Landing, Sign in, Find a pitch (map or list, filters), Pitch page, Booking wizard (linear, steps unlock in order), Deposit and receipt upload, My bookings, Match page (squad balance, split bill, ratings), Communities, Notifications, Profile (player card), Pricing, Support, Owner dashboard (bookings, revenue, schedule, verification queue), Admin, Legal. Entities: User, Pitch, Slot, Booking, Deposit, Match, Squad, Rating, Community, Notification, Ticket, Subscription, Lead.
+Five states, Arabic RTL first (Egyptian dialect copy) and English, themes, 320 px to 4K, WCAG 2.2 AA, own logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Slot booking and deposits are transactions with idempotency keys; double-booking test with parallel requests.
-- Receipt images validated and stored privately.
+## 7. AI and support
+Squad balancer with a plain-words explanation ("why these teams"), position coach, support assistant grounded in `docs/help`. Chain via `ai-proxy` with fallback, quota 5 per day free, owner unmetered, kill switch, eval sets in Arabic and English (balance fairness test: rating-sum difference within a set bound). Balancer itself must work without AI (pure algorithm); AI only explains.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-hagoozat`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-hagoozat` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Hagoozat", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Pitch list + pitch page from real data, booking wizard with slot lock and transaction, Google sign-in brand check.
-### M2 Parity with the old project
-- [ ] Deposit upload + verification queue, matches and lobbies, squad balancer, player cards and ratings.
-- [ ] Communities + chat, notifications, achievements, owner dashboard with real revenue/booking counts.
-- [ ] Feature-parity checklist ticked against `ops/inventory/Merged-sites.md` route lists.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] Squad balancer explanation, position coach, support assistant; eval sets in Arabic and English.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Data import from the three Firestore projects with dry run and counts; 301 redirects from `an-11-players.web.app`, `egfootball5.web.app`, `hagoozat-elite.web.app`; move old folders (already in `old projects`) to archive repos.
+## 8. Operations
+Booking-failure alerts, payment reconciliation job (daily compare of gateway records to bookings), nightly Firestore export, weekly Telegram report (bookings, revenue in EGP, no-shows, errors), support triage by assistant, status JSON, emergency alerts (payment mismatch, outage). Ad spend: none until the owner sets a cap.
 
-## 9. Risks and open decisions
-- Three user bases with duplicate accounts: merge by verified email, never by display name.
-- Real payments need a gateway account (owner); fallback until then.
+## 9. Launch package, legal, visibility
+Owner buys domain, Paymob and Fawry business accounts (test mode in code), Play Console later. Legal pack from data inventory (privacy, terms, refunds and cancellation of bookings, cookies, DPA for pitch owners, sub-processors); Egypt PDPL 151/2020 and consumer rules as tasks, exact text "(unsourced, verify)", lawyer review before paid launch. Tax and e-invoicing for pitch-owner fees: "(unsourced, verify)" with the accountant step in the owner list.
+Visibility: Arabic queries by area ("حجز ملعب خماسي في ..."), one landing page per city/area that has real pitches, pitch pages with `LocalBusiness`/`SportsActivityLocation` JSON-LD only for real, consenting owners, `llms.txt`, facts page, Google Business Profile guidance for owners, weekly AI-answer check. App store listing text drafted for later.
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Deep scan, setup, CI | deep-scan report; parity matrix of 55+36+29 pages; green Actions URL |
+| M1 | Core slice | pitch list and page from Firestore emulator, booking wizard, parallel-booking test passes |
+| M2 | Parity | deposit queue, matches, balancer, communities, owner dashboard with real counts; parity checklist ticked per route |
+| M3 | Security, legal, billing | webhook tests, rules tests, billing fallback render test, legal pages generated |
+| M4 | AI | balancer explanation eval, support assistant eval |
+| M5 | Quality | screenshots 390/1280, LTR/RTL, Lighthouse mobile 90+ |
+| M6 | Release | import dry run counts, 301 redirects from the three old hosts, keys rotated, first 3 real pitches onboarded |
+
+## 11. Next 10 tasks (each under 2 hours)
+1. Deep scan of the three legacy apps into a parity matrix (route, owner app, keep/drop). Files: `.sir/reports/parity.md`. Check: every route listed in the inventory has a row.
+2. Scaffold app, tokens, RTL, health route, CI. Check: build green and Actions URL.
+3. Data model and Firestore rules for Pitch, Slot, Booking, Deposit. Files: `firestore.rules`, `docs/data-model.md`. Check: rules compile in the emulator.
+4. Emulator rules tests (own booking readable, other player's not, owner sees only own pitch). Check: tests green.
+5. Slot lock plus booking transaction with idempotency key. Files: `apps/web/src/server/booking/`. Check: parallel test of 20 requests yields 1 booking.
+6. Pitch list and pitch page with five states. Check: screenshots at 390 px.
+7. Booking wizard: step 2 not reachable before step 1 validates. Check: e2e test tries to jump and is blocked.
+8. Squad balancer pure function with tests (no AI). Files: `packages/balancer/`. Check: property test, rating-sum difference below the stated bound.
+9. `billing-fallback` page with lead capture. Check: lead doc created; invalid email rejected.
+10. Owner list file `docs/OWNER_STEPS.md` plus pitch-owner onboarding one-pager (Arabic) to approach 3 real pitches. Check: file exists; no invented partner names.
+
+## 12. Risks and open questions (defaults)
+- Two-sided cold start: default is launch in one area with 3 to 5 real pitches before any ad or SEO push.
+- Manual payment methods (InstaPay, wallets) mean receipt fraud: default is manual verification queue plus owner confirmation, no auto-approval.
+- Gateway terms and fees for Paymob/Fawry: "(unsourced, verify)" at build time from official docs.
+- Port volume (three apps): default is port by feature behind the parity matrix, never copy files.
+- Existing Egyptian competitors found by search on 2026-11-10: Hareefa (`https://hareefa.com/`) and Yalla Hagz (`https://www.yallahagz-eg.com/`). The cold start is harder than the old study assumed; the sourcing tasks at the end of `plans/competitors/sir-hagoozat.md` come before any marketing.
+- Market size claims: none in this plan; the competitor study (`plans/competitors/sir-hagoozat.md`) must carry links or the "(unsourced, verify)" tag.
+
+## 13. Only the owner can do
+Buy the domain; create Firebase, Cloudflare, Paymob and Fawry accounts and paste keys into one `.env`; sign in for Google OAuth screen branding; talk to real pitch owners (or approve outreach text); accountant and lawyer review; store developer accounts later.

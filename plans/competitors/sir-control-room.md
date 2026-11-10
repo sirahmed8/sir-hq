@@ -1,4 +1,6 @@
 # Competitor Study: SIR Control Room (Central Command Console & Operations Truth)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: Autonomous Engineering Operations Dashboard, Developer Control Plane, Multi-Agent HQ  
 **Target Scope**: Headquarters Oversight across all 17 Projects (`D:\Projects\_SIR`)
@@ -9,10 +11,10 @@
 
 | Platform | Model & Pricing | Architecture | Critical Gaps for SIR Ecosystem |
 |---|---|---|---|
-| **Datadog / Dynatrace** | Enterprise SaaS ($15–$25/host/mo + metric fees) | Heavy proprietary agent daemon | **Prohibitively expensive for solo founders/SMEs**; completely cloud-dependent; zero native integration with local git worktrees or Antigravity AI builder queues. (Source: Datadog Pricing). |
-| **Portainer / CasaOS** | Container Dashboard (Freemium) | Docker Socket Web GUI | Tracks container states only; lacks visibility into multi-agent task handovers, quota accounts, or project backlog completion states. (Source: Portainer GitHub). |
-| **Grafana + Prometheus** | Open Source Monitoring Stack | Time-series metrics engine | Requires complex TSDB infrastructure; lacks integrated single-source Claude artifact publishing or automated Telegram executive briefings. (Source: Grafana Labs). |
-| **Retool / Appsmith** | Internal Tool Builders ($10–$50/user/mo) | Low-code drag-and-drop web builder | Cloud/Docker database connector overhead; sluggish mobile experience; cannot run as a zero-footprint standalone Windows daemon on port 8899. (Source: Retool Pricing). |
+| **Datadog / Dynatrace** | Enterprise SaaS ($15–$25/host/mo + metric fees) | Heavy proprietary agent daemon | **Prohibitively expensive for solo founders/SMEs**; completely cloud-dependent; zero native integration with local git worktrees or Antigravity AI builder queues. (Source: Datadog Pricing; no link, unsourced, verify). |
+| **Portainer / CasaOS** | Container Dashboard (Freemium) | Docker Socket Web GUI | Tracks container states only; lacks visibility into multi-agent task handovers, quota accounts, or project backlog completion states. (Source: Portainer GitHub; no link, unsourced, verify). |
+| **Grafana + Prometheus** | Open Source Monitoring Stack | Time-series metrics engine | Requires complex TSDB infrastructure; lacks integrated single-source Claude artifact publishing or automated Telegram executive briefings. (Source: Grafana Labs; no link, unsourced, verify). |
+| **Retool / Appsmith** | Internal Tool Builders ($10–$50/user/mo) | Low-code drag-and-drop web builder | Cloud/Docker database connector overhead; sluggish mobile experience; cannot run as a zero-footprint standalone Windows daemon on port 8899. (Source: Retool Pricing; no link, unsourced, verify). |
 
 ---
 
@@ -29,3 +31,7 @@
 2. **Sub-Millisecond HTTP 304 ETag Caching**: High-performance local server returns `304 Not Modified` in < 1ms over WireGuard Tailnet, consuming zero excess bandwidth on mobile connections.
 3. **100% Zero-Flash Windows Daemon**: Operates headlessly via `wscript.exe` and `pythonw.exe` utilizing `CREATE_NO_WINDOW = 0x08000000`, guaranteeing **zero visible console windows**.
 4. **Comprehensive Gemini Autonomous Handover Panel**: Real-time index tracking active tasks across all 17 projects, Antigravity account quotas, and autonomous tool readiness status.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Verify each vendor price quoted here against its official pricing page (link, date).
+2. List 3 open-source dashboards that could replace parts of this tool, with licences.

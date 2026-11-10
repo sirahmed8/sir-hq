@@ -1,0 +1,32 @@
+[
+  {
+    "name": "r14-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "إصلاحات المشروع الخاص",
+    "done": true
+  },
+  {
+    "name": "r15-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager overnight work",
+    "done": true
+  },
+  {
+    "name": "r15-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Jobs inbox assistant, phase 1",
+    "done": true
+  },
+  {
+    "name": "r15-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room and Telegram menu",
+    "done": false
+  },
+  {
+    "name": "r16-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: fix review findings",
+    "done": true
+  }
+]

@@ -1,4 +1,6 @@
 # Competitor Study: SIR Platform (Shared UI Kit, Motion & Resilience Library)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: Design System, Component Library, Motion Physics Engine, Monorepo Foundation  
 **Target Scope**: All 17 Workspace Projects (`D:\Projects`)
@@ -9,10 +11,10 @@
 
 | Library | Architecture & Model | Strengths | Critical Gaps for SIR Ecosystem |
 |---|---|---|---|
-| **shadcn/ui** | Copy-Paste Tailwind Primitives | Infinite customizability, huge developer adoption | **Lacks native Dynamic Island spring motion physics**; tab bars show static labels on all tabs; requires extensive manual refactoring for strict Arabic RTL logical properties. (Source: GitHub shadcn-ui/ui issues). |
-| **Radix UI Primitives** | Unstyled WAI-ARIA Primitives | Rock-solid keyboard accessibility and focus management | Primitive only; requires hundreds of lines of boilerplate styling per project; **zero built-in support for Egyptian payment checkout modals (Paymob/Fawry)**. (Source: Radix UI Docs). |
-| **Mantine / Chakra UI** | Packaged Component Frameworks | Comprehensive component catalog | Significant bundle size overhead; runtime CSS-in-JS abstractions incompatible with modern React Server Components (RSC) and Tailwind v4. (Source: Bundlephobia metrics). |
-| **Ant Design (AntD)** | Enterprise React Library | Rich data tables and forms | Rigid enterprise aesthetic; poor mobile touch ergonomics; heavy Asian/English orientation with fragile Arabic typography handling. (Source: AntD GitHub). |
+| **shadcn/ui** | Copy-Paste Tailwind Primitives | Infinite customizability, huge developer adoption | **Lacks native Dynamic Island spring motion physics**; tab bars show static labels on all tabs; requires extensive manual refactoring for strict Arabic RTL logical properties. (Source: GitHub shadcn-ui/ui issues; no link, unsourced, verify). |
+| **Radix UI Primitives** | Unstyled WAI-ARIA Primitives | Rock-solid keyboard accessibility and focus management | Primitive only; requires hundreds of lines of boilerplate styling per project; **zero built-in support for Egyptian payment checkout modals (Paymob/Fawry)**. (Source: Radix UI Docs; no link, unsourced, verify). |
+| **Mantine / Chakra UI** | Packaged Component Frameworks | Comprehensive component catalog | Significant bundle size overhead; runtime CSS-in-JS abstractions incompatible with modern React Server Components (RSC) and Tailwind v4. (Source: Bundlephobia metrics; no link, unsourced, verify). |
+| **Ant Design (AntD)** | Enterprise React Library | Rich data tables and forms | Rigid enterprise aesthetic; poor mobile touch ergonomics; heavy Asian/English orientation with fragile Arabic typography handling. (Source: AntD GitHub; no link, unsourced, verify). |
 
 ---
 
@@ -29,3 +31,7 @@
 2. **Active-Only Animated Tab Bar Primitive**: Standard component where inactive tabs show only monochrome SVG icons and the active tab smoothly expands to show icon and localized text with fluid spring interpolation.
 3. **Strict CSS Logical Properties by Default**: 100% of layout primitives use `margin-inline-start`, `padding-inline`, and `border-start-start-radius`, guaranteeing instant bi-directional Arabic RTL and English LTR mirroring.
 4. **Universal Drop-in Paymob/Fawry EGP Modal**: Pre-built `@sir/payments` package providing responsive Paymob iframe/modal with automated test-mode integration and "Launching Soon" fallback on missing API keys.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Record pricing of Clerk, Auth0 and Stripe Billing from official pages (links, dates).
+2. Read Paymob and Fawry developer docs for webhook signing and record the exact method (links).

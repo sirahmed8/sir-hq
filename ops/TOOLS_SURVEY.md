@@ -46,3 +46,11 @@ Read-only survey. No purchases, no sign-ups, no passwords typed, no tasks starte
 3. Codex (ChatGPT login) only after the owner has checked its reset time, `codex` is not on PATH yet, so the desktop app is the route until it is installed.
 
 Not ranked: Devin, Cursor (not installed), Windsurf and GLM Coding Plan (no free terminal path confirmed).
+
+## Update 2026-11-10 (HQ installs, owner authorised)
+- Gemini CLI 0.67.0 installed (npm @google/gemini-cli): the free Google-account tier for it is DISCONTINUED ('migrate to Antigravity'), and its API-key tier needs a valid key (the stored one is invalid): not usable for now.
+- OpenRouter free models work through OpenCode with the stored OpenRouter key: `opencode run -m openrouter/openrouter/free "..."` (router, tested OK), also openrouter/nvidia/nemotron-3-ultra-550b-a55b:free, openrouter/cohere/north-mini-code:free, openrouter/google/gemma-4-31b-it:free. Free tier has daily limits.
+- Kilo auto-free works: `kilo run --auto -m kilo/kilo-auto/free "..."` (used by scripts/cli-run.sh).
+- Devin CLI 3000.12.32 installed in %LOCALAPPDATA%\devin\cli\bin\devin.exe (setup wizard needs the owner's login: option 1 'Log in with browser', recommended). Free plan has daily/weekly quota; model SWE-1.5 stays usable.
+- ZCode (Z.ai, free desktop app with GLM-5.3, an Antigravity-like agent app) 3.17.2 installed silently under %LOCALAPPDATA%\Programs\ZCode; first launch needs Connect Z.ai (owner login) or an API key.
+- Disk: C: 17 GB free, D: 7.4 GB free at install time.

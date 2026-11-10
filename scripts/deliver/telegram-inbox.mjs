@@ -1,44 +1,113 @@
-// Poll Ahmed's Telegram bot for messages FROM Ahmed and print one line per message (for the Monitor tool).
-// Only the chat id in SIR_TELEGRAM_CHAT_ID is accepted; everything else is ignored. Text is appended to ops/bus/ahmed-telegram.md.
+// Poll Ahmed's Telegram bot for messages and button presses FROM Ahmed.
+// Only the chat id in SIR_TELEGRAM_CHAT_ID is accepted. Text and button presses are appended to ops/bus/ahmed-telegram.md.
+// Buttons:
+//   - callback_data "<action>" runs ops/telegram-actions.json[action] = {cmd:[...], reply:"text"}.
+//   - callback_data "ok:<id>" or "no:<id>" records an approval answer in ops/approvals.jsonl (read by scripts/deliver/approval.py).
+// After a press the buttons are removed from the message, so one message is answered once.
+// One instance only: the pid is written to ops/telegram-listener.pid (hq_autopilot.py restarts it when it dies).
 // Usage: node telegram-inbox.mjs   (runs until stopped; long-polls the Bot API)
-import { execFileSync } from 'node:child_process';
+import { execFile, execFileSync } from 'node:child_process';
 import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 
-const OFFSET_FILE = 'D:/Projects/_SIR/ops/telegram-offset.txt';
-const INBOX = 'D:/Projects/_SIR/ops/bus/ahmed-telegram.md';
+const OPS = 'D:/Projects/_SIR/ops';
+const OFFSET_FILE = `${OPS}/telegram-offset.txt`;
+const INBOX = `${OPS}/bus/ahmed-telegram.md`;
+const ACTIONS = `${OPS}/telegram-actions.json`;
+const APPROVALS = `${OPS}/approvals.jsonl`;
+const PID_FILE = `${OPS}/telegram-listener.pid`;
+const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
+const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
+const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'قايمة الشغل=queue', 'تنضيف المساحة=clean_disk'];
 
 function userEnv(name) {
   if (process.env[name]) return process.env[name];
   try {
-    return execFileSync('powershell', ['-NoProfile', '-Command', `[Environment]::GetEnvironmentVariable('${name}','User')`], { encoding: 'utf8' }).trim();
+    return execFileSync('powershell', ['-NoProfile', '-Command', `[Environment]::GetEnvironmentVariable('${name}','User')`], { encoding: 'utf8', windowsHide: true }).trim();
   } catch { return ''; }
 }
 
 const token = userEnv('SIR_TELEGRAM_BOT_TOKEN');
 const chatId = userEnv('SIR_TELEGRAM_CHAT_ID');
 if (!token || !chatId) { console.log('telegram-inbox: token or chat id missing'); process.exit(1); }
+writeFileSync(PID_FILE, String(process.pid));
 
 let offset = existsSync(OFFSET_FILE) ? Number(readFileSync(OFFSET_FILE, 'utf8')) || 0 : 0;
+const running = new Set(); // actions in progress, so a double tap does not start the same command twice
+
+async function api(method, body) {
+  const res = await fetch(`https://api.telegram.org/bot${token}/${method}`, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body || {}),
+  });
+  return res.json();
+}
+
+function run(file, args, timeout = 60000) {
+  return new Promise((resolve) => {
+    execFile(file, args, { encoding: 'utf8', timeout, windowsHide: true, maxBuffer: 4 * 1024 * 1024, env: { ...process.env, PYTHONUTF8: '1' } },
+      (err, stdout) => resolve({ err, out: String(stdout || '').trim() }));
+  });
+}
+
+async function sendText(text) {
+  const { err } = await run('node', [SEND, text]);
+  if (err) console.log('send failed: ' + err.message);
+}
+
+function loadActions() {
+  try { return JSON.parse(readFileSync(ACTIONS, 'utf8')); } catch { return {}; }
+}
+
+async function runAction(name) {
+  const def = loadActions()[name];
+  if (!def || !Array.isArray(def.cmd)) { await sendText(`[الإدارة] الزرار "${name}" لسه مش متوصل بأمر.`); return; }
+  if (running.has(name)) { await sendText('[الإدارة] الأمر ده شغال دلوقتي، استنى لما يخلص.'); return; }
+  running.add(name);
+  try {
+    const { err, out } = await run(def.cmd[0], def.cmd.slice(1), 600000);
+    if (err) await sendText(`[الإدارة] فشل تنفيذ "${name}": ${String(err.message).slice(0, 200)}`);
+    else await sendText(def.reply ? def.reply : (out ? out.slice(0, 1500) : `[الإدارة] تم تنفيذ: ${name}`));
+  } finally { running.delete(name); }
+}
+
+async function handleButton(cq) {
+  if (String(cq.message?.chat?.id) !== String(chatId) || String(cq.from?.id) !== String(chatId)) return;
+  const data = String(cq.data || '').slice(0, 80);
+  appendFileSync(INBOX, `- ${new Date().toISOString()} from Ahmed (Telegram button): ${data}\n`);
+  console.log(`AHMED BUTTON: ${data}`);
+  // remove the buttons so the same message cannot be answered twice
+  await api('editMessageReplyMarkup', { chat_id: chatId, message_id: cq.message.message_id, reply_markup: { inline_keyboard: [] } });
+  const approval = /^(ok|no):([\w.-]{1,60})$/.exec(data);
+  if (approval) {
+    const answer = approval[1] === 'ok' ? 'approved' : 'rejected';
+    appendFileSync(APPROVALS, JSON.stringify({ id: approval[2], answer, at: new Date().toISOString() }) + '\n');
+    await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
+    await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    return;
+  }
+  await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام، بنفذ' });
+  runAction(data); // not awaited: polling continues while the command runs
+}
 
 async function poll() {
-  const url = `https://api.telegram.org/bot${token}/getUpdates?timeout=50&offset=${offset}&allowed_updates=%5B%22message%22%5D`;
+  const url = `https://api.telegram.org/bot${token}/getUpdates?timeout=50&offset=${offset}&allowed_updates=%5B%22message%22%2C%22callback_query%22%5D`;
   const res = await fetch(url);
   const data = await res.json();
   if (!data.ok) throw new Error('getUpdates failed: ' + (data.description || res.status));
   for (const u of data.result) {
     offset = u.update_id + 1;
     writeFileSync(OFFSET_FILE, String(offset));
+    if (u.callback_query) { await handleButton(u.callback_query); continue; }
     const m = u.message;
     if (!m || String(m.chat?.id) !== String(chatId)) continue;
     const text = (m.text || m.caption || (m.voice ? '[voice message]' : m.photo ? '[photo]' : m.document ? '[file ' + (m.document.file_name || '') + ']' : '[unsupported message]')).replace(/\s+/g, ' ').trim();
     const stamp = new Date(m.date * 1000).toISOString();
     appendFileSync(INBOX, `- ${stamp} from Ahmed (Telegram): ${text}\n`);
     console.log(`AHMED (Telegram ${stamp}): ${text}`);
-    if (/^\/status/i.test(text)) {
-      try {
-        const brief = execFileSync('python', ['D:/Projects/_SIR/scripts/deliver/status-brief.py'], { encoding: 'utf8', timeout: 90000 });
-        execFileSync('node', ['D:/Projects/_SIR/scripts/deliver/send-telegram.mjs', brief], { encoding: 'utf8' });
-      } catch (e) { console.log('status reply failed: ' + e.message); }
+    if (/^\/status/i.test(text)) runAction('status');
+    else if (/^\/queue/i.test(text)) runAction('queue');
+    else if (/^\/(menu|start|help)/i.test(text)) {
+      const { err } = await run('node', [SEND_BUTTONS, ...MENU]);
+      if (err) console.log('menu failed: ' + err.message);
     }
   }
 }

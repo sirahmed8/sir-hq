@@ -1,4 +1,6 @@
 # Competitor Study: SIR Content Creation Studio (AI Video & Social Suite)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: AI Video Repurposing, Dynamic Subtitles, Social Media Automation  
 **Target Markets**: Egypt, Gulf, Global Arabic & English Content Creators
@@ -29,3 +31,8 @@
 2. **Automated Multi-Platform Pipeline via Official APIs**: One-click render-and-publish to Instagram Reels, YouTube Shorts, and Facebook Pages with smart localized hashtags and custom thumbnails.
 3. **Fair EGP Subscription**: Available to local Egyptian creators at 290 EGP/month (via Paymob/Fawry) with generous quotas instead of exorbitant USD charges.
 4. **Local Hardware Acceleration**: Supports local rendering via NVENC GPU on Windows desktop, cutting render times to seconds without consuming cloud credits.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Record pricing and export limits of 4 video tools from their official pages with links.
+2. Read the current API rules and review requirements of Meta, YouTube and TikTok for scheduled posting (links, dates).
+3. Check Remotion's commercial licence terms (link, date).

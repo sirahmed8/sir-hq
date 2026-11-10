@@ -1,75 +1,87 @@
-# PLAN: SIR Platform
-Status: planned, not started. Wave 7. Replaces: nothing (new shared kit). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Platform (Wave 7 in MAIN_PLAN, started early; internal kit)
+Audited 2026-11-10. Internal shared kit, not sold, not listed. It is the one place for pieces that two or more products need. Other plans point here instead of rebuilding.
+Order note (conflict reported in the audit): MAIN_PLAN and WAVE_STUDY say "Platform last", but the folder already holds a first kit and other plans depend on it. Default decision until the manager rules: Platform keeps only the small, tested packages listed in section 3; each product builds its own copy behind the same package name and interface (`packages/<name>` in the product), and Platform becomes the single source when two products have copies that pass the same test file. No product waits for Platform.
 
-## 1. Mission and audience
-The shared `@sir/*` kit that every product imports, so each defect found in 16 inventories is fixed once. Used by Ahmed's agents and every SIR product; not sold.
+## 1. Purpose (plain words)
+A set of tested building blocks that every SIR website and app can use: owner login that cannot be faked, signed payment webhooks, a safe AI gateway with quotas, a "Subscriptions launching soon" billing fallback, legal pages generated from what a product really collects, and one shared look (colors, motion, Arabic right-to-left layout). Fix a defect once, every product gets the fix.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Platform` |
 | GitHub (private) | `sirahmed8/sir-platform` |
-| Firebase project / OAuth app name | `sir-platform-dev` / "SIR Platform" |
-| Cloudflare project | `sir-platform` (`sir-platform.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-platform` (Android, iOS, Windows) |
-| Platforms | TypeScript packages (npm workspace), Python helper for SIR AI, CLI `sir-kit` |
-| Money | none (internal) |
+| Layout | npm/pnpm workspace (`package.json` workspaces and `pnpm-workspace.yaml` both exist; pick pnpm, remove the other, task 2) |
+| Packages today | `@sir/ui`, `@sir/styles`, `@sir/hooks`, `@sir/payments` (`packages/`) |
+| Packages planned | `@sir/owner-auth`, `@sir/signed-webhook` (split out of payments), `@sir/ai-proxy`, `@sir/billing-fallback`, `@sir/legal-pack`, `@sir/i18n`, `@sir/telegram` (thin wrapper of the shared sender), CLI `sir-kit` |
+| Platforms | TypeScript packages for Workers and Node, a docs/gallery site (web, PWA). Windows/Android/iOS/macOS/TV: skipped, a library |
+| Money | none. Billing package is code for other products |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Client-side owner gates, unsigned webhooks, client AI keys, fake login/payment/AI screens and unprovable SOC 2/ISO text repeat in nearly every project.
-- The five Wave 0 fixes already exist as reviewed references; they must become packages, not copies.
+## 3. Current state
+Claimed in `.sir/CHECKPOINT.md` (2026-11-10): PLAT-01 to PLAT-05 done (Spring island, active tab bar, RTL stylesheet, visual viewport hook, Paymob/Fawry test modal with HMAC webhook verifier), GitHub Actions pipeline added. PORTFOLIO.md: 29 tasks planned, 9 commits.
+Verified today: `node tests/unit/test-platform-suite.mjs` = 5 passed, 0 failed; `python scripts/lint_design_tokens.py` = pass on 15 files. These tests are file-based checks; **typecheck, build and a React render test were not run and not shown to exist**, so the TSX components are built, unverified.
+Gaps seen in files: `packages/payments/src/PaymobModal.tsx` is 328 lines (limit 300); no `owner-auth`, `ai-proxy`, `legal-pack`, `i18n`, `sir-kit`; the webhook verifier has a 5 minute replay window but no idempotency store interface (planned in the old plan).
+Not started: everything in "Packages planned", the docs/gallery site, publishing (private registry or git dependency), consumer integration in a real product.
 
-## 4. What to port from the old project
-- owner-auth: `SIR Mods for GTA V/web-portal/lib/admin/*`, `SIR AI/core/security/owner_access.py`.
-- signed-webhook: `Hagoozat Elite/src/lib/server/webhookSignature.ts` (put the timestamp inside the signed payload).
-- ai-proxy and chat guard: `SIR Optimizer/PulseTools-Web/src/lib/chatGuard.ts`, `entitlements.ts`.
+## 4. Security rules for the kit
+1. `owner-auth`: server-verified ID token (JWKS) plus allow-list from `OWNER_EMAILS` / `OWNER_UIDS`; `email_verified` required; fail closed when unset. Negative tests: forged, expired, wrong issuer, unverified email, tampered cookie.
+2. `signed-webhook`: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, replay window, idempotency interface. Negative tests: tampered body, old timestamp, replay.
+3. `ai-proxy`: no key in any client bundle; per-user daily quota; owner unmetered; provider chain with failover; private-data routing flag sends only to local models. Tests: quota exhaustion, provider 429 failover, private flag never calls an outside provider.
+4. Sessions in HttpOnly, Secure, SameSite=Strict cookies; never localStorage (lint rule scans for it).
+5. gitleaks and dependency/licence audit in CI; no GPL/AGPL.
+6. Every package ships tests that run in a Workers-like runtime (no Node-only APIs) as well as Node.
 
-## 5. Screens and entities
-**Screens:** none (libraries); `docs` site with live examples
-**Entities:** Plan, Entitlement, WebhookEvent, QuotaCounter, LeadEmail, LegalDocument
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. What Platform provides to each plan (single list used by all plans)
+| Need | Package | Status |
+|---|---|---|
+| Owner admin login and unmetered owner | `owner-auth` | not started |
+| Paid plans, EGP, "Launching soon" + lead capture, webhooks | `billing-fallback`, `signed-webhook`, `payments` | payments modal built, unverified; rest not started |
+| AI with fallback, quota, privacy routing | `ai-proxy` | not started (idea source: SIR AI) |
+| Look and motion, tab bar, RTL | `ui`, `styles`, `hooks` | built, unverified |
+| Legal pages, cookie banner with equal Reject, deletion flow | `legal-pack` | not started |
+| Arabic/English strings, plural, numerals | `i18n` | not started |
+| Telegram reports and approvals | `telegram` (wraps `_SIR/scripts/deliver/`) | wrapper not started; sender verified 6/6 |
+| Project scaffold, CI, checks | `sir-kit` CLI | not started |
 
-## 6. AI at the core
-`ai-proxy` package: provider chain with automatic failover (Gemini, OpenRouter free models, Groq, local Ollama for private data), per-user daily quota, owner unmetered, prompt/eval sets, privacy routing (module 10).
+## 6. Screens
+Only the docs/gallery site: component gallery with RTL/LTR and light/dark toggles, token tables, package READMEs with copy-paste examples. Five states where data loads. 320 px to 4K.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- The kit is the security boundary: every package ships negative tests (forged, expired, tampered, replayed, unverified, cross-tenant).
+## 7. AI and assistant
+`ai-proxy` only. Eval set: 20 prompts per language checking refusal of out-of-scope and graded-work requests, quota messages and failover. Support-assistant prompt template grounded in a product's docs folder (used by Business, Hagoozat, Obour Hub, Controller).
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-platform`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-platform-dev` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Platform", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] `owner-auth` package (JWKS verify with `jose`, allow-list, cookie session) with 12+ negative tests, usable from Workers and Node.
-- [ ] `signed-webhook` package with timestamp-in-payload, replay window, idempotency store interface, adapters for Paymob, Fawry, Stripe.
-### M2 Parity with the old project
-- [ ] `ai-proxy` with quota store (Firestore or D1) and the provider chain; `billing` with the Launching Soon fallback and lead capture.
-- [ ] `legal-pack` generator (privacy, terms, refunds, cookies, DPA, sub-processors) from a `data-inventory.yml` per product; `ui` kit with tokens, 5-state components, RTL, themes.
-- [ ] `project-kit` CLI: scaffold folder, `.sir/` files, CI workflow, gitleaks, Firebase + Cloudflare checklist.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] Prompt and eval sets for the support assistant grounded in each product's docs; refusal tests for out-of-scope and graded-work requests.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Version 1.0 tag, private npm registry (GitHub Packages) or git dependency, changelog generated from commits.
-- [ ] Obour Hub consumes it end to end; any gap found there is fixed upstream.
+## 8. Operations
+CI on every push (typecheck, lint, tests, gitleaks, token lint). Changelog from commits. Weekly dependency update with tests. Telegram weekly line via the shared sender.
 
-## 9. Risks and open decisions
-- Over-building: ship the three security packages first, the rest as products need them.
-- Cloudflare Workers runtime limits (no Node-only APIs): test every package in a Workers runtime.
+## 9. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Honest base | `tsc --noEmit` and build pass for all 4 packages; one workspace manager; files under 300 lines; CI green URL |
+| M1 | Security trio | `owner-auth`, `signed-webhook`, `ai-proxy` each with 10+ negative tests passing |
+| M2 | Billing and legal | `billing-fallback` renders "launching soon" without keys (test); `legal-pack` generates 5 pages from a sample `data-inventory.yml` |
+| M3 | i18n and CLI | missing-key test fails the build; `sir-kit new` scaffolds a project that passes its own verify |
+| M4 | First consumer | one real product imports the kit and passes its tests (record which) |
+| M5 | Quality | gallery screenshots 390 and 1280, LTR and RTL, light and dark; a11y check |
+| M6 | Release | tag stays 1.0.0 (version rule); packages consumed by git dependency; changelog present |
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Next 10 tasks (each under 2 hours)
+1. Add `tsc --noEmit` per package and a root `typecheck` script; fix errors. Files: `packages/*/tsconfig.json`, `package.json`. Check: `npm run typecheck` exit 0.
+2. Pick pnpm: delete the duplicate workspace config choice (keep `pnpm-workspace.yaml`, drop `workspaces` or the reverse) and document it. Check: `pnpm install` works, README says which.
+3. Split `PaymobModal.tsx` (328 lines) into modal, formatter and fallback view. Files: `packages/payments/src/`. Check: each file under 300 lines; test suite still 5 passed.
+4. Move `webhookVerifier.ts` into `packages/signed-webhook` and add idempotency interface plus 10 negative tests. Check: `node --test` green; replay test fails the second call.
+5. `packages/owner-auth`: JWKS verify with `jose`, allow-list, fail-closed, 12 negative tests. Check: tests green under Node and a Workers-like runtime (miniflare or `wrangler dev --test`).
+6. React render tests for `SpringIsland` and `ActiveTabBar` (vitest + testing-library): keyboard, reduced motion. Check: tests green.
+7. `packages/billing-fallback`: component and hook reading `PAYMENTS_ENABLED` env; "Subscriptions launching soon" (Arabic and English) with lead capture interface. Check: render test with and without keys.
+8. `packages/legal-pack` skeleton: `data-inventory.yml` schema (zod) plus privacy page generator and test. Check: sample inventory produces a page listing exactly the declared data; each page carries "AI-drafted, to be reviewed by a qualified lawyer before paid launch".
+9. `packages/i18n`: ar/en dictionaries, missing-key test, Arabic-Indic numeral option. Check: test fails when a key is missing in one locale.
+10. CI: run typecheck, tests, token lint, gitleaks; record the Actions URL. Files: `.github/workflows/`. Check: green run URL in checkpoint.
+
+## 11. Risks and open questions (defaults)
+- Over-building: default is ship the three security packages first, the rest only when two products need them.
+- Premature extraction before products exist: default is write each package against its own test file so a product copy can be swapped in.
+- Workers runtime limits: default is test in a Workers-like runtime from the first package.
+- Payment provider terms and API shapes for Paymob and Fawry: "(unsourced, verify)" at build time from their official docs; use test modes only.
+
+## 12. Only the owner can do
+Create the real Paymob, Fawry, Stripe or LemonSqueezy accounts and paste keys in one `.env`; buy domains; create Firebase and Cloudflare logins; legal review by a lawyer before paid launch.
+
+## 13. Market-grade note
+Competitors (Clerk, Auth0, Stripe Billing, Lemon Squeezy) are in `plans/competitors/sir-platform.md`; price claims there need links or "(unsourced, verify)". Internal kit: no visibility or marketing work, but its docs site stays `noindex`.

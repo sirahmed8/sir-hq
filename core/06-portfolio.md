@@ -1,4 +1,6 @@
-# A4. Portfolio map (a proposal: validate it in Phase 3)
+# A4. Portfolio map (a proposal from 2026-10-29; the validated list is in `D:\Projects\AGENTS.md` "Portfolio map" and `ops/PORTFOLIO.md`)
+
+> **Status 2026-11-10.** Names below that no longer exist as folders were merged into their SIR product (Laptop Manager, Jobs, Optimizer, Obour Academic Hub). SIR Odysseus was removed (not Ahmed's project). SIR Negm Furniture is plans only (friend's project). Product lines such as SIR Health, SIR Deen, SIR Learn, SIR Deals, SIR Fix, SIR Cars and SIR Sight are ideas, not projects; only the 16 folders in `plans/WAVE_STUDY.md` are active.
 
 ## Existing projects
 

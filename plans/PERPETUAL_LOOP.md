@@ -2,6 +2,8 @@
 
 Ahmed wants a real engineering team, not instruction followers: the agents keep finding and fixing problems nobody told them about (UI, UX, animation, code, security, speed, copy), project by project, until each project is perfect. Only usage limits stop the work. He wants to say "wow, how did you find that bug" and "finally, you fixed it without me telling you".
 
+> Status 2026-11-10: low-usage mode (`LOW_USAGE_MODE.md`) limits this loop to one cycle per day per project and at most 2 chats at once until the owner or HQ ends it. When Antigravity quota is out, the same cycle runs on the free CLI agents (`CLI_AGENT_INSTRUCTIONS.md`). Screenshots at 320, 390, 768, 1280 and 1920 px as in `D:/Projects/GEMINI.md`.
+
 ## The cycle (one Antigravity chat runs up to 3 cycles, then hands over with a fresh chat)
 1. **Read state:** the project's AGENTS.md, `.sir/CHECKPOINT.md`, TASKS.md, last 20 commits, the previous cycle's report in `ops/agy-runs/reports/`.
 2. **Run it for real:** start the app, open it in the browser (SIR Autonomy / browser tools), click through every screen and flow at 390 px and desktop, light, dark, high contrast, RTL, offline, slow network, with an empty account and a full one. Use dummy data for private projects.
@@ -12,7 +14,7 @@ Ahmed wants a real engineering team, not instruction followers: the agents keep 
 7. **Never conclude "nothing left".** If a lens finds nothing, widen the benchmark, test on another device size, break it with hostile input, read the code for the next refactor. A cycle may end only by: usage limit reached, 3 cycles completed, or a true blocker (sign-in, 2FA, CAPTCHA, payment). Then write the handoff and signal.
 
 ## Manager loop (Claude, Sonnet high, reviewer)
-- Start a batch of loop chats (one per active project, at most 5 at once) with `scripts/agy-task.py` and the queued "continue" line. The batch watcher wakes me once.
+- Start a batch of loop chats (one per active project, at most 5 at once; 2 while low-usage mode is on) with `scripts/agy-task.py` and the queued "continue" line. The batch watcher wakes me once.
 - Review every report completely: diff, tests, on-screen check of the riskiest change. Approve and push to main, or write a fix brief. Look for the "Found without being told" section: ask for more of that.
 - Immediately queue the next cycle for the same project with the next lens (copy `ops/briefs/loop-<project>.md`, change the lens line), plus new projects when a project meets the definition of done.
 - Keep my own turns few: one review turn per batch. Delegate screen work to Haiku (low effort). Check Antigravity usage at batch boundaries; below 15 percent of the 5-hour window, stop starting chats until the reset time, then resume.
@@ -21,4 +23,4 @@ Ahmed wants a real engineering team, not instruction followers: the agents keep 
 Verified (tests, lint, types, e2e on screen), deployed and checked live, built for every platform its plan lists, legal and security checks green, accessible, fast, bilingual, nothing in its task list, three consecutive audit cycles found nothing worth fixing, and a fresh reviewer agrees. Then the next project in the wave order starts and the finished one gets a maintenance cycle once a week.
 
 ## Order of projects
-AHome, SIR Study (coaching only, exam weeks first), SIR Jobs, SIR Laptop Manager, then SIR AI (Ahmed, 2026-11-08: Jarvis for his laptop: Telegram bot, iOS and Android apps, manage the laptop and every CLI agent, subscriptions for users; important, starts right after the current projects), then SIR Life, Negm Furniture, SIR AI, CCS, Business, Hagoozat, Obour Hub, ModPack, GTA mods, Platform, Portfolio (see plans/WAVE_STUDY.md).
+AHome, SIR Study (coaching only, exam weeks first), SIR Jobs, SIR Laptop Manager, then SIR AI (Ahmed, 2026-11-08: Jarvis for his laptop: Telegram bot, iOS and Android apps, manage the laptop and every CLI agent, subscriptions for users; important, starts right after the current projects), then SIR Life, SIR Content Creation Studio, SIR Business, SIR Hagoozat, SIR Obour Hub, SIR ModPack, SIR Mods for GTA V, SIR Platform, SIR Portfolio, SIR Controller (optional, last). SIR Negm Furniture is plans only. Source of truth for the order: `plans/WAVE_STUDY.md`.

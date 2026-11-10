@@ -1,4 +1,5 @@
-# Manager brief, 2026-11-08 (from Ahmed, the CEO). Read after START_ANY_AI.md. It outranks older priority lists.
+# Manager brief, 2026-11-08 (from Ahmed, the CEO). Read after START_ANY_AI.md. It outranked older priority lists on 2026-11-08.
+> Status 2026-11-10: kept as history. Newer rules win: `plans/LOW_USAGE_MODE.md` (2026-11-10), `ops/ACCOUNT_ROTATION.md` CURRENT ORDER, `plans/WAVE_STUDY.md`. AgentsRoom mentioned below was retired on 2026-11-08.
 
 ## 0. Priorities this week (order)
 1. SIR Study, now. Ahmed has midterms this week and has not studied. Start workers on Study immediately (details in section 1). This pauses nothing else: AHome keeps running with its own workers.

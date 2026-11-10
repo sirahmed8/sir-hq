@@ -1,4 +1,5 @@
-# TIMELINE (targets; order comes from plans/WAVE_STUDY.md, update NEXT.md when it changes)
+# TIMELINE (targets only)
+> SUPERSEDED for order (2026-11-10) by `plans/WAVE_STUDY.md`. The wave table below is the 2026-10-30 version (it still lists SIR Odysseus, which was removed on 2026-11-01); do not use it for order.
 Agents work in short sessions because of usage limits; dates are goals, the order is fixed by the study. A task is done only with evidence in each project's `.sir/evidence/`.
 | Wave | Goal | Projects |
 |---|---|---|

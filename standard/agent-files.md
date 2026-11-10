@@ -1,5 +1,7 @@
 # B1. Templates
 
+> **Status 2026-11-10.** These templates seed new project `AGENTS.md`, `CLAUDE.md` and `GEMINI.md` files. The workspace laws in `D:\Projects\AGENTS.md` (no pull requests, push to `main`, version 1.0.0, save rule, who builds) win over anything below. Lines fixed on 2026-11-10 are marked "(2026-11-10)".
+
 ## `AGENTS.md` (fill the `{{…}}` values from `.sir/project.yml`)
 
 ````markdown
@@ -12,7 +14,7 @@ If a request conflicts with this file, say so and propose the premium way. If yo
 ## 0. Start every session like this
 1. Read `.sir/CHECKPOINT.md` (current state), `.sir/BOARD.md` (tasks), `.sir/project.yml` (facts). Do it again after every compaction or `/clear`: your memory is the files, not the chat.
 2. If `D:\Projects\_SIR\ops\locks\` exists (Ahmed's workstation), check it. If another session holds this project, coordinate through `.sir/inbox/` instead of editing.
-3. `git status` and the current branch. Never work directly on `main`.
+3. `git status` and `git log -5`. Another tool may have worked before you; never revert its edits. Work on `main` in small commits that pass verify (no branches for housekeeping, no pull requests) (2026-11-10).
 4. Run `pnpm verify` (or the command in section 6) to know the baseline before changing anything.
 5. Scan: a full deep scan on the first session, after big merges and weekly; otherwise an incremental scan (git log and diff since the last checkpoint, plus the areas the task touches). Read `.sir/inbox/` for new requests.
 6. Write the session goal and its Definition of Done in one short paragraph.
@@ -91,7 +93,7 @@ Large or parallel work: follow the Orchestra Protocol (delegation briefs, `.sir/
 | choosing or changing a hosted service, database, file storage, email, analytics, CI, or any free tier | 22-free-stack |
 
 ## 8. Boundaries
-- Don't ask; decide, log, continue. Allowed after review: merging to `main` once CI is green and a reviewer agent approved; production deploys with staged rollouts and rollback.
+- Don't ask; decide, log, continue. Allowed: commit and push straight to `main` once verify is green (no pull requests, Ahmed 2026-10-30); a reviewer pass for security-sensitive changes; production deploys with staged rollouts and rollback (2026-11-10).
 - List for Ahmed in `OWNER_ACTIONS.md`, and never wait for it: anything that costs money (there is no budget; free tiers only), identity, 2FA and payment verification, signing legal agreements, and actions a platform's terms reserve for a human. Never permanently delete anything personal.
 - Never: commit secrets; bypass security, CAPTCHAs or 2FA; fake reviews or engagement; disable tests or hooks to pass; expose private user data.
 
@@ -106,7 +108,7 @@ Ask the owner's questions and write the answers down: Did we forget anything? Wh
 
 ## Claude Code notes
 - Use the global agent roster (`~/.claude/agents/`) and the Orchestra Protocol in `D:\Projects\_SIR\core\03-team.md` for multi-agent work.
-- Manager: Sonnet (high). Builders: Haiku (max), each working from a task spec in `.sir/tasks/` (template in `D:\Projects\_SIR\standard\project-templates.md`). Sonnet reviews every diff.
+- Claude is the manager and reviewer (Sonnet, high). Builders are Gemini in Antigravity or the free CLI agents, each working from a task spec in `.sir/tasks/` (template in `D:\Projects\_SIR\standard\project-templates.md`). Claude may use its own haiku and sonnet subagents for review, audits and plans (2026-11-10). Sonnet reviews every diff.
 - Project skills: `.claude/skills/`. Project MCP servers: `.mcp.json`.
 - Memory: update `.sir/CHECKPOINT.md` after every finished step, not only at the end. After a compaction, `/clear` or resume, the memory hook prints the checkpoint; re-read the files it lists before continuing.
 
@@ -123,6 +125,7 @@ You are continuing a codebase built to the SIR Standard. AGENTS.md is binding; i
 - Read `.sir/CHECKPOINT.md` and the relevant `docs/sir/standard/` module before editing, and again after any context reset.
 - Match existing patterns and shared `@sir/*` packages. Don't introduce new libraries, rewrite architecture or restructure folders without an ADR in `.sir/decisions/` reviewed by a second agent, and never as a side effect of another task.
 - Never delete or skip tests, lower CI thresholds, use `--no-verify`, or commit secrets.
+- Follow `D:\Projects\GEMINI.md` for the definition of done, the five screenshot widths and the quota hand-over steps (2026-11-10).
 - Run `pnpm verify` before claiming anything is done, and show the output.
 - If something looks wrong, record it in `.sir/inbox/orchestrator.md` and mention it in your report; don't rewrite it as a side effect.
 - End of session: update CHECKPOINT, BOARD, CHANGELOG (Unreleased) and `status.json`.
@@ -135,5 +138,5 @@ You are continuing a codebase built to the SIR Standard. AGENTS.md is binding; i
 trigger: model_decision
 description: "SIR Standard index. Read the matching module in docs/sir/standard/ before working on code, architecture, data, security, UI, web, mobile, watch, desktop, AI, legal, testing, releases, handoff, launchers, SEO and store listings, engineering practices, automations, milestone checks, TV and car apps, notifications, the owner dashboard, support, subscriptions, AI providers or free services."
 ---
-Modules: 01-engineering, 02-architecture, 03-data-backend, 04-security-privacy, 05-design-system, 06-web, 07-mobile, 08-watch, 09-desktop, 10-ai, 11-legal-stores, 12-quality-gates, 13-release, 14-continuity, 15-launchpad, 16-search-discovery, 17-engineering-playbook, 18-automations, 19-completeness, 20-platforms-tv-car, 21-product-essentials, 22-free-stack (all in docs/sir/standard/).
+Modules: 01-engineering, 02-architecture, 03-data-backend, 04-security-privacy, 05-design-system, 06-web, 07-mobile, 08-watch, 09-desktop, 10-ai, 11-legal-stores, 12-quality-gates, 13-release, 14-continuity, 15-launchpad, 16-search-discovery, 17-engineering-playbook, 18-automations, 19-completeness, 20-platforms-tv-car, 21-product-essentials, 22-free-stack, 23-premium-code-bar, 24-launch-package, 25-market-grade, 26-autonomous-operations, 27-visibility (all in docs/sir/standard/).
 ````

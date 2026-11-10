@@ -1,30 +1,30 @@
 {
-  "timestamp": "2026-11-09T01:30:01.794Z",
+  "timestamp": "2026-11-10T01:30:01.861Z",
   "overallStatus": "RED",
   "manager": {
-    "status": "GREEN",
+    "status": "AMBER",
     "managerState": {
       "exists": true,
       "mtime": "2026-11-08T05:38:30.841Z",
-      "fresh": true
+      "fresh": false
     },
     "managerMemory": {
       "exists": true,
       "mtime": "2026-11-08T05:19:53.829Z",
-      "fresh": true
+      "fresh": false
     }
   },
   "readLog": {
     "status": "GREEN",
-    "count": 53,
+    "count": 62,
     "lastEntry": {
-      "time": "2026-11-09T01:29:06.556Z",
-      "date": "2026-11-09",
+      "time": "2026-11-10T01:02:28.432Z",
+      "date": "2026-11-10",
       "tool": "claude-code",
       "agent": "claude",
       "project": "HQ",
-      "filesRead": "_SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-09, _SIR/NEXT.md@2026-11-01, ops/MANAGER_STATE.md@2026-11-09, ops/MANAGER_MEMORY.md@2026-11-09",
-      "nextStep": "and what only Ahmed can do. This checkpoint keeps the detail."
+      "filesRead": "_SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-09, ops/ACCOUNT_ROTATION.md@2026-11-10, plans/CLI_AGENT_INSTRUCTIONS.md@2026-11-10, plans/LOW_USAGE_MODE.md@2026-11-10, ops/AUTOPILOT_QUEUE.json.@2026-11-10",
+      "nextStep": "if I (Claude) am running: check ops/autopilot.log, git logs, ops/agy-runs/done, review reports, keep going down the queue; if a fresh Claude session starts: read this block, ops/AUTOPILOT_QUEUE.json and ops/autopilot.log. After the queue: use ZCode (GLM-5.3) via Haiku, Pro accounts after resets (~4 days), Claude 5.5 (resets ~1d14h), then HQ itself."
     },
     "ageDays": "0.0"
   },
@@ -40,8 +40,8 @@
       "status": "RED",
       "fileIssues": [],
       "pointerIssuesCount": 2,
-      "checkpointMtime": "2026-11-09T01:01:08.384Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-09T23:55:56.404Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
     {
@@ -50,52 +50,52 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-08T15:53:16.404Z",
-      "checkpointAgeDays": "0.4",
+      "checkpointAgeDays": "1.4",
       "checkpointStale": false
     },
     {
       "name": "SIR Business",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.392Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.250Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Content Creation Studio",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.399Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.265Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Controller",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.408Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.281Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Hagoozat",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.384Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.234Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Jobs",
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T00:56:50.786Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-09T22:20:37.872Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
     {
@@ -103,8 +103,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T01:21:05.122Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-09T23:10:57.590Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
     {
@@ -112,27 +112,27 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-08T05:26:35.831Z",
-      "checkpointAgeDays": "0.8",
+      "checkpointMtime": "2026-11-09T19:00:44.408Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
       "name": "SIR ModPack",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.472Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.379Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Mods for GTA V",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.481Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.394Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Negm Furniture",
@@ -140,43 +140,43 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-08T15:19:03.477Z",
-      "checkpointAgeDays": "0.4",
+      "checkpointAgeDays": "1.4",
       "checkpointStale": false
     },
     {
       "name": "SIR Obour Hub",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.376Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.218Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Platform",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.362Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T22:08:11.521Z",
+      "checkpointAgeDays": "0.1",
+      "checkpointStale": false
     },
     {
       "name": "SIR Portfolio",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-02T01:19:13.508Z",
-      "checkpointAgeDays": "7.0",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-09T19:00:44.424Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
     },
     {
       "name": "SIR Study",
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T00:46:33.079Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-09T23:18:30.699Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     }
   ]

@@ -1,161 +1,65 @@
-# SIR PORTFOLIO VISIBILITY & DISCOVERY PLAN (SEO, GEO & AEO)
-**Target**: Autonomous Gemini HQ Manager & Growth Engineers  
-**Standard**: Standard 27 (`27-visibility.md`)  
-**Scope**: All Public Commercial Products & SIR Portfolio · Version: 1.0.0 (Strictly enforced)
+# SIR VISIBILITY PLAN: SEO, AI ANSWERS, STORES (rewritten 2026-11-10 by the plans audit)
+Standard: 27. Scope: public products and SIR Portfolio. Private and internal projects are unlisted and noindex (section 7). Nothing here is live today: no public site exists yet, so every item is a task with a gate (the product's plan reaches M1 with a public URL).
+Honest limit: nobody can promise rank 1 against large companies. The realistic wins are niche Arabic and Egyptian queries, long-tail intent, brand-name searches, speed, real content and real authority. White-hat only: no fake reviews, no link schemes, no cloaking, no spam, no fake engagement.
 
----
+## 1. Entity and name consistency (do first, it costs nothing)
+- The founder's name appears as "Ahmed Alaa" (package.json author, plans) and "Ahmed Oraby" (CV file names, earlier visibility text). Default decision: Portfolio task P-1 stores one canonical string and its Arabic spelling in `content/identity.json`, taken from the owner's verified CV; every page, JSON-LD block, GitHub bio and `llms.txt` reads from it. Until then do not publish either spelling in structured data.
+- Product names are fixed as the plan titles ("SIR Hagoozat"). One facts page per product, one canonical domain, the same description sentence everywhere.
 
-## 1. Discovery Philosophy: Winning the AI Answer Era
-
-In the modern search landscape, discoverability happens across two distinct surfaces:
-1. **Classic Search Engines (Google, Bing, Yandex)**: Requires Core Web Vitals speed, structured data (JSON-LD), semantic HTML, and high-intent localized keywords.
-2. **AI Answer Engines (ChatGPT, Gemini, Perplexity, Claude, Bing Copilot, Google AI Overviews)**: Requires authoritative, quotable prose, clear entity definitions, structured facts pages, and clean `llms.txt` documents.
-
-> [!IMPORTANT]
-> **The Honest Search Limit**:
-> No ethical engineering team can guarantee #1 rankings against legacy trillion-dollar conglomerates. We win decisively by capturing **niche regional intent**, **Arabic and Egyptian dialect search terms**, **long-tail queries**, **lightning-fast Core Web Vitals**, and **clean generative citations**.
-
----
-
-## 2. High-Intent Keyword & Search Mapping
-
-| Product | Arabic High-Intent Queries | Egyptian Colloquial Queries | English High-Intent Queries |
+## 2. Keyword and intent map (starting points to check in a keyword tool; volumes are unknown, so none are claimed)
+| Product | Arabic intents | Egyptian wording to test | English intents |
 |---|---|---|---|
-| **SIR Hagoozat** | حجز ملاعب كرة قدم, حجز ملاعب بادل مصر, تطبيق حجز ملاعب, تأجير ملاعب رياضية | احجز ملعب كورة في دقيقة, ملاعب بادل قريبة مني, حجز كورة خماسي | turf booking Egypt, football pitch rental Cairo, book padel court Egypt |
-| **SIR Business** | برنامج كاشير سحابي, الفاتورة الإلكترونية المصرية, برنامج نقاط البيع, إدارة مخازن وصيدليات | أفضل سيستم كاشير للمحلات, برنامج فواتير سهل, كاشير رخيص بالجنيه | Egyptian POS software, ETA e-invoicing ERP, cloud inventory Egypt |
-| **SIR Obour Hub** | معاهد العبور, جدول امتحانات معهد العبور, ملخصات هندسة العبور, مجتمع طلاب العبور | شيتات وملخصات العبور, سكن طلاب العبور, أسعار كورسات العبور | Obour academic hub, Obour Institute student portal, engineering notes Obour |
-| **SIR Negm Furniture** | أثاث مودرن دمياط, غرف نوم عصرية, تفصيل أثاث حسب الطلب, مصنع أثاث راقي | عفش مودرن بالتقسيط, معرض موبيليا راقي, معاينة الأثاث 3D قبل ما تشتري | bespoke luxury furniture Cairo, custom furniture maker Egypt, modern 3D room preview |
-| **SIR Content Studio** | برنامج مونتاج ذكاء اصطناعي, أتمتة السوشيال ميديا, جدولة منشورات إنستغرام وتيك توك | عمل فيديوهات بالذكاء الاصطناعي, مونتاج ريلز وشورتس أوتوماتيك | AI video editor Arabic, automated social media publisher, short-form video repurp |
-| **SIR Controller** | تسريع ويندوز 11 للألعاب, تقليل اللاج والبنق, تحسين أداء الكمبيوتر, رفع فريمات الألعاب | إزاي أسرع الجهاز للألعاب, تنظيف الويندوز بدون فورمات, تقليل البنج في الألعاب | Windows PC gaming optimizer, input lag reducer Windows 11, FPS booster tool |
-| **SIR AI** | تطبيق ذكاء اصطناعي محلي, تشغيل نماذج الذكاء الاصطناعي على الكمبيوتر, ذكاء اصطناعي خاص بدون نت | شات جي بي تي يشتغل من غير نت, أفضل برنامج ذكاء اصطناعي مجاني | local LLM desktop assistant, private AI agent Windows, offline Ollama GUI |
-| **SIR Portfolio** | أحمد عرابي مهندس ذكاء اصطناعي, مطور مشاريع SIR, مؤسس منصة حجوزات | المطور أحمد عرابي, مبرمج مصري ذكاء اصطناعي | Ahmed Oraby AI engineer, SIR portfolio founder, full stack agent architect |
+| SIR Hagoozat | حجز ملعب خماسي، حجز ملاعب كرة قدم، تأجير ملعب | احجز ملعب كورة، ملاعب قريبة مني | book a five-a-side pitch in Cairo, football pitch rental Egypt |
+| SIR Business | برنامج كاشير للسوبر ماركت، برنامج مبيعات ومخازن، برنامج كاشير مطعم | كاشير للمحلات بالجنيه | POS software for small shops Egypt (e-invoicing terms only after it is built) |
+| SIR Obour Hub | ملخصات معهد العبور، حاسبة المعدل التراكمي، جدول محاضرات | شيتات العبور | Obour institute notes, GPA calculator |
+| SIR Content Creation Studio | برنامج مونتاج فيديو بالذكاء الاصطناعي، جدولة منشورات | عمل ريلز بسرعة | AI short video maker with Arabic captions |
+| SIR AI (Tier 2) | مساعد ذكاء اصطناعي محلي على الكمبيوتر | شات بوت يشتغل من غير نت | local AI assistant for Windows |
+| SIR Controller | تشغيل يد بلايستيشن على الكمبيوتر، محاكي يد إكس بوكس | يد بلايستيشن على الكمبيوتر | use a PlayStation controller on PC |
+| SIR ModPack | مودات ماينكرافت بالعربي | مود باك ماينكرافت | Arabic Minecraft modpack installer |
+| SIR Life Part B | تطبيق مواعيد الصلاة والعادات | | prayer times and habit tracker app |
+| SIR Portfolio | the founder's name (section 1) and "SIR" product names | | same |
+SIR Mods for GTA V: no visibility work until its licence gate passes. SIR Negm Furniture: advice only in the client handoff (local SEO for a showroom, Google Business Profile, product pages with real data).
 
----
+## 3. Technical SEO checklist (every public site; each item is a test or a command)
+- Static or server-rendered HTML for all public pages; check with `curl` that the main text is in the HTML without JavaScript.
+- Core Web Vitals budgets: Lighthouse mobile performance 90 or more on home and one product page, results saved as JSON in the repo.
+- `sitemap.xml`, `robots.txt` (allow legitimate search and AI crawlers; the owner may change this), canonical tags, `hreflang` for `ar-EG`, `ar` and `en`, clean URLs, 404 page, redirect map.
+- Structured data validated with a schema validator run in CI: `Organization`, `SoftwareApplication` or `MobileApplication` (price offers only with the real price), `FAQPage`, `HowTo`, `BreadcrumbList`, `Person` on the Portfolio. `Review`/`AggregateRating` only with real reviews from a real platform. Author name from `content/identity.json` (not hard-coded).
+- Security headers and no mixed content; image alt text; internal links; one H1 per page.
+- Search Console and Bing Webmaster verification by the owner (DNS TXT record); Google Business Profile only for real local businesses (client showrooms).
 
-## 3. Generative Engine Optimization (GEO & AEO) Architecture
-
-### 3.1. Standard `llms.txt` and `llms-full.txt`
-Every public web application MUST serve a clean, markdown-formatted `llms.txt` file at the root (`/llms.txt`):
-
+## 4. AI answer engines (GEO)
+- `/llms.txt` per public site: the product in one honest sentence, what is built today, platforms, price (only the real current one), privacy summary, links to facts and docs. Template, with no superlatives and nothing not yet true:
 ```text
 # SIR Hagoozat
-> Official real-time sports venue booking platform in Egypt.
+> Pitch booking and split payment for five-a-side football in Egypt. Status: in build.
 
-## Summary
-SIR Hagoozat is Egypt's leading digital venue reservation service, allowing players to discover, book, and split payments for football pitches and padel courts across Cairo, Giza, and major Egyptian governorates.
+## What it does today
+- (list only verified features, each with the date it was verified)
 
-## Core Capabilities
-- Instant booking with live venue calendar availability.
-- Automated payment split via Paymob (Vodafone Cash, Mobile Wallets, Cards).
-- Instant booking confirmation ticket delivered via WhatsApp and SMS.
-- Venue owner dashboard for schedule management and financial reconciliation.
+## Price
+- Free for players. Paid plans: not yet launched.
 
-## Pricing & Currency
-- Free for individual players to browse and book.
-- Venue subscription: 450 EGP / month or 4,500 EGP / year.
-- Transaction processing: Standard local gateway fee (2.5% + 3 EGP).
-
-## Official Links
-- Web App: https://hagoozat.com
-- Documentation: https://hagoozat.com/docs
-- Public Facts: https://hagoozat.com/facts
+## Links
+- Facts: https://<domain>/facts
 ```
+- `/facts` page: first sentence "[Product] is a [category] for [audience] that [benefit]"; table of what it does and does not do; platforms; pricing; privacy; changelog link; founder link; dated and sourced numbers only. A comparison table against named competitors only when `plans/competitors/<slug>.md` has linked sources for each cell.
+- Authority: GitHub README and docs, honest posts in communities in the brand's name following each site's rules, YouTube tutorials with transcripts, directories we truly qualify for, press kit (`MARKETING_PLAN_ALL.md` section 5). No bought mentions.
+- Wrong descriptions found by the weekly check become fix tasks: update the facts page, publish a clearer source, request a correction where a form exists.
 
-### 3.2. Public `/facts` Page
-Every public product includes a `/facts` page designed for citation by AI crawlers:
-- **Direct Definitional Opening**: Sentence 1 explicitly states: *"[Product] is a [category] that enables [target audience] to [core benefit]."*
-- **Comparison Table**: Explicitly compares SIR capabilities against standard market alternatives.
-- **Entity Linking**: Cross-references Ahmed Oraby (Founder) and links to the verified GitHub repository.
+## 5. Weekly visibility check
+`scripts/check_ai_visibility.py` is NOT built. The earlier file text contained a stub that printed "Completed audit" without checking anything; that is removed. Spec for the real script (task V-1):
+- Input: `config/visibility-queries.json` with 5 to 10 queries per public product in Arabic and English (examples: "أفضل تطبيق حجز ملاعب في مصر", "Ahmed ... SIR products" using the canonical name).
+- Method: use official search APIs or the assistants' official APIs where a free or owner-funded key exists; otherwise a manual checklist the owner or a computer-use agent fills in; never scrape against a site's terms and never bypass a CAPTCHA.
+- Output: `ops/visibility-weekly.json` with date, query, engine, whether the product was named, the exact description text, and the source URLs cited.
+- Report: weekly Telegram line in simple Arabic: mentions found, wrong descriptions, next fix.
+Acceptance: running it twice on a fixture file with two fake engine replies produces the expected JSON (unit test).
 
----
+## 6. App stores and video
+ASO per store listing prepared for the owner: title, subtitle, keywords, screenshots with captions in Arabic and English, privacy labels that match the real data use, fair rating prompts, review replies. YouTube: one channel per brand, install and how-to videos with chapters and transcripts, titles tested on click-through. Store accounts and publishing are owner steps.
 
-## 4. Technical SEO & Structured Data (JSON-LD) Specification
+## 7. Private and internal projects (noindex)
+AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room, SIR Platform docs: no listing, `robots.txt` `Disallow: /`, `meta name="robots" content="noindex, nofollow"` wherever any page is reachable, no sitemap, no `llms.txt`. SIR Life Part A is private; only Part B (public app) is listed. SIR Negm Furniture visibility belongs to the client.
 
-All public Next.js applications inject validated JSON-LD structured data into the `<head>`:
-
-```tsx
-// src/app/layout.tsx
-export const metadata = {
-  metadataBase: new URL('https://hagoozat.com'),
-  title: {
-    default: 'SIR Hagoozat | حجز ملاعب كرة القدم والبادل في مصر',
-    template: '%s | SIR Hagoozat'
-  },
-  description: 'احجز ملعبك الرياضي في ثواني بضغطة واحدة مع خيارات دفع إلكتروني متعددة عبر فودافون كاش وبطاقات ميزة.',
-  alternates: {
-    canonical: '/',
-    languages: {
-      'ar-EG': '/ar',
-      'en-US': '/en'
-    }
-  }
-};
-
-export function OrganizationJsonLd() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'SIR Hagoozat',
-    applicationCategory: 'SportsApplication',
-    operatingSystem: 'Web, Android, iOS',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'EGP'
-    },
-    author: {
-      '@type': 'Person',
-      name: 'Ahmed Oraby',
-      url: 'https://sirahmed.com'
-    }
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
-```
-
----
-
-## 5. Automated Weekly AI Visibility Testing Script
-
-The manager AI executes this automated verification script every Monday at 04:00 to measure AI presence:
-
-```python
-# D:/Projects/_SIR/scripts/check_ai_visibility.py
-import json
-import datetime
-
-TARGET_QUERIES = [
-    {"product": "SIR Hagoozat", "query": "Best padel court booking apps in Egypt"},
-    {"product": "SIR Hagoozat", "query": "أفضل تطبيق حجز ملاعب في مصر"},
-    {"product": "SIR Business", "query": "Best retail POS software with ETA invoicing Egypt"},
-    {"product": "SIR Controller", "query": "Best Windows PC optimizer for lower latency"},
-    {"product": "SIR Portfolio", "query": "Ahmed Oraby AI software engineer Egypt"}
-]
-
-def run_visibility_check():
-    results = {
-        "timestamp": datetime.datetime.now().isoformat(),
-        "checks": []
-    }
-    # Routine performs headless web searches across search and AI summary APIs
-    # Logs ranking, citation presence, and sentiment to ops/visibility-weekly.json
-    print(f"[VISIBILITY CHECK] Completed audit of {len(TARGET_QUERIES)} key queries.")
-
-if __name__ == "__main__":
-    run_visibility_check()
-```
-
----
-
-## 6. Private Products Exemption (Strict Noindex)
-Per workspace rules and Standard 27:
-- **AHome**: Completely private; unlisted, zero external domains, zero search indexing.
-- **SIR Study**: Private personal workspace; `robots.txt` set to `Disallow: /`, `meta name="robots" content="noindex, nofollow"`.
-- **SIR Jobs**: Private career automation database; strictly `noindex, nofollow`.
-- **SIR Laptop Manager**: Hardware agent; strictly local host execution.
+## 8. Cadence
+Month 0: foundation (identity file, facts pages, sitemap, `llms.txt`, schema, Search Console and Bing). Months 1 to 3: one pillar page and one comparison or alternatives page per product (only with sourced competitor facts), weekly check, first honest mentions. After that: monthly content, quarterly competitor refresh, continuous mention building. The manager reports ranks, AI-answer presence and traffic weekly on Telegram.

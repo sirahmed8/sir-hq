@@ -1,0 +1,21 @@
+{
+  "status": { "cmd": ["python", "D:/Projects/_SIR/scripts/deliver/status-brief.py"] },
+  "jobs_inbox_scan": { "cmd": ["node", "D:/Projects/SIR Jobs/scripts/inbox/run.mjs", "--process-only"] },
+  "queue": { "cmd": ["python", "D:/Projects/_SIR/scripts/deliver/queue-brief.py"] },
+  "clean_disk": {
+    "cmd": ["D:/Projects/SIR Laptop Manager/.venv/Scripts/sir-laptop-admin.exe", "care", "clean", "--execute"],
+    "reply": "[الإدارة] تم تنضيف المساحة الآمن (مع نسخة حجر صحي للتراجع)."
+  },
+  "game_off": {
+    "cmd": ["powershell", "-Command", "Get-Process | Where-Object {$_.Name -match 'game|steam|epic|origin|battlenet|riot|ubisoft|ea|gog'} | Stop-Process -Force"],
+    "reply": "[الإدارة] تم إغلاق عمليات الألعاب."
+  },
+  "pause_services": {
+    "cmd": ["D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe", "-m", "sir_laptop_manager.care.game_mode", "pause"],
+    "reply": "[الإدارة] تم إيقاف الخدمات غير الأساسية."
+  },
+  "resume_services": {
+    "cmd": ["D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe", "-m", "sir_laptop_manager.care.game_mode", "restore"],
+    "reply": "[الإدارة] تم استعادة الخدمات الموقوفة."
+  }
+}

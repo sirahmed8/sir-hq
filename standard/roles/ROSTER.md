@@ -1,5 +1,7 @@
 # Specialist roster (Antigravity workers)
 
+> Status 2026-11-10: AgentsRoom was retired on 2026-11-08 (`ops/AGENTSROOM_RETIRED.md`). The role names `sir-<name>` below are now role descriptions: paste a role file from this folder into the brief when you hand a specialist task to an Antigravity or CLI worker (`plans/CHAT_PROMPT_TEMPLATES.md`). Ignore `agents_spawn`.
+
 The Claude subagent definitions in C:/Users/a7med/.claude/agents and D:/Projects/.claude/agents exist as AgentsRoom roles `sir-<name>`. The Manager (Claude, Sonnet high) sends a specialist task to the matching role on Antigravity (max thinking) with agents_spawn; Claude's own subagents stay for quick read-only chores. The Reviewer approves.
 
 | Specialist | AgentsRoom role | Use for |

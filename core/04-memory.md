@@ -1,5 +1,7 @@
 # Memory: how the team remembers, and survives compaction
 
+> **Status 2026-11-10.** The checkpoint rules below apply to every tool, not only Claude. A checkpoint stays small: `ops/HQ_CHECKPOINT.md` must stay under 6 KB (the hook prints its top into every session); older blocks go to `ops/archive/`. The save rule (commit, push, update the checkpoint after every finished step) is in `D:\Projects\AGENTS.md`.
+
 Long sessions get **compacted**: when the context fills up, Claude Code replaces the conversation with a summary, and details are lost. Usage-limit pauses, crashes, `/clear` and new sessions cause the same loss. The fix has three parts: keep memory in files, keep those files current, and reload them automatically. The chat is never the source of truth.
 
 ## What survives compaction in Claude Code

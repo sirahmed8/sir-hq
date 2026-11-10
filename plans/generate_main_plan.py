@@ -74,4 +74,7 @@ The owner of the inbox ticks `[x]` when handled and may add a reply line startin
 
 
 if __name__ == "__main__":
+    if "--force" not in sys.argv:
+        sys.exit("One-time generator from 2026-10-30. Its output files were edited by hand since (AGENTS.md wins). "
+                 "Running it overwrites those edits. Pass --force only after reading D:/Projects/AGENTS.md 'Who does what'.")
     main()

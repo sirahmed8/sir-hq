@@ -1,82 +1,80 @@
-# PLAN: SIR Business
-Status: planned, not started. Wave 5. Replaces: SIR Restaurant, SIR Market, SIR Pharmacy, SIR Library. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Business (Wave 5, public product, not started)
+Audited 2026-11-10. Replaces `SIR Restaurant`, `SIR Market`, `SIR Pharmacy`, `SIR Library` (all in `legacy/`, kept until M6). Public product, free starter and paid plans in EGP.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- SIR Restaurant
-- SIR Market
-- SIR Pharmacy
-- SIR Library
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-One point-of-sale and operations suite for small Egyptian businesses with four modes: restaurant, supermarket, pharmacy, library/bookstore. Audience: shop owners and their cashiers.
+## 1. Purpose (plain words)
+A cash-register and shop-management app for small Egyptian businesses. One app with four modes: restaurant, supermarket, pharmacy, library or bookstore. It works without internet, prints receipts, tracks stock and shows the owner what sold today.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Business` |
 | GitHub (private) | `sirahmed8/sir-business` |
-| Firebase project / OAuth app name | `sir-business` / "SIR Business" |
-| Cloudflare project | `sir-business` (`sir-business.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-business` (Android, iOS, Windows) |
-| Platforms | Windows desktop (Electron, offline first) + web portal + Android tablet later; Arabic first |
-| Money | Free single-device starter; paid monthly plans in EGP (Restaurant 450/750/1950 today; Market 950/2450/4900 today, to be re-priced from real costs); Launching Soon fallback |
+| Stack (default) | Electron + Vite + React 19 + TypeScript strict + Tailwind v4 desktop app, SQLite local database (real, not the in-memory fallback), sync to a Cloudflare Worker + Firestore (or D1) cloud when online; web owner portal on Cloudflare Pages |
+| Domain | candidates `sirbusiness.app` or an `.eg` name (owner checks `.eg` rules and price: "(unsourced, verify)"). Until then `sir-business.pages.dev` |
+| Platforms | Windows desktop (first, offline-first) and web owner portal; Android tablet later (Expo or Capacitor decision at M5); macOS/Linux builds of Electron: skipped for v1 (no customers asked); iOS, TV, watch, car: skipped |
+| Money | Free single-device starter. Paid plans per mode in EGP. Old prices were Restaurant 450/750/1950 and Market 950/2450/4900 per month: treat as test prices to be re-priced from real costs and 5 shop-owner interviews "(unsourced, verify)". "Subscriptions launching soon" + email capture until keys exist |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Four copies of one shell with no data layer, seeded mock arrays, hardcoded admin and preset PINs, fake upgrade success and canned AI answers (Pharmacy invents stock; patient-safety risk).
-- Restaurant rules let any signed-in user read/write every branch; kill switch with a hardcoded rescue PIN.
-- Electron build deps missing in three repos; `node_modules` symlinked between projects.
+## 3. Current state
+Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30); 10 commits, all setup and plan.
+Legacy facts (`ops/inventory/SIR-Business-Library-Market-Pharmacy.md`, 2026-10-29, nothing re-run): four copies of one shell; Market has 1,001 tracked files and 53 test files (claimed 1,367 cases, unverified); SQLite falls back to an in-memory engine because `better-sqlite3` was not installed; sessions and cart in localStorage; AI keys in the client (`VITE_`); hard-coded owner emails and preset PINs; seeded mock arrays; canned AI answers, and the Pharmacy AI invents stock (patient-safety risk); Restaurant rules let any signed-in user read and write every branch; Electron build deps missing in three repos.
+Nothing from legacy may be called working.
 
-## 4. What to port from the old project
-- Shared: shell, POS, shifts, receipts and ESC/POS, scale driver, FEFO inventory, reports, PIN lock UX, updater, Electron main/preload (sandbox on).
-- Restaurant: KDS, waiter, kiosk, floor plan, delivery hub, ZATCA phase 2. Market: procurement, Customer 360, e-commerce, ETA/ZATCA signers. Pharmacy: expiry radar, controlled-drug log. Library: borrowing + deposits, study desks, members, catalog.
+## 4. Security and conduct rules
+1. Cloud sync: deny-by-default rules by tenant (shop) and branch; emulator test: user from shop A cannot read shop B or another branch without claim.
+2. No hard-coded PIN, owner email or rescue PIN anywhere (grep test in CI). PINs are hashed (argon2 or scrypt) with lockout; owner claim set server-side.
+3. Electron: contextIsolation on, sandbox on, no remote code, typed IPC, signed auto-update (certificate is an owner step).
+4. AI keys only on the server proxy; AI never invents stock or prices: pharmacy and stock answers come from database queries and the model only phrases them (test: answer for an item with zero stock says zero).
+5. Money: totals in integer piasters, rounding tests, receipts reprint from stored data; every void or refund logged with user and reason.
+6. Local database encrypted at rest option for pharmacy (SQLCipher or OS-level; decide in ADR); backups to a chosen folder and to cloud with restore test.
+7. Webhook and subscription checks server-side only; license state cached with grace period so a shop never gets locked out mid-service.
+8. Pharmacy and controlled-drug logs append-only; this is a record keeper, not medical advice. Egyptian pharmacy rules: "(unsourced, verify)" with a pharmacist before any pharmacy launch.
 
-## 5. Screens and entities
-**Screens:** Onboarding wizard (linear), Lock screen, POS, Orders/KDS, Inventory, Purchasing, Customers, Reports, Staff, Devices, Settings, Billing, Owner dashboard, Help; mode-specific screens per vertical
-**Entities:** Tenant, Branch, User/Role, Product, StockLot, Sale, Shift, Supplier, PurchaseOrder, Customer, Table/Order (restaurant), Prescription/Patient (pharmacy), Loan/Member (library)
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces (SIR Platform; internal packages first)
+`owner-auth`, `signed-webhook`, `billing-fallback`, `ai-proxy`, `legal-pack`, `i18n`, `ui/styles/hooks`, Telegram sender; ESC/POS receipt builder and quarantine-style undo are candidates to move to Platform after the second consumer. Hagoozat's owner dashboard pattern is reused for the web portal.
 
-## 6. AI at the core
-Flagship: demand and expiry forecasting with plain-language suggestions from real sales only. Assistant: grounded help. Pharmacy: no clinical advice; interactions only from a cited dataset with a pharmacist-review disclaimer, otherwise the feature is off.
+## 6. Screens and entities
+Onboarding wizard (steps unlock in order), Lock screen, POS, Orders and kitchen display (restaurant), Inventory (FEFO batches), Purchasing, Customers, Reports, Staff, Devices, Settings, Billing, Owner dashboard, Help; mode screens: floor plan and delivery (restaurant), weighing scale and procurement (market), expiry radar and controlled-drug log (pharmacy), borrowing, deposits and study desks (library). Entities: Shop, Branch, User, Product, Batch, Sale, Payment, Shift, Customer, Supplier, PurchaseOrder, Device, Subscription, AuditLog.
+Five states, Arabic RTL first and English, high-contrast, big touch targets for tablets (44 px minimum), 320 px to 4K, WCAG 2.2 AA, own logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Per-tenant claims in rules; tenant-isolation tests with two tenants.
-- PINs hashed (argon2/scrypt); no preset users; license check server-side; kill switch removed or disclosed in the EULA.
-- Patient data: consent, encryption at rest, deletion flow.
+## 7. AI and support
+Flagship: "ask your shop" (what sold best this week, what is expiring) answered from real queries. Support assistant grounded in `docs/help`. Chain via `ai-proxy`, free-tier cap 5 per day, owners unmetered, kill switch, evals with numeric-accuracy checks (answer must equal the SQL result).
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-business`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-business` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Business", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Core with SQLite (encrypted) + sync to Firestore; Restaurant POS sale end to end with receipt print preview.
-### M2 Parity with the old project
-- [ ] Restaurant mode complete (KDS, floor plan, delivery, ZATCA behind a flag until keys), then Market, Pharmacy, Library modes on the same core.
-- [ ] Parity checklist per mode from the four inventories.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] Forecast + help assistant; eval sets; no invented numbers.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Signed installer only when a certificate is affordable; until then SmartScreen note in install guide; migration importer from old exports; archive the four old repos.
+## 8. Operations
+Update channel with staged rollout, crash reports (consent), cloud backup health, license reconciliation job, weekly Telegram report (active shops, sales volume in EGP, errors, churn), status JSON, emergency alerts (sync failure rate, update failure). Support triage by assistant with logs attached when the user agrees.
 
-## 9. Risks and open decisions
-- Hardware drivers (printers, scales) need real devices to test.
-- ZATCA/ETA certificates are owner/government steps.
+## 9. Launch package, legal, visibility
+Owner buys domain, code-signing certificate, Paymob and Fawry accounts (test mode in code), Play Console later. Legal pack: privacy, terms (EULA style for desktop), refunds and auto-renewal, cookies for the portal, DPA for shops handling customer data, sub-processors; PDPL and consumer rules as tasks. Egyptian e-invoicing (ETA) and Saudi ZATCA phase 2: build only after reading the official technical specs; certificates and onboarding with the tax authority are owner steps; all tax statements here are "(unsourced, verify)". Lawyer and accountant review before paid launch.
+Visibility: Arabic queries by trade ("برنامج كاشير سوبر ماركت", "برنامج صيدلية"), one landing page per mode, comparison pages against named local competitors once the study is sourced, `llms.txt`, facts page, YouTube demo videos of real use, weekly AI-answer check. No fake shop logos or reviews.
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Deep scan, setup, CI, ADR for the shared core | parity matrix of the four apps; green Actions URL; ADR on SQLite and sync |
+| M1 | Core slice (Market mode first: biggest feature set) | POS sale persists in real SQLite; app restarts and shows the sale; e2e test |
+| M2 | Parity: inventory, shifts, receipts, reports; then restaurant, library, pharmacy as modes | per-mode checklist ticked against inventory routes |
+| M3 | Security, legal, billing | rules tests, no-hard-coded-secret grep, billing fallback test, legal pages |
+| M4 | AI | "ask your shop" numeric eval 100 percent match with SQL |
+| M5 | Quality | installer builds, screenshots at tablet and desktop sizes, offline test, a11y |
+| M6 | Release | signed installer (owner certificate), 3 real shops piloted with written consent, old folders archived |
+
+## 11. Next 10 tasks (each under 2 hours)
+1. Deep scan of the four legacy apps: shared module list and per-mode differences. Files: `.sir/reports/parity.md`. Check: table with module, apps containing it, keep/drop.
+2. Decide and record the data layer in `docs/adr/001-data-sync.md` (SQLite + sync). Check: ADR names the conflict rule (last write wins per field, or server order).
+3. Scaffold monorepo: `apps/desktop`, `apps/portal`, `packages/core`. Check: `npm run build` exits 0 in all three.
+4. Money module with integer piasters and tests (rounding, discounts, tax). Files: `packages/core/src/money/`. Check: 30 unit tests green.
+5. SQLite schema and migrations for Product, Batch, Sale. Check: migration test creates and reopens the file; no in-memory fallback in code (grep test).
+6. POS screen: add item, pay cash, save sale, five states. Check: screenshot at 1366x768 and an e2e test.
+7. Receipt builder (ESC/POS bytes) with golden-file tests. Check: golden bytes equal.
+8. PIN lock with hashed storage and lockout, no hard-coded PIN. Check: test of 5 wrong tries locks; grep finds no PIN literal.
+9. Tenant rules for cloud sync with emulator tests. Check: cross-shop read fails.
+10. Interview script for 5 shop owners (price, pain points) in `docs/research/interview.md`, to be run by the owner or a volunteer. Check: file exists; results later go to `plans/competitors/sir-business.md` with dates.
+
+## 12. Risks and open questions (defaults)
+- Scope (four businesses): default is Market first, then Restaurant, Library, Pharmacy last (safety).
+- Hardware drivers (printers, scales, barcode scanners) need real devices: default is mock device interface with golden tests plus one real printer test by the owner.
+- Native module `better-sqlite3` with Electron: default is `electron-rebuild` in CI and a smoke test that opens the DB.
+- Tax e-invoicing complexity: default is ship without it, show "e-invoice coming" honestly, then add after reading official specs.
+- Competitor and price claims: `plans/competitors/sir-business.md` must carry links or "(unsourced, verify)".
+
+## 13. Only the owner can do
+Buy domain and code-signing certificate; create Firebase, Cloudflare, Paymob, Fawry accounts; tax authority onboarding; accountant, lawyer and (for pharmacy) pharmacist review; recruit pilot shops and get written consent; test real printers and scales.

@@ -10,6 +10,7 @@
   - Automated accessibility checks (axe, Lighthouse) plus a manual checklist per release.
 - **Performance:** Lighthouse CI against the module 06 budgets; bundle-size limits per route and app; mobile startup tracked.
 - **Security in CI:** the required security job from module 04 (secrets, static analysis, dependencies, rules tests, and a DAST baseline scan against the preview), all free tools.
+- **Note (2026-11-10):** the owner uses no pull requests (`D:\Projects\AGENTS.md`). Where this module says "on every PR" or "PR template", run the same checks on every push to `main` and put the checklist in the commit message or the report.
 - **GitHub Actions:**
   - On every PR: verify, web e2e, the security job, a preview deployment, and a manual trigger for EAS preview builds (to save build credits).
   - On release tags: desktop builds (Windows runner; macOS runner only for releases, since macOS minutes cost the most), EAS production builds, GitHub Release.

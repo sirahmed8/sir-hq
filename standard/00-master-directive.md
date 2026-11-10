@@ -1,3 +1,5 @@
+> Note 2026-11-10: this is the owner's global directive, copied here for reference. In this workspace `D:/Projects/AGENTS.md` wins on any conflict. Differences to remember: the checkpoint file is `.sir/CHECKPOINT.md` (not `continuation_checkpoint.md`); no pull requests (push to `main`); version stays 1.0.0; no purchases by agents (the monetization and Owner-bypass sections describe what to prepare, not what to buy); AHome is exempt from commercial standards.
+
 # THE ULTIMATE MASTER PRODUCTION DIRECTIVE
 ### Autonomous Senior Engineering, Cognitive Intuition, Multi-Harness Governance & Production Hardening
 

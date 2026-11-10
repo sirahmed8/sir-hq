@@ -1,82 +1,82 @@
-# PLAN: SIR Obour Hub
-Status: planned, not started. Wave 5. Replaces: Obour Academic Hub. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Obour Hub (Wave 5, public product, not started)
+Audited 2026-11-10. Replaces `Obour Academic Hub` (now in `legacy/`, kept until M6). Public product with a free tier and a paid tier in EGP.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- Obour Academic Hub
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-A study platform for Obour Higher Institutes computer science students: notes, past exams, quizzes, Q&A, study planner and an AI tutor that explains and quizzes but never does graded work. Audience: Ahmed's classmates first, then other Egyptian institutes.
+## 1. Purpose (plain words)
+A study site for students of the Obour Higher Institutes. They find lecture notes, past exam questions and quizzes, see their timetable and lecture hall, work out what grade they need to reach a target GPA, and ask an AI tutor that explains and quizzes but never does graded work. First users: Ahmed's classmates.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Obour Hub` |
 | GitHub (private) | `sirahmed8/sir-obour-hub` |
-| Firebase project / OAuth app name | `sir-obour-hub` / "SIR Obour Hub" |
-| Cloudflare project | `sir-obour-hub` (`sir-obour-hub.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-obour-hub` (Android, iOS, Windows) |
-| Platforms | Web + PWA (Cloudflare), later Android/iOS via Expo |
-| Money | Free tier covers notes, exams and 5 AI questions a day; Pro in EGP for unlimited AI, offline packs and exam simulator (Launching Soon fallback until Paymob keys exist) |
+| Stack (default) | Next.js App Router on Cloudflare Pages/Workers, Firebase Auth (Google sign-in, ID token verified on the server with JWKS), Firestore with deny-by-default rules, Cloudflare R2 for files. Note: `.sir/MASTER_PLAN.md` says D1/Supabase; this plan keeps Firebase because the old data is in Firestore and the import is a dry run copy. Manager may overrule; record in an ADR |
+| Domain | candidates: `obourhub.com`, `obour-hub.app` (check and buy by owner; price "(unsourced, verify)"). Until then `sir-obour-hub.pages.dev` |
+| Platforms | Web and PWA: planned. Android/iOS via Expo: M6+, only after web has real users. Windows, macOS, Linux, TV, watch, car: skipped, no reason. Browser extension: skipped |
+| Money | Free: notes, exams, timetable, GPA tool, 5 AI questions per 24 hours. Pro in EGP (price to test, not a fact: start the test at 49 EGP/month and 399 EGP/year, "(unsourced, verify)" with 10 student interviews); shown with USD/SAR toggle. Until Paymob keys exist the button reads "Subscriptions launching soon" with email capture |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Old app is the closest to shippable (CI, 47 tests, httpOnly session) but has `allow read: if true` on 5 Firestore collections, CSP unsafe-inline/eval, 24+ files over 530 lines and analytics before consent.
-- It ships `solve_assignment` and `solve_quiz` modes plus fabricated fallback solutions: graded work, removed in the rebuild.
-- Firebase ids `obourinstitutes1` show on login today.
+## 3. Current state
+Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30, "nothing is built yet"); 40 tracked files, all setup. The project's own `.sir/MASTER_PLAN.md` (a 25-task backlog) exists and describes a different shape (timetable, GPA simulator, grade mirror, book marketplace, D1). Claims in it such as "over 15,000 enrolled students" have no source: "(unsourced, verify)".
+Legacy facts (from `ops/inventory/Obour-Academic-Hub.md`, 2026-10-29, nothing re-run): Next 16, React 19, about 344 files / 62k lines, 47 test files not run, `allow read: if true` on 5 collections, CSP with unsafe-inline/eval, analytics loaded before consent, graded-work modes (`solve_assignment`, `solve_quiz`) to be deleted, payments were manual. Two Firebase admin service-account JSON files sit inside `legacy/Obour Academic Hub/` (the folder is git-ignored; both keys must be rotated at launch).
 
-## 4. What to port from the old project
-- Content model and subjects/exams/sections data (export from Firestore, dry-run import with counts).
-- Rate-limit design (Upstash) as Workers KV limiter; CI backup workflow idea (daily Firestore export).
-- Pages: main, subject, exams, quiz, qa, todo, market, alumni, pricing, admin.
+## 4. Security and conduct rules
+1. Owner/admin only from a server-verified ID token plus `OWNER_EMAILS`/`OWNER_UIDS`, email verified, fail closed (use `owner-auth` copy). Test: forged token returns 403.
+2. Firestore rules deny by default; reads only for signed-in users and published content; tested with the emulator (cross-user read fails).
+3. Sessions: HttpOnly, Secure, SameSite=Strict cookie; no localStorage tokens; rate limit on sign-in and AI; 2FA offer for admin.
+4. No graded work: the tutor gives hints and explanations only. Eval: 30 prompts in Arabic and English (live quiz, assignment, exam answers), 100 percent refused with a hint offered. `solve_*` code is not ported.
+5. No grade-portal scraping and no stored institute passwords. A "grade mirror" is allowed only as a manual entry or a file the student uploads, kept on their account. Default decision: not built in v1.
+6. Content: only notes that Ahmed or classmates own and agree to publish; no copied course PDFs; a takedown form exists (DMCA-style).
+7. Analytics and trackers load only after consent; Reject All as prominent as Accept.
+8. Secrets in env only; gitleaks; keys in `legacy/` rotated.
+9. User data deletion and export in one tap each.
 
-## 5. Screens and entities
-**Screens:** Landing, Sign in, Home (today plan), Subject, Lecture notes viewer, Exams, Quiz runner, Q&A, Study planner, AI tutor, Pricing, Profile, Settings, Admin/Owner dashboard, Help center, Legal
-**Entities:** User, Subject, Lecture, Note, Exam, Question, QuizAttempt, Thread, Reply, StudyTask, Subscription, AiUsage
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces (SIR Platform; do not rebuild)
+`owner-auth`, `signed-webhook`, `billing-fallback`, `ai-proxy`, `legal-pack`, `i18n`, `ui/styles/hooks`, Telegram sender. Per MAIN_PLAN these are built as internal `packages/*` here first, with the Platform names and interfaces, then swapped. Obour Hub is the planned first real consumer of the Platform (old plan M6).
 
-## 6. AI at the core
-Flagship: AI tutor that explains a lecture, makes practice questions and gives hints with sources from the uploaded notes. Hard rule: no full solutions to graded assignments or live quizzes; refuses and offers hints instead. Assistant: grounded support bot. Free provider chain via SIR Platform.
+## 6. Screens and entities
+Landing, Sign in, Home (today plan), Subject, Notes viewer, Exams, Quiz runner, Q&A, Timetable, GPA planner, Study planner, AI tutor, Pricing, Profile, Settings, Owner dashboard, Help center, Legal. Entities: User, Subject, Lecture, Note, Exam, Question, QuizAttempt, Thread, Reply, StudyTask, Subscription, AiUsage, Lead.
+Five states everywhere, 1,000+ items paginated, Arabic RTL first (Egyptian student tone) and English, light/dark/system/contrast, 320 px to 4K, WCAG 2.2 AA, own logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Firestore read rules per collection (signed-in, published only); admin only by custom claim.
-- Analytics only after consent.
+## 7. AI and support assistant
+Tutor: explains a lecture, makes practice questions, hint ladder (hint 1, 2, 3, then explanation), citations to the uploaded note. Support assistant: floating drawer grounded in `docs/help/*.md` only. Provider chain via `ai-proxy`: Gemini free tier, OpenRouter free models, Groq, local fallback for tests; fallback order and daily cost cap in config; kill switch `AI_ENABLED`. Free users: 5 per rolling 24 hours with the badge "3 / 5 free questions remaining today"; owners unmetered. Newest suitable model chosen from `ops/MODELS.json`.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-obour-hub`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-obour-hub` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR Obour Hub", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Sign in with Google (brand check), Subject list, Lecture notes viewer, Quiz runner with real persisted attempts.
-- [ ] Cloudflare deploy at `sir-obour-hub.pages.dev` with preview per branch.
-### M2 Parity with the old project
-- [ ] Import subjects/exams/notes with a dry run and record counts matching the old DB.
-- [ ] Q&A, study planner, alumni and market pages; admin dashboard with real counts only (no simulated data).
-- [ ] Pricing page with EGP plans and the Launching Soon fallback.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] AI tutor with source citations, hint ladder (hint 1/2/3 then explanation), quota badge '3 / 5 free questions today'; eval set proving it refuses to write a submission.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Redirect old `obourinstitutes1.web.app` to the new domain after parity; export old data once more; move `Obour Academic Hub` to `old projects`.
-- [ ] Announce to classmates only when real content exists.
+## 8. Operations (standard 26)
+Health check endpoint, error digest, nightly Firestore export to R2 with a monthly restore test, weekly dependency update with tests, status page (static JSON), support inbox triaged by the assistant, weekly Telegram report (new users, active users, AI cost, errors, subscriptions) in simple Arabic, emergency alerts (outage, leaked key, cost over cap). Owner contact only for emergencies and sign-in/payment steps. AI daily cost cap and ad spend cap are set in `config/limits.json`; ads: none until the owner sets a cap.
 
-## 9. Risks and open decisions
-- Content copyright: only publish notes Ahmed or classmates own; no copied course PDFs.
-- Paymob needs a business account (owner action); fallback covers the gap.
+## 9. Launch package (standard 24, prepared for the owner)
+Domain, Cloudflare project, Firebase project with a brand-clean Google sign-in screen, Paymob account (test mode in code), Play Console later. Legal pack (privacy, terms, refunds with auto-renewal text, cookies, DPA, sub-processors, AI-use note) generated from `data-inventory.yml`, marked "AI-drafted, to be reviewed by a qualified lawyer before paid launch". Egypt PDPL 151/2020 and GDPR duties turned into tasks; exact article text "(unsourced, verify)" before the lawyer step.
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Visibility (standard 27)
+Arabic and Egyptian queries ("ملخصات مادة ... معهد العبور"), one landing page per subject and per tool (GPA calculator is the link magnet), `llms.txt`, facts page, JSON-LD (`WebApplication`, `FAQPage`, `BreadcrumbList`), Search Console and Bing steps for the owner, weekly AI-answer check script, YouTube short tutorials later. No fake reviews or student counts.
+
+## 11. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Deep scan, setup, CI | `.sir/reports/deep-scan.md`; green Actions URL; secrets report |
+| M1 | Core slice | sign in, subject list, note viewer, quiz attempt saved in Firestore (emulator e2e test) |
+| M2 | Parity import | dry-run import prints counts equal to the old database |
+| M3 | Security, legal, billing | rules tests, forged token test, `billing-fallback` render test, legal pages generated |
+| M4 | AI | tutor refusal eval 100 percent; quota badge test |
+| M5 | Quality | 390/1280 screenshots LTR+RTL, light+dark, Lighthouse mobile 90+ (saved JSON) |
+| M6 | Release | domain connected (owner), old site redirects, keys rotated, classmates invited only when real content exists |
+
+## 12. Next 10 tasks (each under 2 hours)
+1. Deep scan of `legacy/Obour Academic Hub` against `ops/inventory/Obour-Academic-Hub.md`; write `.sir/reports/deep-scan.md` (features to port, to drop). Check: file lists each of the 12 pages with a verdict.
+2. Secrets report: list files in legacy that hold keys (names only), confirm `legacy/` is git-ignored (`git check-ignore`), add rotation steps to the checkpoint. Check: report file, no key text inside.
+3. Scaffold the app with Tailwind v4 tokens, RTL logical CSS, health route. Files: `apps/web/`. Check: `npm run build` exit 0; `/api/health` returns 200.
+4. Firestore rules deny-by-default plus emulator tests (own data readable, others' not). Files: `firestore.rules`, `tests/rules/`. Check: tests green.
+5. Google sign-in with server cookie session and JWKS verify. Files: `apps/web/src/server/auth/`. Check: forged and expired token tests green.
+6. Subject list and note viewer reading from Firestore with skeleton, empty, error+Retry states. Check: screenshots of all 5 states at 390 px.
+7. Import script with `--dry-run` counts. Files: `scripts/import-legacy.mjs`. Check: dry run prints counts and writes nothing.
+8. Tutor refusal eval set (30 prompts) and runner. Files: `evals/tutor.jsonl`, `scripts/eval-tutor.mjs`. Check: runner exits non-zero below 100 percent refusal.
+9. Pricing page with "Subscriptions launching soon" and lead capture stored in Firestore. Check: submitting an email creates one doc; invalid email shows an error.
+10. CI: typecheck, lint, tests, build, gitleaks. Check: green Actions URL.
+
+## 13. Risks and open questions (defaults)
+- Institute rules or copyright on notes: publish only owned or agreed content; default is a takedown form and an upload agreement text.
+- Paying capacity of students is unknown: default is test the price with interviews; keep Pro cheap; no dark patterns.
+- Large legacy code (files over 530 lines): default is port by feature, never copy files wholesale.
+- Backend choice conflict (Firestore vs D1): default Firestore; revisit only with an ADR.
+- Competitor and market numbers: see `plans/competitors/sir-obour-hub.md`; it has no source links (0 URLs found), so every claim there is "(unsourced, verify)" until sourced.
+
+## 14. Only the owner can do
+Buy the domain; create the Firebase and Cloudflare projects (sign-in); create the Paymob account and paste keys into one `.env`; rotate the old Firebase keys; get consent from classmates who contribute notes; lawyer review before paid launch; Search Console sign-in.

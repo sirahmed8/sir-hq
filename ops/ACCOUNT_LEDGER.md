@@ -16,3 +16,11 @@ Updated by the Haiku operator at every check (append rows; newest last). Columns
 | 2026-11-09 night | a7medorabe7 | Gemini 3.8 | 65% | 0% | 4h41m | 4d6h | exhausted weekly |
 | 2026-11-09 night | a01083835229 | Gemini 3.8 | 100% | 0% | - | 5d10h | exhausted weekly; Claude/GPT 4.6 weekly 50% (resets 1d17h) |
 | 2026-11-09 night | ahmedalaa2006.7.6 | Gemini 3.8 | 100% | 24% | - | 5d5h | active now (promo Pro); Claude/GPT 100% |
+| 2026-11-09 21:34 | ahmedalaa2006.7.6@g... (shown bottom-left of Settings > Models) | 100% | 24% | weekly 5d5h (five-hour: no reset time shown, at 100%) | Claude/GPT weekly 100%, five-hour 100%; Plan Google AI Pro; overages OFF; read-only check by operator19 |
+| 2026-11-09 night | ahmedalaa2006.7.6 | Gemini 3.8 | 23% | 0% | 3h42m | 5d3h | exhausted weekly; HQ rotated to 1sir1ahmed1 |
+| 2026-11-09 23:07 | 1sir1ahmed1@gmail.com (Google AI Pro, overages OFF) | Gemini | 100% | 5% | full (no reset shown at 100%) | 5d 9h | Claude/GPT weekly 100%, five-hour 100%; operator21 read-only check; SIR Laptop Manager hit "Individual quota reached" (baseline refresh 11/15), not sent continue |
+| 2026-11-09 23:07 | 1sir1ahmed1 | Gemini 3.8 | 100% | 5% | - | 5d9h | active, almost out; all 4 Pro accounts are out or nearly out for ~4-6 days (reset: a7medorabe7 4d6h, a01083835229 5d10h, ahmedalaa2006.7.6 5d3h, 1sir1ahmed1 5d9h) |
+| 2026-11-09 operator23 | a01083835229@gmail.com (PAID reserve: has Gemini 4 Argon and Claude 5.5; Google AI Pro, overages OFF) | Gemini Models (Gemini 3.8 Flash family) | 0% | n/a | n/a | 5d 6h | weekly exhausted; Settings > Models shows no five-hour row value for this group |
+| 2026-11-09 operator23 | a01083835229@gmail.com | Gemini 4 Argon | 100% | n/a | n/a | not shown | active on all 6 project chats at Medium; PAID reserve |
+| 2026-11-09 operator23 | a01083835229@gmail.com | Claude and GPT models (Claude Opus 5.5, Claude Sonnet 5.5, GPT-OSS 120B) | 50% | 100% | n/a | 1d 14h | weekly partly used; five-hour full |
+| 2026-11-09 operator23 | a01083835229@gmail.com | Model picker list | - | - | - | - | Gemini 4 Argon Medium (New); Gemini 3.8 Flash Medium (warning); Claude Opus 5.5 Medium (New); Claude Sonnet 5.5 Medium (New); GPT-OSS 120B (Medium) (Notice); View Usage |

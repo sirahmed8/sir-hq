@@ -12,7 +12,7 @@ Every project gets this file set. "Read AGENTS.md" is the one phrase Ahmed can u
 | `CLAUDE.md` | First line `@AGENTS.md`, then Claude-only notes. Short. | Claude Code |
 | `GEMINI.md` | Antigravity/Gemini guardrails. Short. Antigravity combines it with `AGENTS.md`. | Antigravity |
 | `.agents/rules/sir-standard.md` | `trigger: model_decision` index so Antigravity loads modules on demand. Frontmatter is mandatory; a rule without it is silently dropped. | Antigravity |
-| `docs/sir/standard/NN-*.md` | Synced copy of the 22 modules. Never edit locally; change the master in `_SIR/standard` and run `sync-standard`. | Read on demand |
+| `docs/sir/standard/NN-*.md` | Synced copy of the 27 modules (01 to 27). Never edit locally; change the master in `_SIR/standard` and run `sync-standard`. | Read on demand |
 | `.sir/` | `project.yml`, `CHECKPOINT.md`, `BOARD.md`, `inbox/`, `reports/`, `decisions/`, `status.json` | Every agent at session start |
 | `README.md`, `docs/PRODUCT.md`, `docs/ARCHITECTURE.md`, `docs/CODEMAP.md`, `CHANGELOG.md`, `SECURITY.md` | Human and AI documentation | Humans and agents |
 
@@ -23,4 +23,4 @@ Personal information stays out of repos. The owner line is the only personal dat
 
 ## B2. Standard modules
 
-Each module below becomes one file in `docs/sir/standard/`, named exactly as the AGENTS.md index expects: `01-engineering.md`, `02-architecture.md`, `03-data-backend.md`, `04-security-privacy.md`, `05-design-system.md`, `06-web.md`, `07-mobile.md`, `08-watch.md`, `09-desktop.md`, `10-ai.md`, `11-legal-stores.md`, `12-quality-gates.md`, `13-release.md`, `14-continuity.md`, `15-launchpad.md`, `16-search-discovery.md`, `17-engineering-playbook.md`, `18-automations.md`, `19-completeness.md`, `20-platforms-tv-car.md`, `21-product-essentials.md`, `22-free-stack.md`. Versions and policies marked "verify" must be checked against official docs at the time of use.
+Each module below becomes one file in `docs/sir/standard/`, named exactly as the AGENTS.md index expects: `01-engineering.md`, `02-architecture.md`, `03-data-backend.md`, `04-security-privacy.md`, `05-design-system.md`, `06-web.md`, `07-mobile.md`, `08-watch.md`, `09-desktop.md`, `10-ai.md`, `11-legal-stores.md`, `12-quality-gates.md`, `13-release.md`, `14-continuity.md`, `15-launchpad.md`, `16-search-discovery.md`, `17-engineering-playbook.md`, `18-automations.md`, `19-completeness.md`, `20-platforms-tv-car.md`, `21-product-essentials.md`, `22-free-stack.md`, `23-premium-code-bar.md`, `24-launch-package.md`, `25-market-grade.md`, `26-autonomous-operations.md`, `27-visibility.md`. Versions and policies marked "verify" must be checked against official docs at the time of use.

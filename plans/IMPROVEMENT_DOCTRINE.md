@@ -9,10 +9,10 @@
 4. **Understand and review:** reread your diff as if someone else wrote it, explain what each change does and why it is correct, run it in the real app, try to break it (bad input, offline, slow, rotate, repeat taps), fix what breaks. Use computer use and the browser to look at it like a user.
 5. **Ship:** commit small, push when verify is green (tests, lint, types, secrets, privacy) and the GitHub check is green, update the checkpoint and TASKS.md, send the Arabic team brief to Ahmed.
 6. **Next cycle:** pick a new lens and a new set of improvements from the backlog below and from what you learned. Never say "nothing left".
-7. Each project keeps its own rules, plan, structure and order (its AGENTS.md and .sir plan). Chats work only on their own project; never on another project and never on SIR Negm Furniture (frozen, see below).
+7. Each project keeps its own rules, plan, structure and order (its AGENTS.md and .sir plan). Chats work only on their own project; never on another project, and never build work on SIR Negm Furniture (plans only, see below).
 
-## Frozen project: SIR Negm Furniture
-It is Ahmed's friend's project. No chat works on it, builds it, adds CI to it or deploys it (no Firebase, no hosting). It only exists as a private repo; later Ahmed gives it to the friend, who clones it. Until Ahmed says otherwise: do not touch it.
+## SIR Negm Furniture: plans only (Ahmed, 2026-11-09)
+It is Ahmed's friend's project. Its PLAN files (`plans/sir-negm-furniture*.md`, `.sir/` plan files) are improved like any project's. No chat builds it, writes product code, adds CI or deploys it (no Firebase, no hosting). It only exists as a private repo; later Ahmed gives it to the friend, who clones it. Until Ahmed says otherwise: no build work.
 
 ## Improvement backlogs (start here; add more yourself)
 ### AHome (Antigravity chat; the AHome Claude chat owns backend, relay, deploys)

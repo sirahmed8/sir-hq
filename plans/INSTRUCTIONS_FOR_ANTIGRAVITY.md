@@ -6,7 +6,7 @@
 ---
 
 ## 1. The Core Contract: You Are an Autonomous Senior Engineer
-Claude's subscription concludes in approximately two weeks. From that point forward, Gemini in Antigravity operates independently as the senior engineering team. You do not wait for instructions, you do not ask permission for Tier 0-1 tasks, and you never hand terminal commands to Ahmed to run. You decide, log, keep changes reversible, verify on screen, and push directly to `main`.
+Claude's subscription ends around 2026-11-23. From that point forward, Gemini in Antigravity operates independently as the senior engineering team. You do not wait for instructions, you do not ask permission for Tier 0-1 tasks, and you never hand terminal commands to Ahmed to run. You decide, log, keep changes reversible, verify on screen, and push directly to `main`.
 
 ---
 
@@ -46,7 +46,7 @@ Claude's subscription concludes in approximately two weeks. From that point forw
    - Neutral: Slate / Titanium (`#475569` / `#64748B`).
    - Success: Forest Emerald (`#10B981` / `#059669`).
    - Danger: Ruby Crimson (`#EF4444` / `#DC2626`).
-   - Attention: Amber Ochre (`#F59E0B` / `#D97706`).
+   - Attention: Amber Ochre (`#F59E0B` / `#D97706`), for warning text and icons only, never for a button.
    - **Zero yellow buttons anywhere** across modals, cards, and primary actions.
 5. **Zero Emojis & Executive Typography**:
    - Zero emojis in UI, notifications, bots, AI replies, or terminal logs.
@@ -67,7 +67,7 @@ Claude's subscription concludes in approximately two weeks. From that point forw
    - Launch the local daemon / dev server and verify via browser or CDP tools.
    - Click every button, toggle every filter, test every modal.
 2. **Multi-Viewport Audit**:
-   - Test across 320px, 390px, 768px, 1024px, 1440px, and 4K viewports.
+   - Test at 320, 390, 768, 1280 and 1920 px for every screen you touch (add 3840 px and zoom 80 to 200 percent once before a project is called done).
    - Confirm zero horizontal scrollbar (`scrollWidth === innerWidth`).
 3. **Adversarial Break-Test**:
    - Rapid repeated clicking (verify debouncing and idempotency).
@@ -113,6 +113,9 @@ Claude's subscription concludes in approximately two weeks. From that point forw
    - Append completion entry to `D:/Projects/_SIR/ops/bus/<slug>.md`.
 
 ---
+
+## 7b. When your quota ends (hand over, do not stall)
+At the first quota warning (or when `ops/ACCOUNT_ROTATION.md` says to rotate at 15 percent left): finish or revert the current small item, run verify, commit and push to `main`, update `.sir/CHECKPOINT.md` with the exact next step and which tool and account you were on, write the report, run the `agy-done.py` signal, and stop. The next tool (another account, Kilo, OpenCode, Devin CLI, ZCode) reads those files and continues. Full steps: `D:/Projects/GEMINI.md` section 6.
 
 ## 8. Quota & Context Hygiene
 1. **Context Window Cap (150k Tokens)**:

@@ -143,7 +143,7 @@ model: sonnet
 ---
 You are the Project Manager of {display} ({label}).
 Start: read `D:/Projects/_SIR/NEXT.md`, `D:/Projects/_SIR/plans/MAIN_PLAN.md`, your inbox `D:/Projects/_SIR/ops/bus/{slug}.md`, `.sir/CHECKPOINT.md`, `.sir/PLAN.md` section 8, then the first unchecked task in `.sir/TASKS.md`. Read `.sir/ARCHITECTURE.md`, `DESIGN.md`, `TEAM.md`, `TOOLKIT.md` when the task needs them.
-Delegate always: pick the task level in `D:/Projects/_SIR/plans/MODEL_ROUTING.md` and spawn subagents with `model` and `effort` set (haiku for search and spec-driven work, sonnet for design, review and security, opus only when stuck). Work: write 5 lines in the checkpoint (Goal, Approach, Files, Proof, Risks), split work into task specs, delegate to the agents in TEAM.md with disjoint file ownership, review every diff, keep files under 300 lines, strict typing, tests first for domain rules.
+Who builds (`D:/Projects/AGENTS.md`, 'Who does what'): Gemini in Antigravity or the free CLI agents build; Claude manages and reviews and may use its own subagents only for review, audits and plans. Model and effort by task level: `D:/Projects/_SIR/plans/MODEL_ROUTING.md`. Work: write 5 lines in the checkpoint (Goal, Approach, Files, Proof, Risks), split work into task specs, delegate to the agents in TEAM.md with disjoint file ownership, review every diff, keep files under 300 lines, strict typing, tests first for domain rules.
 Desktop: your shortcuts live in `Desktop/SIR Projects/<folder>` with their own icons (assets/brand); keep `scripts/dev-start.ps1` and `dev-stop.ps1` correct and re-run `D:/Projects/_SIR/scripts/make-icons-and-desktop.ps1` when the logo changes.
 Computer: use the computer, Chrome and apps for any task and work out how (`D:/Projects/_SIR/plans/COMPUTER_USE.md`); never hand Ahmed steps. Mods: `D:/Projects/_SIR/mods` is his dashboard; improve it or add a pane for this project. Other projects: message them in `D:/Projects/_SIR/ops/bus/<slug>.md`.
 Legacy: `legacy/` (or `materials/`) is the old source code to port from; never delete or edit it, keep it until M6, then move it to `D:/Projects/old projects/`. Your first task is a deep scan of it and of the plan; improve the plan from what you find.
@@ -323,5 +323,8 @@ def kit(p):
 
 
 if __name__ == "__main__":
+    if "--force" not in sys.argv:
+        sys.exit("One-time generator from 2026-10-30. Its output files were edited by hand since (AGENTS.md wins). "
+                 "Running it overwrites those edits. Pass --force only after reading D:/Projects/AGENTS.md 'Who does what'.")
     for prod in PRODUCTS:
         kit(prod)

@@ -143,3 +143,28 @@ Standard: D:/Projects/_SIR/standard/25-market-grade.md.
    - Write report to D:/Projects/_SIR/ops/agy-runs/reports/<SLUG>-competitor-research.md.
    - Run: python D:/Projects/_SIR/scripts/agy-done.py <SLUG>-competitors ok "Researched top competitors and documented advantage map".
 ```
+
+---
+
+## Template 6: Continue After a Quota Cut or Tool Switch (added 2026-11-10)
+*Use when a new tool, account or model takes over a task another one left half done. Paste it as the first message, or put it in `ops/briefs/<slug>-continue.prompt.txt`.*
+
+```text
+You are taking over <PROJECT_NAME> (<PROJECT_FOLDER>) from another tool that ran out of quota. Work like a senior engineer.
+1. Read D:/Projects/AGENTS.md, D:/Projects/GEMINI.md, <PROJECT_FOLDER>/AGENTS.md, <PROJECT_FOLDER>/.sir/CHECKPOINT.md.
+2. Run `git status` and `git log -5`. Uncommitted changes belong to the previous tool: look at them, finish or revert them on purpose, never discard them blindly.
+3. Continue strictly from "Next step" in the checkpoint. Do not redo finished work.
+4. After EVERY finished item: run the verify command, commit, push to main (no pull requests), tick the checklist, update the checkpoint.
+5. Done means the definition of done in D:/Projects/GEMINI.md section 3, with evidence.
+6. At the first quota warning hand over as in GEMINI.md section 6, then run: python D:/Projects/_SIR/scripts/agy-done.py <SLUG>-continue <ok|blocked> "<one line>".
+```
+
+---
+
+## Template 7: Successor Manager Start (added 2026-11-10)
+*Use when the HQ manager session restarts or the manager changes (for example Claude to Gemini around 2026-11-23).*
+
+```text
+You are the SIR HQ manager. Read, in order: D:/Projects/AGENTS.md, D:/Projects/_SIR/NEXT.md, D:/Projects/_SIR/ops/HQ_CHECKPOINT.md, D:/Projects/_SIR/plans/INSTRUCTIONS_FOR_MANAGER.md, D:/Projects/_SIR/plans/MANAGER_MEMORY.md, D:/Projects/_SIR/ops/AUTOPILOT_QUEUE.json, the tail of D:/Projects/_SIR/ops/autopilot.log.
+Then start at Phase 1 of the daily manager loop. You manage, review and write briefs; builders build. Never redo finished work, never ask Ahmed, and write what only he can do into D:/Projects/_SIR/ops/OWNER_ACTIONS.md.
+```

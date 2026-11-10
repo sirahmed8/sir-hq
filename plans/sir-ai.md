@@ -1,73 +1,78 @@
-# PLAN: SIR AI
-Status: planned, not started. Wave 4. Replaces: SIR AI v1. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR AI (Wave 4, plans done, no product code yet)
+Audited 2026-11-10. Replaces the old `SIR AI (v1)`, `SIR Tele Gateway` and the archived AgentsRoom (all in `legacy/`, kept until M6). `Odysseus app` in `legacy/` is AGPL-3.0 and is reference only: no code is copied from it, ever.
+Two tiers, built in this order: Tier 1 is Ahmed's personal assistant on his own PC (private, exempt from commercial items). Tier 2 is a paid multi-user cloud version and starts only after Tier 1 is verified end to end.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- SIR AI (v1)
-- Odysseus app (reference only, AGPL, moved in 2026-11-01)
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-A voice and vision personal assistant that runs on Ahmed's PC with local models first, and the home of the AI gateway concept that SIR Platform's ai-proxy extracts. Audience: Ahmed first, then power users.
+## 1. Purpose (plain words)
+An assistant Ahmed talks to by voice, text or camera on his own computer. It uses models that run on his machine first, remembers things he allows it to remember (and forgets on request), runs approved tasks, and reaches him through Telegram. Tier 2 would let other people use a hosted version with their own accounts.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR AI` |
 | GitHub (private) | `sirahmed8/sir-ai` |
-| Firebase project / OAuth app name | `sir-ai-assistant` / "SIR AI" |
-| Cloudflare project | `sir-ai` (`sir-ai.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-ai` (Android, iOS, Windows) |
-| Platforms | Windows desktop + local web UI; Python core |
-| Money | Free local use; Pro for cloud models and sync (EGP); Launching Soon fallback |
+| Stack (planned) | pnpm monorepo: `apps/gateway` (Python 3.12, uv, FastAPI), `apps/web` (local UI, Next.js or Vite), `packages/*`; local models via Ollama in `D:\Projects\AI_Models_Hub`; speech: Faster-Whisper on the laptop GPU, text to speech engine to choose in an ADR (Edge-TTS is an unofficial client of a Microsoft service: terms "(unsourced, verify)"; default fallback is a local open-source TTS) |
+| Domain | none for Tier 1. Tier 2 candidate `sir-ai.app`, owner buys |
+| Platforms | Tier 1: Windows desktop + local web UI + Telegram. Tier 2: web and PWA, Android later. macOS, Linux, TV, watch: skipped for now |
+| Money | Tier 1 none. Tier 2: free local-only mode, Pro in EGP for cloud models and sync (price to test, "(unsourced, verify)"); "launching soon" fallback |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Session tokens in localStorage, client-trusted owner paths (stopgap merged), hard-coded OwnerManager identities, a mock dev token bypass, privacy page claiming SOC 2/ISO, a 73 MB model blob tracked in git, a literal Firebase key in several JS files.
+## 3. Current state
+Not built. Verified from files: `legacy/` contains the old code; `.sir/reports/deep-scan.md` and an upgraded `.sir/PLAN.md`, `ARCHITECTURE.md`, `TASKS.md` (44 tasks over M0 to M6), `QUALITY.md`, `PRODUCTION.md` exist. The checkpoint (2026-11-08) says T-003 deep scan done and the next step is T-004, initialize the monorepo. No application code, no tests in this folder (git log: 10 commits, all documents). PORTFOLIO.md: 3 of 44 tasks. The old v1 claims (259 tests, voice pipeline, SQLite vector memory) are legacy, unverified.
+Old defects to avoid (from the earlier inventory): session tokens in localStorage, client-trusted owner paths, hard-coded owner identities, a mock dev token bypass, a privacy page claiming SOC 2 and ISO that was not earned, a 73 MB model file tracked in git, a literal Firebase key in JS files.
 
-## 4. What to port from the old project
-- Core agents, voice pipeline, telegram bridge ideas, 259 tests (keep).
+## 4. Security and conduct rules
+1. Telegram control: one allow-listed chat id; any action that changes files, runs a program or spends money needs an approval tap (inline button) and is written to an audit log. Test: a command from another chat id is ignored; an unapproved destructive tool call is refused.
+2. No tool may run a shell command built from model output without an allow-list of commands and a dry run. Test: prompt-injection fixtures (web page text telling the agent to "delete files") do nothing.
+3. Memory: the user sees, edits and deletes every memory; private text never goes to outside providers; routing flag `private=true` forces local models. Test: with `private=true` and the local model off, the call fails closed instead of using the cloud.
+4. Provider chain with failover (local, then free cloud tiers); keys only on the server side, never in a client bundle or git; model files are not committed (git LFS or download script).
+5. AGPL boundary: a CI check that no Odysseus source or dependency enters `apps/` or `packages/`.
+6. Tier 2 only: cookies HttpOnly, per-user quota, tenant isolation tests, privacy page that claims only what is true (no SOC 2 or ISO claim).
+7. Camera/microphone: explicit start button, visible indicator, nothing recorded without a switch; recordings stay local.
 
-## 5. Screens and entities
-**Screens:** Chat, Voice mode, Camera/vision, Tasks, Memory (what it remembers, with delete), Settings/providers, Owner dashboard, Help
-**Entities:** Conversation, Message, Memory, Tool, Provider, Quota, User
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces
+This product is the idea source of Platform `ai-proxy`, but Platform builds its own small `ai-proxy` first (other products need it before SIR AI exists). SIR AI later consumes `@sir/ai-proxy` and adds local routing and tools on top. Telegram: the shared sender `_SIR/scripts/deliver/` for outbound; the inbound command handler is this product's (port ideas from `legacy/SIR Tele Gateway`). Design: Platform `ui/styles/hooks`. Laptop Manager's game-mode relief may need to pause Ollama: keep an endpoint for it.
 
-## 6. AI at the core
-This product is the AI: provider chain with local-first routing; private data never goes to outside providers.
+## 6. Screens and entities
+Chat, Voice mode, Camera/vision, Tasks (approval queue), Memory (what it remembers, with delete), Settings and providers, Owner dashboard (Tier 2), Help. Entities: Conversation, Message, Memory, Tool, Provider, Quota, User, AuditEntry.
+Five states, Arabic RTL first and English, light/dark/contrast, 320 px to 4K, WCAG 2.2 AA, own logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Cookie sessions only; owner by verified claims; mock tokens removed from production; model blobs out of git (download script with checksum).
+## 7. AI features and evals
+Chat and voice with citations when it uses notes; tool use limited to a small allow-list; eval sets (Arabic and English, 40 prompts each): factuality on a fixed notes set, refusal of unsafe tools, prompt-injection fixtures, latency budget on the laptop (first token under a number to be measured and written down, not guessed). New models chosen monthly from `ops/MODELS.json`. Kill switch per tool and global. Support assistant for Tier 2 grounded in docs, free quota 5 per day, owner unmetered.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-ai`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] New Firebase project `sir-ai-assistant` (Auth Google, Firestore) and Cloudflare project; OAuth app name "SIR AI", logo, support email.
-- [ ] Login brand check: sign in with Google in a real browser; the screen must not show a Firebase project id; screenshot saved in `.sir/evidence/`.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Local chat with Ollama, provider chain with failover, memory with delete, tests.
-### M2 Parity with the old project
-- [ ] Voice, vision, tool plugins; owner dashboard with real token/cost numbers.
-### M3 Security, legal, billing
-- [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
-- [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
-### M4 AI
-- [ ] Eval set (Arabic/English) for routing, refusal and tool-use accuracy.
-### M5 Quality sweep
-- [ ] 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots of each at 390 px and 1280 px in LTR and RTL.
-### M6 Release and retirement
-- [ ] Installer, update channel, retire v1; remove the leaked key literal from history by rewrite after rotation.
+## 8. Operations
+Tier 1: daemon under Task Scheduler with restart, health endpoint, log rotation, weekly report to Telegram (tasks run, approvals, errors, local model disk use). Tier 2: standard 26 set (status JSON, backups with restore test, cost cap per day, emergency alerts) after launch.
 
-## 9. Risks and open decisions
-- Hardware limits (RTX 4050, 24 GB RAM): small models locally, cloud only for non-private text.
+## 9. Launch, legal and visibility (Tier 2 only)
+Owner buys domain, cloud plans, payment accounts. Legal pack with an AI-training prohibition clause ("we do not train on customer data without opt-in"), sub-processors list of the real providers used, DPA; lawyer review. Visibility: Arabic and English pages for "local AI assistant for Windows", comparison pages vs named assistants once sourced, `llms.txt`, facts page. None of this starts before Tier 1 is verified.
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Monorepo, CI, ADRs | `pnpm install && pnpm verify` green; ADR for TTS and database; green Actions URL |
+| M1 | Text chat on local model | `POST /chat` returns an answer from Ollama; latency number recorded |
+| M2 | Telegram bridge with approvals | allow-list and approval tests pass; one real approved task logged |
+| M3 | Security | injection fixtures pass; private-routing test passes; AGPL check passes |
+| M4 | Voice and memory | speech-to-text word error rate measured on 20 recorded Arabic/English clips; memory delete test |
+| M5 | Quality | screenshots at 390/1280, LTR/RTL; offline/local-only mode test |
+| M6 | Retirement and Tier 2 decision | legacy moved to `old projects`; written go/no-go for Tier 2 with evidence |
+
+## 11. Next 10 tasks (each under 2 hours)
+1. Initialize the pnpm monorepo with `apps/gateway` (uv, FastAPI health route) and `apps/web` shell (T-004). Check: `pnpm verify` green; `GET /health` returns 200.
+2. CI: lint, typecheck, tests, gitleaks, AGPL boundary check. Files: `.github/workflows/verify.yml`, `scripts/check-agpl.mjs`. Check: green Actions URL; fixture with an Odysseus file path fails.
+3. Provider interface and Ollama adapter with timeout and fallback. Files: `apps/gateway/providers/`. Check: unit tests with a fake server; failover test.
+4. Privacy routing flag with fail-closed test. Check: test passes.
+5. `/chat` endpoint streaming from the local model. Check: curl output shows streamed tokens; latency recorded in `.sir/evidence/latency.md`.
+6. Chat screen with five states in the web shell. Check: screenshots at 390 and 1280.
+7. Telegram inbound handler with allow-list and approval buttons (port ideas, not files). Files: `apps/gateway/telegram/`. Check: tests for wrong chat id and unapproved tool.
+8. Audit log (append-only JSONL) and viewer. Check: every approved action appears; tamper check by hash chain test.
+9. Memory store with list, edit, delete and export. Check: delete test removes it from retrieval.
+10. Model download script instead of tracking model files, and `.gitignore` for models. Check: `git ls-files` shows no file over 5 MB.
+
+## 12. Risks and open questions (defaults)
+- Over-scope (assistant plus SaaS): default is Tier 1 only until M6.
+- Laptop GPU limits: default is small quantized models and a documented minimum spec; measure, then write numbers.
+- Unofficial TTS terms: default is local open-source TTS as the shipped default.
+- Remote control by Telegram is a high-risk surface: default is read-only commands until M3 passes.
+- Competitor and pricing statements: `plans/competitors/sir-ai.md` must carry links or "(unsourced, verify)".
+
+## 13. Only the owner can do
+Approve Windows prompts for microphone and camera; sign in to Telegram and provider accounts; paste provider keys into `.env`; Tier 2: buy domain and cloud plans, lawyer review.

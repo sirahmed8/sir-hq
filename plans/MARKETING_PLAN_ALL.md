@@ -1,97 +1,49 @@
-# SIR PORTFOLIO MARKETING & GROWTH MASTER PLAN
-**Target**: Autonomous Gemini HQ Manager & Marketing Daemons  
-**Standard**: Standards 26 (`26-autonomous-operations.md`) & 27 (`27-visibility.md`)  
-**Scope**: All Public Commercial Products · Version: 1.0.0 (Strictly enforced)
+# SIR MARKETING AND GROWTH PLAN (rewritten 2026-11-10 by the plans audit)
+Standards: 26 (autonomous operations) and 27 (visibility). Scope: public products only. AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room and SIR Platform get no marketing (private or internal). SIR Negm Furniture is the friend's brand: Ahmed gives the client advice in the handoff pack but runs no campaigns for it.
+Truth rules for all copy: no number, user count, review, logo or "verified" badge unless it is real and linked. No claim about a feature that is not built and verified (the lines below say "planned" until then). No em-dashes, no hype words, no emoji. Banned words: seamless, robust, empower, elevate, harness, unleash, delve, game-changing, cutting-edge.
+Gate: a product's marketing starts only when its plan has passed M5 (quality sweep) and a reviewer verified the main journey on the same day. Before that, only a waitlist page with an honest "in build" status and the visibility foundation (sitemap, `llms.txt`, facts page) may exist.
 
----
+## 1. Positioning (all items are drafts; every claim marked "planned" is not yet true)
+| Product | Arabic line (draft) | English line (draft) | First audience | Status of the claim |
+|---|---|---|---|---|
+| SIR Hagoozat | احجز ملعب خماسي واقسم السعر بين اللاعبين | Book a five-a-side pitch and split the price | amateur football players and pitch owners in one area of Cairo or Giza | booking and split bill planned |
+| SIR Business | كاشير ومخزون للمحل بالجنيه، يشتغل بدون إنترنت | Cash register and stock for small shops, works offline | owners of small supermarkets and restaurants | offline POS planned; e-invoicing planned later, do not mention until built |
+| SIR Obour Hub | ملخصات ومواعيد ومعدل تراكمي لطلاب معاهد العبور | Notes, timetable and GPA planner for Obour students | Ahmed's classmates first | planned |
+| SIR Content Creation Studio | اعمل فيديو قصير من فكرة في دقائق | Make a short video from an idea | small creators and brands, Arabic first | planned |
+| SIR AI (Tier 2 only) | مساعد يشتغل على جهازك ويحافظ على خصوصيتك | An assistant that runs on your PC and keeps your data local | privacy-minded power users | planned, Tier 1 is private |
+| SIR Controller | شغّل يد التحكم في أي لعبة على الكمبيوتر | Make any controller work in any PC game | PC gamers | mapper derived from x360ce; no FPS claim |
+| SIR ModPack | حزمة مودات ماينكرافت بنقرة واحدة بالعربي | One-click Minecraft modpack with an Arabic guide | Arabic-speaking Minecraft players | planned, subject to Mojang rules |
+| SIR Mods for GTA V | gated by licence check, no marketing until M0 passes | | | gate |
+| SIR Life (Part B) | خطط يومك مع مواعيد الصلاة والعادات | Plan your day with prayer times and habits | students | planned |
+Audience sizes: none stated here. Any market-size number must come from a linked source in `plans/competitors/<slug>.md`, otherwise "(unsourced, verify)". The earlier "15,000+ students" line is removed (unsourced).
 
-## 1. Executive Positioning & Value Propositions
+## 2. Launch calendar template (L = the day a product passes its launch gate)
+This is a template; each product gets its own dated copy in its `docs/launch-calendar.md` after the gate.
+- L minus 14 to L: waitlist with email capture (consent text, 1-click unsubscribe, physical address in the footer from the owner's real details), facts page, `sitemap.xml`, `robots.txt`, `llms.txt`, three real screenshots, one 45 second screen recording of the real product (made with SIR Content Creation Studio when it exists, otherwise a screen recorder).
+- L: announce to the waitlist and personal network first. Public launch posts on developer or maker sites only where the rules allow self-promotion; read each site's rules the same day "(unsourced, verify)". Post as the brand, not as Ahmed in replies.
+- L+1 to L+7: answer every message within 24 hours (assistant drafts, a human approves anything sensitive), fix the top three reported problems, publish a changelog.
+- L+2 to L+4 weeks: onboarding emails, one honest case study per product only after a real user agrees in writing, referral loop test (idea: one free month of Pro for each 3 active referrals; test with a spend cap of zero).
+- L+5 to L+8 weeks: pillar guides in Arabic (examples of queries to target, to be checked in a keyword tool: "برنامج كاشير للسوبر ماركت", "حجز ملعب خماسي") and comparison pages only against competitors whose existence and features are linked in `plans/competitors/`.
+- L+9 to L+12 weeks: direct outreach to real businesses: pitch owners for Hagoozat and shop owners for Business; goal numbers are set after the first interviews, not before.
 
-| Product | Arabic Tagline | English Value Proposition | Primary Audience (ICP) |
-|---|---|---|---|
-| **SIR Hagoozat** | احجز ملعبك في ثواني بضغطة واحدة | Real-time sports venue booking with instant split payments and WhatsApp confirmation | Egyptian amateur football/padel players & venue managers |
-| **SIR Business** | نظام سحابي متكامل لنقاط البيع وإدارة محلك وصيدليتك بسعر عادل بالجنيه | All-in-one POS, inventory & ETA e-invoicing for retail, restaurants & pharmacies | Egyptian and Arab SME retail owners & shop managers |
-| **SIR Obour Hub** | مجتمع وخدمات العبور الأكاديمية في مكان واحد | Unified academic community, study hub & student marketplace | Obour Institutes & University students (15,000+ students) |
-| **SIR Negm Furniture** | أثاث فاخر بتصميمات عصرية ومعاينة ثلاثية الأبعاد تفاعلية في غرفتك | Bespoke luxury furniture with interactive 3D WebGL room preview | Egyptian homeowners, interior designers & newlyweds |
-| **SIR Content Studio** | إنتاج وأتمتة محتوى الفيديو والتواصل الاجتماعي بدقة فائقة | Autonomous video generation & scheduled multi-platform publishing | Content creators, digital marketing agencies, Arabic podcasters |
-| **SIR Controller** | أقصى استجابة لجهازك وألعابك مع حماية كاملة للنظام | System latency optimization, FPS booster & game-ready profiler | PC gamers, competitive esports players, creative pros |
-| **SIR AI** | وكيل ذكاء اصطناعي محلي فائق السرعة يحترم خصوصيتك بالكامل | Frontier local-first AI assistant running on private models | Developers, power users, privacy-conscious executives |
-| **SIR Life** | نظام ذكي لبناء العادات والإنتاجية المتوازنة | Holistic habit tracker, personal health sync & routines | Health-conscious individuals, students, professionals |
+## 3. Social distribution
+- Only official platform APIs and official schedulers; every post is a draft approved by a human or by the owner's Telegram tap until the owner changes that rule. Posting caps per account per day are set in the product's config.
+- Platforms: Facebook and Instagram pages (Meta Graph API), YouTube (Data API), LinkedIn (company page). X (Twitter): not scripted at all; a manual post by the owner only (AGENTS.md rule).
+- Brand voice: posts and replies carry the product name. Agents never pose as Ahmed in conversations. No engagement bots, no bought followers or reviews, no mass DMs, no scraping of private data.
+- Ads: none until the owner writes a spend cap in `config/limits.json`; first tests use a cap of 0 to 200 EGP a week "(owner decides)".
 
----
+## 4. Lifecycle email (templates, per product, only after consent)
+1. Welcome (instant): 3-step start checklist and a link to the assistant.
+2. Activation (day 2 without the first action): one short video of the first task.
+3. Feature note (day 7): one real feature, no invented savings ("saves 5 hours" is removed unless measured).
+4. Win-back (day 21 inactive): what changed since the last visit.
+Rules: sender authenticated with SPF, DKIM, DMARC; unsubscribe link and physical address in every marketing email; transactional emails (receipts, security) are separate; unsubscribe takes effect at once; subject lines in Arabic by default for Arabic users, English otherwise.
 
-## 2. 12-Week Master Launch Calendar (From Zero to Market Authority)
+## 5. Press kit and public facts (per public product)
+`/press` page with logo SVGs, icon 1024 px, screenshots, one-page fact sheet (what it is, who it is for, platforms, price, privacy summary, launch date, contact), and the facts page. The contact address uses the product's own domain once bought; until then no email is published and the contact form is used. Metrics appear only when real and dated.
 
-```mermaid
-flowchart LR
-    W0["Pre-Launch (W0)<br>Waitlist & Teasers"] --> W1["Launch Day (W1)<br>Product Hunt & Press"]
-    W1 --> W2["Early Adoption (W2-4)<br>Onboarding & Feedback"]
-    W2 --> W3["Content Scaling (W5-8)<br>SEO & Comparison Pages"]
-    W3 --> W4["Expansion (W9-12)<br>B2B Partnerships & Affiliates"]
-```
+## 6. Measurement
+Weekly report on Telegram in simple Arabic: visits (cookie-free analytics), sign-ups, activation rate, paid conversions, support tickets, top search queries, AI-answer presence from the visibility check. Decisions use at least 4 weeks of data; A/B tests only with consent and enough traffic.
 
-### Pre-Launch Phase (Weeks -2 to 0)
-- **Waitlist Page**: Clean hero landing page with email capture and "Get Early Access" badge.
-- **Foundational SEO**: Deploy `sitemap.xml`, `robots.txt`, and `llms.txt` to enable early indexing by Google, Bing, and AI answer engines.
-- **Teaser Video Production**: 45-second high-resolution demo reels highlighting flagship features (e.g. 3D room preview in Negm Furniture, split payments in Hagoozat) created via Content Creation Studio.
-
-### Launch Week (Week 1)
-- **Day 1 (Tuesday 08:00 EST)**: Official launch on Product Hunt, Hacker News Show, and regional tech forums (e.g., r/Egypt, Egyptian Startups groups).
-- **Day 2**: Press kit distribution to regional tech publications (Enterprise Egypt, Wamda, Arab News, Menabytes).
-- **Day 3**: Social channel launch blitz across LinkedIn, X/Twitter, and Instagram via official APIs.
-- **Day 4–7**: Monitor real user registrations, triage initial feedback, and ship daily iterative polish fixes.
-
-### Early Adoption & Community Phase (Weeks 2 to 4)
-- **Automated Email Activation**: Trigger onboarding email sequences to guide new users to their "Aha!" moment.
-- **Referral Loop Activation**: Users earn 1 free month of Pro subscription for referring 3 active users.
-- **Community Engagement**: Host live Q&A demos on YouTube and LinkedIn addressing top customer questions.
-
-### SEO & Organic Content Expansion (Weeks 5 to 8)
-- **Pillar Content Release**: Publish 3 authoritative guides per week addressing high-intent search queries (e.g. *"أفضل نظام كاشير في مصر"*, *"طريقة حجز ملاعب البادل"*).
-- **Competitor Alternative Pages**: Deploy dedicated comparison pages (*"SIR Business vs Loyverse"*, *"SIR Hagoozat vs Bookafield"*).
-
-### B2B Partnerships & Scaling (Weeks 9 to 12)
-- **Field Outreach**: Directly onboard the top 20 football venues in Cairo/Giza for Hagoozat and top 30 retail shops in Obour/New Cairo for SIR Business.
-- **Influencer & Academy Collaborations**: Partner with local Egyptian sports academies and student unions.
-
----
-
-## 3. Social Media Distribution via Official APIs
-
-All social marketing is executed programmatically through official platform APIs to ensure reliability and strict platform compliance:
-- **Meta Graph API**: Publishes scheduled carousels, reels, and stories to Instagram and Facebook business pages.
-- **YouTube Data API v3**: Uploads feature walkthroughs, YouTube Shorts, and changelog digests with full chapters and transcripts.
-- **LinkedIn Marketing API**: Shares technical architecture deep dives, founder insights, and commercial milestones.
-
-> [!CAUTION]
-> **Brand Voice Guard Rails**:
-> All social posts operate under the official product or brand name (e.g. "SIR Business Official"). Agents NEVER pose as Ahmed in conversational DMs or comments. Engagement bots, fake likes, and automated scraping of private social data are strictly banned.
-
----
-
-## 4. Lifecycle Email Marketing Sequences
-
-All automated emails use clean, responsive HTML templates with 1-click unsubscribe links and strict deliverability standards (SPF, DKIM, DMARC):
-
-1. **Welcome Email (Trigger: Instant on Sign-Up)**:
-   - Subject: *"أهلاً بك في [اسم المنتج] - خطوتك الأولى للبدء"*
-   - Body: Warm welcome from the SIR team, 3-step quick start checklist, direct link to in-app assistant.
-2. **Activation Prompt (Trigger: Day 2 if no primary action taken)**:
-   - Subject: *"هل تحتاج مساعدة في إعداد [الميزة الرئيسية]؟"*
-   - Body: 1-minute video walkthrough showing how easy it is to complete the first action.
-3. **Power Feature Spotlight (Trigger: Day 7)**:
-   - Subject: *"وفر 5 ساعات أسبوعياً مع ميزة [X]"*
-   - Body: Case study demonstrating how existing users save time or increase revenue using the Pro tier.
-4. **Inactive Win-Back (Trigger: Day 21 of inactivity)**:
-   - Subject: *"افتقدناك في [اسم المنتج] - شاهد ما هو جديد"*
-   - Body: Summary of recent improvements and a direct link to resume where they left off.
-
----
-
-## 5. Official Press Kit & Digital PR Package
-
-Every public repository maintains a public `/press` directory:
-- **Brand Assets**: High-resolution SVG logos (dark and light modes), app icons (1024x1024 PNG), and brand color palette swatches.
-- **Executive Factsheet**: 1-page PDF summarizing founding date, mission, leadership, technology stack, and verified metrics.
-- **Screenshots & Media**: Lossless WebP mockups showcasing the application running on desktop, tablet, and mobile viewports.
-- **Media Contact**: `press@sirahmed.com` (triage by autonomous manager; critical inquiries escalated to Chairman).
+## 7. Owner steps
+Provide the physical address and legal entity details for email footers and legal pages; sign in to platform developer consoles; approve the first posts; set the ad spend cap; buy domains (see `LAUNCH_CHECKLIST_ALL.md`).

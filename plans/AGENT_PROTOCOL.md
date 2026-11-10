@@ -1,6 +1,7 @@
 # AGENT PROTOCOL: how any AI works on any SIR project (Claude, Codex, OpenCode, Kilo, Antigravity, anyone)
 
 ## 1. Start (always, in this order, every chat and after every reset)
+0. Your tool's front file: `D:/Projects/AGENTS.md` (all tools) and, for Gemini or a weaker model, `D:/Projects/GEMINI.md`.
 1. `D:\Projects\_SIR\NEXT.md` (done / next / only-Ahmed). 2. The project's `.sir/CHECKPOINT.md`. 3. The project's `.sir/PLAN.md` section 8: the first unchecked box is your task. 4. `D:\Projects\AGENTS.md` laws. Read only what the box needs.
 ## 2. Think like a senior engineer, out loud in files not chat
 Before code: write 5 lines in `.sir/CHECKPOINT.md` ("Goal / Approach / Files I will touch / How I will prove it / Risks"). Small steps; one box = one small commit (Conventional Commits). Prefer deleting code over adding it. Ask: what is the simplest design that stays correct under empty, error, offline, slow, concurrent, RTL and huge-data cases?
@@ -31,4 +32,4 @@ Never ask Ahmed. If a permission or classifier blocks an action: finish everythi
 ## 7. End (always)
 Update the checkpoint (Now / Next step with the exact command or file / Open promises / Re-read list), append one line to `_SIR/ops/MISSION_LOG.md`, commit, push straight to `main` of the private repo (Ahmed, 2026-10-30: no pull requests, ever). Then stop.
 ## 8. Never (Tier 3)
-Leak secrets; bypass CAPTCHAs, 2FA or platform security; fake reviews/followers; engagement bots; script X's website; make payments; pose as Ahmed; do graded work for him; expose SIR Home data.
+Leak secrets; bypass CAPTCHAs, 2FA or platform security; fake reviews/followers; engagement bots; script X's website; make payments; pose as Ahmed; do graded work for him; expose AHome's data. Version stays 1.0.0 while under development.

@@ -25,6 +25,16 @@ APPROVED_OWNER_ACCOUNTS = (
     "1sir1ahmed1",
     "a01083835229",
     "mashoyatal3abed",
+    # Owner's own free accounts in the second Chrome profile (his list, ops/ACCOUNT_ROTATION.md "Owner notes 2026-11-10";
+    # he asked on 2026-11-10 for automatic switching between them). alshikh138200 stays excluded.
+    "sirahmed0115757",
+    "sirahmedalaa2006",
+    "sir1ahmed2006",
+    "ahmed1orabi2006",
+    "ahmedalaaorabi2006",
+    "ahmedalaaorabe2006",
+    "ahmedalaaorabe",
+    "ahmedalaaeldinorabe",
 )
 
 
@@ -34,7 +44,7 @@ def is_account_permitted(email: str) -> tuple[bool, str]:
     if not clean:
         return False, "empty email"
     local_part = clean.split("@")[0]
-    if any(local_part == allowed or clean.startswith(allowed) for allowed in APPROVED_OWNER_ACCOUNTS):
+    if local_part in APPROVED_OWNER_ACCOUNTS:
         return True, "ok"
     return False, f"UNAUTHORIZED ACCOUNT: '{email}' is not in APPROVED_OWNER_ACCOUNTS."
 

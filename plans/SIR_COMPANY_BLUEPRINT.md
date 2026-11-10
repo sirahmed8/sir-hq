@@ -1,5 +1,5 @@
 # SIR Company blueprint: one human, an AI team, many products, launched legally
-Owner and CEO: Ahmed Alaa. Manager (acts almost as CEO): Claude in AgentsRoom. This file is the improved version of the idea. It is not legal advice: every legal step ends with "a licensed lawyer or accountant confirms it before it is relied on". Agents prepare; a human professional signs.
+Owner and CEO: Ahmed Alaa. Manager (acts almost as CEO): Claude in the Claude desktop app until about 2026-11-23, then Gemini in Antigravity (AgentsRoom was retired on 2026-11-08). This file is the improved version of the idea. It is not legal advice: every legal step ends with "a licensed lawyer or accountant confirms it before it is relied on". Agents prepare; a human professional signs.
 
 ## 1. The model
 - One human sets direction and signs what only a human can sign (identity, payments, contracts, filings). Everything else is run by the AI company: manager, reviewer, QA, specialists (roles in `_SIR/standard/roles`), workers on Antigravity, OpenCode and Kilo, and local models for private work.
@@ -44,7 +44,7 @@ Discovery and benchmark, plan and legal data map, build on the global design sys
 
 ## 8. First week after a reset (manager)
 1. Create `COMPANY_REGISTRY.md` from section 4 and fill what the repos already show (domains, Firebase, Cloudflare and Vercel projects, OAuth clients, licences).
-2. Add the Compliance, CFO, SRE and Support roles to `_SIR/standard/roles` and AgentsRoom if missing.
+2. Add the Compliance, CFO, SRE and Support roles to `_SIR/standard/roles` if missing.
 3. Add the legal gate (section 3 evidence) to each project's QUALITY.md and to the release checks.
 4. Prepare the entity and trademark briefing for Ahmed's lawyer and accountant: one page per decision with options and costs, no action taken.
 5. Re-plan each wave with the launch path and refresh the Control Room.

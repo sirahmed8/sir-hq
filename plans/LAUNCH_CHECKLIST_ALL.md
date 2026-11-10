@@ -1,205 +1,57 @@
-# SIR PORTFOLIO LAUNCH CHECKLIST (Ordered by Business Value)
-**Target**: Ahmed (Founder & Chairman)  
-**Standard**: Standard 24 (`24-launch-package.md`)  
-**Scope**: All 17 Workspace Projects (`D:\Projects`) · Version: 1.0.0 (Strictly enforced)
+# SIR LAUNCH CHECKLIST (owner steps only; rewritten 2026-11-10 by the plans audit)
+Target reader: Ahmed (second-year student, not an expert). Standard: `standard/24-launch-package.md`.
+How to read this file: the software is built and tested by the agents in test mode with "Subscriptions launching soon" fallbacks. This file lists only what a person must do: buy, sign in, pay, paste keys, sign. Every step says how to check it worked and what switches on. Agents never do these steps and never block on them (`ops/OWNER_ACTIONS.md` is the live list).
+Truth rule: no product is "ready to launch" today. Each section starts only after that project's plan reaches its gate (M3 security, legal and billing green, and a reviewer verified it end to end that day). Dates are not promised; the old "Week 1, Week 2" targets are removed because the products are not built.
+Prices and fees below are not sourced: every price is "(unsourced, verify)" at the registrar or provider page on the day of purchase.
 
-> [!NOTE]
-> All software, backends, and user interfaces are completely built and tested in advance with **Test Mode** and **"Launching Soon"** fallbacks. As Chairman, you only need to perform the tiny manual steps listed below (buying domains, creating accounts, pasting API keys). Each product instantly switches to Live Mode the moment its keys are inserted.
+## 0. One-time accounts (do once, reused by many products)
+1. Cloudflare account (free plan): hosts all public sites on Cloudflare Pages and Workers. Check: dashboard opens; `sir-portfolio.pages.dev` style URLs work.
+2. GitHub: already used. Check: private repos exist per `plans/repos.json`.
+3. Google account for Firebase (Auth with Google, Firestore): one Firebase project per product, created by the agent after you sign in. Check: the Google sign-in screen shows the product name, not a project id.
+4. Telegram bot token: already set as user environment variables `SIR_TELEGRAM_BOT_TOKEN` and `SIR_TELEGRAM_CHAT_ID`. Check: `node scripts/deliver/send-telegram.mjs "test"` prints `sent`.
+5. Payment accounts (only when the first paid product is ready): Paymob (Egypt) and Fawry. Business registration documents may be needed: "(unsourced, verify)" on their sign-up pages. Until then every product shows "Subscriptions launching soon".
+6. Lawyer review: every legal page is AI-drafted and is marked so. One lawyer review per market before the first paid launch.
+7. Domain registrar: Cloudflare Registrar or Namecheap (compare the price on the day). `.eg` names need an Egyptian registrar and extra documents "(unsourced, verify)".
 
----
+## 1. Per-product steps, in the order the plans reach their gate
+For each product: (a) buy the domain, (b) add it to Cloudflare Pages (the agent prints the exact DNS records), (c) create the accounts listed, (d) paste keys into the product's `.env` (names listed), (e) run the check, (f) the agent flips the switch.
 
-## Portfolio Launch Priority Order
-
-```mermaid
-flowchart LR
-    P1[1. SIR Hagoozat] --> P2[2. SIR Business]
-    P2 --> P3[3. SIR Obour Hub]
-    P3 --> P4[4. SIR Negm Furniture]
-    P4 --> P5[5. SIR Content Creation]
-    P5 --> P6[6. SIR AI]
-    P6 --> P7[7. SIR Controller]
-    P7 --> P8[8. Other Products]
-```
-
----
-
-## 1. SIR Hagoozat (Top Revenue Priority - Egyptian Sports Venue Booking)
-*Target Live Date: Week 1 · Revenue Potential: Immediate venue commissions & subscription*
-
-### Step 1: Purchase Domain Name
-- **Recommended Domain**: `hagoozat.com` or `hagoozat.eg` (Alternative: `sirhagoozat.com`).
-- **Registrar**: Namecheap, Cloudflare Registrar, or Egyptian `.eg` accredited registrar.
-- **Estimated Cost**: ~$10.00 - $14.00 / year (~450 - 650 EGP).
-- **DNS Records to Configure (Point to Vercel/Cloudflare)**:
-  - `CNAME` | `@` | `cname.vercel-dns.com`
-  - `CNAME` | `www` | `cname.vercel-dns.com`
-
-### Step 2: Paymob Egypt Account Activation
-1. Sign up at [paymob.com](https://paymob.com) (Egypt).
-2. Complete merchant verification (National ID / Commercial Record).
-3. In Dashboard > Settings > Developers:
-   - Copy **API Key**, **Integration ID (Cards)**, **Integration ID (Mobile Wallets)**, **HMAC Secret**.
-4. Paste into `D:\Projects\SIR Hagoozat\.env`:
-   ```ini
-   PAYMOB_API_KEY=live_sec_...
-   PAYMOB_INTEGRATION_ID_CARD=123456
-   PAYMOB_INTEGRATION_ID_WALLET=123457
-   PAYMOB_HMAC_SECRET=your_hmac_secret
-   NEXT_PUBLIC_PAYMENT_MODE=live
-   ```
-
-### Step 3: Firebase / Supabase Production Upgrade
-1. Upgrade Firebase project to Blaze (Pay as you go) or Supabase to Pro.
-2. Add budget alert cap: **$15.00 / month**.
-3. **Verification**: Open `https://hagoozat.com/checkout`, verify Paymob card modal appears, place a test 5 EGP payment via Vodafone Cash, verify booking status changes to Confirmed.
-
----
-
-## 2. SIR Business (Commercial ERP & POS - Retail, Restaurant, Pharmacy)
-*Target Live Date: Week 2 · Revenue Potential: Monthly SaaS subscriptions in EGP*
-
-### Step 1: Purchase Domain Name
-- **Recommended Domain**: `sirbusiness.app` or `sirbusiness.eg`.
-- **Registrar**: Namecheap or Cloudflare. Estimated Cost: ~$12.00 / year.
-- **DNS**: Add Vercel CNAME records.
-
-### Step 2: Payment Provider Setup (Paymob + Fawry)
-1. In Paymob Dashboard: create subscription integration for recurring billing (Cards & Meeza).
-2. In Fawry Pay Dashboard: obtain Merchant Code and Security Key.
-3. Paste into `D:\Projects\SIR Business\.env`:
-   ```ini
-   PAYMOB_API_KEY=live_sec_...
-   FAWRY_MERCHANT_CODE=101010
-   FAWRY_SECURITY_KEY=sec_...
-   NEXT_PUBLIC_BILLING_ENV=production
-   ```
-
-### Step 3: Verification
-- Open `https://sirbusiness.app/pricing`, select "Standard Plan (500 EGP/mo)", verify checkout activates, test invoice PDF generation.
-
----
-
-## 3. SIR Obour Hub (Academic Campus Marketplace & Student Services)
-*Target Live Date: Week 3 · Revenue Potential: Student service micro-fees & merchant listings*
-
-### Step 1: Purchase Domain Name
-- **Recommended Domain**: `obourhub.com` or `sir-obour.com`.
-- **Cost**: ~$10.00 / year.
-
-### Step 2: Cloud & Storage Setup
-1. Setup Cloudflare R2 bucket for student notes, PDF summaries, and campus guides.
-2. Paste credentials into `D:\Projects\SIR Obour Hub\.env`:
-   ```ini
-   R2_ACCOUNT_ID=...
-   R2_ACCESS_KEY_ID=...
-   R2_SECRET_ACCESS_KEY=...
-   R2_BUCKET_NAME=obour-academic-docs
-   ```
-
-### Step 3: Verification
-- Visit `https://obourhub.com`, log in with student Google account, verify course materials download and real-time chat with academic assistants.
-
----
-
-## 4. SIR Negm Furniture (Friend's Furniture Brand & 3D Catalog - Handoff Spec)
-*Target Live Date: Handover Milestone · Status: Plans complete, friend handover on command*
-
-### Step 1: Domain Selection (Owner & Friend Choice)
-- **Domain**: `negmfurniture.com` or `negm-furniture.eg`.
-- **Registrar**: Namecheap or Local Egyptian Registrar (~500 EGP/yr).
-
-### Step 2: WhatsApp Business Cloud API & Paymob Setup
-1. Setup Meta Developer app for WhatsApp Business API (for customer order inquiries).
-2. Setup Paymob deposit gateway (50% custom furniture manufacturing deposit).
-3. Paste keys into `D:\Projects\SIR Negm Furniture\.env`:
-   ```ini
-   WHATSAPP_PHONE_NUMBER_ID=...
-   WHATSAPP_ACCESS_TOKEN=...
-   PAYMOB_DEPOSIT_INTEGRATION_ID=...
-   ```
-
-### Step 3: Verification & Friend Handover
-- Load 3D WebGL furniture showroom on mobile Safari and Chrome; verify AR room preview button renders, verify WhatsApp order ping is received on friend's phone.
-
----
-
-## 5. SIR Content Creation Studio (AI Social Video & Content Automation)
-*Target Live Date: Week 4 · Revenue Potential: Creator SaaS subscription*
-
-### Step 1: Domain Setup
-- **Domain**: `sircreator.studio` or `sircontent.io`.
-- **Estimated Cost**: ~$20.00 / year.
-
-### Step 2: Social Media Developer Apps (Official APIs)
-1. Create Meta Developer App (Instagram Graph API, Facebook Pages API).
-2. Create YouTube Data API v3 Project in Google Cloud Console.
-3. Paste Client IDs and Secrets into `D:\Projects\SIR Content Creation Studio\.env`:
-   ```ini
-   META_CLIENT_ID=...
-   META_CLIENT_SECRET=...
-   YOUTUBE_CLIENT_ID=...
-   YOUTUBE_CLIENT_SECRET=...
-   ```
-
-### Step 3: Verification
-- Connect test Instagram account, schedule an automated reel, verify scheduled publish fires via cron.
-
----
-
-## 6. SIR AI (Frontier Desktop AI Agent & Model Router)
-*Target Live Date: Week 5 · Distribution: Windows / macOS Installers*
-
-### Step 1: Code Signing Certificate (Optional / Recommended)
-- Obtain Windows OV Code Signing Certificate or publish via Microsoft Store Developer Account ($19 one-time).
-- Prevents Windows SmartScreen warnings on installer download.
-
-### Step 2: Commercial Frontier API Keys
-1. Add OpenRouter or Anthropic / Google Cloud API keys for users selecting cloud routing.
-2. User-provided keys supported by default; built-in tier uses local Ollama models (`AI_Models_Hub`) for 100% free offline execution.
-
----
-
-## 7. SIR Controller (Windows Latency Tuner & PC Optimizer)
-*Target Live Date: Week 6 · Distribution: MSI / Inno Setup Installer*
-
-### Step 1: Domain & Landing Page
-- **Domain**: `sircontroller.app` (Free hosting on GitHub Pages / Vercel).
-- **Cost**: ~$12.00 / year.
-
-### Step 2: Activation Verification
-- Run installer on clean Windows test VM; verify silent startup, zero SmartScreen blocks, verify game latency profiles activate on target games.
-
----
-
-## 8. SIR Portfolio (Ahmed's Personal & Founder Brand)
-*Target Live Date: Immediate · Goal: Professional Founder Brand & GEO Engine*
-
-### Step 1: Domain
-- **Domain**: `sirahmed.com` or `ahmedoraby.dev`.
-- **Estimated Cost**: ~$10.00 / year.
-
-### Step 2: Google Search Console & Bing Webmaster Verification
-1. Add domain property in Google Search Console using DNS TXT record.
-2. Submit `https://sirahmed.com/sitemap.xml` and verify `llms.txt`.
-3. Link public profiles (GitHub `sirahmed8`, LinkedIn).
-
----
-
-## 9. Private Products (AHome, SIR Study, SIR Jobs, SIR Laptop Manager)
-*Zero Outside Purchases · Strictly Unlisted & Noindex*
-
-- **AHome**: Strictly local hardware; zero cloud hosting, zero public domains, zero tracking.
-- **SIR Study**: Local desktop application and private self-hosted sync.
-- **SIR Jobs**: Private career automation database; no public job board.
-- **SIR Laptop Manager**: Local executive hardware agent; runs completely on host PC.
-
----
-
-## Summary of Total Estimated Founder Budget
-
-| Item | Estimated Annual Cost (USD) | Estimated Annual Cost (EGP) | Notes |
+### SIR Business and SIR Hagoozat and SIR Obour Hub (wave 5)
+| Item | Candidate names | Keys to paste (names only) | Check |
 |---|---|---|---|
-| **Domains (Top 6 Public Products)** | ~$75.00 / year | ~3,600 EGP / year | Billed annually via Namecheap/Cloudflare |
-| **Cloud Hosting (Vercel / Firebase Blaze)** | ~$0 - $20 / month | ~0 - 950 EGP / month | Generous free tiers; scales with revenue |
-| **Payment Gateways (Paymob / Fawry)** | Free setup | % per transaction | Deducted automatically from sales (no upfront fee) |
-| **Total Upfront Out-of-Pocket** | **~$75.00** | **~3,600 EGP** | **Extremely lean, zero unnecessary waste** |
+| SIR Business | `sirbusiness.app` | `PAYMOB_API_KEY`, `PAYMOB_HMAC_SECRET`, `FAWRY_MERCHANT_CODE`, `FAWRY_SECURITY_KEY`, `SIGNING_CERT_PATH` (desktop installer certificate) | pricing page checkout opens in test mode; installer runs on a clean Windows VM |
+| SIR Hagoozat | `hagoozat.com` or `hagoozat.app` | `PAYMOB_API_KEY`, `PAYMOB_INTEGRATION_ID_CARD`, `PAYMOB_INTEGRATION_ID_WALLET`, `PAYMOB_HMAC_SECRET` | a 5 EGP test booking moves to Confirmed; 20 parallel booking requests give 1 booking |
+| SIR Obour Hub | `obourhub.com` or `obour-hub.app` | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, plus rotation of the old Firebase admin keys | sign in with a Google student account; a note downloads; old keys return 401 |
+Also: tax authority e-invoicing onboarding for Business (certificates, possibly a USB token): "(unsourced, verify)" with an accountant; classmates' written consent for any shared notes; pitch-owner agreement for Hagoozat; at least 3 real pitches before any ad.
+
+### SIR Content Creation Studio and SIR AI Tier 2 and SIR Controller (waves 4 and 8)
+- Content Studio: domain; Meta developer app and YouTube Data API project (official APIs only; app review queues take time, so drafts-only mode first); keys `META_CLIENT_ID`, `META_CLIENT_SECRET`, `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`; code-signing certificate. Check: connect one test account, schedule a draft, approve it, see it publish once.
+- SIR AI: Tier 1 needs no purchase. Tier 2 only: domain, provider keys (`OPENROUTER_API_KEY`, `GEMINI_API_KEY`, `GROQ_API_KEY`), payment accounts. Check: `private=true` request never reaches a cloud provider.
+- SIR Controller: decide to sell or not after the licence note (`docs/LICENSE_DECISION.md` in the project); then domain and code-signing certificate. A signed installer helps with the Windows SmartScreen warning but does not remove it immediately "(unsourced, verify)". Check: clean VM install and uninstall.
+
+### SIR ModPack and SIR Mods for GTA V and SIR Life Part B (wave 6)
+- ModPack: domain; code-signing certificate; no payment account until the Mojang rules note (`docs/MOJANG_RULES.md`) says supporter perks are fine. Check: the launcher refuses a corrupted download.
+- GTA V mods: HARD GATE, nothing public until `docs/THIRD_PARTY.csv` shows redistribution proof for every binary and the publisher policy note exists. Owner also rotates the keys that were in the old tracked `.env` files and sets `ADMIN_SECRET_KEY` (server-side) at deploy. Check: forged admin cookie returns 403.
+- Life Part B: domain, Google Play developer account and Apple developer account when the app is ready (fees "(unsourced, verify)"). Part A (private organiser) needs only the Google sign-in for Calendar and Gmail read scopes.
+
+### SIR Portfolio (can go early)
+- Buy a personal domain (candidates `ahmedalaa.dev`, `sirahmed8.com`); add the site to Google Search Console (DNS TXT record) and Bing Webmaster; submit `sitemap.xml`; confirm which social accounts are public; replace the GitHub profile README with the short honest one. Check: Search Console shows the sitemap as read.
+
+### SIR Negm Furniture (friend's project; plans only until you say)
+The client creates and owns the domain, Cloudflare, Firebase and Google Business Profile accounts and pays for them; Ahmed only walks him through `HANDOFF.md`. The planned contact method is a WhatsApp click link; the WhatsApp Business API and a Paymob deposit gateway are not planned (earlier text proposed them; removed until the client asks). Check: the friend can follow `HANDOFF.md` alone.
+
+### SIR Platform
+No purchase. Internal packages; docs site stays `noindex`.
+
+## 2. Private products (no purchases, unlisted, noindex)
+AHome (local only; keys rotated at M6), SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room. Their only owner steps: Tailscale sign-in on the phone, Telegram, Google read-only tokens, UAC prompts when installing scheduled tasks.
+
+## 3. Budget estimate
+Not a promise and not sourced. The only certain upfront cost is domains; at the time of writing no prices are sourced, so the previous totals ("about 75 USD", "about 3,600 EGP") are removed. Fill this table on the day of purchase from the registrar page.
+| Item | Price on the day | Source link and date |
+|---|---|---|
+| Domains for the products you decide to launch | (unsourced, verify) | |
+| Code-signing certificate | (unsourced, verify) | |
+| Cloudflare / Firebase paid plans | start on free plans; upgrade only when a budget alert fires | |
+| Payment gateways | per-transaction fees, check each provider | |
+Budget alerts: set a monthly cap in each cloud console before enabling any paid plan; the owner sets the number.

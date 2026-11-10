@@ -1,71 +1,79 @@
-# PLAN: SIR Negm Furniture
-Status: planned, not started. Wave 3. Replaces: Negm Furniture (client brand). Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Negm Furniture (friend's project)
+**PLANS ONLY, NO BUILD WORK, CHAT, CI OR DEPLOY UNTIL THE OWNER SAYS SO** (AGENTS.md, 2026-11-09). This file may be improved; the code folder must not change. Nothing here was run by the audit.
+Client brand: the public name stays Negm Furniture. Ahmed builds it as a favour for a friend; no accounts are created in Ahmed's name for the client, and the client owns the final cloud projects at handover. Commercial items for Ahmed (his subscription, his marketing, his SEO plan) do not apply; the client's own online presence does, so those items are written as a handoff pack for the client.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- Negm Furniture
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-Bilingual showroom catalog and lead capture for Negm Furniture EG (Ain Shams and Roxy showrooms). Public brand stays Negm Furniture; folder, repo and cloud projects use the SIR prefix.
+## 1. Purpose (plain words)
+A bilingual (Arabic and English) website for a furniture showroom. Visitors browse the catalog, see the two showrooms, plan a room in 2D and 3D with real products, and send a quote request on WhatsApp.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Negm Furniture` |
-| GitHub (private) | `sirahmed8/sir-negm-furniture` |
-| Firebase project / OAuth app name | `sir-negm-furniture` / "SIR Negm Furniture" |
-| Cloudflare project | `sir-negm-furniture` (`sir-negm-furniture.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-negm-furniture` (Android, iOS, Windows) |
-| Platforms | Web (static + Workers API) on Cloudflare |
-| Money | client service; site itself free |
+| GitHub (private) | `sirahmed8/sir-negm-furniture` (delivery channel to the friend) |
+| Layout | `apps/web` (Next.js), `packages/planner-engine` (pure geometry), `reference-source`, `docs`, `HANDOFF.md`, `FRIEND_AGENT_PROMPT.md` |
+| Domain | the client buys and owns it; candidate chosen by the client |
+| Platforms | Web (Cloudflare Pages, static plus Workers API) and PWA install. Android, iOS, Windows, macOS, TV, watch: skipped, a showroom site |
+| Money | client service, no subscription. Ahmed's fee, if any, is a separate agreement outside the code |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- Fake login user, fabricated ratings (4.95 / 38 reviews) and '+285K' followers, simulated uploads, client-only admin, hosted inside SIR's Firebase project.
+## 3. Current state (read from files, not re-run)
+Claimed in `.sir/CHECKPOINT.md` (2026-11-08): M0, M1, M4, M5 shipped: pure geometry engine with 11 tests, 2D blueprint canvas with grid and rotation snapping, 3D view, catalog drawer wired to `PRODUCTS` data, bill of materials and WhatsApp quote modal with EGP prices, planner route, desktop and mobile screenshots, "175/175 tests green, typecheck clean, gitleaks clean". PORTFOLIO.md: 12 commits, 8 of 16 tasks. All of this is **built, unverified**.
+Rule conflict to note: the plans-only rule is dated 2026-11-09, after this build work (2026-11-08). The folder is therefore frozen as it is. The CI workflow was added and then reverted in git history; CI state is unknown.
+Open items seen: lead capture form with server validation and rate limit (T-011) and App Check, security rules and production headers (T-030) are next in the checkpoint but not done.
+Facts to confirm with the client before launch: product list, prices and photos (who owns the images), showroom addresses and opening hours, WhatsApp number, whether a decor AI assistant is wanted. Ratings and follower counts from the old site were fabricated and must not return.
 
-## 4. What to port from the old project
-- Catalog data, 158 passing tests, showroom pages, decor AI rule engine.
+## 4. Security and conduct rules (for the build later)
+1. Admin only through a server-verified token with an allow-list; no client-only admin; no fake login user.
+2. No fabricated social proof: no ratings, review counts or follower counts unless they come from a real source the client controls, shown with the source.
+3. Lead form: server validation (zod), rate limit, honeypot, spam check, stored in the client's own project; the client's contact numbers are not hard-coded in public JS beyond the WhatsApp click link they asked for.
+4. Image licences confirmed in writing with the client; no stock images with unclear licences.
+5. CSP without `unsafe-eval`, security headers, gitleaks.
+6. The client's Firebase/Cloudflare projects are created by the client (or with the client's sign-in) at handover, never inside Ahmed's accounts.
 
-## 5. Screens and entities
-**Screens:** Home, Catalog, Product, Showrooms, Inquiry form, Admin catalog, Legal
-**Entities:** Product, Category, Showroom, Inquiry, AdminUser
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces
+Use Platform `ui/styles/hooks`, `i18n`, `legal-pack`, `owner-auth` (client admin) and Telegram sender only when the owner says build work starts. The planner engine stays in this repo (nobody else needs it).
 
-## 6. AI at the core
-Decor assistant: server route with quota; offline rule engine as fallback.
+## 6. Screens and entities
+Home, Catalog, Product, Showrooms, Room planner (2D, 3D, quote), Inquiry form, Admin catalog, Legal. Entities: Product, Category, Showroom, Inquiry, AdminUser, PlannerLayout.
+Five states, Arabic RTL first and English, 320 px to 4K, WCAG 2.2 AA, client logo.
 
-## 7. Security checklist (all must pass)
-- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
-- Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
-- Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
-- gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code).
-- Admin by custom claims; no fabricated social proof; image licences confirmed with the client; client owns the Firebase/Cloudflare projects at handover.
+## 7. AI
+Optional decor assistant with an offline rule engine as fallback, server route with quota, grounded only in the client's catalog; evals in Arabic and English; kill switch. Default: do not build until the client asks for it.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-negm-furniture` (the delivery channel for the friend).
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] Handoff pack in the repo: `HANDOFF.md`, `docs/CLIENT_SETUP.md`, `FRIEND_AGENT_PROMPT.md`, `docs/AGENT_PLAYBOOK.md` (the friend's AI agent works in Antigravity with Gemini high, so write short explicit steps, checklists and exact commands).
-- [ ] No Firebase, Cloudflare or GitHub organization is created by Ahmed for this project: the friend creates his own accounts with the agent's help.
-- [ ] CI: typecheck, lint, test, build, gitleaks on every push; first green run.
-### M1 Core slice
-- [ ] Catalog from real client-supplied data; inquiry form stored in Firestore with validation.
-### M2 Parity with the old project
-- [ ] Admin CRUD with real Cloudinary/R2 upload; SEO and structured data.
-### M3 Security and legal
-- [ ] Lead form protections (rate limit, honeypot, no email exposed), privacy page and cookie consent that match what the site really collects; security checklist green with tests.
-### M4 AI
-- [ ] Decor suggestions with citations to real catalog items only.
-### M5 Quality sweep
-- [ ] 5 states on every screen, ar/en with RTL, 4 themes, a11y audit, Lighthouse budgets, e2e for the critical journeys, screenshots at 390 px and 1280 px.
-### M6 Handoff
-- [ ] The friend pulls the repo, follows `docs/CLIENT_SETUP.md` with his agent, and the site is live on his own Cloudflare account; Ahmed's repo access is kept or removed as the friend decides.
-- [ ] Handover checklist to the client; domain `negm-furniture.eg` pointed at Cloudflare.
+## 8. Operations (client handoff pack)
+A one-page runbook for the client: how to edit products, how to read inquiries, where the backups are, who to call. Uptime check and monthly link check run by the owner's tools only if the owner agrees. Weekly Telegram line to Ahmed only (not to the client).
 
-## 9. Risks and open decisions
-- Client approvals for photos and contact details.
+## 9. Visibility and legal (client handoff, advice only)
+Local SEO for a showroom: Google Business Profile for each showroom (client sign-in), consistent name/address/phone, Arabic and English landing pages per product category, `Product` and `LocalBusiness` JSON-LD from real data, sitemap, `llms.txt`, facts page. Legal: privacy page covering the inquiry form and WhatsApp click, cookie notice only if analytics is added. All "AI-drafted, to be reviewed by a qualified lawyer".
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Milestones with exit checks (apply only after the owner lifts the freeze)
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Re-verify the frozen state | `scripts/verify.ps1` output saved; claimed 175 tests counted |
+| M1 | Lead capture and headers | form test with rate limit; `curl -I` header list |
+| M2 | Catalog from real data | client-approved product file; no fabricated numbers (grep test) |
+| M3 | Security | rules and token tests; gitleaks clean |
+| M4 | Planner polish | keyboard use, touch use, 320 px layout, screenshot set |
+| M5 | Quality | Lighthouse mobile 90+ saved JSON; RTL/LTR screenshots |
+| M6 | Handover | client owns domain, Cloudflare and Firebase; `HANDOFF.md` steps followed once by the client |
+
+## 11. Next 10 tasks (frozen until the owner says; each under 2 hours when unfrozen)
+1. Run `scripts/verify.ps1` and save the output. Files: `.sir/evidence/verify.md`. Check: counts match or the difference is written down.
+2. Grep test that fails on "4.95", "38 reviews", "285" and similar fabricated proof. Files: `scripts/check-no-fake-proof.mjs`. Check: passes on the repo, fails on an injected line.
+3. Lead capture form with zod validation and honeypot (T-011). Files: `apps/web/src/app/api/lead/`. Check: tests for valid, invalid and flood.
+4. Rate limit helper tests. Check: sixth request in a minute returns 429.
+5. Security headers file and CSP. Check: header list via `curl -I` on preview.
+6. Product data review sheet for the client (CSV of products, prices, image sources). Files: `docs/client-review.csv`. Check: every row has an image source field.
+7. Planner keyboard controls (move, rotate, delete) with tests. Check: engine tests plus a keyboard e2e.
+8. Planner touch handling at 390 px (pinch, drag). Check: screenshot and no horizontal scroll.
+9. Client handoff checklist in plain Arabic with exact clicks (domain, Cloudflare, Firebase, Google Business Profile). Files: `HANDOFF.md`. Check: another person can follow it (owner to ask the friend).
+10. Visibility foundation: sitemap, JSON-LD generator from real data, `llms.txt`. Check: validator output saved.
+
+## 12. Risks and open questions (defaults)
+- The freeze: default is no code change until the owner lifts it; only this plan is edited.
+- Image and product rights: default is use only client-supplied images with written permission.
+- Quote prices in the planner may become wrong: default is every quote says "estimate, confirmed by the showroom".
+- WhatsApp deep link behavior differs by device: default is test on one Android and one iPhone before handover.
+- Market claims: `plans/competitors/sir-negm-furniture.md` must show links or "(unsourced, verify)".
+
+## 13. Only the owner (and the client) can do
+Lift the freeze; talk to the friend about scope; the client signs in to create Cloudflare, Firebase, Google Business Profile and domain accounts and pays for them; the client confirms prices, photos and legal wording.

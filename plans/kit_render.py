@@ -93,7 +93,7 @@ The project chat is the **Project Manager** (`.claude/agents/{p["slug"]}-pm.md` 
 {rows}
 
 ## Model and effort by task level (full table: `D:/Projects/_SIR/plans/MODEL_ROUTING.md`)
-Level 0 search, logs, inventory, simple edits: haiku, low. Level 1 implement from a written spec, tests, UI, translations, app chores: haiku, high (max for big modules). Level 2 design, specs, reviews, hard debugging, refactors: sonnet, high. Level 3 auth, security, payments, migrations, legal: sonnet plus a second sonnet reviewer, high (xhigh for threat models). Level 4 stuck twice or expensive to undo: opus, high or xhigh, with the reason logged. Always spawn with `model` and `effort` set; send independent tasks together; at most 6 agents at once.
+Builders are Gemini in Antigravity and the free CLI agents (`D:/Projects/AGENTS.md` wins over this table); the Claude models below apply only to Claude review, audit and plan subagents. Level 0 search, logs, inventory, simple edits: haiku, low. Level 1 implement from a written spec, tests, UI, translations, app chores: haiku, high (max for big modules). Level 2 design, specs, reviews, hard debugging, refactors: sonnet, high. Level 3 auth, security, payments, migrations, legal: sonnet plus a second sonnet reviewer, high (xhigh for threat models). Level 4 stuck twice or expensive to undo: opus, high or xhigh, with the reason logged. Always spawn with `model` and `effort` set; send independent tasks together; at most 6 agents at once.
 
 ## Rules for this project
 - Spawn only for work that is independent, big, or needs fresh eyes: at most 6 agents at once, 2 heavy builds or emulators at once.

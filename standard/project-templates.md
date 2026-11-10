@@ -9,7 +9,7 @@ type: consumer-app          # consumer-app | business-app | utility | profile | 
 tier: flagship              # flagship | core | maintenance | concept
 wave: 1
 status: planned             # planned | building | beta | store-ready | live | paused
-version: 1.0.0-alpha.0
+version: 1.0.0              # owner rule 2026-11-09: stays 1.0.0 while under development
 owner: Ahmed Alaa (@sirahmed8)
 standard_version: 1.0.0
 platforms:                  # each: required | optional | skip (+ adr: when skipped)
@@ -104,7 +104,7 @@ Date · Status (proposed | accepted | superseded by ADR-MMM) · Deciders
 
 ```json
 {
-  "id": "sir-health", "version": "1.0.0-beta.3", "tier": "flagship", "wave": 1,
+  "id": "sir-health", "version": "1.0.0", "tier": "flagship", "wave": 1,
   "health": 4.2, "updated": "2026-11-05T18:00:00+02:00",
   "platforms": { "web": "beta", "windows": "building", "macos": "building", "android": "beta",
                  "ios": "building", "ipados": "building", "wearos": "planned", "watchos": "planned" },

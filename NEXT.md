@@ -1,17 +1,24 @@
-# NEXT (read this first; updated 2026-10-30)
-Program: rebuild every product as a new SIR project. Rules and order: `plans/MASTER_REBUILD_PLAN.md`. How every AI works: `plans/AGENT_PROTOCOL.md`. Targets: `plans/TIMELINE.md`. Each product's big plan: `plans/<slug>.md` (same file in `<folder>/.sir/PLAN.md`). Agents run everything.
+# NEXT (read this first; updated 2026-11-10)
+Program: every product is rebuilt as a new SIR project. Rules and order: `plans/MASTER_REBUILD_PLAN.md` (rules), `plans/WAVE_STUDY.md` (order). How every AI works: `plans/AGENT_PROTOCOL.md`. Each product's plan: `plans/<slug>.md` (same file in `<folder>/.sir/PLAN.md`). Agents run everything.
 
-## HOW CHATS WORK (Ahmed, 2026-11-01)
-- **HQ chat (folder D:\Projects, this chat):** manages all projects and the waves. It opens a project chat, reviews its reports in `ops/bus/sir-hq.md`, replies, and when a project is truly finished (plan and tasks done, in production, all platform builds) it tells Ahmed what the next project needs and waits for his OK before opening it. Protocol: `plans/HQ_PROTOCOL.md`; start prompt: `plans/START_PROMPT.md`. HQ never builds product code.
-- **Project chat (one per project folder):** analyses the whole project, makes its plan 100x better, builds with subagents chosen by task level, proves it, reports to HQ.
-- **Build order:** `plans/WAVE_STUDY.md` (AHome; SIR Study, SIR Jobs, SIR Laptop Manager; SIR Negm Furniture as a friend's handoff pack; SIR AI, SIR Content Creation Studio; SIR Business, SIR Hagoozat, SIR Obour Hub; SIR ModPack, SIR Mods for GTA V, SIR Life; SIR Platform and SIR Portfolio last; SIR Controller optional last). SIR Odysseus is removed.
-- No pull requests: commit and push straight to `main` once `verify` passes. Dashboard: the pinned "SIR Control Room" page (link in `ops/DASHBOARD_URL.txt`, `/sir`).
+## Where we are (2026-11-10)
+- The Claude subscription ends around 2026-11-23. After that, Gemini in Antigravity and the free CLI agents (Kilo, OpenCode, Devin CLI, ZCode) run everything from `D:\Projects\AGENTS.md`, `GEMINI.md` and these files.
+- Low-usage mode is on (`plans/LOW_USAGE_MODE.md`): at most 2 chats work at once, light tasks only, one commit per step.
+- The autopilot (`scripts/hq_autopilot.py`) works the queue `ops/AUTOPILOT_QUEUE.json` without Claude: r14-ahome, r15-laptop, r15-jobs, r15-control. State: `ops/HQ_CHECKPOINT.md`.
+- Model and account order: `ops/ACCOUNT_ROTATION.md`. Free CLI agents: `plans/CLI_AGENT_INSTRUCTIONS.md`.
 
-## Rules every chat follows (from Ahmed)
-- Use the computer, Chrome and apps for any task and work out how (`plans/COMPUTER_USE.md`). Read `plans/MAIN_PLAN.md`. Talk to other projects in `ops/bus/<slug>.md` and with ListAgents/SendMessage. Dashboard mods live in `_SIR/mods` and any chat may improve them or add a pane.
-- Desktop: `Desktop\SIR Projects\<project>\` holds open, start dev (play badge) and stop dev (stop badge) shortcuts, each with its own icon; regenerate with `scripts/make-icons-and-desktop.ps1`.
+## How chats work (Ahmed, 2026-11-01, updated 2026-11-10)
+- **HQ chat (folder D:\Projects):** manages all projects, reviews reports in `ops/bus/sir-hq.md`, writes briefs in `ops/briefs`, keeps the dashboard true. Protocol: `plans/HQ_PROTOCOL.md`. HQ does not build product code; since 2026-11-10 it may use its own subagents for review, audits and improvement work.
+- **Project chat (one per project folder):** reads its plan, builds (Gemini in Antigravity, or a free CLI agent when quota is out), proves it on screen, reports to HQ. Start prompt: `plans/START_PROMPT.md`.
+- **Build order:** `plans/WAVE_STUDY.md`. SIR Negm Furniture is plans only (friend's project). SIR Odysseus is removed.
+- No pull requests: commit and push straight to `main` once `verify` passes. Version stays 1.0.0. Dashboard: the pinned "SIR Control Room" page (link in `ops/DASHBOARD_URL.txt`).
 
-## Next for HQ (preparation only; HQ never builds)
-1. Close the readiness gaps below, one per session, and keep `plans/KIT.md` current: re-run `python plans/generate_plans.py` then `python plans/generate_kit.py` after any data change.
-2. Gaps still open: key rotation for the Obour Institutes keys when SIR Obour Hub ships; the Telegram bot token (BotFather, Ahmed's Telegram); `ADMIN_SECRET_KEY` at the GTA deploy; parity test of the shared setup in Antigravity, OpenCode and Kilo and the agent-config sync test (both are tasks in SIR Laptop Manager); legal truthful-claims sweep; x360ce app (no folder); publisher identity "SIR", domains, store accounts and payment keys (owner decisions, never blocking). Done 2026-10-30: logos for all 17 projects (Gemini app), studied wave order, deep-scan-first task in every project, SIR Control Room and SIR Guards mods installed.
-3. Per product the project chat owns: port from `legacy\` (inventories in `ops/inventory/`), build, deploy, push to `main`; at M6 move `legacy\*` to `old projects\`.
+## Rules every chat follows
+- Use the computer, Chrome and apps for any task and work out how (`plans/COMPUTER_USE.md`). Talk to other projects in `ops/bus/<slug>.md`. Dashboard mods live in `_SIR/mods` and any chat may improve them.
+- Desktop: `Desktop\SIR Projects\<project>\` holds open, start dev and stop dev shortcuts, each with its own icon; regenerate with `scripts/make-icons-and-desktop.ps1`.
+
+## Next for HQ
+1. Keep the autopilot queue moving; review each finished report (diff, tests, one on-screen check of the riskiest change) and push or write a fix brief.
+2. Before 2026-11-23: finish the successor files (`GEMINI.md`, `plans/INSTRUCTIONS_FOR_MANAGER.md`, `plans/MANAGER_MEMORY.md`) and test them by starting one fresh Antigravity chat that must continue from the checkpoint alone.
+3. Open gaps (owner-side, never blocking): key rotation for the Obour Institutes keys when SIR Obour Hub ships; `ADMIN_SECRET_KEY` at the GTA deploy; legal truthful-claims sweep; publisher identity, domains, store accounts and payment keys (the owner buys them; see `ops/OWNER_ACTIONS.md`).
+4. Per product the project chat owns: port from `legacy\` (inventories in `ops/inventory/`), build, deploy, push to `main`; at M6 move `legacy\*` to `old projects\`. Never delete `legacy\` before M6.

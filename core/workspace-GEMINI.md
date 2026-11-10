@@ -1,10 +1,4 @@
-# Gemini / Antigravity guardrails: SIR workspace (D:\Projects)
+# SUPERSEDED: the live file is D:\Projects\GEMINI.md (rewritten 2026-11-10). This template is kept only as a pointer.
+# The old text said "never push to main"; the owner replaced that on 2026-10-30 (no pull requests, push straight to main).
 
-Follow `AGENTS.md` in this folder (same rules for every tool). Gemini-specific notes:
-
-- Start by reading `_SIR/ops/HQ_CHECKPOINT.md` and continue from "Next step".
-- Never ask Ahmed and never wait for him; decide, log, continue.
-- No secrets in output or git. Private data (AHome, Habiba, credentials) never goes to an outside model.
-- Free quotas only. Do not enable paid overages or credits.
-- Evidence for every "done": command output or a screenshot.
-- Work in a git worktree or branch; never push to main.
+Source of truth: `D:\Projects\GEMINI.md`.

@@ -1,0 +1,12 @@
+# Inbox assistant (owner request 2026-11-10): the AI watches his messages and helps with work
+Goal: the AI reads what arrives on WhatsApp, Telegram (groups included), LinkedIn, Gmail and job sites open in his browser, tells him in simple Arabic what is new and what matters, drafts replies, and handles first-round job applications, so nothing is missed.
+
+## Design (built by the Jobs and Laptop chats, planned here)
+1. Read-only collectors: use the signed-in browser sessions through SIR Autonomy or Claude in Chrome (never typing passwords), plus the Gmail plugin where available; Telegram through its own bot or desktop client reading. Raw message text stays on this laptop.
+2. PRIVACY: personal chats are read and summarised by the LOCAL model (Ollama via ops scripts), not by cloud models; only anonymised or already-public job-post text may go to cloud models. AHome and Habiba material is never included.
+3. Digest: a short Arabic summary at set times (morning, evening) plus instant alerts for what matters (job replies, interviews, exams, university groups, deadlines), group chats compressed to 'what changed'.
+4. Triage: spam, unpaid-for-free-work offers and cold recruiting messages (like the unpaid internship message from an unknown number) are flagged with a one-line reason and a suggested polite decline; nothing is answered automatically.
+5. Replies: the AI writes DRAFTS in Ahmed's style; he approves with one tap (Telegram buttons or dashboard) and the browser sends it. Standing rule from his own Tier 3: the AI never poses as Ahmed in live conversations without his approval and never lies to anyone.
+6. Job applications: for jobs that match his profile the AI prepares complete honest first-round applications (CV tailored, answers truthful, no invented experience) and may SUBMIT the first-round form itself only when the dashboard switch 'auto-submit first-round applications' is ON (default OFF, per platform) and every claim is verified against his profile; each submission is logged with a copy; interviews, offers, payments and anything speaking beyond a first-round form always wait for him.
+7. Safety: no deleting or sending anything else, rate limits, a kill switch, daily log, one Telegram summary a day, no engagement bots, no scripting X.
+8. Where it lives: SIR Jobs (work), a shared collectors module in SIR Laptop Manager (browser reading), the digest delivered by the Telegram helper. Tasks go into their MASTER_PLAN backlogs.

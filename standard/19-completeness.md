@@ -2,7 +2,7 @@
 
 Run it at every milestone (the end of each phase for a project, and before every release), and whenever Ahmed asks "did we forget anything?".
 
-1. The PM goes through every item below and marks it ✅ done, ➖ not applicable (with a reason), or ⬜ missing (which becomes a BOARD task).
+1. The PM goes through every item below and marks it [x] done, [n/a] not applicable (with a reason), or [ ] missing (which becomes a BOARD task).
 2. Results are saved to `.sir/reports/completeness-<date>.md`.
 3. Then the owner's questions, answered in writing: *Did we forget anything? What's still missing compared with the best apps in this category (the module 21 benchmark)? What would Google, Apple or Stripe add here? What should we do next? What would Ahmed think if he saw this now? What else might he need?* Gaps become BOARD tasks, ideas become proposals, and anything that matches a row in `D:\Projects\_SIR\REQUIREMENTS.md` updates that row.
 

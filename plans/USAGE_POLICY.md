@@ -1,5 +1,7 @@
 # USAGE POLICY: spend the plan like money (Ahmed, 2026-11-02)
 
+> Status 2026-11-10: still in force. The newest limits on top of it are in `LOW_USAGE_MODE.md` (at most 2 chats at once). The Claude subscription ends around 2026-11-23; the same discipline applies to Gemini and the CLI agents (restart at about 150k tokens, read ranges, no polling).
+
 Plan: Claude Pro, weekly limit resets Sunday 02:00 Cairo. On 2026-11-02 the week was 76% used after about 1 day (an even pace is about 14% per day). Quality stays; waste goes. Every chat and subagent follows this file.
 
 ## What burned the quota (7-day report, this machine)
@@ -10,7 +12,7 @@ Plan: Claude Pro, weekly limit resets Sunday 02:00 Cairo. On 2026-11-02 the week
 ## Rules (all chats)
 1. **Small context.** At about 150k tokens (`get_usage` shows it): write the checkpoint, then `/compact` or start a fresh chat from `.sir/CHECKPOINT.md`. Never run one chat for hours on one huge context. Memory is files, not chat.
 2. **Read ranges, not files.** `Grep` first, then `Read` with offset/limit. Never read a whole large file, a dashboard HTML, a lockfile or a log; use `tail`/`head`/`wc` or a haiku subagent that returns 10 lines.
-3. **Model by level (MODEL_ROUTING.md), cheaper default.** Level 0-1 work is haiku. Sonnet is for design, review, security and hard debugging. Default effort is `medium`; `high` only for levels 2-3; `xhigh`/`max` need a written reason. Opus only when stuck twice.
+3. **Model by level (MODEL_ROUTING.md), cheaper default.** Level 0 work and screen operation are haiku. Sonnet is for design, review, security and hard debugging. Building is done by Gemini in Antigravity or the free CLI agents, not by Claude. Default effort is `medium`; `high` only for levels 2-3; `xhigh`/`max` need a written reason. Opus only when stuck twice.
 4. **Fewer, bigger, better-briefed agents.** At most 3 agents at once (was 6). One agent per file set. A brief with files, edits allowed, done-when commands and a 15-line return format. No agent for work under about 8 tool calls. No second agent that re-reads what the first already read: pass it the summary.
 5. **Scripts beat agents.** Anything deterministic (rename, count, generate files, run tests, grep reports, update checklists) is a script or one command, not a model loop. Generate from data (`plans/*.py`), do not hand-write 12 similar files.
 6. **Free local workers for bulk.** Summaries, translation drafts, digests, first-pass reviews and classification go through `_SIR/scripts/ai/ask.ps1` (local qwen3:8b / qwen2.5-coder on `D:\Projects\AI_Models_Hub`, or free Gemini for non-private text). Private text stays local. Claude reviews the result; it does not produce it.

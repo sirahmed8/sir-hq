@@ -1,4 +1,6 @@
 # Competitor Study: SIR Obour Hub (Academic Campus Community & Services)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: EdTech, Campus Community, Student Services & Marketplace  
 **Target Audience**: Students of Obour High Institutes (Engineering, Computer Science, Commerce) & Obour University
@@ -28,3 +30,8 @@
 2. **Curated Course Vault (R2 Powered)**: Organized by Academic Year -> Department (CS, Civil, Architecture, Business) -> Subject -> Doctor. 1-click download of verified lecture summaries and past exam sheets.
 3. **Zero-Fee Peer-to-Peer Student Marketplace**: Direct WhatsApp connection for buying and selling used textbooks, T-squares, and calculators without middleman platform fees.
 4. **Academic Assistant AI**: Grounded in the specific institute curriculum, course syllabi, and official institute regulations to answer common student inquiries accurately in Egyptian Arabic.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Find the official Obour institute pages that publish timetables or results and record whether reuse is allowed (links).
+2. List 5 existing student-notes sites or groups used by Egyptian students with links; record what they lack.
+3. Find any public enrolment figure for Obour institutes from an official page before quoting a student count.

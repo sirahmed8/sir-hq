@@ -9,23 +9,23 @@
 
 | Project | Competitor File | Egypt PDPL / Tax | Gulf (KSA/UAE) Fit | GDPR / CCPA Pack | Privacy Analytics | Legal Disclaimers | Enterprise Extra |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **SIR Hagoozat** | `competitors/sir-hagoozat.md` | ✅ Paymob/ETA | ✅ Mada/ApplePay | ✅ WCAG 2.2 AA | ✅ Opt-in | ✅ Lawyer Notice | ✅ Status page |
-| **SIR Business** | `competitors/sir-business.md` | ✅ ETA e-invoice | ✅ ZATCA Phase 2 | ✅ Full DPA | ✅ Opt-in | ✅ Lawyer Notice | ✅ Multi-tenant |
-| **SIR Obour Hub** | `competitors/sir-obour-hub.md` | ✅ Student privacy | N/A | ✅ Safe storage | ✅ Pseudonymous | ✅ Terms of Use | ✅ Rate-limiting |
-| **SIR Negm Furniture** | `competitors/sir-negm-furniture.md`| ✅ Consumer Prot. | ✅ GCC Shipping | ✅ Export terms | ✅ Privacy-first | ✅ Lawyer Notice | ✅ 3D fallback |
-| **SIR Content Studio** | `competitors/sir-content-creation-studio.md`| ✅ Local creator | ✅ Arabic LLM | ✅ GDPR export | ✅ Opt-in | ✅ AI Disclosure | ✅ Token caps |
-| **SIR AI** | `competitors/sir-ai.md` | ✅ Local models | ✅ Arabic tokens | ✅ Local-first | ✅ Zero cloud PII | ✅ AI Output limit | ✅ Offline sync |
-| **SIR Controller** | `competitors/sir-controller.md` | ✅ HW privacy | ✅ Universal | ✅ Zero tracking | ✅ Local telemetry| ✅ HW Safe terms | ✅ Rollback safe |
-| **SIR Laptop Manager**| N/A (Internal tool) | ✅ Local hardware | N/A | ✅ Local only | ❌ Local only | N/A | ✅ Silent daemons |
-| **AHome** | N/A (STRICTLY PRIVATE) | ❌ Zero outside | ❌ Zero outside | ❌ Zero outside | ❌ Zero analytics| ❌ Private | ✅ Air-gapped |
-| **SIR Jobs** | N/A (Private career) | ✅ Private user | N/A | ✅ Local-first | ❌ Private only | N/A | ✅ Encrypted DB |
-| **SIR Study** | N/A (Private study) | ✅ Student notes | N/A | ✅ Local-first | ❌ Private only | N/A | ✅ Backup drill |
-| **SIR Life** | `competitors/sir-life.md` | ✅ Health privacy | ✅ Hijri calendar| ✅ GDPR health | ✅ Opt-in local | ✅ Medical limit | ✅ Export JSON |
-| **SIR ModPack** | `competitors/sir-modpack.md` | ✅ Local mirrors | ✅ Universal | ✅ COPPA (age 13+)| ✅ Opt-in | ✅ Minecraft EULA | ✅ Hash verify |
-| **SIR Mods for GTA V** | `competitors/sir-mods-for-gta-v.md`| ✅ Local mirrors | ✅ Universal | ✅ Fair use DMCA | ✅ Opt-in | ✅ Rockstar EULA | ✅ Safe backup |
-| **SIR Portfolio** | `competitors/sir-portfolio.md` | ✅ Founder profile | ✅ Regional bio | ✅ Cookie banner | ✅ Plausible/Umami| ✅ Copyright | ✅ GEO llms.txt |
-| **SIR Platform** | N/A (Shared library) | ✅ Standard | ✅ RTL standard | ✅ A11y standard | ❌ Library only | ✅ MIT / Proprietary| ✅ Test suite |
-| **_SIR** | N/A (HQ Control Room) | ✅ Ops truth | N/A | N/A | ❌ Internal only | N/A | ✅ Telegram bot |
+| **SIR Hagoozat** | `competitors/sir-hagoozat.md` | Yes Paymob/ETA | Yes Mada/ApplePay | Yes WCAG 2.2 AA | Yes Opt-in | Yes Lawyer Notice | Yes Status page |
+| **SIR Business** | `competitors/sir-business.md` | Yes ETA e-invoice | Yes ZATCA Phase 2 | Yes Full DPA | Yes Opt-in | Yes Lawyer Notice | Yes Multi-tenant |
+| **SIR Obour Hub** | `competitors/sir-obour-hub.md` | Yes Student privacy | N/A | Yes Safe storage | Yes Pseudonymous | Yes Terms of Use | Yes Rate-limiting |
+| **SIR Negm Furniture** | `competitors/sir-negm-furniture.md`| Yes Consumer Prot. | Yes GCC Shipping | Yes Export terms | Yes Privacy-first | Yes Lawyer Notice | Yes 3D fallback |
+| **SIR Content Studio** | `competitors/sir-content-creation-studio.md`| Yes Local creator | Yes Arabic LLM | Yes GDPR export | Yes Opt-in | Yes AI Disclosure | Yes Token caps |
+| **SIR AI** | `competitors/sir-ai.md` | Yes Local models | Yes Arabic tokens | Yes Local-first | Yes Zero cloud PII | Yes AI Output limit | Yes Offline sync |
+| **SIR Controller** | `competitors/sir-controller.md` | Yes HW privacy | Yes Universal | Yes Zero tracking | Yes Local telemetry| Yes HW Safe terms | Yes Rollback safe |
+| **SIR Laptop Manager**| N/A (Internal tool) | Yes Local hardware | N/A | Yes Local only | No Local only | N/A | Yes Silent daemons |
+| **AHome** | N/A (STRICTLY PRIVATE) | No Zero outside | No Zero outside | No Zero outside | No Zero analytics| No Private | Yes Air-gapped |
+| **SIR Jobs** | N/A (Private career) | Yes Private user | N/A | Yes Local-first | No Private only | N/A | Yes Encrypted DB |
+| **SIR Study** | N/A (Private study) | Yes Student notes | N/A | Yes Local-first | No Private only | N/A | Yes Backup drill |
+| **SIR Life** | `competitors/sir-life.md` | Yes Health privacy | Yes Hijri calendar| Yes GDPR health | Yes Opt-in local | Yes Medical limit | Yes Export JSON |
+| **SIR ModPack** | `competitors/sir-modpack.md` | Yes Local mirrors | Yes Universal | Yes COPPA (age 13+)| Yes Opt-in | Yes Minecraft EULA | Yes Hash verify |
+| **SIR Mods for GTA V** | `competitors/sir-mods-for-gta-v.md`| Yes Local mirrors | Yes Universal | Yes Fair use DMCA | Yes Opt-in | Yes Rockstar EULA | Yes Safe backup |
+| **SIR Portfolio** | `competitors/sir-portfolio.md` | Yes Founder profile | Yes Regional bio | Yes Cookie banner | Yes Plausible/Umami| Yes Copyright | Yes GEO llms.txt |
+| **SIR Platform** | N/A (Shared library) | Yes Standard | Yes RTL standard | Yes A11y standard | No Library only | Yes MIT / Proprietary| Yes Test suite |
+| **_SIR** | N/A (HQ Control Room) | Yes Ops truth | N/A | N/A | No Internal only | N/A | Yes Telegram bot |
 
 ---
 

@@ -17,5 +17,5 @@
 - **Dependencies:** each new dependency needs a reason (bundle size, maintenance, license, security, native-module support on every target). Prefer the platform and existing `@sir/*` packages. Lockfiles committed; versions pinned through the workspace catalog.
 - **Comments** explain *why*, not *what*. Delete dead code; git remembers it.
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `perf:`, `test:`, `docs:`, `chore:`), small and focused, each one building.
-- **Refactors:** separate from feature work, test-covered first, and in their own PR when large. Code that can be replaced by something far smaller and clearer should be, under the same rules.
+- **Refactors:** separate from feature work, test-covered first, and in their own commit series when large (no pull requests, push to `main` after verify). Code that can be replaced by something far smaller and clearer should be, under the same rules.
 - **AI-legible code:** consistent names, small files, typed public APIs, a README per package, and `docs/CODEMAP.md` (a one-line purpose for every top-level folder and package). A new developer or a new AI should find anything within minutes.

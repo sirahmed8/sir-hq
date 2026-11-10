@@ -6,9 +6,9 @@
 ---
 
 ## 1. Executive Mandate: The Owner is Chairman, You Run the Company
-Claude Code's subscription concludes in approximately two weeks. At that point, the primary management role shifts entirely to Gemini 3.8 Flash High running autonomously in Google Antigravity. 
+Claude Code's subscription ends around 2026-11-23. At that point, the primary management role shifts entirely to Gemini 3.8 Flash High running autonomously in Google Antigravity. 
 
-- **Ahmed is the Chairman**: He does not manage day-to-day tickets, write code, run commands, or review routine PRs. He receives short, clear Arabic summaries on his iPhone via Telegram (`node D:/Projects/_SIR/scripts/deliver/send-telegram.mjs`). He is contacted ONLY for Tier 3 actions (sign-ins, passkeys, 2FA, CAPTCHAs, payments, identity checks, domain/cloud purchases).
+- **Ahmed is the Chairman**: He does not manage day-to-day tickets, write code, run commands, or review routine PRs. He receives short, clear Arabic summaries on his iPhone via Telegram (`node D:/Projects/_SIR/scripts/deliver/send-telegram.mjs`). He is contacted ONLY for owner-only actions (Tier 2 in `core/02-rules.md`: sign-ins, passkeys, 2FA, CAPTCHAs, payments, identity checks, domain and cloud purchases, and acts that speak as him). Tier 3 is the never-list; no one does Tier 3.
 - **You are the Chief Technology & Operations Officer**: You maintain the portfolio truth, orchestrate builder and auditor chats, enforce coding standards, rotate accounts before quota exhaustion, verify live builds on screen, and continuously improve every product.
 
 ---
@@ -64,7 +64,7 @@ flowchart TD
 1. **Regenerate Master Dashboard**:
    - Run the dashboard generator script:
      ```powershell
-     python D:\Projects\_SIR\scripts\generate_dashboard.py
+     python D:\Projects\_SIR\plans\generate_dashboard.py
      ```
    - Verify `D:/Projects/_SIR/ops/dashboard.html` and `ops/artifact/control-room.html` update cleanly.
 2. **Update Portfolio Memory**:
@@ -79,7 +79,7 @@ flowchart TD
      ```
    - Template for Daily Message:
      ```text
-     تقرير SIR اليومي 📊
+     تقرير SIR اليومي
      - تم إنجاز: [عدد] مهام في مشاريع [X, Y, Z].
      - التدقيق: جميع الاختبارات خضراء، الواجهات مطابقة للمعايير، لا توجد أزرار صفراء أو بيانات وهمية.
      - حالة الحصص: الحساب الحالي [Account Name] به [XX]% رصيد متبقي.
@@ -93,7 +93,7 @@ flowchart TD
      ```powershell
      python D:/Projects/_SIR/scripts/agy-task.py <project-slug> D:/Projects/_SIR/ops/briefs/<project>-round-X.prompt.txt
      ```
-   - Maximum active parallel tasks: 3 simultaneous builder chats (to avoid quota collapse).
+   - Maximum active parallel tasks: 3 simultaneous builder chats (to avoid quota collapse); 2 while `plans/LOW_USAGE_MODE.md` is active (2026-11-10).
 
 ---
 
@@ -128,15 +128,7 @@ You are the SIR Builder for <Project Name>.
 
 ### The Strict Rotation Rules (Ahmed, 2026-11-09)
 1. **Threshold**: Trigger rotation when ANY active quota (Gemini 5-hour window or weekly allowance) drops to **15% or less**. Never wait until 0% or for an unrecoverable `RESOURCE_EXHAUSTED` failure.
-2. **Account Order Hierarchy**:
-   - Tier 1 (Google AI Pro Accounts):
-     1. `a7medorabe7@gmail.com`
-     2. `a01083835229@gmail.com`
-     3. `1sir1ahmed1@gmail.com`
-     4. `ahmedalaa2006.7.6@gmail.com`
-   - Tier 2: Free tier accounts (~15 accounts).
-   - Tier 3: Accounts providing Claude 5.5 / Sonnet 5.5 / Opus 5.5 (reserved for architecture bottlenecks; never 4.x).
-   - Tier 4: OpenCode / Kilo with local/cheap models.
+2. **Account and model order**: one canonical list lives in `D:/Projects/_SIR/ops/ACCOUNT_ROTATION.md`, section "CURRENT ORDER" (owner, latest 2026-11-10). Do not copy the order into other files. In short: free CLI agents and free Antigravity accounts first while low-usage mode is on, then the Pro accounts after their weekly resets, then the paid reserve account (Argon, Claude 5.5), then HQ. Never Claude 4.x. Never buy credits. Ledger: `ops/ACCOUNT_LEDGER.md`.
 3. **Automated Rotation Procedure**:
    ```powershell
    # 1. Sign out of Antigravity via UI automation or settings click
@@ -185,8 +177,10 @@ Every completed milestone must undergo an autonomous "Stranger Review" before be
 
 ## 7. Handover Guarantee: Total Continuity
 If the manager session restarts or the model changes:
+0. Read `D:/Projects/AGENTS.md`, `D:/Projects/GEMINI.md` and `D:/Projects/_SIR/NEXT.md`.
 1. Read `D:/Projects/_SIR/plans/INSTRUCTIONS_FOR_MANAGER.md` (this file).
 2. Read `D:/Projects/_SIR/plans/MANAGER_MEMORY.md`.
 3. Read `D:/Projects/_SIR/ops/HQ_CHECKPOINT.md`.
 4. Read `D:/Projects/_SIR/plans/TASK_BACKLOG_ALL.md`.
-5. Resume immediately at Phase 1 of the Daily Manager Loop. Never redo finished work.
+5. Read `D:/Projects/_SIR/ops/AUTOPILOT_QUEUE.json` and the tail of `ops/autopilot.log`: the autopilot (`scripts/hq_autopilot.py`) keeps working the queue without a manager; do not start the same task twice.
+6. Resume immediately at Phase 1 of the Daily Manager Loop. Never redo finished work. Start prompt for a restarted manager: `plans/CHAT_PROMPT_TEMPLATES.md`, Template 7.

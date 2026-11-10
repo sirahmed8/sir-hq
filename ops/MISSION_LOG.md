@@ -254,3 +254,15 @@
 - 23:34 HQ: r13-services sent to jobs/control/study/laptop; muse-spark-1.3 id in opencode noted.
 - 23:41 HQ: LOW_USAGE_MODE.md written; status review done; game-mode services note for Laptop.
 - 00:29 HQ: r13 study+control done (detached daemons, tasks SIR_Study_Server, SIR_ControlRoom_Server); Laptop CI green.
+- 01:28 HQ: r13 done in all 4 chats; ports 3456/3300/8765/8899 answer; Laptop CI failing again (chat fixing); parent-process check inconclusive.
+- 01:29 HQ: checkpoint updated; calm period, low-usage mode, owner switching accounts.
+- 01:36 HQ: Antigravity accounts all exhausted; AHome r14 (27 screenshot findings A-N) running through OpenCode via scripts/cli-run.sh (models rotate big-pickle/glm/deepseek), log ops/agy-runs/cli-r14-ahome.log. Other chats parked. Laptop update-all-programs task queued, not sent.
+- 01:43 HQ: rotation order updated (OpenCode first, free Antigravity reserve); plans/INBOX_ASSISTANT.md written; live log tab opened for the owner.
+- 01:55 HQ: opencode free limit reached after round 1 (Item A done, uncommitted); handover note added to AHome R14_CHECKLIST; kilo auto-free now running r14.
+- 01:55 HQ: checkpoint updated; r14 running via kilo; inbox assistant plan written.
+- 02:11 HQ: installed Devin CLI and ZCode, tested OpenRouter free via opencode; Gemini CLI free tier discontinued.
+- 02:24 HQ: Devin/ZCode ready; cli-run2.sh + CLI_AGENT_INSTRUCTIONS.md written; PASTE_AHOME_2.txt for owner.
+- 02:24 HQ: checkpoint updated; r14 running via CLIs; Devin/ZCode installed; owner pastes PASTE_AHOME_2 on free Antigravity accounts.
+- 2026-11-10 HQ: CLI loop paused (owner uses Antigravity free accounts first); web research allowed; profile-switch plan (Haiku, computer use) written.
+- 02:53 HQ: autopilot (SIR_HQ_Autopilot) + telegram buttons + queue (r14-ahome, r15-laptop, r15-jobs, r15-control) + reminder task installed; owner asleep.
+- 2026-11-10 04:40 HQ: instructions audit closed (generators guarded), owner standing requests digest written (ops/OWNER_STANDING_REQUESTS.md), Haiku operator rotating free Antigravity accounts for AHome r14, three review agents still running.

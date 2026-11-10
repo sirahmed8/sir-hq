@@ -1,7 +1,7 @@
 # Verify-first list (moving targets; check official sources before acting)
 
 - **Claude Code:** subagent frontmatter fields, agent-teams enablement, hook events and payloads, permission settings, Remote Control flags, what survives compaction and the `/autocompact` setting (code.claude.com/docs).
-- **Antigravity:** rules locations and size limits, skills folder, MCP config location (antigravity.google/docs).
+- **Antigravity:** rules locations and size limits, skills folder, MCP config location (antigravity.google/docs). The Gemini CLI free tier is discontinued (2026-11): do not plan on it; use Antigravity and the free CLI agents in `plans/CLI_AGENT_INSTRUCTIONS.md`.
 - **Expo:** current SDK; `@expo/ui` APIs for Liquid Glass and Material 3 Expressive; EAS Build/Submit/Update limits on the free tier.
 - **Android / Google Play:** target API requirement (since 31 Aug 2026 new apps and updates must target API 36 / Android 16; Android 17 is API 37; Wear OS has its own lower requirement); 16 KB page-size support for native libraries; edge-to-edge; large-screen resizability rules in Android 16+; exact-alarm and background-location policies; new policies for apps targeting API 37 (Contact Picker and Location Button, announced for early 2027); new **personal** developer accounts must run a closed test with at least 12 testers opted in for 14 continuous days before production access.
 - **Apple:** current Xcode/SDK required for App Store uploads; iOS 27 / iPadOS / watchOS / macOS HIG; Liquid Glass; layered icons made with Icon Composer; privacy manifests; in-app account deletion; login rules (guideline 4.8); in-app purchase rules for the storefronts you target.

@@ -1,4 +1,6 @@
 # Competitor Study: SIR Controller (Windows System Latency & Gaming Optimizer)
+
+> AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
 **Category**: PC Gaming Optimization, Windows Latency Reduction, System Performance  
 **Target Audience**: Competitive Esports Gamers (Valorant, CS2, Fortnite), Power Users, Content Creators
@@ -29,3 +31,8 @@
 2. **Ultra-Lightweight Rust/Python Daemon**: Consumes under **25MB RAM** and **0.1% CPU** when idling in the background; operates silently using `CREATE_NO_WINDOW = 0x08000000` with zero intrusive popups.
 3. **Deterministic 1-Click System Restore**: Every tweak, registry key change, and service modification is backed up to a local `.reg` delta before application, guaranteeing complete 1-click reversal.
 4. **Permanent Free Core Tier**: Zero adware, zero bundled toolbars, zero telemetry tracking. Clean high-contrast tactile UI with zero yellow buttons.
+
+## Sourcing tasks (open, each under 2 hours)
+1. Read the x360ce licence file and the repository page; record licence and who may redistribute (link, date).
+2. Compare DS4Windows, Steam Input and vendor tools: official pages, supported pads, price (links).
+3. Find 5 public complaints about controller mapping on Windows (links).

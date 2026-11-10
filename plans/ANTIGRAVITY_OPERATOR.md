@@ -1,5 +1,7 @@
 # Antigravity operator guide: start a new agent chat and send a prompt
 
+> Status 2026-11-10: the click path is still valid. The model chip text changes with the account: it may read "Gemini 3.8 Flash High", "Gemini 4 Argon" or a Claude 5.5 model, depending on the account and quota (`ops/ACCOUNT_ROTATION.md`, CURRENT ORDER). Do not change the chip unless the rotation file says so; never pick a Claude 4.x model. The operator is a Haiku sub-agent at the lowest effort, never HQ itself. After 2026-11-23 the Claude operator is gone: a Gemini chat with computer use does this, or the free CLI agents run through `scripts/cli-run2.sh` without any screen.
+
 Status: partly verified on 2026-11-08. Steps 1 to 3 were tested. The prompt was not sent yet (see "Blockers seen").
 
 ## Click path

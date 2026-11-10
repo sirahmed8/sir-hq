@@ -1,74 +1,83 @@
-# PLAN: SIR Laptop Manager
-Status: planned, not started. Wave 2. Replaces: Laptop manager + antigravity-agent-suite. Read `_SIR/NEXT.md` and `_SIR/plans/MASTER_REBUILD_PLAN.md` first.
+# PLAN: SIR Laptop Manager (Wave 2, internal tool)
+Audited 2026-11-10. Replaces: `Laptop manager` and `antigravity-agent-suite` (both now under `legacy/`, kept until M6). Internal tool for one owner: not sold, not listed, `noindex`. Commercial items are marked "n/a" with the reason; nothing is silently dropped.
 
-## 0. THIS IS A MERGE PROJECT (read first)
-The old projects below were physically moved into this folder (`legacy/`, or `materials/` for study) with their complete code, git history, structure and assets. Many projects with many features are being merged into this ONE new product so one agent can finish it end to end.
-- antigravity-agent-suite
-- Laptop manager (moves in when replaced)
-Your job: read `_SIR/ops/inventory/` for each source, then port everything of value into the new clean structure (apps/, packages/) with professional, high quality code and clean architecture; fully set up and configured; tested; deployed to Cloudflare; pushed to the private repo; in production mode (real env vars by name, real domain or pages.dev, monitoring, backups). Never edit `legacy/` except to read. When M6 is complete, move every `legacy/*` folder to `D:/Projects/old projects/` and record it in the checkpoint.
-
-## 1. Mission and audience
-Ahmed's Personal OS: PC care, cleanup with quarantine, routines, the one canonical agent configuration (agents, skills, rules) synced to every AI tool, local RAG and automations. Internal tool, not sold.
+## 1. Purpose (plain words)
+It keeps Ahmed's Windows laptop healthy. It shows disk, memory, battery and startup items on one page, cleans junk safely (everything goes to a quarantine folder first and can be restored), pauses heavy background programs while he plays a game, and keeps one set of AI-agent rules in sync across all his coding tools.
 
 ## 2. Names and IDs
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Laptop Manager` |
 | GitHub (private) | `sirahmed8/sir-laptop-manager` |
-| Firebase project / OAuth app name | `sir-laptop-manager` / "SIR Laptop Manager" |
-| Cloudflare project | `sir-laptop-manager` (`sir-laptop-manager.pages.dev` until a domain is affordable) |
-| App ids | `app.sir.sir-laptop-manager` (Android, iOS, Windows) |
-| Platforms | Windows (PowerShell + Python + small desktop UI); private repo |
-| Money | none (internal) |
+| Runtime | Python 3.14 (uv), `src/sir_laptop_manager/` (packages: agent_config, care, core, look, ops_ui, power, rag, startup, tray), ops page on `127.0.0.1:8765` |
+| Platforms | Windows: built, unverified (ops page, tray, scheduled task `SIR_Laptop_Manager`). iPhone companion over Tailscale: built, unverified. Web/PWA, Android, macOS, Linux, TV, watch, extension: skipped, a Windows-only tool |
+| Money | none (internal). Subscription, EGP pricing, checkout fallback: n/a. Default: if it is ever sold, move the generic parts to SIR Platform billing first |
 
-## 3. Why rebuild (evidence from the Phase 3 inventories)
-- A Telegram bot token is hard-coded in 5 tracked files; cleaners delete without quarantine; an academic automation script conflicts with the graded-work rule; skills in antigravity-agent-suite (97) are synced nowhere and mix licences.
+## 3. Current state
+Claimed in `.sir/CHECKPOINT.md` (2026-11-10): milestones M0 to M10 and rounds 8 to 13 done, "207/207 tests green", 96 source files typed clean. PORTFOLIO.md (2026-11-08) said 12 of 27 tasks, 29 commits.
+Verified by this audit on 2026-11-10 (command `uv run --offline pytest -q` in the project folder): **188 passed, 19 failed** out of 207. Failures are in `tests/test_ops_ui_server.py` and `tests/test_tailnet_allowlist.py`; first cause: tests patch `ops_ui.server.execute_cleanup`, which no longer exists. So "207/207" was not true today. Nothing else was re-run.
+Built, unverified: dry-run cleanup with SHA-256 quarantine, desktop shortcut doctor, startup doctor with registry backup, game-mode service relief (`game_services.py`, `game_mode.py`), disk watcher, telemetry history, tray companion, agent-config sync (18 tools), local RAG over `AI_Models_Hub`, Dynamic-Island style tabs, Arabic RTL layout, scheduled-task daemon with log rotation.
+Not started: Telegram report format per standard 26, evals for RAG (Arabic and English), licence audit of the 97 imported skills, restore drill evidence, phone/Tailscale threat test, CI proof (GitHub run link), Chinese and Hindi text.
 
-## 4. What to port from the old project
-- agent-config (18 agents, rules, sync script), local-ai RAG, PC cleaner logic, storage watchdog, the 97 skills after a licence audit.
+## 4. Security rules (each needs a test or command)
+1. Binds to 127.0.0.1; phone access only with `Tailscale-User-Login` header check plus CSRF HMAC token. Test: bad host and bad origin POSTs return 403 (the currently failing tests cover this; fix them first).
+2. Every POST that changes anything defaults to dry run and needs explicit `confirm: true` (boolean, not a string).
+3. Deletes always go to quarantine with a manifest; undo works. Sync never deletes.
+4. Secrets only in Credential Manager or untracked `.env`. The old hard-coded Telegram token in 5 legacy files is rotated (M6) and gitleaks runs on history.
+5. No graded-work automation of any kind (the legacy academic script stays in `legacy/` and is not ported).
+6. Paths and subprocess arguments never from raw input (path traversal test).
+7. Private text (notes, RAG corpus) goes only to local models.
+8. Licence audit of the 97 skills before they leave `legacy/`: keep MIT/Apache/BSD, drop unknown.
 
-## 5. Screens and entities
-**Screens:** Dashboard (disk, startup, health), Cleanup (dry run -> quarantine), Routines, Agent config sync, Local AI (RAG), Settings
-**Entities:** CleanupPlan, QuarantineItem, Routine, AgentProfile, Skill, SyncRun
-**UX rules:** Every screen implements the 5 states: first use, loading skeleton matching the final layout, empty (one clear action), error (human message + Retry), populated (paginated or virtualized, fine with 1,000+ items). Arabic RTL (CSS logical properties) + English + Simplified Chinese + Hindi; light, dark, system and high-contrast themes; keyboard shortcuts; 320 px to 4K; zoom 80%-200%; spring motion with a reduced-motion path; WCAG 2.2 AA. Own colour seed and icon; the same Profile and Settings screens as every SIR product.
+## 5. Shared pieces (use SIR Platform, do not rebuild)
+- Telegram reports and approvals: use the one shared sender `scripts/deliver/send-telegram.mjs` and the report format in section 8; do not write a second bot.
+- Design tokens and settings/profile screens: copy from the first finished SIR web product; Platform extracts them last. Until then keep them as `src/.../look/` and mark them "extract to Platform".
+- No auth, billing or AI proxy needed (single owner, loopback). The local RAG is the only AI feature and it stays local.
 
-## 6. AI at the core
-Local models only for private text; routine briefs; skill discovery.
+## 6. Screens and entities
+Screens: Dashboard (disk, memory, battery, startup, health), Cleanup (dry run, quarantine, restore), Game mode, Shortcuts and startup doctor, Agent config sync, Local AI (RAG), Settings and Profile. Entities: CleanupPlan, QuarantineItem, Routine, AgentProfile, Skill, SyncRun, GameProfile.
+Five states on every screen. Arabic RTL and English first; light, dark, system, high contrast; 320 px to 4K; spring motion with reduced-motion path; WCAG 2.2 AA; own logo in favicon, tray and top bar.
 
-## 7. Security checklist (all must pass)
-- Data stays on Ahmed's machine; nothing about the people involved goes to any outside AI provider, repo, log or artifact (AHome: everything about Habiba stays private).
-- Secrets only in Windows Credential Manager or an untracked `.env` outside git; gitleaks clean in CI and pre-commit; licence audit.
-- Login is required on every surface, never optional: two named accounts only, passkey (WebAuthn) or a strong password plus TOTP, sessions in HttpOnly + Secure + SameSite=Strict cookies, rate limit and lockout, server-side check on every route, a device allow-list for phones. An unauthenticated request gets 401 (tested). Anyone who finds the address still sees nothing.
-- Local server binds to 127.0.0.1 only; any phone access goes through the private tunnel with auth; no public ingress; threat model written and tested.
-- Every destructive action has a dry run and an undo (quarantine); data directory snapshot and restore drill recorded before the first change.
-- Input validated at every boundary (pydantic or zod); subprocess and file paths never built from raw input.
-- Secrets only in Credential Manager/env; deletes always quarantine first; sync script never deletes; no graded-work automation.
+## 7. Support assistant and AI
+In-product assistant = the RAG page grounded only in `docs/` and the runbook; answers in Arabic or English; no quota (one user). Fallback: local model A, local model B, plain search over docs. "Why is my laptop slow" explanation with a one-tap safe fix is the flagship; it must show the dry run first.
 
-## 8. Milestones
-### M0 Foundations
-- [x] Create the folder from `plans/MASTER_REBUILD_PLAN.md` naming rules; `git init`, private GitHub repo `sirahmed8/sir-laptop-manager`.
-- [x] `.sir/` file set (project.yml, CHECKPOINT.md, BOARD.md) from `standard/project-templates.md`; AGENTS/CLAUDE/GEMINI from `standard/agent-files.md`.
-- [ ] Data and secrets layout: data directory and `.env` outside git, backup copy to `D:/Projects/Backups`, snapshot and restore drill saved in `.sir/evidence/`.
-- [ ] Threat model and privacy data map (what may leave the machine: nothing private) written in `docs/`.
-- [ ] Authentication design: two named accounts, passkey or password plus TOTP, sessions, lockout, device allow-list, phone access only through a private tunnel with its own identity check (Cloudflare Access limited to the two accounts, or Tailscale; verify current terms first); written as an ADR before any code.
-- [ ] Local verify: lint, typecheck, tests, gitleaks in one command and in CI; first green run.
-### M1 Core slice
-- [ ] Dry-run cleanup report + quarantine with manifest and restore, tests.
-### M2 Parity with the old project
-- [ ] Agent config sync tested on a temp workspace; skills imported after licence audit; routines registered.
-### M3 Security and reliability
-- [ ] Security checklist above is green with tests (no public bind, no route answers without a valid session, brute force locks out, bad input, path traversal, secret scan).
-- [ ] Backup, restore and rollback runbook tested once; `doctor` command prints health in one screen.
-- [ ] Dry-run and undo for every destructive action, tested.
-### M4 AI
-- [ ] RAG over notes with Arabic + English evals.
-### M5 Quality sweep
-- [ ] Every screen or command has first-use, loading, empty, error and populated states; Arabic and English text correct; keyboard use complete; accessibility checked where there is a UI; performance budget recorded.
-### M6 Release and retirement
-- [ ] Retire both v1 folders; archive suite repo.
+## 8. Operations (standard 26, scaled to one user)
+- Health: `doctor` command, daemon log rotation (done, unverified), weekly care routine registered in Task Scheduler.
+- Telegram weekly report in simple Arabic: disk free C: and D:, bytes freed, quarantine size, last backup date, failed tests count. Alerts: disk below threshold, daemon down for more than 10 minutes. The sender never includes file names from private folders.
+- Backups: weekly snapshot of `.sir/` state and config to `D:\Projects\Backups`, restore drill once per month.
+- Updates: `uv lock --upgrade` weekly on a branch of work, tests must pass before push to main.
 
-## 9. Risks and open decisions
-- Global config edits are blocked by the safety classifier: project-scope parity only.
+## 9. Milestones with exit checks
+| M | Goal | Exit check |
+|---|---|---|
+| M0 | Foundations | `scripts/verify.ps1` green; `docs/THREAT_MODEL.md` present; gitleaks 0 findings |
+| M1 | Dry-run cleanup and quarantine | clean, restore, hash compare test passes |
+| M2 | Agent config sync and routines | sync on a temp workspace leaves no deletion (test); routines listed by `schtasks` |
+| M3 | Security | rules 1 to 8 each have a passing test; 0 failing tests |
+| M4 | Local AI | RAG eval file with 20 Arabic and 20 English questions, score recorded in `.sir/evidence/rag-eval.md` |
+| M5 | Quality sweep | 5-state screenshots at 320, 390, 768, 1440; RTL and LTR; zoom 200 percent |
+| M6 | Retirement | `legacy/*` moved to `D:\Projects\old projects\`, old repos archived, keys rotated; recorded in checkpoint |
 
-## 10. How any chat continues this project
-Read this file, then `.sir/CHECKPOINT.md`, then work the first unchecked box in section 8. Tick boxes only with evidence (command output or screenshot path). After each box update the checkpoint and commit. Never ask Ahmed; if blocked by a permission, write the single command in `NEXT.md` and continue with the next box.
+## 10. Next 10 tasks (each under 2 hours)
+1. Fix the 19 failing tests: restore or rename `execute_cleanup` in `src/sir_laptop_manager/ops_ui/server.py` or update the tests in `tests/test_ops_ui_server.py`. Check: `uv run --offline pytest -q` shows 0 failed.
+2. Make `scripts/verify.ps1` fail on any failing test and write the date and result to `.sir/evidence/verify-latest.md`. Check: run it, file shows real counts.
+3. Push to GitHub and record the Actions run URL; if red, fix. Files: `.github/workflows/`. Check: green badge URL in checkpoint.
+4. Path traversal and bad-origin tests for every POST route. Files: `tests/test_ops_ui_security.py`. Check: pytest passes; a route without the guard makes it fail.
+5. Restore drill: quarantine a temp file, restore, compare hashes. Files: `.sir/evidence/restore-drill.md`. Check: hashes equal.
+6. Licence audit script for `legacy/antigravity-agent-suite` skills: output CSV of name and licence. Files: `scripts/license_audit.py`, `.sir/evidence/skills-licences.csv`. Check: every row has a licence or "unknown"; unknown ones are not imported.
+7. Port the keepers from the audit into `src/.../agent_config/skills/` with a manifest. Check: sync dry run lists them, no deletions.
+8. RAG eval set (20 Arabic, 20 English) and a runner. Files: `tests/rag_eval/`, `scripts/rag_eval.py`. Check: score printed, saved to evidence.
+9. Telegram weekly report builder with a privacy filter (no paths outside project names). Files: `src/.../core/report.py`, test. Check: test proves a private path is redacted; real send returns ok from the API.
+10. Five-state screenshots of Cleanup and Game mode at 320 and 390 px, fix overflow. Files: `scripts/capture_*.mjs`. Check: `scrollWidth <= innerWidth` in the capture script output.
+
+## 11. Risks and open questions (defaults)
+- The safety classifier blocks edits to global agent config: default is project-scope sync only, global writes go to OWNER_ACTIONS as one command.
+- The "all green" claim was false today: default is no milestone is called done until section 10 task 1 and 2 are done.
+- Python 3.14 is new: default is keep it, pin in `pyproject.toml`; fall back to 3.13 if a wheel is missing.
+- Game mode pauses other local services (Jobs, Study, Control Room, Ollama): default is a visible banner and one-tap restore, tested.
+
+## 12. Only the owner can do
+Approve the Windows UAC prompt when installing the scheduled task; sign in to Tailscale on the phone; sign in to GitHub if the token expired.
+
+## 13. Market-grade note
+Competitor study exists at `plans/competitors/sir-laptop-manager.md` (dated 2026-11-09, some claims cite forums; any claim without a link there is "(unsourced, verify)"). Country law packs: n/a (single owner). Privacy: collects nothing off the machine.

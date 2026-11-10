@@ -1,5 +1,7 @@
 # A2. The Orchestra Protocol: how the team works and talks
 
+> **Status 2026-11-10.** Written 2026-10-29 for a Claude-led month (Haiku builders, Sonnet managers). Since then the owner decided who builds: Gemini in Antigravity builds, the free CLI agents (Kilo, OpenCode, Devin CLI, ZCode) build when its quota is out, and Claude manages, reviews and may use its own haiku and sonnet subagents for review, audits, plans and improvement work (Ahmed, 2026-11-09 and 2026-11-10). Where this file says "Haiku builds", read "the builder (Gemini or a CLI agent) builds from the same written spec". Concurrency, locks and PRs follow `D:\Projects\AGENTS.md`. The Claude subscription ends around 2026-11-23.
+
 ## Roles
 
 - **HQ agent (you, Sonnet at high effort).** Owns the portfolio: plans, delegates, integrates, tailors the standard for each project, keeps the portfolio checkpoints, and reports to Ahmed. Thinks deeply at the start of each phase. Doesn't do bulk grunt work when a cheaper agent or tool can.
@@ -20,7 +22,7 @@ More agents does **not** mean less compute. Anthropic measured single agents at 
 - **Spawn a fresh-context reviewer** (`reviewer`; `security-auditor` for anything touching auth, data or money; `qa-breaker` for the tests) on every significant change before calling it done. The author never grades its own work.
 - **Use an agent team** only when live negotiation between specialists is essential.
 - **Don't spawn** for tasks under about 5 tool calls, tasks that need the whole conversation's context, or tightly coupled edits in the same files.
-- **Limits:** at most 6 concurrent agents and at most 2 concurrent heavy builds or emulators on this laptop.
+- **Limits:** at most 3 concurrent agents per chat (`plans/USAGE_POLICY.md`, 2026-11-02), at most 2 chats working at once while `plans/LOW_USAGE_MODE.md` is active, and at most 2 concurrent heavy builds or emulators on this laptop.
 
 ## Delegation brief (every spawn gets one, no exceptions)
 
@@ -50,12 +52,12 @@ Files are the shared memory between agents, sessions and tools (Claude Code, Ant
 
 **Portfolio level, in `D:\Projects\_SIR\ops\`:**
 
-- `PORTFOLIO.md` and `portfolio.json`: every project with tier, wave, status and platform matrix.
+- `PORTFOLIO.md`: every project with tier, wave, status and platform matrix (a machine-readable `portfolio.json` was planned but never created; the Control Room reads `PORTFOLIO.md` and each project's `.sir/status.json`).
 - `MISSION_LOG.md`: append-only timeline of what happened.
 - `OWNER_ACTIONS.md`: things only Ahmed can do (Tier 2). A list, never a wait: work continues around every item.
 - `HQ_CHECKPOINT.md`: the HQ session's own checkpoint (format in `core/04-memory.md`), printed by the memory hook after every compaction.
 - `TOOLS.md`: MCP servers, CLIs, plugins and skills, with status and how to re-authenticate.
-- `locks/<project>.lock`: which session is working where. Create it when you start on a project and delete it when you finish. A lock older than 6 hours whose session is gone is stale and can be cleared.
+- `locks/<project>.lock`: which session is working where. Create it when you start on a project and delete it when you finish. A lock older than 2 hours is stale and can be cleared (`AGENTS.md`).
 
 **Hooks and compaction.** The memory system in `core/04-memory.md` (ready-made scripts in `_SIR/scripts/memory/`) is installed in Phase 0, before any other work:
 
@@ -121,12 +123,14 @@ Each level only adds precision. Nobody lowers a standard set by a level above; d
 | Gemini via Antigravity CLI (`agy`) | `agy -p "<prompt>" --model <slug> --output-format json --print-timeout 15m` (list slugs with `agy models`; `--effort` sets reasoning) | Translation drafts for all locales, long-document reading, research digests, docs drafts, test scaffolds, second opinions | Google AI Pro quota refreshes every 5 hours until a weekly cap; check with `/usage` inside `agy` |
 | OpenCode CLI | `opencode run -m <provider/model> --format json "<prompt>"` (list with `opencode models`; Muse Spark 1.3 is available to Ahmed with daily limits) | Same kinds of bulk work; another opinion | Daily limits; check OpenCode Zen's data terms: free tiers may use prompts for training, so public and non-sensitive work only |
 | Kilo CLI (`kilo`) | `kilo run --auto --format json "<prompt>"` (list models with `kilo models`; usage with `kilo stats`; exit codes 0 = success, 124 = timeout, 1 = error) | Same bulk work through another pool of models | Depends on the connected provider; check its limits and data terms |
-| Claude | Haiku builds, Sonnet plans and reviews (table above) | Code, specs, reviews, anything sensitive | Subscription usage limits |
+| Devin CLI (`devin`) | `devin -p --model swe-2-flash-medium --permission-mode smart --respect-workspace-trust false -- "<task>"` (free model only; others cost credits) | Code tasks from a written spec | One free model, 262K context; public and non-sensitive work only |
+| ZCode (desktop app) | GLM-5.3 on the free Start plan, driven by a Haiku computer-use operator | Code tasks from a brief file | Free plan limits; details in `plans/CLI_AGENT_INSTRUCTIONS.md` |
+| Claude | Manager and reviewer; haiku and sonnet subagents for review, audits, plans and improvement work (table above) | Specs, reviews, anything sensitive | Subscription usage limits; ends around 2026-11-23 |
 
 **Rules for the external workforce:**
 
 - **Keep paid overages off.** Antigravity can spend AI credits once quota runs out (`useG1Credits` in `~/.gemini/antigravity-cli/settings.json`, and the "AI Credit Overages" setting): keep both off, so nothing is billed without Ahmed's decision.
-- **Accounts.** Ahmed has 4 Google AI Pro accounts. The `agy` CLI documents no account switching (it's `/logout` then logging in again). Use a primary account; switch manually only in ways Google's terms allow. Don't build automatic rotation whose purpose is to dodge limits if the terms forbid it.
+- **Accounts.** Order of models and accounts, the 15 percent switch rule and the sign-in steps are in `ops/ACCOUNT_ROTATION.md` (Ahmed, 2026-11-09 and 2026-11-10). Use only Ahmed's own accounts and accounts given with consent; never create accounts. The Gemini CLI free tier is discontinued; Antigravity (`agy`) and the CLI agents in `plans/CLI_AGENT_INSTRUCTIONS.md` are the routes.
 - **One wrapper for all providers:** `_SIR/scripts/ai/ask.ps1 -Provider local|gemini|opencode|kilo -Task <prompt file> -Out <result file> [-Model <id>] [-TimeoutMin 15]`. It runs the CLI, captures stdout, stderr and the exit code, and parses JSON output (`agy` reports `status` and `error` fields).
 - **Error handling.** Treat a non-zero exit, an `ERROR` status, an empty result, or stderr matching `quota|rate.?limit|429|RESOURCE_EXHAUSTED|usage limit|exceeded|authentication required` as a failure. Retry once with backoff, then fall back to the next provider. Mark a provider that hit its limit as "cooling" until its reset (Gemini: up to 5 hours). If every provider is cooling, mark the task `blocked: usage` on the BOARD and switch to other work. Never loop on retries.
 - **Ledger.** Log every external call to `_SIR/ops/usage-ledger.jsonl` (time, provider, account label, model, task id, duration, status). The Command Center shows the weekly totals.
@@ -186,7 +190,7 @@ Each level only adds precision. Nobody lowers a standard set by a level above; d
 ## Quality loop: nothing is done until it's reviewed
 
 - **Every change:** spec → Haiku builds → `pnpm verify` green → `reviewer` (Sonnet) approves or returns exact fixes → merge.
-- **Every milestone:** the PM runs the completeness sweep (module 19) and fixes every ⬜ item, or turns it into a scheduled task.
+- **Every milestone:** the PM runs the completeness sweep (module 19) and fixes every missing ([ ]) item, or turns it into a scheduled task.
 - **The owner's questions, at every milestone and at the end of every session:** Did we forget anything? What's still missing compared with the best apps in this category? What should we do next? What would Ahmed think if he saw this now, and what would he change? What else might he need that he hasn't asked for? Write the answers down: gaps become BOARD tasks, ideas become Ideas Inbox proposals, and the safe, valuable ones get done.
 - **Every week (HQ):** walk the requirements ledger (`_SIR/REQUIREMENTS.md`), update each row's status and evidence, and turn every stalled row into a task.
 - **Every project, before it's called finished:** HQ audits it with a fresh Sonnet reviewer: the build matrix (Phase 10) is installable, 3 random tasks are spot-checked against their specs, every locale and both themes are screenshot-checked, and the CHECKPOINT is truthful. Fix and re-audit until it passes.
