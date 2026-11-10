@@ -58,13 +58,13 @@ Result: no permission was changed. The Tool Permissions page (browser, terminal,
 - Ahmed Alaa <a7medorabe7@gmail.com>
 - Sir Ahmed <1sir1ahmed1@gmail.com>
 - Ahmed Alaa <ahmedalaa2006.7.6@gmail.com>
-- mashoyatal3abed@gmail.com
+- family account 5
 - Ahmed Alaa <a01083835229@gmail.com>
 - account 3
-- Rasha Alaa <rashaalasy40807@gmail.com>
-- Rasha <rashakhalay87@gmail.com>
-- Rasha <rashakhalasi@gmail.com>
-- Ibrahim Hamdy <ih9568719@gmail.com>
+- family account 4
+- family account 6
+- family account 7
+- family account 8
 2026-11-09 03:42 | account 1sir1ahmed1@gmail.com (switched from a01083835229, quota exhausted) | Gemini 5h 100% | Gemini weekly 72% (refresh 6d 4h) | Claude/GPT 5h 100%, weekly 100%
 - 2026-11-09 06:26 operator6: 1sir1ahmed1 read 5h 21% / weekly 50% (chats hit real quota errors on continue, rotated). a7medorabe7 read 5h 12% / weekly 10% (below threshold, skipped). a01083835229 read 5h 100% / weekly 28% (now active, chosen).
 2026-11-09 06:57 | operator7 | account a01083835229@gmail.com | Gemini weekly 28% left (resets 5 d 23 h), 5h 100% left | Claude/GPT weekly 50% left, 5h 100% left | no rotation (threshold 15%)
