@@ -38,3 +38,14 @@ Then: `gh run list --limit 3` inside each project. CI red = the task is not done
 
 ## 6. Hand-over to a new manager
 Read in this order: `_SIR/START_HERE.md`, this file, `ops/HQ_CHECKPOINT.md` (last note), `ops/OWNER_ACTIONS.md`, `ops/bus/sir-hq.md`. Then run section 2. Review rule: a task is done only when its report has pasted command output, CI on `main` is green (`gh run list`), and you saw the result yourself or through a second agent. Keep appending notes to `ops/HQ_CHECKPOINT.md`; never delete earlier ones.
+
+## 7. Tool status (tested by HQ 2026-11-10 night) and the screen-operated workers
+| Tool | State | Note |
+|---|---|---|
+| Kilo, OpenCode, Devin CLI | in the pool | free models, see `scripts/cli_pool.py` |
+| ZCode (Z.ai, GLM-5.3 and flash) | usable by screen operator | no command line; a Haiku operator (lowest effort, computer use) opens the folder, picks the model and sends "read WORKER_PREAMBLE.md and the brief". Own it per project: never the same project as a CLI runner. Accounts: owner's own only, switched through the account chooser, never passwords. Plan ends about 2026-11-14 |
+| Antigravity (Gemini) | quota out until 2026-11-11 00:04 (free accounts), 19 accounts in two Chrome profiles | rotation in `ops/ACCOUNT_ROTATION.md`; operator `scripts/agy-chooser.py` |
+| Gemini CLI | dead: "no longer supported, migrate to Antigravity" | do not use |
+| Qwen CLI | broken install (`cli.js` missing) | reinstall with npm and a browser login by the owner if wanted |
+| Codex CLI | not callable from this shell (wrapper points at a missing file) | repair before use; reset date unknown |
+Rule: one writer per project at any time (CLI runner OR ZCode OR Antigravity). The autopilot treats any commit or edit in the last 25 minutes as "someone is working" and starts nothing.

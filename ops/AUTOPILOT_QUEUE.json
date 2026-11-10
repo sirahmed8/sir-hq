@@ -66,6 +66,12 @@
     "done": true
   },
   {
+    "name": "r21-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
+    "done": false
+  },
+  {
     "name": "r19-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
