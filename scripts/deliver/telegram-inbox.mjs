@@ -74,20 +74,40 @@ function readApprovals() {
   try { return JSON.parse(readFileSync(APPROVALS_JSON, 'utf8')); } catch { return []; }
 }
 
+function isExpired(row) {
+  if (!row || !row.created_at) return true;
+  const created = new Date(row.created_at);
+  const now = new Date();
+  const ageHours = (now - created) / (1000 * 60 * 60);
+  return ageHours > 24;
+}
+
+// Returns 'ok' when the answer was recorded, otherwise the rejection reason.
+// Only ids registered as pending in approvals.json, younger than 24 h and not
+// yet answered are accepted; anything else (forged, stale or replayed ids) is ignored.
 function recordApproval(id, answer) {
   const rows = readApprovals();
   const now = new Date().toISOString();
   const existing = rows.find((row) => row && row.id === id);
-  if (existing) {
-    existing.answer = answer;
-    existing.status = answer;
-    existing.answered_at = now;
-  } else {
-    rows.push({ id, text: null, status: answer, answer, created_at: now, answered_at: now });
+  if (!existing) {
+    console.log(`Approval ${id} not registered, ignoring`);
+    return 'unknown';
   }
+  if (existing.status === 'approved' || existing.status === 'rejected' || existing.answered_at && existing.answer) {
+    console.log(`Approval ${id} already answered, ignoring`);
+    return 'answered';
+  }
+  if (existing.status !== 'pending' || isExpired(existing)) {
+    console.log(`Approval ${id} expired or not pending, ignoring`);
+    return 'expired';
+  }
+  existing.answer = answer;
+  existing.status = answer;
+  existing.answered_at = now;
   const tmp = APPROVALS_JSON + '.tmp';
   writeFileSync(tmp, JSON.stringify(rows, null, 2) + '\n', 'utf8');
   try { renameSync(tmp, APPROVALS_JSON); } catch { writeFileSync(APPROVALS_JSON, JSON.stringify(rows, null, 2) + '\n', 'utf8'); }
+  return 'ok';
 }
 
 async function handleButton(cq) {
@@ -100,18 +120,26 @@ async function handleButton(cq) {
   const approval = /^(ok|no):([\w.-]{1,60})$/.exec(data);
   if (approval) {
     const answer = approval[1] === 'ok' ? 'approved' : 'rejected';
-    appendFileSync(APPROVALS, JSON.stringify({ id: approval[2], answer, at: new Date().toISOString() }) + '\n');
-    recordApproval(approval[2], answer);
-    await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
-    await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    const result = recordApproval(approval[2], answer);
+    if (result === 'ok') {
+      appendFileSync(APPROVALS, JSON.stringify({ id: approval[2], answer, at: new Date().toISOString() }) + '\n');
+      await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
+      await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    } else {
+      await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'الطلب ده مش موجود أو انتهت صلاحيته' });
+    }
     return;
   }
   const appApproval = /^(approve_ok|approve_no):([\w.-]{1,50})$/.exec(data);
   if (appApproval) {
     const answer = appApproval[1] === 'approve_ok' ? 'approved' : 'rejected';
-    recordApproval(appApproval[2], answer);
-    await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
-    await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    const result = recordApproval(appApproval[2], answer);
+    if (result === 'ok') {
+      await api('answerCallbackQuery', { callback_query_id: cq.id, text: answer === 'approved' ? 'تمت الموافقة' : 'تم الرفض' });
+      await sendText(answer === 'approved' ? '[الإدارة] تم تسجيل موافقتك.' : '[الإدارة] تم تسجيل رفضك، ومش هيتنفذ.');
+    } else {
+      await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'الطلب ده مش موجود أو انتهت صلاحيته' });
+    }
     return;
   }
   await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام، بنفذ' });
