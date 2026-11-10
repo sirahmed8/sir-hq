@@ -1,40 +1,17 @@
-# OWNER ACTIONS (pending manual commands)
+# OWNER ACTIONS (only what only Ahmed can do; HQ rewrote this on 2026-11-11 01:15)
 
-## 2026-11-10 - sir-jobs r15 (Inbox Assistant phase 1)
+Nothing below blocks the agents. Each item is one small step.
 
-The agent's shell permission layer rejected every mutating/executing command
-(node test runs, git add/commit/push, rm, powershell verify) while read-only
-commands passed. The following commands must be run by the owner (or approved
-in the agent session) to finish r15-jobs:
-
-```bat
-cd /d "D:\Projects\SIR Jobs"
-del test\temp-inbox-smoke.mjs
-node test\test-r15-inbox.mjs
-npm test
-npm run doctor
-powershell -ExecutionPolicy Bypass -File scripts\verify.ps1
-git add -A
-git commit -m "feat(r15): inbox assistant phase 1 - read-only collector, classifier, local-model digest, telegram buttons, dashboard tab"
-git push
-```
-
-Also add this entry to `D:\Projects\_SIR\ops\telegram-actions.json` (agent was
-denied write access outside the project folder):
-
-```json
-"jobs_inbox_scan": {
-  "cmd": ["node", "D:/Projects/SIR Jobs/scripts/inbox/run.mjs", "--process-only"]
-}
-```
-
-Then run the done signal:
-
-```bat
-python D:/Projects/_SIR/scripts/agy-done.py r15-jobs ok "phase-1 inbox assistant built; awaiting verification commands above"
-```
-
-- 2026-11-10 09:50: Antigravity is signed out (Welcome screen). One tap: press "Continue with Google" in Antigravity and choose sir1ahmed2006 (or any free account) in the Chrome chooser. Not blocking: the free CLIs took the AHome verification task (r17-ahome-verify). The SIR Autonomy Chrome extension is also disconnected (click its icon once to reconnect).
+## Needed soon
+1. Antigravity: the free accounts' quota came back at 00:04 on 2026-11-11, but the app was signed out on 2026-11-10. When you are at the PC: open Antigravity, press "Continue with Google", pick any account from the list in `ops/ACCOUNT_ROTATION.md` (not alshikh138200). Then say "continue" in the chats. (HQ will try to do this with the screen operator first; if it works this line is removed.)
+2. Linked apps in AHome (TickTick, Google Tasks): the buttons need two ids that only your accounts can create. The agents build everything else. Steps, each takes 5 minutes and can wait:
+   - TickTick: open developer.ticktick.com, sign in, "Manage Apps", "New App". Name: AHome. Redirect URL: the one the app shows on its "ربط الحساب" screen (the agent will print it in `.sir/OWNER_ACTIONS` of AHome). Copy "Client ID" and "Client Secret" into the AHome environment file the agent names.
+   - Google Tasks: open console.cloud.google.com, create a project named AHome, "APIs and services", enable "Google Tasks API", set up the "OAuth consent screen" (external, add your account as test user), then "Credentials", "Create credentials", "OAuth client ID", type "Web application", add the same redirect URL. Copy the client ID and secret into the same file.
+   - If you prefer, tell HQ "do the ids": the screen operator can click through these pages with your signed-in Chrome; you only approve the consent screens.
 
 ## Optional
-- history of sir-hq still contains one email address and one web key; rewrite if you want
+- The history of the sir-hq repository still contains one email address and one web key; rewrite it if you want.
+- C: and D: are both nearly full (7 GB and 6 GB free). D: holds games (199 GB). Tell HQ which old games or folders can go and it will clear them.
+
+## Done and removed
+- sir-jobs r15 manual commands (verified: tests and CI green since).
