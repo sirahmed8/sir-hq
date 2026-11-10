@@ -45,3 +45,9 @@
 - Next step: when ops/autopilot.log shows "task done: r18-ahome-phone", read its report, run `gh run list` in AHome, open both live addresses. Then verify each r19 task the same way (CI green is the gate) and queue r20.
 - Open promises: republish Control Room artifact after r19-control; verify r15/r16-laptop; ZCode via Haiku operator before 2026-11-14; Telegram approval end-to-end check.
 - Owner plan: this chat returns to Sonnet 5.5 medium after the weekly reset.
+
+## HQ note (2026-11-10 23:10)
+- Done and checked by HQ: r18-ahome-phone (27 of 27 items ticked, CI green on last 2 runs, both live addresses answer 200, APK installed on the phone at 21:30; caveats: no phone walkthrough after the last test-only fix, 8 Dependabot alerts open). r19-study (CI green on last 2 runs; fixed H1 H2 H5 H6 M2 M3 M4 M8; open H3 H4 M1 M5 M6 M7 L1 L2 L4 and others, see SIR Study/.sir/R19_CHECKLIST.md).
+- Running on free CLIs: r19-jobs (started 22:25, nothing pushed yet, CI still red), r19-control (started 22:40).
+- Queued: r20-study (closes the open checklist lines; exam table must be confirmed against the timetable).
+- Next step: when autopilot.log shows task done for r19-jobs and r19-control, check `gh run list` in SIR Jobs (must be green) and that one server copy listens on 8899; then queue AHome round 16 (phone walkthrough of items 1, 10, 16, 18 and Dependabot alerts) and republish the Control Room artifact.

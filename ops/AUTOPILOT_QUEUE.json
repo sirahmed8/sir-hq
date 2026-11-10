@@ -57,13 +57,13 @@
     "name": "r18-ahome-phone",
     "folder": "D:/Projects/AHome",
     "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
-    "done": false
+    "done": true
   },
   {
     "name": "r19-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
-    "done": false
+    "done": true
   },
   {
     "name": "r19-jobs",
@@ -75,6 +75,12 @@
     "name": "r19-control",
     "folder": "D:/Projects/_SIR",
     "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+    "done": false
+  },
+  {
+    "name": "r20-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
     "done": false
   }
 ]

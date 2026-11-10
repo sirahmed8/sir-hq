@@ -272,3 +272,5 @@
 - 2026-11-10 14:10 HQ: status to owner; queue 3 of 5 done by free CLIs (unverified), r16-jobs and r17-ahome-verify running; Antigravity signed in by owner.
 - 2026-11-10 19:30 HQ: Antigravity quota out; AHome round 15 remainder queued to CLIs (r18-ahome-phone); Control Room C1 verified fixed; worker files committed.
 2026-11-10 21:10 HQ: verified r16 jobs and study (both CI red, briefs written), queued r19-study, r19-jobs, r19-control; AHome r18 running on CLI.
+2026-11-10 22:19 AHome r18-ahome-phone done: R15 checklist 27/27 ticked; CI verify 42893143542 green on d0e8c45 (web npm 929, local pytest 1007, gitleaks clean); 3 flaky fixed-wait WebKit test files switched to waitForFunction polling; firebase+vercel v1.0.0 live; APK installed on ronf6d5hrkqsuoaa.
+2026-11-10 23:10 HQ: r18-ahome-phone and r19-study checked (CI green); r19-jobs, r19-control running; r20-study queued.
