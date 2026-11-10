@@ -35,6 +35,9 @@ ops/control-room-refresh.log
 ops/control-room-server.log
 ops/control-room-health.json
 ops/control-room.lock
+ops/control-room-server.log.*
+ops/control-room-refresh.log.*
+ops/locks/
 ops/telegram-listener.pid
 _quarantine/
 
