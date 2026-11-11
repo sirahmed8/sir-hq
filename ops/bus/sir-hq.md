@@ -746,3 +746,6 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-11 from r35-control-room-laptop-ui:
   done: fixed a fatal JS syntax error + missing i18n element ids that left the Control Room dashboard fully broken on phone; all 7 brief items done on both dashboards; 32-run self-audit (4 widths x en/ar x light/dark) clean; evidence in .sir/evidence/r35/ of each repo.
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a58bee05)

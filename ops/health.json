@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-10T01:30:01.861Z",
+  "timestamp": "2026-11-11T01:30:02.147Z",
   "overallStatus": "RED",
   "manager": {
     "status": "AMBER",
@@ -16,15 +16,15 @@
   },
   "readLog": {
     "status": "GREEN",
-    "count": 62,
+    "count": 97,
     "lastEntry": {
-      "time": "2026-11-10T01:02:28.432Z",
-      "date": "2026-11-10",
+      "time": "2026-11-11T01:26:58.843Z",
+      "date": "2026-11-11",
       "tool": "claude-code",
       "agent": "claude",
-      "project": "HQ",
-      "filesRead": "_SIR/START_ANY_AI.md@2026-11-08, AGENTS.md@2026-11-09, ops/ACCOUNT_ROTATION.md@2026-11-10, plans/CLI_AGENT_INSTRUCTIONS.md@2026-11-10, plans/LOW_USAGE_MODE.md@2026-11-10, ops/AUTOPILOT_QUEUE.json.@2026-11-10",
-      "nextStep": "if I (Claude) am running: check ops/autopilot.log, git logs, ops/agy-runs/done, review reports, keep going down the queue; if a fresh Claude session starts: read this block, ops/AUTOPILOT_QUEUE.json and ops/autopilot.log. After the queue: use ZCode (GLM-5.3) via Haiku, Pro accounts after resets (~4 days), Claude 5.5 (resets ~1d14h), then HQ itself."
+      "project": "AHome",
+      "filesRead": "AHome/AGENTS.md@2026-11-10, _SIR/START_ANY_AI.md@2026-11-08, .sir/TASKS.md@2026-11-11, .sir/reports/2026-11-08-security-review.md@2026-11-11",
+      "nextStep": "item 1 corner icon** — Today page care card round icon half-outside card with doubled offset ring; code audit found nothing actionable (see DEFECTS O1), needs owner's iPhone screenshot to reproduce or a code fix if a card's corner icon positioning is found; then item 12 OAuth PKCE for TickTick/Google Tasks; Part B three-cycle sweep 390/320/768 ar/en light/dark; report `_SIR/ops/agy-runs/reports/r21-ahome.md` PARTIAL — finish; `agy-done.py` NOT run — round incomplete."
     },
     "ageDays": "0.0"
   },
@@ -40,8 +40,8 @@
       "status": "RED",
       "fileIssues": [],
       "pointerIssuesCount": 2,
-      "checkpointMtime": "2026-11-09T23:55:56.404Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-11T01:26:31.063Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -49,8 +49,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-08T15:53:16.404Z",
-      "checkpointAgeDays": "1.4",
+      "checkpointMtime": "2026-11-11T00:50:43.181Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -59,7 +59,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.250Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -68,7 +68,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.265Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -77,7 +77,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.281Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -86,7 +86,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.234Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -94,8 +94,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T22:20:37.872Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-11T01:23:14.966Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -103,8 +103,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T23:10:57.590Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-11T01:15:42.809Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -113,7 +113,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.408Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -122,7 +122,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.379Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -131,7 +131,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.394Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -140,7 +140,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-08T15:19:03.477Z",
-      "checkpointAgeDays": "1.4",
+      "checkpointAgeDays": "2.4",
       "checkpointStale": false
     },
     {
@@ -149,7 +149,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.218Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -158,7 +158,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T22:08:11.521Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointAgeDays": "1.1",
       "checkpointStale": false
     },
     {
@@ -166,8 +166,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.424Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointMtime": "2026-11-11T00:50:48.455Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -175,8 +175,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T23:18:30.699Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-11T01:23:04.761Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     }
   ]

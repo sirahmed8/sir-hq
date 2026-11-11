@@ -637,6 +637,7 @@ nav .nav-tab.active .tab-label {
 }
 .dev-details[open] > summary::before { transform: rotate(45deg); }
 .dev-details > summary:hover { color: var(--accent); }
+.dev-details:not([open]) > *:not(summary) { display: none !important; }
 
 /* Bidirectional isolation & Density */
 bdi, .num, code, .hash, .port, .mono {

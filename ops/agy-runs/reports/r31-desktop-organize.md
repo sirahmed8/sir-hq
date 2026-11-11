@@ -80,3 +80,11 @@ Scope: SIR AI, SIR Portfolio, SIR Jobs, SIR Study, SIR Laptop Manager, AHome (li
 - Create Product Kits for SIR Study and AHome in a later round when their locks are clear.
 - Commit Product Kit folders in SIR AI, SIR Jobs, SIR Laptop Manager when each repo has a clean/safe window (respect one writer per project).
 - Re-verify local dev ports when dev servers are intentionally running if needed.
+
+## Commit and CI evidence
+- `_SIR` commit `270856c` pushed to `main` (repo `sirahmed8/sir-hq`). CI `verify` run `43032138817` (push, 2026-11-11T13:46:18Z) completed **success** (watched to exit).
+- `SIR Portfolio` commit `7040744` pushed to `main` (`sirahmed8/sir-portfolio`). CI `ci` run `43032062696` (push, 2026-11-11T13:45:48Z) completed **success** (watched to exit).
+- Other project repos: SIR AI / SIR Jobs / SIR Laptop Manager had pre-existing uncommitted work or active ownership context; Product Kit folders created on disk only, commits deferred per one-writer rule. SIR Study and AHome skipped entirely due to active locks.
+
+## Final status
+- Brief items 1-4 completed as specified with real links only; invented links not added. Projects with no real host have explicit notes. Report includes full verification table and archive manifest.
