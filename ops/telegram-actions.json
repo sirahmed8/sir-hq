@@ -69,5 +69,23 @@
       "Start-Process 'http://127.0.0.1:3456/#view-pipeline'"
     ],
     "reply": "[الخط] فتح لوحة Pipeline في المتصفح."
+  },
+  "study_dl_done": {
+    "cmd": [
+      "cmd",
+      "/c",
+      "echo",
+      "ok"
+    ],
+    "reply": "[الإدارة] تمام. هبدأ تنزيل ملفات المعهد وأبلغك."
+  },
+  "study_dl_later": {
+    "cmd": [
+      "cmd",
+      "/c",
+      "echo",
+      "later"
+    ],
+    "reply": "[الإدارة] تمام، هفكرك وقت الفجر."
   }
 }
