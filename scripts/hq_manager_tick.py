@@ -19,6 +19,8 @@ def log(msg: str) -> None:
 
 
 def main() -> None:
+    if Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
+        return
     dry = "--dry" in sys.argv
     age = (time.time() - CHECKPOINT.stat().st_mtime) / 60
     if age < 50 and not dry:

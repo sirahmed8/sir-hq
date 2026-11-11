@@ -118,5 +118,17 @@
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
     "done": false
+  },
+  {
+    "name": "r24-jobs-apply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم على الشغل بموافقتك",
+    "done": false
+  },
+  {
+    "name": "r24-games",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "الألعاب: تحسين الأداء والجرافيكس",
+    "done": false
   }
 ]
