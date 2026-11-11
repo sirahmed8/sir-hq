@@ -187,3 +187,9 @@
 - NOTE: laptop index.html also carries uncommitted i18n-binding work from the concurrent audit-sir-laptop-manager-20261111-1951 worker; committed together because same file. pytest test_r25_i18n 8/8, test_r22_layout_structure + test_ops_ui_a11y 20/20 green.
 - CI follow-up: laptop Verify Quality Bar 43083981249 failed on phantom text-overlap in r22 audit — Chrome reports layout rects for children of a CLOSED <details>. Fixed with `.dev-details:not([open]) > *:not(summary){display:none!important}` in both index.html and dashboard_template.html (dashboard regenerated hash a58bee05). Laptop CI 43084911282 green; HQ verify 43084898323 green. Commits: HQ d04dc31, laptop d9c1a64.
 - Next step: report ops/agy-runs/reports/r35-control-room-laptop-ui.md finalized, agy-done.
+
+## HQ note (2026-11-12 02:00)
+- Now: stuck 4h shell killed; Control Room republished (v21); big Drive PDF uploaded with the owner's gdrive CLI; r36 (more free workers) and r37 (on-screen verification of r33/r34/r35) queued; sir-ai-builder resumed after its 1am reset.
+- Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; when r37 reports, read `ops/agy-runs/reports/r37-verify-jobs.md` and check each defect fix on screen; then read r36 report and confirm `scripts/hq_manager_tick.py` runs with any pool tool.
+- Open promises: NotebookLM `Data Bank.pdf` upload (needs Claude in Chrome reconnected, logged in `ops/OWNER_ACTIONS.md`); r33/r34/r35 are worker claims until r37 proves them; recreate session crons (hourly watch, WhatsApp digest) after any restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r36-more-free-workers.md`, `ops/briefs/r37-verify-today.md`.
