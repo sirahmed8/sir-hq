@@ -24,6 +24,8 @@ You are a coding worker started by the SIR autopilot (`scripts/hq_autopilot.py` 
 13. Every SIR product has its OWN Firebase project and its OWN GitHub repository named exactly after the product (for example SIR Restaurant gets "sir-restaurant", never the project of another product). Check first: if a project and repo with the right name already exist, reuse them; if the product was living in another product's project, create the new project and repo (free Spark plan, `firebase projects:create`, `gh repo create --private`), move the app there, and write both names in the checkpoint. Never reuse AHome's project for anything else.
 14. The owner's CV and profiles say "Vibe Coder" (builds products by directing AI). Never write programming tracks, certificates, years of experience or skills that are not proven by his real projects.
 
+15. Every web product that has a public site is hosted twice: Firebase Hosting and Vercel (import the GitHub repo with the Vercel CLI, which is installed and signed in), same build, so when one host is down the other serves. Write both addresses in the checkpoint and check both with curl (retry once on timeout).
+
 ## Finishing
 Only when every checklist line is fixed with proof or honestly marked open with the reason, CI on `main` is green, and the report is written to `D:/Projects/_SIR/ops/agy-runs/reports/<task>.md` (what changed, commands run with real output, what is still open), run:
 `python D:/Projects/_SIR/scripts/agy-done.py <task> ok "<one line>"`

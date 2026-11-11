@@ -115,3 +115,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Next step: read the Portfolio and LinkedIn agent reports; check ops/bus/ahmed-telegram.md; `python D:/Projects/_SIR/scripts/ai-status.py`; verify r24 briefs when done; queue next rounds (SIR AI slice 2: Google Workspace, TickTick, agent manager).
 - Open promises: Telegram bot token for SIR AI (BotFather), Antigravity and ZCode sign-in, WhatsApp digest cron needs this session, owner weekly reset at 100 percent.
 - Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/OWNER_ACTIONS.md, memory file owner-working-style.
+## HQ note (2026-11-11 04:22) SIR AI and Portfolio now both owned by Sonnet agents (one writer each; r25-sir-ai marked reassigned); owner-method-analyst writes OWNER_METHOD v2 and OWNER_REQUEST_LEDGER; rule 15 two hosts per web product; ChatGPT a7medorabe7 plan shows Free.
