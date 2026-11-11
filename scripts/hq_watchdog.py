@@ -78,6 +78,41 @@ def ci_state(folder: str) -> str:
     return "running" if r.get("status") != "completed" else (r.get("conclusion") or "unknown")
 
 
+def audio_players() -> list[dict]:
+    """Windows audio sessions actively playing sound, via Core Audio (pycaw).
+
+    Returns [{pid, process, display_name, peak}] for sessions in the Active state with a
+    non-zero peak. Empty list when pycaw is not installed or the call fails."""
+    try:
+        from pycaw.constants import AudioSessionState
+        from pycaw.pycaw import AudioUtilities, IAudioMeterInformation
+    except Exception:
+        return []
+    players = []
+    try:
+        sessions = AudioUtilities.GetAllSessions()
+    except Exception:
+        return []
+    for sess in sessions:
+        try:
+            if int(sess.State) != int(AudioSessionState.Active):
+                continue
+            meter = sess._ctl.QueryInterface(IAudioMeterInformation)
+            peak = float(meter.GetPeakValue())
+            if peak < 0.001:
+                continue
+            proc = sess.Process
+            players.append({
+                "pid": int(sess.ProcessId),
+                "process": proc.name() if proc is not None else "",
+                "display_name": sess._ctl.GetDisplayName() or "",
+                "peak": round(peak, 4),
+            })
+        except Exception:
+            continue
+    return players
+
+
 def queue_task(name: str, folder: str, title: str, text: str) -> None:
     brief = OPS / "briefs" / f"{name}.md"
     brief.write_text(text, encoding="utf-8")
@@ -117,9 +152,18 @@ def main() -> None:
                 continue
             task = f"audit-{name.lower().replace(' ', '-')}-{stamp}"
             queue_task(task, PROJECTS[name], f"{name}: دورة فحص ذاتي", AUDIT.format(project=name, stamp=stamp, task=task))
-    # test browsers leaked by workers (they also play audio): kill Playwright processes older than 25 minutes
+    # log every process that is playing audio right now (names the unknown-sound culprit)
+    players = audio_players()
+    if players:
+        names = ", ".join(f"{p['process'] or p['display_name'] or 'pid ' + str(p['pid'])}" for p in players)
+        log(f"audio playing: {names}")
+        state["last_audio_players"] = {"at": now, "players": players}
+    # test browsers leaked by workers (they also play audio): kill Playwright and headless
+    # browser processes older than 25 minutes, nothing else
     run(["powershell", "-NoProfile", "-Command",
-         "Get-CimInstance Win32_Process | ? { $_.CommandLine -match 'ms-playwright' -and ((Get-Date)-$_.CreationDate).TotalMinutes -gt 25 } | % { Stop-Process -Id $_.ProcessId -Force -EA 0 }"])
+         "Get-CimInstance Win32_Process | ? { (($_.CommandLine -match 'ms-playwright') -or "
+         "($_.CommandLine -match '--headless' -and $_.Name -match 'chrome|msedge|chromium')) -and "
+         "((Get-Date)-$_.CreationDate).TotalMinutes -gt 25 } | % { Stop-Process -Id $_.ProcessId -Force -EA 0 }"])
     free_gb = shutil.disk_usage("C:/").free / 1024**3
     state["c_free_gb"] = round(free_gb, 1)
     if free_gb < 4.5:
