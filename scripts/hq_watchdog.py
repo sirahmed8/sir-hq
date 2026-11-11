@@ -121,7 +121,7 @@ def main() -> None:
          "Get-CimInstance Win32_Process | ? { $_.CommandLine -match 'ms-playwright' -and ((Get-Date)-$_.CreationDate).TotalMinutes -gt 25 } | % { Stop-Process -Id $_.ProcessId -Force -EA 0 }"])
     free_gb = shutil.disk_usage("C:/").free / 1024**3
     state["c_free_gb"] = round(free_gb, 1)
-    if free_gb < 3:
+    if free_gb < 4.5:
         run(["powershell", "-NoProfile", "-Command",
              "Get-ChildItem $env:TEMP -Force -EA 0 | ? { $_.Name -ne 'claude' } | % { Remove-Item $_.FullName -Recurse -Force -EA 0 }; "
              "Remove-Item \"$env:LOCALAPPDATA\\CrashDumps\\*\" -Recurse -Force -EA 0; npm cache clean --force; pip cache purge"], timeout=240)

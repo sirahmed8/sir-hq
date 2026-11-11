@@ -107,3 +107,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Next step: wait for the three subagent reports; check CI per project with `gh run list`; run `python D:/Projects/_SIR/scripts/ai-status.py`; read ops/bus/ahmed-telegram.md for his answers.
 - Open promises: crons (session only): hourly watch 9b8288f7, WhatsApp digest 5394854a, Fajr plan dbafdb6c 04:52, health check-in 0255e696 14:12 and 20:12, Isha summary a17f1544 21:03 (see ops/DAILY_RHYTHM.md); TickTick My notes beyond the dates note; Antigravity and ZCode sign-in; Haiku refuses relayed consent.
 - Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/WORKER_PREAMBLE.md, ops/OWNER_ACTIONS.md.
+## HQ note (2026-11-11 02:35) [watch] all projects green or running; SIR AI and Portfolio agents committing; C: fell 8.3 to 5.9 GB in an hour so the watchdog cleaning threshold is now 4.5 GB.
