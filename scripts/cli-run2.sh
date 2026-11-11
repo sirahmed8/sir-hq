@@ -35,6 +35,9 @@ for round in $(seq 1 40); do
     kilo) timeout 3300 kilo run --auto -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     opencode) timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode dangerous --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
+    agy) timeout 3300 agy --print "$msg" --model "$model" --dangerously-skip-permissions >> "$LOG" 2>&1 ;;
+    qwen) OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL="$model" timeout 3300 qwen -p "$msg" >> "$LOG" 2>&1 ;;
+    goose) GOOSE_PROVIDER=ollama GOOSE_MODEL="$model" timeout 3300 goose run -t "$msg" >> "$LOG" 2>&1 ;;
   esac
   code=$?
   why=$(python $ROOT/scripts/cli_pool.py report "$pick" $code "$LOG" $offset $(( $(date +%s) - t0 )))

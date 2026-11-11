@@ -28,6 +28,15 @@ POOL = [
     "opencode|opencode/longcat-2.5-free",
     "kilo|kilo/openrouter/free",
     "opencode|openrouter/openrouter/free",
+    "agy|gemini-3.8-flash-low",
+    "agy|gemini-3.8-flash-medium",
+    "agy|gemini-3.8-flash-high",
+    "agy|gpt-oss-120b-medium",
+    "agy|claude-sonnet-4-6",
+    "qwen|qwen3:8b",
+    "goose|qwen3:8b",
+    "qwen|qwen3:4b",
+    "goose|qwen3:4b",
 ]
 LIMIT = re.compile(r"usage limit|rate limit|too many requests|quota|out of credits|\b429\b", re.I)
 REFUSED = re.compile(r"rejected a tool call that requires confirmation", re.I)

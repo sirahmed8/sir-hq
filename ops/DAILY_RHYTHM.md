@@ -4,7 +4,7 @@ Everything Ahmed types or taps in Telegram lands in `ops/bus/ahmed-telegram.md` 
 | When | Duty | Sources |
 |---|---|---|
 | Fajr + 3 min (real time of that day) | Plan of the day + one outside recommendation (video, article, tool, habit) | Google Calendar, Gmail, TickTick, WhatsApp digest, `ai-status.py`, git logs |
-| every 2 h (:43) | WhatsApp digest, read only: batch groups, archive, work and job groups; only new items | WhatsApp Web in his Chrome |
+| every 2 h (:43) | WhatsApp digest, read only: every group in `_local/whatsapp_groups.json` (cohort, archived, work and job categories), plus any new group found; only new items | WhatsApp Web in his Chrome |
 | Asr + 10 min and Isha + 75 min | Health and sport check-in with buttons, adapt to answers | `ahmed-telegram.md`, `_local/health_log.jsonl` |
 | Isha + 15 min | Day summary: what projects and agents did, health, tomorrow, one suggestion | git, CI, TickTick, logs |
 | every hour (:17) | Watch: workers, CI, disk, queue | `ai-status.py`, watchdog |
@@ -17,4 +17,4 @@ Standing duties: suggest, advise and think with Ahmed instead of waiting for ord
 
 ## Where each duty runs (2026-11-11, owner: background work must not depend on a chat)
 - OS background (Windows scheduled tasks, run with no chat open, pause during games): `SIR_HQ_Duties` (`scripts/hq_duties.py`: Fajr plan, Asr and Isha health check-ins, Isha summary, from `ops/duties/*.md`, real prayer times from Aladhan, runs `claude -p`; to change the agent edit the `CLAUDE` command in that file), `SIR_HQ_Autopilot` (workers), `SIR_HQ_Watchdog` (repairs, CI, disk, leaked browsers), `SIR_HQ_ManagerTick` (free-model manager when no note for 50 min).
-- Needs a browser, so still a chat cron: the WhatsApp digest (WhatsApp Web in his Chrome through the Claude-in-Chrome tools).
+- Needs a browser, so still a chat cron: the WhatsApp digest (WhatsApp Web in his Chrome through the Claude-in-Chrome tools). The digest keeps the coverage list `_local/whatsapp_groups.json` current (local file, never committed): on every run it adds newly seen groups under the right category (cohort, archived, work, jobs, other) with `last_digest` set to the run time, and reads every listed group so no cohort, archived, work or job group is missed.
