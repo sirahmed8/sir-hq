@@ -9,15 +9,15 @@ import pathlib
 
 import pytest
 
-pytestmark = pytest.mark.skipif(
-    sync_playwright is None,
-    reason="Playwright not installed in this sandbox; run where playwright is available",
-)
-
 try:
     from playwright.sync_api import sync_playwright
 except Exception:  # playwright absent
     sync_playwright = None
+
+pytestmark = pytest.mark.skipif(
+    sync_playwright is None,
+    reason="Playwright not installed in this sandbox; run where playwright is available",
+)
 
 DASHBOARD = pathlib.Path("ops/public/dashboard.html").resolve().as_uri()
 WIDTHS = [320, 390, 768, 1280]
@@ -46,7 +46,7 @@ def test_no_horizontal_scroll_all_widths_themes():
             page = browser.new_page()
             try:
                 page.goto(DASHBOARD, wait_until="networkidle")
-                page.evaluate("() => new Promise(r => window.speechSynthesis.speak = () => {} || r())")
+                page.evaluate("() => { window.speechSynthesis.speak = () => {}; }")
                 for width in WIDTHS:
                     for theme in THEMES:
                         _page_snapshot(page, width, theme)
@@ -65,7 +65,7 @@ def test_one_name_per_page():
     if sync_playwright is None:
         pytest.skip("playwright not installed")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=["--mute-audio"])
         try:
             page = browser.new_page()
             try:
@@ -83,7 +83,7 @@ def test_no_fake_tile_data():
     if sync_playwright is None:
         pytest.skip("playwright not installed")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=["--mute-audio"])
         try:
             page = browser.new_page()
             try:
@@ -105,7 +105,7 @@ def test_no_clipped_text():
     if sync_playwright is None:
         pytest.skip("playwright not installed")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=["--mute-audio"])
         try:
             page = browser.new_page()
             try:

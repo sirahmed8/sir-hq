@@ -691,7 +691,12 @@ bdi, .num, code, .hash, .port, .mono {
   flex-direction: column;
   gap: 12px;
   transition: box-shadow .2s;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
+.grid2 > *, .cols3 > *, .meta-grid > *, .truth-grid > *, .tiles > * { min-width: 0; }
+#service-health-card > div { flex-wrap: wrap; min-width: 0; }
+#service-health-card > div > * { min-width: 0; }
 .panel:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
 .panel.need { border-color: var(--warn); }
 
@@ -709,11 +714,12 @@ bdi, .num, code, .hash, .port, .mono {
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .list li {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 12px;
   align-items: start;
   padding: 6px 0;
   border-bottom: 1px solid var(--line);
+  overflow-wrap: break-word;
 }
 .list li:last-child { border-bottom: none; }
 .checklist-item { display: flex; flex-direction: column; gap: 6px; padding: 2px 0; }

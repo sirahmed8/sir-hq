@@ -548,3 +548,52 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-11 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash afe30386)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5a1c5950)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a86c57ad)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5b67a233)
+
+- [x] 2026-11-11 from sir-laptop-manager (r22): all 10 dashboard UI defects fixed; task dock replaces floating panel; permanent browser audit added; 240 tests green; audit 116 checks 0 failures x2 cycles; report at ops/agy-runs/reports/r22-laptop.md
+r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed with proof, 10 student improvements + switchUniversalTab runtime fix, verify 11/11 green, CI green; only M2 spaced-repetition still open.
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d843d674)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 71568202)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2a96b7c8)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 146e6854)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 22cb256d)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1871a852)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0f216229)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8747b836)
+
+- [ ] 2026-11-11 from r26-infra worker: TickTick refresh needs a browser operator. Payload ready at `_local/ticktick_refresh.json` (local only): mark_done + add lists for projects "SIR HQ" and "30-Day Projects Sprint", built from real git/queue/ledger state. A CLI worker cannot drive TickTick Web; please run it through the Haiku/Antigravity browser operator (TickTick Web in the owner's Chrome), apply by title match, never open the "Accounts" note, then write counts back into `applied`.
+
+- [ ] 2026-11-11 from r22-study worker: r22-study done. All 11 brief defects fixed and verified; self-audit item 11 closed with 3 consecutive clean cycles (audit_r22.py: 8 pages x 4 widths x 2 themes = 64 combos, 0 defects). New browser tests 06-08 in CI. M2 spaced repetition still open (honest). Report: ops/agy-runs/reports/r22-study.md.
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash fc0095f9)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d9bb390d)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8df1b923)

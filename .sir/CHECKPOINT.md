@@ -123,3 +123,14 @@
 - Next step: read the reports of the three Sonnet agents; run python D:/Projects/_SIR/scripts/ai-status.py; read ops/OWNER_REQUEST_LEDGER.md and queue the uncaptured requests; verify both Vercel hosts with curl.
 - Open promises: LinkedIn job-alert frequency unverified; weekly LinkedIn actions (max 10 requests a day); Telegram bot token for SIR AI; Antigravity and ZCode sign-in; ChatGPT plan shows Free.
 - Re-read after a reset: plans/OWNER_METHOD.md (v2 when ready), ops/OWNER_REQUEST_LEDGER.md, ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, ops/OWNER_ACTIONS.md.
+
+## HQ note (2026-11-11 Fajr duty)
+- Now: Fajr plan sent to Ahmed on Telegram (message_id 512): no calendar items today, Human Rights midterm tomorrow 18:00, no important unread mail, no TickTick tasks due. Recommendation link (learningscientists.org retrieval practice) verified by curl 200. No new Telegram replies since the clean_disk tap on 2026-11-10 22:44.
+- Next step: `python D:/Projects/_SIR/scripts/ai-status.py` (queue open: r21-ahome, r22-study, r26-infra, r27-study-sources); read `ops/bus/ahmed-telegram.md` tail before the Asr check-in.
+- Open promises: health check-ins at Asr and Isha; WhatsApp digest cron needs a chat session; Telegram bot token for SIR AI; Antigravity and ZCode sign-in.
+- Re-read after a reset: ops/DAILY_RHYTHM.md, ops/OWNER_ACTIONS.md, ops/bus/ahmed-telegram.md.
+
+## r26-infra worker note (2026-11-11)
+- Done and committed: audio guard (hq_watchdog.py audio_players + widened headless kill; Laptop Manager T-061 queued in its TASKS.md), make-report-pdf.py + Arabic tests (3 pass), WhatsApp coverage file `_local/whatsapp_groups.json` (gitignored) + DAILY_RHYTHM duty text, CLI pool now has `agy` models plus local-Ollama `qwen|qwen3:8b/4b` and `goose|qwen3:8b/4b` (smoke-tested OK), evaluated Codex (works, ChatGPT quota out until 2026-11-27), Cline (unauthorized, needs owner re-auth), Windsurf/Cascade (absent), results in plans/AI_TOOLS_CONTROL.md section 7.
+- Open: TickTick refresh payload ready at `_local/ticktick_refresh.json`; needs the browser operator (bus note written to ops/bus/sir-hq.md). Aider install via uv still resolving deps at checkpoint time; pip path failed on aiohttp/py3.13.
+- Next step: finish aider smoke or record it failed, write ops/agy-runs/reports/r26-infra.md, run agy-done.py r26-infra.
