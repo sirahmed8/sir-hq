@@ -152,3 +152,10 @@
 - Next step: read results from sir-ai-builder/keys-agent; check ops/bus/ahmed-telegram.md for the portal-reopen reply; investigate what refills C: so fast (candidate: node_modules/test artifacts from the many parallel CLI/Sonnet workers) next idle cycle.
 - Open promises: Windows app builds (SIR AI/Portfolio/Jobs) not started; TickTick ledger refresh stale in places; custom domains and code-signing cert (owner buys); personal-question privacy_blocked default unconfirmed by owner.
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/WINDOWS_APP_STANDARD.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_REQUEST_LEDGER.md, plans/OWNER_METHOD.md.
+
+## HQ note (2026-11-11 15:45)
+- Now: full status given to owner after an 8h gap (AHome r30 urgent local-core fix queued ahead of audit; SIR Jobs r29 auditing a false "20 applications" metric; SIR AI and Portfolio both live on both hosts, verified by curl). Honest correction: desktop/Product Kit organization (owner request) was only written as a standard (plans/WINDOWS_APP_STANDARD.md), never executed - now actually queued as r31-desktop-organize.
+- Added team coordination: ops/bus/telegram-outbox.md (dedupe/coordinate before any Telegram send) and ops/PERSONAL_NOTES.md (shared personalization facts, no AHome/Habiba content), wired into ops/WORKER_PREAMBLE.md rule 17 and ops/DAILY_RHYTHM.md.
+- Next step: run r31-desktop-organize; verify sir-ai-builder finishes the Telegram bot handler (webhook/polling) so @SirAiAssistantBot actually replies; check study-materials-agent after the owner reopened the portal; verify r29/r30 results when they land.
+- Open promises: SIR AI/Portfolio Windows app builds not started; owner Google sign-in tap for SIR AI (OWNER_ACTIONS.md); TickTick ledger refresh; custom domains and code-signing cert (owner buys).
+- Re-read after a reset: ops/RUNNING_STATE.md, ops/PERSONAL_NOTES.md, ops/bus/telegram-outbox.md, plans/COMPACTION_PROTOCOL.md, plans/OWNER_METHOD.md, ops/OWNER_REQUEST_LEDGER.md.
