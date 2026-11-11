@@ -133,3 +133,11 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Next step: read the keys-agent report; run python D:/Projects/_SIR/scripts/ai-status.py; check ops/bus/ahmed-telegram.md for the answer to the portal-downloads button; resume sir-ai-builder after the keys exist to prove a live AI answer on both hosts.
 - Open promises: owner Chrome setting for downloads; Studio tools after NotebookLM reset 10:49; Drive structure; Antigravity renewal dates for all accounts; owner decision on personal questions sent to free AI tiers; Telegram bot token via keys-agent.
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_ACTIONS.md, ops/OWNER_REQUEST_LEDGER.md.
+
+## HQ note (2026-11-11 10:10) [hourly watch]
+- All projects green: AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR AI, SIR Portfolio, _SIR all CI success. Autopilot healthy (heartbeat 1 min). Two audit-loop CLI tasks ran (audit-sir-jobs, audit-sir-laptop-manager-20261111-0841); laptop one finished.
+- Sonnet agents hit the 5h limit together (reset 10am Cairo) and were resumed after owner confirmed reset: sir-ai-builder (CLI bridge, Windows app packaging, download/subscription area), keys-agent (Google OAuth client, TickTick app, Telegram bot for SIR AI), study-materials-agent (stop/clean/rebuild NotebookLM sources properly, then written prompts; Drive upload via gcloud; portal downloads now allowed per owner confirmation at 04:14).
+- WhatsApp digest sent (id 530): CS2Y weekly online-lecture schedule updated; Operations Research exam format shared by a classmate; two lecture PDFs shared; no new job offers beyond previously reported.
+- New plans: plans/WINDOWS_APP_STANDARD.md (installer, Firebase sign-in, self-update, download page, Product Kit folder, Projects-Hub.html) adopted into standard/OWNER_DEFAULTS.md.
+- C: 7.2 GB free, no cleanup needed.
+- Next step: read the three agents results when they arrive; verify SIR AI OAuth/bot once keys-agent reports; check study-materials-agent course-by-course counts.
