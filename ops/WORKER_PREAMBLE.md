@@ -21,6 +21,9 @@ You are a coding worker started by the SIR autopilot (`scripts/hq_autopilot.py` 
 11. Browser tests: always close the browser in a `finally` block, run headless, mute audio (launch arg `--mute-audio`, and stub `speechSynthesis.speak` to a no-op), and never leave a browser running when you stop. A leaked test browser read an Arabic law guide aloud at night (2026-11-11).
 12. Messages to the owner (Telegram and chat): first line is a short title in plain words; then at most 5 lines, each one fact (what, where, what it means for him); numbers with their meaning; no run-on sentences, no file paths or commit hashes, no mix of Arabic and English in one sentence except product names; end with "المطلوب منك: لا شيء" or the single tap needed. Same format for every agent.
 
+13. Every SIR product has its OWN Firebase project and its OWN GitHub repository named exactly after the product (for example SIR Restaurant gets "sir-restaurant", never the project of another product). Check first: if a project and repo with the right name already exist, reuse them; if the product was living in another product's project, create the new project and repo (free Spark plan, `firebase projects:create`, `gh repo create --private`), move the app there, and write both names in the checkpoint. Never reuse AHome's project for anything else.
+14. The owner's CV and profiles say "Vibe Coder" (builds products by directing AI). Never write programming tracks, certificates, years of experience or skills that are not proven by his real projects.
+
 ## Finishing
 Only when every checklist line is fixed with proof or honestly marked open with the reason, CI on `main` is green, and the report is written to `D:/Projects/_SIR/ops/agy-runs/reports/<task>.md` (what changed, commands run with real output, what is still open), run:
 `python D:/Projects/_SIR/scripts/agy-done.py <task> ok "<one line>"`

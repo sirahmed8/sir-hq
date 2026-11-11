@@ -105,12 +105,18 @@
     "name": "r22-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: واجهة الموبايل",
-    "done": false
+    "done": true
   },
   {
     "name": "r22-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: واجهة الموبايل",
+    "done": false
+  },
+  {
+    "name": "r23-jobs-cv",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
     "done": false
   }
 ]

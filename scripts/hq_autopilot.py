@@ -76,8 +76,24 @@ def kill_tree(pid: int) -> None:
     subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, creationflags=NO_WINDOW)
 
 
+HQ_PATHSPEC = ["plans/dashboard_template.html", "plans/generate_dashboard.py", "plans/status_rules.py", "ops/public"]
+
+
 def minutes_since_activity(folder: str) -> float:
-    """Minutes since the last commit or the newest uncommitted edit. 0 on any error, so a broken check never starts a runner."""
+    """Minutes since the last commit or the newest uncommitted edit. 0 on any error, so a broken check never starts a runner.
+    For the HQ folder itself only the Control Room files count, so HQ's own notes and briefs never make that project look busy."""
+    if Path(folder).resolve() == ROOT.resolve():
+        try:
+            out = subprocess.run(["git", "-C", folder, "log", "-1", "--format=%ct", "--"] + HQ_PATHSPEC, capture_output=True,
+                                 text=True, creationflags=NO_WINDOW).stdout.strip()
+            age = (time.time() - int(out)) / 60 if out else 9999
+            for rel in HQ_PATHSPEC:
+                p = Path(folder) / rel
+                if p.is_file():
+                    age = min(age, (time.time() - p.stat().st_mtime) / 60)
+            return age
+        except Exception:
+            return 0.0
     try:
         out = subprocess.run(["git", "-C", folder, "log", "-1", "--format=%ct"], capture_output=True, text=True,
                              creationflags=NO_WINDOW).stdout.strip()
