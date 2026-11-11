@@ -8,6 +8,10 @@ Every tool route was tried and the portal blocks them all (Chrome download bubbl
 ## One tap, when you wake up (2026-11-11 01:30)
 0. ZCode is signed out. In your Chrome there is an open tab "authorize" from Z.ai with the account 1sir1ahmed1 already chosen: tick the "Terms" checkbox and press "Continue". ZCode then logs in by itself. (Sign-in stays with you by the workspace rules; nothing else waits for this: the free CLI workers carry every project meanwhile.)
 
+## Two tiny taps, whenever (study materials, not urgent)
+1. One file (Data Structures Lec 03 slides, 10.6 MB) is too big for the automated Drive upload bridge: open it yourself in the SIR Study materials folder and drag it into the "Data Structures" Drive folder, or tell HQ to try a different upload route.
+2. One new file (Data Structures "Data Bank.pdf") needs to be added to its NotebookLM notebook: NotebookLM's upload widget would not accept it from automation. Open the Data Structures notebook, Add sources, drag that one file in - takes under a minute.
+
 ## Needed soon
 1. Antigravity: the free accounts' quota came back at 00:04 on 2026-11-11, but the app was signed out on 2026-11-10. When you are at the PC: open Antigravity, press "Continue with Google", pick any account from the list in `ops/ACCOUNT_ROTATION.md` (not alshikh138200). Then say "continue" in the chats. (HQ will try to do this with the screen operator first; if it works this line is removed.)
 2. Linked apps in AHome: HQ already created the TickTick app and the Google Tasks OAuth client (ids in a local ignored file). Nothing to do for the ids. When the app is deployed, press "ربط الحساب" once for each service and approve the Google/TickTick consent screens.
@@ -46,3 +50,9 @@ My own safety rules forbid an agent from creating accounts or API keys and from 
 
 ## SIR AI: AI keys (updated)
 The keys-agent creates one Gemini key (project sir-ai-official) and one OpenRouter key named SIR AI and stores them as GEMINI_API_KEY and OPENROUTER_API_KEY in the Vercel env and the ignored env file. SIR AI reads exactly those names; nothing for Ahmed to do. Free tiers may train on prompts, so personal questions answer privacy_blocked until a provider is declared no-training (GEMINI_NO_TRAINING=1 or OPENROUTER_NO_TRAINING=1) by whoever confirms the terms.
+
+## SIR AI: finish the live OAuth connections (2026-11-11)
+Everything is built and ready (Google, TickTick and Notion client ids and secrets are already set; the state secret and token-encryption key too). The one remaining step needs YOUR sign-in, which no agent may do:
+1. Open https://sir-ai-pi.vercel.app in Chrome (already signed into your Google account there), tap "Continue with Google", finish onboarding once.
+2. Go to Settings, Connections tab. For Google, TickTick and Notion, tap Connect, and on each provider's own consent screen tap Allow.
+That is it. Microsoft was skipped (no phone-free signup path was available), so To Do stays unconnected for now.
