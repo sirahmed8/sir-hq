@@ -172,3 +172,9 @@
 - Next step: read results from r33/r34/r35 as workers finish; owner has two optional tiny taps in OWNER_ACTIONS.md (Drive file drag, NotebookLM source drag) whenever he wants.
 - Open promises: SIR AI voice input/output not yet built; Windows app builds for SIR AI/Portfolio/Jobs not started; custom domains and code-signing cert (owner buys); owner Google sign-in tap for SIR AI.
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/BOT_ARCHITECTURE.md, standard/OWNER_DEFAULTS.md, ops/OWNER_ACTIONS.md, ops/OWNER_REQUEST_LEDGER.md.
+
+## HQ note (2026-11-11 20:50)
+- Portfolio round done: both owner corrections applied (not-personal framing, no rebuild-from-zero wording), plus a REAL bidi bug found and fixed (Facts page concatenated Latin/Arabic into one unisolated string; two hardcoded English words leaking into the Arabic page). Native context menu, locale auto-detect confirmed already correct. CI green, both hosts byte-identical.
+- Fixed a tooling gap: `vercel` CLI was not resolving on PATH for any agent (missing from npm global bin); reinstalled globally (npm i -g vercel@50.1.3), confirmed `vercel --version` works. This likely affected or will affect other agents deploying to Vercel - no longer an issue.
+- Next step: read sir-ai-builder and the three UI-overhaul rounds (r33/r34/r35) as they finish.
+- Re-read after a reset: ops/RUNNING_STATE.md, standard/OWNER_DEFAULTS.md, plans/BOT_ARCHITECTURE.md.
