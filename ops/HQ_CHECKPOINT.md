@@ -109,3 +109,9 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/WORKER_PREAMBLE.md, ops/OWNER_ACTIONS.md.
 ## HQ note (2026-11-11 02:35) [watch] all projects green or running; SIR AI and Portfolio agents committing; C: fell 8.3 to 5.9 GB in an hour so the watchdog cleaning threshold is now 4.5 GB.
 ## HQ note (2026-11-11 02:57) SIR AI slice live at sir-ai-official.web.app (CI green, Google and Email-link sign-in enabled by HQ); LinkedIn experience, education, services, post fixed truthfully; duties moved to OS task SIR_HQ_Duties; NVIDIA App MCP found.
+
+## HQ note (2026-11-11 04:05)
+- Now: queue r21-ahome, r22-study, r24-jobs-apply, r24-games running on free CLIs; r20, r22-laptop, r22-control, r23 finished. Sonnet agents resumed after the 5-hour limit: sir-portfolio-builder (continue plan), linkedin-improver (first post, job alerts, at most 10 connections, jobs list to _local/job_offers.jsonl). sir-ai-builder finished slice 1 (live at sir-ai-official.web.app). OS tasks run the rhythm (SIR_HQ_Duties) independent of chat.
+- Next step: read the Portfolio and LinkedIn agent reports; check ops/bus/ahmed-telegram.md; `python D:/Projects/_SIR/scripts/ai-status.py`; verify r24 briefs when done; queue next rounds (SIR AI slice 2: Google Workspace, TickTick, agent manager).
+- Open promises: Telegram bot token for SIR AI (BotFather), Antigravity and ZCode sign-in, WhatsApp digest cron needs this session, owner weekly reset at 100 percent.
+- Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/OWNER_ACTIONS.md, memory file owner-working-style.
