@@ -19,3 +19,7 @@ Nothing below blocks the agents. Each item is one small step.
 ## SIR AI (2026-11-11)
 - Telegram bot: open Telegram, talk to @BotFather, send /newbot, name it "SIR AI", then give HQ the token through the user env var TELEGRAM_BOT_TOKEN (never in chat or git).
 - Firebase sign-in providers: if the web app says "operation-not-allowed", open the Firebase console > Authentication > Sign-in method for project sir-ai-official and switch on Google and Email link.
+
+## 2026-11-11 04:40 update
+- SIR AI: HQ enabled Google and Email-link sign-in in Firebase project sir-ai-official (done). Left: a Telegram bot token for the SIR AI product (BotFather); HQ will create it when a Telegram client can be driven, or the existing owner bot can be used for tests only.
+- LinkedIn: done by HQ (text only). Left for you: confirm "English: professional working", hide the birthday if you want, Arabic headline needs a second-language profile.
