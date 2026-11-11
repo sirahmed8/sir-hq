@@ -52,13 +52,16 @@ Script: `D:/Projects/_SIR/.sir/evidence/r35/capture_r35.py` (Playwright, headles
 
 ## Commits pushed
 
-- `sirahmed8/sir-hq` main: `570c385` — r35 Control Room repair + polish + evidence + checkpoint + bus line.
-- `sirahmed8/sir-laptop-manager` main: `1fc65d1` — r35 laptop UI polish + evidence + checkpoint.
+- `sirahmed8/sir-hq` main: `570c385` r35 Control Room repair + polish + evidence; `d04dc31` dev-details display fix + regenerated dashboard (hash a58bee05) + routine ops log updates.
+- `sirahmed8/sir-laptop-manager` main: `1fc65d1` r35 laptop UI polish + evidence + checkpoint; `d9c1a64` dev-details display fix.
 
 ## CI
 
-- sir-hq `verify` run 43083944728: **success** (12s).
-- sir-laptop-manager `Verify Quality Bar` run 43083981249: watched to completion — see below.
+- sir-hq `verify` run 43083944728: **success** (12s); follow-up run 43084898323 after `d04dc31`: **success** (12s).
+- sir-laptop-manager `Verify Quality Bar` run 43083981249 (`1fc65d1`): **failure** — `tests/test_r22_browser_audit.py::test_dashboard_layout_rules_at_every_size` reported phantom `text-overlap` pairs between the daemon `<details>` children and neighbouring cards at all widths/themes.
+- Root cause: Chrome still reports layout rects for children of a *closed* `<details>` element (verified via Playwright: `getBoundingClientRect()` returned a real 33x18 box while `details.open === false`), so the audit's visibility check counted the hidden dev-details rows as visible.
+- Fix: `.dev-details:not([open]) > *:not(summary) { display: none !important; }` added to both `index.html` (laptop) and `dashboard_template.html` (Control Room, dashboard regenerated). Local re-run: `pytest tests/test_r22_browser_audit.py` → **2 passed in 31.47s**.
+- sir-laptop-manager `Verify Quality Bar` run 43084911282 (`d9c1a64`): **success** — all steps green incl. ruff format, ruff check, mypy, pytest (2m6s).
 
 ## Notes / open items
 
