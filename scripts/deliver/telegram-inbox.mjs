@@ -16,6 +16,7 @@ const ACTIONS = `${OPS}/telegram-actions.json`;
 const APPROVALS = `${OPS}/approvals.jsonl`;
 const APPROVALS_JSON = `${OPS}/bus/approvals.json`;
 const PID_FILE = `${OPS}/telegram-listener.pid`;
+const GAME_SNAPSHOT = 'D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json';
 const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
 const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
 const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off'];
@@ -171,5 +172,8 @@ async function poll() {
 }
 
 for (;;) {
+  // A game is running (SIR game-mode marker): pause polling. Messages queue on
+  // Telegram's servers and are picked up when the game ends. Alerts still send.
+  if (existsSync(GAME_SNAPSHOT)) { await new Promise(r => setTimeout(r, 30000)); continue; }
   try { await poll(); } catch (e) { console.log('telegram-inbox error: ' + e.message); await new Promise(r => setTimeout(r, 15000)); }
 }

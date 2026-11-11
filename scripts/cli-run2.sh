@@ -5,6 +5,7 @@
 # Which model runs next comes from scripts/cli_pool.py (shared cooldown file, so two tasks never hammer a model that is out of quota).
 NAME="$1"; DIR="$2"
 ROOT=/d/Projects/_SIR
+GAME_SNAP="/d/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json"
 PROMPT=$ROOT/ops/briefs/$NAME.prompt.txt
 PREAMBLE=$ROOT/ops/WORKER_PREAMBLE.md
 DONE=$ROOT/ops/agy-runs/done/$NAME.done
@@ -12,8 +13,12 @@ LOG=$ROOT/ops/agy-runs/cli-$NAME.log
 DEVIN="$LOCALAPPDATA/devin/cli/bin/devin.exe"
 CONT="Continue task $NAME. Read $PREAMBLE, then .sir/CHECKPOINT.md, the checklist file named in the brief, the brief $PROMPT, git status, git diff --stat and the last commits. Repair anything broken first, then finish every unticked item completely (commit, push and checkpoint after each item), then write the report and run the done command from the manual. Do not stop until every item is ticked and CI on main is green."
 cd "$DIR" || exit 1
+# Run the whole runner tree at BelowNormal priority so automations never freeze the laptop.
+WINPID=$(cat /proc/$$/winpid 2>/dev/null || true)
+[ -n "$WINPID" ] && powershell -NoProfile -Command "(Get-Process -Id $WINPID -EA 0).PriorityClass='BelowNormal'" 2>/dev/null
 for round in $(seq 1 40); do
   [ -e "$DONE" ] && { echo "done marker present" >> "$LOG"; exit 0; }
+  if [ -e "$GAME_SNAP" ]; then echo "=== game mode active: runner paused $(date +%H:%M)" >> "$LOG"; exit 0; fi
   pick=$(python $ROOT/scripts/cli_pool.py pick)
   case "$pick" in
     WAIT*)

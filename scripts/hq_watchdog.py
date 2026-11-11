@@ -88,6 +88,7 @@ def queue_task(name: str, folder: str, title: str, text: str) -> None:
 
 def main() -> None:
     if Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
+        log("skip: game mode active")
         return
     state = load(STATE, {})
     now, stamp = time.time(), time.strftime("%Y%m%d-%H%M")

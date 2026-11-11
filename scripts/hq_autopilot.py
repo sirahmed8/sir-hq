@@ -201,6 +201,16 @@ def step(state: dict) -> None:
             if runner_alive(rs):
                 kill_tree(rs["pid"])
                 log("game mode active: runner stopped")
+        # Telegram poller pauses while gaming; alert sending (send-telegram.mjs) still works.
+        # ensure_listener() restarts it as soon as the game ends.
+        try:
+            lpid = int(LISTENER_PID.read_text().strip())
+        except Exception:
+            lpid = 0
+        if lpid and pid_alive(lpid, "node"):
+            kill_tree(lpid)
+            LISTENER_PID.unlink(missing_ok=True)
+            log("game mode active: telegram listener stopped")
         if not state.get("paused_for_game"):
             log("game mode active: paused")
         state["paused_for_game"] = True

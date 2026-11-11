@@ -42,6 +42,7 @@ def prayer_times(day: datetime) -> dict:
 def main() -> None:
     LOCAL.mkdir(exist_ok=True)
     if GAME.exists():
+        log("skip: game mode active")
         return
     now = datetime.now()
     state = {}
