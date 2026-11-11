@@ -143,6 +143,33 @@ async function handleButton(cq) {
     }
     return;
   }
+
+  // Apply pipeline: a_<jobId> = apply, s_<jobId> = skip
+  const applyMatch = /^a_([\w.-]{1,50})$/.exec(data);
+  if (applyMatch) {
+    const jobId = applyMatch[1];
+    await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'جاري التقديم...' });
+    run('node', ['D:/Projects/SIR Jobs/scripts/apply/handler.mjs', 'apply', jobId], 180000);
+    return;
+  }
+
+  const skipMatch = /^s_([\w.-]{1,50})$/.exec(data);
+  if (skipMatch) {
+    const jobId = skipMatch[1];
+    await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تم التخطي' });
+    run('node', ['D:/Projects/SIR Jobs/scripts/apply/handler.mjs', 'skip', jobId], 60000);
+    return;
+  }
+
+  // Reply pipeline: reply_<threadId> = send suggested reply
+  const replyMatch = /^reply_([\w.-]{1,50})$/.exec(data);
+  if (replyMatch) {
+    const threadId = replyMatch[1];
+    await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'جاري الإرسال...' });
+    run('node', ['D:/Projects/SIR Jobs/scripts/apply/reply-handler.mjs', threadId], 60000);
+    return;
+  }
+
   await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام، بنفذ' });
   runAction(data); // not awaited: polling continues while the command runs
 }
