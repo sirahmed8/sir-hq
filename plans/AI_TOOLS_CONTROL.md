@@ -50,10 +50,10 @@ Read in this order: `_SIR/START_HERE.md`, this file, `ops/HQ_CHECKPOINT.md` (las
 | Codex CLI | wrapper repaired, `codex exec` runs; ChatGPT account quota exhausted until 2026-11-27 09:08 | not in pool until quota returns; then add `codex|<model>` with `codex exec --skip-git-repo-check` |
 | Cline CLI | installed (3.0.74) but API returns Unauthorized | needs owner re-auth in `cline` before it can join the pool |
 | Goose | WORKS with local Ollama: `GOOSE_PROVIDER=ollama GOOSE_MODEL=<tag> goose run -t "<prompt>"`; smoke OK on qwen3:4b | in `cli_pool.py` as `goose|qwen3:8b` / `goose|qwen3:4b`; last resort only, local models are slow |
-| Aider | see note below | needs an OpenRouter key or local Ollama model |
+| Aider | install attempted 2026-11-11: `pip install aider-chat` failed building aiohttp on Store Python 3.13; `uv tool install aider-chat` still downloading after ~40 min (slow link, ~500 MB cache) | retry `uv tool install aider-chat` when the link is faster, then smoke `aider --model ollama/qwen3:8b --yes --message "..."`; needs an OpenRouter key or local Ollama model |
 | Windsurf / Cascade CLI | not installed on this machine | no free headless mode; skip |
 
-Round 26 evaluation (2026-11-11, real smoke prompts in a temp folder): `agy --print` OK; `codex exec` OK mechanically but quota-limited; `qwen -p` OK through Ollama; `goose run -t` OK through Ollama; `cline` unauthorized; aider install + OpenRouter smoke recorded below when finished.
+Round 26 evaluation (2026-11-11, real smoke prompts in a temp folder): `agy --print` OK; `codex exec` OK mechanically but quota-limited; `qwen -p` OK through Ollama (qwen3:4b and qwen3:8b); `goose run -t` OK through Ollama; `cline` unauthorized; aider install still downloading at end of round (see table).
 Rule: one writer per project at any time (CLI runner OR ZCode OR Antigravity). The autopilot treats any commit or edit in the last 25 minutes as "someone is working" and starts nothing.
 
 ## 8. Owner rules added 2026-11-10 night
