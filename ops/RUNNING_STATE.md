@@ -21,5 +21,9 @@ Claude weekly resets 2 AM, 5-hour 10 AM (owner). Codex monthly resets about 2026
 ## Owner rules in force (full list: standard/OWNER_DEFAULTS.md, plans/OWNER_METHOD.md, ops/OWNER_REQUEST_LEDGER.md, D:/Projects/AGENTS.md)
 Never stop for approval on consent taps; passwords, 2FA codes, CAPTCHAs, payments, new accounts stay his; never solve graded college work (practice sets instead); auto-apply to vetted jobs; clean Telegram messages; two hosts per web product; truth only on profiles; AHome data private; TickTick note Accounts never opened.
 
+## Desktop & Product Kits (r31, 2026-11-11)
+- Projects Hub: D:\\Projects\\Projects-Hub.html (Desktop shortcut: Projects Hub.url). Product Kit folders created for SIR AI, SIR Portfolio, SIR Jobs, SIR Laptop Manager, _SIR. AHome and SIR Study skipped this round because their locks/workers were active (no repo writes).
+
 ## New standards (2026-11-11)
 plans/AI_FALLBACK_CHAIN.md (per-project keys, Gemini then OpenRouter then other free providers then local), plans/WINDOWS_APP_STANDARD.md (installer, Firebase sign-in, self-update, download page, Product Kit folder, Projects-Hub.html), plans/COMPACTION_PROTOCOL.md.
+

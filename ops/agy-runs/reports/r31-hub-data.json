@@ -1,0 +1,236 @@
+{
+  "projects": [
+    {
+      "name": "SIR AI",
+      "links": [
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://sir-ai-official.web.app",
+          "label": "Firebase Hosting",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://sir-ai-pi.vercel.app",
+          "label": "Vercel Host",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "not listening",
+          "address": "http://localhost:5173",
+          "label": "Local Dev Server",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/sir-ai",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://vercel.com/team_x10nrld4eW2jWrTESbCIJU8c/sir-ai/deployments",
+          "label": "Vercel Deployments",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://console.firebase.google.com/project/sir-ai-official/overview",
+          "label": "Firebase Project Overview",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "D:\\Projects\\SIR AI\\Product Kit",
+      "note": "Firebase + Vercel hosts (same build). Local dev: npm run dev -w @sir-ai/web (Vite, default 5173)."
+    },
+    {
+      "name": "SIR Portfolio",
+      "links": [
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://sir-portfolio-site.web.app",
+          "label": "Firebase Hosting",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://sir-portfolio-liart.vercel.app",
+          "label": "Vercel Host",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "not listening",
+          "address": "http://localhost:3000",
+          "label": "Local Dev Server",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/sir-portfolio",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://vercel.com/team_x10nrld4eW2jWrTESbCIJU8c/sir-portfolio/deployments",
+          "label": "Vercel Deployments",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://console.firebase.google.com/project/sir-portfolio-site/overview",
+          "label": "Firebase Project Overview",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "D:\\Projects\\SIR Portfolio\\Product Kit",
+      "note": "Next.js site on Firebase Hosting and Vercel. Local dev: npm run dev (default 3000)."
+    },
+    {
+      "name": "SIR Jobs",
+      "links": [
+        {
+          "status": "OK",
+          "code": "listening",
+          "address": "http://127.0.0.1:3456",
+          "label": "Local Dev Server",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/sir-jobs",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "D:\\Projects\\SIR Jobs\\Product Kit",
+      "note": "No Firebase/Vercel host recorded (local sovereign dashboard only)."
+    },
+    {
+      "name": "SIR Study",
+      "links": [
+        {
+          "status": "OK",
+          "code": "listening",
+          "address": "http://127.0.0.1:3300",
+          "label": "Local Dev Server",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/sir-study",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "(skipped - locked)",
+      "note": "sir-study.lock active during r31; Product Kit not written to its repo this round. Local dev: scripts/serve.py (port 3300). No public host recorded."
+    },
+    {
+      "name": "SIR Laptop Manager",
+      "links": [
+        {
+          "status": "OK",
+          "code": "listening",
+          "address": "http://127.0.0.1:8765",
+          "label": "Local Dev Server",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/sir-laptop-manager",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "D:\\Projects\\SIR Laptop Manager\\Product Kit",
+      "note": "Internal tool, local ops server/dashboard (port 8765). No public host recorded."
+    },
+    {
+      "name": "AHome",
+      "links": [
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://ahmed-and-habiba.vercel.app",
+          "label": "Vercel Host",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://console.firebase.google.com/project/ahmed-habiba/overview",
+          "label": "Firebase Project Overview",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://vercel.com/team_x10nrld4eW2jWrTESbCIJU8c/ahmed-and-habiba/deployments",
+          "label": "Vercel Deployments",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "DEAD",
+          "code": "404",
+          "address": "https://github.com/sirahmed8/ahmed-and-habiba",
+          "label": "GitHub Repo (private)",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "listening",
+          "address": "http://127.0.0.1:3000",
+          "label": "Local Dev Server (web)",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "listening",
+          "address": "http://127.0.0.1:8090",
+          "label": "Local Dev Server (core)",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "(skipped - locked)",
+      "note": "AHome lock active (audit worker). Links read from its .sir/CHECKPOINT.md/README/docs only; no app source opened; Product Kit not written this round. Private data rules apply."
+    },
+    {
+      "name": "_SIR (Control Room)",
+      "links": [
+        {
+          "status": "OK",
+          "code": "200",
+          "address": "https://claude.ai/code/artifact/5903680d-7f79-4595-a8ea-31b0f4c3b2db",
+          "label": "Control Room (artifact)",
+          "verified": "2026-11-11T13:42:31Z"
+        },
+        {
+          "status": "OK",
+          "code": "exists",
+          "address": "file:///D:/Projects/_SIR/ops/public/dashboard.html",
+          "label": "Control Room Local Dashboard",
+          "verified": "2026-11-11T13:42:31Z"
+        }
+      ],
+      "kit": "D:\\Projects\\_SIR\\Product Kit",
+      "note": "HQ control room: published artifact + local dashboard file."
+    }
+  ],
+  "generated": "2026-11-11T13:44:23Z"
+}
