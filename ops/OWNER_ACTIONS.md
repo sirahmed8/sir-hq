@@ -9,7 +9,6 @@ Every tool route was tried and the portal blocks them all (Chrome download bubbl
 0. ZCode is signed out. In your Chrome there is an open tab "authorize" from Z.ai with the account 1sir1ahmed1 already chosen: tick the "Terms" checkbox and press "Continue". ZCode then logs in by itself. (Sign-in stays with you by the workspace rules; nothing else waits for this: the free CLI workers carry every project meanwhile.)
 
 ## Two tiny taps, whenever (study materials, not urgent)
-1. One file (Data Structures Lec 03 slides, 10.6 MB) is too big for the automated Drive upload bridge: open it yourself in the SIR Study materials folder and drag it into the "Data Structures" Drive folder, or tell HQ to try a different upload route.
 2. One new file (Data Structures "Data Bank.pdf") needs to be added to its NotebookLM notebook: NotebookLM's upload widget would not accept it from automation. Open the Data Structures notebook, Add sources, drag that one file in - takes under a minute.
 
 ## Needed soon
