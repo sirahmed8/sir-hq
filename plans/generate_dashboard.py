@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import date
 from status_rules import state_for
 from dashboard_privacy import assert_no_private_leaks
@@ -314,6 +315,87 @@ def parse_autopilot():
         "pending_count": len(pending),
         "log_tail": [sanitize_autopilot_text(ln) for ln in tail_lines(OPS + "/autopilot.log", 10)],
     }
+
+
+def load_model_pool():
+    path = os.path.join(OPS, "agy-runs", "model-pool.json")
+    try:
+        return json.load(io.open(path, encoding="utf8")) or {}
+    except Exception:
+        return {}
+
+
+def project_folder_for_task(task_name):
+    queue = []
+    try:
+        queue = json.load(io.open(OPS + "/AUTOPILOT_QUEUE.json", encoding="utf8")) or []
+    except Exception:
+        queue = []
+    for item in queue if isinstance(queue, list) else []:
+        if not isinstance(item, dict):
+            continue
+        if str(item.get("name") or "") == task_name:
+            return str(item.get("folder") or "")
+    if task_name.endswith("-control"):
+        return os.path.normpath(os.path.join(HERE, ".."))
+    return ""
+
+
+def model_cooling(pool, model):
+    if not isinstance(pool, dict) or not model:
+        return None
+    for key, info in pool.items():
+        if not isinstance(info, dict):
+            continue
+        if key.split("|")[-1] != model:
+            continue
+        until = info.get("until", 0)
+        try:
+            until_f = float(until)
+        except Exception:
+            until_f = 0
+        if until_f > time.time():
+            return {"why": info.get("why", ""), "until": until_f, "last_ok": info.get("last_ok")}
+    return None
+
+
+def parse_cli_workers():
+    workers = []
+    log_dir = os.path.join(OPS, "agy-runs")
+    pool = load_model_pool()
+    now = time.time()
+    try:
+        names = [f for f in os.listdir(log_dir) if f.startswith("cli-") and f.endswith(".log")]
+    except Exception:
+        names = []
+    for fname in sorted(names):
+        task = fname[len("cli-"):-len(".log")]
+        path = os.path.join(log_dir, fname)
+        model = ""
+        try:
+            with io.open(path, encoding="utf8", errors="ignore") as f:
+                first = f.readline()
+        except Exception:
+            continue
+        m = re.match(r"===\s*round\s+\d+\s+(\S+)\s+(\S+)", first or "")
+        if m:
+            model = m.group(2)
+        try:
+            mins = round((now - os.path.getmtime(path)) / 60)
+        except Exception:
+            mins = None
+        folder = project_folder_for_task(task)
+        subject = git(folder, "log", "-1", "--format=%s") if folder else ""
+        workers.append({
+            "task": task,
+            "folder": folder,
+            "model": model,
+            "minutes": mins,
+            "commit": subject,
+            "cooling": model_cooling(pool, model),
+        })
+    workers.sort(key=lambda w: (w["minutes"] is None, w["minutes"] if w["minutes"] is not None else 10 ** 9))
+    return workers
 
 
 def parse_account_ledger():
@@ -1136,7 +1218,7 @@ def main():
             },
         ])(json.load(io.open(os.path.join(OPS, "config.json"), encoding="utf-8")) if os.path.isfile(os.path.join(OPS, "config.json")) else {}),
         daemon_health=get_control_room_daemon_health(),
-        autopilot=parse_autopilot(),
+        autopilot=(lambda ap: {**ap, "workers": parse_cli_workers()})(parse_autopilot()),
         account_ledger=parse_account_ledger(),
     )
 

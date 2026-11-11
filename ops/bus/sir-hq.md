@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-11 from _SIR (SIR Control Room round 22 mobile UI):
+  done:
+    (1) Fixed all 8 dashboard defects in plans/dashboard_template.html + plans/generate_dashboard.py: short factual subtitle + compact Menu/Settings toolbar; status-strip chips (updated time, commit, republish needed) never wrapping; drawer left-aligned equal rows with active marked, top bar 4 tabs + More, duplicate names deduped (Handover/CI); stat tiles from real queue/worker/CI data hiding empty tiles and showing red CI; Working now from autopilot_state/queue/model-pool/cli logs with model, folder, minutes, commit subject and cooling-down pills; handover stacked cards full-width description no inner scroll; one-line sub-descriptions under each page title EN/AR, Accounts + Account Ledger merged into #accounts.
+    (2) Wrote .sir/DEFECTS_CONTROL.md (all 8 defects, status, file:line proof) and tests/test_control_room_defects.py (Playwright audit at 320/390/768/1280 px light/dark: no horizontal scroll, no clipped text, one name per page, no fake tile data; skips where Playwright absent).
+    (3) Regenerated ops/public/dashboard.html via python plans/generate_dashboard.py (286809 bytes, hash afe30386, git 869176b); python -m compileall plans scripts OK.
+  evidence: ops/agy-runs/reports/r22-control.md, .sir/DEFECTS_CONTROL.md, ops/public/dashboard.html.
+  signal: r22-control ready for commit/push/CI.
 - [ ] 2026-11-10 from ahome (SIR AHome - Round 17 Verify: re-prove every R14 checklist tick A-N and hunt new defects):
   done:
     (1) Re-proved all checklist items A-N: structural grep (side menu/settings/logo removed; no native select/time/date inputs; no شياومي or أيام عافية), Playwright WebKit shell smoke at 320/390/768/1280/1920 px × ar-EG RTL/en-US LTR × light/dark — 20/20 no overflow, correct dir/lang/theme — full web suite 924/924 green, tsc/eslint clean.
@@ -535,3 +542,9 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-11 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash fbdbd8f2)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash eb6c6d06)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash afe30386)

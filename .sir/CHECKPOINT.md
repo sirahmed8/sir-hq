@@ -103,3 +103,11 @@
 - Next step: wait for the three subagent reports; check CI per project with `gh run list`; run `python D:/Projects/_SIR/scripts/ai-status.py`; read ops/bus/ahmed-telegram.md for his answers.
 - Open promises: crons (session only): hourly watch 9b8288f7, WhatsApp digest 5394854a, Fajr plan dbafdb6c 04:52, health check-in 0255e696 14:12 and 20:12, Isha summary a17f1544 21:03 (see ops/DAILY_RHYTHM.md); TickTick My notes beyond the dates note; Antigravity and ZCode sign-in; Haiku refuses relayed consent.
 - Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/WORKER_PREAMBLE.md, ops/OWNER_ACTIONS.md.
+
+## r22-control worker note (2026-11-11)
+- Done: all 8 dashboard defects fixed in plans/dashboard_template.html + plans/generate_dashboard.py (header subtitle + compact Menu/Settings toolbar; status-strip chips never wrapping; drawer left-aligned equal rows active marked, top bar 4 tabs + More, duplicate names deduped; stat tiles from real queue/worker/CI data hiding empty and showing red CI; Working now from autopilot_state/queue/model-pool/cli logs with model/folder/minutes/commit subject and cooling-down pills; handover stacked cards full-width description no inner scroll; one-line sub-descriptions EN/AR under each title, Accounts + Account Ledger merged into #accounts).
+- Wrote .sir/DEFECTS_CONTROL.md (all 8 defects, status, file:line proof) and tests/test_control_room_defects.py (Playwright audit 320/390/768/1280 px light/dark; skips where Playwright absent).
+- Regenerated ops/public/dashboard.html via python plans/generate_dashboard.py (286809 bytes, hash afe30386, git 869176b); python -m compileall plans scripts OK.
+- Report written: ops/agy-runs/reports/r22-control.md. Bus line appended to ops/bus/sir-hq.md.
+- Next step: commit + push to main, confirm gh run list --limit 3 green on sirahmed8/sir-hq, then python D:/Projects/_SIR/scripts/agy-done.py r22-control ok "<one line>".
+

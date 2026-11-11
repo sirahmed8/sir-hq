@@ -167,18 +167,28 @@ header {
   display: block;
 }
 header p { margin: 4px 0 0; color: var(--muted); max-width: 68ch; font-size: 13px; }
-.header-actions {
+.header-toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
+}
+.status-strip {
+  display: flex;
+  gap: 6px;
   align-items: center;
   flex-wrap: wrap;
 }
-#stamp {
+.status-strip .chip {
   font-size: 11.5px;
-  line-height: 1.4;
-  color: var(--muted);
-  word-break: break-word;
+  padding: 4px 8px;
+  min-height: 28px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  white-space: nowrap;
 }
+.status-strip .chip.ok { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.status-strip .chip.warn { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
 
 /* Dynamic Island Tab Navigation */
 nav {
@@ -612,11 +622,11 @@ bdi, .num, code, .hash, .port, .mono {
   flex: 0 0 auto;
   padding: 8px 14px;
 }
-.header-actions .menu-toggle-btn {
+.header-toolbar .menu-toggle-btn {
   display: none !important;
 }
 @media (max-width: 1023px) {
-  .header-actions .menu-toggle-btn {
+  .header-toolbar .menu-toggle-btn {
     display: inline-flex !important;
   }
 }
@@ -667,6 +677,9 @@ bdi, .num, code, .hash, .port, .mono {
   gap: 6px;
   justify-content: space-between;
 }
+.tiles > div.tile.ok { border-top: 3px solid var(--ok); }
+.tiles > div.tile.bad { border-top: 3px solid var(--bad); }
+.tiles > div.tile.warn { border-top: 3px solid var(--warn); }
 .big { font: 700 28px/1 var(--f-data); font-variant-numeric: tabular-nums; }
 
 .panel {
@@ -703,6 +716,7 @@ bdi, .num, code, .hash, .port, .mono {
   border-bottom: 1px solid var(--line);
 }
 .list li:last-child { border-bottom: none; }
+.checklist-item { display: flex; flex-direction: column; gap: 6px; padding: 2px 0; }
 .list li a {
   display: inline-block;
   padding: 3px 6px;
@@ -1293,20 +1307,24 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <div>
         <div class="label" id="txt-label">HQ for Ahmed Alaa</div>
         <h1 id="txt-title" style="margin:2px 0 0">SIR Control Room</h1>
-        <p id="txt-desc">Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.</p>
+        <p id="txt-desc" class="sub">Live portfolio ground truth: CI state, active worker chats, and verified status per project. AHome private data is never shown here.</p>
       </div>
     </div>
-    <div class="header-actions">
-      <button id="menu-toggle-btn" class="fb menu-toggle-btn" aria-label="Open navigation drawer" aria-expanded="false" aria-controls="app-sidebar">
+    <div class="header-toolbar" id="header-toolbar">
+      <button id="menu-toggle-btn" class="fb" aria-label="Open navigation drawer" aria-expanded="false" aria-controls="app-sidebar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <span id="txt-menu-btn">Menu</span>
       </button>
-      <button id="settings-btn" class="fb settings-trigger-btn" aria-label="Settings and preferences" aria-expanded="false" aria-controls="settings-modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <button id="settings-btn" class="fb" aria-label="Settings and preferences" aria-expanded="false" aria-controls="settings-modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         <span id="txt-settings-btn">Settings</span>
       </button>
-      <div class="sub num" id="stamp"></div>
-      <span class="pill bad" id="offline-pill" style="display:none;font-size:11px;padding:2px 6px">Offline</span>
+      <div class="status-strip" id="status-strip">
+        <span class="chip" id="chip-updated"></span>
+        <span class="chip" id="chip-commit"></span>
+        <span class="chip" id="chip-republish"></span>
+      </div>
+      <span class="pill bad" id="offline-pill" style="display:none">Offline</span>
     </div>
   </header>
   <!-- Settings Popover Dialog -->
@@ -1392,11 +1410,11 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
         </a>
         <a href="#handover" id="side-handover" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          <span id="side-handover-text">Gemini Handover</span>
+          <span id="side-handover-text">Handover</span>
         </a>
         <a href="#ci-remote" id="side-ci" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
-          <span id="side-ci-text">CI &amp; Remote</span>
+          <span id="side-ci-text">CI</span>
         </a>
         <a href="#ledgers" id="side-ledgers" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -1421,10 +1439,6 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
         <a href="#autopilot" id="side-autopilot" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12.01" y2="12"/><line x1="12" y1="12" x2="16" y2="12"/></svg>
           <span id="side-autopilot-text">Autopilot &amp; State</span>
-        </a>
-        <a href="#account-ledger" id="side-account-ledger" class="sidebar-link">
-          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="6" y1="3" x2="6" y2="21"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/></svg>
-          <span id="side-account-ledger-text">Account Ledger</span>
         </a>
         <a href="#workforce" id="side-workforce" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -1534,6 +1548,7 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   <section id="projects" style="display:flex;flex-direction:column;gap:12px">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
       <h2 id="txt-projects-title">Projects</h2>
+      <div class="sub" id="txt-projects-sub">Every product with its verified state, next tasks, commits, and folder path.</div>
       <div style="display:flex;gap:8px">
         <button id="toggle-all-btn" class="fb" aria-expanded="false" title="Expand or collapse all project details">Expand All</button>
       </div>
@@ -1548,7 +1563,10 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   </section>
 
   <section id="platforms" style="display:flex;flex-direction:column;gap:12px">
-    <h2 id="txt-plat-title">Platform coverage</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <h2 id="txt-plat-title">Platform coverage</h2>
+      <div class="sub" id="txt-plat-sub">Required, optional, or skipped coverage per project and platform.</div>
+    </div>
     <div class="legend" id="plat-legend">
       <span><i class="cell required"></i> <span id="txt-plat-req">required</span></span>
       <span><i class="cell optional"></i> <span id="txt-plat-opt">optional, decided by ADR</span></span>
@@ -1558,8 +1576,15 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   </section>
 
   <section id="accounts" class="panel">
-    <h2 id="txt-acc-title">Accounts and registrations, the easy route</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 id="txt-acc-title">Accounts &amp; Ledger</h2>
+      <div class="sub" id="txt-acc-sub">Free and paid registrations for launch, plus the model/quota usage ledger (newest rows last).</div>
+    </div>
     <div class="cols3" id="accounts-cols"></div>
+    <div class="scroll" style="margin-top:14px">
+      <table id="acct-ledger-table"></table>
+    </div>
+    <div id="acct-ledger-empty" style="padding:14px;color:var(--muted);font-size:13px"></div>
   </section>
 
   <section id="autopilot" class="panel">
@@ -1579,26 +1604,19 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     </div>
   </section>
 
-  <section id="account-ledger" class="panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-      <div>
-        <div class="label" id="txt-acct-ledger-title">Account Ledger (Usage and Resets)</div>
-        <p class="sub" id="txt-acct-ledger-sub" style="margin:4px 0 0">Usage rows from ops/ACCOUNT_LEDGER.md, newest rows last.</p>
-      </div>
-    </div>
-    <div class="scroll">
-      <table id="acct-ledger-table"></table>
-    </div>
-    <div id="acct-ledger-empty" style="padding:14px;color:var(--muted);font-size:13px"></div>
-  </section>
-
   <section id="workforce" class="panel">
-    <h2 id="txt-wf-title">Workforce &amp; Work Model</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 id="txt-wf-title">Workforce &amp; Work Model</h2>
+      <div class="sub" id="txt-wf-sub">Who builds and runs the portfolio: manager, workers, fallbacks, and hands-on tooling.</div>
+    </div>
     <div class="cols3" id="workforce-cols"></div>
   </section>
 
   <section id="activity" class="panel">
-    <h2 id="txt-act-title">Latest activity</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 id="txt-act-title">Latest activity</h2>
+      <div class="sub" id="txt-act-sub">Recent mission-log entries from project chats (AHome entries excluded).</div>
+    </div>
     <div class="log" id="log"></div>
   </section>
     </main>
@@ -1857,11 +1875,11 @@ const i18n = {
     btn: "العربية",
     label: "HQ for Ahmed Alaa",
     title: "SIR Control Room",
-    desc: "Truth-first operations: real verified status across every product, phone-ready remote access, live CI, and active rebuild waves. Claude manages; Antigravity builds.",
+    desc: "Live portfolio ground truth: CI state, active worker chats, and verified status per project. AHome private data is never shown here.",
     stampPrefix: "Updated: ",
     syncSame: "site and artifact are the same version",
     syncWait: "artifact is waiting for republish",
-    navNow: "Now", navHandover: "Gemini Handover", navCi: "CI & Remote", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
+    navNow: "Now", navHandover: "Handover", navCi: "CI", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
     navPlatforms: "Platforms", navAccounts: "Accounts", navWorkforce: "Workforce", navActivity: "Activity",
     handoverLabel: "OPERATIONAL INDEPENDENCE PROTOCOL",
     handoverTitle: "Gemini Autonomous Handover & Master Plans",
@@ -1904,9 +1922,14 @@ const i18n = {
     statusFrozen: "Frozen (Friend)",
     platTitle: "Platform coverage",
     platReq: "required", platOpt: "optional, decided by ADR", platSkip: "skipped, reason in PLATFORMS.md",
-    accTitle: "Accounts and registrations, the easy route",
+    accTitle: "Accounts & Ledger",
+    accSub: "Free and paid registrations for launch, plus the model/quota usage ledger (newest rows last).",
+    projectsSub: "Every product with its verified state, next tasks, commits, and folder path.",
+    platSub: "Required, optional, or skipped coverage per project and platform.",
     wfTitle: "Workforce & Work Model",
+    wfSub: "Who builds and runs the portfolio: manager, workers, fallbacks, and hands-on tooling.",
     actTitle: "Latest activity",
+    actSub: "Recent mission-log entries from project chats (AHome entries excluded).",
     noMatch: "No project matches your filters.",
     truthExists: "What exists today",
     truthVerified: "Verified end-to-end today",
@@ -1920,7 +1943,6 @@ const i18n = {
     verifiedByTag: "Auditor",
     verifiedByControlTag: "Verified by Control Room",
     navAutopilot: "Autopilot & State",
-    navAccountLedger: "Account Ledger",
     autopilotLabel: "Autopilot & System State",
     autopilotTitle: "Autopilot & System State",
     autopilotSub: "Live telemetry from the background autopilot: Telegram listener, task queue state, and recent log lines.",
@@ -1985,11 +2007,11 @@ const i18n = {
     btn: "English",
     label: "المقر الرئيسي للمهندس أحمد علاء",
     title: "غرفة التحكم - SIR Control Room",
-    desc: "المنظومة التشغيلية المبنية على الصدق التام: حالة التحقق الفعلية لكل مشروع، روابط آمنة للوصول من الآيفون، فحوصات الجودة الحية، ومراحل البناء من الصفر.",
+    desc: "الحقيقة التشغيلية للمحفظة: حالة فحوصات التكامل، محادثات العمال النشطة، والحالة المؤكدة لكل مشروع. بيانات منظومة AHome الخاصة لا تُعرض أبداً هنا.",
     stampPrefix: "تم التحديث: ",
     syncSame: "الموقع والأرتيفاكت نفس الإصدار",
     syncWait: "الأرتيفاكت بانتظار إعادة النشر",
-    navNow: "الآن", navHandover: "تسليم Gemini", navCi: "الفحص والوصول", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
+    navNow: "الآن", navHandover: "التسليم", navCi: "الفحص", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
     navPlatforms: "المنصات", navAccounts: "الحسابات", navWorkforce: "فريق العمل", navActivity: "النشاطات",
     handoverLabel: "بروتوكول الاستقلالية التشغيلية",
     handoverTitle: "تسليم العمليات المستقلة لـ Gemini والخطط الرئيسية",
@@ -2032,9 +2054,14 @@ const i18n = {
     statusFrozen: "مجمّد (صديق)",
     platTitle: "تغطية المنصات والأجهزة",
     platReq: "مطلوب أساسي", platOpt: "اختياري، يحدده القرار المعماري", platSkip: "مستبعد، السبب في وثيقة المنصات",
-    accTitle: "الحسابات والاشتراكات - المسار الأسهل",
+    accTitle: "الحسابات وسجل الاستخدام",
+    accSub: "التسجيلات المجانية والمدفوعة للإطلاق، مع سجل استخدام النماذج والحصص (أحدث الصفوف في الأسفل).",
+    projectsSub: "كل منتج مع حالته المؤكدة ومهامه القادمة وإصداره ومجلده.",
+    platSub: "تغطية مطلوب أو اختياري أو مستبعد لكل مشروع ومنصة.",
     wfTitle: "فريق العمل ونموذج التشغيل",
+    wfSub: "من يدير وينفذ وتشغيل المنصة: المدرب، العمال، البدائل، وأدوات التحكم المباشر.",
     actTitle: "آخر الأنشطة والعمليات",
+    actSub: "آخر مداخلات السجل من محادثات المشاريع (باستثناء مشروع AHome الخاص).",
     noMatch: "لا يوجد مشروع يطابق معايير البحث.",
     truthExists: "ما تم بناؤه فعلياً",
     truthVerified: "تم اختباره والتحقق منه اليوم",
@@ -2048,7 +2075,6 @@ const i18n = {
     verifiedByTag: "جهة التدقيق",
     verifiedByControlTag: "فحص وتدقيق غرفة التحكم",
     navAutopilot: "المساعد التلقائي والحالة",
-    navAccountLedger: "سجل الحسابات",
     autopilotLabel: "الحالة والنظام التلقائي",
     autopilotTitle: "الحالة والنظام التلقائي",
     autopilotSub: "بيانات حية من المساعد التلقائي في الخلفية: مستلم تليجرام، قائمة المهام، وآخر أسطر السجل.",
@@ -2089,33 +2115,43 @@ let allExpanded = false;
 
 function renderTiles(lang) {
   const isAr = lang === "ar";
-  const tm = D.truth_metrics || { verified: 4, rebuilding: 1, backlog: 10, frozen: 1, total: 16 };
-  const verifiedPct = pct(tm.verified, tm.total);
-  
-  $("#tiles").innerHTML = `
-    <div>
-      <span class="label">${isAr ? "تم التحقق اليوم" : "Verified Today"}</span>
-      <span class="big">${tm.verified}/${tm.total}</span>
-      <div class="bar ok"><i style="width:${verifiedPct}%"></i></div>
-      <span class="sub">${isAr ? "تم فحصه واختباره بالكامل اليوم" : "End-to-end verified today"}</span>
-    </div>
-    <div>
-      <span class="label">${isAr ? "قيد إعادة البناء" : "Active Rebuilds"}</span>
-      <span class="big">${tm.rebuilding}</span>
-      <div class="bar"><i style="width:${pct(tm.rebuilding, tm.total)}%"></i></div>
-      <span class="sub">${isAr ? "إعادة بناء من الصفر (SIR AI)" : "Rebuilding from zero (SIR AI)"}</span>
-    </div>
-    <div>
-      <span class="label">${isAr ? "في قائمة الانتظار" : "Queued in Backlog"}</span>
-      <span class="big">${tm.backlog}</span>
-      <span class="sub">${isAr ? "هياكل نظيفة بانتظار مرحلة البدء" : "Clean skeletons awaiting wave"}</span>
-    </div>
-    <div>
-      <span class="label">${isAr ? "مشروع صديق مجمّد" : "Frozen Client Repo"}</span>
-      <span class="big">${tm.frozen}</span>
-      <span class="sub">${isAr ? "مفروشات نجم (معزول وخاص)" : "Negm Furniture (isolated)"}</span>
+  const tm = D.truth_metrics || { verified: 0, rebuilding: 0, backlog: 0, frozen: 0, total: 0 };
+  const a = D.autopilot || {};
+  const ci = Array.isArray(D.ci) ? D.ci : [];
+  const ciRed = ci.some((c) => c.status === "failure");
+  const ciRunning = ci.some((c) => c.status === "in_progress" || c.status === "pending");
+  const ciOk = ci.length > 0 && !ciRed && !ciRunning;
+
+  const tile = (label, big, sub, cls, showBar, barPct) => `
+    <div class="tile ${cls || ""}">
+      <span class="label">${esc(label)}</span>
+      <span class="big num">${esc(big)}</span>
+      ${showBar ? `<div class="bar ${cls || ""}"><i style="width:${barPct}%"></i></div>` : ""}
+      <span class="sub">${esc(sub)}</span>
     </div>
   `;
+
+  const tiles = [];
+  if (String(tm.total ?? 0) !== "0") {
+    tiles.push(tile(isAr ? "تم التحقق اليوم" : "Verified Today", `${tm.verified ?? 0}/${tm.total ?? 0}`, isAr ? "تم فحصه واختباره بالكامل اليوم" : "End-to-end verified today", tm.verified === tm.total ? "ok" : "", true, pct(tm.verified ?? 0, tm.total ?? 0)));
+  }
+  tiles.push(tile(isAr ? "المحادثات النشطة" : "Active Workers", String(a.runner_count ?? 0), isAr ? "محادثات مشروعات يديرها المساعد" : "Project chats managed by the autopilot", (a.runner_count ?? 0) > 0 ? "ok" : "", false, 0));
+  tiles.push(tile(isAr ? "المعلق في الطابور" : "Pending Queue", String(a.pending_count ?? 0), isAr ? "مهام لم تنته بعد في الطابور" : "Tasks not finished in the queue", "", false, 0));
+  if (ci.length > 0) {
+    const failing = ci.filter((c) => c.status === "failure").length;
+    tiles.push(tile(isAr ? "حالة الفحص المستمر" : "CI State", ciRed ? (isAr ? "أحمر" : "RED") : ciRunning ? (isAr ? "قيد التشغيل" : "RUN") : (isAr ? "أخضر" : "PASS"), ciRed ? `${failing} ${isAr ? "مستودع فاشل" : "repo(s) failing"}` : isAr ? "كل المستودعات ناجحة" : "All repositories passing", ciRed ? "bad" : ciRunning ? "warn" : "ok", false, 0));
+  }
+
+  $("#tiles").innerHTML = tiles.join("");
+  $("#tiles").style.gridTemplateColumns = `repeat(${tiles.length > 0 ? tiles.length : 1}, 1fr)`;
+}
+
+  const visible = tiles.filter((t, i) => {
+    const m = /verified|Verified Today/.test(tiles[i] || "") ? String(tm.verified ?? 0) !== "0" || String(tm.total ?? 0) !== "0" : true;
+    return m;
+  });
+  $("#tiles").innerHTML = visible.join("");
+  $("#tiles").style.gridTemplateColumns = `repeat(${visible.length}, 1fr)`;
 }
 
 function renderLedgers(lang) {
@@ -2140,22 +2176,39 @@ function renderLedgers(lang) {
 
 function renderActive(lang) {
   const isAr = lang === "ar";
-  const ai = D.active_info || {};
-  const staleNote = ai.stale
-    ? `<li><span class="pill warn">${isAr ? "قديمة" : "STALE"}</span><span class="sub">${isAr ? "بيانات العمل الآن أقدم من 6 ساعات" : "Working-now feed is older than 6 hours"}</span></li>`
-    : "";
-  if (D.active && D.active.length) {
-    $("#active").innerHTML = staleNote + D.active.map((a) => `
-      <li>
-        <span class="pill info">${esc(a.chat ? a.chat.toUpperCase() : "WORKER")}</span>
-        <span><b>${esc(a.project)}</b><br><span class="sub">${esc(a.state)}</span></span>
-      </li>
-    `).join("");
+  const t = i18n[lang] || i18n.en;
+  const a = D.autopilot || {};
+  const workers = Array.isArray(a.workers) ? a.workers : [];
+  const activeBox = $("#active");
+  const parts = [];
+  const running = a.listener_pid != null;
+  parts.push(
+    `<li><span class="pill ${running ? "ok" : "warn"}">${esc(running ? t.stateListenerActive : t.stateListenerInactive)}</span><span class="sub">${esc(t.stateListener)} ${esc(a.listener_pid != null ? String(a.listener_pid) : "-")}</span></li>`,
+    `<li><span class="pill ${a.runner_count > 0 ? "ok" : "mute"}">${esc(t.stateRunners)}</span><span class="sub num">${esc(typeof a.runner_count === "number" ? a.runner_count : 0)}</span><span class="sub">${esc(t.stateRunnerSub)}</span></li>`,
+    `<li><span class="pill ${a.pending_count > 0 ? "warn" : "ok"}">${esc(t.stateQueue)}</span><span class="sub num">${esc(typeof a.pending_count === "number" ? a.pending_count : 0)}</span><span class="sub">${esc(t.stateQueueSub)}</span></li>`
+  );
+  if (workers.length) {
+    parts.push(workers.map((w) => {
+      const cooling = w.cooling ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "نموذج يبرد" : "model cooling down"}</span>` : "";
+      const mins = typeof w.minutes === "number"
+        ? (isAr ? `منذ ${w.minutes} د` : `${w.minutes}m ago`)
+        : "-";
+      return `
+        <li>
+          <span class="pill info">${esc(w.model || "-")}</span>
+          <span>
+            <b>${esc(w.task)}</b> <span class="sub num mono">${esc(w.folder || "-")}</span><br>
+            <span class="sub">${esc(w.commit || "-")} &middot; ${mins}${cooling}</span>
+          </span>
+        </li>
+      `;
+    }).join(""));
   } else {
-    $("#active").innerHTML = staleNote + `<li><span class="pill mute">${isAr ? "خامل" : "Idle"}</span><span class="sub">${i18n[lang].idleText}</span></li>`;
+    parts.push(`<li><span class="pill mute">${isAr ? "خامل" : "Idle"}</span><span class="sub">${t.idleText}</span></li>`);
   }
+  activeBox.innerHTML = parts.join("");
   const nextName = isAr ? (D.nextStart_ar || D.nextStart) : D.nextStart;
-  $("#nextstart").textContent = nextName ? i18n[lang].nextStartPrefix + nextName : "";
+  $("#nextstart").textContent = nextName ? t.nextStartPrefix + nextName : "";
 }
 
 function renderAttention(lang) {
@@ -2733,13 +2786,13 @@ function renderHandover(lang) {
       const descText = isAr ? (c.desc_ar || c.desc_en) : c.desc_en;
 
       return `
-        <li>
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:2px">
-            <span style="font-weight:600;font-size:12.5px;color:var(--ink)">${esc(titleText)}</span>
-            <span class="pill ${statusClass}" style="font-size:10.5px;padding:2px 6px">${esc(statusText)}</span>
+        <li class="checklist-item">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px">
+            <span style="font-weight:600;font-size:12.5px;color:var(--ink);overflow-wrap:anywhere">${esc(titleText)}</span>
+            <span class="pill ${statusClass}" style="font-size:10.5px;padding:2px 6px;white-space:nowrap">${esc(statusText)}</span>
           </div>
-          <div class="sub" style="font-size:11.5px;line-height:1.4">${esc(descText)}${c.stale ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "معلومة قديمة" : "stale"}</span>` : ""}</div>
-          <div class="sub" style="font-size:10.5px;margin-top:2px;color:var(--accent)">${esc(catText)}</div>
+          <div class="sub" style="font-size:11.5px;line-height:1.45;overflow-wrap:anywhere">${esc(descText)}${c.stale ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "معلومة قديمة" : "stale"}</span>` : ""}</div>
+          <div class="sub" style="font-size:10.5px;margin-top:2px;color:var(--accent);overflow-wrap:anywhere">${esc(catText)}</div>
         </li>
       `;
     }).join("");
@@ -2842,7 +2895,6 @@ function applyLang(lang) {
   if ($("#side-platforms-text")) $("#side-platforms-text").textContent = t.navPlatforms;
   if ($("#side-accounts-text")) $("#side-accounts-text").textContent = t.navAccounts;
   if ($("#side-autopilot-text")) $("#side-autopilot-text").textContent = t.navAutopilot;
-  if ($("#side-account-ledger-text")) $("#side-account-ledger-text").textContent = t.navAccountLedger;
   if ($("#side-workforce-text")) $("#side-workforce-text").textContent = t.navWorkforce;
   if ($("#side-activity-text")) $("#side-activity-text").textContent = t.navActivity;
 
@@ -2854,11 +2906,17 @@ function applyLang(lang) {
   $("#txt-label").textContent = t.label;
   $("#txt-title").textContent = t.title;
   $("#txt-desc").textContent = t.desc;
-  const syncMsg = D.artifact_synced ? t.syncSame : t.syncWait;
+  const isAr = lang === "ar";
+  const stampTime = D.generated ? relTime(D.generated.replace(" ", "T"), isAr) : "";
   const gitShort = D.git_hash || "main";
-  const hashShort = D.content_hash || "--------";
-  const ageTxt = D.generated ? relTime(D.generated.replace(" ", "T"), lang === "ar") : "";
-  $("#stamp").textContent = `${t.stampPrefix}${D.generated}${ageTxt ? " · " + ageTxt : ""} · git ${gitShort} · hash ${hashShort} · ${syncMsg}`;
+  const isSynced = Boolean(D.artifact_synced);
+  const republishText = isSynced ? (isAr ? "مزامنة مكتملة" : "in sync") : (isAr ? "بانتظار إعادة النشر" : "republish needed");
+  if ($("#chip-updated")) $("#chip-updated").innerHTML = `<span class="sub num" style="font-size:11.5px">${isAr ? "تم التحديث: " : "Updated: "}${stampTime || D.generated}</span>`;
+  if ($("#stamp-commit")) $("#stamp-commit").textContent = gitShort;
+  if ($("#chip-republish")) {
+    $("#chip-republish").className = `chip ${isSynced ? "ok" : "warn"}`;
+    $("#chip-republish").innerHTML = `<span class="sub">${republishText}</span>`;
+  }
 
   if ($("#nav-now-text")) $("#nav-now-text").textContent = t.navNow;
   if ($("#nav-handover-text")) $("#nav-handover-text").textContent = t.navHandover;
@@ -2894,16 +2952,21 @@ function applyLang(lang) {
   $("#txt-waves-title").textContent = t.wavesTitle;
   $("#txt-waves-sub").textContent = t.wavesSub;
   $("#txt-projects-title").textContent = t.projectsTitle;
+  if ($("#txt-projects-sub")) $("#txt-projects-sub").textContent = t.projectsSub;
   $("#q").placeholder = t.searchPlaceholder;
   if ($("#toggle-all-btn")) $("#toggle-all-btn").textContent = allExpanded ? t.toggleCollapse : t.toggleExpand;
 
   $("#txt-plat-title").textContent = t.platTitle;
+  if ($("#txt-plat-sub")) $("#txt-plat-sub").textContent = t.platSub;
   $("#txt-plat-req").textContent = t.platReq;
   $("#txt-plat-opt").textContent = t.platOpt;
   $("#txt-plat-skip").textContent = t.platSkip;
   $("#txt-acc-title").textContent = t.accTitle;
+  if ($("#txt-acc-sub")) $("#txt-acc-sub").textContent = t.accSub;
   $("#txt-wf-title").textContent = t.wfTitle;
+  if ($("#txt-wf-sub")) $("#txt-wf-sub").textContent = t.wfSub;
   $("#txt-act-title").textContent = t.actTitle;
+  if ($("#txt-act-sub")) $("#txt-act-sub").textContent = t.actSub;
   $("#txt-autopilot-label").textContent = t.autopilotLabel;
   $("#txt-autopilot-title").textContent = t.autopilotTitle;
   $("#txt-autopilot-sub").textContent = t.autopilotSub;
@@ -3078,7 +3141,7 @@ quickPills.forEach(pill => {
 });
 
 if ("IntersectionObserver" in window) {
-  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "account-ledger", "workforce", "activity"];
+  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "workforce", "activity"];
   const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
