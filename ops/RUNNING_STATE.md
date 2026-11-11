@@ -26,4 +26,5 @@ Never stop for approval on consent taps; passwords, 2FA codes, CAPTCHAs, payment
 
 ## New standards (2026-11-11)
 plans/AI_FALLBACK_CHAIN.md (per-project keys, Gemini then OpenRouter then other free providers then local), plans/WINDOWS_APP_STANDARD.md (installer, Firebase sign-in, self-update, download page, Product Kit folder, Projects-Hub.html), plans/COMPACTION_PROTOCOL.md.
-
+## Daily pool health
+- pool health 2026-11-12: available=28 cooling=0

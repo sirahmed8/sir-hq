@@ -36,11 +36,33 @@ def main() -> None:
         return
     tool, model = pick.split("|", 1)
     prompt = (ROOT / "ops" / "MANAGER_PROMPT.md").read_text(encoding="utf-8")
-    cmd = {"kilo": ["kilo", "run", "--auto", "-m", model, prompt],
-           "opencode": ["opencode", "run", "-m", model, prompt]}.get(tool)
-    if cmd is None:  # devin is not used as manager
-        log(f"skip: {tool} not used for manager")
+    cmd = {
+        "kilo": ["kilo", "run", "--auto", "-m", model, prompt],
+        "opencode": ["opencode", "run", "-m", model, prompt],
+        "devin": [str(Path.home() / "AppData/Local/devin/cli/bin/devin.exe"), "-p", "--model", model,
+                  "--permission-mode", "dangerous", "--respect-workspace-trust", "false", "--", prompt],
+        "codex": ["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
+                  "-m", model, prompt],
+        "agy": ["agy", "--print", prompt, "--model", model, "--dangerously-skip-permissions"],
+        "qwen": ["qwen", "-p", prompt, "--auth-type", "openai"],
+        "goose": ["goose", "run", "-t", prompt],
+        "crush": ["crush", "run", "-m", model, prompt],
+        "cline": ["cline", "-p", "--yolo", "-m", model, prompt],
+        "gemini": ["gemini", "-p", prompt, "--yolo", "--skip-trust"],
+        "aider": ["aider", "--model", model, "--yes-always", "--message", prompt],
+        "kimi": ["kimi", "-p", prompt, "--yolo"],
+    }.get(tool)
+    if cmd is None:
+        log(f"skip: {tool} has no manager command")
         return
+    env = None
+    if tool in ("qwen", "goose"):
+        import os
+        env = os.environ.copy()
+        if tool == "qwen":
+            env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama", "OPENAI_MODEL": model})
+        else:
+            env.update({"GOOSE_PROVIDER": "ollama", "GOOSE_MODEL": model})
     log(f"{'DRY ' if dry else ''}start with {pick} (note age {age:.0f} min)")
     if dry:
         return
@@ -48,8 +70,10 @@ def main() -> None:
     LOCK.write_text(pick)
     t0 = time.time()
     try:
-        res = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=1500, creationflags=NO_WINDOW)
+        res = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=1500, creationflags=NO_WINDOW, env=env)
         out, code = (res.stdout + res.stderr), res.returncode
+    except FileNotFoundError as e:
+        out, code = str(e), 127
     except subprocess.TimeoutExpired:
         out, code = "usage timeout", 124
     LOCK.unlink(missing_ok=True)

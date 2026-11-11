@@ -4,7 +4,7 @@ pick                      -> prints "tool|model" of the first model not cooling 
 report <entry> <code> <log> <offset> <seconds>
                           -> reads the log from byte <offset>; usage-limit text puts the entry on a 60 minute
                              cooldown, a run that failed within 90 seconds on 15 minutes, a refusal to run tools
-                             (permission rejected) on 6 hours; a good run clears the cooldown
+                             (permission rejected) or auth/missing setup on 6 hours; a good run clears the cooldown
 status                    -> table of every entry with its cooldown
 State: ops/agy-runs/model-pool.json. Order = strongest first. Edit POOL to add or remove models.
 """
@@ -19,6 +19,7 @@ POOL = [
     "kilo|kilo/kilo-auto/free",
     "opencode|opencode/big-pickle",
     "devin|swe-2-flash-medium",
+    "codex|gpt-6-luna",
     "kilo|kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
     "opencode|opencode/glm-5.3-flash-free",
     "opencode|opencode/deepseek-v4.1-flash-free",
@@ -37,9 +38,21 @@ POOL = [
     "goose|qwen3:8b",
     "qwen|qwen3:4b",
     "goose|qwen3:4b",
+    "crush|ollama/qwen3:8b",
+    "crush|ollama/qwen3:4b",
+    "cline|default",
+    "kimi|default",
+    "gemini|default",
+    "aider|ollama/qwen3:8b",
 ]
-LIMIT = re.compile(r"usage limit|rate limit|too many requests|quota|out of credits|\b429\b", re.I)
+LIMIT = re.compile(r"usage limit|rate limit|too many requests|quota|out of credits|hit your usage limit|\b429\b", re.I)
 REFUSED = re.compile(r"rejected a tool call that requires confirmation", re.I)
+NEEDS_SETUP = re.compile(
+    r"no auth type is selected|no providers configured|unauthorized|please .*re-?authenticate|"
+    r"no model configured|run [`']?kimi[`']? and use /login|not supported for gemini code assist|"
+    r"client is no longer supported|command not found|is not recognized as|No such file or directory",
+    re.I,
+)
 
 
 def load() -> dict:
@@ -75,9 +88,10 @@ def report(entry: str, code: int, log: str, offset: int, seconds: float) -> str:
     except OSError:
         text = ""
     refused = len(REFUSED.findall(text))
-    limited = len(LIMIT.findall(text[-6000:])) >= 1 and code != 0
-    if refused >= 3:
-        rec.update(until=now + 6 * 3600, why="tool calls refused (permission mode)")
+    limited = len(LIMIT.findall(text[-8000:])) >= 1 and code != 0
+    needs_setup = len(NEEDS_SETUP.findall(text[-8000:])) >= 1 and code != 0
+    if refused >= 3 or needs_setup:
+        rec.update(until=now + 6 * 3600, why="needs setup/auth or tools refused")
     elif limited:
         rec.update(until=now + 3600, why="usage limit")
     elif code != 0 and seconds < 90:

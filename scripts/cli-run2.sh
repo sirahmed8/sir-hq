@@ -35,9 +35,15 @@ for round in $(seq 1 40); do
     kilo) timeout 3300 kilo run --auto -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     opencode) timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode dangerous --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
+    codex) timeout 3300 codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     agy) timeout 3300 agy --print "$msg" --model "$model" --dangerously-skip-permissions >> "$LOG" 2>&1 ;;
-    qwen) OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL="$model" timeout 3300 qwen -p "$msg" >> "$LOG" 2>&1 ;;
+    qwen) OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL="$model" timeout 3300 qwen -p "$msg" --auth-type openai >> "$LOG" 2>&1 ;;
     goose) GOOSE_PROVIDER=ollama GOOSE_MODEL="$model" timeout 3300 goose run -t "$msg" >> "$LOG" 2>&1 ;;
+    crush) timeout 3300 crush run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
+    cline) timeout 3300 cline -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
+    gemini) timeout 3300 gemini -p "$msg" --yolo --skip-trust >> "$LOG" 2>&1 ;;
+    aider) timeout 3300 aider --model "$model" --yes-always --message "$msg" >> "$LOG" 2>&1 ;;
+    kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;
   esac
   code=$?
   why=$(python $ROOT/scripts/cli_pool.py report "$pick" $code "$LOG" $offset $(( $(date +%s) - t0 )))

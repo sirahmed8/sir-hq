@@ -4,9 +4,11 @@ import json
 import re
 import subprocess
 import time
+from datetime import datetime
 from pathlib import Path
 
 OPS = Path("D:/Projects/_SIR/ops")
+RUNNING_STATE = OPS / "RUNNING_STATE.md"
 now = time.time()
 
 
@@ -15,6 +17,35 @@ def load(p):
         return json.loads(Path(p).read_text(encoding="utf-8"))
     except Exception:
         return {}
+
+
+def append_daily_pool_health(pool_status: str) -> None:
+    today = datetime.now().strftime("%Y-%m-%d")
+    marker = f"pool health {today}:"
+    try:
+        text = RUNNING_STATE.read_text(encoding="utf-8")
+    except Exception:
+        return
+    available = sum(1 for line in pool_status.splitlines() if line.strip().startswith("available"))
+    cooling = sum(1 for line in pool_status.splitlines() if line.strip().startswith("cooling"))
+    line = f"- {marker} available={available} cooling={cooling}"
+    if marker in text:
+        # replace existing line for today
+        lines = []
+        replaced = False
+        for raw in text.splitlines():
+            if raw.strip().startswith(f"- {marker}"):
+                lines.append(line)
+                replaced = True
+            else:
+                lines.append(raw)
+        if not replaced:
+            lines.append(line)
+        RUNNING_STATE.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+        return
+    # append under a small heading if missing
+    block = "\n## Daily pool health\n" if "## Daily pool health" not in text else "\n"
+    RUNNING_STATE.write_text(text.rstrip() + block + line + "\n", encoding="utf-8")
 
 
 st = load(OPS / "autopilot_state.json")
@@ -27,7 +58,9 @@ for t in queue:
         print(f"  open  {t['name']:18} {t['folder']}  runner pid {rs.get('pid', '-')}")
 print(f"  done  {sum(1 for t in queue if t.get('done'))} tasks")
 print("\nMODEL POOL (scripts/cli_pool.py)")
-print(subprocess.run(["python", "D:/Projects/_SIR/scripts/cli_pool.py", "status"], capture_output=True, text=True).stdout)
+pool_status = subprocess.run(["python", "D:/Projects/_SIR/scripts/cli_pool.py", "status"], capture_output=True, text=True).stdout
+print(pool_status)
+append_daily_pool_health(pool_status)
 out = subprocess.run(["powershell", "-NoProfile", "-Command",
     "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'kilo run|opencode run|devin.exe\"? -p|cli-run2' } | ForEach-Object { '{0} {1}' -f $_.ProcessId, $_.CommandLine.Substring(0,[Math]::Min(120,$_.CommandLine.Length)) }"],
     capture_output=True, text=True).stdout

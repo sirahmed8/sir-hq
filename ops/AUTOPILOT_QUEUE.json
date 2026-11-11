@@ -255,12 +255,36 @@
     "name": "r36-more-free-workers",
     "folder": "D:/Projects/_SIR",
     "title": "r36 more free workers",
-    "done": false
+    "done": true
   },
   {
     "name": "r37-verify-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "r37 verify today's UI",
+    "done": false
+  },
+  {
+    "name": "r38-ahome-feedback2",
+    "folder": "D:/Projects/AHome",
+    "title": "r38 AHome feedback 2",
+    "done": false
+  },
+  {
+    "name": "r39-portfolio-copy",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "r39 Portfolio copy",
+    "done": false
+  },
+  {
+    "name": "r40-sir-ai-vision",
+    "folder": "D:/Projects/SIR AI",
+    "title": "r40 SIR AI vision plan",
+    "done": false
+  },
+  {
+    "name": "r41-disk-regenerable",
+    "folder": "D:/Projects/_SIR",
+    "title": "r41 disk regenerable",
     "done": false
   }
 ]

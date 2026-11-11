@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-11 from sir-jobs (SIR Jobs - r34-jobs-ui-overhaul: full dashboard UI/UX overhaul):
+  done:
+    (1) All 8 checklist items complete: click-target audit (158 elements, 0 dead), compact top-bar with labelled chips + dot status, language copy cleaned (English/العربية only), bidi isolation via bdiHtml() everywhere mixed AR/EN renders, locale-aware currency auto-detect with manual override, native-app feel (selection lock + app-owned context menu), full visual redesign (styled target-calculator dialog, normalized radii/padding/4-8px grid, spring press feedback, deduped nav), two clean self-audit cycles.
+    (2) Evidence: .sir/evidence/r34/{before,after1,after2}/ - 117 PNGs per cycle at 320/390/768/1280 EN+AR light+dark, 0 defects each; scripts/r34-audit.mjs CDP harness reusable for future rounds.
+    (3) Gates: npm test all green incl. 4 new r34 suites; lint/typecheck/doctor clean; CI green on main (runs 43091708238, 43092401000, 43093092911).
+  evidence: ops/agy-runs/reports/r34-jobs-ui-overhaul.md, .sir/r34-jobs-ui-overhaul_CHECKLIST.md (all ticked), commits through 9d8dc2c.
+  signal: r34-jobs-ui-overhaul ok - dashboard should feel native on the owner's phone now.
 - [ ] 2026-11-11 from ahome (SIR AHome - r30-ahome-local-core: local-core self-healing supervisor):
   done:
     (1) Diagnosed local-core crash-loop from watchdog.log: restarts 07:28-08:07, 10:31-12:56, 13:32-13:51, 17:08-17:13; owner Telegram alerts at 08:04:47 and 15:03:57. Root cause = transient wedge (no code bug: 1029 pytest pass, /health static 200, crash traces lost on restart log overwrite).
@@ -749,3 +756,45 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-11 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash a58bee05)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8de7a9a9)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5a803b53)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2e2d9b28)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash bd3d5694)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5f80b899)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9b5704c1)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 98518fc7)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 23dc4dd7)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 61ed7d61)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 74864be8)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 42a80478)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e0cf0702)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e5dd4e6d)
+- 2026-11-12 drive-upload agent: BLOCKED, Claude in Chrome not connected (no browsers); also file_upload cap is under 10 MB and Lec 03 slides PDF is 10,566,459 bytes. Drive folder id 1JWow5j2VDUj5nZwuS-G7ZIz3uXiEZqi4. OWNER_ACTIONS items 1 and 2 left unchanged.
+- 2026-11-12 01:27 sir-ai-builder: SIR AI r26 pushed 4babf5d: Telegram webhook/link flow matches BOT_ARCHITECTURE.md (shared bot, webhook, tappable t.me link + code), voice on Ask card, cookie banner overlap fixed; both hosts identical (fingerprint 4b7ded28a26c), 202 tests and sweep 0 findings; owner bug list (a)-(f) not present in SIR AI code (likely another product); OWNER_DEFAULTS 14-18 still open.
+- 2026-11-12 01:33 r36-more-free-workers: widened pool/runner/manager for codex,qwen,goose,crush,cline,kimi,gemini,aider (gemini ineligible, aider not installed, cline/kimi need auth, codex quota-limited; qwen/goose smoke pass in ops/agy-runs/scratch/r36). ai-status now writes daily pool health.
