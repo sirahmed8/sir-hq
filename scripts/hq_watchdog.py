@@ -177,6 +177,14 @@ def main() -> None:
             state["disk_told"] = True
     elif free_gb > 6:
         state["disk_told"] = False
+    d_free_gb = shutil.disk_usage("D:/").free / 1024**3  # read-only check: D: holds projects and games, never auto-cleaned here (needs judgment)
+    state["d_free_gb"] = round(d_free_gb, 1)
+    if d_free_gb < 5 and not state.get("d_disk_told"):
+        telegram(f"[الإدارة] مساحة D: قربت تخلص ({d_free_gb:.1f} جيجا فاضية). محتاجة تنضيف يدوي (ألعاب أو ملفات مشاريع قديمة)، المراقب مش بيمسح منها لوحده.")
+        state["d_disk_told"] = True
+        log(f"D: low ({d_free_gb:.1f} GB): alerted, no auto-clean on D:")
+    elif d_free_gb > 8:
+        state["d_disk_told"] = False
     pool = load(OPS / "agy-runs" / "model-pool.json", {})
     cooling = [v.get("until", 0) - now for v in pool.values() if v.get("until", 0) > now]
     if len(cooling) >= 8 and min(cooling) > 3 * 3600 and not state.get("pool_told"):
