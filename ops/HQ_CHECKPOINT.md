@@ -122,3 +122,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Next step: read the reports of the three Sonnet agents; run python D:/Projects/_SIR/scripts/ai-status.py; read ops/OWNER_REQUEST_LEDGER.md and queue the uncaptured requests; verify both Vercel hosts with curl.
 - Open promises: LinkedIn job-alert frequency unverified; weekly LinkedIn actions (max 10 requests a day); Telegram bot token for SIR AI; Antigravity and ZCode sign-in; ChatGPT plan shows Free.
 - Re-read after a reset: plans/OWNER_METHOD.md (v2 when ready), ops/OWNER_REQUEST_LEDGER.md, ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, ops/OWNER_ACTIONS.md.
+## HQ note (2026-11-11 04:31) SIR AI ownership: sir-ai-builder only; CLI writer killed; Vercel mirror https://sir-ai-pi.vercel.app live.
