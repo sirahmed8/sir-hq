@@ -1,0 +1,9 @@
+# AI provider fallback chain for every SIR project (owner, 2026-11-11)
+Order, per request, with automatic skip on 429, quota, 5xx, timeout or refusal, and a cooldown per provider and model (60 min after a quota error, 15 min after a fast failure):
+1. Google AI Studio, model `gemini-flash-lite-latest` (cheapest, fastest).
+2. Google AI Studio, model `gemini-flash-latest`.
+3. Any other Gemini text model returned by `GET /v1beta/models` for that key (pick by newest, skip embeddings and preview-only ones unless nothing else works).
+4. OpenRouter: the strongest and cheapest FREE models first (query `GET /api/v1/models`, filter `pricing.prompt == 0`, rank by context length and provider benchmark list, refresh the ranking daily), then the cheapest paid only if the owner enabled credits (default: never).
+5. Other free providers when a key exists: Groq, Cerebras, Mistral La Plateforme free tier, Cloudflare Workers AI, NVIDIA NIM, GitHub Models, Hugging Face Inference free. Add a provider by adding one adapter file.
+6. Local model (Ollama on this PC) for private data and as the last resort.
+Rules: ONE API key per project. Gemini keys are created in Google AI Studio on the project's own Firebase/GCP project (import the project in AI Studio, then Create API key on it; never a shared "projects" project). OpenRouter: one key per project, named exactly after the project, with a small credit limit. Keys live only in the project's ignored env file and in its Vercel env; never printed or committed. AHome keeps its own keys and local-model-only rule. Model names are configuration, never hard-coded. Privacy tiers: private data never goes to outside providers. Log which provider answered (no content). Reference implementation: SIR AI packages/core (provider pool); HQ scripts/cli_pool.py shows the cooldown logic.

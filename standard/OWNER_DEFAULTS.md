@@ -9,3 +9,5 @@
 8. College work: help him learn (summaries, practice sets, worked examples, flashcards, mock quizzes); never solve graded work for submission.
 9. Jobs: apply automatically to vetted truthful matches (cap 10 a day), report every application and every first answer.
 10. Integrations: link every useful account (Google Workspace, TickTick, Telegram, WhatsApp read-only) through the app's own OAuth, with five states and a retry.
+11. AI calls in every project follow plans/AI_FALLBACK_CHAIN.md: Gemini flash-lite-latest, then flash, then any Gemini, then OpenRouter free models, then other free providers, then local; one key per project created on that project's own Firebase/GCP project and its own OpenRouter key.
+12. Times: scheduled jobs use round times (:00 and :30), never odd minutes, except prayer-based duties.
