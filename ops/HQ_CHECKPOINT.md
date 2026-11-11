@@ -124,3 +124,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Re-read after a reset: plans/OWNER_METHOD.md (v2 when ready), ops/OWNER_REQUEST_LEDGER.md, ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, ops/OWNER_ACTIONS.md.
 ## HQ note (2026-11-11 04:31) SIR AI ownership: sir-ai-builder only; CLI writer killed; Vercel mirror https://sir-ai-pi.vercel.app live.
 ## HQ note (2026-11-11 04:35) [watch] all projects committing within 5 min except Study (37 min, checking); CI green or running; C: 8.7 GB.
+## HQ note (2026-11-11 04:41) Codex monthly limit resets about 2026-11-27, 0 percent left; auto-apply rule for jobs written in AGENTS.md; OWNER_DEFAULTS.md created; study-materials-agent (NotebookLM and Drive) running; r27-study-sources queued.
