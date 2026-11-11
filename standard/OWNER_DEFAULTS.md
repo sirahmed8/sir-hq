@@ -11,3 +11,8 @@
 10. Integrations: link every useful account (Google Workspace, TickTick, Telegram, WhatsApp read-only) through the app's own OAuth, with five states and a retry.
 11. AI calls in every project follow plans/AI_FALLBACK_CHAIN.md: Gemini flash-lite-latest, then flash, then any Gemini, then OpenRouter free models, then other free providers, then local; one key per project created on that project's own Firebase/GCP project and its own OpenRouter key.
 12. Times: scheduled jobs use round times (:00 and :30), never odd minutes, except prayer-based duties.
+13. Desktop face: every product with a Windows app follows plans/WINDOWS_APP_STANDARD.md (real installer, Google sign-in on Firebase, self-updating to the latest build, a Download page on the site, a private repo with production-only release builds, a per-project Product Kit folder, an entry in Projects-Hub.html).
+
+## Adopted from SIR Jobs
+- Browser audit probe that composites translucent ancestor backgrounds AND every gradient stop before computing WCAG contrast, and treats a wrapping <label>/pseudo-element hit area as the real touch target (.sir audit scripts audit-0841*.mjs).
+- Escaping discipline for vanilla-JS views: escHtml() for every interpolated text/attribute, escapeJs() only inside inline handler args, and a safeHref() allowing only http(s) for every external link (dialogs.js safeHref).
