@@ -166,3 +166,9 @@
 - Resumed sir-ai-builder (deep Jarvis directive + bug list), sir-portfolio-builder (not-personal-project correction + native feel), study-materials-agent (Drive upload continuation) after their shared usage-limit reset.
 - Next step: read results from the three resumed agents and the two new UI-overhaul rounds when workers pick them up; verify r31-desktop-organize progress (was queued earlier, check status).
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/BOT_ARCHITECTURE.md, standard/OWNER_DEFAULTS.md (items 14-18), plans/OWNER_METHOD.md, ops/OWNER_REQUEST_LEDGER.md.
+
+## HQ note (2026-11-11 20:40)
+- Now: study-materials-agent task effectively complete (56/56 portal files filed, 17/18 to Drive, owner notified). Three new UI/UX rounds running: r33-ahome-feedback, r34-jobs-ui-overhaul, r35-control-room-laptop-ui. SIR AI building Telegram webhook per the deep-assistant directive.
+- Next step: read results from r33/r34/r35 as workers finish; owner has two optional tiny taps in OWNER_ACTIONS.md (Drive file drag, NotebookLM source drag) whenever he wants.
+- Open promises: SIR AI voice input/output not yet built; Windows app builds for SIR AI/Portfolio/Jobs not started; custom domains and code-signing cert (owner buys); owner Google sign-in tap for SIR AI.
+- Re-read after a reset: ops/RUNNING_STATE.md, plans/BOT_ARCHITECTURE.md, standard/OWNER_DEFAULTS.md, ops/OWNER_ACTIONS.md, ops/OWNER_REQUEST_LEDGER.md.
