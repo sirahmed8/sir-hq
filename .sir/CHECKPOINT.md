@@ -146,3 +146,9 @@
 - Next step: read results from the three resumed Sonnet agents as they notify; verify SIR AI live AI answer and OAuth/bot once keys-agent reports; check study-materials-agent per-course counts; continue the hourly watch and WhatsApp digest crons.
 - Open promises: Windows app builds for SIR AI/Portfolio/Jobs not started; Antigravity renewal dates incomplete; owner decision on personal questions to free AI tiers (privacy_blocked default); custom domains (owner buys); code-signing certificate (owner buys).
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/WINDOWS_APP_STANDARD.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_REQUEST_LEDGER.md, plans/OWNER_METHOD.md.
+
+## HQ note (2026-11-11 15:10)
+- Now: sir-ai-builder and keys-agent resumed after their second 5h-limit reset (3pm). study-materials-agent waiting on the owner reopening the portal tab (13/~28 new files filed so far; NotebookLM cleaned and regenerated for HCI, partial for Electronics). All projects CI green. C: oscillating 4.0-4.5 GB despite watchdog cleanup - cause not yet found.
+- Next step: read results from sir-ai-builder/keys-agent; check ops/bus/ahmed-telegram.md for the portal-reopen reply; investigate what refills C: so fast (candidate: node_modules/test artifacts from the many parallel CLI/Sonnet workers) next idle cycle.
+- Open promises: Windows app builds (SIR AI/Portfolio/Jobs) not started; TickTick ledger refresh stale in places; custom domains and code-signing cert (owner buys); personal-question privacy_blocked default unconfirmed by owner.
+- Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/WINDOWS_APP_STANDARD.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_REQUEST_LEDGER.md, plans/OWNER_METHOD.md.
