@@ -23,7 +23,7 @@ Real smoke prompts (`Reply with exactly: OK`) run in a temp folder for each tool
 |---|---|---|
 | Antigravity CLI (`agy`) | `agy --print` works headless, `--dangerously-skip-permissions` wired in `scripts/cli-run2.sh` | YES: `agy|gemini-3.8-flash-low/medium/high`, `agy|gpt-oss-120b-medium`, `agy|claude-sonnet-4-6` |
 | Qwen Code | Install repaired (0.27.2). Native auth absent, but works fully local through Ollama's OpenAI-compatible endpoint: `OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL=<tag> qwen -p "..."` — smoke OK on qwen3:4b AND qwen3:8b | YES: `qwen|qwen3:8b`, `qwen|qwen3:4b` |
-| Goose | 1.58.1 via winget; `GOOSE_PROVIDER=ollama GOOSE_MODEL=<tag> goose run -t "..."` — smoke OK on qwen3:4b | YES: `goose|qwen3:8b`, `goose|qwen3:4b` (last resort; local models are slow) |
+| Goose | 1.58.1 via winget; `GOOSE_PROVIDER=ollama GOOSE_MODEL=<tag> goose run -t "..."` — smoke OK on qwen3:4b AND qwen3:8b | YES: `goose|qwen3:8b`, `goose|qwen3:4b` (last resort; local models are slow) |
 | Codex CLI | Wrapper already repaired; `codex exec` runs (v0.167.1, model gpt-6-luna) but the ChatGPT account hit its usage limit — reset 2026-11-27 09:08 | NO (quota); add `codex|<model>` + `codex exec --skip-git-repo-check` case after reset |
 | Cline | 3.0.74 installed; API returns `Unauthorized: re-authenticate your Cline account` | NO — needs owner re-auth |
 | Aider | `pip install aider-chat` failed building aiohttp on the Store Python 3.13; `uv tool install aider-chat` still resolving/downloading at report time (uv cache grew to ~474 MB) | pending — see below |
@@ -54,7 +54,7 @@ PARTIAL — payload complete, application blocked on browser access:
 - `py -m pytest tests/ -q` -> `26 passed in 16.56s` (was: collection error + 1 failure before fixes)
 - `py plans/generate_dashboard.py` -> `dashboard.html & control-room.html generated (296155 bytes, hash 8df1b923)`
 - `gh run list --limit 5` after push c3233d2: see CI section below.
-- Smoke outputs: `qwen -p` -> `OK` (qwen3:4b and qwen3:8b via Ollama); `goose run -t` -> `OK` (qwen3:4b); `codex exec` -> usage-limit message with reset date; `cline` -> Unauthorized; `agy --print` OK (round 1).
+- Smoke outputs: `qwen -p` -> `OK` (qwen3:4b and qwen3:8b via Ollama); `goose run -t` -> `OK` (qwen3:4b and qwen3:8b); `codex exec` -> usage-limit message with reset date; `cline` -> Unauthorized; `agy --print` OK (round 1).
 
 ## Commits this round
 
