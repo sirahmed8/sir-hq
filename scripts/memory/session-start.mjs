@@ -47,18 +47,13 @@ function main() {
   if (ctx.mode === 'hq') {
     // Compaction safety (owner, 2026-11-11): the manager must never lose running state, owner method or open requests.
     const running = readText(path.join(SIR_ROOT, 'ops', 'RUNNING_STATE.md'), 3800);
-    if (running) parts.push(`### Running state (agents, crons, hosts, keys locations): ops/RUNNING_STATE.md
-${running.trim()}`);
+    if (running) parts.push(`### Running state (agents, crons, hosts, key locations): ops/RUNNING_STATE.md\n${running.trim()}`);
     const method = readText(path.join(SIR_ROOT, 'plans', 'OWNER_METHOD.md'), 2200);
-    if (method) parts.push(`### How the owner thinks (first part): plans/OWNER_METHOD.md
-${method.trim()}`);
+    if (method) parts.push(`### How the owner thinks (first part): plans/OWNER_METHOD.md\n${method.trim()}`);
     const ledger = readText(path.join(SIR_ROOT, 'ops', 'OWNER_REQUEST_LEDGER.md'), 60000);
     if (ledger) {
-      const open = ledger.split(/?
-/).filter((l) => /NOT CAPTURED|OPEN|PARTLY/.test(l)).slice(0, 25);
-      if (open.length) parts.push(`### Owner requests still open or partly done (ops/OWNER_REQUEST_LEDGER.md, read the whole file)
-${open.join('
-')}`);
+      const open = ledger.split(/\r?\n/).filter((l) => /NOT CAPTURED|\bOPEN\b|PARTLY/.test(l)).slice(0, 25);
+      if (open.length) parts.push(`### Owner requests still open or partly done (read the whole ops/OWNER_REQUEST_LEDGER.md)\n${open.join('\n')}`);
     }
   }
 
