@@ -183,13 +183,13 @@
     "name": "r30-ahome-local-core",
     "folder": "D:/Projects/AHome",
     "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-ahome-20261111-1011",
     "folder": "D:/Projects/AHome",
     "title": "AHome: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "laptop-updates-20261111",
@@ -201,12 +201,42 @@
     "name": "r29-jobs-verify-applies",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
-    "done": false
+    "done": true
   },
   {
     "name": "r31-desktop-organize",
     "folder": "D:/Projects/_SIR",
     "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-1951",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "audit-sir-study-20261111-1951",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "r33-ahome-feedback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
+    "done": false
+  },
+  {
+    "name": "r34-jobs-ui-overhaul",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
+    "done": false
+  },
+  {
+    "name": "r35-control-room-laptop-ui",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
     "done": false
   }
 ]
