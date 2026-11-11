@@ -91,8 +91,9 @@
   --track: #E2E8F0;
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
 html { scroll-behavior: smooth; font-size: 14px; }
+input, textarea, [contenteditable="true"] { user-select: text; -webkit-user-select: text; }
 body {
   margin: 0;
   background: var(--bg);
@@ -103,6 +104,7 @@ body {
   padding-top: max(16px, env(safe-area-inset-top, 0px));
   padding-bottom: max(40px, env(safe-area-inset-bottom, 0px));
   transition: background-color .2s ease, color .2s ease;
+  touch-callout: none;
 }
 
 .wrap {
@@ -407,7 +409,7 @@ nav .nav-tab.active .tab-label {
     bottom: 0;
     left: 0;
     right: auto;
-    width: 285px;
+    width: 288px;
     height: 100vh;
     height: 100dvh;
     z-index: 100;
@@ -434,6 +436,19 @@ nav .nav-tab.active .tab-label {
     visibility: visible;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0s;
+  }
+  .sidebar.closing {
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                visibility 0s linear 0.28s;
+  }
+  @keyframes sidebarCloseSpring {
+    to { transform: translateX(-100%); }
+  }
+  [dir="rtl"] .sidebar.closing {
+    animation: sidebarCloseSpringRtl 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  @keyframes sidebarCloseSpringRtl {
+    to { transform: translateX(100%); }
   }
   .sidebar-header {
     display: flex;
@@ -565,6 +580,63 @@ nav .nav-tab.active .tab-label {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Long endpoint URLs must wrap, never overflow the page */
+#remote-list a, #remote-list .sub { overflow-wrap: anywhere; }
+
+/* App context menu (native-app feel) */
+.app-context-menu {
+  position: fixed;
+  z-index: 400;
+  min-width: 190px;
+  max-width: calc(100vw - 16px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 10px 34px rgba(0,0,0,0.22);
+  padding: 4px;
+  display: none;
+}
+.app-context-menu.open { display: block; }
+.app-context-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  background: none;
+  border-radius: 8px;
+  font: 500 13px var(--f-body);
+  color: var(--text);
+  text-align: start;
+  cursor: pointer;
+}
+.app-context-menu button:hover,
+.app-context-menu button:focus-visible { background: var(--bg); outline: none; }
+.app-context-menu svg { width: 15px; height: 15px; flex: none; }
+.dev-details { font-size: 12px; }
+.dev-details > summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 600;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+.dev-details > summary::-webkit-details-marker { display: none; }
+.dev-details > summary::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform .15s ease;
+}
+.dev-details[open] > summary::before { transform: rotate(45deg); }
+.dev-details > summary:hover { color: var(--accent); }
 
 /* Bidirectional isolation & Density */
 bdi, .num, code, .hash, .port, .mono {
@@ -1061,8 +1133,8 @@ summary:focus-visible {
 
 /* Table */
 .scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-table { border-collapse: collapse; width: 100%; min-width: 760px; }
-th, td { padding: 10px 8px; text-align: center; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 8px; text-align: center; border-bottom: 1px solid var(--line); font-size: 12.5px; overflow-wrap: anywhere; }
 th { font: 600 11px var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 th:first-child, td:first-child { text-align: left; padding-left: 14px; position: sticky; left: 0; background: var(--surface); z-index: 1; }
 
@@ -1317,10 +1389,6 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       </div>
     </div>
     <div class="header-toolbar" id="header-toolbar">
-      <button id="menu-toggle-btn" class="fb" aria-label="Open navigation drawer" aria-expanded="false" aria-controls="app-sidebar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <span id="txt-menu-btn">Menu</span>
-      </button>
       <button id="settings-btn" class="fb" aria-label="Settings and preferences" aria-expanded="false" aria-controls="settings-modal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         <span id="txt-settings-btn">Settings</span>
@@ -1354,8 +1422,8 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <div class="settings-group">
         <div class="settings-group-title" id="txt-set-language">Language &amp; Direction</div>
         <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-language">
-          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="en" id="lang-btn-en">English (LTR)</button>
-          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="ar" id="lang-btn-ar">العربية (RTL)</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="en" id="lang-btn-en">English</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="ar" id="lang-btn-ar">العربية</button>
         </div>
       </div>
       <div class="settings-group">
@@ -1525,14 +1593,17 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
     </div>
     <div class="panel">
       <h2><span class="live-dot"></span><span id="txt-remote-title">Tailscale Remote Access (Phone)</span></h2>
-      <div class="sub" id="txt-remote-sub" style="margin-bottom:6px">Stable HTTPS tailnet endpoints for Ahmed's iPhone (ahmed.tail9e9aa7.ts.net).</div>
+      <div class="sub" id="txt-remote-sub" style="margin-bottom:6px">Stable remote access endpoints for phone.</div>
       <ul class="list" id="remote-list"></ul>
       <div id="service-health-card" style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:10px;border:1px solid var(--line);font-size:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
         <div style="display:flex;align-items:center;gap:8px">
           <span class="pill ok" id="txt-daemon-status-pill" style="font-size:10.5px;text-transform:uppercase;font-weight:600">Autostart Active</span>
           <span style="font-family:var(--f-data);color:var(--text)" id="txt-daemon-task-info">Task: <b>SIR_ControlRoom_Server</b> (:8899)</span>
         </div>
-        <span class="sub" id="txt-daemon-mode-info" style="font-family:var(--f-data)">Mode: Detached wscript/pythonw &middot; Supervisor: Auto-recovery</span>
+        <details class="dev-details" style="text-align:end">
+          <summary id="txt-daemon-details-label">Details</summary>
+          <div class="sub" id="txt-daemon-mode-info" style="font-family:var(--f-data);margin-top:4px">Mode: Detached wscript/pythonw &middot; Supervisor: Auto-recovery</div>
+        </details>
       </div>
     </div>
   </section>
@@ -1587,6 +1658,8 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
       <div class="sub" id="txt-acc-sub">Free and paid registrations for launch, plus the model/quota usage ledger (newest rows last).</div>
     </div>
     <div class="cols3" id="accounts-cols"></div>
+    <div class="label" id="txt-acct-ledger-title" style="margin:14px 0 4px">Account ledger (usage and resets)</div>
+    <div class="sub" id="txt-acct-ledger-sub" style="margin-bottom:8px">Usage rows from ops/ACCOUNT_LEDGER.md, newest rows last.</div>
     <div class="scroll" style="margin-top:14px">
       <table id="acct-ledger-table"></table>
     </div>
@@ -1627,6 +1700,21 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
   </section>
     </main>
   </div>
+</div>
+
+<div id="app-context-menu" class="app-context-menu" role="menu" aria-hidden="true">
+  <button type="button" role="menuitem" id="ctx-refresh">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    <span id="txt-ctx-refresh">Refresh</span>
+  </button>
+  <button type="button" role="menuitem" id="ctx-theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <span id="txt-ctx-theme">Toggle theme</span>
+  </button>
+  <button type="button" role="menuitem" id="ctx-copy">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    <span id="txt-ctx-copy">Copy page link</span>
+  </button>
 </div>
 
 <script>
@@ -1763,7 +1851,6 @@ settingsBackdrop.addEventListener("click", closeSettings);
 // Side Menu Drawer (Responsive)
 const sidebarEl = $("#app-sidebar");
 const drawerBackdrop = $("#drawer-backdrop");
-const menuToggleBtn = $("#menu-toggle-btn");
 const mobileMenuTrigger = $("#mobile-menu-trigger");
 const drawerCloseBtn = $("#drawer-close-btn");
 
@@ -1784,25 +1871,25 @@ window.addEventListener("resize", () => {
 updateSidebarAria();
 
 function openSidebarDrawer() {
+  sidebarEl.classList.remove("closing");
   sidebarEl.classList.add("open");
   drawerBackdrop.classList.add("open");
   sidebarEl.setAttribute("aria-hidden", "false");
-  if (menuToggleBtn) menuToggleBtn.setAttribute("aria-expanded", "true");
   if (mobileMenuTrigger) mobileMenuTrigger.setAttribute("aria-expanded", "true");
   trapFocus(sidebarEl);
 }
 
 function closeSidebarDrawer() {
   if (!sidebarEl.classList.contains("open")) return;
+  sidebarEl.classList.add("closing");
   sidebarEl.classList.remove("open");
   drawerBackdrop.classList.remove("open");
   if (window.innerWidth < 1024) sidebarEl.setAttribute("aria-hidden", "true");
-  if (menuToggleBtn) menuToggleBtn.setAttribute("aria-expanded", "false");
   if (mobileMenuTrigger) mobileMenuTrigger.setAttribute("aria-expanded", "false");
-  releaseFocus(sidebarEl, menuToggleBtn);
+  setTimeout(() => sidebarEl.classList.remove("closing"), 300);
+  releaseFocus(sidebarEl, mobileMenuTrigger);
 }
 
-if (menuToggleBtn) menuToggleBtn.addEventListener("click", openSidebarDrawer);
 if (mobileMenuTrigger) mobileMenuTrigger.addEventListener("click", openSidebarDrawer);
 if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", closeSidebarDrawer);
 if (drawerBackdrop) drawerBackdrop.addEventListener("click", closeSidebarDrawer);
@@ -1850,7 +1937,6 @@ if (printReportBtn) {
 const i18n = {
   en: {
     skipLink: "Skip to main content",
-    menuBtn: "Menu",
     settingsBtn: "Settings",
     settingsTitle: "Settings & Preferences",
     settingsClose: "Close settings",
@@ -1859,8 +1945,8 @@ const i18n = {
     themeDark: "Dark",
     themeSystem: "System",
     languageGroup: "Language & Direction",
-    langEn: "English (LTR)",
-    langAr: "العربية (RTL)",
+    langEn: "English",
+    langAr: "العربية",
     densityGroup: "Display Density",
     densityComfortable: "Comfortable",
     densityCompact: "Compact",
@@ -1912,7 +1998,12 @@ const i18n = {
     ciTitle: "GitHub Actions CI Verification",
     ciSub: "Linux runner verification across active repositories. Security Scans: Enabled.",
     remoteTitle: "Tailscale Remote Access (Phone)",
-    remoteSub: "Stable HTTPS tailnet endpoints for Ahmed's iPhone (ahmed.tail9e9aa7.ts.net).",
+    remoteSub: "Stable remote access endpoints for phone.",
+    devDetails: "Details",
+    ctxRefresh: "Refresh",
+    ctxTheme: "Toggle theme",
+    ctxCopy: "Copy page link",
+    ctxCopied: "Copied",
     ledgersTitle: "Owner Request Ledgers",
     ledgersSub: "Tracking every numbered request made by Ahmed across all active projects.",
     wavesTitle: "Build order, one project at a time",
@@ -1991,8 +2082,8 @@ const i18n = {
     themeDark: "داكن",
     themeSystem: "تلقائي (النظام)",
     languageGroup: "اللغة والاتجاه",
-    langEn: "الإنجليزية (LTR)",
-    langAr: "العربية (RTL)",
+    langEn: "الإنجليزية",
+    langAr: "العربية",
     densityGroup: "كثافة العرض",
     densityComfortable: "مريح",
     densityCompact: "مضغوط",
@@ -2044,7 +2135,12 @@ const i18n = {
     ciTitle: "فحص التكامل المستمر (GitHub CI)",
     ciSub: "فحص آلي على خوادم لينكس لكافة المستودعات النشطة. فحص الثغرات: مفعّل.",
     remoteTitle: "الوصول السحابي الخاص عبر الآيفون (Tailscale)",
-    remoteSub: "عناوين HTTPS مباشرة ومستقرة للوصول من هاتف الآيفون (ahmed.tail9e9aa7.ts.net).",
+    remoteSub: "عناوين وصول عن بعد مستقرة للهاتف.",
+    devDetails: "التفاصيل",
+    ctxRefresh: "تحديث",
+    ctxTheme: "تبديل المظهر",
+    ctxCopy: "نسخ رابط الصفحة",
+    ctxCopied: "تم النسخ",
     ledgersTitle: "سجل طلبات المالك",
     ledgersSub: "متابعة دقيقة لكل طلب مرقّم للمهندس أحمد عبر كافة المشاريع النشطة.",
     wavesTitle: "ترتيب البناء: مشروع واحد في كل مرحلة",
@@ -2148,16 +2244,12 @@ function renderTiles(lang) {
     tiles.push(tile(isAr ? "حالة الفحص المستمر" : "CI State", ciRed ? (isAr ? "أحمر" : "RED") : ciRunning ? (isAr ? "قيد التشغيل" : "RUN") : (isAr ? "أخضر" : "PASS"), ciRed ? `${failing} ${isAr ? "مستودع فاشل" : "repo(s) failing"}` : isAr ? "كل المستودعات ناجحة" : "All repositories passing", ciRed ? "bad" : ciRunning ? "warn" : "ok", false, 0));
   }
 
-  $("#tiles").innerHTML = tiles.join("");
-  $("#tiles").style.gridTemplateColumns = `repeat(${tiles.length > 0 ? tiles.length : 1}, 1fr)`;
-}
-
-  const visible = tiles.filter((t, i) => {
-    const m = /verified|Verified Today/.test(tiles[i] || "") ? String(tm.verified ?? 0) !== "0" || String(tm.total ?? 0) !== "0" : true;
+  const visible = tiles.filter((t) => {
+    const m = /verified|Verified Today|تم التحقق/.test(t || "") ? String(tm.verified ?? 0) !== "0" || String(tm.total ?? 0) !== "0" : true;
     return m;
   });
   $("#tiles").innerHTML = visible.join("");
-  $("#tiles").style.gridTemplateColumns = `repeat(${visible.length}, 1fr)`;
+  $("#tiles").style.gridTemplateColumns = `repeat(${visible.length > 0 ? visible.length : 1}, 1fr)`;
 }
 
 function renderLedgers(lang) {
@@ -2301,7 +2393,6 @@ function renderRemote(lang) {
         <span>
           <b>${esc(name)}</b> - <span class="sub">${esc(desc)}</span><br>
           <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} &rarr;</a>
-          ${r.ip_url ? `&middot; <a href="${esc(r.ip_url)}" target="_blank" class="sub" style="color:var(--muted);font-family:var(--f-data);font-size:11.5px;text-decoration:none">[${isAr ? "عنوان IP المباشر" : "Direct IP"} &rarr;]</a>` : ""}
         </span>
       </li>
     `;
@@ -2526,7 +2617,7 @@ function renderAccounts(lang) {
     $("#accounts-cols").innerHTML = `
       <div>
         <div class="label">المجاني الآن</div>
-        <p>منصات GitHub وCloudflare (مسجل الدخول عبر Wrangler) وFirebase. العناوين المجانية pages.dev كافية لإطلاق واجهة كل منتج فوراً. متجر Microsoft Store: حساب الأفراد مجاني تماماً عبر storedeveloper.microsoft.com (حساب الأفراد لا يمكن تغييره لاحقاً).</p>
+        <p>منصات النشر المجانية تكفي لإطلاق واجهة كل منتج فوراً.</p>
       </div>
       <div>
         <div class="label">بوابات الدفع في مصر</div>
@@ -2541,7 +2632,7 @@ function renderAccounts(lang) {
     $("#accounts-cols").innerHTML = `
       <div>
         <div class="label">Free now</div>
-        <p>GitHub, Cloudflare (Wrangler signed in), Firebase. Free pages.dev addresses launch every product. Microsoft Store: individual account is free through storedeveloper.microsoft.com (individual type cannot change later).</p>
+        <p>Free publishing platforms are enough to launch every product interface immediately.</p>
       </div>
       <div>
         <div class="label">Payments in Egypt</div>
@@ -2952,6 +3043,10 @@ function applyLang(lang) {
   $("#txt-ci-title").textContent = t.ciTitle;
   $("#txt-ci-sub").textContent = t.ciSub;
   $("#txt-remote-title").textContent = t.remoteTitle;
+  if ($("#txt-daemon-details-label")) $("#txt-daemon-details-label").textContent = t.devDetails;
+  if ($("#txt-ctx-refresh")) $("#txt-ctx-refresh").textContent = t.ctxRefresh;
+  if ($("#txt-ctx-theme")) $("#txt-ctx-theme").textContent = t.ctxTheme;
+  if ($("#txt-ctx-copy")) $("#txt-ctx-copy").textContent = t.ctxCopy;
   $("#txt-remote-sub").textContent = t.remoteSub;
   $("#txt-ledgers-title").textContent = t.ledgersTitle;
   $("#txt-ledgers-sub").textContent = t.ledgersSub;
@@ -3170,6 +3265,49 @@ if (openParam === "settings") {
 } else if (openParam === "drawer") {
   openSidebarDrawer();
 }
+
+// Native-app feel: app context menu replaces the browser default
+const ctxMenu = $("#app-context-menu");
+function closeCtxMenu() {
+  if (!ctxMenu) return;
+  ctxMenu.classList.remove("open");
+  ctxMenu.setAttribute("aria-hidden", "true");
+}
+window.addEventListener("contextmenu", (e) => {
+  const t = e.target;
+  if (t && t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
+  e.preventDefault();
+  if (!ctxMenu) return;
+  ctxMenu.classList.add("open");
+  ctxMenu.setAttribute("aria-hidden", "false");
+  ctxMenu.style.left = "0px";
+  ctxMenu.style.top = "0px";
+  const r = ctxMenu.getBoundingClientRect();
+  const pad = 8;
+  ctxMenu.style.left = Math.max(pad, Math.min(e.clientX, window.innerWidth - r.width - pad)) + "px";
+  ctxMenu.style.top = Math.max(pad, Math.min(e.clientY, window.innerHeight - r.height - pad)) + "px";
+});
+document.addEventListener("click", closeCtxMenu);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCtxMenu(); });
+window.addEventListener("blur", closeCtxMenu);
+const ctxRefreshBtn = $("#ctx-refresh");
+if (ctxRefreshBtn) ctxRefreshBtn.addEventListener("click", () => location.reload());
+const ctxThemeBtn = $("#ctx-theme");
+if (ctxThemeBtn) ctxThemeBtn.addEventListener("click", () => {
+  applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+});
+const ctxCopyBtn = $("#ctx-copy");
+if (ctxCopyBtn) ctxCopyBtn.addEventListener("click", async () => {
+  const label = $("#txt-ctx-copy");
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    if (label) {
+      const prev = label.textContent;
+      label.textContent = currentLang === "ar" ? "تم النسخ" : "Copied";
+      setTimeout(() => { label.textContent = prev; }, 1200);
+    }
+  } catch (_) { /* clipboard unavailable */ }
+});
 </script>
 </body>
 </html>

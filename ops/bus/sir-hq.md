@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-11 from ahome (SIR AHome - r30-ahome-local-core: local-core self-healing supervisor):
+  done:
+    (1) Diagnosed local-core crash-loop from watchdog.log: restarts 07:28-08:07, 10:31-12:56, 13:32-13:51, 17:08-17:13; owner Telegram alerts at 08:04:47 and 15:03:57. Root cause = transient wedge (no code bug: 1029 pytest pass, /health static 200, crash traces lost on restart log overwrite).
+    (2) Fixed by adding in-process self-healing: new `apps/local-core/core/health_supervisor.py` supervises registered async loops with exponential backoff (5s→300s), pages owner once after 5 consecutive failures, sends "recovered" on recovery, resets internal state. Wired into `main.py` lifespan supervising new `conn_registry.connections_tick()` single-tick function.
+    (3) 3 new tests in `tests/test_health_supervisor.py` (exhaustion→one alert, recovery→state reset+rate-limit, healthy→no alerts). Full core suite: 1032 passed (1029 baseline + 3 new). main.py imports OK, all files compile.
+  evidence: apps/local-core/core/health_supervisor.py, apps/local-core/data/conn_registry.py, apps/local-core/main.py, apps/local-core/tests/test_health_supervisor.py.
+  signal: r30-ahome-local-core ready for commit/push/CI.
 - [ ] 2026-11-11 from _SIR (SIR Control Room round 22 mobile UI):
   done:
     (1) Fixed all 8 dashboard defects in plans/dashboard_template.html + plans/generate_dashboard.py: short factual subtitle + compact Menu/Settings toolbar; status-strip chips (updated time, commit, republish needed) never wrapping; drawer left-aligned equal rows with active marked, top bar 4 tabs + More, duplicate names deduped (Handover/CI); stat tiles from real queue/worker/CI data hiding empty tiles and showing red CI; Working now from autopilot_state/queue/model-pool/cli logs with model, folder, minutes, commit subject and cooling-down pills; handover stacked cards full-width description no inner scroll; one-line sub-descriptions under each page title EN/AR, Accounts + Account Ledger merged into #accounts.
@@ -649,3 +656,93 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-11 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 5f287869)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e83c8e35)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f33f1066)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e6126c4b)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1de1bd15)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 31afb61d)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5bc369d7)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f3b971e1)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0891da89)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7ddc319d)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b28d1f4f)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash cc43bf2e)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 47ba5b45)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 69c57917)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 43d8078b)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8d93c542)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3c339a5b)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3f68131f)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 6847dc32)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0752f737)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 44327cc6)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0a627f97)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash cfcf9fca)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash cc0e777f)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e4d6c2e5)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 628d04eb)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9787272c)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8a14f934)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e2387db4)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7bc14745)
+
+- [ ] 2026-11-11 from r35-control-room-laptop-ui:
+  done: fixed a fatal JS syntax error + missing i18n element ids that left the Control Room dashboard fully broken on phone; all 7 brief items done on both dashboards; 32-run self-audit (4 widths x en/ar x light/dark) clean; evidence in .sir/evidence/r35/ of each repo.

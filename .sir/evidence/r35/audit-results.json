@@ -1,0 +1,230 @@
+{
+  "control_room": [
+    {
+      "width": 320,
+      "lang": "en",
+      "theme": "light",
+      "shot": "cr-320-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "en",
+      "theme": "light",
+      "shot": "cr-390-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "en",
+      "theme": "light",
+      "shot": "cr-768-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "en",
+      "theme": "light",
+      "shot": "cr-1280-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "cr-320-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "cr-390-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "cr-768-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "cr-1280-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "cr-320-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "cr-390-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "cr-768-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "cr-1280-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "cr-320-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "cr-390-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "cr-768-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "cr-1280-ar-dark.png",
+      "issues": []
+    }
+  ],
+  "laptop_manager": [
+    {
+      "width": 320,
+      "lang": "en",
+      "theme": "light",
+      "shot": "lm-320-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "en",
+      "theme": "light",
+      "shot": "lm-390-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "en",
+      "theme": "light",
+      "shot": "lm-768-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "en",
+      "theme": "light",
+      "shot": "lm-1280-en-light.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "lm-320-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "lm-390-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "lm-768-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "en",
+      "theme": "dark",
+      "shot": "lm-1280-en-dark.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "lm-320-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "lm-390-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "lm-768-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "ar",
+      "theme": "light",
+      "shot": "lm-1280-ar-light.png",
+      "issues": []
+    },
+    {
+      "width": 320,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "lm-320-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 390,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "lm-390-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 768,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "lm-768-ar-dark.png",
+      "issues": []
+    },
+    {
+      "width": 1280,
+      "lang": "ar",
+      "theme": "dark",
+      "shot": "lm-1280-ar-dark.png",
+      "issues": []
+    }
+  ]
+}
