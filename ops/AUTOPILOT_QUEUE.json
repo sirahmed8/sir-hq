@@ -180,6 +180,12 @@
     "done": true
   },
   {
+    "name": "r30-ahome-local-core",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
+    "done": false
+  },
+  {
     "name": "audit-ahome-20261111-1011",
     "folder": "D:/Projects/AHome",
     "title": "AHome: دورة فحص ذاتي",
