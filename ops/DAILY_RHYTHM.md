@@ -14,3 +14,7 @@ Prayer times are never fixed clock times: they change every day.
 
 These run today as Claude session crons. For a successor manager (Antigravity or any agent with Google, TickTick and browser tools): create the same schedule in that tool, same prompts (summarised in the table), same output files. The OS-level parts (autopilot, watchdog, manager tick) do not depend on any manager.
 Standing duties: suggest, advise and think with Ahmed instead of waiting for orders; keep TickTick and the calendar current; never read the TickTick note "Accounts".
+
+## Where each duty runs (2026-11-11, owner: background work must not depend on a chat)
+- OS background (Windows scheduled tasks, run with no chat open, pause during games): `SIR_HQ_Duties` (`scripts/hq_duties.py`: Fajr plan, Asr and Isha health check-ins, Isha summary, from `ops/duties/*.md`, real prayer times from Aladhan, runs `claude -p`; to change the agent edit the `CLAUDE` command in that file), `SIR_HQ_Autopilot` (workers), `SIR_HQ_Watchdog` (repairs, CI, disk, leaked browsers), `SIR_HQ_ManagerTick` (free-model manager when no note for 50 min).
+- Needs a browser, so still a chat cron: the WhatsApp digest (WhatsApp Web in his Chrome through the Claude-in-Chrome tools).
