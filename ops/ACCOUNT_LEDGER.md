@@ -24,3 +24,4 @@ Updated by the Haiku operator at every check (append rows; newest last). Columns
 | 2026-11-09 operator23 | a01083835229@gmail.com | Gemini 4 Argon | 100% | n/a | n/a | not shown | active on all 6 project chats at Medium; PAID reserve |
 | 2026-11-09 operator23 | a01083835229@gmail.com | Claude and GPT models (Claude Opus 5.5, Claude Sonnet 5.5, GPT-OSS 120B) | 50% | 100% | n/a | 1d 14h | weekly partly used; five-hour full |
 | 2026-11-09 operator23 | a01083835229@gmail.com | Model picker list | - | - | - | - | Gemini 4 Argon Medium (New); Gemini 3.8 Flash Medium (warning); Claude Opus 5.5 Medium (New); Claude Sonnet 5.5 Medium (New); GPT-OSS 120B (Medium) (Notice); View Usage |
+| 2026-11-11 05:40 | a7medorabe7 (ChatGPT in the owner Chrome) | ChatGPT | - | - | - | - | plan shows Free, no monthly renewal visible; Codex usage page not readable |

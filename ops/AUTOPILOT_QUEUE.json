@@ -129,12 +129,18 @@
     "name": "r24-games",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "الألعاب: تحسين الأداء والجرافيكس",
-    "done": false
+    "done": true
   },
   {
     "name": "r25-sir-ai",
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
+    "done": true
+  },
+  {
+    "name": "r26-infra",
+    "folder": "D:/Projects/_SIR",
+    "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
     "done": false
   }
 ]
