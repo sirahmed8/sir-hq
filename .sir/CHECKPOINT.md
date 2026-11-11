@@ -117,3 +117,9 @@
 - Next step: read the Portfolio and LinkedIn agent reports; check ops/bus/ahmed-telegram.md; `python D:/Projects/_SIR/scripts/ai-status.py`; verify r24 briefs when done; queue next rounds (SIR AI slice 2: Google Workspace, TickTick, agent manager).
 - Open promises: Telegram bot token for SIR AI (BotFather), Antigravity and ZCode sign-in, WhatsApp digest cron needs this session, owner weekly reset at 100 percent.
 - Re-read after a reset: ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, ops/OWNER_ACTIONS.md, memory file owner-working-style.
+
+## HQ note (2026-11-11 05:30)
+- Now: Sonnet agents sir-ai-builder (M2 to M4 plus Vercel host) and sir-portfolio-builder (Vercel host, legacy, polish) and owner-method-analyst (OWNER_METHOD v2, OWNER_REQUEST_LEDGER) run in the background; free CLIs run AHome r21, SIR Study r22, SIR Jobs r24-jobs-apply, Laptop r24-games. LinkedIn: first post published, job preferences saved, 10 jobs found (top 5 sent on Telegram), 10 connection requests sent (log in _local/linkedin_actions.jsonl).
+- Next step: read the reports of the three Sonnet agents; run python D:/Projects/_SIR/scripts/ai-status.py; read ops/OWNER_REQUEST_LEDGER.md and queue the uncaptured requests; verify both Vercel hosts with curl.
+- Open promises: LinkedIn job-alert frequency unverified; weekly LinkedIn actions (max 10 requests a day); Telegram bot token for SIR AI; Antigravity and ZCode sign-in; ChatGPT plan shows Free.
+- Re-read after a reset: plans/OWNER_METHOD.md (v2 when ready), ops/OWNER_REQUEST_LEDGER.md, ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, ops/OWNER_ACTIONS.md.
