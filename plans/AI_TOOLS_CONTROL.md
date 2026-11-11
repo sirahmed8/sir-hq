@@ -44,10 +44,16 @@ Read in this order: `_SIR/START_HERE.md`, this file, `ops/HQ_CHECKPOINT.md` (las
 |---|---|---|
 | Kilo, OpenCode, Devin CLI | in the pool | free models, see `scripts/cli_pool.py` |
 | ZCode (Z.ai, GLM-5.3 and flash) | usable by screen operator | no command line; a Haiku operator (lowest effort, computer use) opens the folder, picks the model and sends "read WORKER_PREAMBLE.md and the brief". Own it per project: never the same project as a CLI runner. Accounts: owner's own only, switched through the account chooser, never passwords. Plan ends about 2026-11-14 |
-| Antigravity (Gemini) | quota out until 2026-11-11 00:04 (free accounts), 19 accounts in two Chrome profiles | rotation in `ops/ACCOUNT_ROTATION.md`; operator `scripts/agy-chooser.py` |
+| Antigravity (Gemini) | quota out until 2026-11-11 00:04 (free accounts), 19 accounts in two Chrome profiles; CLI `agy` works headless | rotation in `ops/ACCOUNT_ROTATION.md`; operator `scripts/agy-chooser.py`; `agy` models in `cli_pool.py` |
 | Gemini CLI | dead: "no longer supported, migrate to Antigravity" | do not use |
-| Qwen CLI | broken install (`cli.js` missing) | reinstall with npm and a browser login by the owner if wanted |
-| Codex CLI | not callable from this shell (wrapper points at a missing file) | repair before use; reset date unknown |
+| Qwen CLI | WORKS via local Ollama (no sign-in): `OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL=<ollama-tag> qwen -p "<prompt>"`; smoke OK on qwen3:4b | in `cli_pool.py` as `qwen|qwen3:8b` / `qwen|qwen3:4b`; native Qwen OAuth still needs the owner |
+| Codex CLI | wrapper repaired, `codex exec` runs; ChatGPT account quota exhausted until 2026-11-27 09:08 | not in pool until quota returns; then add `codex|<model>` with `codex exec --skip-git-repo-check` |
+| Cline CLI | installed (3.0.74) but API returns Unauthorized | needs owner re-auth in `cline` before it can join the pool |
+| Goose | WORKS with local Ollama: `GOOSE_PROVIDER=ollama GOOSE_MODEL=<tag> goose run -t "<prompt>"`; smoke OK on qwen3:4b | in `cli_pool.py` as `goose|qwen3:8b` / `goose|qwen3:4b`; last resort only, local models are slow |
+| Aider | see note below | needs an OpenRouter key or local Ollama model |
+| Windsurf / Cascade CLI | not installed on this machine | no free headless mode; skip |
+
+Round 26 evaluation (2026-11-11, real smoke prompts in a temp folder): `agy --print` OK; `codex exec` OK mechanically but quota-limited; `qwen -p` OK through Ollama; `goose run -t` OK through Ollama; `cline` unauthorized; aider install + OpenRouter smoke recorded below when finished.
 Rule: one writer per project at any time (CLI runner OR ZCode OR Antigravity). The autopilot treats any commit or edit in the last 25 minutes as "someone is working" and starts nothing.
 
 ## 8. Owner rules added 2026-11-10 night
