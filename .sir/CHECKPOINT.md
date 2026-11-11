@@ -140,3 +140,9 @@
 - Next step: read the keys-agent report; run python D:/Projects/_SIR/scripts/ai-status.py; check ops/bus/ahmed-telegram.md for the answer to the portal-downloads button; resume sir-ai-builder after the keys exist to prove a live AI answer on both hosts.
 - Open promises: owner Chrome setting for downloads; Studio tools after NotebookLM reset 10:49; Drive structure; Antigravity renewal dates for all accounts; owner decision on personal questions sent to free AI tiers; Telegram bot token via keys-agent.
 - Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_ACTIONS.md, ops/OWNER_REQUEST_LEDGER.md.
+
+## HQ note (2026-11-11 10:15)
+- Now: all CI green. Three Sonnet agents resumed after their shared 5-hour limit reset (sir-ai-builder: CLI bridge + Windows app packaging + download/subscription area; keys-agent: SIR AI OAuth client, TickTick app, Telegram bot; study-materials-agent: stop/clean/rebuild NotebookLM with written prompts, Drive upload via gcloud, portal downloads now allowed by the owner). Two CLI audit-loop tasks ran this hour (jobs, laptop-manager; laptop finished). WhatsApp digest sent (schedule update, OR exam format).
+- Next step: read results from the three resumed Sonnet agents as they notify; verify SIR AI live AI answer and OAuth/bot once keys-agent reports; check study-materials-agent per-course counts; continue the hourly watch and WhatsApp digest crons.
+- Open promises: Windows app builds for SIR AI/Portfolio/Jobs not started; Antigravity renewal dates incomplete; owner decision on personal questions to free AI tiers (privacy_blocked default); custom domains (owner buys); code-signing certificate (owner buys).
+- Re-read after a reset: ops/RUNNING_STATE.md, plans/COMPACTION_PROTOCOL.md, plans/WINDOWS_APP_STANDARD.md, plans/AI_FALLBACK_CHAIN.md, ops/OWNER_REQUEST_LEDGER.md, plans/OWNER_METHOD.md.
