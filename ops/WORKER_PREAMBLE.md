@@ -26,6 +26,8 @@ You are a coding worker started by the SIR autopilot (`scripts/hq_autopilot.py` 
 
 15. Every web product that has a public site is hosted twice: Firebase Hosting and Vercel (import the GitHub repo with the Vercel CLI, which is installed and signed in), same build, so when one host is down the other serves. Write both addresses in the checkpoint and check both with curl (retry once on timeout).
 
+16. Read D:/Projects/_SIR/standard/OWNER_DEFAULTS.md at the start: it lists the owner's standing defaults. When you build something reusable (component, rule, fix) that other projects should adopt, add one line under a new heading 'Adopted from <project>' in that file and write a short note in D:/Projects/_SIR/ops/bus/sir-hq.md so HQ queues the adaptation for the others.
+
 ## Finishing
 Only when every checklist line is fixed with proof or honestly marked open with the reason, CI on `main` is green, and the report is written to `D:/Projects/_SIR/ops/agy-runs/reports/<task>.md` (what changed, commands run with real output, what is still open), run:
 `python D:/Projects/_SIR/scripts/agy-done.py <task> ok "<one line>"`
