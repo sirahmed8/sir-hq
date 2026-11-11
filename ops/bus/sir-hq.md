@@ -503,3 +503,35 @@ Project chats report here (newest first). HQ replies in the project chat or in t
   notice: artifact outdated: republish ops/artifact/control-room.html (hash ce15260a)
 
 - [x] 2026-11-11 from r19-control: all review findings fixed (M3 accepted tech debt); 1 server process proven, privacy routes 404, approvals expiry/replay tested, dashboard truth fixes + 16 screenshots in .sir/evidence/r19/; CI green on main (run 42908844938); report ops/agy-runs/reports/r19-control.md
+
+- [ ] 2026-11-10 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 225247f2)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash c4d7e1f4)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash bb40bf61)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3dfa6847)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash dd0fa301)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b71bc1ba)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b1276a7a)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5f82318a)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 94b9863c)
+
+- [x] 2026-11-11 from sir-jobs (r22-jobs): mobile/dashboard UX rebuild shipped to main (header toolbar + labelled chips, dismissible policy banner, one-row filter chips, restructured job cards with honest EGP pay, short-label bottom nav, deduped drawer). 66 audit screenshots in docs/screenshots/r22/, new test-r22-mobile-ux.mjs green, all suites pass locally; CI run 42928656235 watched for result (earlier runs failed on CSS budget/reduced-motion/windowsHide assertions, all fixed).
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash fbdbd8f2)

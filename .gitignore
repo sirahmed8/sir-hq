@@ -54,3 +54,4 @@ scratch/
 .sir/.memory/
 ops/serve-control-room.out
 ops/pythonw.path
+_local/

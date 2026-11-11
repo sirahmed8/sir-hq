@@ -15,3 +15,7 @@ Nothing below blocks the agents. Each item is one small step.
 
 ## Done and removed
 - sir-jobs r15 manual commands (verified: tests and CI green since).
+
+## SIR AI (2026-11-11)
+- Telegram bot: open Telegram, talk to @BotFather, send /newbot, name it "SIR AI", then give HQ the token through the user env var TELEGRAM_BOT_TOKEN (never in chat or git).
+- Firebase sign-in providers: if the web app says "operation-not-allowed", open the Firebase console > Authentication > Sign-in method for project sir-ai-official and switch on Google and Email link.
