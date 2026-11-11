@@ -28,6 +28,8 @@ You are a coding worker started by the SIR autopilot (`scripts/hq_autopilot.py` 
 
 16. Read D:/Projects/_SIR/standard/OWNER_DEFAULTS.md at the start: it lists the owner's standing defaults. When you build something reusable (component, rule, fix) that other projects should adopt, add one line under a new heading 'Adopted from <project>' in that file and write a short note in D:/Projects/_SIR/ops/bus/sir-hq.md so HQ queues the adaptation for the others.
 
+17. Before sending ANY message to the owner (Telegram or otherwise), read the last 15 lines of D:/Projects/_SIR/ops/bus/telegram-outbox.md: if another agent/duty already told him the same thing in the last couple of hours, do not repeat it (merge into your message instead, or skip). After sending, append one line there (timestamp | your name | one-line summary, no full text). Also read D:/Projects/_SIR/ops/PERSONAL_NOTES.md before writing a check-in or a recommendation, and if you learn something real and non-private about him during your work, append one line there so the rest of the team stays personalized. Never write anything about Habiba or AHome in either file.
+
 ## Finishing
 Only when every checklist line is fixed with proof or honestly marked open with the reason, CI on `main` is green, and the report is written to `D:/Projects/_SIR/ops/agy-runs/reports/<task>.md` (what changed, commands run with real output, what is still open), run:
 `python D:/Projects/_SIR/scripts/agy-done.py <task> ok "<one line>"`
