@@ -123,3 +123,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - Open promises: LinkedIn job-alert frequency unverified; weekly LinkedIn actions (max 10 requests a day); Telegram bot token for SIR AI; Antigravity and ZCode sign-in; ChatGPT plan shows Free.
 - Re-read after a reset: plans/OWNER_METHOD.md (v2 when ready), ops/OWNER_REQUEST_LEDGER.md, ops/DAILY_RHYTHM.md, plans/AI_TOOLS_CONTROL.md, ops/OWNER_ACTIONS.md.
 ## HQ note (2026-11-11 04:31) SIR AI ownership: sir-ai-builder only; CLI writer killed; Vercel mirror https://sir-ai-pi.vercel.app live.
+## HQ note (2026-11-11 04:35) [watch] all projects committing within 5 min except Study (37 min, checking); CI green or running; C: 8.7 GB.
