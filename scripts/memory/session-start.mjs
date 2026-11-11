@@ -44,6 +44,24 @@ function main() {
   parts.push(`### Checkpoint: ${ctx.checkpoint}\n${checkpoint ? checkpoint.trim()
     : 'No checkpoint yet. Create it now (HQ format: _SIR/core/04-memory.md; project format: _SIR/standard/project-templates.md).'}`);
 
+  if (ctx.mode === 'hq') {
+    // Compaction safety (owner, 2026-11-11): the manager must never lose running state, owner method or open requests.
+    const running = readText(path.join(SIR_ROOT, 'ops', 'RUNNING_STATE.md'), 3800);
+    if (running) parts.push(`### Running state (agents, crons, hosts, keys locations): ops/RUNNING_STATE.md
+${running.trim()}`);
+    const method = readText(path.join(SIR_ROOT, 'plans', 'OWNER_METHOD.md'), 2200);
+    if (method) parts.push(`### How the owner thinks (first part): plans/OWNER_METHOD.md
+${method.trim()}`);
+    const ledger = readText(path.join(SIR_ROOT, 'ops', 'OWNER_REQUEST_LEDGER.md'), 60000);
+    if (ledger) {
+      const open = ledger.split(/?
+/).filter((l) => /NOT CAPTURED|OPEN|PARTLY/.test(l)).slice(0, 25);
+      if (open.length) parts.push(`### Owner requests still open or partly done (ops/OWNER_REQUEST_LEDGER.md, read the whole file)
+${open.join('
+')}`);
+    }
+  }
+
   if (source === 'compact') {
     const bridge = readText(ctx.bridge, 1800);
     if (bridge) parts.push(`### Last steps before the compaction: ${ctx.bridge}\n${bridge.trim()}`);
