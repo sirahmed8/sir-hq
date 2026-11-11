@@ -141,3 +141,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 - New plans: plans/WINDOWS_APP_STANDARD.md (installer, Firebase sign-in, self-update, download page, Product Kit folder, Projects-Hub.html) adopted into standard/OWNER_DEFAULTS.md.
 - C: 7.2 GB free, no cleanup needed.
 - Next step: read the three agents results when they arrive; verify SIR AI OAuth/bot once keys-agent reports; check study-materials-agent course-by-course counts.
+## HQ note (2026-11-11 10:21) [watch] all CI green; audits running on SIR Study and AHome; Jobs/Laptop/r26-infra rounds finished and left the queue; queued laptop-updates-20261111 (idle project); SIR AI commit in progress (desktop agent wiring).

@@ -69,7 +69,7 @@
     "name": "r21-ahome",
     "folder": "D:/Projects/AHome",
     "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "r19-jobs",
@@ -141,18 +141,54 @@
     "name": "r26-infra",
     "folder": "D:/Projects/_SIR",
     "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
-    "done": false
+    "done": true
   },
   {
     "name": "r27-study-sources",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: سحب المواد الجديدة وترتيبها",
-    "done": false
+    "done": true
   },
   {
     "name": "r28-jobs-autoapply",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261111-0621",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-0841",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261111-0841",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261111-1011",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "audit-ahome-20261111-1011",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "laptop-updates-20261111",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
     "done": false
   }
 ]

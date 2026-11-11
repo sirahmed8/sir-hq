@@ -597,3 +597,55 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-11 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 8df1b923)
+2026-11-11 r21-ahome repair: CI fixed and green (037d1af, run 42953318326); layout invariant/audit false positives corrected; modal exit presence hook added. Items 1,12-15,Part B still open. agy-done not run.
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash c1461bae)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash a5895d7c)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b490cd60)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 528045b6)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8eb08e19)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash dce68447)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 4fa85c15)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 49ffc614)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0224ed81)
+- [x] 2026-11-11 from r21-ahome (Devin): round 21 complete. Item 14 gap closed (owner_notice wired into gateway bot proactive notifications, fc5b1d2); items 12/13/15 verified with tests; Part B cycles 2-4 clean (3 consecutive); checklist fully ticked; CI green on main (run 42973302375). Report: ops/agy-runs/reports/r21-ahome.md
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3b528c8a)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d27122e5)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7759147c)
+
+- [ ] 2026-11-11 from sir-jobs (audit-0841): two reusable fixes recorded in OWNER_DEFAULTS under 'Adopted from SIR Jobs' (gradient-aware WCAG contrast probe + label/pseudo touch-target handling; escHtml/escapeJs/safeHref escaping discipline for vanilla views). Adapt for other products' audit scripts and innerHTML views.
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2050d8c1)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash db0b66dc)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 781d6a3e)
+
+- [ ] 2026-11-11 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 5f287869)
