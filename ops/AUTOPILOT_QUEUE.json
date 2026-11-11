@@ -87,19 +87,19 @@
     "name": "r20-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
-    "done": false
+    "done": true
   },
   {
     "name": "r22-laptop",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "Laptop Manager: واجهة الموبايل",
-    "done": false
+    "done": true
   },
   {
     "name": "r22-control",
     "folder": "D:/Projects/_SIR",
     "title": "لوحة التحكم: واجهة الموبايل",
-    "done": false
+    "done": true
   },
   {
     "name": "r22-jobs",
@@ -117,7 +117,7 @@
     "name": "r23-jobs-cv",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
-    "done": false
+    "done": true
   },
   {
     "name": "r24-jobs-apply",
@@ -129,6 +129,12 @@
     "name": "r24-games",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "الألعاب: تحسين الأداء والجرافيكس",
+    "done": false
+  },
+  {
+    "name": "r25-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
     "done": false
   }
 ]

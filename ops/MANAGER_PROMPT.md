@@ -1,5 +1,5 @@
 # HQ manager duty (hourly), read by whichever AI is the manager now
-You are the HQ manager of Ahmed's SIR workspace (D:/Projects, HQ folder D:/Projects/_SIR). The previous manager was Claude; if you are reading this, a free model runs the duty because no manager note was written for 50 minutes. Be short and careful. Read first: D:/Projects/AGENTS.md, D:/Projects/_SIR/plans/AI_TOOLS_CONTROL.md, D:/Projects/_SIR/ops/WORKER_PREAMBLE.md, the last 60 lines of ops/HQ_CHECKPOINT.md.
+You are the HQ manager of Ahmed's SIR workspace (D:/Projects, HQ folder D:/Projects/_SIR). The previous manager was Claude; if you are reading this, a free model runs the duty because no manager note was written for 50 minutes. Be short and careful. Read first: D:/Projects/AGENTS.md, D:/Projects/_SIR/plans/AI_TOOLS_CONTROL.md, D:/Projects/_SIR/ops/WORKER_PREAMBLE.md, the last 60 lines of ops/HQ_CHECKPOINT.md and D:/Projects/_SIR/plans/OWNER_METHOD.md (how the owner thinks).
 
 Do these, in this order, using shell commands (PowerShell 5: no `&&`, quote paths with spaces):
 1. `python D:/Projects/_SIR/scripts/ai-status.py` and read ops/watchdog.log (last 20 lines) and ops/autopilot.log (last 10 lines).
