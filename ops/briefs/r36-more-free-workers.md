@@ -1,0 +1,6 @@
+HQ infra round r36 (2026-11-12): widen the free worker pool so work never stops when any one tool hits its limit. Read ops/WORKER_PREAMBLE.md, scripts/cli_pool.py, scripts/cli-run2.sh, plans/AI_TOOLS_CONTROL.md first.
+1. Check which of these are installed and usable without payment, install the ones that are free (npm/pip, no paid plan, no credit card): Gemini CLI (free tier via the owner's already-listed Google account, ordinary OAuth consent is allowed), Aider with OpenRouter free models (key already in ignored _local env), Cline CLI, Kimi Code CLI, Qwen Code, Crush, Codex CLI (owner account, monthly reset about 2026-11-27, see ops/ACCOUNT_LEDGER.md). Skip anything needing payment.
+2. For each working one add a runner branch in scripts/cli-run2.sh and entries in scripts/cli_pool.py (same cooldown rules), then run one tiny real task per tool (create a file in _quarantine-safe scratch dir, read it back) and record pass/fail in plans/AI_TOOLS_CONTROL.md.
+3. scripts/hq_manager_tick.py currently only drives kilo and opencode: extend it to any pool tool so the fallback manager survives when those two are limited.
+4. Add a daily 'pool health' line to ops/RUNNING_STATE.md from ai-status.py.
+Rules: no secrets printed or committed, tests green, commit and push to main, update checkpoint, one line to ops/bus/sir-hq.md.

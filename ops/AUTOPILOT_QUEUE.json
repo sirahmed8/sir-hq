@@ -213,30 +213,54 @@
     "name": "audit-sir-laptop-manager-20261111-1951",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "SIR Laptop Manager: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-study-20261111-1951",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "r33-ahome-feedback",
     "folder": "D:/Projects/AHome",
     "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
-    "done": false
+    "done": true
   },
   {
     "name": "r34-jobs-ui-overhaul",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
-    "done": false
+    "done": true
   },
   {
     "name": "r35-control-room-laptop-ui",
     "folder": "D:/Projects/_SIR",
     "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0051",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0111",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "r36-more-free-workers",
+    "folder": "D:/Projects/_SIR",
+    "title": "r36 more free workers",
+    "done": false
+  },
+  {
+    "name": "r37-verify-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "r37 verify today's UI",
     "done": false
   }
 ]
