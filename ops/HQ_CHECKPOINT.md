@@ -126,3 +126,4 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 ## HQ note (2026-11-11 04:35) [watch] all projects committing within 5 min except Study (37 min, checking); CI green or running; C: 8.7 GB.
 ## HQ note (2026-11-11 04:41) Codex monthly limit resets about 2026-11-27, 0 percent left; auto-apply rule for jobs written in AGENTS.md; OWNER_DEFAULTS.md created; study-materials-agent (NotebookLM and Drive) running; r27-study-sources queued.
 ## HQ note (2026-11-11 05:03) Study cleanup done (appeal files quarantined, 20 Drive solution files trashed); graded-work rule unchanged, practice sets instead; study-materials-agent resumes 06:08.
+## HQ note (2026-11-11 05:36) [watch] r24-jobs-apply kept owner-tap submits (started before the override): queued r28-jobs-autoapply; Study r22 done, r27 starts (portal downloads need the owner's Chrome allow-downloads tap); C: 5.3 GB; AHome running.

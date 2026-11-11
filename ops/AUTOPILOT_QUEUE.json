@@ -111,7 +111,7 @@
     "name": "r22-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: واجهة الموبايل",
-    "done": false
+    "done": true
   },
   {
     "name": "r23-jobs-cv",
@@ -123,7 +123,7 @@
     "name": "r24-jobs-apply",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: التقديم على الشغل بموافقتك",
-    "done": false
+    "done": true
   },
   {
     "name": "r24-games",
@@ -147,6 +147,12 @@
     "name": "r27-study-sources",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: سحب المواد الجديدة وترتيبها",
+    "done": false
+  },
+  {
+    "name": "r28-jobs-autoapply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
     "done": false
   }
 ]
