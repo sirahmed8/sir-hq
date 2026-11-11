@@ -177,7 +177,7 @@
     "name": "audit-sir-study-20261111-1011",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-ahome-20261111-1011",
@@ -189,6 +189,12 @@
     "name": "laptop-updates-20261111",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
+    "done": true
+  },
+  {
+    "name": "r29-jobs-verify-applies",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
     "done": false
   }
 ]
