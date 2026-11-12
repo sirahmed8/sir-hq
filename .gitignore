@@ -82,3 +82,6 @@ ops/usage.log
 ops/agy-runs/*.out
 .aider*
 ops/tasks/
+
+# wrangler local state
+.wrangler/

@@ -6,3 +6,4 @@
 2026-11-12T18:40 Cairo HQ day summary sent (Isha duty)
 2026-11-12T16:45Z | verifier-fail | تدقيق مهمة لم ينجح
 2026-11-12T17:40:02Z | health-checkin | Isha check-in sent with buttons
+2026-11-12T18:23:49Z | r62-control-room-mirror | Control Room live mirror URL sent (sir-control-room-0dce50.pages.dev, auto-publish every 30 min)
