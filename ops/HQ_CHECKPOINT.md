@@ -210,3 +210,6 @@ Owner: independent small projects (Handyman, Cars, Movies, Price Finder, Game De
 
 ## HQ note (2026-11-12 18:50) [claude]
 Sweep: autopilot alive, 11 tasks running. Browser tabs flood traced to Aider auto-opening error URLs (SambaNova billing, Gemini rate limits): fixed with --no-detect-urls --no-browser, SambaNova model removed, tab rule 21 added, junk tabs closed. C: free only 0.2 GB (pagefile 25 GB, ProgramData National Instruments 5 GB, cache clear freed ~0.3 GB): needs owner decision on pagefile or NI data.
+
+## HQ note (2026-11-12 19:15) [claude]
+Owner AHome feedback (22 items) written as ops/briefs/r57-ahome-owner-feedback.md; Haiku run launched in AHome, log ops/agy-runs/ahome-r57.log; relaunch with the same prompt if it stops (resumes from AHome/.sir/R57_CHECKLIST.md). GitHub reachable again. NI (Multisim, LabVIEW) installed 2026-09-30 for his course: do not delete.
