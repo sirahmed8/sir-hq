@@ -138,7 +138,7 @@ def ensure_listener() -> None:
     log(f"telegram listener started pid {p.pid}")
 
 
-MAX_PARALLEL = 12  # owner 2026-11-11: run every project at once; lowered 22->12 on 2026-11-12 (r67): 22 parallel CLI agents exhausted the 24 GB RAM and grew the system pagefile on C: until the disk hit 0 bytes free
+MAX_PARALLEL = 8  # owner 2026-11-11: run every project at once; lowered 22->12 on 2026-11-12 (r67): 22 parallel CLI agents exhausted the 24 GB RAM and grew the system pagefile on C: until the disk hit 0 bytes free
 
 
 def rstate(state: dict, name: str) -> dict:
