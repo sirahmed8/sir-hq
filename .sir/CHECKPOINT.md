@@ -1,21 +1,21 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
-- Owner rule (2026-11-12): free tools BUILD only on current projects (SIR Study, Jobs, AI, Laptop Manager, Portfolio; AHome by Haiku). All other projects are planning only (r61-plan-* rounds, writes only under _SIR). Coding found in SIR Cars and SIR Controller was removed.
-- Autopilot restarted 19:52 (it had run old code since 17:31): MAX_PARALLEL 22, icon files ignored in the activity gate. 34 runner processes at 19:58. Team board: ops/bus/team.md (WORKER_PREAMBLE rule 22).
-- AHome r57 on Haiku (log ops/agy-runs/ahome-r57.log, checklist AHome/.sir/R57_CHECKLIST.md, 6 of 22); backup manager on Telegram built (/takeover, /handback).
+- Claude weekly quota about 5 percent (2026-11-12 21:00): the owner talks to the backup manager through the Telegram bot; backup mode is ON (ops/backup-manager.json). Free tools build only on current projects (Study, Jobs, AI, Laptop Manager, Portfolio, AHome); every other project is planning only.
+- Task board ops/tasks (scripts/taskboard.py, rules 22 to 24 in ops/WORKER_PREAMBLE.md). Queue top: r64-telegram-first (speed, one context for text and photos, Bot API kit, profile photo, robustness), r63-control-room-private, r62 (control-room mirror live at the pages.dev link in ops/DASHBOARD_URL.txt, AHome smart sync), r57 AHome owner feedback, r65 AHome APK to phone by ADB, phone power-off cause, update system.
+- A Haiku subagent was started for the WhatsApp digest.
 
 ## Next step (exact)
-1. `python scripts/ai-status.py`; if a runner list is short while the queue has open tasks, restart the autopilot: stop the pythonw process running hq_autopilot.py, then `Start-ScheduledTask SIR_HQ_Autopilot`.
-2. Relaunch the AHome Haiku run when it ends before 22 of 22 (prompt: continue r57 from the first unticked item in AHome/.sir/R57_CHECKLIST.md).
-3. Verify r58 report (ops/reports/new-project-folders-report.md) and the r61 planning outputs (plans/<slug>-REFRESH-LOG.md); never let a free tool start coding in a non-current project.
+1. `python scripts/taskboard.py list` and `python scripts/ai-status.py`; read ops/tasks/reports for finished rounds, verify them (ops/verifications), add new tasks with `python scripts/taskboard.py add ...`.
+2. Verify r64 with the Telegram bot: reply under 60 seconds, photos plus text in one context, message editing, profile photo.
+3. Push to GitHub when the connection is back (retry loop), never open pull requests.
 
 ## Open promises
-- C: space decision (pagefile 25 GB; National Instruments data is his course software, keep).
-- Voice and photo through the Telegram backup manager are untested live.
+- C: space (pagefile 25 GB; National Instruments data is his course software, keep).
+- The Control Room mirror must get its password (r63) before the link is shared.
 
 ## Re-read after a reset
-plans/PRODUCT_DIRECTION_2026-11-12.md, ops/bus/team.md, ops/BACKUP_MANAGER.md, ops/HQ_CHECKPOINT.md (tail)
+plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_README.md, ops/HQ_CHECKPOINT.md (tail)
 
 ---
 
