@@ -1,4 +1,18 @@
-# SIR Control Room checkpoint (r15-control)
+# SIR Control Room checkpoint
+
+## Now (control room rebuild, 2026-11-12)
+- DONE in code: new generator `plans/generate_dashboard.py` (imports `scripts/nowindow.py`, pauses in game mode, writes `ops/artifact/control-room.html` atomically); feeds `plans/dashboard_feeds.py` (live runners by real pid, free pool, rounds with PASS/FAIL from `ops/verifications`), `plans/dashboard_repos.py` (git log and gh CI only, AHome limited to date and CI state), `plans/dashboard_notes.py` (owner one-taps, suggestions, usage limits, key names, checkpoint head); new single template `plans/dashboard_template.html` (7 destinations, Arabic and English, light and dark, phone bottom bar, spring sheet, own context menu).
+- DONE in OS: Windows task `SIR_HQ_Dashboard` every 30 minutes (next runs at :00 and :30), pythonw, hidden, priority 7, one manual run verified (artifact regenerated at 15:31, task Ready).
+- VERIFIED headless (Playwright, Chromium, muted, closed): 320, 390, 768, 1280 x Arabic, English x light, dark = 16 combinations; no horizontal overflow, no single-word line stacking, no console errors, all 7 tabs open. Screenshots: `.sir/evidence/control-room-rebuild/`, results in `results.json` there.
+- NOT VERIFIED: WCAG contrast was not measured by a tool (checked by eye only); the detail sheet's spring close was not tested in a browser; the Claude artifact is not republished (HQ does that).
+
+## Next step (exact)
+1. HQ republishes `ops/artifact/control-room.html` as the Claude artifact (same file path, the artifact's URL is in `ops/artifact/PUBLISHED.txt` flow).
+2. Measure contrast with the browser audit probe (`OWNER_DEFAULTS.md` section, translucent ancestors) and check the detail sheet open and close at 390 px; fix what fails.
+3. Old pipeline files `plans/dashboard_main.py`, `dashboard_*.py` and `dashboard_template_*.html` are no longer used by the generator; remove them in a later cleanup, not now.
+
+---
+
 
 ## Now
 - r15-control implementation is COMPLETE in the working tree (uncommitted): Telegram `/menu` buttons, sanitized autopilot + account-ledger dashboard sections (EN/AR), `ask-approval.mjs` + `approve_ok`/`approve_no` handling into `ops/bus/approvals.json`, artifact regeneration verified by the refresh worker (hash `3a9daf04` at 10:48).
