@@ -507,7 +507,7 @@
     "name": "r49b-skills-deep-6",
     "folder": "D:/Projects/_SIR",
     "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -520,7 +520,7 @@
     "name": "r51-backlog-projects",
     "folder": "D:/Projects/SIR Platform",
     "title": "Backlog ideas into projects or modules, final product list",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-study-20261112-1401-fix1",
@@ -539,21 +539,21 @@
     "name": "r52-plan-sir-obour-hub",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Obour Hub (slug sir-obour-hub)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r52-plan-sir-hagoozat",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r52-plan-sir-business",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Business (slug sir-business)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -616,7 +616,13 @@
     "name": "r52-plan-sir-platform",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Platform (slug sir-platform)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
+  },
+  {
+    "name": "ci-sir-jobs-20261112-1741",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح الفحص الآلي الأحمر",
+    "done": false
   }
 ]
