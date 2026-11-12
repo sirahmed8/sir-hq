@@ -3,7 +3,7 @@
 ## Now
 - 2026-11-13 00:40: autopilot alive; r70 improvement cycles queued for the current projects (Study, Jobs, Laptop Manager, Portfolio, AI); r69 reviewer round clears the review backlog; r64/r65/r67/r68 rounds from the owner's Telegram requests are in progress or reported in ops/tasks/reports.
 - Backup manager on Telegram: direct_reply() fast path now reads the LIVE status (ai-status) so it no longer says the tools are stopped; language guard and voice fix in place. Control Room private on Tailscale only. C: 3.0 GB free (cause still being traced by r67).
-- WhatsApp digest needs a QR scan by the owner.
+- WhatsApp digest (Thursday run with weekly news) started 2026-11-13 by a Haiku subagent; needs the owner's QR scan if it reports not logged in.
 
 ## Next step (exact)
 1. `python scripts/ai-status.py`, `python scripts/taskboard.py list`; read ops/tasks/reports (r64, r67, r69, r70) and ops/verifications; add the next tasks with `python scripts/taskboard.py add ...`.
