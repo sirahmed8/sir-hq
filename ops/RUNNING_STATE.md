@@ -31,7 +31,7 @@ plans/AI_FALLBACK_CHAIN.md (per-project keys, Gemini then OpenRouter then other 
 Freed 14.81 GB regenerable space: D: 2.03→14.82 GB (+12.79), C: 7.61→9.63 GB (+2.02). Deleted legacy node_modules (9.3 GB), legacy build outputs (2.4 GB), caches (pnpm 0.49, Playwright 1.58, Gradle 0.51, Temp 0.22), _quarantine folders, browser profiles, old agy-runs logs. Protected: legacy/, old projects/, games/, AI_Models_Hub, Backups/, AHome data, git history, secrets.
 
 ## Daily pool health
-- pool health 2026-11-12: available=30 cooling=0
+- pool health 2026-11-12: available=26 cooling=0
 
 ## Usage windows & scheduling (r42)
 - 5-hour window resets: 10 AM daily (owner). Current window: 2:45 AM - 7:45 AM (next reset ~10:00 AM).
@@ -75,3 +75,4 @@ Unknown, read the banner before using:
 Free CLI pool (kilo, opencode, devin, codex): separate from these accounts and used first for verification and scout rounds.
 Plan written 2026-11-12 03:08 by scripts/hq_usage_plan.py.
 <!-- r42-usage:end -->
+- SIR_HQ_Dashboard (:00 and :30, regenerates ops/artifact/control-room.html), SIR_HQ_ArtifactPublish (hourly :05 from 17:05, hidden Haiku run republishes the Claude artifact only when the file changed; log ops/artifact/publish.log; tested once by hand: published). Owner no longer has to ask for status: Control Room is the answer.
