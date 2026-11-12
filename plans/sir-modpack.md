@@ -455,3 +455,48 @@ Everything else is an agent's job.
 - Legacy project kit: `D:/Projects/SIR ModPack/.sir/` (`MASTER_PLAN.md`, `PLAN.md`, `DESIGN.md`, `PLATFORMS.md`, `TASKS.md`)
 - Owner ideas: `D:/Projects/_SIR/ops/TICKTICK_MAP.md` and `plans/PROJECT_MERGE_RECORD.md`
 - Rules read on 2026-11-12: Minecraft Usage Guidelines (`https://www.minecraft.net/en-us/usage-guidelines`)
+
+---
+
+## 14. Plan refresh r61 (2026-11-12): rescan findings, new research, risks and open questions
+
+Rescan per `ops/WORKER_PREAMBLE.md` rule 20: re-read the product folder read-only (`.sir/PLAN_REFRESH.md`, `CHECKPOINT.md`, `AGENTS.md`, kit files), this plan, `sir-modpack-DEEP.md`, `ops/briefs/sir-modpack-tasks.md`, `ops/competitors/sir-modpack.md`, `ops/inventory/SIR-ModPack-and-GTA-V-mods.md`, `ops/TICKTICK_MAP.md` (the "Rotate secrets, Day 1" row names this product) and `PRODUCT_DIRECTION_2026-11-12.md`, then ran fresh web research. Log of the rescan: `plans/sir-modpack-REFRESH-LOG.md`.
+
+### 14.1 What the 2026-11-12 research changed
+
+1. **Minecraft abandoned `1.x` numbering.** Since 2026 Java Edition uses `YY.N` (year, then drop number, then optional hotfix `YY.N.H`): 26.1 "Tiny Takeover" (2026-03-24, the first release under the scheme, replacing what would have been 1.22), 26.1.1, 26.1.2, 26.2 "Chaos Cubed" (2026-06-16), 26.3 "Wilderness Bound" (2026-09-15); the last `1.x` release was 1.21.11 in December 2025. **Java 25 or newer is required from 26.1 onward** (Mojang version files declare it; performance packs like Fastly Optimised already ship 26.4 snapshots). The Java discovery, the JVM compiler and the pack versioning must treat `26.N` as a first-class version family, not a snapshot, and must never parse it as a pre-release string. Written into task T11 and the version-matrix rule below.
+2. **PojavLauncher is dead; Amethyst is the live successor.** PojavLauncher was archived on 2025-09-23 and points to `AngelAuraMC/Amethyst-Android` (LGPL-3.0, ~2.4k stars, still committing in October 2026, supports up to 26.3-snapshot-1, ships its own OpenJDK 21 mobile port and is adding Java 25). A flood of fake "PojavLauncher" APK mirror sites is documented. This validates the plan's M4 choice: our Android companion **remotely controls the PC launcher** and never emulates a laptop; it also adds a warning to the companion's store listing and docs never to link APK mirrors.
+3. **New launcher competitors the matrix did not name.** Dawn (dawn.gg: free, ad-supported, Fabric/Forge/NeoForge profiles, Windows/macOS/Linux, modpack install as a profile), Millida Launcher (free, sign-in by nickname, Modrinth packs one click, explicitly targets low-end PCs and Pojav-class devices), Modgrade (modpack security and privacy grading per file, "all 63 mods checked"), and Fastly Optimised (a pack tuned for PojavLauncher-class devices, already on 26.4 snapshots). All added to `ops/competitors/sir-modpack.md` with what we copy and where we still win.
+4. **Microsoft sign-in has a gate we must plan for.** Device-code flow against `login.microsoftonline.com/consumers` still works, but the Azure application (client) ID must be submitted to Mojang for approval (`aka.ms/mce-reviewappid`) before it can call Minecraft Services; unapproved IDs fail with "Invalid app registration". XSTS errors `2148916233` (account does not own Java Edition) and `2148916238` (Xbox Live unavailable in the user's country) are the two real failure modes to design the Arabic/English error copy around. Refresh tokens enable silent re-auth for roughly 90 days of inactivity. The Azure registration and the Mojang approval submission are owner steps (section 12) plus a documented engineering task (T45).
+5. **Modrinth API v2 is official and has had a real outage.** API v2 is the supported surface (PAT and OAuth2; CORS open). In April 2025 the API went read-only during a database incident and Prism Launcher broke for a day. Lesson written into the plan: every catalogue fetch goes through one adapter with cache, retry and a "catalogue unreachable, your installed pack still works" state, and we never hard-depend on a live API for an already-installed pack.
+6. **The `.mrpack` format is the interop standard.** Modrinth packs are a zip with `modrinth.index.json` plus `overrides/`; supporting import (not hosting) costs little and instantly makes thousands of packs installable through our verified pipeline. CurseForge packs use a different manifest; supporting read-only import of both is now a planned task (T12, T13), still with the rule that we never redistribute files whose licence forbids it.
+
+### 14.2 Version-support rule added to the plan
+
+- The pack is versioned per Minecraft release. v1 supports **the current Java release and the one before it** (today that is 26.3 and 26.2), plus the last `1.x` line (1.21.11) for players on older hardware, because loader and mod ecosystems lag new drops by weeks. Each pack version names its exact game version, loader and Java requirement (Java 25 for 26.x).
+- A `YY.N` version must never be treated as a snapshot or beta by the parser, the manifest or the UI. Snapshot and preview builds are supported only behind an explicit "preview" flag, never in the default pack.
+- The Java discovery probes for Java 8, 17, 21 **and 25** runtimes and reports which one each installed pack needs.
+
+### 14.3 New risks and the default taken
+
+- **Risk: Mojang rejects or delays the Azure client approval.** Default: the owner submits the app registration in M0 (it is a form plus the `aka.ms/mce-reviewappid` request); the launcher ships with the device-code flow behind a feature flag, and the error screen for "Invalid app registration" explains the state in plain words instead of crashing. Microsoft sign-in is the only account path; no offline/cracked mode ever ships.
+- **Risk: Mojang changes auth again.** Default: the auth layer is one Rust module behind a trait; a second provider (e.g. a future flow) plugs in without touching the UI; the parity matrix records every auth call site.
+- **Risk: Java 25 adoption lags on players' machines.** Default: the launcher downloads the correct Mojang runtime build for the pack's version (the same mechanism vanilla uses), so the player never installs Java by hand; the "find Java" screen only appears when auto-download fails.
+- **Risk: `.mrpack`/CurseForge import becomes a piracy or licence vector.** Default: import means "read the pack index, verify each file's hash where the index provides one, download from the original source"; files whose source licence forbids redistribution are fetched from the author at install time and the licence row says so; nothing is hosted or re-served by us.
+- **Risk: new competitors (Dawn, Millida, Amethyst ecosystem) ship faster.** Default: our differentiation stays the same three things no competitor combines: a pack tuned for a named laptop class with a reproducible benchmark, the plain-language crash answer in Arabic and English, and EGP pricing with a local server manager. The competitor file is re-read at every milestone.
+
+### 14.4 Open questions and the recommended answer for each
+
+| Question | Recommended answer |
+|---|---|
+| Which game versions does v1 support? | 26.3 and 26.2 (current and previous drop), plus 1.21.11 as the legacy line for older hardware. Each pack pins its loader and Java requirement. |
+| Does the Android app ever run the game on the phone? | No. It is a remote and monitor for the PC launcher plus the server status; on-device Java is a separate project (Amethyst proves it is possible, LGPL-licensed) and is not in this plan. |
+| Do we support `.mrpack` and CurseForge pack import in v1? | `.mrpack` import yes (cheap, huge interop win); CurseForge manifest import yes in read-only form; we never host or re-serve third-party files. |
+| What happens while the Azure app awaits Mojang approval? | Ship behind the flag; the sign-in screen shows a clear "sign-in is being enabled" state. There is no offline or cracked account path (Mojang requires a genuine account and our rules forbid one), so approval is an M0 owner step, not optional. |
+| Should the launcher offer CurseForge/Modrinth browsing inside the app? | No in v1. The pack is curated; power users get mod enable/disable/update inside the instance, and a link out to the catalogues for browsing. A catalogue is a different product. |
+| How do we handle the April-2025-style Modrinth API outage? | One catalogue adapter with cache and retry; installed packs never depend on the live API; the hub shows "catalogue unreachable" honestly. |
+| Is a supporter tier still legal under the Mojang rules? | Yes, per the 2026-11-12 reading: cosmetic/supporter perks only, no gameplay advantage, no locked mods, cost-equal-for-everyone if any server feature is ever sold. Re-verify at M6. |
+
+### 14.5 Task list
+
+`ops/briefs/sir-modpack-tasks.md` now holds **50 tasks** (T1 to T50), each with files, steps, an acceptance test and the skills from `ops/SKILLS_INDEX.md` that fit. T1 (parity matrix) is done; T2 to T10 are unchanged; T11 to T50 cover the version matrix and Java 25, `.mrpack`/CurseForge import, instances, presets, shaders, mods UI, server UI, backups, crash AI, assistant, all three desktop builds, self-update, hub pages, dual hosting, Firestore, billing, companion, sharing, Discord, gamepad, gallery, skins, config backup, benchmark harness, latency probe, device-code auth, i18n/a11y, launch and handover. The first ten stay ready to hand to agents.

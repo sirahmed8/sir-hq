@@ -22,6 +22,7 @@
 11-12 19:52 autopilot START r61-plan-sir-game-deals (runner pid 25692)
 11-12 19:52 autopilot START r61-plan-sir-access-map (runner pid 39376)
 19:55 opencode DONE r61-plan-sir-handyman planning-only: 42 tasks expanded in sir-handyman-tasks.md, REFRESH-LOG created, risks+open questions added, team board updated; ready for queue
+11-12 20:10 opencode START r61-plan-sir-life planning-only refresh of SIR Life plan (rule 20)
 11-12 17:53Z devin START r61-plan-sir-access-map planning-only refresh (rule 20/22)
 17:55 devin START r61-plan-sir-modpack planning-only refresh of SIR ModPack plan (rule 20)
 - 2026-11-12 r61-plan-sir-business DONE: planning refresh committed; 41-sector catalogue linked, competitor research added, tasks expanded to 48; report at ops/agy-runs/reports/r61-plan-sir-business.md
@@ -31,3 +32,7 @@
 11-12 19:57 autopilot START r60-build-sir-laptop-manager (runner pid 37840)
 19:57 devin START r61-plan-sir-mods-gta-v planning-only refresh (rule 20/22)
 19:58 devin DONE r61-plan-sir-hagoozat planning-only: plan+competitors refreshed (PDPL, Kourtiva AED pricing, Courty/Tahgzly, sourced Paymob/Maps/WhatsApp), tasks 10->50, REFRESH-LOG written; no build (rule 22)
+2026-11-12 devin START r61-plan-sir-price-finder planning-only refresh (rule 20/22)
+2026-11-12 opencode START r61-plan-sir-game-deals planning-only refresh (rule 20/22)
+2026-11-12 opencode DONE r61-plan-sir-game-deals planning-only: 48 tasks expanded in sir-game-deals-tasks.md, REFRESH-LOG created, risks+open questions added, team board updated; ready for queue
+18:00 devin DONE r61-plan-sir-modpack planning-only: 50 tasks in sir-modpack-tasks.md, plan s14 + REFRESH-LOG + competitor addendum committed; no build (rule 22)

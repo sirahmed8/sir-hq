@@ -127,3 +127,31 @@ Product: a curated Minecraft modpack plus the desktop launcher that installs and
 5. Get the BisectHosting per-GB prices for a Minecraft server in the nearest region, with a link and a date.
 6. Find five public player complaints about the crash-log experience in modded launchers, with links (the previous file had unsourced quotes; they must not return).
 7. Read the Prism Launcher and MultiMC licences in full and write down, in one paragraph, exactly why no line of their code may be copied into a proprietary launcher.
+
+---
+
+## Addendum, round r61, 2026-11-12: what changed since the r52 study
+
+Sources opened 2026-11-12 unless noted. Same rule: every claim carries a source or is marked **(unsourced, verify)**.
+
+### The version landscape moved
+
+- **Minecraft Java Edition now uses `YY.N` versioning.** Announced on minecraft.net ("Minecraft new version numbering system"): versions in 2026 begin with `26`. Confirmed releases: 26.1 "Tiny Takeover" (2026-03-24, the first `YY.N` release, replacing what would have been 1.22), 26.1.1, 26.1.2, 26.2 "Chaos Cubed" (2026-06-16), 26.3 "Wilderness Bound" (2026-09-15); the last `1.x` release was 1.21.11 (2025-12). **Java 25+ is required from 26.1 onward** (Mojang version files; mcreference.com version table, checked 2026-11-12). Hotfix scheme is `YY.N.H` (e.g. 26.1.2). Plan impact: the pack versioning, Java discovery and preset engine must treat `26.N` as a release family, never a snapshot.
+- **`.mrpack` is the de-facto pack format** (zip + `modrinth.index.json` + `overrides/`); CurseForge packs use a separate `manifest.json`. Import support is planned (tasks T12, T13) as read-only, verified, never re-hosted.
+
+### New competitors found in this round
+
+- **Dawn (dawn.gg/minecraft-mod-launcher, checked 2026-11-12).** Free, ad-supported launcher for Windows/macOS/Linux; profiles for Vanilla releases/snapshots/old versions plus Fabric, Forge and NeoForge; installs modpacks as their own profile with version and loader pre-set; no Quilt. Strength: breadth and free. Flaw: ad-supported, English-first, no curated performance pack, no server manager, no crash explainer, no Arabic. Our edge: the tuning, the crash answer, the server manager, EGP pricing.
+- **Millida Launcher (millida.net, checked 2026-11-12).** Free launcher, sign-in by nickname (no Microsoft account required — a deliberate different bet), one-click Modrinth modpack install for 1.20.1 through 26.3 on Fabric and NeoForge, explicitly targets low-end PCs and phone-class devices (works with PojavLauncher-class launchers). Strength: low barrier, current versions. Flaw: nickname sign-in sidesteps the genuine-account rule our plan follows; no server manager; English-first; depends on Modrinth staying up. Our edge: genuine Microsoft sign-in, the verified pipeline, the server manager, Arabic-first.
+- **Modgrade (modgrade.com, checked 2026-11-12).** Per-modpack and per-mod security/privacy grading ("Passed: all 63 mods checked", "7 send data", loader and version compatibility tables). Strength: trust signal we lack. Our edge: we adopt the idea — the licence table plus a per-mod data-safety note on the mod list page is planned copy for task T9/T17; Modgrade grades others' packs, we ship our own verified one.
+- **Fastly Optimised (mcreference.com listing, checked 2026-11-12).** Performance pack explicitly tuned for PojavLauncher, MojoLauncher, Amethyst, Zalith and other phone/low-end launchers; supports 1.19.2 through 26.4 snapshots on Fabric/Quilt/NeoForge/Forge; Java 25+ on the newest versions; ~21.3k downloads; licence `LicenseRef-All-Rights-Reserved`. Strength: proves the low-end-PC niche is crowded and version-current. Flaw: ARR licence means we cannot bundle or redistribute it; it is a competitor pack, not a launcher. Our edge: our pack targets laptop classes with a reproducible benchmark, and everything we ship is licence-audited.
+- **Amethyst (AngelAuraMC/Amethyst-Android, GitHub checked 2026-11-12).** LGPL-3.0 successor to PojavLauncher (archived 2025-09-23), ~2.4k stars, still committing October 2026, supports up to 26.3-snapshot-1, carries its own OpenJDK mobile ports (8/17/21, Java 25 in progress). Confirms the phone-runs-Java niche is alive but belongs to a different product shape; our companion stays a remote/monitor. LGPL means its code cannot be copied into our proprietary app either.
+
+### Auth and platform facts that changed the plan
+
+- **Microsoft device-code sign-in still works but the Azure app needs Mojang approval.** Device code against `login.microsoftonline.com/consumers` with scopes `XboxLive.signin offline_access` is the current flow (documented in the Horizon launcher notes and minecraft-auth); the client ID must be submitted via `aka.ms/mce-reviewappid` or Minecraft Services calls fail with "Invalid app registration". XSTS `2148916233` = account does not own Java Edition; `2148916238` = Xbox Live unavailable in the user's country. Refresh tokens give silent re-auth for ~90 days. These are now owner steps (Azure registration + approval submission) and engineering task T45.
+- **Modrinth API v2 is official** (PAT + OAuth2, open CORS) but had a real read-only outage in April 2025 that broke Prism Launcher for a day (modrinth/code issue #3496). Lesson in the plan: one catalogue adapter with cache/retry; installed packs never depend on live API.
+
+### Still open from the r52 list
+
+Lunar+ subscription price, Badlion price, BisectHosting per-GB prices, the CurseForge/Modrinth author redistribution terms, and the five public crash-experience complaints — all still **(unsourced, verify)**; they remain on the open-sourcing task list.
