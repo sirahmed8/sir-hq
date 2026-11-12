@@ -243,3 +243,6 @@ Sweep: autopilot alive, 8 active tasks, board inbox 2 review 2. Voice transcript
 ## HQ note (2026-11-12 22:10) [backup manager]
 - Fixed backup_manager voice/photo download: tg() now returns Telegram result directly, removed stale ["result"] index (KeyError broke every media message since 21:53 kit refactor). Verified live download of the failed voice file.
 - Removed square brackets from ack message and clean() so Telegram replies carry no decoration symbols.
+
+## HQ note (2026-11-12 22:35) [claude]
+Sweep: autopilot alive, 7 active, board inbox 4 review 7. C: hit 0 free: removed regenerable Playwright browsers (firefox, webkit, headless shell), now 0.8 GB; cause still unknown, r67 working on it. SIR Jobs last commit 4 h ago (runner alive): check next hour. AHome bot kit and SIR AI bot rounds queued.
