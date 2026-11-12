@@ -193,3 +193,9 @@
 - Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; when r37 reports, read `ops/agy-runs/reports/r37-verify-jobs.md` and check each defect fix on screen; then read r36 report and confirm `scripts/hq_manager_tick.py` runs with any pool tool.
 - Open promises: NotebookLM `Data Bank.pdf` upload (needs Claude in Chrome reconnected, logged in `ops/OWNER_ACTIONS.md`); r33/r34/r35 are worker claims until r37 proves them; recreate session crons (hourly watch, WhatsApp digest) after any restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r36-more-free-workers.md`, `ops/briefs/r37-verify-today.md`.
+
+## HQ note (2026-11-12 02:25)
+- Now: owner order in force: no Claude subagents build; HQ only manages and reviews. Free CLIs run the queue. Done by workers (claims, unverified): r36, r39, r41. Running: audit-ahome, r37, r40. Next in queue: r38 (AHome feedback 2). sir-ai-builder stopped at commit 8012ade (CI was in progress).
+- Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; then read `ops/agy-runs/reports/r37-verify-jobs.md`, r39, r41 and r36 reports and check each on screen or by command; confirm CI for SIR AI commit 8012ade with `gh run list --limit 1` in `D:/Projects/SIR AI`.
+- Open promises: NotebookLM `Data Bank.pdf` (needs Claude in Chrome reconnected); verify r33/r34/r35 through r37; session crons (hourly watch, WhatsApp digest) must be recreated after any restart; SIR AI items 2-3 are in `SIR AI/.sir/CHECKPOINT.md` "Round 27", covered by r40.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `plans/OWNER_METHOD.md` (owner order 2026-11-12).
