@@ -2,7 +2,7 @@
 
 SHARED = (
     "Keep owner-auth, signed-webhook, billing fallback (Launching Soon), ai-proxy, legal pack and design tokens/UI in separate internal packages (`packages/*`) with their own tests and READMEs, "
-    "because the shared kit is built last by extracting and unifying them; write each reusable piece into `D:/Projects/_SIR/old projects/SIR Platform-plans-from-SIR/sir-platform-bus.md` when it is done"
+    "because the shared kit is built last by extracting and unifying them; write each reusable piece into `D:/Projects/old projects/SIR Platform-plans-from-SIR/sir-platform-bus.md` when it is done"
 )
 
 

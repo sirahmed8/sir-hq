@@ -31,7 +31,7 @@ At any time the Wave 0 stopgap PRs, key rotation and failing GitHub Actions on t
 M0 Foundations: new folder + git repo + `.sir/` files + Firebase and Cloudflare projects + CI + login brand check. M1 Core slice with tests. M2 Feature parity from the inventory list. M3 Security, legal, billing fallback. M4 AI feature + support assistant. M5 Quality sweep (a11y, i18n, performance, e2e, screenshots). M6 Release, data migration, redirects, retire the old project.
 
 ## Folder naming map (old -> new)
-Hagoozat Elite, 11Players, EGFootball5 -> SIR Hagoozat · Obour Academic Hub -> SIR Obour Hub · SIR Restaurant/Market/Pharmacy/Library -> SIR Business · SIR Optimizer + SIR Controller -> SIR Controller · antigravity-agent-suite + Laptop manager -> SIR Laptop Manager · AHome -> SIR Home (renamed last, with daemons stopped) · Jobs -> SIR Jobs · Negm Furniture -> SIR Negm Furniture · Odysseus app -> SIR Odysseus · SIR AI, SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Platform, SIR Life keep their names.
+Hagoozat Elite, 11Players, EGFootball5 -> SIR Hagoozat · Obour Academic Hub -> SIR Obour Hub · SIR Restaurant/Market/Pharmacy/Library -> SIR Business · SIR Optimizer + SIR Controller -> SIR Controller · antigravity-agent-suite + Laptop manager -> SIR Laptop Manager · AHome -> SIR Home (renamed last, with daemons stopped) · Jobs -> SIR Jobs · Negm Furniture -> SIR Negm Furniture · Odysseus app -> SIR Odysseus · SIR AI, SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, the shared standards kit, SIR Life keep their names.
 When a rebuild starts in a name that already exists, first move the old folder to `old projects\<name> (v1)`, then create the fresh folder.
 
 ---
