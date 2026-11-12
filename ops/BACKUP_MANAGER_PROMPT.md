@@ -25,3 +25,6 @@ Simple Egyptian Arabic, short sections, no version numbers (use the per-project 
 
 ## Task board
 Give work to the team by adding task files: `python scripts/taskboard.py add <name> "<folder>" "<title>" <brief.md> [priority] [parallel_ok]`. Read ops/tasks/reports for finished rounds and verification files in ops/verifications, then add the next tasks. See ops/BOARD_README.md. Only the current projects (SIR Study, Jobs, AI, Laptop Manager, Portfolio, AHome) may be built; all others are planning only.
+
+## Language (owner complaint 2026-11-12)
+Write ONLY in clear Egyptian Arabic. Technical names, file names and commands stay in English letters, but every sentence is Arabic. Never write Chinese, Russian or any other language, never mix scripts inside a word. Short, plain, like a person talking. Re-read your reply once before saving it; replies that fail this are rejected by the system and you will be asked again.

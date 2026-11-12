@@ -13,6 +13,7 @@ import nowindow  # noqa: F401
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -35,6 +36,23 @@ DEVIN = Path(os.environ.get("LOCALAPPDATA", "")) / "devin/cli/bin/devin.exe"
 TOKEN = os.environ.get("SIR_TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = os.environ.get("SIR_TELEGRAM_CHAT_ID", "")
 BRAIN_TOOLS = {"kilo", "opencode", "devin", "agy"}
+# small free models mix Chinese, Russian and English into Arabic (owner complaint 2026-11-12): never use them to talk to him
+WEAK_MODELS = ("nemotron-3.5-lightning", "beam-free", "flint", "mimo", "longcat", "minimax", "lightning")
+BAD_SCRIPT = re.compile(r"[぀-ヿ㐀-鿿가-힯Ѐ-ӿ฀-๿]")
+
+
+def reply_problem(text: str) -> str:
+    """Return why a reply to the owner is unacceptable, or an empty string. Arabic with a few English technical words is fine."""
+    if BAD_SCRIPT.search(text):
+        return "contains Chinese, Russian or other foreign script"
+    letters = [c for c in text if c.isalpha()]
+    if len(letters) > 80:
+        arabic = sum(1 for c in letters if "؀" <= c <= "ۿ")
+        if arabic / len(letters) < 0.45:
+            return "not mostly Arabic"
+    if re.search(r"[A-Za-z]{3,}[؀-ۿ]{2,}[A-Za-z]{3,}[؀-ۿ]{2,}[A-Za-z]{3,}", text):
+        return "words mix Arabic and Latin letters inside a sentence"
+    return ""
 
 
 def keys() -> dict:
@@ -169,7 +187,7 @@ def brain(prompt_file: Path, reply_file: Path) -> bool:
             log("pool empty: " + pick)
             return False
         tool, _, model = pick.partition("|")
-        if tool not in BRAIN_TOOLS:
+        if tool not in BRAIN_TOOLS or any(w in model for w in WEAK_MODELS):
             skipped += 1
             continue
         tried += 1
@@ -192,7 +210,11 @@ def brain(prompt_file: Path, reply_file: Path) -> bool:
             log(f"run error: {e}")
         cli_pool.report(pick, code if not reply_file.exists() else 0, str(LOG), offset, time.time() - t0)
         if reply_file.exists() and reply_file.read_text(encoding="utf-8").strip():
-            return True
+            bad = reply_problem(reply_file.read_text(encoding="utf-8"))
+            if not bad:
+                return True
+            log(f"reply rejected from {pick}: {bad}")
+            reply_file.rename(reply_file.with_suffix(f".rejected{tried}"))
     return False
 
 
