@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-12 from _SIR (SIR AI - r52-plan-sir-ai: premium plan files created):
+  done:
+    (1) Written plans/sir-ai.md with complete premium plan (9 sections: promise, competitors, features, platforms, shared kit architecture, quality bar, pricing, milestones M0-M6, 10 tasks)
+    (2) Written ops/competitors/sir-ai.md with 10 competitors + 6 open-source cousins, 70+ tagged ideas to steal
+    (3) Written ops/briefs/sir-ai-tasks.md with 10 detailed task briefs + acceptance tests
+  evidence: plans/sir-ai.md, ops/competitors/sir-ai.md, ops/briefs/sir-ai-tasks.md, ops/agy-runs/reports/r52-plan-sir-ai.md
+  signal: r52-plan-sir-ai ready for CI check and commit
 - [ ] 2026-11-12 from sir-ai (SIR AI - r40-sir-ai-vision: planning and research round):
   done:
     (1) Researched agentic OS platforms and memory systems (Agent OS, Open Agent OS, OpenHands, Goose, Hermes Agent, mem0, Letta, Whisper); shallow read-only clones in legacy/agentic-os-research/ with licences kept, nothing copied.
@@ -1002,3 +1009,4 @@ r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSIN
 
 2026-11-12T15:39:51Z | opencode-r49b-skills-deep-4 | missing-4 complete: 13/13 real deep digests in ops/encyclopedia/deep (auth, auth0, automation, base44 x3, best-practices, bigquery x2, binary-reverse-engineer, bootstrap, brainstorming, audio-setup-mixers); report ops/agy-runs/reports/r49b-skills-deep-4.md
 2026-11-12 | r52-plan-sir-content-creation-studio | SIR Content Creation Studio premium plan rewritten (plans/sir-content-creation-studio.md), sourced 10-competitor matrix (ops/competitors/sir-content-creation-studio.md), 10 queued agent tasks (ops/briefs/sir-content-creation-studio-tasks.md); pushed to main
+2026-11-12 | r52-plan-sir-hagoozat | SIR Hagoozat premium plan rewritten (plans/sir-hagoozat.md, M0-M6 with acceptance tests, EGP/USD pricing, all-six-platform matrix per the 2026-11-12 rule, shared-kit architecture with SIR Platform cancelled, 28 picked skills), sourced 10-competitor matrix from pages opened today (ops/competitors/sir-hagoozat.md), 10 queued agent tasks (ops/briefs/sir-hagoozat-tasks.md); finding: the Egyptian market already has strong rivals (Yalla Hagz, Hareefa, Kourtiva with split payment + QR entry), so the edge is Egyptian Arabic, split bill, open matches, offline and owner numbers, not new features; pushed to main

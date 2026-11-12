@@ -1,90 +1,438 @@
-# PLAN: SIR Hagoozat (Wave 5, GLOBAL product, not started)
-Audited 2026-11-10. Replaces `Hagoozat Elite` (Merged sites), `11Players` and `EGFootball5` (all in `legacy/`, kept until M6). Public product, free for players, paid tier in EGP, pitch owners pay a monthly fee. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
+# PLAN: SIR Hagoozat (Wave 5, GLOBAL product, rebuild from zero)
 
-## 1. Purpose (plain words)
-Book a five-a-side football pitch in Egypt in a few taps, split the price between the players, and get balanced teams. Players find a game and a pitch; pitch owners fill empty hours and see who booked. For global users: any player anywhere can book pitches, split bills, and get balanced teams.
+**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
 
-## 2. Names and IDs
-| Item | Value |
-|---|---|
-| Folder | `D:\Projects\SIR Hagoozat` |
-| GitHub (private) | `sirahmed8/sir-hagoozat` |
-| Stack (default) | Next.js 15+ App Router on Cloudflare Pages/Workers, Firebase Auth (Google) with server-verified ID token, Firestore with deny-by-default rules and transactions, R2 for private receipt images |
-| Domain | candidates `hagoozat.app`, `hagoozat.com` (owner checks and buys; price "(unsourced, verify)"). Until then `sir-hagoozat.pages.dev` |
-| Platforms | **Platform Matrix (GLOBAL):** Web (PWA) ✅ planned (first); Android ✅ Expo M6+ after web has real bookings; iOS ✅ Expo M6+; Windows ✅ PWA installable; macOS ✅ PWA installable; Linux ✅ PWA installable; Wear OS ⏭️ skipped v1 (widget later); watchOS ⏭️ skipped v1; TV ⏭️ skipped v1; Car ⏭️ skipped v1. Owner dashboard: web. Browser extension: skipped. All platforms share the same Firebase project and auth. |
-| Money | **Pricing & Free Tier:** Free for players (find pitch, book, split bill, basic match). Pro for players (priority booking, stats, player cards, no ads) at 59 EGP/month is the old plan's number: treat as a test price, "(unsourced, verify)". Pitch owners pay a monthly fee (amount decided after talking to 3 real owners). EGP first, USD/SAR/AED toggle auto-detected from locale/IP with manual override. "Subscriptions launching soon" + email capture until Paymob/Fawry keys exist. Owner gets all Pro features free. Subscription grants owner all permissions in owner dashboard. |
+**Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Hagoozat` holds the kit files, three legacy apps and nothing that runs. Verified today: the private GitHub repo `sirahmed8/sir-hagoozat` exists, default branch `main`, last update 2026-11-09 (checked with `gh repo view`). Not verified: the Firebase project for this product does not exist yet (no `.firebaserc` in the product folder, and the Firebase CLI was not on the PATH in the round that wrote this plan).
 
-## 3. Current state
-Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30, "nothing is built yet"); commits are setup and plan only (10).
-Legacy facts (from `ops/inventory/Merged-sites.md`, 2026-10-29, nothing re-run): the merged app has 29 pages and 7 API routes against 55 and 36 pages in the originals, so it is not a complete merge; admin gate is client-side; a `dev_signature` payment bypass existed in an original (stopgap separate); 11Players has 62 files over 300 lines and a fake-players generator in admin; EGFootball5 API routes are dead on static hosting; README claims such as "281/281 tests" were not verified.
-Real data status: no real pitches, owners or players are loaded anywhere. A marketplace with no real pitches is empty, so seeding is a growth task (section 10), never fake rows.
+**Product class: GLOBAL.** Anyone in the world can use it, accounts and subscriptions exist, every platform is planned, the owner has an owner-only analytics page, the site is hosted twice (Firebase Hosting and Vercel), and a paid subscription gives the owner every permission inside the product.
 
-## 4. Security and conduct rules
-1. Owner/admin from a server-verified token plus allow-list, fail closed (use `owner-auth` from SHARED_PLATFORM_KIT). Test: client-side flag change grants nothing.
-2. Payments: webhook signature with timestamp inside the signed body, idempotent activation (use `signed-webhook` from SHARED_PLATFORM_KIT). Test: tampered, replayed and unsigned events are rejected. No `dev_signature` or any bypass flag in any build.
-3. Booking and deposits are Firestore transactions with idempotency keys and a 15 minute slot lock. Test: 20 parallel requests for one slot produce exactly one booking.
-4. Receipt images (InstaPay, Vodafone Cash screenshots) are private files in R2 with signed URLs, size and type checked, auto-deleted 90 days after verification (default, adjust with lawyer). Players' phone numbers are visible to a pitch owner only after a booking.
-5. Rules deny by default, per-user and per-pitch-owner claims, emulator tests (cross-tenant read fails).
-6. Sessions in HttpOnly SameSite=Strict cookies, rate limits on auth, booking and AI, zod validation.
-7. Merge old accounts by verified email only, never by display name.
-8. No fake players, ratings or bookings in any non-test path.
-9. **Owner-only analytics page**: separate route, server-verified owner token, shows all metrics (bookings, revenue, no-shows, verification queue). No other user sees it.
+---
 
-## 5. Shared pieces (SIR Platform; build as internal packages first)
-`owner-auth`, `signed-webhook`, `billing-fallback`, `ai-proxy`, `legal-pack`, `i18n`, `ui/styles/hooks` (the first kit already has the spring tab bar and Paymob test modal; Platform checkpoint names Hagoozat as the first consumer), Telegram sender. Pitch-owner dashboard analytics reuse the common owner-dashboard pattern from SIR Business. **Reuses SHARED_PLATFORM_KIT entirely; only pitch-booking features differ.**
+## 1. Who it is for, and the promise
 
-## 6. Screens and entities
-Landing, Sign in, Find a pitch (map or list, filters), Pitch page, Booking wizard (linear, steps unlock in order), Deposit and receipt upload, My bookings, Match page (squad balance, split bill, ratings), Communities, Notifications, Profile (player card), Pricing, Support, **Owner dashboard** (bookings, revenue, schedule, verification queue), Admin, Legal. Entities: User, Pitch, Slot, Booking, Deposit, Match, Squad, Rating, Community, Notification, Ticket, Subscription, Lead.
-Five states, Arabic RTL first (Egyptian dialect copy) and English, themes, 320 px to 4K, WCAG 2.2 AA, own logo.
+**For the player.** The amateur footballer in Cairo, Giza, Alexandria or anywhere else who has a WhatsApp group, no pitch, no goalkeeper, and a bill to split. The one-line promise, in the words a player would use:
 
-## 7. AI and support
-Squad balancer with a plain-words explanation ("why these teams"), position coach, support assistant grounded in `docs/help`. Chain via `ai-proxy` (from SHARED_PLATFORM_KIT) with fallback, quota 5 per day free, owner unmetered, kill switch, eval sets in Arabic and English (balance fairness test: rating-sum difference within a set bound). Balancer itself must work without AI (pure algorithm); AI only explains.
+> Book a five-a-side pitch in under a minute, pay only your share, and arrive with a balanced team.
 
-## 8. Operations (standard 26 from SHARED_PLATFORM_KIT)
-Booking-failure alerts, payment reconciliation job (daily compare of gateway records to bookings), nightly Firestore export, weekly Telegram report (bookings, revenue in EGP, no-shows, errors), support triage by assistant, status JSON, emergency alerts (payment mismatch, outage). Ad spend: none until the owner sets a cap.
+**For the pitch owner.** The person who owns one or more pitches and loses money on empty Tuesday afternoons. The one-line promise for that side:
 
-## 9. Launch package, legal, visibility
-Owner buys domain, Paymob and Fawry business accounts (test mode in code), Play Console later. Legal pack from data inventory (privacy, terms, refunds and cancellation of bookings, cookies, DPA for pitch owners, sub-processors); Egypt PDPL 151/2020 and consumer rules as tasks, exact text "(unsourced, verify)", lawyer review before paid launch. Tax and e-invoicing for pitch-owner fees: "(unsourced, verify)" with the accountant step in the owner list.
-**Dual hosting**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout).
-Visibility: Arabic queries by area ("حجز ملعب خماسي في ..."), one landing page per city/area that has real pitches, pitch pages with `LocalBusiness`/`SportsActivityLocation` JSON-LD only for real, consenting owners, `llms.txt`, facts page, Google Business Profile guidance for owners, weekly AI-answer check. App store listing text drafted for later.
+> Your empty slots fill with players who arrive on time and pay you on the night.
 
-## 10. Three-Milestone Roadmap (owner-visible checks)
-| Milestone | Goal | Owner-Visible Exit Check |
+**The end state we sell.** A player opens the app, sees three real pitches near them with real prices and real free slots, books one for tonight at 9 pm, shares the link to the squad, each person taps and pays their own share with a wallet, the app balances the two teams and sends a QR pass that works with no signal. The owner opens the same product on their phone, sees tomorrow's bookings, the cash they will collect, which slot is still empty, and one tap to publish it to the nearby players who need a game.
+
+**Not in v1:** no ads, no fake pitches, no fake players, no invented ratings, no fake reviews. An empty area shows an empty state with one action (say where you are and we will tell you when a pitch opens there).
+
+---
+
+## 2. The ten competitors, and where we win
+
+Full table with sources, dates and the second ring of competitors: `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (read on 2026-11-12).
+
+| Competitor | What it proves about the market | Our edge |
 |---|---|---|
-| **M1–M2: Core Slice** | Pitch list and page from Firestore emulator, booking wizard, parallel-booking test passes; parity: deposit queue, matches, balancer, communities, owner dashboard with real counts | 1. Open `sir-hagoozat.pages.dev` → see pitch list → book a slot → 20 parallel requests yield 1 booking (test). 2. Owner dashboard shows real counts. 3. Screenshot at 390/1280, LTR/RTL, light/dark. |
-| **M3: Security, Legal, Billing, Owner Page** | Webhook tests, rules tests, billing fallback render test, legal pages generated, owner-only analytics page live | 1. Tampered/replayed webhook events rejected (CI). 2. Open `/owner` → server-verified token required → shows bookings, revenue, no-shows. 3. Pricing page shows "Subscriptions launching soon" + email capture. 4. Legal pages exist at `/legal/*`. 5. Dual hosting verified: curl both Firebase and Vercel URLs. |
-| **M4–M6: AI, Quality, Release** | Balancer explanation eval, support assistant eval; quality screenshots; import dry run counts; 301 redirects from three old hosts; keys rotated; first 3 real pitches onboarded | 1. Run `npm run eval:balancer` → explanation matches fixture. 2. Support assistant eval passes. 2. Lighthouse mobile 90+ JSON saved. 3. 301 redirects from old hosts verified. 4. Firebase keys rotated. 5. 3 real pitches onboarded with written consent. |
+| Yalla Hagz (Egypt) | Players expect a free app, a small deposit and the rest at the venue; tournaments and a player passport are already table stakes | Egyptian Arabic copy, per-player collection at join time, open matches that fill an empty slot |
+| Hareefa (Egypt) | One tap to rebook the weekly match is the retention habit to copy | The squad, the money and the match stay in one flow, and the owner gets analytics |
+| Kourtiva (Egypt) | Split payment, open matches, QR entry, staff roles, tournaments and per-period pricing are all proven, and eight languages are possible | A player-first free tier, self-serve owner sign-up, wallet payment, offline-first, Egyptian speech |
+| Matchiva (Egypt) | Booking a referee and a paid extra player is an open category | Real venue relationships, stats and tournaments, a published price list |
+| Riadi (Egypt) | A multi-sport catalogue sells volume, and a client-rendered site leaves the AI answer engines nothing to read | One sport done properly, with a readable page and API surface for search and AI answers |
+| Hagz Kora (Egypt) | InstaPay as the deposit is the expected Egyptian payment | Every wallet, plus the social layer nobody else has |
+| Playtomic (global) | Four owner tiers, POS, wallet, API and support response times are the depth a venue product can reach | Football first, Egypt first, owner self-serve, fair and published fees |
+| MATCHi (Nordics) | Matching players by level is the right way to fill a match | Level matching for 5-a-side football on local pitches, with money and community around it |
+| Spond (global) | Availability requests, money collection and reminders are the team layer every club app needs | Those features on top of a real booking market with real venues and real prices |
+| Pitchbooking (international) | Operators buy software, not apps, and want less admin | One product for both sides of the market, priced in EGP |
 
-## 11. Next 10 tasks (each under 2 hours)
-1. Deep scan of the three legacy apps into a parity matrix (route, owner app, keep/drop). Files: `.sir/reports/parity.md`. Check: every route listed in the inventory has a row.
-2. Scaffold app, tokens, RTL, health route, CI. Check: build green and Actions URL.
-3. Data model and Firestore rules for Pitch, Slot, Booking, Deposit. Files: `firestore.rules`, `docs/data-model.md`. Check: rules compile in the emulator.
-4. Emulator rules tests (own booking readable, other player's not, owner sees only own pitch). Check: tests green.
-5. Slot lock plus booking transaction with idempotency key. Files: `apps/web/src/server/booking/`. Check: parallel test of 20 requests yields 1 booking.
-6. Pitch list and pitch page with five states. Check: screenshots at 390 px.
-7. Booking wizard: step 2 not reachable before step 1 validates. Check: e2e test tries to jump and is blocked.
-8. Squad balancer pure function with tests (no AI). Files: `packages/balancer/`. Check: property test, rating-sum difference below the stated bound.
-9. `billing-fallback` page with lead capture. Check: lead doc created; invalid email rejected.
-10. Owner list file `docs/OWNER_STEPS.md` plus pitch-owner onboarding one-pager (Arabic) to approach 3 real pitches. Check: file exists; no invented partner names.
+**Category truth from the sources (2026-11-12):** the Egyptian player app is expected to be free, the money comes from the venue side, the deposit pattern is established, the squad problem is already solved by Kourtiva, Arabic is badly served, and offline is claimed by nobody. Our product plan follows that truth instead of fighting it.
 
-## 12. Risks and open questions (defaults)
-- Two-sided cold start: default is launch in one area with 3 to 5 real pitches before any ad or SEO push.
-- Manual payment methods (InstaPay, wallets) mean receipt fraud: default is manual verification queue plus owner confirmation, no auto-approval.
-- Gateway terms and fees for Paymob/Fawry: "(unsourced, verify)" at build time from official docs.
-- Port volume (three apps): default is port by feature behind the parity matrix, never copy files.
-- Existing Egyptian competitors found by search on 2026-11-10: Hareefa (`https://hareefa.com/`) and Yalla Hagz (`https://www.yallahagz-eg.com/`). The cold start is harder than the old study assumed; the sourcing tasks at the end of `plans/competitors/sir-hagoozat.md` come before any marketing.
-- Market size claims: none in this plan; the competitor study (`plans/competitors/sir-hagoozat.md`) must carry links or the "(unsourced, verify)" tag.
+---
 
-## 13. Only the owner can do
-Buy the domain; create Firebase, Cloudflare, Paymob and Fawry accounts and paste keys into one `.env`; sign in for Google OAuth screen branding; talk to real pitch owners (or approve outreach text); accountant and lawyer review; store developer accounts later.
+## 3. Features
 
-## 14. Competitor Matrix (from plans/competitors/sir-hagoozat.md)
-| Competitor | Strengths | Flaws | Our Edge | Ideas to Steal |
-|---|---|---|---|---|
-| Hareefa (`https://hareefa.com/`) | Established, many pitches | Manual payment verification, no squad balancer | AI balancer + split bill, real-time slots | Pitch owner dashboard |
-| Yalla Hagz (`https://www.yallahagz-eg.com/`) | Wide coverage | Old UI, no player cards | Modern PWA, player profiles, ratings | Community features |
+### 3.1 Parity with the best in the category (must ship)
 
-*Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
+| Feature | Why it is in the list | Source of the requirement |
+|---|---|---|
+| Live availability by pitch, date and hour | Base expectation for every player | Yalla Hagz, Hareefa, Kourtiva |
+| Instant booking confirmation and a 15 minute hold on the slot | Stops the double booking that ruins a night | Legacy EGFootball5 slot lock; Kourtiva QR entry |
+| Deposit first, settle at the venue | The established Egyptian pattern | Yalla Hagz, Hagz Kora |
+| Split payment, each player pays their own share when joining | The number one owner complaint in Egypt | Kourtiva; legacy `PitchSplitBillCalculator` |
+| Open matches with the missing places shown | Fills an under-booked slot instead of losing it | Kourtiva; legacy 11Players lobbies |
+| QR entry pass per confirmed booking, with a scan log | Tells the owner which bookings actually happened | Kourtiva |
+| Tournaments (knockout, league, single round) | Retention for regular players | Kourtiva, Yalla Hagz, legacy EGFootball5 |
+| Player passport: stats, badges, ratings, position | Keeps players inside the product | Yalla Hagz "passport and badges"; legacy 11Players |
+| Pitch owner console: schedule, prices, cash register, utilisation, no-shows | What the owner is actually paid for | Playtomic, MATCHi, Pitchbooking |
+| Off-peak and peak pricing per period | Fills the quiet afternoon | Kourtiva; legacy `dynamicPricing` idea |
+| Wallet and card payments (Egyptian wallets, InstaPay, cards) | Cash only loses the market | Hagz Kora, Kourtiva (gap) |
+| Web app that works offline (PWA) | The pitch has bad signal | Nobody claims it (our gap) |
+| Arabic Egyptian first, English second | The clearest local gap | Kourtiva is formal, the rest are English-first |
+| Support assistant grounded in the venue rules | Cuts owner support time | SHARED_PLATFORM_KIT help-center |
+| Data export and one-tap account deletion | Legal and trust baseline | Yalla Hagz has a deletion page, we need both |
 
-## 15. Feature Parity Target (best-in-category)
-Match or exceed the best pitch-booking app in Egypt for: real-time availability, instant booking confirmation, split bill, squad balancer, player profiles, pitch owner dashboard, offline-first PWA, Arabic RTL excellence, owner analytics.
+### 3.2 The owner's own ideas, carried forward from legacy and TickTick
+
+Every line says where it came from, so nothing gets silently rebuilt thinner than what he already asked for.
+
+| Idea | Source | Status in this plan |
+|---|---|---|
+| Squad balancer with a fairness meter (drag players, watch the balance settle with a spring) | `legacy/11Players` and `legacy/Hagoozat Elite` PES balancing | Build as the signature interaction of M2 (must be pure algorithm, AI only explains) |
+| Position coach that suggests a role for a player | TickTick note "أفكار برامج ومشاريع" idea 30, mapped to a Hagoozat module | M5, AI with a free-quota cap and a local fallback |
+| Player card (FUT style), kit builder and jersey designer | `legacy/Hagoozat Elite` (`Holographic3DFutCard`, `fut`), `legacy/EGFootball5` jersey designer | M5, the card is the passport surface |
+| Post-match newspaper and season ceremony | `legacy/11Players` (`/newspaper`, `/season-ceremony`), `legacy/Hagoozat Elite` | M5, built from real match data only |
+| Goal of the month, var highlights, derby pages | `legacy/Hagoozat Elite` (`/goal-of-the-month`, `/var-highlights`, `/stats/derby`) | M5, from real uploads and real votes |
+| Captain draft room and scouting board | `legacy/11Players` (`/draft`, `/scouting`) | M6 (optional), needs a legal check on competitive integrity |
+| Achievements, XP, leaderboards | `legacy/11Players` and `legacy/EGFootball5` | M4, driven by real matches |
+| Communities, chat, announcements, support tickets | `legacy/11Players`, `legacy/EGFootball5` | M4 |
+| Tactical board and live match scoreboard | `legacy/EGFootball5` (`PitchTacticalBoard`, live scoreboard) | M4, live score first, tactics after |
+| Web-to-app wrappers for Hagoozat Elite, Obour Hub and the player cards | TickTick "أفكار برامج ومشاريع" ideas 6, 7, 8 | M4 (Android and iOS) and M5 (Windows installer) |
+| Owner cash register with offline ledger and walk-in bookings | `legacy/Hagoozat Elite` owner dashboard | M4 |
+| Player passport with verified games played | `legacy/11Players` rating and karma engine | M2 to M4, never invented numbers |
+| Announcements, onboarding, guide, unsubscribe, thank-you, data-deletion pages | `legacy/EGFootball5` and `legacy/11Players` routes | M3, with the legal pack |
+| Embroidered jersey conflict check between two teams | `legacy/Hagoozat Elite` idea | M6, small, it is a real night saver |
+
+**Explicitly dropped from legacy:** the `dev_signature` webhook bypass, the client-side admin gate, the fake player generator (`generateDummyPlayersForCommunity` in `legacy/11Players/src/lib/dummyData.ts`, called from `AdminTable.tsx:386`), the dead `FirestoreSeeder`, the SOC 2 and ISO 27001 claims in the old privacy policy, and the seeded placeholder API keys in `legacy/11Players/src/lib/firebase.ts`.
+
+### 3.3 Explicitly out of scope for v1
+
+Paid player adds, referee and professional-player booking, betting and any money-back-on-score, drone filming, and anything that needs a hardware sensor in the pitch.
+
+---
+
+## 4. Platform matrix
+
+Standing rule (owner, 2026-11-12): every product ships on all platforms, so web, Windows, macOS, Linux, Android and iOS are all required for SIR Hagoozat. Wear OS, watchOS, TV and car are not in that list, so they are skipped in v1 with a written reason, not left in silence.
+
+| Platform | v1 | What v1 includes | Later |
+|---|---|---|---|
+| Web (browser) | Required | The whole product: browse, book, pay, squad, tournaments, owner console | Nothing pending |
+| PWA (installable, offline) | Required | Install from the browser, offline pitch list, offline booking pass and QR, background sync | Native shell if the PWA proves weak on low-end Android |
+| Windows | Required (M5) | Installable PWA from day one, then a real NSIS installer with the same Google sign-in and self-update | Signed installer (owner buys the certificate) |
+| macOS | Required (M5) | Installable PWA from day one, then an unsigned DMG from the same Electron build | Signed build when the owner has an Apple account |
+| Linux | Required (M5) | Installable PWA from day one, then AppImage and .deb from the same Electron build with a .desktop entry | Signed package |
+| Android phone and tablet | Required (M4) | Expo app: the same account, bookings, pass, squad, owner console | Play Store when the reinvestment ladder allows |
+| iPhone and iPad | Required (M4) | Expo app, same account and data, tablet layouts | App Store or SideStore (needs a paid Apple account, the owner decides) |
+| Wear OS | Skipped in v1 | Nothing | A kickoff countdown widget, decided with an ADR |
+| watchOS | Skipped in v1 | Nothing | Same ADR as Wear OS |
+| TV (Android TV and Apple TV) | Skipped in v1 | Nothing | A venue screen with today's bookings and the queue, only if a real venue asks |
+| Car (Android Auto and CarPlay) | Skipped in v1 | Nothing | Navigation to the pitch only if a paid tier needs it |
+| Widgets and live activities | Part of M5 | Android Glance and iOS WidgetKit: the next booking and the kickoff time | Richer surfaces later |
+| Browser extension | Skipped | Nothing | No browser use case that justifies the review |
+| Docker and self-host | Skipped | Nothing | Not a product need here |
+
+**Rule:** every platform shares one Firebase project, one account and one dataset. No platform ever carries its own copy of the rules. The Windows, macOS and Linux builds come from one Electron shell and one release feed, so an update reaches all three at once.
+
+---
+
+## 5. Architecture on the shared kit
+
+Base: `D:/Projects/_SIR/plans/SHARED_PLATFORM_KIT.md`. That file is the shared standards kit every product builds against; SIR Platform was cancelled as a project on 2026-11-12, so there is no extraction target any more. SIR Hagoozat is a GLOBAL product, so it adopts all twenty sections of the kit as internal `packages/*` with the kit names and interfaces, and when it hardens a piece that other products need, that piece goes back into the kit file and HQ queues the adaptation for the others.
+
+### 5.1 Shape
+
+```
+apps/web        Next.js 15+ App Router, React 19, TypeScript strict, Tailwind v4 tokens
+apps/api        Route handlers that need secrets and long tasks (webhooks, cron, AI proxy)
+packages/core   Domain types and zod schemas: Pitch, Slot, Booking, Deposit, Squad, Match, Rating, User
+packages/data   Firestore repositories, one interface per entity, emulator tests
+packages/ui     The shared UI kit from the kit: InputBox, TabBar, BottomSheet, Card, Chip, Modal, Toast
+packages/kit    owner-auth, signed-webhook, billing-fallback, ai-proxy, legal-pack, i18n, help-center, notifications
+apps/mobile     Expo app for Android and iOS (M4)
+apps/desktop    Electron shell for Windows, macOS and Linux (M5)
+docs/           Help centre source, legal source, env names, decisions
+scripts/        Seed-free checks, emulator tests, Lighthouse, AI evals
+```
+
+Layers depend inward only: presentation, domain (no I/O), data, core. Files under 300 lines, no `any`, no god components, absolute imports.
+
+### 5.2 Accounts (`owner-auth`)
+
+- Google sign-in through Firebase Auth on the product's own Firebase project, ID token verified on the server with JWKS.
+- Owner and admin rights come from an allow-list (`OWNER_EMAILS`, `OWNER_UIDS`), fail closed. Nothing in the client decides a privilege.
+- Session in an HttpOnly, Secure, SameSite=Strict cookie. No tokens in localStorage.
+- Rate limits on sign-in, booking, wallet requests, uploads and AI calls.
+- Owner accounts get a second factor offer.
+- Test: a forged token gets 403, a client-side flag flip gets nothing, a non-owner token on `/owner` gets 403.
+
+### 5.3 Owner-only analytics page
+
+- Route `/owner`, server-verified owner token, 403 for everyone else.
+- Real metrics only, read from aggregates not raw collections: bookings, revenue in EGP and the visitor currency, utilisation per hour, no-show rate, deposits waiting for verification, new players, repeat players, AI cost, error rate.
+- A second section for the pitch owner role: the schedule, the cash ledger, the deposits queue and the export tools. Each pitch owner sees only their own pitches, enforced in Firestore rules and re-checked on the server.
+- No invented numbers anywhere: an empty metric shows a dash and the reason, never a zero dressed as a fact.
+
+### 5.4 AI with the fallback chain
+
+Chain from `D:/Projects/_SIR/plans/AI_FALLBACK_CHAIN.md`: Gemini `flash-lite-latest`, then `flash-latest`, then any Gemini text model, then OpenRouter free models, then other free providers, then the local model on this PC. One Gemini key and one OpenRouter key per product, created on this product's own project, stored only in the ignored env file and the Vercel environment, never printed, never committed.
+
+What AI does in this product, and what it must never do:
+
+| Feature | AI role | Hard rule |
+|---|---|---|
+| Squad balance explanation | Explain why these two teams are fair, in plain words | The balancer itself is a pure function with a test. No AI in the decision, only in the sentence |
+| Position coach | Suggest a role from the player's own history | Uses only that player's own data, never a private player's data of anyone else |
+| Support assistant | Answer from `docs/help/*.md` only | Refuses anything not in the help source, and says so |
+| Photo quality check on a pitch photo | Warn about blur or darkness | Advisory, never blocks a real pitch from being listed |
+| Weekly owner report draft | Draft the summary the Telegram sender sends | Numbers come from the database, the model only writes the sentence |
+
+Free players get 5 AI calls per rolling 24 hours with a visible badge, the owner is unmetered, `AI_ENABLED` is the kill switch, a daily cost cap lives in `config/limits.json`, and every call logs which provider answered (never the content). Arabic and English eval sets exist before the feature ships, and the runner exits non-zero below the threshold.
+
+### 5.5 Data and money
+
+- Firestore with deny-by-default rules, per-user and per-pitch-owner claims, emulator tests including a cross-tenant read that must fail.
+- A slot is a document with a status and a hold expiry. Booking is a Firestore transaction with an idempotency key. Test: 20 parallel requests for one slot produce exactly one booking.
+- Deposits and receipts are private files with signed URLs, checked for size and type, deleted 90 days after verification (default, the lawyer may change it).
+- A player's phone number is visible to a pitch owner only after a booking exists.
+- Wallet and card payments through Paymob and Fawry in test mode. The webhook is HMAC-SHA256 signed with the timestamp inside the signed body, verification is server-side only, and tampered, replayed, unsigned and wrong-timestamp events are rejected.
+- Refunds and cancellation follow one written policy for every venue, published on the pitch page before payment.
+
+### 5.6 Hosting and delivery
+
+- **Firebase Hosting** is primary. **Vercel** is the second host, the same repository imported with the Vercel CLI, the same build, the same environment variables on both. Both addresses are curl-checked and written into the project checkpoint.
+- Static hosting cannot run route handlers, so every secret, webhook and AI call lives in the Firebase Functions or the Vercel function side, never in the client bundle. This is the exact defect that killed the legacy apps (`/api/ai/chat`, `/api/ai/tts`, `/api/admin/role` returned 404 in production because the apps were exported as static).
+- A service worker caches the pitch list, the next booking and the pass. Background sync sends the queued actions when the connection returns.
+- Daily Firestore export to a private bucket, a monthly restore test, a health endpoint at `/api/health`, a status JSON, a nightly error digest and a weekly Telegram report at a round hour.
+
+### 5.7 Security baseline
+
+Firestore rules deny by default. Server-side checks on every mutation. zod validation at every boundary. No secrets in git, gitleaks in CI. A CSP without `unsafe-inline` and without `unsafe-eval`. Analytics load only after consent, with Reject All as prominent as Accept. One-tap data export and one-tap deletion. Rate limits on auth, booking, uploads, AI and webhooks. No fake data in any path a user can see.
+
+---
+
+## 6. Premium quality bar
+
+This is the floor from `D:/Projects/_SIR/standard/23-premium-code-bar.md` and `D:/Projects/_SIR/plans/GEMINI_QUALITY_CHARTER.md`, written for this product.
+
+**Motion, Apple level.**
+- One shared spring config across the app: stiffness 300 to 400, damping 28 to 30, transform and opacity only, no layout thrashing, 120 Hz safe.
+- Every sheet, drawer, modal and panel opens and closes with the same spring. An open-only animation is a defect.
+- The squad balancer is the signature interaction: drag a player, and the fairness meter settles with a spring. Micro-interactions 100 to 150 ms, standard 200 to 300 ms, large 300 to 500 ms. Press scale 0.98. Reduced-motion path for every animation.
+- The active tab shows its label and the others show an icon only, the active tab scrolls into view on load and on change, and the bottom bar never vanishes when the keyboard opens.
+- Skeletons match the final geometry, optimistic feedback lands under 100 ms, and no white flash on theme change.
+
+**Two languages, one layout.**
+- Egyptian Arabic first for players and owners, English second for the international market, MSA only in legal pages. Both shipped together, never one as a partial translation.
+- RTL designed first: logical CSS properties only, flipped directional icons, Arabic line heights, never a mirrored afterthought.
+- Every text input detects Arabic or Latin per character as the user types and moves the caret and the direction live. Every mixed run is isolated with `<bdi>` or `unicode-bidi: isolate`. The words "RTL" and "LTR" never appear to the user.
+- Currency auto-detected from the visitor locale and IP, with a manual override on top. Dates and times formatted with `Intl`.
+
+**Five states on every screen.**
+Idle, loading skeleton, empty with exactly one action, error with a retry, populated. The empty state never shows a fake pitch, a fake player or a fake number.
+
+**Accessibility.**
+WCAG 2.2 AA. Every control has an accessible name. Touch targets at least 44 px with no covered hit area. Full keyboard path on every screen, visible focus, zoom from 80 to 200 percent, no horizontal scroll from 320 px to 3840 px, reduced motion honoured, and a colour pair that passes contrast in light, dark, system and high-contrast themes.
+
+**The look.**
+One design system: tokens for colour, spacing on a 4 and 8 px grid, radii, shadows, type and motion. Seed green `#16A34A` for a pitch product, calm neutral canvas, accent only for primary actions and key numbers. No purple-blue gradients, no emoji headings, no pill buttons on data inputs, no stock filler, no hype words, no em dashes in copy. One component per control, never two. Arabic screen face: IBM Plex Sans Arabic, Cairo or Tajawal.
+
+**Native app feel.**
+The browser's text selection and the right-click menu are disabled site-wide and replaced by the app's own menu with in-app actions and a refresh. Normal select, copy and paste inside real input fields still work.
+
+**Evidence before the word done.**
+Screenshots at 320, 390, 768, 1280 and 1920 px, in Arabic and English, in light and dark, plus 3840 px once. Playwright on the critical journeys. Lighthouse mobile 90 or better. A click-target audit in CI. The self-audit loop runs until two clean cycles.
+
+---
+
+## 7. Free tier and fair pricing (EGP and USD)
+
+These are **test prices**, not published prices. They are the outline the owner confirms with three real pitch owners and the official gateway fee schedule before anything is charged. The legacy plan's own numbers are kept where they exist, because they are the owner's numbers: 59 EGP per month for the player Pro tier (`legacy/11Players` pricing copy) and 450 EGP per month or 4,500 EGP per year for the venue tier (the previous Hagoozat plan). The USD column uses 48 EGP per 1 USD, which is "(unsourced, verify)" and is recomputed from the live rate on the pricing page.
+
+| Plan | Who | EGP | USD | What it includes | Rule |
+|---|---|---|---|---|---|
+| Player Free | Any player | 0 | 0 | Browse pitches and real free slots, book with a deposit, split the bill, join open matches, QR pass, player passport with real stats, WhatsApp share, offline pass | The core action is never behind a plan |
+| Player Pro | Serious players | 59 per month (test) | about 1.20 per month | Priority alerts on new slots near their areas, unlimited open-match discovery, full position coach, card themes, create and enter tournaments, priority support | Cancel any time, the plan lapses at the end of the paid month |
+| Venue Free | A pitch owner | 0 | 0 | List up to 3 pitches, publish free slots, take cash and manual bookings at the venue, basic schedule | A venue is never charged to be listed |
+| Venue Pro | A pitch owner | 450 per month or 4,500 per year (test) | about 9.40 per month or about 94 per year | Unlimited pitches, online deposits with wallets and cards, dynamic off-peak pricing, open-match publishing to nearby players, QR entry with a scan log, utilisation and no-show analytics, cash register, automated reminders | One fee only: the plan replaces the commission, the transaction fee is the published gateway cost |
+| Venue Partner | A multi-pitch operator | price set with the owner | | Staff roles, POS, invoices, API, multi-venue | Later milestone, decided with the first real operator |
+
+**Fairness rules written into the product.**
+1. A player never pays to book a pitch, and the app never takes a cut of a player's share.
+2. A venue owner pays one thing only. If the venue is on Venue Pro, there is no commission on top. If the venue is on Venue Free, the commission is shown before the owner confirms, never hidden in a small line.
+3. Every price on screen is in the visitor's currency, auto-detected, with the original EGP amount next to it.
+4. A deposit is refunded in full when the venue cancels. A player cancellation inside the published window is refunded minus what the venue already lost, and the rule is on the pitch page before payment.
+5. No ads, in any tier, ever. The owner sets an ad spend cap of 0 until he changes it.
+6. The owner of the product gets every paid feature, free, and a subscription grants him all permissions inside the owner console.
+
+**Still open and blocking publication:** the official Paymob and Fawry fee schedules for Egypt, the tax and invoicing treatment of venue fees in Egypt, the exact cancellation and refund wording, and the lawyer review of every legal page. Each is tagged "(unsourced, verify)" in `ops/competitors/sir-hagoozat.md` section 4 and in `docs/ENV.md` when the project starts.
+
+---
+
+## 8. Milestones M0 to M6, with acceptance tests
+
+Every exit check is something a reviewer can run or click. "Green" means the output was seen, not assumed.
+
+### M0: Foundations, the kit and the honest map of the legacy
+
+Work: create the product's own Firebase project named `sir-hagoozat` (free Spark plan) and keep it separate from every other product; scaffold the monorepo (apps, packages, docs, scripts) with strict TypeScript, Tailwind v4 tokens, RTL-first styles and the shared `verify` script; write the legacy parity matrix; design the token set and the three design directions; recreate the Desktop folder kit from scratch for the new build.
+
+Exit checks:
+1. `D:/Projects/SIR Hagoozat` contains `folder.ico` (named exactly that, never `icon.ico`) and the Desktop folder `SIR Projects/SIR Hagoozat` holds `folder.ico`, `SIR Hagoozat.lnk`, `Start SIR Hagoozat dev.lnk`, `Stop SIR Hagoozat dev.lnk`, `Open project folder.lnk` and `Versions.txt` reading version 1.0.0 and a plain status. The old kit belonged to the legacy build, so M0 rebuilds it.
+2. `.sir/reports/parity.md` lists every route of the three legacy apps (29 pages and 7 API routes merged, 55 pages in 11Players, 36 in EGFootball5) with a keep, port, drop or drop-with-reason verdict and the file that proves it.
+3. `pnpm verify` runs typecheck, lint, tests, build and gitleaks, and the output was seen green.
+4. The Firebase project `sir-hagoozat` exists and the GitHub repo `sirahmed8/sir-hagoozat` is the only remote for it.
+5. `docs/DESIGN.md` holds three explored directions with screenshots and the chosen one, plus the token file and the balancer prototype running at 120 Hz.
+
+### M1: The booking core, proven under contention
+
+Work: the data model and the Firestore rules for Pitch, Slot, Booking, Deposit; the slot lock and the booking transaction with an idempotency key; the pitch list and the pitch page; five states everywhere.
+
+Exit checks:
+1. The emulator rules tests pass, including a cross-tenant read that must fail.
+2. 20 parallel booking requests for one slot produce exactly one booking and 19 clean rejections.
+3. The pitch list and the pitch page show idle, loading, empty with one action, error with retry and populated, at 390 px and 1280 px, in Arabic and English, light and dark.
+4. The slot hold expires on its own and the slot becomes bookable again, with a test that says so.
+
+### M2: Money and the squad
+
+Work: the booking wizard with ordered steps that cannot be skipped; the deposit and the private receipt upload; the split bill with each player paying their share; the open match with the missing places; the squad balancer with the fairness meter; the WhatsApp share; the QR pass.
+
+Exit checks:
+1. Step 2 of the wizard cannot be reached before step 1 validates, and the e2e test tries to jump and is blocked.
+2. A receipt upload is refused when it is the wrong type or too large, and a stored receipt is reachable only with a valid signed URL.
+3. The split bill sums to the slot price exactly, and a player who joins late pays the same share.
+4. The balancer is a pure function with a property test: the rating-sum difference between the two teams stays inside the stated bound, and the same input always gives the same teams.
+5. The QR pass works offline and the pitch owner scan marks the booking as arrived.
+
+### M3: Security, billing, legal, and the owner page
+
+Work: the signed webhook with negative tests; the billing fallback page with lead capture; the legal pack; the owner-only analytics page.
+
+Exit checks:
+1. Ten negative webhook tests pass (tampered, replayed, unsigned, wrong timestamp, wrong amount, and the rest), and no `dev_signature` or any other bypass exists in the code.
+2. A non-owner token on `/owner` gets 403 and a forged token gets 403.
+3. The pricing page shows the test prices with the currency auto-detected, plus "Subscriptions launching soon" and an email capture that creates a lead document and rejects an invalid address.
+4. Every legal page exists under `/legal/*`, each marked "AI-drafted, to be reviewed by a qualified lawyer before paid launch".
+5. Both hosts answer: the Firebase URL and the Vercel URL were curl-checked, and the two addresses are written in the project checkpoint.
+
+### M4: The owner console, the community and the two platforms
+
+Work: the owner console (schedule, utilisation, no-shows, cash register with an offline ledger, deposit verification queue, export); the tournaments engine (knockout, league, single round); communities, chat, announcements and support tickets; the achievements, XP and leaderboard layer; the Telegram notifications and the scheduled reminders; the Expo app for Android and iOS.
+
+Exit checks:
+1. The owner console shows real numbers from the database, and every metric is empty with a dash when there is no data.
+2. A knockout bracket with 8, 16 and 32 teams generates correctly, a result advances the winner, and the standings recompute.
+3. The offline ledger records a cash booking with no connection and syncs cleanly when the connection returns, with no duplicate.
+4. The reminder job fires at a round hour, sends through the Telegram sender, and the owner's weekly report arrives with the numbers and their meaning.
+5. The Android APK builds and installs on a device, and the same Google account sees the same booking on the web app.
+
+### M5: AI, the Windows app and the quality pass
+
+Work: the position coach, the balance explanation, the support assistant; the Windows installer with the same sign-in and self-update; the macOS and Linux builds; the widget and live activity surfaces; the full self-audit.
+
+Exit checks:
+1. `npm run eval:balancer` and `npm run eval:support` pass with Arabic and English sets, and the support assistant refuses an ungrounded question.
+2. The Windows installer installs, starts, signs in with the same Google account, updates itself, and its entry is in `Projects-Hub.html` and on the Download page with the version and the size.
+3. Screenshots exist at 320, 390, 768, 1280 and 1920 px in both languages and in light, dark and high contrast, with the five states visible.
+4. The accessibility audit passes WCAG 2.2 AA with an accessible name on every control, no covered hit area, and no horizontal scroll from 320 px.
+5. Lighthouse mobile is 90 or better and the JSON is saved in `.sir/evidence/`.
+
+### M6: Release, real venues and the legacy handover
+
+Work: the launch package (domain, accounts, legal review); the old hosts redirected with 301; the keys rotated; the first real pitches onboarded with written consent; the legacy handover.
+
+Exit checks:
+1. Three real pitches are live with a written consent, a real price and a real owner, and no seeded or invented pitch exists in any path a user can see.
+2. The 301 redirects from the three old hosts are verified by curl.
+3. The legacy keys are rotated and the service-account file is out of the repository.
+4. The lawyer has reviewed the legal pages and the tax question is answered, and only then can a paid plan go live.
+5. Each legacy folder moves from `legacy/` to `D:\Projects\old projects\` only after the parity matrix shows every kept feature is ported and verified, keeping the git history. `legacy/` is never deleted from the repository history.
+
+---
+
+## 9. The first ten tasks for the free agents
+
+Ready to queue, each with its own brief: `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
+
+1. Legacy parity matrix, read-only, into `.sir/reports/parity.md`.
+2. Monorepo scaffold with tokens, RTL, the health route and CI.
+3. The product's own Firebase project and the `owner-auth` package with negative tests.
+4. The data model and the Firestore rules, with emulator tests.
+5. The slot lock and the booking transaction with the 20 parallel test.
+6. The shared UI kit: tokens, the four themes, the five states, the spring components.
+7. The pitch list and the pitch page with the map and list views.
+8. The booking wizard with the deposit and the private receipt upload.
+9. The squad balancer as a pure function plus the fairness meter.
+10. The owner-only analytics page and the billing fallback page.
+
+---
+
+## 10. Skills from the library that this build uses
+
+Picked from `D:/Projects/_SIR/ops/SKILLS_INDEX.md` and the digests in `D:/Projects/_SIR/ops/encyclopedia/`. Digests live under `ops/encyclopedia/<tool>/<skill>.md`; the paths below are the real files found on 2026-11-12.
+
+**Design and UI**
+- `anti-vibecoded-design-system` (claude) - keeps the pitch product away from generic AI styling and purple gradients.
+- `taste-design-engine` (claude) - the self-audit against AI patterns before the screens ship.
+- `emil-motion-impeccable` (claude) - the spring physics for the balancer, the sheets and the tab bar.
+- `modern-ui-ux-design-system` (claude) - tokens, micro-interactions and hierarchy for one design system.
+- `cognitive-product-intuition` (claude) - the wizard step order and the empty states, so the flow matches how players think.
+- `high-conversion-copywriting` (claude) - the promise line and the pitch page copy that sell the end state without hype.
+- `commercial-app-blueprint` (claude) - llms.txt, the trust signals and the sticky call to action on the site.
+- `a11y-debugging` (codex) - the accessibility audit with Chrome DevTools against WCAG 2.2 AA.
+- `mobile-ergonomics-polish` (claude) - touch targets, no horizontal scroll, tap feedback on the phone screens.
+- `modern-web-guidance` (claude) - the current web APIs, container queries and dialog behaviour, run before any client-side work.
+- `react-best-practices` (claude) and `nextjs` (claude) - App Router structure, Server Components, rendering and performance rules.
+
+**Security and legal**
+- `firestore_rules_creation` (claude) - the deny-by-default rules for every collection.
+- `firebase_security_rules_auditor` (claude) - the audit that finds a cross-tenant read before a user does.
+- `zero-trust-security-hardening` (claude) - server-side role checks, secure cookies and rate limiting.
+- `owasp-vulnerability-shield` (claude) - the OWASP pass over uploads, webhooks and auth.
+- `vibe-auth-hardening` (claude) - the five auth flaws that a fast build introduces.
+- `legal-compliance-shield` (claude) - the legal pack that matches what is actually collected.
+- `cookie-debugging` (codex) - the consent banner behaviour and the cookie audit.
+
+**Mobile and desktop**
+- `modern-app-engineering` (claude) - the shared architecture for the Expo app and the Electron shell.
+- `android-cli` (claude) and `device-hub` (codex) - the Android build, the emulator and the device checks.
+- `compose-preview` (codex) - the Wear OS decision, when it is taken.
+
+**AI**
+- `gemini-api-dev` (codex) - the Gemini calls and the structured output.
+- `ai-gateway` (codex) and `omniroute-resilience-gateway` (claude) - the fallback chain and the failover on quota errors.
+- `firebase_ai_logic_basics` (claude) - Firebase AI Logic when it becomes cheaper than a direct call.
+
+**Automation and operations**
+- `chat-sdk` (codex) - the Telegram bot for confirmations and reminders.
+- `webhook-testing` (deep) - capturing, replaying and validating the gateway webhooks.
+- `verification` (codex) and `verification-before-completion` (deep) - the end-to-end check before the word done.
+- `sir-browser` (deep) - the zero-prompt browser bridge for the visual audits.
+
+**Data, hosting and growth**
+- `firebase_firestore` (claude) - queries, indexes and the data model.
+- `database-reliability-transactions` (claude) - the atomic booking transaction and idempotency keys.
+- `firebase_hosting_basics` (claude), `vercel-cli` (codex), `deployments-cicd` (codex) and `env-vars` (codex) - the two hosts with the same build and the same variables.
+- `google_maps_platform` (codex) - the map view, the geocoding and the distance search for nearby players.
+- `open-seo-auditor` (claude) - Arabic search visibility, JSON-LD and the AI answer check.
+- `system-design-architect` (claude) and `production-engineering-standards` (claude) - the zero-mock persistence and the production bar.
+
+---
+
+## 11. Risks and the defaults we take
+
+- **Two-sided cold start.** Default: one area with 3 to 5 real pitches and real owners before any advertising or search push. No marketing before the sourcing tasks in the competitor file are done.
+- **Receipt fraud on manual payment.** Default: manual verification queue, no auto-approval, a phone number visible to the owner only after a booking.
+- **Port volume.** Three apps, 3,014 files. Default: port by feature behind the parity matrix, never copy files across.
+- **The real market already has good products.** Yalla Hagz, Hareefa and Kourtiva are live. Default: win on Egyptian Arabic, the split bill, the open match, offline and the owner numbers, not on features we cannot verify.
+- **Payments before the lawyer.** Default: test mode only, no real charge, no published plan price until the fee schedule and the legal pages are reviewed.
+- **Gateway and tax numbers.** Default: every one of them is "(unsourced, verify)" until read on the official page on the day it is used.
+- **Static export killing the server.** Default: no secret ever in a route handler that a static host would drop; the server features run on the functions side from M1.
+
+---
+
+## 12. Only the owner can do
+
+Buy the domain and point it at both hosts. Create and fund the Paymob and Fawry business accounts and paste the keys into the project's ignored env file. Sign in once on the Google OAuth screen so the branding is right. Talk to three real pitch owners, or approve the outreach text. Lawyer and accountant. Buy the code-signing certificate later. Create the Play Console and Apple developer accounts when the reinvestment ladder allows.
+
+Everything else is an agent's job.
+
+---
+
+## 13. Sources and files
+
+- Canonical competitor study with dated links: `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md`
+- The ten build briefs: `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`
+- Shared kit: `D:/Projects/_SIR/plans/SHARED_PLATFORM_KIT.md`
+- AI chain: `D:/Projects/_SIR/plans/AI_FALLBACK_CHAIN.md`
+- Quality charter: `D:/Projects/_SIR/plans/GEMINI_QUALITY_CHARTER.md`
+- Desktop and Windows standard: `D:/Projects/_SIR/plans/WINDOWS_APP_STANDARD.md`
+- Legacy sources, read-only: `D:/Projects/SIR Hagoozat/legacy/11Players`, `legacy/EGFootball5`, `legacy/Hagoozat Elite`
+- Legacy facts and red flags: `D:/Projects/_SIR/ops/inventory/11Players.md`, `EGFootball5.md`, `Merged-sites.md`
+- Owner ideas: `D:/Projects/_SIR/ops/TICKTICK_MAP.md` and `plans/PROJECT_MERGE_RECORD.md`
