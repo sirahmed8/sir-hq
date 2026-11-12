@@ -977,3 +977,4 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - 2026-11-12 (TickTick to Notion, Ahmed OS): projects 10/10, tasks 53/54 (1 held back), notes 18/20 (2 held back), habits 4/4, countdowns 0. Owner-ordered private copy: 10 notes in a private page. Report: D:/Projects/_SIR/ops/reports/ticktick-notion-report.md
 - 2026-11-12 15:35 | control room rebuild | new generator, feeds, single template (7 destinations, AR/EN, light/dark); headless 16/16 combinations pass (no overflow, no stacked letters, no errors); scheduled SIR_HQ_Dashboard every 30 min; artifact regenerated, not published by this chat; commit and push by Haiku subagent.
+- 2026-11-12 | r48-video-digest | video digest pipeline done: scripts/video_digest.py + batch + local whisper fallback, skill installed for Claude/Codex/Antigravity; verified on local mp4 (28s) and YouTube (3m33s); research ops/research/video-tools-2026-11-12.md; commit pending

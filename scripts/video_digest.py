@@ -219,7 +219,7 @@ def transcribe_groq(audio: Path, keys: dict) -> dict | None:
         )
 
     field("model", GROQ_MODEL)
-    field("response_format", "json")
+    field("response_format", "verbose_json")
     field("temperature", "0")
     fname = audio.name
     head = (
