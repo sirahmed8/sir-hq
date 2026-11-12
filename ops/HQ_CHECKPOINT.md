@@ -236,3 +236,6 @@ Owner complained Telegram replies look messy (symbols breaking words) and voice 
 
 ## HQ note (2026-11-12 21:35) [backup manager]
 - Ahmed: voice transcription sometimes hangs; wants workers kept busy with queued follow-up tasks. Fixed transcribe() in scripts/backup_manager.py (210s hard cap thread, Groq 75s, CF 120s, interim listening message). Queued r67-build-sir-portfolio (D:/Projects/SIR Portfolio) and r67-voice-pipeline-verify (_SIR, parallel_ok).
+
+## HQ note (2026-11-12 21:25) [claude]
+Sweep: autopilot alive, 8 active tasks, board inbox 2 review 2. Voice transcription fixed (Groq needs .ogg name), public Control Room site deleted (Tailscale only), language guard on backup manager. C: only 0.24 GB free (falling about 4 GB per hour, cause unknown): urgent task r67-c-drive-space queued first.

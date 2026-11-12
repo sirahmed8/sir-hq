@@ -772,6 +772,13 @@
     "parallel_ok": true
   },
   {
+    "name": "r67-c-drive-space",
+    "folder": "D:/Projects/_SIR",
+    "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
     "name": "r64-telegram-first",
     "folder": "D:/Projects/_SIR",
     "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
@@ -975,7 +982,7 @@
     "name": "r67-voice-pipeline-verify",
     "folder": "D:/Projects/_SIR",
     "title": "Verify Telegram voice pipeline after hang fix",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   }
 ]
