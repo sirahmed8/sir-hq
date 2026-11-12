@@ -256,8 +256,18 @@
 - Open promises: Claude in Chrome sign-in (WhatsApp digest, NotebookLM `Data Bank.pdf`); local-only verification for AHome rounds; verify r43, r44; order of use Claude, free tools, Haiku, never Sonnet.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, `ops/SUGGESTIONS.md`.
 
+## R19-M3 worker note (2026-11-12 11:13)
+- Done: split `plans/generate_dashboard.py` (~1400 lines) into thin wrapper + `dashboard_main.py` (~1166 lines) + `dashboard_data.py` (~380 lines); split `plans/dashboard_template.html` (~3445 lines) into 15 `dashboard_template_*.html` modules, each under 300 lines; concatenation byte-identical to original. Generated output hash `2a27b9d4` matches baseline. Added `tests/test_r19_m3_modular_split.py` (3/3 pass). Full pytest: 48 passed, 6 pre-existing failures (4 playwright + 2 markdown_it), 1 skipped. `compileall plans scripts` green. Commit `ef7038c` pushed to `sirahmed8/sir-hq` main. CI runs queued: verify #43207901955, test #43207901880. Report: `ops/agy-runs/reports/ci-sir-20261112-0951-fix1.md`.
+- Next step: CI green (verify #43207901955, test #43207901880). Done signal sent via agy-done.py ok.
+
 ## HQ note (2026-11-12 13:00)
 - Now: WhatsApp digest skipped for the fourth time in a row (Claude in Chrome not connected; it worked once at about 07:00). All else as at 12:25: CI green on all 7, verifier running every 30 minutes, AHome stalled on the local model, owner's AHome button unanswered.
 - Next step: `python scripts/ai-status.py`; `ls ops/verifications`; retry `mcp__claude-in-chrome__tabs_context_mcp` at the next digest; check `ops/bus/ahmed-telegram.md`.
 - Open promises: Chrome extension sign-in by the owner; WhatsApp digest and NotebookLM `Data Bank.pdf`; local-only verification for AHome rounds; verify r43, r44.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, `ops/SUGGESTIONS.md`.
+
+## HQ note (2026-11-12 14:05)
+- Now: owner decisions applied. AHome is built by a Claude Haiku run started from the AHome folder (`claude -p --model haiku`, pid 30288, prompt `ops/briefs/r38-ahome-haiku-prompt.md`, report expected at `ops/agy-runs/reports/r38-ahome-haiku.md`); AHome removed from the free/local queue; `AGENTS.md` has the AHome exception; duties moved from Sonnet to Haiku. Claude in Chrome works while Chrome is open (WhatsApp read: nothing new for study). Kimi login running (code JTVZ-UOSH, 30 minutes, Telegram sent). Five more project folders added to the app Changes pane.
+- Next step: `powershell Get-Process -Id 30288` and `git -C D:/Projects/AHome log -3`: if the Haiku run shows no AHome commits within an hour or the guard blocks it (see `ops/agy-runs/ahome-haiku.out`), ask the owner to open a chat in `D:\Projects\AHome` and paste `ops/briefs/r38-ahome-haiku-prompt.md`. Then: `ops/agy-runs/kimi-login.out` (login result), send the owner Cline steps (`cline auth`), `ls ops/verifications`.
+- Open promises: verify the AHome Haiku work (reproduce each owner defect on screen); Cline sign-in steps; NotebookLM `Data Bank.pdf`; verify r43, r44; order of use Claude, free tools, Haiku, never Sonnet.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, memory `feedback-ahome-haiku-and-chrome`.
