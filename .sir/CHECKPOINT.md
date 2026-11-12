@@ -249,3 +249,9 @@
 - Next step: `python scripts/ai-status.py`; retry `mcp__claude-in-chrome__tabs_context_mcp` at the next digest; check `ops/decisions-ahome-code-ok.txt` and `ops/bus/ahmed-telegram.md`; read r44 outputs and `ops/verifications/`.
 - Open promises: Chrome extension sign-in by the owner (open Claude panel in Chrome); WhatsApp digest and NotebookLM `Data Bank.pdf` upload; verify worker claims r43 to r45; order of use Claude, free tools, Haiku, never Sonnet.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`.
+
+## HQ note (2026-11-12 12:25)
+- Now: the verifier agent works after my fix (`scripts/hq_verifier.py`: prompt in a file, AHome skipped, newest first); first real report `ops/verifications/r45-study-scout-fixes.md` PASS 4/4 with evidence. CI green on all 7. AHome tasks (audit-ahome, r38) stall on the local qwen3:8b; the owner's Telegram button (`ahome_code_ok` or `ahome_local_only`) is still unanswered.
+- Next step: `python scripts/ai-status.py`; `ls ops/verifications` and read new PASS/FAIL reports (FAIL becomes a `<task>-fix1` queue task automatically); `ops/bus/ahmed-telegram.md` for the button answer; if `ops/decisions-ahome-code-ok.txt` exists, allow outside models for AHome code-only tasks in `scripts/cli-run2.sh`.
+- Open promises: Claude in Chrome sign-in (WhatsApp digest, NotebookLM `Data Bank.pdf`); local-only verification for AHome rounds; verify r43, r44; order of use Claude, free tools, Haiku, never Sonnet.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, `ops/SUGGESTIONS.md`.
