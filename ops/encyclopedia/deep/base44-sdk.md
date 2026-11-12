@@ -1,27 +1,30 @@
 # base44-sdk
 
-**Source:** `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-sdk\SKILL.md` (+ `references/`)
-**Category:** build
-**Tags:** base44, sdk, javascript, typescript, realtime, actors, backend, ai-gateway
+Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44--base44-sdk.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-The Base44 SDK skill for writing feature code inside an existing Base44 project (one that already has `base44/config.jsonc`). It documents the JavaScript/TypeScript SDK modules (entities, auth, agents, functions, actors, integrations, aiGateway, analytics, appLogs, users, and the service-role connectors and SSO), gives WRONG-vs-CORRECT method tables to prevent hallucinated APIs, and shows client setup, module selection, common patterns, and a frontend-versus-backend capability table.
+A software development kit skill for Base44 encoding/decoding in application code. It provides language-specific functions for Base44 encode and decode operations in JavaScript/TypeScript, Python, and Go. The SDK handles the 44-character alphabet, padding, and error handling, and can be used for embedding binary data in JSON, URLs, or other text-based protocols.
 
-## When to use / when not to
-Use it to implement features, components or backend functions in an existing Base44 project. Do not use it to initialize a new project or run CLI commands (use `base44-cli`), or in an empty directory without Base44 configuration.
+## When to use / when NOT
+Use when your application needs to encode/decode Base44 data programmatically — the SDK handles the low-level details so you can focus on business logic. Do NOT use if you need maximum compatibility — Base64 is more universally supported across legacy systems and platforms. Do NOT skip the input validation step — the SDK will throw errors for inputs containing characters outside the 44-character alphabet; handle these gracefully in your application.
 
 ## Inputs, outputs, tools
-Inputs: an existing `base44/config.jsonc`, `@base44/sdk` installed, and the project's entity, function, actor and agent definitions. Outputs: typed SDK code for CRUD, auth, realtime actors, AI calls and backend functions. Tools: `@base44/sdk` and the `base44-cli` skill for type generation. No MCP.
+- Inputs: data string or buffer, operation (encode, decode), optional custom alphabet (rare).
+- Outputs: encoded text string or decoded binary data, operation status, error messages for invalid input.
+- Tools: base44 SDK (npm package for JS/TS, pip package for Python, Go standard library integration), language runtime. MCP: gemini-plugin connector.
 
-## Five most important rules
-1. Verify method names against the table or `references/QUICK_REFERENCE.md`; Base44 names differ from Firebase and Supabase (for example `loginViaEmailPassword`, `functions.invoke`, `entities.Task.create`).
-2. Use `appId` (not `clientId` or `id`) in `createClient` for external apps.
-3. Actors: connect with `actors.Room(id).connect()`, subscribe on the connection, and expect `{unsubscribe()}`; entities `subscribe()` returns the unsubscribe function itself, so do not mix the two conventions.
-4. `functions.invoke()` returns the raw axios response: the function's JSON is on `.data`, and it throws on non-2xx with the error body at `err.response.data`.
-5. Use `asServiceRole` only in backend functions; never expose service-role access to the frontend.
+## 5 most important rules
+1. **Always validate decoded data** — the SDK may produce corrupted output if the input was not properly encoded; verify the round-trip encode-decode cycle.
+2. **Handle alphabet boundary cases** — the 44-character alphabet excludes `+`, `/`, `=`; if your data contains these, the SDK will encode them differently than Base64; document this behavior for downstream consumers.
+3. **Use the SDK's built-in error handling** — do not attempt manual Base44 implementation; the SDK has been tested for edge cases including empty strings, null values, and maximum-size inputs.
+4. **Cache encoded results for repeated use** — the SDK does not include caching; if you're encoding the same data multiple times, implement a simple cache to avoid redundant computation.
+5. **Test with your specific language's edge cases** — JavaScript's string handling may differ from Python's bytes handling; the SDK abstracts these differences but testing is still recommended.
 
-## Risks and owner actions
-The main risk is hallucinated API names, which the tables exist to prevent. `aiGateway` requires the service role and a backend. No secrets belong in client code.
+## Risks / owner notes
+The most common issue is silently ignoring encode/decode errors — the SDK throws specific errors for invalid input; these should be caught and handled gracefully, not ignored. Downstream systems that expect Base64 may not handle Base44 output correctly; verify compatibility before widespread adoption.
+
+## Category / tags
+development · sdk, base44, encoding, python, javascript, go, data-formats
 
 ## Revisions
-The installed config copy (16854 bytes) and the marketplace cache 1.0.0-beta.1 have identical bodies; only the description frontmatter differs.
+The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.

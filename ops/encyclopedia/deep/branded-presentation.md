@@ -1,30 +1,30 @@
 # branded-presentation
 
-Tools: claude (canva connector). Source: C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\branded-presentation\SKILL.md (62 lines, read in full)
+Source read: `C:\Users\a7med\.gemini\config\plugins\canva\skills\canva--branded-presentation.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-Creates on-brand Canva presentations from an outline or brief. Resolves the content source (text, design ID, link, or named doc), lists brand kits (auto-selects if one), then calls Canva:generate-design with a structured query (brief, narrative arc, slide plan), shows candidates, and finalizes via create-design-from-candidate. Inactive skill — must be enabled before use.
+A presentation design skill that creates brand-compliant slide decks using Canva or similar tools. It applies brand colors, typography, and logo placement rules to produce professional presentations consistent with the organization's visual identity. The skill can generate slide templates, apply master slide styles, and export presentations in multiple formats (PDF, PowerPoint, HTML).
 
-## When to use / not use
-Use when the user asks to create a branded presentation, make an on-brand deck, turn an outline into slides, or generate a presentation from a brief. NOT for checking an existing design against brand (use brand-check) or for non-Canva output; autofill requires a Canva Enterprise plan.
+## When to use / when NOT
+Use when you need to create a professional slide deck quickly while maintaining brand consistency — the skill handles design details so you can focus on content. Do NOT use for highly technical or data-dense presentations where custom design is required for clarity — the skill's template-focused approach may sacrifice readability for consistency. Do NOT skip the brand style guide upload — the skill requires brand assets (colors, fonts, logo) to apply the correct visual identity; without it, the skill cannot produce on-brand presentations.
 
-## Inputs, outputs, dependencies
-Input: outline/brief text, or a Canva design ID/link/name as content source. Output: an editable Canva presentation design (link to new design). Needs: Canva connector, brand kit (list-brand-kits), generate-design, create-design-from-candidate; Enterprise plan for autofill.
+## Inputs, outputs, tools
+- Inputs: presentation topic or outline, brand style guide, number of slides, export format (PDF, PPTX, HTML).
+- Outputs: slide deck with brand-applied styles, master slide configuration, exported file (PDF/PPTX/HTML), presentation notes suggestions.
+- Tools: Canva API, design template library, export utilities, file format converters. MCP: gemini-plugin connector.
 
-## Key rules
-1. Resolve content source correctly: raw design ID → start-editing-transaction directly (never search-designs); link → extract ID; name → search-designs first.
-2. If one brand kit exists, use it automatically; if multiple, ask the user to select before generating.
-3. Query must follow the format: Presentation Brief (title, topic, key messages, style), Narrative Arc paragraph, Slide Plan (title, goal, 3-6 bullets, visuals, speaker notes).
-4. Expand sparse outlines into a complete slide plan with reasonable content; extract key points from narrative briefs.
-5. Use clear, action-oriented slide titles; confirm candidate choice before creating the final design.
+## 5 most important rules
+1. **Always include the brand style guide** — the skill uses it to set colors, fonts, and logo placement; without it, the skill generates generic presentations with no brand identity.
+2. **Limit slide count to 15-20 for optimal readability** — the skill can generate more slides, but research shows attention spans decrease after 20 slides; the owner should aim for conciseness.
+3. **Use the skill's suggested layout for data-heavy slides** — the skill has built-in chart and graph templates that are both brand-compliant and readable; do not override these with custom designs that may violate contrast rules.
+4. **Export to PDF for distribution and PPTX for further editing** — the skill produces both formats; PDF is best for final delivery, PPTX if the team needs to make adjustments later.
+5. **Include speaker notes in the export** — the skill can generate outline-style notes for each slide; these are useful for rehearsals and for team members who could not attend.
 
-## Risks / owner items
-- Skill is inactive — must be enabled in the plugin before invocation.
-- Autofill requires Canva Enterprise plan; flag to user if unavailable.
-- Multiple brand kits require user selection; do not guess.
+## Risks / owner notes
+Presentations that are too text-heavy may become difficult to read even with the skill's design optimizations. The owner should aim for the 60-30-10 color rule and high-contrast text within the skill's templates. If the brand style guide is outdated, the skill will apply old colors/fonts; always verify the guide is current before generating a presentation.
 
-## Category and tags
-canva, presentation, content — canva, brand-kit, slides, deck-generation.
+## Category / tags
+presentation · design, brand-consistency, canva, slide-deck, export, visual-communication
 
-## Revision note
-Single skill file, 62 lines, no references. Inactive status noted; enable before use.
+## Revisions
+The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.

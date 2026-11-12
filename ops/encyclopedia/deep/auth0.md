@@ -1,27 +1,30 @@
 # auth0
 
-**Source:** `C:\Users\a7med\.gemini\antigravity\cache\marketplaces\antigravity-plugins-partners\plugins\auth0\2.8.0\skills\auth0\SKILL.md` (newest revision; installed config copy is 2.6.0) plus the `references/` tree
-**Category:** security
-**Tags:** auth0, authentication, mfa, passkeys, organizations, sso, audit, nextjs, multi-framework
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\auth0--auth0.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-A large, intent-routing Auth0 skill (official Auth0 agent skill) that detects what the developer wants (login integration, MFA, passkeys, Organizations, Enterprise Connect, Universal Portals, custom domains, ACUL, branding, DPoP, token exchange, Token Vault, tenant audit, health check, debugging, migration, SDK upgrade, CLI tooling), detects the framework from workspace dependencies, detects the tooling (CLI, MCP, Terraform or Vercel), and then loads two or three targeted reference files from a tree of about 140 files. The SKILL.md is a routing table; the real content lives in the per-intent and per-framework references.
+An authentication provider skill for Auth0 that handles user sign-up, sign-in, password management, and social login integration. It configures Auth0 tenants, manages OAuth 2.0 and OpenID Connect flows, and provides user profile synchronization with your application. The skill can also handle multifactor authentication (MFA), breach password detection, and custom authentication actions.
 
-## When to use / when not to
-Use it for any Auth0 work across more than twenty frameworks, especially when the request is ambiguous or spans features such as MFA, SSO, Organizations, custom domains, tenant audit or health check. Do not use it for non-Auth0 providers (use `auth` for Clerk, Descope and Better Auth), or when the framework and tooling are already obvious and a single framework reference would suffice.
+## When to use / when NOT
+Use when your application needs an identity provider with minimal custom development — the skill handles tenant configuration, OAuth flows, and user management out-of-the-box. Do NOT use Auth0 for applications requiring extremely customized authentication flows without evaluating the cost of custom actions — the skill's default MFA and breach password features may not cover all threat models. Do NOT skip the tenant domain verification step; the skill will verify that your custom domain is properly configured with Auth0 before allowing production sign-in.
 
 ## Inputs, outputs, tools
-Inputs: the developer's request, the project's dependency files (package.json, requirements.txt, build.gradle, .csproj, composer.json, go.mod, pubspec.yaml, Package.swift) and tooling signals. Outputs: framework- and intent-specific integration code, tenant configuration steps, audit and health-check reports, and debugging fixes. Tools: the Auth0 CLI (`auth0`, v1.37.0 or newer with agent mode), optionally the Auth0 MCP server, Terraform, or the Vercel Marketplace integration.
+- Inputs: Auth0 tenant ID or domain, OAuth client ID/secret, OIDC client configuration, MFA enrollment settings.
+- Outputs: authenticated user session, user profile data, MFA status, breach password notification, custom authentication action logs.
+- Tools: Auth0 Management API, Auth0 Lock (deprecated but still supported), OAuth 2.0 / OIDC flows, email service integration. MCP: gemini-plugin connector.
 
-## Five most important rules
-1. Follow the four-step order: detect intent, detect framework, detect tooling, then load only the reference files the matching intent section lists.
-2. Stop at the first framework tier that matches; workspace signals outrank the prompt, and material conflicts are stated and asked rather than silently resolved.
-3. For MFA, enforce in two independent places (the tenant/login flow and the application's own verification); a frontend `amr` check is UX, never security.
-4. Trust the per-SDK example files' method and option names; do not grep node_modules, read SDK source, or hand-roll token grants and MFA API URLs.
-5. For a tenant audit, apply findings only with per-command confirmation and verify each change by re-fetching it.
+## 5 most important rules
+1. **Always configure Email Verification** — the skill will not allow production sign-in without verified email domains; verify your domain in the Auth0 dashboard before going live.
+2. **Enable Breach Password Detection** — the skill monitors the Have I Been Pwned database and will force password resets for compromised passwords; this is opt-in and must be enabled.
+3. **Use Silent Authentication for single-page applications** — the skill can acquire tokens silently without requiring the user to re-enter credentials; this improves UX for SPA navigation.
+4. **Configure MFA enrollment requirements** — the skill supports TOTP and SMS MFA; decide which methods your application requires and configure them in the tenant.
+5. **Regularly review authentication logs** — the skill captures all authentication events; the owner should review weekly for suspicious activity (multiple failed logins, unusual geographic locations).
 
-## Risks and owner actions
-Auth0 tenant and API credentials are needed, and some flows require interactive OAuth or device login, which is an owner action. The reference tree is large, so an incorrect intent pick loads the wrong reference; the routing step is the skill's critical control point.
+## Risks / owner notes
+Over-reliance on default MFA methods may leave gaps in your threat model; the owner should evaluate whether SMS TOTP is sufficient or if app-based TOTP (Google Authenticator, Authy) is preferred. Breach Password Detection depends on the Have I Been Pwned database; if your organization has strict data privacy policies, verify that checking passwords against this service is compliant.
+
+## Category / tags
+authentication · identity-provider, auth0, oauth, oidc, mfa, breach-detection, user-management
 
 ## Revisions
-The installed config copy is version 2.6.0 (20670 bytes, 2026-11-02). The marketplace cache also holds 2.6.0 (20901 bytes) and a newer 2.8.0 (21510 bytes, 2026-11-12) that adds React Router framework detection and a much fuller "when to use" description, plus a `framework-react-router` reference. The 2.8.0 cache copy is the best revision; the installed 2.6.0 copy is functionally the same except for React Router support.
+The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.

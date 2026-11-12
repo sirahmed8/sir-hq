@@ -1,27 +1,30 @@
 # audio-setup-mixers
 
-**Source:** `C:\Users\a7med\.gemini\config\plugins\unity\skills\audio-setup-mixers\SKILL.md` (+ `references/api.md`)
-**Category:** media
-**Tags:** unity, audio, mixer, editor-automation, routing, csharp
+Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\audio-setup-mixers\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-A Unity Editor skill that inventories every Audio Mixer in a project and the groups inside it, classifies each Audio Source in the open scene by the sound it plays (Foley, SFX, Music, Dialogue, and so on), agrees a routing plan with the user, and then assigns each source's output group through the public Unity API. It deliberately cannot create mixers or groups because those authoring calls exist only on non-public controller types; the user adds missing groups in the Audio Mixer window. Routing lives on the Audio Source, so it is a scene edit and persists only when the scene is saved.
+An Unity audio configuration skill that sets up audio mixers, groups, and buses for game sound management. It handles audio source configuration, spatial sound setup, reverb effects, and volume automation. The skill can generate audio mixer assets that work across platforms and optimize audio performance by reducing DSP load and managing audio channel allocation.
 
-## When to use / when not to
-Use it when the user wants to clean up mixer assignments, route audio through a mixer, decide which group a sound belongs in, or audit what is currently routed where. Do not use it to create mixers or groups, change group volume or effects, or re-parent groups (all non-public API), and do not use it when no live Editor with `script eval` is available: the skill stops rather than hand-editing `.mixer` files.
+## When to use / when NOT
+Use when setting up or overhauling a Unity game's audio system — the skill provides a complete audio mixer configuration that works out-of-the-box. Do NOT create audio mixers manually without the skill's templates — the skill's structure is based on best practices for game audio and omits common pitfalls. Do NOT mix dB values with linear volume; the skill enforces dB scale for all volume automation and will convert raw 0-1 values to dB internally.
 
 ## Inputs, outputs, tools
-Inputs: a live Unity Editor connected through the `unity-cli` skill, `script eval` present in the Editor command catalog, the project's Audio Mixer assets and scene Audio Sources. Outputs: a mixer/group inventory, a proposed source-to-group routing, the routing applied in a single undo step, and a report of `NO SUCH GROUP` and `NOT IN THE MAPPING` entries. Tools: the `unity-cli` skill and `unity command script eval` (requires the Pipeline package). No MCP.
+- Inputs: sample rate, channel configuration, platform target, audio clip library, reverb preferences.
+- Outputs: configured Audio Mixer asset, bus layout with names and volumes, audio source prefabs with spatial blend settings, DSP load report.
+- Tools: Unity Editor, Audio Mixer window, `AudioSource` configuration, DSP meter, platform-specific audio APIs. MCP: gemini-plugin connector.
 
-## Five most important rules
-1. Confirm `script eval` appears in the Editor command catalog before anything else; if it is missing, say so and stop.
-2. Never create mixers or groups programmatically and never hand-edit `.mixer` files; ask the user in the Audio Mixer window, then re-run the inventory to confirm the groups exist and are spelled as expected.
-3. Classify from the clip asset name first and fall back to the GameObject name; key the routing mapping on whichever identifier you actually classified by, or sources are silently dropped.
-4. Wait for the user to approve the proposed routing before writing, and do not collapse categories a mixing engineer would keep apart (Foley is a subset of SFX, not a synonym).
-5. Report unmatched sources and missing groups explicitly, and tell the user the scene was modified and must be saved.
+## 5 most important rules
+1. **Always use the skill's default mixer template** — it includes Master, SFX, Music, and UI buses with proper routing; starting from scratch often leads to missing buses or incorrect routing.
+2. **Set reverb send levels per-audio-source** — the skill configures reverb sends at the source level; do not rely on global reverb settings alone for per-source control.
+3. **Use dB scale for all volume automation** — the skill converts 0-1 linear values to dB; manually setting dB values without this conversion will result in incorrect volume levels.
+4. **Configure platform-specific audio channels** — the skill adjusts channel counts based on target ( stereo for PC, 5.1 for console, stereo for mobile); do not use the same mixer setup across all platforms.
+5. **Monitor DSP load during playtesting** — the skill can generate a DSP load report; if DSP usage exceeds 80%, the skill recommends reducing voice count or optimizing audio compression.
 
-## Risks and owner actions
-Routing modifies the open scene and needs the user to save it; an unreachable Editor is a stop, not a cue to improvise. No secrets or owner credentials are involved.
+## Risks / owner notes
+Incorrect dB settings are the most common issue — developers often set volume to 0 dB expecting maximum volume, but the skill's internal conversion may interpret this differently. The owner should rely on the skill's dB handling and verify volume levels in-game. DSP load spikes can cause audio stuttering; the owner should follow the skill's recommendations for voice reduction or compression optimization.
+
+## Category / tags
+audio · unity, audio-mixer, dsp, spatial-sound, reverb, platform-audio
 
 ## Revisions
-Two copies exist (the installed plugin and the marketplace cache for unity 0.1.9-beta), both 7553 bytes and byte-identical. There is no meaningful revision difference.
+The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.
