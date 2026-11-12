@@ -126,6 +126,13 @@ def log(msg: str) -> None:
         f.write(f"{time.strftime('%H:%M:%S')} {msg}\n")
 
 
+def clean_error(exc: Exception) -> str:
+    text = re.sub(r"\s+", " ", str(exc)).strip()
+    if TOKEN:
+        text = text.replace(TOKEN, "***")
+    return text[:180]
+
+
 def download(file_id: str, dest: Path) -> Path:
     info = tg("getFile", file_id=file_id)
     url = f"https://api.telegram.org/file/bot{TOKEN}/{info['file_path']}"
@@ -134,6 +141,19 @@ def download(file_id: str, dest: Path) -> Path:
     with urllib.request.urlopen(url, timeout=120) as r:
         dest.write_bytes(r.read())
     return dest
+
+
+def download_with_retry(file_id: str, dest: Path, tries: int = 2) -> Path:
+    last = None
+    for attempt in range(1, tries + 1):
+        try:
+            return download(file_id, dest)
+        except Exception as e:  # noqa: BLE001
+            last = e
+            log(f"download attempt {attempt}/{tries} failed for {dest.name}: {clean_error(e)}")
+            if attempt < tries:
+                time.sleep(2)
+    raise last
 
 
 def _transcribe_inner(path: Path) -> str:
@@ -414,7 +434,7 @@ def prepare_item(item: dict, tag: str) -> dict:
     note = ""
     lines = []
     if kind == "voice" and file_id:
-        f = download(file_id, MEDIA / f"voice-{tag}-{item.get('id', 'x')}.ogg")
+        f = download_with_retry(file_id, MEDIA / f"voice-{tag}-{item.get('id', 'x')}.ogg")
         heard = transcribe(f)
         if not heard:
             lines.append("[voice message - transcription failed, ask him to resend or type it]")
@@ -423,7 +443,7 @@ def prepare_item(item: dict, tag: str) -> dict:
             lines.append(f"[voice message, transcribed from Egyptian Arabic/English, can contain small errors - understand the intent: {heard}]")
             note = f"(voice note transcribed automatically, audio saved at {f.as_posix()})"
     elif kind == "photo" and file_id:
-        f = download(file_id, MEDIA / f"photo-{tag}-{item.get('id', 'x')}.jpg")
+        f = download_with_retry(file_id, MEDIA / f"photo-{tag}-{item.get('id', 'x')}.jpg")
         desc = describe_image(f) if f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp") else ""
         head = f"[photo Ahmed sent, saved at {f.as_posix()}"
         if desc:
@@ -435,7 +455,7 @@ def prepare_item(item: dict, tag: str) -> dict:
         if text:
             lines.append(f"[caption/text with the photo: {text}]")
     elif kind == "document" and file_id:
-        f = download(file_id, MEDIA / f"doc-{tag}-{item.get('file_name') or item.get('id', 'x')}")
+        f = download_with_retry(file_id, MEDIA / f"doc-{tag}-{item.get('file_name') or item.get('id', 'x')}")
         lines.append(f"[document Ahmed sent: {item.get('file_name', f.name)}, saved at {f.as_posix()}]")
         if text:
             lines.append(f"[text with the document: {text}]")
@@ -445,6 +465,77 @@ def prepare_item(item: dict, tag: str) -> dict:
     else:
         lines.append("[message with no readable text]")
     return {"lines": lines, "note": note, "kind": kind, "text": text}
+
+
+def prepare_failure(item: dict, exc: Exception) -> dict:
+    kind = item.get("kind", "text")
+    text = item.get("text", "") or item.get("caption", "")
+    lines = [f"[message could not be prepared: kind={kind}; error={clean_error(exc)}]"]
+    if text:
+        lines.append(f"[text fallback: {text}]")
+    return {"lines": lines, "note": "", "kind": kind,
+            "text": text or f"[{kind} message - preparation failed: {clean_error(exc)}]"}
+
+
+def ack_text(items: list[dict]) -> str:
+    kinds = {str(it.get("kind", "text")) for it in items}
+    if kinds == {"voice"}:
+        return "وصلت الفويس. بفهمه وأرد عليك."
+    if kinds == {"photo"}:
+        return "وصلت الصورة. بفهمها وأرد عليك."
+    if kinds == {"document"}:
+        return "وصلت الملف. بفهمه وأرد عليك."
+    if kinds <= {"voice", "photo", "document"}:
+        return "وصلت الرسايل. بفهمها وأرد عليك."
+    return "تمام، وصلت رسالتك."
+
+
+def _llm_chat(url: str, key: str, model: str, system: str, user: str) -> str:
+    body = json.dumps({"model": model, "temperature": 0.3, "max_tokens": 1200,
+                       "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode("utf-8")
+    req = urllib.request.Request(url, data=body, headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "sir-hq/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode("utf-8"))["choices"][0]["message"]["content"].strip()
+
+
+def direct_reply(body: str, notes: str):
+    """Fast conversational answer (a few seconds) from a strong free model with no tools, so the owner is never left waiting
+    while an agent with file tools starts up. It also says whether real work is needed (then the agent path runs after it)."""
+    try:
+        state = ""
+        for rel, n in (("ops/HQ_CHECKPOINT.md", 3500), (".sir/CHECKPOINT.md", 2000)):
+            p = ROOT / rel
+            if p.exists():
+                state += f"\n--- {rel} (tail)\n" + p.read_text(encoding="utf-8", errors="ignore")[-n:]
+        board = subprocess.run([sys.executable, str(ROOT / "scripts" / "taskboard.py"), "list"], capture_output=True, text=True, timeout=20).stdout[-1500:]
+        system = (PERSONA.read_text(encoding="utf-8") +
+                  "\n\n## Mode: fast chat answer\nYou cannot run tools in this step. Answer Ahmed directly and honestly from the state below. "
+                  "If he asks for work to be done or checked on the computer, say what you will do and set needs_agent true. "
+                  'Output ONLY compact JSON: {"reply": "<Egyptian Arabic, short, ends with the line المطلوب منك: ...>", "needs_agent": true or false}.\n'
+                  f"\n## Current state\n{state}\n## Task board\n{board}\n")
+        user = f"Recent chat:\n{history()}\n\nNew burst from Ahmed (oldest first):\n{body}\n{notes}"
+        providers = []
+        if KEYS.get("GROQ_API_KEY"):
+            providers.append(("https://api.groq.com/openai/v1/chat/completions", KEYS["GROQ_API_KEY"], "openai/gpt-oss-120b"))
+        if KEYS.get("NVIDIA_API_KEY"):
+            providers.append(("https://integrate.api.nvidia.com/v1/chat/completions", KEYS["NVIDIA_API_KEY"], "nvidia/nemotron-3-ultra-550b-a55b"))
+        for url, key, model in providers:
+            try:
+                raw = _llm_chat(url, key, model, system, user)
+                m = re.search(r"\{.*\}", raw, re.S)
+                data = json.loads(m.group(0)) if m else {"reply": raw, "needs_agent": False}
+                reply = str(data.get("reply", "")).strip()
+                bad = reply_problem(reply) if reply else "empty"
+                if bad:
+                    log(f"direct reply rejected from {model}: {bad}")
+                    continue
+                log(f"direct reply from {model}")
+                return {"reply": reply, "needs_agent": bool(data.get("needs_agent"))}
+            except Exception as e:  # noqa: BLE001
+                log(f"direct reply {model} failed: {clean_error(e)}")
+    except Exception as e:  # noqa: BLE001
+        log(f"direct reply error: {clean_error(e)}")
+    return None
 
 
 def main() -> int:
@@ -505,6 +596,14 @@ def main() -> int:
                 f"## New burst from Ahmed now ({len(items)} message(s), oldest first, ONE context - understand text, voice and photos together)\n{body}\n{notes}\n\n"
                 f"## Your output\nDo the work he asked (files, queue briefs, checks). Then write your reply to him (Egyptian Arabic, short, ends with the line starting المطلوب منك:) "
                 f"to the reply file path given in your task message (each runner has its own). Only that file is sent to him.\n", encoding="utf-8")
+            stage("direct", "fast answer from a strong model")
+            direct = direct_reply(body, notes)
+            if direct:
+                send(direct["reply"])
+                remember("Manager", direct["reply"])
+                if not direct.get("needs_agent"):
+                    return 0
+                send("بنفذ الشغل ده دلوقتي بأداة بتشتغل على الملفات وهبلغك أول ما يخلص.")
             stage("brain", "racing agents")
             ok = brain(prompt_file, tag)
             reply_path = DIR / f"reply-{tag}.txt"

@@ -782,7 +782,7 @@
     "name": "r64-telegram-first",
     "folder": "D:/Projects/_SIR",
     "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -801,7 +801,7 @@
     "name": "ci-sir-study-20261112-0700-fix1",
     "folder": "D:/Projects/SIR Study",
     "title": "Fix failures from ci-sir-study-20261112-0700 verification",
-    "done": false
+    "done": true
   },
   {
     "name": "r60-build-sir-ai",
@@ -984,5 +984,19 @@
     "title": "Verify Telegram voice pipeline after hang fix",
     "done": true,
     "parallel_ok": true
+  },
+  {
+    "name": "r64-ahome-bot-kit",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome Telegram bot: vendor telegram_lib.py and add edit-own-message support",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r68-sir-ai-bot-answers",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
+    "done": false,
+    "parallel_ok": false
   }
 ]
