@@ -1,30 +1,29 @@
 # api-discovery
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-discovery\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-discovery\SKILL.md` (4.6 KB; gemini-plugin/postman) plus `reference/orbit.md`.
 
 ## Summary
-An API discovery skill that automates the exploration and documentation of REST API surfaces. It inspects endpoint URLs, HTTP methods, request/response schemas, authentication requirements, and rate limits. The skill can generate OpenAPI/Swagger documentation from living APIs, discover hidden endpoints through fuzzing, and produce a searchable catalog of API resources with their purposes and tool requirements.
+Skill for finding APIs or owners, integrating public providers, locating Postman resources, and investigating consumers and change impact; routes each question to Orbit, Postman search, or the Context Graph, then verifies which source answered.
 
 ## When to use / when NOT
-Use when starting a new integration project, refactoring existing API consumers, or producing API documentation for a team. Do NOT rely on manually maintained docs that drift from the living API — the skill produces documentation that stays in sync with the actual endpoints. Do NOT skip the authentication discovery step; the skill will flag endpoints that require OAuth, API keys, or bearer tokens and provide the required scopes.
+Use when a question is about who consumes an endpoint, provider integration, or locating Postman collections, mocks or specs. Do NOT use to implement or test the API itself; route implementation to api-engineer and testing to api-testing.
 
 ## Inputs, outputs, tools
-- Inputs: base API URL, authentication credentials (optional), tag filters, depth limit for recursive discovery.
-- Outputs: OpenAPI/Swagger YAML/JSON document, catalog of endpoints with method, path, description, auth type, rate limit, and associated tools/MCP connectors.
-- Tools: Postman CLI, OpenAPI generator, API fuzzer, curl, node.js script for YAML/JSON manipulation. MCP: gemini-plugin connector.
+- Inputs: discovery question; source selection (public provider, Postman resource, cross-service change).
+- Outputs: resource IDs, integration guidance, consumer or change impact evidence.
+- Tools: postman CLI (`postman status`, `postman search`, `postman context-graph ask`, `postman dependency add`), Orbit REST API (`POST /v1/search`, `POST /v1/integrate`; read-only, safe retries, back off on 429).
 
 ## 5 most important rules
-1. **Always run with authentication credentials** — the skill discovers auth-protected endpoints that are invisible without valid credentials.
-2. **Use tag filtering to limit scope** — without filtering, the discovery can produce thousands of endpoints and be impractical to read.
-3. **Review the generated OpenAPI for accuracy** — the skill is highly accurate but may misinterpret non-standard endpoints; manual review of edge cases is recommended.
-4. **Catalog discovered tools/MCP connectors** — the skill maps each endpoint to the tools or connectors that can consume it; this is essential for the skills index.
-5. **Run discovery on a staging environment first** — the skill will attempt to connect to the provided URL; ensure you have permission and that staging is isolated.
+1. Check `postman status` before search, Context Graph and dependency commands; sign in if signed out and skip with a note if that is not possible.
+2. Answer each question with the source that fits; a miss in one source is not proof of absence in another; combine entity search with relationship context.
+3. Pass discovered ids verbatim to integrate; never construct or edit them.
+4. Treat returned leads as unverified until checked against definitions, source or telemetry; newly added calls may not be ingested yet.
 
-## Risks / owner notes
-The skill may discover endpoints that are not intended for public consumption or that have undocumented breaking changes. The owner should review the catalog for sensitive endpoints (internal admin APIs) and either document them properly or exclude them from the public index. Over-discovery (without depth limits) can produce noisy output that is difficult to maintain.
+## Risks / things needing the owner
+Postman sign-in is required for search and Context Graph; Orbit usage is free but not unlimited, so back off on 429.
 
 ## Category / tags
-api · discovery, openapi, rest, documentation, fuzzing, catalog, developer-experience
+Category: research. Tags: api, postman, discovery, orbit, context-graph, integration.
 
 ## Revisions
-The gemini-plugin copy is the only revision available; no codex, claude, or kilo versions exist. This is the canonical source for this skill.
+Single gemini-plugin/postman copy. No competing revisions.

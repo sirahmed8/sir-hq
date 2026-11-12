@@ -1,30 +1,30 @@
 # asset-transformer-toolkit
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\asset-transformer-toolkit\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini/config/plugins/unity/skills/asset-transformer-toolkit/SKILL.md` (2.9 KB; gemini-plugin/unity) plus `SECURITY.md` and `references/` (create-importer, lods, rule-api, ruleblock-api, ruleset-api, rulesets-and-actions).
 
 ## Summary
-An Unity asset management skill that automates the transformation, conversion, and optimization of game assets (textures, models, audio, animations). It handles texture compression format conversion (ASTC, ETC2, DXT), model format migration (FBX, GLTF, OBJ), audio sample rate conversion, and animation clip optimization. The skill can batch-process assets across a project and generate editor scripts for ongoing pipeline integration.
+Skill that imports 3D models and point clouds into the Unity Editor via Asset Transformer Toolkit (formerly Pixyz), and creates, edits and runs RuleSets, Actions and LODs; requires the toolkit package version 4.0.0 or later.
 
 ## When to use / when NOT
-Use when setting up or revamping a Unity asset pipeline, or when migrating assets between graphics APIs or platforms. Do NOT run asset conversion without backing up the original project files — the skill modifies files in-place and the skill will warn if it cannot find the project backup directory. Do NOT ignore the texture size limits per platform — the skill will flag textures that exceed platform-specific maximums (e.g., 8K on PC, 4K on mobile) and must be re-compressed.
+Use for Pixyz or Asset Transformer Toolkit imports and rule-based scene operations. Do NOT use for converting files from the shell, for older toolkit versions, or for unrelated asset work.
 
 ## Inputs, outputs, tools
-- Inputs: source asset directory, target platforms, compression settings, batch size, backup directory path.
-- Outputs: transformed assets with platform-specific optimizations, conversion report (successes/failures), updated import settings, backup of original assets.
-- Tools: Unity Editor, `texturecompressor` CLI, `fbx-converter`, `ffmpeg` for audio, `animator-controller` optimizer. MCP: gemini-plugin connector.
+- Inputs: import file, importer settings, RuleSet or Action, LOD configuration.
+- Outputs: imported assets, RuleSet assets, executed runs.
+- Tools: Unity Editor, `unity command script eval` to run agent-written C# for RuleSet operations.
 
 ## 5 most important rules
-1. **Always specify a backup directory** — the skill will create a timestamped backup before any conversion; do not skip this or you cannot recover original assets.
-2. **Configure platform-specific texture settings** — the skill supports ASTC (mobile), ETC2 (WebGL), DXT (PC); mixing formats across platforms will cause build failures.
-3. **Run texture size validation after conversion** — the skill reports if any texture exceeds the maximum allowed size for the target platform; these must be addressed before building.
-4. **Use batch sizes of 50-100 assets per run** — the skill can process larger batches but may run into memory issues; smaller batches are more reliable.
-5. **Update import settings after batch conversion** — the skill modifies asset import settings; the Unity Editor must be restarted or the project reloaded for changes to take effect.
+1. The skill requires `com.unity.industry.toolkit` version 4.0.0 or later; check `Packages/packages-lock.json` first and do not add the package yourself.
+2. Never assume an import is followed by a reimport; start the import only when requested and expect it to run asynchronously in the background.
+3. Never use reflection to read or write importer or RuleSet fields; use the ScriptableObject API.
+4. Only one import or RuleSet run may process at a time, and a run is asynchronous.
+5. If `SetActionParameter` throws an AITypeSecurityException, terminate the task; do not bypass it with raw C# execution or reflection.
 
-## Risks / owner notes
-The most common data loss scenario is failing to specify a backup directory — converted assets cannot be reverted without the backup. The owner should always let the skill create the backup and verify it before proceeding. Texture format mismatches are the second most common issue; the skill's platform detection is generally reliable but should be verified for edge cases (e.g., Android vs. iOS).
+## Risks / things needing the owner
+The skill has the agent write C# and run it in the user's live Unity Editor; the accepted risk is limited to the user's own machine and narrow RuleSet editing scope.
 
 ## Category / tags
-game-development · unity, asset-pipeline, texture, model, audio, optimization, pipeline
+Category: build. Tags: unity, asset-transformer, pixyz, rulesets, actions, lods, importer, csharp.
 
 ## Revisions
-The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.
+Single gemini-plugin/unity copy. No competing revisions.
