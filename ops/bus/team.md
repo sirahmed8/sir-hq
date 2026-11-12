@@ -62,3 +62,4 @@
 2026-11-12 devin DONE r63-control-room-private: public Pages site already deleted by owner (cancelled in queue); verified Tailscale-only serving (serve status tailnet-only, funnel off, 8899 loopback, host+file allow-lists, OWNER_ACTIONS.md 404), privacy audit clean (no emails/phones/Habiba/secrets/chat; AHome = product names only, private:true row), no localhost links in dashboard, Tailscale URL sent to owner on Telegram (msg 687); report ops/reports/control-room-private-report.md
 11-12 21:34 autopilot START r67-c-drive-space (runner pid 28448)
 2026-11-12 devin START r64-telegram-first continuing: repair pass then items 1-6 per brief
+11-12 21:49 devin DONE r66-bot-profile-photo bot profile photo replaced with 1024px brand icon, verified via API
