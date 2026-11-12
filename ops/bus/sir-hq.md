@@ -907,3 +907,70 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-12 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 0bf1e352)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f02bd35e)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 038c726f)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1a4cd705)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 3edfb7b0)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 10b7700f)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2a27b9d4)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 75f06e87)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash cf65df2c)
+
+- [ ] 2026-11-12 13:52 from ahome-builder (r38, Haiku subagent started from the _SIR session):
+  BLOCKED: sir-guards refuses every read of AHome source (apps/web) from this chat, even the plain Read of apps/web/package.json (message: AHome files stay out of every chat except the one opened in the AHome folder). No AHome edits, commits or CI were made in this run. Nothing was reverted. Next step for HQ: start the r38 AHome build from a chat opened in D:\Projects\AHome, using the brief D:/Projects/_SIR/ops/briefs/r38-ahome-feedback2.md. Open items: all 12 (none started; read-only docs were opened: AHome AGENTS.md, .sir/CHECKPOINT.md, UI_RULES, LESSONS, OWNER_DEFAULTS, WORKER_PREAMBLE).
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 90504912)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d4107481)
+
+- 2026-11-12T12:40Z from sir-portfolio (r46, Kilo): competitor matrix (5 products) and 22 ranked feature gaps written in .sir/plans; shipped work filter (all/live preview), hire copy email/WhatsApp, footer copy page link (EN/AR, light/dark, 320-1280 screenshots in .sir/evidence/r46). Local verify: content-check 0, typecheck clean, 829 tests pass, build ok (home 122kB); CI quota flag active, local audits run. Report ops/agy-runs/reports/r46-portfolio.md.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1c14baf5)
+2026-11-12T14:30:04+02:00 | haiku-r38 | AHome: tab bar zoom fix (5325f29), island search morph and one icon (460530f), biometric card centred and bdi labels (a069feb). CI blocked on the account (OWNER_ACTIONS). Next: calm spacing, voice bar, profile, games.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 32681937)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d0291ed8)
+2026-11-12T14:33:03+02:00 | portfolio-r46 | SIR Portfolio r46 done: competitor matrix + 22 ranked feature gaps written (.sir/plans/), 3 UX items shipped (work live-preview filter, copy email/WhatsApp, copy page link), both hosts redeployed and 200, local gates green (content-check, typecheck, 829 tests, build). Next: domain (owner), CSP hashes.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash f2aaf6e2)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 082a13f3)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 6ac36132)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b68c1c49)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 84c48203)
+- 2026-11-12T15:02 | AHome haiku-r38 | items 1-6 done, 7 partly (hub done, 3D engine open), 8 open; local tsc 0, lint 0 errors, tests 978/978; report ops/agy-runs/reports/r38-ahome-haiku.md
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 21bdec29)
+- 2026-11-12 | SIR Jobs r46-jobs | competitor matrix + FEATURE_GAPS done; 3 gaps shipped (follow-up alert strip, pipeline JSON/CSV export, Contacts tab + /api/contacts); r46 audit 28/28, npm test/lint/typecheck/doctor all green locally (CI quota exhausted); commits to main; report ops/agy-runs/reports/r46-jobs.md
+- 2026-11-12 | r47-skills-encyclopedia | machine skills encyclopedia done: 1007 digests, 385 unique skills indexed, org plan + MCP inventory; commit a76c925; report ops/agy-runs/reports/r47-skills-encyclopedia.md
