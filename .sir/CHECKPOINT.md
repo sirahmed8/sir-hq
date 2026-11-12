@@ -1,22 +1,21 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
-- Claude weekly quota about 5 percent (2026-11-12 21:00): the owner talks to the backup manager through the Telegram bot; backup mode is ON (ops/backup-manager.json). Free tools build only on current projects (Study, Jobs, AI, Laptop Manager, Portfolio, AHome); every other project is planning only.
-- Task board ops/tasks (scripts/taskboard.py, rules 22 to 24 in ops/WORKER_PREAMBLE.md). Queue top: r64-telegram-first (speed, one context for text and photos, Bot API kit, profile photo, robustness), r63-control-room-private, r62 (control-room mirror live at the pages.dev link in ops/DASHBOARD_URL.txt, AHome smart sync), r57 AHome owner feedback, r65 AHome APK to phone by ADB, phone power-off cause, update system.
-- r66-bot-profile-photo DONE (2026-11-12): @PersonalAI_1Bot profile photo replaced with the SIR AI brand icon at 1024x1024 (ops/telegram-media/bot-profile-r66.png/.jpg, from SIR AI assets/brand/source.png). setMyProfilePhoto needs InputProfilePhoto JSON {"type":"static","photo":"attach://name"} + JPEG upload; verified via getUserProfilePhotos (new file_ids). Evidence: ops/verifications/r66-bot-profile-photo.md.
-- A Haiku subagent was started for the WhatsApp digest.
+- Claude weekly quota about 5 percent; owner talks to the backup manager on Telegram (state ops/backup-manager.json active). backup_manager.py now answers first through direct_reply() (strong model, about 2 s, no tools) and starts the agent path only when needed; language guard rejects mixed-script replies; voice fix (.ogg name for Groq); r64 worker is still editing the same file.
+- Control Room: public Pages site deleted; private on Tailscale (https://ahmed.tail9e9aa7.ts.net); task SIR_HQ_Dashboard regenerates it every 30 minutes.
+- C: drive almost full (0 free at 22:30, 0.8 GB after removing Playwright firefox and webkit); r67 is finding the cause. Queue also has r64 telegram-first, r65 AHome APK and updates, r68 SIR AI bot answers, r64-ahome-bot-kit, r57 and r62 AHome. A Haiku subagent runs the WhatsApp digest.
 
 ## Next step (exact)
-1. `python scripts/taskboard.py list` and `python scripts/ai-status.py`; read ops/tasks/reports for finished rounds, verify them (ops/verifications), add new tasks with `python scripts/taskboard.py add ...`.
-2. Verify r64 with the Telegram bot: reply under 60 seconds, photos plus text in one context, message editing, profile photo.
-3. Push to GitHub when the connection is back (retry loop), never open pull requests.
+1. `python scripts/ai-status.py`, `python scripts/taskboard.py list`; verify the 7 tasks in review (ops/verifications), read ops/tasks/reports.
+2. Check `df -h /c`; read ops/tasks/reports/r67-c-drive-space.md when it exists.
+3. Ask the owner to test a simple message to the backup manager (expected reply in seconds).
 
 ## Open promises
-- C: space (pagefile 25 GB; National Instruments data is his course software, keep).
-- The Control Room mirror must get its password (r63) before the link is shared.
+- C: space cause unknown; SIR Jobs last commit 4 h old while its runner is alive.
+- Non-current projects stay planning only (rule 22).
 
 ## Re-read after a reset
-plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_README.md, ops/HQ_CHECKPOINT.md (tail)
+plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_README.md, ops/HQ_CHECKPOINT.md (tail), ops/bus/team.md (tail)
 
 ---
 
