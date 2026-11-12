@@ -73,3 +73,39 @@ Each under one hour; none blocks the plan, all block public claims.
 3. Recheck Fabulous and Athan subscription or IAP details on their official pages.
 4. Read the Pillars app pages and decide whether it belongs in the main ten or stays second ring.
 5. Check App Store and Google Play ratings and review counts for the main ten, and record them with dates before any comparison page is written.
+
+---
+
+## 5. Second pass, 2026-11-12 evening (what is new)
+
+Same truth rules as section 0: pages opened today, vendor claims are vendor claims, anything unread is "(unsourced, verify)".
+
+### 5.1 Muslim Pro moved while we were not looking
+
+- Premium is now a bundle: Muslim Pro Premium monthly/yearly includes Qalbox streaming (launched 2022, now the main subscription story) on up to 5 devices for the bundle tier, 2 devices for Muslim Pro-only Premium, and a cheap "No Ads" single-device tier exists. Exact EGP/USD prices were not readable on the opened pages "(unsourced, verify)".
+- New in-app AI: "AiDeen", an Islamic Q&A bot answering from Quran and hadith. This is the first major prayer app shipping a religious AI assistant; SIR Life's rule stands - no AI-generated religious text, cited sources only - so this is a differentiation point, not a gap to copy.
+- Gamification added: visible prayer/fasting streaks plus "Quests" earning Stars & Crescents. The whole Quran (text, tajweed, memorisation tool, khatam tracker) is now free; Premium adds reciters and offline audio.
+- Source: https://www.muslimpro.com/features/, https://www.muslimpro.com/holy-quran-app/, https://support.muslimpro.com/help/en/articles/what-is-the-difference-between-the-free-and-premium-versions-of-muslim-pro (all opened 2026-11-12).
+
+### 5.2 The "life around the salah" positioning is now occupied
+
+Two products opened today already sell the exact frame SIR Life planned:
+
+| Product | What it does (from its own pages today) | Where it beats us | Where it loses |
+|---|---|---|---|
+| Sahibukum | Prayer times verified from official bodies (MUIS, Kemenag, JAKIM marked "Official"), Qibla with AR mode, halal label scanner (5,732 labels tested claim), Seerah, Regimen planner placing habits/tasks inside prayer windows, Privacy PIN that encrypts Regimen on-device before sync, 12 languages, no ads, no subscription for basics | Privacy PIN + on-device encryption before sync is the closest thing to our local-first promise; prayer-window planning is exactly our Today screen idea | No medicine, expense, food or gym modules; Muslim-only audience; tiny install base (3 App Store ratings) |
+| Barakah Planner | "Plan with Purpose": niyyah on tasks, Quran streaks, adhkar, prayer alerts, family shared tasks/lists, medication smart lists, reflections; iOS + Android; free tier + paid | Family features and medication lists we do not have | No local-first privacy claim found, no Arabic-first evidence, subscription-gated breadth |
+| Salah Home | Gamified: every prayer earns Dates to build a virtual home; gentle streaks, no punishment | The "forgiving streak" emotion we want, executed as a reward loop | Prayer-only scope, iOS-first, gamified rather than calm |
+| Just Pray | 4.9 stars claim, prayer tracking, streaks, "Garden of Deeds", Prayer Focus mode that pauses distracting apps, AI prayer coach | App-blocking at prayer time is a feature we lack; AI coach answers fiqh | Single-focus product, no life modules |
+| Deeny / Salah Focus | Lock chosen apps during each adhan until the user confirms they prayed | Phone-friction design for prayer consistency | Single-feature utilities |
+| Islamic Tracker | Free no-ads tracker: prayers, Quran, dhikr, zakat, Qibla, streak analytics | Free-no-ads positioning we share | No life modules, narrower |
+
+Sources opened 2026-11-12: https://sahibukum.com/app/, https://sahibukum.com/features/, https://sahibukum.com/compare/islamic-habit-tracker/, https://www.barakahplanner.app/, https://salahhome.com/blog/best-salah-habit-building-apps, https://justprayapp.co/blog/top-10-muslim-prayer-tracker-apps, https://www.islamictracker.com/best-islamic-app.html.
+
+### 5.3 What this means for SIR Life (added to the plan, section 15)
+
+1. "Prayer-aware daily planner" is no longer unique - Sahibukum Regimen and Barakah both do it. The surviving edge is the non-faith half: medicine, water, food, gym, expenses and mood for a daily life, usable by anyone, not only Muslims. Positioning must lead with "your whole day, organised", with prayer as one pillar - not "an Islamic planner".
+2. Local-first + encrypted-on-device sync is now table stakes for the privacy claim (Sahibukum Privacy PIN proves users respond to it). Our opt-in per-category sync must be at least as strong and explained in one sentence on the privacy page.
+3. Verified/official prayer times matter: Sahibukum badges official timetables. Egypt has an official General Authority timetable - we should source Cairo times officially where possible and show the method, matching the plan's "no invented times" rule.
+4. App-blocking/Focus at prayer time (Just Pray, Deeny) is a cheap, loved feature worth a later task.
+5. Nobody in the opened set does expenses + medicine + food + gym + mood in one calm local-first app with Arabic-first copy and EGP pricing. That bundle remains the differentiator.

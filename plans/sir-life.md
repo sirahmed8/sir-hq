@@ -8,7 +8,7 @@ SIR Life is one calm daily life OS for people who want their day to make sense: 
 - Part B is the global consumer product: accounts, subscriptions, owner-only analytics, encrypted optional sync, Arabic and English, web plus mobile, all planned platforms, and the same premium standard as every SIR product.
 - The accessibility map idea (TickTick idea 26) is a module of Part B, not a separate product, per `plans/accessibility-map-module-note.md`.
 
-**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file, which the git history keeps. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-life.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-life-tasks.md`.
+**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ); planning refresh round r61 same day (sections 15 to 18 added, risks extended). Supersedes the r44 text of this file, which the git history keeps. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-life.md` (opened sources dated 2026-11-12, second pass same day in its section 5). The build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-life-tasks.md` (42 tasks after the r61 expansion).
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. Verified today in `D:\Projects\SIR Life`: `pnpm install` completed with TypeScript 5.9.3, `pnpm run typecheck` passed, `pnpm run build` passed, and `node --test dist/tests/**/*.test.js` passed 65 tests in 18 suites with 0 failures. The private repo `sirahmed8/sir-life` exists and `main` tracks `origin/main`. Not verified today: the Firebase project for this product, the public domain, payment keys, store accounts and any Part B screen. The product folder also has uncommitted `.sir` documentation changes that revert the checkpoint text toward the pre-build state; code and tests are unaffected and the working tree was left untouched because this round is scoped to `_SIR`.
 
@@ -347,3 +347,86 @@ Buy `sirlife.app` or choose an `.eg` name after checking rules and price; create
 ## 14. Definition of done for this plan
 
 This plan is complete when `plans/sir-life.md`, `ops/competitors/sir-life.md` and `ops/briefs/sir-life-tasks.md` exist, the bus line is sent, the explicit paths are committed and pushed to `main`, the checkpoint records the real verification output, and the report states what was verified today versus what remains unverified.
+
+---
+
+## 15. r61 refresh: what changed in the category (research of 2026-11-12, second pass)
+
+Full detail in `ops/competitors/sir-life.md` section 5. The short version:
+
+- **Muslim Pro bundled everything.** Premium now includes Qalbox streaming, an "AiDeen" religious Q&A bot, gamified prayer quests and streaks, and the whole Quran free. Competing on feature count is lost; competing on calm, privacy and breadth of life modules is not.
+- **"Plan your day around the salah" is now a marketed position.** Sahibukum's Regimen view places habits and tasks inside prayer windows; Barakah Planner sells niyyah tasks, family lists and medication lists around prayer times. Our Today screen must be better executed (local-first, offline, five states, Arabic-first), not merely present.
+- **Privacy became a marketed feature.** Sahibukum's Privacy PIN encrypts the regimen on-device before sync - proof that local-first privacy sells in this category. Our per-category opt-in sync is the right architecture; it needs a one-sentence explanation users understand.
+- **Verified prayer times are expected.** Sahibukum badges times sourced from official bodies (MUIS, Kemenag, JAKIM). Egypt's General Authority publishes an official timetable; the prayer engine must prefer official sources where they exist and always show which method produced the times.
+- **New second-ring competitors to watch:** Salah Home (gamified reward loop), Just Pray (app-blocking at prayer time, AI coach), Deeny and Salah Focus (prayer-time app lock), Islamic Tracker (free no-ads tracker), Pillars (premium prayer UX).
+- **Positioning consequence:** lead with "your whole day, organised" - prayer times are one pillar next to medicine, water, food, gym, expenses and mood, usable by anyone. Do not position as "an Islamic planner"; that frame is now crowded and narrows the market.
+
+## 16. Screen inventory (Part B, `apps/web` unless noted)
+
+Every screen ships idle, loading skeleton, empty-with-one-action, error-with-retry and populated states, Arabic RTL and English LTR, light/dark/system/high-contrast.
+
+| Screen | Route | Milestone | Notes |
+|---|---|---|---|
+| Landing + pricing | `/`, `/pricing` | M1-M3 | End-state promise in five seconds, EGP-first, launch-mode banner until keys exist |
+| Sign-in / onboarding | `/sign-in`, `/onboarding` | M1 | Google via Firebase Auth, privacy-by-default consent recorded, local-only default |
+| Today | `/today` | M2 | Signature surface: prayer card, next task, habits due, water, medicine, one honest unfinished line |
+| Prayer | `/prayer` | M2 | Times for city+method, Qibla, Hijri date, fasting countdown when relevant, method badge (official vs calculated) |
+| Habits | `/habits` | M2 | Create/edit/archive, check-in, rest days, freezes, 30/90/365-day heatmap, weekly review |
+| Tasks & routines | `/tasks` | M2 | Quick add, recurring, reminders, prayer-window placement later |
+| Water | `/water` | M2 | Intake log, goal ring, reminders |
+| Medicine | `/medicine` | M2 | Reminder times, snooze, taken log; no dosing advice anywhere |
+| Food | `/food` | M3 | Calorie/macro entry, water per meal, local-first |
+| Gym | `/gym` | M3 | Exercise sets/reps/weight, history chart |
+| Expenses | `/expenses` | M3 | Categories, EGP integer piasters, monthly review |
+| Mood & reflection | `/mood` | M3 | Energy 1-5, evening reflection, optional AI prompt off by default |
+| Focus & calm | `/focus` | M3 | Focus timer, breathing, eye-rest, sleep reminders |
+| Sync settings | `/settings/sync` | M3 | Per-category opt-in, encrypted, one-sentence explanation, revoke |
+| Accessibility map | `/accessible` | M5 | Submit/moderate accessible places, PDPL-safe fields, geo hash |
+| Settings | `/settings` | M2+ | City, prayer method, quiet hours, language, theme, currency, notifications |
+| Legal | `/legal/privacy|terms|refunds|cookies` | M3 | From `packages/kit/legal-pack`, truthful claims only |
+| Owner | `/owner` | M3 | Server-verified, real aggregates only, dashes with reasons |
+| Help centre | `/help/*` | M3 | Source of truth for the support assistant; Arabic and English |
+| Account | `/account` | M3 | Export all data, delete account (one tap each), sessions, consent history |
+
+Mobile (`apps/mobile`, M4) mirrors Today, Prayer, Habits, Water/Medicine, Expenses and Mood with native notifications; desktop (M5) is the installable PWA plus the ADR-chosen shell.
+
+## 17. API and integration surface (Part B)
+
+Server routes live in `apps/web` (Route Handlers or the Functions the ADR picks); all mutations validate with zod, all owner routes verify the ID token server-side, all webhooks verify signatures.
+
+| Route / integration | Purpose | Rules |
+|---|---|---|
+| `POST /api/auth/session` | Exchange Firebase ID token for HttpOnly Secure SameSite=Strict cookie | Rate-limited, fails closed |
+| `GET /api/health` | Real status: db ping, auth, last deploy | Never fake values |
+| `GET/POST /api/sync/*` | Opt-in encrypted category sync | Firestore rules deny by default, `owner_uid` scoped |
+| `POST /api/leads` | Pricing-page email capture | Zod email validation, writes Lead doc, no double opt-in tricks |
+| `POST /api/billing/webhook` | Paymob/Fawry (later Stripe) events | Signature-verified, replay+timestamp rejected, idempotent |
+| `POST /api/ai/*` | Support assistant, plan suggestion, reflection prompt | Fallback chain, per-user quota, daily cost cap, logs provider not content |
+| `GET /api/owner/metrics` | `/owner` aggregates | Server-verified owner only, aggregates not raw docs |
+| `POST /api/accessible` | Accessibility POI submissions | PDPL-safe fields, moderation queue |
+| AlAdhan API | Prayer-time validation reference only | Client engine stays local; deltas recorded in `docs/prayer-validation.md` |
+| Egypt General Authority timetable | Official Cairo prayer times where published | Preferred source, shown as "official" badge |
+| OpenStreetMap/Nominatim | City geocoding for prayer location | Later milestone, cache results |
+| Firebase Auth + Firestore + Hosting | Accounts, synced data, primary host | Project `sir-life` only |
+| Vercel | Second host, same build | Imported via Vercel CLI, same env |
+| Telegram Bot API (Part B bot) | Opt-in daily brief/reminders | Separate token and consent from Part A, never Part A data |
+
+## 18. Launch and marketing plan
+
+- **Beta first (M6):** invite 20-50 real users from the owner's circles, written consent recorded, local-first onboarding, feedback channel in-app. No paid plan until legal review sign-off (task T42).
+- **Channels:** Arabic-first SEO pages targeting "جدول صلوات", "تطبيق عادات", "تنظيم يومي" (claims verified before publish); Product Hunt-style launch only after M4; YouTube demos of real use after M2/M4; WhatsApp/Majlis word-of-mouth in Egypt; the accessibility map module is a press-able story ("first Arabic map of accessible places") once it has real submissions.
+- **Comparison pages** only after `ops/competitors/sir-life.md` is re-verified; every public claim carries a source and date or "(unsourced, verify)".
+- **Pricing validation:** 10 user interviews before publishing the EGP prices in section 8; the "Subscriptions launching soon" lead capture starts at M3 to size demand.
+- **Weekly owner report** via the existing Telegram pattern once Part B has real metrics.
+
+## 19. Risks and open questions - r61 additions
+
+Additions to section 11; recommended answers are decisions unless the owner overrides.
+
+- **R8 - Positioning squeeze:** Sahibukum and Barakah now sell "life around the salah". Recommended: lead with the whole-day organiser and the non-faith modules; prayer is a pillar, not the product name story.
+- **R9 - Official prayer times:** users will compare against the mosque timetable. Recommended: prefer the Egyptian General Authority published times for Egypt, fall back to calculated methods, always badge which source/method produced the times.
+- **R10 - Sync trust gap:** Sahibukum markets on-device encryption. Recommended: document the sync crypto in `docs/data-model.md` and state it in one plain sentence on `/legal/privacy` and onboarding.
+- **R11 - Scope creep toward Islamic content:** Quran reader, fatwas, Quran audio are Muslim Pro's moat. Recommended: stay out in v1; cited adhkar text only, no AI religious content (already a hard rule).
+- **R12 - Store accounts:** Play Console ($25) and Apple Developer ($99/yr) are owner purchases. Recommended: ship PWA + Firebase/Vercel first, store apps at M4 with truthful listings; SideStore is the documented iOS fallback.
+- **Q6 - Does the daily life OS audience include non-Muslims?** Recommended: yes - build modules so prayer is optional-onboarding, not required; the market is bigger and the modules (medicine, expenses) serve everyone.
+- **Q7 - Barakah/Sahibukum momentum:** recommended response is speed on M2 quality (the Today screen is the demo) rather than feature parity.

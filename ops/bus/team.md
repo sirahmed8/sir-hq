@@ -49,3 +49,7 @@
 11-12 20:43 autopilot START r63-control-room-private (runner pid 41552)
 11-12 20:48 autopilot START r62-ahome-smart-sync (runner pid 516)
 11-12 20:57 devin DONE r53-hagoozat-and-ideas verified complete on main (plan+decision+6 project plans), report addendum pushed, taskboard done, agy-done ok
+11-12 21:04 autopilot START r64-telegram-first (runner pid 35424)
+11-12 21:04 claude NOTE backup_manager.py: added WEAK_MODELS skip list and reply_problem() language check (owner got Chinese/Russian mixed replies); keep both when you edit it (r64)
+2026-11-12 devin START r61-plan-sir-life planning-only refresh continuation (rule 20/22): fixing half-done tasks file, adding research, REFRESH-LOG, report
+2026-11-12 devin DONE r61-plan-sir-life planning-only: repaired half-done tasks file (T38-T42 were wrong-product copy-paste), plan +sections 15-19, competitor second pass (Sahibukum/Barakah occupy prayer-planner position), 42 tasks with acceptance+skills, REFRESH-LOG written; report ops/agy-runs/reports/r61-plan-sir-life.md
