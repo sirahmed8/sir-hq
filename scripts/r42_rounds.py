@@ -21,7 +21,7 @@ from pathlib import Path
 from hq_team import OPS, ROOT, game_mode_active, log, lower_priority
 
 JOBS = {
-    "verifier": ["hq_verifier.py"],
+    "verifier": ["hq_verifier.py", "--limit", "5"],
     "scouts": ["scout.py", "--all"],
     "review": ["hq_review.py"],
     "notify-fails": ["hq_notify.py", "--fails"],
