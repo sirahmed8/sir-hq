@@ -1,6 +1,6 @@
 """Build the final contact set (owner orders 2026-11-12): Google and Apple hold the same people, names are only Prefix + First Name
 (the first-name field holds the full name), no middle, last or company names are created, exact duplicates are dropped.
-Input (name-cleaned by contacts_clean.py with suffix _v3): _local/contacts/google_v3.csv and apple_v3.vcf.
+Input (name-cleaned by contacts_clean.py with suffix _v4): _local/contacts/google_v4.csv and apple_v4.vcf.
 Output (same folder, local only, counts printed, no names):
   final_google.csv, final_apple.vcf, duplicates_review.csv (people sharing a phone inside one source, names stay in this local file).
 Same person = shares a normalized phone number (last 10 digits). Nothing is merged except exact duplicates (same name and same phones).
@@ -59,7 +59,7 @@ def vcard_fields(card: str) -> dict:
 
 
 def load_apple() -> list:
-    t = (D / "apple_v3.vcf").read_text(encoding="utf-8")
+    t = (D / "apple_v4.vcf").read_text(encoding="utf-8")
     t = re.sub(r"\r?\n[ ]", "", t)
     cards = ["BEGIN:VCARD" + c for c in t.split("BEGIN:VCARD") if "END:VCARD" in c]
     out = []
@@ -84,7 +84,7 @@ def fix_vcard_name(raw: str, new_first: str, prefix: str) -> str:
 
 def main() -> None:
     apple = load_apple()
-    with (D / "google_v3.csv").open(encoding="utf-8-sig", newline="") as fh:
+    with (D / "google_v4.csv").open(encoding="utf-8-sig", newline="") as fh:
         grows = list(csv.DictReader(fh))
         gfields = list(grows[0].keys())
     for r in grows:
@@ -95,9 +95,10 @@ def main() -> None:
                     if norm(part):
                         r["_keys"].add(norm(part))
         r[COLS["first"]] = renamed(r.get(COLS["first"], ""), r["_keys"])
+        r[COLS["prefix"]] = r.get(COLS["prefix"], "").strip()
     for a in apple:
-        pre, giv = a["n"][0], renamed(a["n"][1], a["keys"])
-        if giv != a["n"][1]:
+        pre, giv = a["n"][0].strip(), renamed(a["n"][1], a["keys"])
+        if giv != a["n"][1] or pre != a["n"][0]:
             a["raw"] = fix_vcard_name(a["raw"], giv, pre)
             a["n"] = (pre, giv, "", "", "")
 
