@@ -16,15 +16,14 @@ Rebuild every product from scratch as a premium, production-hosted SIR project, 
 | 5 | GLOBAL | SIR Content Creation Studio | `SIR Content Creation Studio` | scheduler + approval flow for all products' marketing |
 | 5 | GLOBAL | SIR Business | `SIR Business` | (consumes the shared kit) |
 | 5 | GLOBAL | SIR Hagoozat | `SIR Hagoozat` | (consumes the shared kit) |
-| 5 | GLOBAL | SIR Obour Hub | `SIR Obour Hub` | (consumes the shared kit) |
+| 5 | GLOBAL | SIR Education Hub (was SIR Obour Hub) | `SIR Education Hub` | (consumes the shared kit) |
 | 6 | GLOBAL | SIR Life | `SIR Life` | (consumes the shared kit) |
 | 6 | GLOBAL | SIR ModPack | `SIR ModPack` | (consumes the shared kit) |
 | 6 | GLOBAL | SIR Mods for GTA V | `SIR Mods for GTA V` | (consumes the shared kit) |
-| 7 | GLOBAL | SIR Platform | `SIR Platform` | owner-auth, signed-webhook, ai-proxy, billing fallback, legal pack, tokens and ui kit, i18n and settings, sir-kit CLI (extracted from finished products) |
 | 8 | GLOBAL | SIR Controller | `SIR Controller` | (consumes the shared kit) |
 | 3 | CLIENT | SIR Negm Furniture | `SIR Negm Furniture` | plans only; handoff pack for friend; no build/CI/deploy until Ahmed says |
 
-All web products need: the Cloudflare and Firebase logins; shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product and extracted into SIR Platform last. SIR Platform and SIR Portfolio are built from the finished products. **Every GLOBAL product has: own Firebase project, own GitHub repo named exactly after the product, owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions, competitor matrix, feature parity with best-in-category, SHARED_PLATFORM_KIT reuse.**
+All web products need: the Cloudflare and Firebase logins. SIR Platform was cancelled as a project on 2026-11-12 (owner decision): it is a shared standards kit, `plans/SHARED_PLATFORM_KIT.md`, and every product ships on all platforms (web, Windows, macOS, Linux, Android, iOS). Shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product. SIR Portfolio is built from the finished products. **Every GLOBAL product has: own Firebase project, own GitHub repo named exactly after the product, owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions, competitor matrix, feature parity with best-in-category, SHARED_PLATFORM_KIT reuse.**
 
 ## How every project chat works
 1. Read `D:/Projects/_SIR/NEXT.md`, this file, your project's `.sir/CHECKPOINT.md` and `.sir/TASKS.md`; your first task is a deep scan of `legacy/` and the plan, then you improve the plan.
