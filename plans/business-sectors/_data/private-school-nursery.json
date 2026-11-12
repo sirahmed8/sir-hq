@@ -1,0 +1,178 @@
+{
+  "slug": "private-school-nursery",
+  "name_ar": "مدرسة خاصة وحضانة",
+  "name_en": "Private school and nursery",
+  "group": "education-and-community",
+  "base": "education",
+  "order": 39,
+  "wave": 4,
+  "why": "Private schools and nurseries need attendance tracking, fee collection, term subscriptions and parent consent for child data (PDPL). The key is the student with guardian consent, term subscriptions and fee tracking.",
+  "operator": "The school owner manages student attendance, fee collection and term subscriptions. Their day is attendance checks, fee reminders and term deposit tracking.",
+  "entities": [
+    "School (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours, termStartDate, termEndDate)",
+    "Student (id, schoolId, name, class, guardianName, guardianPhone, guardianConsent, walletPiasters, enrollmentYear, status, notes)",
+    "TermSubscription (id, studentId, type (full/half/quarter), amountPiasters, startDate, endDate, status (active/pending/expired), paidAt)",
+    "Attendance (id, studentId, date, status (present/absent/late), notes)",
+    "FeeRecord (id, studentId, amountPiasters, dueDate, paidAt, status)",
+    "Staff (id, schoolId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "student, term, attendance, fee",
+  "batches": "No : school carries no stock or expiry",
+  "expiry": "Not applicable. Term subscriptions have start/end dates, attendance is date-based",
+  "special": "The core structures are the student with guardian consent flag, the term subscription with start/end dates, the attendance tracker per date and the fee record per student. Guardian consent and minimal child data per PDPL is the key differentiator.",
+  "screens": [
+    "Student list: all students with name, class, guardian phone, consent flag, wallet balance, active subscriptions",
+    "Student detail: name, class, guardian name and phone, consent flag, wallet balance, active subscriptions, attendance history",
+    "Attendance taking: select student, select date, mark present/absent/late, add notes, save attendance",
+    "Term subscription: select student, select type (full/half/quarter), set amount and dates, record payment, track status (active/pending/expired)",
+    "Fee record: enter amount, due date, mark paid, record receipt, compute outstanding per student",
+    "Fee summary per class: total fees collected vs outstanding per class per period",
+    "Staff shift: clock in/out, student load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : students, term subscriptions, attendance, fees, reports, billing",
+    "Manager: students, term subscriptions, attendance oversight, fee approval",
+    "Teacher: take attendance per session, view student profiles",
+    "Cashier: record fee payments, print receipts, shift close"
+  ],
+  "reports": [
+    "Attendance rate per period: present vs absent vs late per period, per class, overall rate",
+    "Term subscription volume: active vs pending vs expired per period, total subscriptions, total amount collected",
+    "Fee collection rate: collected vs outstanding per period, aging of outstanding per class",
+    "Student retention: new students per period, re-enrollment rate, withdrawal rate",
+    "Staff attendance: clock in/out hours per staff per period, student load per hour per staff"
+  ],
+  "integrations": [
+    "WhatsApp deep link for fee reminders and attendance alerts to guardians",
+    "Email for fee invoices and term subscription renewals (opt-in)",
+    "SMS for attendance alerts (optional, guardian phone)",
+    "Paymob or Fawry for fee collection (optional)"
+  ],
+  "onboarding": [
+    "School basics: name, branch, address, phone, currency, working hours, term start/end dates",
+    "Initial student list: the starting student records with name, class, guardian name/phone and consent flag",
+    "Term subscription types: the types (full/half/quarter) and amounts and date ranges",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first student record, first term subscription, first attendance session"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the student/guardian consent/term subscription schema and role templates.",
+  "landing_ar": {
+    "headline": "مدرسة خاصة وحضانة",
+    "sub": "طلاب، اشتراكات واجور من لوحة واحدة",
+    "benefits": [
+      "طلاب مع ضمان ولي الأمر",
+      "اشتراكات بالفصل",
+      "متابعة الأجور"
+    ],
+    "faq": [
+      "كيف أسجل طالبًا جديدًا؟",
+      "كيف أحمل رصيد محفظة الولي؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Private School & Nursery Management",
+    "sub": "Students, term subscriptions and fee tracking from one dashboard",
+    "benefits": [
+      "Student with guardian consent flag and minimal child data",
+      "Term subscriptions with start/end dates",
+      "Attendance tracker per date"
+    ],
+    "faq": [
+      "How do I register a new student?",
+      "How do I top up the guardian wallet?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 50 students",
+    "- Professional: 350 EGP / month, unlimited students, reports",
+    "- Enterprise: custom for school chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "SchoolMan",
+      "price": "from 400 EGP/mo",
+      "weak": "no guardian consent flag",
+      "edge": "parent consent and minimal child data with PDPL deletion on request"
+    },
+    {
+      "name": "EduCare",
+      "price": "from 380 EGP/mo",
+      "weak": "no term subscription tracking",
+      "edge": "full term subscriptions with start/end dates and aging reports"
+    },
+    {
+      "name": "BrightStart",
+      "price": "from 420 EGP/mo",
+      "weak": "no attendance rate report",
+      "edge": "attendance rate per period by class and overall rate"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add guardian consent flag for student records",
+      "brief": "Build the student screen: name, class, guardian name and phone, consent flag for under-18, wallet balance. Done when the student is saved with consent flag and minimal child data fields.",
+      "done": "When student record stores data with guardian consent flag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add term subscription screen",
+      "brief": "Build the subscription screen: select student, select type (full/half/quarter), set amount and dates, record payment, track status (active/pending/expired). Done when the subscription is saved and the status updates correctly.",
+      "done": "When term subscription screen works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add attendance taking screen",
+      "brief": "Build the attendance screen: select student, select date, mark present/absent/late, add notes, save attendance. Done when the attendance is saved and propagates to student profile.",
+      "done": "When attendance taking works end-to-end and updates student data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add fee record screen with due date and payment",
+      "brief": "Build the fee record screen: enter amount, due date, mark paid, record receipt, compute outstanding. Done when the fee record saves and the outstanding balance updates correctly.",
+      "done": "When fee record screen works end-to-end with balance computation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add fee summary per class report",
+      "brief": "Build the report showing total fees collected vs outstanding per class per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When fee summary per class report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add attendance rate per period report",
+      "brief": "Build the report showing present vs absent vs late per period, per class, overall rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When attendance rate report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add term subscription volume report",
+      "brief": "Build the report showing active vs pending vs expired subscriptions per period, total subscriptions, total amount collected. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When term subscription volume report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add fee collection rate report",
+      "brief": "Build the report showing collected vs outstanding per period, aging of outstanding per class. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When fee collection rate report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add student retention report",
+      "brief": "Build the report showing new students per period, re-enrollment rate, withdrawal rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When student retention report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial school nursery setup",
+      "brief": "Build the onboarding flow: school basics, initial student list, term subscription types, staff addition. Done when the flow completes and the school appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and school is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Member data with children (under 18) requires parent consent and minimal fields per PDPL",
+    "Encryption key loss makes student records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Term subscriptions without clear start/end dates and outstanding caps can violate consumer protection law"
+  ]
+}

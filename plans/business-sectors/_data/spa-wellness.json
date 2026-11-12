@@ -1,0 +1,178 @@
+{
+  "slug": "spa-wellness",
+  "name_ar": "سبا وعناية",
+  "name_en": "Spa and wellness",
+  "group": "service",
+  "base": "service",
+  "order": 25,
+  "wave": 4,
+  "why": "Spa and wellness centres sell package sessions (e.g. 10-session bundles) with expiry, private room scheduling and client preference tracking. The key is package sales, expiry tracking and client consent.",
+  "operator": "The spa manager oversees package sales, room scheduling and client preference records. Their day is package sales, expiry tracking and room assignments.",
+  "entities": [
+    "Spa (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Package (id, spaId, nameAr, nameEn, sessionCount, pricePiasters, expiryDays, isActive, features)",
+    "Client (id, spaId, name, phone, preferencesAr, preferencesEn, consentPhotos, visitCount, totalSpentPiasters, lastVisit)",
+    "Room (id, spaId, label, capacity, status, bookedBy, bookedAt, expiresAt)",
+    "Appointment (id, roomId, clientId, dateTime, duration, serviceType, status, notes)",
+    "PackageRedemption (id, packageId, clientId, sessionsUsed, sessionsRemaining, expiryDate, status, redeemedAt)"
+  ],
+  "units": "session, package, room, appointment",
+  "batches": "No : spa carries no stock or expiry (package expiry is tracked via expiryDays and expiryDate)",
+  "expiry": "Packages have expiry days from purchase and an expiry date; sessions must be used before expiry",
+  "special": "The core structures are the package with session count and expiry, the client with preference tracking and photo consent, the room scheduling and the redemption tracker. Package expiry is the key differentiator from other service sectors.",
+  "screens": [
+    "Package catalogue: list of packages with session count, price, expiry days, features (fast lane, private room, etc.), activate/deactivate",
+    "Client profile: name, phone, preferences, consent flag for photos, visit count, total spent, last visit, active redemptions",
+    "Room scheduler: available rooms per time slot, book room, assign client, mark status (available/booked/free)",
+    "Package redemption: select package, view sessions used/remaining, expiry date, update status (active/used/expired)",
+    "Appointment scheduler: select room, date/time, service type, client, status (scheduled/in-progress/completed)",
+    "Redemption history: all redemptions per client, sessions used, remaining, expiry events",
+    "Staff shift: clock in/out, client load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : packages, clients, rooms, appointments, redemptions, reports, billing",
+    "Therapist: view appointments, mark in-progress/completed, view client preferences",
+    "Front desk: package sales, client check-in, room booking, redemption processing",
+    "Manager: package creation, pricing, therapist scheduling, reports"
+  ],
+  "reports": [
+    "Package sales revenue: total per period, per package, sessions used vs total per package",
+    "Package expiry rate: how many packages expired per period, how many sessions lost",
+    "Client retention: visit count per client, total spent per client, re-book rate",
+    "Room utilisation: booked hours vs available per period, peak times",
+    "Therapist workload: appointments per period, utilisation rate per therapist"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and package redemptions",
+    "WhatsApp deep link for package renewal notices and appointment reminders",
+    "Email for invoice and package expiry notices (opt-in)",
+    "Calendar sync for room bookings (optional)"
+  ],
+  "onboarding": [
+    "Spa basics: name, branch, address, phone, currency, working hours",
+    "Initial packages: the starting packages (5-session, 10-session, 20-session) with price, expiry days and features",
+    "Client intake: the fields collected (name, phone, preferences, photo consent)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first package, first client, first room booking"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the package with expiry and role templates.",
+  "landing_ar": {
+    "headline": "سبا وعناية",
+    "sub": "حزم جلسات، انتهاء وحجز غرف من لوحة واحدة",
+    "benefits": [
+      "حزم جلسات بفترات صلاحية",
+      "حجز غرف خاصة",
+      "تفضيلات العميل وتخزين consent"
+    ],
+    "faq": [
+      "كيف أشتري حزمة جلسات؟",
+      "متى تنتهي صلاحية الحزمة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Spa & Wellness Management",
+    "sub": "Package sessions, expiry and room booking from one dashboard",
+    "benefits": [
+      "Package sessions with expiry tracking",
+      "Private room booking and scheduling",
+      "Client preference and consent tracking"
+    ],
+    "faq": [
+      "How do I purchase a package?",
+      "When does the package expire?"
+    ]
+  },
+  "pricing": [
+    "- Basic: 200 EGP / month, up to 3 packages, 10 sessions each",
+    "- Professional: 400 EGP / month, unlimited packages, expiry tracking",
+    "- Enterprise: custom for spa chains"
+  ],
+  "competitors": [
+    {
+      "name": "SpaPro",
+      "price": "from 500 EGP/mo",
+      "weak": "no package expiry tracking",
+      "edge": "full package expiry from purchase date with sessions-used and remaining"
+    },
+    {
+      "name": "WellnessClub",
+      "price": "from 480 EGP/mo",
+      "weak": "no room scheduler",
+      "edge": "room scheduler with available slots per time and booking management"
+    },
+    {
+      "name": "BodyCare",
+      "price": "from 520 EGP/mo",
+      "weak": "no client preference photo consent",
+      "edge": "client preferences with photo consent flag and storage"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add package catalogue with expiry days and features",
+      "brief": "Build the package catalogue: list of packages with session count, price, expiry days, features, activate/deactivate. Done when the catalogue loads and displays packages with correct expiry and features.",
+      "done": "When package catalogue displays live data with expiry and features",
+      "phase": "M1"
+    },
+    {
+      "title": "Add client profile with preferences and photo consent",
+      "brief": "Build the client profile: name, phone, preferences Ar/En, consent flag for photos, visit count, total spent, last visit. Done when the profile saves and displays correct data.",
+      "done": "When client profile works and displays live data with consent flag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add room scheduler with available slots per time",
+      "brief": "Build the room scheduler: available rooms per time slot, book room, assign client, mark status. Done when the scheduler saves the booking and displays availability correctly.",
+      "done": "When room scheduler works end-to-end with availability display",
+      "phase": "M1"
+    },
+    {
+      "title": "Add package redemption screen",
+      "brief": "Build the redemption screen: select package, view sessions used/remaining, expiry date, update status (active/used/expired). Done when the redemption saves and the status updates correctly.",
+      "done": "When package redemption works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add appointment scheduler with room and client",
+      "brief": "Build the appointment screen: select room, date/time, service type, client, status (scheduled/in-progress/completed). Done when the appointment saves and the room status updates correctly.",
+      "done": "When appointment scheduler works end-to-end with room status update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add redemption history per client",
+      "brief": "Build the history screen: all redemptions per client, sessions used, remaining, expiry events. Done when the history pulls and displays client's full redemption trail.",
+      "done": "When redemption history works and displays live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add package expiry rate report",
+      "brief": "Build the report showing how many packages expired per period and how many sessions lost. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When package expiry rate report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add room utilisation report",
+      "brief": "Build the report showing booked hours vs available per period, peak times. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When room utilisation report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add therapist workload report",
+      "brief": "Build the report showing appointments per period, utilisation rate per therapist. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When therapist workload report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial spa wellness setup",
+      "brief": "Build the onboarding flow: spa basics, initial packages, client intake fields, staff addition. Done when the flow completes and the spa appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and spa is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes client and package records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Package expiry without clear purchase-date linkage can violate consumer protection law",
+    "Photo consent storage without proper legal basis can violate PDPL"
+  ]
+}

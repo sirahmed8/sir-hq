@@ -1,0 +1,180 @@
+{
+  "slug": "print-shop",
+  "name_ar": "مطبعة",
+  "name_en": "Print shop",
+  "group": "production",
+  "base": "production",
+  "order": 31,
+  "wave": 4,
+  "why": "Print shops handle job tickets, paper stock and unit pricing (per page, per poster, per banner). The key is job tracking, paper inventory and proofing.",
+  "operator": "The print shop manager handles job tickets, paper stock and client proofs. Their day is job intake, paper tracking and proof approval.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "JobTicket (id, shopId, clientName, clientPhone, jobType (poster/banner/flyer/invitation), dimensions (w,h), unitPricePiasters, copies, totalPiasters, depositPiasters, balancePiasters, status (pending/proofing/printing/done), notes, readyDate)",
+    "PaperStock (id, shopId, name, sizeAr, sizeEn, weightPiasters per sheet, sheetQty, minThreshold, status, locationShelf)",
+    "Proof (id, jobTicketId, clientName, clientProofPDFUrl, status (pending/approved/rejected), approvedBy, approvedAt, notes)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays, leadTimeDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "job, sheet, copy, banner",
+  "batches": "No : print shop carries no stock or expiry",
+  "expiry": "Not applicable. Job tickets have status and ready date, paper has threshold not expiry",
+  "special": "The core structures are the job ticket with its lifecycle (pending→proofing→printing→done), the paper stock with threshold tracking and the proof approval loop. Unit pricing per page/poster/banner is the key differentiator.",
+  "screens": [
+    "Job ticket list: all tickets with type, client, dimensions, copies, total, deposit, balance, status, ready date",
+    "Job ticket detail: full info, dimensions, proof status, paper requirements, notes, ready date",
+    "Paper stock level: sheets in stock, minimum threshold, low-stock alert, reorder suggestion",
+    "Proof manager: upload client proof PDF, status (pending/approved/rejected), approve/reject, add notes",
+    "Proof gallery: view all proofs per job, approve/reject per proof",
+    "Purchase order: receive from supplier, update paper stock, record cost",
+    "Cash register: scan job ticket reference, record payment, print receipt with job details",
+    "Staff shift: clock in/out, job load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : job tickets, paper stock, proofs, reports, billing",
+    "Print operator: create job tickets, upload proofs, mark status (pending/proofing/printing/done)",
+    "Proof approver: review client proofs, approve/reject, add notes",
+    "Stock clerk: receive paper shipments, update stock levels, reorder"
+  ],
+  "reports": [
+    "Job ticket volume per period: tickets created, proofing, printing, done per month",
+    "Proof approval rate: approved vs rejected per period, reasons for rejection",
+    "Paper stock turnover: sheets per period, low-stock alerts per period, reorder frequency",
+    "Revenue per job type: posters vs banners vs flyers vs invitations, revenue per type per period",
+    "Job turnaround time: from creation to done, average days per job type"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and proofs",
+    "WhatsApp deep link for client proof approval and ready-notice",
+    "Email for proof delivery and updates (opt-in)",
+    "File storage for proof PDFs (Firebase Cloud Storage)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial job types: the starting job types (poster/banner/flyer/invitation) with unit pricing per page/poster/banner",
+    "Paper stock: the initial paper list with size, weight and minimum threshold",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first job ticket, receive first paper shipment, first proof upload"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the job ticket lifecycle and role templates.",
+  "landing_ar": {
+    "headline": "مطبعة",
+    "sub": "وظائف، أوراق ومواصفات من لوحة واحدة",
+    "benefits": [
+      "تعقّب الوظائف من الاستلام حتى التسليم",
+      "متابعة مخزون الورق",
+      "معاودات الموافقات (proofs)"
+    ],
+    "faq": [
+      "كيف أنشئ وظيفة طباعة جديدة؟",
+      "ما هي أنواع الوظائف المتوفرة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Print Shop Management",
+    "sub": "Job tickets, paper stock and proofing from one dashboard",
+    "benefits": [
+      "Job ticket lifecycle (pending→proofing→printing→done)",
+      "Paper stock with threshold tracking",
+      "Proof approval loop"
+    ],
+    "faq": [
+      "How do I create a new print job?",
+      "What job types are available?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 20 job types",
+    "- Professional: 350 EGP / month, unlimited job types, paper module",
+    "- Enterprise: custom for print shop chains"
+  ],
+  "competitors": [
+    {
+      "name": "PrintPro",
+      "price": "from 500 EGP/mo",
+      "weak": "no job ticket lifecycle",
+      "edge": "full job ticket from creation to done with status tracking"
+    },
+    {
+      "name": "PrintMart",
+      "price": "from 480 EGP/mo",
+      "weak": "no proof approval loop",
+      "edge": "full proof manager with upload, approve/reject and notes"
+    },
+    {
+      "name": "CopyHouse",
+      "price": "from 520 EGP/mo",
+      "weak": "no paper stock threshold tracking",
+      "edge": "paper stock with minimum threshold and low-stock alerts"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add job ticket list and detail screen",
+      "brief": "Build the job ticket screen: list all tickets with type, client, dimensions, copies, total, deposit, balance, status, ready date. Done when the ticket list loads and the detail screen shows full ticket info.",
+      "done": "When job ticket list and detail screen works and displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add paper stock level screen",
+      "brief": "Build the paper stock screen: sheets in stock, minimum threshold, low-stock alert, reorder suggestion. Done when the stock level saves and low-stock alert triggers correctly.",
+      "done": "When paper stock level works and alerts trigger correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add proof manager with upload and status",
+      "brief": "Build the proof screen: upload client proof PDF, status (pending/approved/rejected), approve/reject, add notes. Done when the proof is saved and status updates correctly.",
+      "done": "When proof manager works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add proof gallery per job",
+      "brief": "Build the proof gallery: view all proofs per job, approve/reject per proof. Done when the gallery pulls and displays all proofs for a job and approve/reject works.",
+      "done": "When proof gallery works end-to-end with per-job display",
+      "phase": "M1"
+    },
+    {
+      "title": "Add purchase order and paper stock update",
+      "brief": "Build the purchase order screen: receive from supplier, update paper stock, record cost. Done when the order saves and paper stock increments correctly and low-stock alert triggers if below threshold.",
+      "done": "When purchase order works end-to-end with stock update and alert",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with job ticket scanning",
+      "brief": "Build the cash register: scan job ticket reference, record payment, print receipt with job details. Done when the sale records the job ticket and receipt prints correctly.",
+      "done": "When cash register works end-to-end with job ticket scanning and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add job ticket volume per period report",
+      "brief": "Build the report showing tickets created, proofing, printing, done per month. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When job ticket volume report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add proof approval rate report",
+      "brief": "Build the report showing approved vs rejected per period and reasons for rejection. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When proof approval rate report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add paper stock turnover report",
+      "brief": "Build the report showing sheets per period, low-stock alerts per period, reorder frequency. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When paper stock turnover report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add revenue per job type report",
+      "brief": "Build the report showing posters vs banners vs flyers vs invitations revenue per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When revenue per job type report computes correctly from live data",
+      "phase": "M2"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes job ticket and paper records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Proof approval without clear criteria can lead to client disputes",
+    "Paper threshold without regular reorder can halt production"
+  ]
+}

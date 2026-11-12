@@ -1,0 +1,180 @@
+{
+  "slug": "dessert-ice-cream",
+  "name_ar": "حلويات وأيس كريم",
+  "name_en": "Dessert and ice cream",
+  "group": "food-and-drink",
+  "base": "restaurant + retail",
+  "order": 35,
+  "wave": 4,
+  "why": "Dessert and ice cream shops need a flavour matrix (variants), marble-slab style assembly notes and delivery promo bundles. The key is the flavour variants and assembly notes.",
+  "operator": "The dessert shop manager manages flavour variants, marble-slab assembly and delivery bundles. Their day is flavour selection, assembly instructions and bundle creation.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Flavour (id, shopId, nameAr, nameEn, variantAr (comma-separated), variantEn (comma-separated), baseType (iceCream/sorbet), pricePiasters, costPiasters, taxRate, isAvailable, isDefault)",
+    "AssemblyNote (id, shopId, flavourId, stepsAr (comma-separated), stepsEn (comma-separated), isDefault)",
+    "Order (id, shopId, lines with flavourId, quantity, totalPiasters, status, openedAt, closedAt)",
+    "DeliveryBundle (id, shopId, flavourIds (comma-separated), discountPercent, bundlePricePiasters, status, createdAt)",
+    "MenuItem (id, sectionId, nameAr, nameEn, pricePiasters, costPiasters, taxRate, isAvailable, station, prepMinutes)",
+    "StockItem (id, nameAr, unit, costPiasters, quantity, isBatch, supplierId, reorderPoint)"
+  ],
+  "units": "portion, scoop, bundle",
+  "batches": "Yes for dairy and cream: batches with supplier, received date, expiry date and cost",
+  "expiry": "Dairy and cream have expiry dates tracked per batch; the shop sees alerts for items expiring in three days, and the waste log records what was thrown out",
+  "special": "The core structures are the flavour matrix with variants, the assembly notes per flavour and the delivery bundle system. Flavour variants are the key differentiator from standard restaurant template.",
+  "screens": [
+    "Flavour catalogue: grid of flavours with name, variants (Ar/En), base type, price, default flag",
+    "Assembly notes editor: select flavour, enter steps Ar/En (marble-slab style), set as default",
+    "Order creation: select flavour, set quantity, compute total, apply bundle discount if applicable, set status",
+    "Bundle manager: select flavour IDs, set discount percentage, set bundle price, set status (active/inactive)",
+    "Order list: all orders with flavour, quantity, total, status, opened/closed time",
+    "Flavour popularity: which flavours sell most, revenue per flavour per period",
+    "Stock and waste: current stock levels, waste log per day, expiry alerts for batches",
+    "Cash register: select flavour, set quantity, apply bundle if applicable, tender payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : flavours, assembly notes, bundles, reports, billing",
+    "Prep staff: follow assembly notes, prepare marble-slab, record waste",
+    "Cashier: select flavour, set quantity, apply bundle if applicable, tender payment, print receipt",
+    "Manager: create flavours and assembly notes, set bundles, approve waste adjustments"
+  ],
+  "reports": [
+    "Flavour sales per period: which flavours sell most, revenue per flavour per month",
+    "Bundle volume per period: how many bundles created, revenue per bundle per period",
+    "Daily waste log: waste in piasters per period, reasons, trends",
+    "Flavour popularity trend: which flavours gaining/losing popularity per month",
+    "Stock turnover: current stock levels, reorder frequency, waste vs stock ratio"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and bundle notes",
+    "WhatsApp deep link for bundle ready-notice and flavour shortage alerts",
+    "Email for inventory reorder requests (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial flavours: the starting flavour list with variants and default flag",
+    "Assembly notes: the starting marble-slab assembly steps per flavour",
+    "Bundle structure: the initial bundle (which flavours, discount percent, bundle price)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first flavour, first assembly notes, first bundle"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the flavour matrix and role templates.",
+  "landing_ar": {
+    "headline": "حلويات وأيس كريم",
+    "sub": "نكهات، تركيبات وتجميعات من لوحة واحدة",
+    "benefits": [
+      "مصفوفة نكهات بمتغيرات",
+      "ملاحظات التجميع marble-slab style",
+      "حزم التوصيل مع خصم"
+    ],
+    "faq": [
+      "ما النكهات المتوفرة؟",
+      "هل هناك حزم توصيل؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Dessert & Ice Cream Management",
+    "sub": "Flavour matrix, assembly notes and delivery bundles from one dashboard",
+    "benefits": [
+      "Flavour matrix with variants and defaults",
+      "Marble-slab assembly notes per flavour",
+      "Delivery bundle system with discount"
+    ],
+    "faq": [
+      "What flavours are available?",
+      "Are there delivery bundles?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 140 EGP / month, 1 branch, up to 25 flavours",
+    "- Professional: 300 EGP / month, unlimited flavours, bundle module",
+    "- Enterprise: custom for dessert shop chains"
+  ],
+  "competitors": [
+    {
+      "name": "SweetSpot",
+      "price": "from 400 EGP/mo",
+      "weak": "no flavour variants",
+      "edge": "full flavour variants (Ar/En) with base type and default flag"
+    },
+    {
+      "name": "CoolBite",
+      "price": "from 380 EGP/mo",
+      "weak": "no assembly notes",
+      "edge": "marble-slab assembly notes per flavour with Ar/En steps"
+    },
+    {
+      "name": "TreatCo",
+      "price": "from 420 EGP/mo",
+      "weak": "no bundle system",
+      "edge": "full bundle system with discount percent and bundle price"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add flavour catalogue with variants",
+      "brief": "Build the flavour catalogue: grid of flavours with name, variants Ar/En, base type, price, default flag. Done when the catalogue loads and displays flavours with variant badges correctly.",
+      "done": "When flavour catalogue displays live data with variants",
+      "phase": "M1"
+    },
+    {
+      "title": "Add assembly notes editor",
+      "brief": "Build the assembly notes screen: select flavour, enter steps Ar/En (marble-slab style), set as default. Done when the notes are saved and linked to the flavour.",
+      "done": "When assembly notes editor works and links to flavour",
+      "phase": "M1"
+    },
+    {
+      "title": "Add bundle manager",
+      "brief": "Build the bundle screen: select flavour IDs, set discount percent, set bundle price, set status. Done when the bundle is saved and can be applied to orders.",
+      "done": "When bundle manager works and bundle can be applied to orders",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order creation with bundle discount",
+      "brief": "Build the order screen: select flavour, set quantity, compute total, apply bundle discount if applicable, set status. Done when the order saves all fields and receipt prints correctly.",
+      "done": "When order creation works end-to-end with bundle discount and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add flavour popularity report",
+      "brief": "Build the report showing which flavours sell most and revenue per flavour per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When flavour popularity report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add bundle volume report",
+      "brief": "Build the report showing how many bundles created and revenue per bundle per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When bundle volume report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add daily waste log report",
+      "brief": "Build the report showing waste in piasters per period, reasons, trends. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When daily waste log report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add stock turnover report",
+      "brief": "Build the report showing current stock levels, reorder frequency, waste vs stock ratio. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When stock turnover report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add onboarding flow for initial dessert shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial flavours, assembly notes, bundle structure, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    },
+    {
+      "title": "Add flavour popularity trend report",
+      "brief": "Build the report showing which flavours are gaining/losing popularity per month. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When flavour popularity trend report computes correctly from live data",
+      "phase": "M2"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes flavour and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Bundle discount without clear criteria can lead to revenue loss",
+    "Flavour variant descriptions that mislead consumers can violate consumer protection law"
+  ]
+}

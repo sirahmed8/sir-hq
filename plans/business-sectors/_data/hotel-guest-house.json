@@ -1,0 +1,179 @@
+{
+  "slug": "hotel-guest-house",
+  "name_ar": "فندق وغرفة مفروشة",
+  "name_en": "Hotel and guest house",
+  "group": "hospitality",
+  "base": "hospitality",
+  "order": 37,
+  "wave": 4,
+  "why": "Hotels and guest houses need room calendar, housekeeping board, reservation window, deposits and refund rules, invoice per stay and city tax handling. The key is the room calendar with housekeeping status and deposit tracking.",
+  "operator": "The hotel owner manages room inventory, housekeeping board, reservations and deposits. Their day is room bookings, housekeeping status and invoice generation per stay with city tax.",
+  "entities": [
+    "Hotel (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours, cityTaxPercent)",
+    "Room (id, hotelId, label, type (single/double/suite), capacity, pricePiasters per night, status (available/cleaned/occupied/inspected), housekeepingStatus (clean/dirty/inspected), lastCleanedAt)",
+    "Reservation (id, hotelId, roomId, clientName, clientPhone, checkInDate, checkOutDate, depositPiasters, totalPiasters nightCount, status (confirmed/cancelled/noShow), notes, cityTaxStatus (paid/pending/unpaid))",
+    "HousekeepingBoard (id, hotelId, roomId, status, task (checkout/clean/inspect), assignedTo, completedAt, notes)",
+    "Invoice (id, reservationId, subtotalPiasters, cityTaxPiasters, totalPiasters, status (pending/paid/cancelled), issuedAt, notes)",
+    "Staff (id, hotelId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "room, night, reservation, invoice",
+  "batches": "No : hotel carries no stock or expiry",
+  "expiry": "Not applicable. Reservations have check-in/out dates, invoices have status",
+  "special": "The core structures are the room with housekeeping status, the reservation with deposit and city tax, the housekeeping board with task assignment and the invoice with city tax handling. Room status lifecycle (available→cleaned→occupied→inspected) is the key differentiator.",
+  "screens": [
+    "Room calendar: month view with room labels, status colours (available/cleaned/occupied/inspected), housekeeping status badge, reservation overlay",
+    "Room detail: label, type, capacity, price per night, current status, housekeeping status, last cleaned, associated reservation",
+    "Reservation creation: select room, enter client name and phone, check-in/check-out dates, set deposit % and amount, set total (nightCount × price), set status (confirmed/cancelled/noShow), set city tax status (paid/pending/unpaid)",
+    "Housekeeping board: list of rooms with task (checkout/clean/inspect), assigned to, completed at, notes. Drag to reassign,",
+    "Invoice editor: select reservation, compute subtotal (nightCount × price), city tax (percent of subtotal), total, set status (pending/paid/cancelled), issue, add notes",
+    "Reservation list: all reservations with room, client, dates, status, deposit, city tax status",
+    "Housekeeping task assign: select room, select task, assign to staff, set deadline, track completion",
+    "Cash register: scan reservation reference, record payment, print receipt with invoice"
+  ],
+  "roles": [
+    "Owner: everything : rooms, reservations, housekeeping, invoices, city tax, reports, billing",
+    "Front desk: create reservations, check-in/out, payment, invoice generation",
+    "Housekeeping manager: assign tasks, track completion, status updates on board",
+    "Cashier: record payments against invoices, print receipts"
+  ],
+  "reports": [
+    "Occupancy rate per period: occupied rooms vs available rooms per day/week/month, occupancy %",
+    "Revenue per period: total night revenue, total city tax collected, total revenue (nights + tax)",
+    "Average daily rate (ADR): total night revenue / occupied rooms per period",
+    "Housekeeping efficiency: rooms cleaned per day, average time in status, tasks completed per staff",
+    "Reservation status: confirmed vs cancelled vs noShow counts per period, city tax collected vs pending"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and invoices",
+    "WhatsApp deep link for reservation confirmations and city tax payment reminders",
+    "Email for invoice delivery and city tax receipts (opt-in)",
+    "Online booking platform integration (API, optional)"
+  ],
+  "onboarding": [
+    "Hotel basics: name, branch, address, phone, currency, working hours, city tax percent",
+    "Initial room types: the starting room types (single/double/suite) with capacity and price per night",
+    "Housekeeping tasks: the standard tasks (checkout/clean/inspect) and assignment rules",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first room type, first reservation, first housekeeping task"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the room/housekeeping/reservation schema and role templates.",
+  "landing_ar": {
+    "headline": "فندق وغرفة مفروشة",
+    "sub": "تقويم غرف، housekeeping وفواتير من لوحة واحدة",
+    "benefits": [
+      "تقويم غرف مع حالة housekeeping",
+      "حجوزات مع عربون ودفاتر مدينة",
+      "فواتير وإيرادات مدينة"
+    ],
+    "faq": [
+      "كيف أحجز غرفة؟",
+      "ما نسبة الضريبة المدينة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Hotel & Guest House Management",
+    "sub": "Room calendar, housekeeping and invoices with city tax from one dashboard",
+    "benefits": [
+      "Room calendar with housekeeping status",
+      "Reservations with deposit and city tax",
+      "Invoices with city tax handling"
+    ],
+    "faq": [
+      "How do I book a room?",
+      "What is the city tax percentage?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 300 EGP / month, 1 branch, up to 20 rooms",
+    "- Professional: 650 EGP / month, unlimited rooms, housekeeping module",
+    "- Enterprise: custom for hotel chains"
+  ],
+  "competitors": [
+    {
+      "name": "HotelPro",
+      "price": "from 800 EGP/mo",
+      "weak": "no housekeeping board",
+      "edge": "full housekeeping board with task assignment and completion tracking"
+    },
+    {
+      "name": "StayWell",
+      "price": "from 750 EGP/mo",
+      "weak": "no city tax handling in invoices",
+      "edge": "city tax auto-compute (percent of subtotal) in every invoice"
+    },
+    {
+      "name": "GuestHouseMart",
+      "price": "from 820 EGP/mo",
+      "weak": "no room calendar with status",
+      "edge": "room calendar with status lifecycle (available/cleaned/occupied/inspected)"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add room calendar with housekeeping status",
+      "brief": "Build the room calendar: month view with room labels, status colours, housekeeping status badge, reservation overlay. Done when the calendar loads and displays rooms with correct status and housekeeping badges.",
+      "done": "When room calendar works and displays status and housekeeping badges correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add reservation creation with deposit and city tax",
+      "brief": "Build the reservation screen: select room, client name/phone, check-in/out dates, deposit % and amount, total (nightCount × price), status, city tax status. Done when the reservation saves all fields and city tax computes correctly.",
+      "done": "When reservation creation works end-to-end with city tax computation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add housekeeping board with task assignment",
+      "brief": "Build the housekeeping board: list of rooms with task (checkout/clean/inspect), assigned to, completed at, notes. Done when the board loads and task assignment works correctly.",
+      "done": "When housekeeping board works and task assignment saves correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add invoice editor with city tax auto-compute",
+      "brief": "Build the invoice screen: select reservation, compute subtotal (nightCount × price), city tax (percent of subtotal), total, set status, issue, add notes. Done when the invoice saves and city tax auto-computes correctly.",
+      "done": "When invoice editor works and city tax auto-computes correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add occupancy rate report",
+      "brief": "Build the report showing occupied rooms vs available rooms per day/week/month and occupancy %. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When occupancy rate report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add revenue per period report",
+      "brief": "Build the report showing total night revenue, total city tax collected, total revenue (nights + tax) per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When revenue per period report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add average daily rate (ADR) report",
+      "brief": "Build the report showing ADR: total night revenue / occupied rooms per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When ADR report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add housekeeping efficiency report",
+      "brief": "Build the report showing rooms cleaned per day, average time in status, tasks completed per staff. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When housekeeping efficiency report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add reservation status report",
+      "brief": "Build the report showing confirmed vs cancelled vs noShow counts per period and city tax collected vs pending. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When reservation status report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add onboarding flow for initial hotel setup",
+      "brief": "Build the onboarding flow: hotel basics, initial room types, housekeeping tasks, staff addition. Done when the flow completes and the hotel appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and hotel is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes room and reservation records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "City tax without proper legal basis can violate local taxation law",
+    "Housekeeping task assignment without audit trail can lead to disputes over room status"
+  ]
+}

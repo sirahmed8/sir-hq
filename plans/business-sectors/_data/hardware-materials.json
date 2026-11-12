@@ -1,0 +1,165 @@
+{
+  "slug": "hardware-materials",
+  "name_ar": "عدد ومواد بناء",
+  "name_en": "Hardware and materials",
+  "group": "retail-and-commerce",
+  "base": "market + b2b",
+  "order": 18,
+  "wave": 3,
+  "why": "Hardware stores sell building materials to contractors and DIY customers. They need bulk pricing, contractor accounts with credit/postpay, delivery scheduling and BOM-style quotes.",
+  "operator": "The hardware store owner manages a large inventory of building materials, contractor credit accounts and delivery scheduling. Their day is price lists, credit terms and delivery run planning.",
+  "entities": [
+    "Store (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Product (id, storeId, sku, nameAr, nameEn, category, unitPricePiasters, costPiasters, taxRate, unit (kg,litre,piece,box), stockQty, status, locationShelf, isContractor)",
+    "Contractor (id, storeId, name, phone, creditLimitPiasters, creditUsedPiasters, paymentTerms, status, assignedRep)",
+    "Quote (id, storeId, contractorId, lines, validUntil, totalPiasters, status, approvedBy)",
+    "DeliveryRun (id, storeId, orderIds, waypoints, estimatedDuration, actualDuration, status)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, storeId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "kg, litre, piece, box, bundle, roll",
+  "batches": "No : hardware store carries no stock or expiry",
+  "expiry": "Not applicable. Products have no expiry",
+  "special": "The core structures are the contractor credit account with limit and terms, the quote system with validity period, and the delivery run scheduling. Bulk pricing per unit is the key differentiator.",
+  "screens": [
+    "Product catalogue: grid of materials with name, price per unit, unit measure, contractor badge",
+    "Product detail: full info, bulk price breaks, supplier, reorder point",
+    "Contractor account: credit limit, credit used, payment terms, status, assigned rep, history",
+    "Quote editor: select lines, set valid until, compute total, approve/reject",
+    "Delivery scheduler: assign orders to run, view waypoints, ETA, update status",
+    "Purchase order: receive from supplier, update stock, record costs",
+    "Cash register: scan SKU, apply contractor discount, tender payment, print receipt",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, pricing, contractors, reports, billing",
+    "Sales rep: manage contractors, create quotes, approve deliveries",
+    "Cashier: scan items, apply contractor discount, tender payment, print receipt",
+    "Stock clerk: receive shipments, update stock, create quotes"
+  ],
+  "reports": [
+    "Sales by day and hour: revenue per period, peak hours",
+    "Contractor credit: total credit used vs limit, aging of outstanding, top contractors",
+    "Quote volume: quotes created, approved, rejected per period",
+    "Delivery run efficiency: orders per run, on-time rate, average duration",
+    "Inventory aging: items in stock by category and how long"
+  ],
+  "integrations": [
+    "SMS gateway for contractor notifications (credit reminder, delivery ETA)",
+    "Esc/POS thermal printer for receipts and quotes",
+    "WhatsApp deep link for contractor order status and delivery updates",
+    "Google Maps for delivery route planning"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial inventory: the starting material list with SKU, prices and contractor flag",
+    "Contractor types: the contractor categories (construction, plumbing, electrical, renovation) and credit terms",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first shipment, create first contractor, first quote"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the contractor credit flag and role templates.",
+  "landing_ar": {
+    "headline": "أدوات ومواد بناء",
+    "sub": "أسعار الجملة، الحسابات وتصميم الحصص من لوحة واحدة",
+    "benefits": [
+      "أسعار بالجملة للكميات الكبيرة",
+      "حسابات المقاولين مع مدة الائتمان",
+      "جدولة توصيل الطلبات"
+    ],
+    "faq": [
+      "كيف أفتح حساب مقاول؟",
+      "ما هي مدة الائتمان المتاحة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Hardware & Materials Management",
+    "sub": "Bulk pricing, contractor accounts and delivery scheduling from one dashboard",
+    "benefits": [
+      "Bulk pricing per unit with price breaks",
+      "Contractor credit accounts with limits and terms",
+      "Delivery run scheduling and tracking"
+    ],
+    "faq": [
+      "How do I open a contractor account?",
+      "What credit terms are available?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 100 products",
+    "- Professional: 320 EGP / month, unlimited products, contractor module",
+    "- Enterprise: custom for hardware chain networks"
+  ],
+  "competitors": [
+    {"name": "HardwarePro", "price": "from 380 EGP/mo", "weak": "no contractor credit module", "edge": "full contractor credit with limits, terms and usage history"},
+    {"name": "BldgMart", "price": "from 350 EGP/mo", "weak": "no quote system with validity", "edge": "full quote editor with validUntil and approve/reject"},
+    {"name": "Sico", "price": "from 400 EGP/mo", "weak": "no delivery scheduler", "edge": "delivery run scheduling with waypoints and ETA tracking"}
+  ],
+  "tasks": [
+    {
+      "title": "Add product catalogue with contractor flag",
+      "brief": "Build the product catalogue: grid of materials with name, price per unit, unit measure, contractor badge. Done when the catalogue loads and displays items with contractor badges correctly.",
+      "done": "When product catalogue displays live data with contractor flags",
+      "phase": "M1"
+    },
+    {
+      "title": "Add contractor account screen",
+      "brief": "Build the contractor screen: credit limit, credit used, payment terms, status, assigned rep, history. Done when the contractor is saved and credit used updates correctly.",
+      "done": "When contractor account works and credit tracking is persistent",
+      "phase": "M1"
+    },
+    {
+      "title": "Add quote editor with validity and approval",
+      "brief": "Build the quote screen: select lines, set validUntil, compute total, approve/reject. Done when the quote saves with validity and approval status.",
+      "done": "When quote editor works end-to-end with validity and approval",
+      "phase": "M1"
+    },
+    {
+      "title": "Add delivery scheduler with waypoints and ETA",
+      "brief": "Build the delivery scheduler: assign orders to run, view waypoints, ETA, update status. Done when the scheduler saves the run and displays ETA correctly.",
+      "done": "When delivery scheduler works end-to-end with ETA tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with contractor discount",
+      "brief": "Build the cash register: scan SKU, apply contractor discount, tender payment, print receipt. Done when the sale records contractor discount and receipt prints correctly.",
+      "done": "When cash register works end-to-end with contractor discount",
+      "phase": "M2"
+    },
+    {
+      "title": "Add contractor credit aging report",
+      "brief": "Build the report showing total credit used vs limit, aging of outstanding, top contractors. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When contractor credit aging report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add quote volume report",
+      "brief": "Build the report showing quotes created, approved, rejected per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When quote volume report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add delivery run efficiency report",
+      "brief": "Build the report showing orders per run, on-time rate, average duration. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When delivery run efficiency report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add inventory aging report by category",
+      "brief": "Build the aging report: items in stock by category and how long. Done when the report computes from Firestore and displays correct aging buckets.",
+      "done": "When inventory aging report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add onboarding flow for initial hardware store setup",
+      "brief": "Build the onboarding flow: shop basics, initial inventory, contractor types, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes contractor records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Credit extended without clear limits and terms can violate consumer protection law",
+    "SMS template rejection if not approved by mobile carrier"
+  ]
+}

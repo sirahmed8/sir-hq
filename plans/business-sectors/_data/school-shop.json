@@ -1,0 +1,180 @@
+{
+  "slug": "school-shop",
+  "name_ar": "مقصف ومكتبة مدرسة",
+  "name_en": "School shop",
+  "group": "education-and-community",
+  "base": "market + service",
+  "order": 23,
+  "wave": 3,
+  "why": "School shops sell uniforms, books and supplies to students. They also handle parent top-ups, term subscriptions and parent consent for child data. Child data privacy (PDPL) is the key differentiator.",
+  "operator": "The school shop manager oversees the campus catalog, student wallets, parent billing and term subscriptions. Their day is parent top-ups, uniform sales and managing term deposits.",
+  "entities": [
+    "SchoolShop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours, termDate)",
+    "CampusItem (id, shopId, sku, nameAr, nameEn, type (uniform/book/supply), sizeAr, sizeEn, pricePiasters, costPiasters, taxRate, stockQty, status, locationShelf)",
+    "Student (id, schoolId, name, class, guardianPhone, guardianConsent, walletPiasters, enrollmentYear, status)",
+    "TermSubscription (id, studentId, type, amountPiasters, startDate, endDate, status, paidAt)",
+    "TopUp (id, studentId, amountPiasters, method, status, recordedAt, receiptPrinted)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "visit, subscription, top-up, item",
+  "batches": "No : school shop carries no stock or expiry",
+  "expiry": "Not applicable. Subscriptions have date ranges not expiry dates",
+  "special": "The core structures are the student with guardian consent, the term subscription with start/end dates, the wallet top-up and the campus catalog. Child data (student name, class) requires parent consent per PDPL.",
+  "screens": [
+    "Campus catalog: grid of items (uniforms, books, supplies) with size options and prices",
+    "Student profile: name, class, guardian phone, consent flag, wallet balance, active subscriptions",
+    "Term subscription: select type, set amount and dates, record payment, track status (active/pending/expired)",
+    "Wallet top-up: enter amount, select payment method (cash, card, InstaPay), record top-up, print receipt",
+    "Order management: receive shipment, update campus catalog stock, record sales",
+    "Cash register: scan SKU, apply discount, tender payment, print receipt with student name and class",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : campus catalog, subscriptions, reports, billing",
+    "Cashier: scan items, tender payment, print receipt, top-up wallet",
+    "Staff: receive shipments, update catalog stock, manage subscriptions",
+    "Assistant: parent communications, consent management"
+  ],
+  "reports": [
+    "Sales by day and hour: revenue per period, peak hours (around school dismissal)",
+    "Term subscription volume: active vs pending vs expired per period",
+    "Wallet top-up frequency: number of top-ups per student per period, total amount collected",
+    "Campus item stock: how many uniform/supply items in stock, low-stock alerts",
+    "Parent purchase history: total spent per student, visit frequency"
+  ],
+  "integrations": [
+    "Barcode scanner for SKU entry at till",
+    "Esc/POS thermal printer for receipts and top-up receipts",
+    "InstaPay QR for wallet top-up (counterparty integration)",
+    "WhatsApp deep link for parent notifications (low balance, subscription renew)",
+    "Email for invoice and subscription renewal notices (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours, term start/end dates",
+    "Initial catalog: the campus items (uniforms, books, supplies) with sizes and prices",
+    "Membership types: the term subscription types (full term, half term, quarter) and amounts",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first shipment, list first campus items, first parent top-up"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the student/guardian consent/term subscription schema and role templates.",
+  "landing_ar": {
+    "headline": "مقصف المدرسة",
+    "sub": "مستلفيات، اشتراكات وأرصدة من لوحة واحدة",
+    "benefits": [
+      "حذف المكتبة campus",
+      "اشتراكات بالفصل",
+      "أرصدة الوالدين"
+    ],
+    "faq": [
+      "كيف أشتريunos uniform للابن؟",
+      "كيف أحمل رصيد محفظة الأب؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "School Shop Management",
+    "sub": "Campus catalog, term subscriptions and wallet top-ups from one dashboard",
+    "benefits": [
+      "Campus catalog with size options and prices",
+      "Term subscriptions with start/end dates",
+      "Wallet top-ups with multiple payment methods"
+    ],
+    "faq": [
+      "How do I buy a uniform for my child?",
+      "How do I top up the wallet?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 100 EGP / month, 1 branch, up to 50 campus items",
+    "- Professional: 220 EGP / month, unlimited items, reports",
+    "- Enterprise: custom for school chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "SchoolFix",
+      "price": "from 250 EGP/mo",
+      "weak": "no guardian consent flag",
+      "edge": "parent consent and minimal child data with PDPL deletion on request"
+    },
+    {
+      "name": "EduCart",
+      "price": "from 230 EGP/mo",
+      "weak": "no term subscription tracking",
+      "edge": "full term subscriptions with start/end dates and aging reports"
+    },
+    {
+      "name": "CampusMart",
+      "price": "from 280 EGP/mo",
+      "weak": "no wallet top-up InstaPay integration",
+      "edge": "InstaPay QR top-up and receipt printing"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add guardian consent flag for student records",
+      "brief": "Build the student screen: name, class, guardian phone, consent flag for under-18. Done when the member is saved with consent flag and minimal child data fields.",
+      "done": "When student record stores data with guardian consent flag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add term subscription screen",
+      "brief": "Build the subscription screen: select type, set amount and dates, record payment, track status (active/pending/expired). Done when the subscription is saved and the status updates correctly.",
+      "done": "When term subscription screen works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add wallet top-up screen with InstaPay",
+      "brief": "Build the top-up screen: enter amount, select payment method (cash, card, InstaPay), record top-up, print receipt. Done when the top-up is saved and receipt prints correctly.",
+      "done": "When wallet top-up works with InstaPay and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add campus catalog grid with sizes and prices",
+      "brief": "Build the product catalogue: grid of campus items with name, price, size options, availability. Done when the catalogue loads and displays items with correct size options and price badges.",
+      "done": "When campus catalog displays live data with size options and prices",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with student name and class print",
+      "brief": "Build the cash register: scan SKU, apply discount, tender payment, print receipt with student name and class. Done when the sale records all fields and receipt prints correctly with student info.",
+      "done": "When cash register works end-to-end and receipt prints with student name and class",
+      "phase": "M2"
+    },
+    {
+      "title": "Add term subscription volume report",
+      "brief": "Build the report showing active vs pending vs expired subscriptions per period. Done when the report pulls live data and displays correct figures.",
+      "done": "When term subscription volume report pulls live data and displays correctly",
+      "phase": "M2"
+    },
+    {
+      "title": "Add wallet top-up frequency report",
+      "brief": "Build the report showing top-ups per student per period and total amount collected. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When wallet top-up frequency report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add campus item stock report",
+      "brief": "Build the report showing how many uniform/supply items in stock and low-stock alerts. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When campus item stock report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add parent purchase history report",
+      "brief": "Build the report showing total spent per student, visit frequency per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When parent purchase history report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add onboarding flow for initial school shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial catalog, term subscription types, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Member data with children (under 18) requires parent consent and minimal fields per PDPL",
+    "Encryption key loss makes student records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Term subscriptions without clear start/end dates can violate consumer protection law"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "slug": "optical-shop",
+  "name_ar": "محل نظارات",
+  "name_en": "Optical shop",
+  "group": "service-and-retail",
+  "base": "service + retail",
+  "order": 28,
+  "wave": 4,
+  "why": "Optical shops sell glasses with lens types, prescriptions and fitting. Each pair is tracked by prescription and lens specification. The key is lens catalog, prescription linking and fitting notes.",
+  "operator": "The optical shop owner manages a frame inventory, lens types and client prescriptions. Their day is eye tests (recorded), frame selection, lens ordering and fitting notes.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Frame (id, shopId, nameAr, nameEn, brand, pricePiasters, costPiasters, taxRate, size, color, status, locationShelf)",
+    "LensType (id, shopId, nameAr, nameEn, index, coating (antiReflective,UV,photochromic), pricePiasters, costPiasters)",
+    "Prescription (id, clientName, clientPhone, sphere, cylinder, axis, add, pupillaryDistance, notes, validUntil, hasAstigmatism)",
+    "Order (id, shopId, frameId, lensTypeId, clientPrescriptionId, totalPiasters, depositPiasters, balancePiasters, status, readyDate, notes)",
+    "Client (id, shopId, name, phone, visitCount, totalSpentPiasters, lastVisit, notes)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "pair, frame, lens, prescription",
+  "batches": "No : optical shop carries no stock or expiry",
+  "expiry": "Not applicable. Prescriptions have validUntil dates, frames have no expiry",
+  "special": "The core structures are the frame inventory, lens type catalog, prescription per client and the order with deposit and balance. Prescription validity and lens fitting are the key differentiators.",
+  "screens": [
+    "Frame catalogue: grid of frames with name, brand, price, size, color, availability badge",
+    "Frame detail: full info, supplier, reorder point, try-virtual (optional)",
+    "Lens type catalogue: list of lens types with index, coating, price, cost",
+    "Prescription editor: enter sphere, cylinder, axis, add, pupillary distance, validUntil, astigmatism flag, save per client",
+    "Order creation: select frame, select lens type, select prescription, compute total (frame + lenses), set deposit and balance, set status (draft/confirmed/in-progress/ready/ready-for-pickup)",
+    "Client profile: visit count, total spent, last visit, prescription history",
+    "Order status tracker: per order view progress (draft→confirmed→in-progress→ready→ready-for-pickup), print ready notice",
+    "Cash register: scan frame or order reference, record payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : frames, lenses, prescriptions, orders, reports, billing",
+    "Optician: create prescriptions, select lens types, approve orders, fit frames",
+    "Sales rep: manage frames, create orders, client quotes",
+    "Cashier: scan frames/orders, tender payment, print receipt"
+  ],
+  "reports": [
+    "Frame sales by model and period: count per model/brand per month, revenue per model",
+    "Lens type performance: which lens types sell most, revenue per lens type per period",
+    "Prescription volume per optician: how many prescriptions per optician per period",
+    "Order pipeline: orders by status (draft/confirmed/in-progress/ready/ready-for-pickup) per period",
+    "Client repeat rate: visit count per client, total spent per client, re-book rate"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and order ready notices",
+    "WhatsApp deep link for ready-notice to client and prescription copy (opt-in)",
+    "Email for prescription copy and order updates (opt-in)",
+    "Visual measurement tool integration (optional, hardware)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial frame inventory: the starting list of frames with SKU, brand, price and size",
+    "Lens type scheme: the lens types the shop carries with index, coating and pricing",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first frame stock, first lens type, first prescription, first order"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the frame/lens/prescription schema and role templates.",
+  "landing_ar": {
+    "headline": "محل نظارات",
+    "sub": "إطارات، تركيبات وأوصاف من لوحة واحدة",
+    "benefits": [
+      "كتالوج إطارات مع المقاسات والألوان",
+      "توليف تركيباتصرية",
+      "تتبع الأوصاف وحالة الطلب"
+    ],
+    "faq": [
+      "هل يمكن تركيب عدسات على إطار имеем؟",
+      "ما أنواع العدسات المتوفرة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Optical Shop Management",
+    "sub": "Frames, lens types and prescriptions from one dashboard",
+    "benefits": [
+      "Frame inventory with sizes and colors",
+      "Lens type catalog with index and coating",
+      "Prescription per client with validity tracking"
+    ],
+    "faq": [
+      "Can I fit new lenses into an existing frame?",
+      "What lens types are available?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 30 frames",
+    "- Professional: 350 EGP / month, unlimited frames, lens module",
+    "- Enterprise: custom for optical chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "VisionPro",
+      "price": "from 450 EGP/mo",
+      "weak": "no prescription tracking",
+      "edge": "full prescription per client with sphere/cylinder/axis/add and validUntil tracking"
+    },
+    {
+      "name": "EyeWear",
+      "price": "from 430 EGP/mo",
+      "weak": "no lens type catalog",
+      "edge": "full lens type catalog with index, coating and pricing"
+    },
+    {
+      "name": "OptiCare",
+      "price": "from 480 EGP/mo",
+      "weak": "no order pipeline with status",
+      "edge": "full order pipeline with status (draft/confirmed/in-progress/ready/ready-for-pickup)"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add frame catalogue with availability badge",
+      "brief": "Build the frame catalogue: grid of frames with name, brand, price, size, color, availability badge. Done when the catalogue loads and displays frames with correct availability badges.",
+      "done": "When frame catalogue displays live data with availability badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add lens type catalogue",
+      "brief": "Build the lens type catalogue: list of lens types with index, coating, price, cost. Done when the catalogue loads and displays lens types correctly.",
+      "done": "When lens type catalogue displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add prescription editor per client",
+      "brief": "Build the prescription screen: sphere, cylinder, axis, add, pupillary distance, validUntil, astigmatism flag, save per client. Done when the prescription is saved and linked to a client.",
+      "done": "When prescription editor works and saves per client",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order creation with deposit and balance",
+      "brief": "Build the order screen: select frame, lens type, prescription, compute total, set deposit and balance, set status. Done when the order saves all fields and status updates correctly.",
+      "done": "When order creation works end-to-end with deposit and balance",
+      "phase": "M1"
+    },
+    {
+      "title": "Add client profile with prescription history",
+      "brief": "Build the client profile: visit count, total spent, last visit, prescription history. Done when the profile saves and displays correct data.",
+      "done": "When client profile works and displays live data with prescription history",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order status tracker with pipeline",
+      "brief": "Build the order tracker: per order view progress (draft/confirmed/in-progress/ready/ready-for-pickup), print ready notice. Done when the tracker updates status and prints ready notice correctly.",
+      "done": "When order status tracker works end-to-end with pipeline and receipt printing",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with frame/Order scanning",
+      "brief": "Build the cash register: scan frame or order reference, record payment, print receipt. Done when the sale records correctly and receipt prints.",
+      "done": "When cash register works end-to-end and receipt prints correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add frame sales by model report",
+      "brief": "Build the report showing count per model/brand per month and revenue per model. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When frame sales report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add lens type performance report",
+      "brief": "Build the report showing which lens types sell most and revenue per lens type per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When lens type performance report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add prescription volume per optician report",
+      "brief": "Build the report showing how many prescriptions per optician per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When prescription volume report computes correctly from live data",
+      "phase": "M2"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes frame and prescription records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Prescription validity without clear validUntil can violate consumer protection law",
+    "Fitting claims without proper optician certification can raise liability issues"
+  ]
+}

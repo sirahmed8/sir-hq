@@ -1,0 +1,23 @@
+The R57 owner-feedback brief is only partly done. I've finished 5 of the 22 items, and the rest are open. The next run picks up from the first unticked box in `.sir/R57_CHECKLIST.md`.
+
+**Done and pushed to main** (each with a commit and a note on what was checked):
+
+- **Item 11, cinema opens at top.** Root cause: the side chat scrolled the whole page on mount. It now scrolls only its own list, and only when a message arrives. Unit tested; not checked on screen.
+- **Item 13, dropdown toggle and frosted list.** Root cause: the list was an auto popover, so the trigger's own tap closed it and the click reopened it. Verified in Chromium at 390 px: second tap, outside tap and Escape all close it. The frosted panel is now 88% opaque, up from 72%. That token is shared, so every sheet that uses it is also more opaque.
+- **Item 16, the "خاص" badge.** Not a data bug. The chip rendered on every row because private is the default. Now only shared rows get a chip. The "private by default" line in the section header is not added yet.
+- **Item 17, prayer lock.** Future prayers are locked and show their opening time. Passed prayers stay markable, so today's Fajr is still markable after Isha. The day key was UTC and is now local. Unit tested (5 tests); not checked on screen.
+- **Item 9, switches.** The shared switch already existed and is used at 24 call sites. I measured it at 390 px: 51 px track, 27 px knob, RTL correct. Drag behaviour is untested.
+
+**Partly done:**
+
+- **Item 12, tab refresh.** A second tap on an active tab at the top now dispatches a refresh event. Only the Today tab listens so far. The other tabs need to subscribe.
+- **Item 15, Dynamic Island search.** I ran the exact tap sequence in Chromium at 390 px and it works: search expands, focuses, and closes. I could not reproduce the reported failure, so I made no code change. The owner's device case is still unexplained and needs a real touch device.
+
+**Not started:** items 1–8, 10, 14, 18–22. Items 3, 8, 18 and 19 are large features.
+
+**Other things to know:**
+
+- I stopped the stale AHome dev server on port 3001 (PID 33344), which was not responding, and started one on port 3010. I added dev harness pages at `/dev/select`.
+- The sir-guards hook blocks tool calls whenever the shell is inside `apps/web`. I kept the working directory at the AHome root to avoid it.
+- The full serial test suite was not re-run in this session. Type check passes, and lint has 0 errors on the files I touched.
+- `.sir/` is git-ignored, so the checklist, checkpoint and report stay local. The report is at `D:/Projects/AHome/.sir/R57_REPORT.md`.

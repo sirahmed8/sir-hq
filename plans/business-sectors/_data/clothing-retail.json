@@ -1,0 +1,178 @@
+{
+  "slug": "clothing-retail",
+  "name_ar": "ملابس",
+  "name_en": "Clothing retail",
+  "group": "retail",
+  "base": "retail",
+  "order": 16,
+  "wave": 3,
+  "why": "Clothing shops need size/color matrix, variants, seasonal collections, markdowns and exchange rules. The key is the variant matrix and markdown tracking.",
+  "operator": "The clothing shop owner manages a variant-heavy inventory of apparel, seasonal collections and markdowns. Their day is receiving new collections, pricing per variant and tracking exchanges.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Product (id, shopId, sku, nameAr, nameEn, category (tops/ bottoms/dresses/accessories), season, colorAr, colorEn, sizeAr, sizeEn, unitPricePiasters, costPiasters, taxRate, condition (new/used), stockQty, status, locationShelf)",
+    "Variant (id, productId, colorId, sizeId, skuSuffix, priceDeltaPiasters, isDefault, stockQty)",
+    "Customer (id, shopId, name, phone, whatsAppOptIn, purchaseHistoryCount, totalSpentPiasters)",
+    "Order (id, shopId, customerId, lines with productId variantId, quantity, unitPricePiasters, discountPiasters, serviceChargePiasters, totalPiasters, paymentStatus, status, createdAt, closedAt)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, set, pair",
+  "batches": "No : clothing retail carries no stock or expiry (condition indicates wear, not expiry)",
+  "expiry": "Not applicable. Products have condition states not expiry dates",
+  "special": "The core structures are the product variant matrix (color + size per SKU), the markdown tracker and the exchange log. Variant tracking per color/size is the key differentiator from regular retail.",
+  "screens": [
+    "Product catalogue: grid of items with name, price, color badge, size badge, condition (new/used), availability",
+    "Product detail: full info, all color/size variants, stock per variant, markdown percentage, exchange policy",
+    "Variant manager: add/edit variant (color, size, price delta, default flag, stock qty). Done when variant is saved and linked to product.",
+    "Markdown tracker: set markdown % per product per period, track original price vs discounted price, apply at till",
+    "Exchange log: record exchange reason (size/color/defect), update stock, issue refund note",
+    "Customer profile: purchase history, total spent, notes, opt-in status",
+    "Cash register: scan SKU or variant, apply markdown/discount, tender payment, print receipt",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, pricing, markdowns, exchanges, reports, billing",
+    "Sales rep: manage products, create variants, apply markdowns, handle exchanges",
+    "Cashier: scan items, apply markdown/discount, tender payment, print receipt",
+    "Stock clerk: receive shipments, update stock, create variants, process exchanges"
+  ],
+  "reports": [
+    "Sales by day and hour: revenue per period, peak hours",
+    "Variant performance: which color/size combinations sell most, revenue per variant per period",
+    "Markdown effectiveness: original price vs discounted price per period, sell-through rate at discount",
+    "Exchange volume: exchanges per period, reasons, refund amount per period",
+    "Customer repeat rate: visit count per customer, total spent per customer, re-book rate"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and exchange notes",
+    "WhatsApp deep link for customer notifications (exchange ready, markdown alerts)",
+    "Email for invoice and exchange confirmation (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial inventory: the starting product list with SKU, colors, sizes, prices and condition",
+    "Product categories: tops, bottoms, dresses, accessories, seasonal collections",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first collection, list first products, first customer sale with variant selection"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the variant matrix and role templates.",
+  "landing_ar": {
+    "headline": "ملابس",
+    "sub": "مقاسات وألوان وماركات من لوحة واحدة",
+    "benefits": [
+      "كتالوج منتجات ب Variants",
+      "تعقّب الماركات",
+      "خدمة الاستبدال"
+    ],
+    "faq": [
+      "هل تتوفر المقاس/اللون المطلوب؟",
+      "كيف أقوم باستبدال المنتج؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Clothing Retail Management",
+    "sub": "Variant matrix, markdowns and exchanges from one dashboard",
+    "benefits": [
+      "Variant matrix (color + size per SKU)",
+      "Markdown tracking with sell-through analysis",
+      "Exchange log and refund processing"
+    ],
+    "faq": [
+      "What color/size combinations are available?",
+      "How do I process an exchange?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 130 EGP / month, 1 branch, up to 50 products",
+    "- Professional: 300 EGP / month, unlimited products, variant module",
+    "- Enterprise: custom for clothing retail chains"
+  ],
+  "competitors": [
+    {
+      "name": "FashionPro",
+      "price": "from 400 EGP/mo",
+      "weak": "no variant tracking",
+      "edge": "full color/size variant tracking per SKU with price deltas"
+    },
+    {
+      "name": "StyleMart",
+      "price": "from 380 EGP/mo",
+      "weak": "no markdown tracker",
+      "edge": "full markdown tracker with original/discounted price and sell-through rate"
+    },
+    {
+      "name": "Wardrobe",
+      "price": "from 420 EGP/mo",
+      "weak": "no exchange log",
+      "edge": "full exchange log with reason, stock update and refund note"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add product catalogue with color/size badges",
+      "brief": "Build the product catalogue: grid of items with name, price, color badge, size badge, condition (new/used), availability. Done when the catalogue loads and displays items with correct variant badges.",
+      "done": "When product catalogue displays live data with variant badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add variant manager",
+      "brief": "Build the variant screen: add/edit variant (color, size, price delta, default flag, stock qty). Done when the variant is saved and linked to the product and stock updates correctly.",
+      "done": "When variant manager works and links variant to product with stock update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add markdown tracker",
+      "brief": "Build the markdown screen: set markdown % per product per period, track original price vs discounted price, apply at till. Done when the markdown is saved and the till applies the discount correctly.",
+      "done": "When markdown tracker works end-to-end with discount application at till",
+      "phase": "M1"
+    },
+    {
+      "title": "Add exchange log",
+      "brief": "Build the exchange screen: record exchange reason (size/color/defect), update stock, issue refund note. Done when the exchange is saved and stock updates correctly and note is issued.",
+      "done": "When exchange log works end-to-end with stock update and refund note",
+      "phase": "M1"
+    },
+    {
+      "title": "Add customer profile with purchase history",
+      "brief": "Build the customer profile: purchase history, total spent, notes, opt-in status. Done when the profile saves and displays correct data.",
+      "done": "When customer profile works and displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with variant scanning and markdown",
+      "brief": "Build the cash register: scan SKU or variant, apply markdown/discount, tender payment, print receipt. Done when the sale records variant and markdown correctly and receipt prints.",
+      "done": "When cash register works end-to-end with variant scanning and markdown",
+      "phase": "M1"
+    },
+    {
+      "title": "Add variant performance report",
+      "brief": "Build the report showing which color/size combinations sell most and revenue per variant per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When variant performance report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add markdown effectiveness report",
+      "brief": "Build the report showing original price vs discounted price per period and sell-through rate at discount. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When markdown effectiveness report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add exchange volume report",
+      "brief": "Build the report showing exchanges per period, reasons, refund amount per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When exchange volume report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial clothing shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial inventory, product categories with variant flag, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes product and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Markdown without clear criteria can lead to revenue loss and customer disputes",
+    "Exchange descriptions that violate consumer protection law on refunds"
+  ]
+}

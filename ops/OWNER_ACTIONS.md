@@ -58,3 +58,15 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 
 ## 2026-11-12T14:05:46+02:00 (AHome, haiku-r38)
 - GitHub Actions for sirahmed8/ahmed-and-habiba fail before any runner starts (3 jobs: web, secrets, core; 0 steps, runner empty), on commit 5325f29 and again on the rerun, 2026-11-12 12:01 UTC. The earlier run 43151834079 passed in 4m31s. The token cannot read billing (403). One tap: GitHub Settings > Billing and plans > Actions: check spending limit or minutes, then re-run the failed verify jobs. Nothing else is needed. Same account-wide quota now also blocks sir-jobs and sir-hq verify runs (0-step failures, flag ops/ci-quota-exhausted.flag, expected reset ~2026-12-01).
+
+## SIR Business (2026-11-12) — T-004
+- Firebase: create new project `sir-business` (Spark plan) at https://console.firebase.google.com > Add project. Enable Authentication > Google provider. Enable Firestore (Native mode). Note the project ID.
+- OAuth app: in Firebase console > Authentication > Settings > Authorized domains, add `sir-business.firebaseapp.com` and `localhost`. In Google Cloud Console > APIs & Services > Credentials, create OAuth 2.0 client named "SIR Business", add authorized redirect URIs: `https://sir-business.firebaseapp.com/__/auth/handler`, `http://localhost:5000/__/auth/handler`, `http://127.0.0.1:5000/__/auth/handler`. Download the client secret JSON.
+- After creation: provide the Firebase config values (API key, auth domain, project ID, storage bucket, messaging sender ID, app ID) so the agent can write them to `.env.example`.
+
+## SIR Content Creation Studio (2026-11-12) — T-004, T-005
+- Firebase: create new project `sir-content-studio` (Spark plan) at https://console.firebase.google.com > Add project. Enable Authentication > Google provider. Enable Firestore (Native mode). Note the project ID.
+- OAuth app: in Firebase console > Authentication > Settings > Authorized domains, add `sir-content-studio.firebaseapp.com` and `localhost`. In Google Cloud Console > APIs & Services > Credentials, create OAuth 2.0 client named "SIR Content Creation Studio", add authorized redirect URIs: `https://sir-content-studio.firebaseapp.com/__/auth/handler`, `http://localhost:5000/__/auth/handler`, `http://127.0.0.1:5000/__/auth/handler`. Download the client secret JSON.
+- Cloudflare: create project `sir-content-creation-studio` at https://dash.cloudflare.com > Pages > Create a project > Connect to Git > select `sirahmed8/sir-content-creation-studio`. Build command: `npm run build` (or `pnpm verify`), output: `dist` (or `.vercel/output` for Workers). Deploy to `sir-content-creation-studio.pages.dev`.
+- After creation: provide the Firebase config values (API key, auth domain, project ID, storage bucket, messaging sender ID, app ID) and Cloudflare project name so the agent can write them to `.env.example` and Vercel/Cloudflare secrets.
+- Login brand check (T-005): once Firebase is live, open `http://localhost:5000` in Chrome, sign in with Google, verify the consent screen shows "SIR Content Creation Studio" (not the project ID), screenshot to `.sir/evidence/login-brand-check.png`.

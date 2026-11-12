@@ -1,0 +1,213 @@
+{
+  "slug": "car-service-garage",
+  "name_ar": "صيانة سيارات",
+  "name_en": "Car service and garage",
+  "group": "services",
+  "base": "garage",
+  "order": 11,
+  "wave": 2,
+  "why": "It is a workshop with a customer queue and a parts warehouse, so it needs the ticket, the estimate, the labour, the parts and the trust of the customer who left the car.",
+  "operator": "The owner runs a workshop with bays and mechanics. The car comes in with a complaint, the mechanic finds more, and the customer has to approve the extra work before it starts. The pain is the estimate that becomes an invoice nobody agreed to, the part that was not in stock, and the record of which car had which problem, because the same owner comes back next year.",
+  "entities": [
+    "Garage (id, name, branchId, address, phone, currency, openingHours, taxRegistration)",
+    "Bay (id, branchId, label, status)",
+    "Customer (id, name, phone, whatsappOptIn, email)",
+    "Vehicle (id, customerId, plate, make, model, year, colour, chassisLast4, notes, nextServiceAt)",
+    "ServiceOrder (id, garageId, vehicleId, customerId, complaint, status, openedAt, promisedAt, deliveredAt, mileageKm, estimatePiasters, approvedPiasters, totalPiasters, advisorId)",
+    "ServiceLine (id, serviceOrderId, type, nameAr, quantity, unitPricePiasters, kind, status)",
+    "Part (id, sku, barcode, nameAr, nameEn, unit, costPiasters, pricePiasters, supplierId, reorderPoint, isBatch)",
+    "Labour (id, serviceOrderId, mechanicId, minutes, hourlyRatePiasters, descriptionAr)",
+    "Mechanic (id, name, phone, role, hourlyRatePiasters, commissionPercent, status)",
+    "Estimate (id, serviceOrderId, status, lines, totalPiasters, sentAt, approvedAt, declinedAt, channel)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays)",
+    "Checklist (id, serviceOrderId, itemAr, state, note)",
+    "Sale (id, branchId, customerId, serviceOrderId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "Warranty (id, serviceOrderId, itemAr, months, validUntil)"
+  ],
+  "units": "piece, litre, filter, job, hour, minute and the labour hour",
+  "batches": "Only for the oils, the coolant and the brake fluid, where the shelf life matters; most parts are not batched",
+  "expiry": "The oils and the fluids show the days left, and the service interval of the vehicle is the real date that matters here",
+  "special": "The structures specific to this sector are the vehicle record with its plate and its service history, the estimate that the customer approves before the work starts, the labour of the mechanic, and the parts that come from the stock or are ordered for the customer",
+  "screens": [
+    "Job card: one screen for the car, the complaint, the inspection checklist, the photos, the estimate and the state of the work",
+    "Intake: the customer, the plate, the car or a new vehicle record, the mileage and the complaint, with the photos",
+    "Estimate: the lines with the parts and the labour, the total, and the approval link that the customer receives and presses",
+    "Order desk: the parts to order for the jobs that wait, with the supplier and the expected day",
+    "Bays and the workshop board: which car is on which bay, at which step, and who works on it",
+    "Parts stock: the fast moving parts, the cost, the price, the reorder point and the barcode",
+    "Handover: the finished work, the photos before and after, the invoice, the warranty and the next service date",
+    "Customer and vehicle history: every visit, every problem and every part that was replaced"
+  ],
+  "roles": [
+    "Owner: everything, including the prices, the staff and the reports",
+    "Manager: everything except billing, approves the estimate above a limit and the extra work",
+    "Advisor (service reception): the intake, the estimate, the customer update and the handover",
+    "Mechanic: the job card, the checklist, the parts request and the labour time",
+    "Parts keeper: the stock, the orders and the deliveries",
+    "Cashier: takes the payment and closes the shift"
+  ],
+  "reports": [
+    "Jobs per bay and per mechanic, and the average job value",
+    "The estimate to the approved ratio: how much extra work is found",
+    "Turnaround time per job type against the promised day",
+    "Parts sold per job and the fast moving parts with the reorder point",
+    "Labour time per mechanic per day and the commission",
+    "Return customers and the vehicles that came back within the warranty",
+    "Cash reconciliation per shift"
+  ],
+  "integrations": [
+    "Thermal printer through ESC/POS for the job card, the estimate and the invoice",
+    "Phone camera for the photos of the car before and after the work",
+    "WhatsApp for the estimate approval and the progress update through the garage own account",
+    "Barcode scanner in keyboard mode for the parts in the stock and at the counter",
+    "Card terminal through Paymob and the mobile wallets at the reception"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Bays: the number of bays and their labels",
+    "Services: the jobs the garage offers with the price and the time, from the oil change to the full service",
+    "Team: the advisors, the mechanics and the parts keeper with their roles",
+    "Parts: the fast moving parts with the cost and the price",
+    "Suppliers: the parts suppliers with the visit days",
+    "First week plan: open a job card, send an estimate, get the approval, close a job and print the invoice",
+    "Review and finish"
+  ],
+  "seed": [
+    "Job type list in Arabic: زيت وفلاتر, تروس, بريك, Suspensions, كهرباء, تكييف, فحص كمبيوتر",
+    "Part category list in Arabic with the units",
+    "Role templates for the advisor, the mechanic, the parts keeper and the cashier",
+    "A job card layout with the plate, the complaint, the mileage and the checklist",
+    "An empty vehicle and customer list, never seeded with fake plates"
+  ],
+  "landing_ar": {
+    "headline": "صيانة سيارات: عرض سعر يتفق عليه العميل قبل الشغل، وسجل لكل عربية",
+    "sub": "كرت صيانة لكل عربية، ووقت الشغل، وقطع الغيار بالمخزون",
+    "benefits": [
+      "العرض بيتبعت للعميل على واتساب ويتافق عليه بضغطة، فمفيش مفاجآت",
+      "كل عربية ليها كارت بالتاريخ والأعطال والقطع اللي اتغيرت",
+      "بتعرف الوقت المطلوب لكل شغل، والميكانيكي اللي عمله"
+    ],
+    "faq": [
+      "العميل مش موجود وقت الصيانة؟ عرض السعر بيتسجل والعقد بيتبعت، والموافقة من غير ما يحتاج يتصل بيه",
+      "القطع مش موجودة؟ الطلب للمورد بيتبعت من شاشة الطلبات ومالك بتعرف يوم الوصول"
+    ]
+  },
+  "landing_en": {
+    "headline": "A garage where the customer approves the estimate before the work starts, and every car has a record",
+    "sub": "A job card per car, the time of the work, and the parts in the stock",
+    "benefits": [
+      "The estimate goes to the customer on WhatsApp and is approved with one tap, so there are no surprises",
+      "Every car has a card with the history, the faults and the parts that were replaced",
+      "You see the time each job really takes and who worked on it"
+    ],
+    "faq": [
+      "What if the customer is not there? The estimate is recorded and sent, and the approval is stored without needing a phone call",
+      "What if the part is not in stock? The order to the supplier comes from the order screen and you see the expected day"
+    ]
+  },
+  "pricing": [
+    "The free tier fits a small workshop with one bay: one business, one branch, two seats, the job card and the till",
+    "Starter adds the estimate approval, the parts stock and a year of history",
+    "The Business tier adds the workshop board, the labour sheet, the warranty and the multi branch transfer",
+    "The customer tracking link for the estimate is priced per branch, never per customer"
+  ],
+  "competitors": [
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "An ERP where a garage needs a bay, a mechanic and an approved estimate",
+      "edge": "The job card, the estimate approval and the vehicle history as one flow"
+    },
+    {
+      "name": "Odoo",
+      "price": "One App Free at US$0, Standard US$8.95 per user per month on annual billing (odoo.com/pricing, opened 2026-11-12)",
+      "weak": "No garage workflow and a partner implementation cost",
+      "edge": "A garage flow that runs on a tablet in the bay, in Arabic"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "A retail till with no job cards, no estimate and no vehicle records",
+      "edge": "The job card and the customer approval are the product here"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the garage pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for car-service-garage in packages/core/src/sectors/registry.ts with the base template garage and the modules (pos, job cards, estimates, labour, parts, warranties, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('car-service-garage') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the garage data model with the vehicles and the job cards",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/garage/schema.ts: vehicles with the plate and the history, the service order with the complaint, the estimate with its approval state, the service lines with the kind (part or labour), the labour time, the checklist and the warranty.",
+      "done": "The schema compiles with no any, the validation refuses a job without a vehicle and an estimate cannot be approved twice, and the tests pass."
+    },
+    {
+      "title": "Build the garage seed with the Arabic job types",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/garage/seed.ts with the Arabic job types, the part categories, the role templates, the job card layout with the plate and the mileage, and the empty vehicle list. No price, plate or customer is invented.",
+      "done": "The seed loads, the test asserts the job types, and it asserts that no vehicle was seeded."
+    },
+    {
+      "title": "Write the garage terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/garage/glossary.ts with the trade words: كارت صيانة, عرض سعر, قطعة, ميكانيكي, ضمان, صيانة دورية, and the reception words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the job card screen",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the job card: the vehicle, the complaint, the inspection checklist, the photos, the estimate total, the state of the work and the promised day, all in one screen that works on a tablet in the bay.",
+      "done": "The job card shows the car, the complaint and the checklist, a photo attaches, the state changes are audited, and the layout holds at 320 to 1920 px."
+    },
+    {
+      "title": "Build the estimate and the customer approval",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the estimate: the parts and the labour lines, the total, the send on WhatsApp through the garage account, the approval or the refusal from the customer, and the extra work that needs a new approval.",
+      "done": "The estimate sends with the lines and the total, the approval is recorded with the time and the channel, and a job cannot start over the approved total without a new approval."
+    },
+    {
+      "title": "Build the parts stock and the order desk",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the parts stock with the barcode, the cost, the price, the reorder point and the movement out with the job, and the order desk that lists the parts to order for the waiting jobs with the supplier and the expected day.",
+      "done": "A part used on a job leaves the stock, the low stock list names the items below the reorder point, and the order to the supplier prints with the quantity and the price."
+    },
+    {
+      "title": "Build the handover with the warranty and the next service",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the handover: the finished work, the before and after photos, the invoice, the warranty with its months and its end date, and the next service date computed from the mileage and the interval.",
+      "done": "The handover shows the photos, the invoice and the warranty, and the next service date appears on the vehicle record and in the reminder list."
+    },
+    {
+      "title": "Build the garage report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: jobs per bay and per mechanic, the estimate to the approved ratio, the turnaround against the promised day, the fast moving parts, the labour time and the commission, the warranty returns and the cash reconciliation, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the garage landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the job card and the estimate approval as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The vehicle data (plate, chassis) belongs to the customer, so it never enters our analytics and can be exported and deleted",
+    "The estimate approval is recorded with the channel and the time, because the dispute about extra work is a legal question the app never decides",
+    "The parts are sold with the price the garage set, and the provenance of a part (original or copy) is stated as the garage states it",
+    "No safety inspection result is certified by the product: the checklist is the garage own record"
+  ]
+}

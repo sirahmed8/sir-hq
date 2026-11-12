@@ -1,0 +1,180 @@
+{
+  "slug": "photography-studio",
+  "name_ar": "استوديو تصوير",
+  "name_en": "Photography studio",
+  "group": "service-and-project",
+  "base": "service + project",
+  "order": 36,
+  "wave": 4,
+  "why": "Photography studios need session booking, shot lists, album/print orders, watermarked galleries (expiring links) and retouching orders. The key is the expiring-link gallery and the session workflow.",
+  "operator": "The photography studio manager handles session booking, shot lists, client galleries and retouching orders. Their day is session scheduling, gallery links and retouching job tracking.",
+  "entities": [
+    "Studio (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Session (id, studioId, clientName, clientPhone, dateTime, duration, theme, status (booked/in-progress/done), notes, galleryLinkExpiry)",
+    "ShotList (id, sessionId, descriptionAr, descriptionEn, isCompleted, completedAt)",
+    "Order (id, studioId, sessionId, clientName, clientPhone, type (album/print/watermarkedGaller y/retouching), totalPiasters, depositPiasters, balancePiasters, status (pending/confirmed/in-progress/done), notes, readyDate)",
+    "Client (id, studioId, name, phone, visitCount, totalSpentPiasters, lastVisit, notes, consentWatermark)",
+    "Staff (id, studioId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "session, order, gallery, retouch",
+  "batches": "No : photography studio carries no stock or expiry",
+  "expiry": "Not applicable. Session gallery links expire by date; orders have status and ready date",
+  "special": "The core structures are the session with expiring gallery link, the shot list per session, the order with type and the client with watermark consent. Expiring gallery links are the key differentiator from other service sectors.",
+  "screens": [
+    "Session calendar: day/week view with client names, session status, gallery link expiry",
+    "Session detail: client name/phone, date/time, duration, theme, shot list (completed items), gallery link with expiry timer",
+    "Shot list editor: add description Ar/In per shot, mark isCompleted, set completedAt",
+    "Order creation: select session, type (album/print/watermarkedGallery/retouching), compute total, set deposit and balance, set status (pending/confirmed/in-progress/done/ready-for-pickup)",
+    "Client profile: visit count, total spent, last visit, consent flag for watermarks, gallery link history",
+    "Order status tracker: per order view progress (pending→confirmed→in-progress→done→ready-for-pickup), print ready notice with gallery link",
+    "Gallery link manager: generate expiring link, set expiry date, view link history, revoke and regenerate",
+    "Cash register: scan order reference, record payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : sessions, orders, galleries, retouching, reports, billing",
+    "Photographer: create sessions, manage shot lists, mark in-progress/done, generate gallery links",
+    "Client relations: manage client profile, consent watermark, gallery link queries",
+    "Cashier: scan order reference, record payment, print receipt"
+  ],
+  "reports": [
+    "Session volume per period: sessions booked/in-progress/done per month, revenue per session per period",
+    "Order pipeline: orders by status per period, average duration per status",
+    "Gallery link expiry: how many links expired per period, how many regenerated, average sessions per link",
+    "Client repeat rate: visit count per client, total spent per client, re-book rate",
+    "Retouching job queue: jobs in progress, average turnaround time per period"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and ready-notices",
+    "WhatsApp deep link for gallery link delivery to client and ready-notice",
+    "Email for gallery link and order updates (opt-in)",
+    "Cloud storage for gallery assets (Firebase Storage)"
+  ],
+  "onboarding": [
+    "Studio basics: name, branch, address, phone, currency, working hours",
+    "Initial sessions: the starting session templates with date/time, theme and duration",
+    "Shot list types: the standard shot lists (portrait, group, detail, detail2)",
+    "Order types: the order types (album/print/watermarkedGallery/retouching) and pricing",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first session, first shot list, first order"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the session with gallery link and role templates.",
+  "landing_ar": {
+    "headline": "استوديو تصوير",
+    "sub": "جلسات، ألبومات وروابط galerie من لوحة واحدة",
+    "benefits": [
+      "جلسات مع روابط جاليري تنتهي تلقائياً",
+      "قوائم جلسات per session",
+      "طلبات طباعة وتفقير"
+    ],
+    "faq": [
+      "كيف أحجز جلسة تصوير؟",
+      "كيف أحصل على رابط الجاليري؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Photography Studio Management",
+    "sub": "Sessions, orders and expiring gallery links from one dashboard",
+    "benefits": [
+      "Session with expiring gallery link",
+      "Shot list per session",
+      "Order types (album/print/watermarkedGallery/retouching)"
+    ],
+    "faq": [
+      "How do I book a session?",
+      "How do I get the gallery link?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 5 sessions",
+    "- Professional: 450 EGP / month, unlimited sessions, gallery link module",
+    "- Enterprise: custom for photography studio chains"
+  ],
+  "competitors": [
+    {
+      "name": "PhotoPro",
+      "price": "from 550 EGP/mo",
+      "weak": "no expiring gallery links",
+      "edge": "full expiring gallery link with date-based expiry and auto-revocation"
+    },
+    {
+      "name": "ShotSpot",
+      "price": "from 530 EGP/mo",
+      "weak": "no shot list per session",
+      "edge": "full shot list per session with completed tracking"
+    },
+    {
+      "name": "GalleryCo",
+      "price": "from 580 EGP/mo",
+      "weak": "no order pipeline with status",
+      "edge": "full order pipeline with status (pending/confirmed/in-progress/done/ready-for-pickup)"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add session calendar with gallery link expiry",
+      "brief": "Build the session calendar: day/week view with client names, session status, gallery link expiry timer. Done when the calendar loads and displays sessions with expiry timers correctly.",
+      "done": "When session calendar works and displays expiry timers",
+      "phase": "M1"
+    },
+    {
+      "title": "Add shot list editor per session",
+      "brief": "Build the shot list screen: add description Ar/En per shot, mark isCompleted, set completedAt. Done when the shot list is saved and linked to the session.",
+      "done": "When shot list editor works and links to session",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order creation with types and deposit",
+      "brief": "Build the order screen: select session, type (album/print/watermarkedGallery/retouching), compute total, set deposit and balance, set status. Done when the order saves all fields and status updates correctly.",
+      "done": "When order creation works end-to-end with types and deposit",
+      "phase": "M1"
+    },
+    {
+      "title": "Add gallery link manager with expiry and revocation",
+      "brief": "Build the gallery link screen: generate expiring link, set expiry date, view link history, revoke and regenerate. Done when the link is generated with expiry and history is saved.",
+      "done": "When gallery link manager works end-to-end with expiry and revocation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order status tracker with pipeline",
+      "brief": "Build the order tracker: per order view progress (pending/confirmed/in-progress/done/ready-for-pickup), print ready notice with gallery link. Done when the tracker updates status and prints ready notice correctly.",
+      "done": "When order status tracker works end-to-end with pipeline and receipt printing",
+      "phase": "M1"
+    },
+    {
+      "title": "Add client profile with consent and gallery history",
+      "brief": "Build the client profile: visit count, total spent, last visit, consent flag for watermarks, gallery link history. Done when the profile saves and displays correct data.",
+      "done": "When client profile works and displays live data with consent and history",
+      "phase": "M1"
+    },
+    {
+      "title": "Add session volume per period report",
+      "brief": "Build the report showing sessions booked/in-progress/done per month and revenue per session per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When session volume report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order pipeline report",
+      "brief": "Build the report showing orders by status per period and average duration per status. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When order pipeline report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add gallery link expiry report",
+      "brief": "Build the report showing how many links expired per period, how many regenerated, average sessions per link. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When gallery link expiry report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add client repeat rate report",
+      "brief": "Build the report showing visit count per client, total spent per client, re-book rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When client repeat rate report computes correctly from live data",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes session and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Gallery link expiry without proper date tracking can leave links active indefinitely",
+    "Watermark consent storage without proper legal basis can violate PDPL"
+  ]
+}

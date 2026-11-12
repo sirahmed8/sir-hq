@@ -1,0 +1,181 @@
+{
+  "slug": "florist",
+  "name_ar": "محل زهور",
+  "name_en": "Florist",
+  "group": "service-and-retail",
+  "base": "service + retail",
+  "order": 30,
+  "wave": 4,
+  "why": "Florist shops sell fresh flowers and plants, need FEFO food tracking for flower freshness, delivery window scheduling and order management. The key is FEFO tracking and delivery slot management.",
+  "operator": "The florist owner manages fresh flower inventory, delivery schedules and customer orders. Their day is flower stock checks, delivery slot scheduling and vase-life tracking.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "FlowerBundle (id, shopId, nameAr, nameEn, flowerTypes (array), pricePiasters, bundlePricePiasters, discountPercent, validityDays, status, notes)",
+    "FlowerStock (id, shopId, flowerType, source (local/international), pricePiasters per stem, stemQty, reorderPoint, status, locationShelf)",
+    "CustomerOrder (id, shopId, customerName, customerPhone, bundleId, quantity, deliveryDate, deliveryTimeSlot, status (pending/confirmed/out-for-delivery/done), notes, paymentStatus)",
+    "VaseLife (id, flowerType, averageDays, careInstructionsAr, careInstructionsEn)",
+    "Supplier (id, shopId, name, phone, paymentTerms, visitDays, leadTimeDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "bundle, stem, arrangement",
+  "batches": "Yes for cut flowers: FEFO batches with supplier, received date, expiry date (vase life days) and cost",
+  "expiry": "Cut flowers have vase-life expiry tracked per batch; the shop sees alerts for flowers fading in 3/5/7 days",
+  "special": "The core structures are the flower bundle with discount and validity, the per-stem stock with FEFO vase-life, the customer order with delivery slot and the vase-life care instructions. FEFO flower freshness is the key differentiator from regular retail.",
+  "screens": [
+    "Flower bundle catalogue: list of bundles with name, flower types, price, bundle price, discount %, validity days, status",
+    "Flower stock level: stems per type, source, reorder point, FEFO vase-life badge and expiry alert",
+    "Customer order creation: select bundle, enter customer name/phone, select delivery date/time slot, set status (pending/confirmed), compute total (bundle price - discount), set payment status",
+    "Order list: all orders with bundle, customer, delivery date/time, status, payment status",
+    "Vase life tracker: per flower type, average days, care instructions, fade alert per bundle",
+    "Supplier management: list of suppliers per shop, payment terms, lead time, contact",
+    "Purchase order: create per shop, receive from supplier, update flower stock",
+    "Cash register per shop: scan bundle SKU or product, apply FEFO discount if urgent, tender payment, print receipt with bundle details and vase-life notes"
+  ],
+  "roles": [
+    "Owner: everything : bundles, stock, orders, reports, billing",
+    "Flower specialist: create bundles, manage stock, process orders, handle vase-life alerts",
+    "Sales rep: manage products, create bundles, handle customer orders",
+    "Cashier: scan bundle SKU, tender payment, print receipt"
+  ],
+  "reports": [
+    "Bundle sales per period: bundles created, sold, expired per month, revenue per bundle per period",
+    "FEFO vase-life aggregate: total stems fading per period by days (3/5/7), value at risk, discounts applied",
+    "Order pipeline: orders by status per period, average delivery time per period",
+    "Customer retention: order count per customer, total spent per customer, re-order rate",
+    "Stock turnover: stems per type per period, reorder frequency, FEFO expiry vs stock ratio"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer per shop for receipts and vase-life care cards",
+    "WhatsApp deep link per customer for delivery notifications and vase-care tips",
+    "Email for order confirmations and vase-care tips (opt-in)",
+    "SMS for FEFO expiry alerts to customers (optional)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial bundles: the starting bundle list with flower types, price, discount and validity days",
+    "Flower stock: the starting stem list with source, price per stem, reorder point and FEFO vase-life days",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first bundle, first customer order, first supplier order"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the flower bundle/vase-life flag and role templates.",
+  "landing_ar": {
+    "headline": "محل زهور",
+    "sub": "باقات، توصيل وطازجية من لوحة واحدة",
+    "benefits": [
+      "باقات مع خصم وفترة صلاحية",
+      "تتبع طول عمر الورد (vase life)",
+      "Slots تسليم"
+    ],
+    "faq": [
+      "هل تتوفر باقة الزهور المطلوبة؟",
+      "متى ستصل التوصيل؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Florist Management",
+    "sub": "Bundles, delivery and vase-life tracking from one dashboard",
+    "benefits": [
+      "Flower bundles with discount and validity",
+      "Vase-life tracking and fade alerts",
+      "Delivery slot scheduling"
+    ],
+    "faq": [
+      "What bundles are available?",
+      "When is delivery?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 20 bundles",
+    "- Professional: 350 EGP / month, unlimited bundles, FEFO module",
+    "- Enterprise: custom for florist chains"
+  ],
+  "competitors": [
+    {
+      "name": "BloomPro",
+      "price": "from 450 EGP/mo",
+      "weak": "no FEFO vase-life tracking",
+      "edge": "full FEFO vase-life per stem with 3/5/7 day alerts and aggregate view"
+    },
+    {
+      "name": "PetalMart",
+      "price": "from 430 EGP/mo",
+      "weak": "no bundle discount system",
+      "edge": "full bundle discount with validity percent and bundle price"
+    },
+    {
+      "name": "FlowCo",
+      "price": "from 480 EGP/mo",
+      "weak": "no delivery slot scheduler",
+      "edge": "delivery slot scheduler with available slots per time and booking management"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add flower bundle catalogue",
+      "brief": "Build the bundle catalogue: list of bundles with name, flower types, price, bundle price, discount %, validity days, status. Done when the catalogue loads and displays bundles with correct badge and validity info.",
+      "done": "When bundle catalogue displays live data with validity and discount info",
+      "phase": "M1"
+    },
+    {
+      "title": "Add flower stock level with FEFO vase-life",
+      "brief": "Build the stock screen: stems per type, source, reorder point, FEFO vase-life badge and expiry alert. Done when the stock level saves and vase-life alert triggers correctly when approaching expiry.",
+      "done": "When flower stock level works and vase-life alerts trigger correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add customer order creation with delivery slot",
+      "brief": "Build the order screen: select bundle, enter customer name/phone, select delivery date/time slot, set status (pending/confirmed), compute total (bundle price - discount), set payment status. Done when the order saves all fields and the receipt prints correctly.",
+      "done": "When customer order creation works end-to-end with delivery slot and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add vase life tracker per flower type",
+      "brief": "Build the vase life screen: average days per flower type, care instructions Ar/En, fade alert per bundle. Done when the tracker saves and fade alerts update correctly.",
+      "done": "When vase life tracker works end-to-end with fade alerts",
+      "phase": "M1"
+    },
+    {
+      "title": "Add supplier management",
+      "brief": "Build the supplier screen: list of suppliers per shop, payment terms, lead time, contact. Done when the supplier is saved and appears in the purchase order screen.",
+      "done": "When supplier management works and suppliers appear in purchase orders",
+      "phase": "M1"
+    },
+    {
+      "title": "Add purchase order and stock update",
+      "brief": "Build the purchase order screen: create per shop, receive from supplier, update flower stock. Done when the order saves and stock increments correctly and FEFO badge updates.",
+      "done": "When purchase order works end-to-end with stock update and FEFO badge",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register per shop with FEFO discount",
+      "brief": "Build the cash register per shop: scan bundle SKU or product, apply FEFO discount if urgent, tender payment, print receipt with bundle details and vase-life notes. Done when the sale records correctly and receipt prints with bundle name and vase-life notes.",
+      "done": "When cash register per shop works end-to-end with FEFO discount and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add bundle sales per period report",
+      "brief": "Build the report showing bundles created, sold, expired per month and revenue per bundle per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When bundle sales report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add FEFO vase-life aggregate report",
+      "brief": "Build the report showing total stems fading per period by days (3/5/7), value at risk, discounts applied. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When FEFO vase-life aggregate report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order pipeline report",
+      "brief": "Build the report showing orders by status per period and average delivery time per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When order pipeline report computes correctly from live data",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes bundle and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "FEFO vase-life without proper batch tracking can lead to selling faded flowers to customers",
+    "Delivery slot without clear confirmation can lead to no-show disputes and wasted bundles"
+  ]
+}

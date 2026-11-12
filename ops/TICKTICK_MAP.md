@@ -25,8 +25,8 @@ Decision: keep the sprint but re-order by blast radius and by what is live: (1) 
 | 24, 25, 27 | study help, language learning, teaching platform | modules of Obour Academic Hub (hints and practice, never graded work) |
 | 12, 19, 20 | HR attendance, auto-reorder, B2B ordering | modules of the SIR Business shared core |
 | 30 | position coach | module of Hagoozat Elite |
-| 15, 16 | price and game-deal finder | concept (needs lawful data sources) |
-| 23, 26, 28, 29 | cars, accessibility map, handyman requests, movie list | concept backlog |
+| 15, 16 | price and game-deal finder | **SIR Price Finder** (price), **SIR Game Deals** (games) | two new independent products (Phase 9) |
+| 23, 26, 28, 29 | cars, accessibility map, handyman requests, movie list | **SIR Cars**, **SIR Access Map**, **SIR Handyman**, **SIR Movies** | four new independent products (Phase 9, Access Map built last) |
 | 14, 21 | citizens program, face rating | dropped: government scope; face scoring is a biometric privacy risk with little value |
 
 ## Other items

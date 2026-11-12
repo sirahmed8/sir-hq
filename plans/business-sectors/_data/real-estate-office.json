@@ -1,0 +1,179 @@
+{
+  "slug": "real-estate-office",
+  "name_ar": "مكتب عقاري",
+  "name_en": "Real estate office",
+  "group": "hospitality-and-real-estate",
+  "base": "realestate",
+  "order": 38,
+  "wave": 4,
+  "why": "Real estate offices need property listings (photos, price, status), lead pipeline, appointment calendar, contracts + commission calc and document vault per deal. The key is the lead pipeline and contract management.",
+  "operator": "The real estate agent manages property listings, leads and contracts. Their day is new listings, lead follow-ups and contract generation with commission calculation.",
+  "entities": [
+    "Office (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "PropertyListing (id, officeId, titleAr, titleEn, photos (array), pricePiasters, status (active/pending/sold), areaSqm, locationAr, locationEn, commissionPercent, notes)",
+    "Lead (id, officeId, name, phone, source (web/referral/walk-in), status (new/contacted/qualified/offerSent/closedLost), notes, expectedDealSizePiasters, followUpDate)",
+    "Appointment (id, officeId, leadId, dateTime, duration, type (viewing/consultation), status (scheduled/completed/cancelled), notes)",
+    "Contract (id, listingId, buyerId, sellerId, commissionPiasters, signedDate, expiryDate, status (draft/signed/expired), notes, depositPiasters)",
+    "Client (id, officeId, name, phone, visitCount, totalSpentPiasters, notes, consentPhotos)"
+  ],
+  "units": "listing, lead, appointment, contract",
+  "batches": "No : real estate office carries no stock or expiry",
+  "expiry": "Not applicable. Contracts have expiry dates, leads have follow-up dates",
+  "special": "The core structures are the property listing with photos and commission, the lead pipeline with status flow, the appointment system and the contract with commission and signed date. Lead status flow (new→contacted→qualified→offerSent→closedLost) is the key differentiator.",
+  "screens": [
+    "Property list: grid of listings with title, price, status badge, area, location preview, commission %",
+    "Property detail: full info, photos array, price, commission, notes, associated leads and contracts",
+    "Lead pipeline: kanban board with columns new/contacted/qualified/offerSent/closedLost, drag lead between columns, view lead details",
+    "Lead detail: name, phone, source, status, expected deal size, follow-up date, notes, associated listings and contracts",
+    "Appointment scheduler: select lead, date/time, type (viewing/consultation), set status (scheduled/completed/cancelled), add notes",
+    "Contract editor: select listing, enter buyer/seller, commission % and amount, signed date, expiry date, set status (draft/signed/expired), add notes, compute deposit",
+    "Client list: all clients with visit count, total spent, consent photos flag",
+    "Cash register: scan listing reference or lead ID, record payment of commission, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : listings, leads, appointments, contracts, reports, billing",
+    "Agent: create listings, manage leads through pipeline, create appointments, create contracts, view commission",
+    "Manager: oversee all agents, approve commissions, view full pipeline",
+    "Cashier: record commission payments, print receipts"
+  ],
+  "reports": [
+    "Lead pipeline: leads per status per period (new/contacted/qualified/offerSent/closedLost), conversion rates per stage",
+    "Property sales: listings created, sold per period, revenue per period, average time to sell",
+    "Commission collected: total commission per period, per agent, collection rate",
+    "Agent productivity: deals closed per agent per period, average deal size, commission per agent",
+    "Client repeat rate: visit count per client, total spent per client, re-book rate for repeat consultations"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and contract copies",
+    "WhatsApp deep link for lead follow-ups and appointment reminders",
+    "Email for property listings and contract delivery (opt-in)",
+    "GIS map integration for property location (optional)"
+  ],
+  "onboarding": [
+    "Office basics: name, branch, address, phone, currency, working hours",
+    "Initial property list: the starting property listings with photos, price, area and commission %",
+    "Lead source types: the sources (web/referral/walk-in) and the lead status flow (new→contacted→qualified→offerSent→closedLost)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first listing, first lead, first appointment"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the property listing/lead pipeline/contract schema and role templates.",
+  "landing_ar": {
+    "headline": "مكتب عقاري",
+    "sub": "إدراجات، leads وحسابات العمولة من لوحة واحدة",
+    "benefits": [
+      "إدارة الإدراجات مع Photos",
+      "مسار leads مع حالات",
+      "عقود والعمولة التلقائية"
+    ],
+    "faq": [
+      "كيف أضيف إدراج جديد؟",
+      "كيف أسيرlead عبر المسار؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Real Estate Office Management",
+    "sub": "Property listings, lead pipeline and commission management from one dashboard",
+    "benefits": [
+      "Property listings with photos and commission",
+      "Lead pipeline with status flow and conversion rates",
+      "Commission management and collection"
+    ],
+    "faq": [
+      "How do I add a new listing?",
+      "How do I move a lead through the pipeline?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 30 listings",
+    "- Professional: 450 EGP / month, unlimited listings, lead pipeline module",
+    "- Enterprise: custom for real estate chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "EstatePro",
+      "price": "from 600 EGP/mo",
+      "weak": "no lead pipeline status flow",
+      "edge": "full lead pipeline with status flow (new→contacted→qualified→offerSent→closedLost) and conversion rates"
+    },
+    {
+      "name": "PropertyMart",
+      "price": "from 550 EGP/mo",
+      "weak": "no commission auto-compute",
+      "edge": "commission auto-compute (percent of sale price) per contract"
+    },
+    {
+      "name": "RealEstate",
+      "price": "from 620 EGP/mo",
+      "weak": "no agent productivity report",
+      "edge": "agent productivity: deals closed, average deal size, commission per agent per period"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add property list grid with status badge",
+      "brief": "Build the property list: grid of listings with title, price, status badge, area, location preview, commission %. Done when the list loads and displays listings with correct status badges.",
+      "done": "When property list displays live data with status badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add lead pipeline kanban board",
+      "brief": "Build the lead pipeline: kanban board with columns new/contacted/qualified/offerSent/closedLost, drag lead between columns, view lead details. Done when the pipeline works and leads can be moved between stages.",
+      "done": "When lead pipeline kanban works and leads can be moved between stages",
+      "phase": "M1"
+    },
+    {
+      "title": "Add lead detail screen",
+      "brief": "Build the lead detail: name, phone, source, status, expected deal size, follow-up date, notes, associated listings and contracts. Done when the detail screen loads and displays correct data.",
+      "done": "When lead detail screen works and displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add appointment scheduler",
+      "brief": "Build the appointment screen: select lead, date/time, type (viewing/consultation), set status (scheduled/completed/cancelled), add notes. Done when the appointment is saved and status updates correctly.",
+      "done": "When appointment scheduler works end-to-end with status update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add contract editor with commission compute",
+      "brief": "Build the contract screen: select listing, enter buyer/seller, commission % and amount, signed date, expiry date, set status (draft/signed/expired), add notes, compute deposit. Done when the contract saves and commission computes correctly.",
+      "done": "When contract editor works end-to-end with commission computation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add client list with visit count and total spent",
+      "brief": "Build the client list: all clients with visit count, total spent, consent photos flag. Done when the list loads and displays correct data.",
+      "done": "When client list displays live data with visit count and total spent",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with listing/lead scanning",
+      "brief": "Build the cash register: scan listing reference or lead ID, record commission payment, print receipt. Done when the sale records the commission and receipt prints correctly.",
+      "done": "When cash register works end-to-end with scanning and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add lead pipeline report",
+      "brief": "Build the report showing leads per status per period and conversion rates per stage. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When lead pipeline report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add property sales report",
+      "brief": "Build the report showing listings created, sold per period, revenue per period, average time to sell. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When property sales report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add commission collected report",
+      "brief": "Build the report showing total commission per period, per agent, collection rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When commission collected report computes correctly from live data",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes listing and contract records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Commission calculation without clear percent and sale price can violate legal agreements",
+    "Lead data without proper consent can raise privacy concerns per PDPL"
+  ]
+}

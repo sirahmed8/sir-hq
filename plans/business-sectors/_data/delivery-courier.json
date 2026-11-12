@@ -1,0 +1,180 @@
+{
+  "slug": "delivery-courier",
+  "name_ar": "توصيل وشحن",
+  "name_en": "Delivery and courier",
+  "group": "delivery",
+  "base": "delivery",
+  "order": 13,
+  "wave": 2,
+  "why": "Egypt's delivery market is growing fast. Riders, zones, cash-on-delivery and proof of delivery are the core ops every courier needs.",
+  "operator": "The courier owner manages a fleet of riders and vehicles. Their day is job assignments, route changes, cash reconciliation and proving each delivery arrived on time.",
+  "entities": [
+    "CourierCompany (id, nameAr, nameEn, branchId, phone, email, taxRegistration)",
+    "Rider (id, name, phone, vehicleId, status, commissionRate, earningsPiasters)",
+    "Vehicle (id, plate, type, status, lastSeen)",
+    "Zone (id, nameAr, nameEn, areas, minRadius, maxRadius)",
+    "DeliveryOrder (id, companyId, customerPhone, customerName, pickupName, pickupAddr, deliveryAddr, status, zoneId, assignedRider, codAmountPiasters, deliveredAt, proofType, proofRef)",
+    "Route (id, companyId, orderIds, waypoints, estimatedDuration, actualDuration)",
+    "Customer (id, phone, name, notes, optInWhatsApp)"
+  ],
+  "units": "piece, kilogram, litre, box, envelope, parcel",
+  "batches": "No : delivery orders carry no stock or expiry",
+  "expiry": "Not applicable. Orders are time-sensitive not product-sensitive",
+  "special": "The core structures are the delivery order with its status lifecycle, the zone geometry for route planning, the COD reconciliation and the proof-of-delivery (photo or signature) artefact",
+  "screens": [
+    "Dashboard: today's assignments, unassigned orders, rider status and zone heat map",
+    "Order intake: create a new delivery order with pickup, delivery address, COD amount and service type",
+    "Route map: assigned orders on a map with rider location and ETA",
+    "COD reconciliation: counted cash vs expected per shift, variance and audit log",
+    "Proof of delivery: photo upload, signature capture, customer confirmation",
+    "Rider panel: assigned orders, route, earnings, pause/resume",
+    "Customer status: live order tracking with ETA and delivery completed notice"
+  ],
+  "roles": [
+    "Owner: everything : fleet, pricing, payouts, reports",
+    "Manager: riders, zones, order assignments, payout approval",
+    "Cashier: COD counting, shift close, variance reporting",
+    "Rider: assigned orders only, status updates, pause/resume"
+  ],
+  "reports": [
+    "Daily dispatch report: orders dispatched, dispatched per zone, on-time rate",
+    "COD summary: counted vs expected, variance, trends",
+    "Rider performance: completed orders, earnings, on-time rate",
+    "Zone analytics: orders per zone, peak times, unassigned rate",
+    "Customer repeat rate: opt-in WhatsApp and return orders"
+  ],
+  "integrations": [
+    "Web GPS tracker for rider location",
+    "WhatsApp Business for customer delivery updates",
+    "Paymob or Fawry for COD card collection (optional)",
+    "SMS gateway for delivery notifications",
+    "Google Maps routing"
+  ],
+  "onboarding": [
+    "Company basics: name, branch, address, phone, currency, working hours",
+    "Zones: define the geographic zones riders operate in",
+    "Riders: add riders with contact and commission terms",
+    "Service types: define the delivery categories (same-day, scheduled, COD)",
+    "First week plan: assign first rider, first order, first route, first COD close"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the order schema and role templates.",
+  "landing_ar": {
+    "headline": "خدمة التوصيل والشحن",
+    "sub": "ادِر riders، الركازات وأوامر التوصيل من لوحة تحكم واحدة",
+    "benefits": [
+      "تتبع الطلبات لحظياً",
+      "إدارة الكود Cash on Delivery",
+      "تقارير أداء riders"
+    ],
+    "faq": [
+      "كيف أضيف rider جديد؟",
+      "ما هي رسوم العمولة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Delivery & Courier Management",
+    "sub": "Manage riders, zones and delivery orders from one dashboard",
+    "benefits": [
+      "Real-time order tracking",
+      "COD management",
+      "Rider performance reports"
+    ],
+    "faq": [
+      "How do I add a new rider?",
+      "What is the commission rate?"
+    ]
+  },
+  "pricing": [
+    "- Basic plan: 150 EGP / month per rider",
+    "- Pro plan: 300 EGP / month, includes zone analytics and COD reconciliation",
+    "- Enterprise: custom pricing for 10+ riders"
+  ],
+  "competitors": [
+    {
+      "name": "Sapaad",
+      "price": "from 200 EGP/mo",
+      "weak": "no built-in rider GPS",
+      "edge": "native rider tracking and COD reconciliation"
+    },
+    {
+      "name": "Kashat",
+      "price": "from 250 EGP/mo",
+      "weak": "limited zone geometry",
+      "edge": "flexible zone rules and per-region pricing"
+    },
+    {
+      "name": "Dukan",
+      "price": "from 180 EGP/mo",
+      "weak": "no COD reconciliation",
+      "edge": "full COD counting and variance reporting"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add delivery order creation screen with COD field",
+      "brief": "Build the UI for creating a new delivery order: pickup, delivery address, COD amount, service type, zone assignment. Done when the form validates and creates an order doc in Firestore.",
+      "done": "When the order creation form works and persists data",
+      "phase": "M1"
+    },
+    {
+      "title": "Implement rider assignment and zone picker",
+      "brief": "Build the rider assignment UI with zone picker. Done when a rider can be assigned to an order and the zone geometry validates.",
+      "done": "When rider assignment works end-to-end",
+      "phase": "M2"
+    },
+    {
+      "title": "Add COD shift reconciliation screen",
+      "brief": "Build the screen that counts cash collected vs expected per shift with variance and audit log. Done when the numbers reconcile and the log is append-only.",
+      "done": "When COD reconciliation works and saves to audit log",
+      "phase": "M2"
+    },
+    {
+      "title": "Add rider dashboard with order list and status update",
+      "brief": "Build the rider-side dashboard showing assigned orders, ETA and status buttons (picked, in-progress, completed, cancelled). Done when the rider can update status and it propagates.",
+      "done": "When rider status updates propagate to the dashboard",
+      "phase": "M3"
+    },
+    {
+      "title": "Add WhatsApp deep link for customer order status",
+      "brief": "Build the WhatsApp deep link that sends the customer a status update. Done when the link opens WhatsApp with a pre-filled status message.",
+      "done": "When the link opens WhatsApp with the correct chat",
+      "phase": "M3"
+    },
+    {
+      "title": "Add route map with rider location",
+      "brief": "Build the map view showing assigned orders and rider location with ETA. Done when the map loads and rider position updates.",
+      "done": "When the route map displays correctly",
+      "phase": "M4"
+    },
+    {
+      "title": "Add electronic proof of delivery (photo/signature)",
+      "brief": "Build the proof capture UI: photo upload or signature input. Done when the proof is saved to the order doc and visible in the dashboard.",
+      "done": "When proof of delivery is saved and viewable",
+      "phase": "M4"
+    },
+    {
+      "title": "Add daily dispatch report",
+      "brief": "Build the report screen showing today's dispatched orders, on-time rate per zone, and unassigned count. Done when the report displays real data from Firestore.",
+      "done": "When the report pulls live data and displays correctly",
+      "phase": "M5"
+    },
+    {
+      "title": "Add rider earnings calculator",
+      "brief": "Build the earnings calculator that computes rider commission per completed order. Done when the math matches the commission rate and order COD.",
+      "done": "When earnings compute correctly per rider",
+      "phase": "M5"
+    },
+    {
+      "title": "Add rider onboarding flow (first ride)",
+      "brief": "Build the onboarding flow for a new rider: company welcome, zone assignment, first order, first payout. Done when the flow completes and the rider appears in the system.",
+      "done": "When the onboarding flow works end-to-end",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Riders may deliver to wrong address without photo proof",
+    "COD variance can grow if counting is inconsistent",
+    "GPS tracking accuracy depends on phone and network",
+    "WhatsApp template rejection if not approved by Meta"
+  ]
+}

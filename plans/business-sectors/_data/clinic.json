@@ -1,0 +1,177 @@
+{
+  "slug": "clinic",
+  "name_ar": "عيادة",
+  "name_en": "General clinic",
+  "group": "health-and-beauty",
+  "base": "clinic",
+  "order": 14,
+  "wave": 2,
+  "why": "Egyptian clinics need appointment scheduling, patient record keeping and prescription printing without crossing into medical-device claims.",
+  "operator": "The clinic owner sees patients across morning and evening shifts. Their day is appointments, patient histories, lab requests and printing prescriptions for patients to take to a pharmacy.",
+  "entities": [
+    "Clinic (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Patient (id, clinicId, name, phone, encryptedHealthData, consentWhatsApp, guardianPhone, visitsCount, lastVisit)",
+    "Appointment (id, clinicId, patientId, dateTime, duration, type, status, notes, followUpRequired)",
+    "LabOrder (id, clinicId, patientId, testType, status, resultStatus, requestedAt, collectedAt, reportedAt)",
+    "Prescription (id, clinicId, patientId, issuedAt, lines with medicineRef, dosage, notes, validUntil)",
+    "Staff (id, clinicId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "visit, appointment, test, prescription",
+  "batches": "No : clinic carries no stock or expiry",
+  "expiry": "Not applicable. Patient data is not product-based",
+  "special": "The core structures are the appointment lifecycle, the encrypted patient record, the lab order tracking and the printable prescription. Patient data is special-category: encrypted, exportable on request, deletable on request.",
+  "screens": [
+    "Appointment calendar: day/week view with patient names, status colours and duration slots",
+    "Patient record: name, phone, guardian phone, visit history, consent flag, encrypted health data summary",
+    "Lab order: test type, status (pending/collected/reported), result status, dates",
+    "Prescription editor: medicine list, dosage, instructions, printable layout with doctor signature",
+    "Visit summary: recap of symptoms, recommendations, follow-up dates, printable PDF",
+    "Staff shift: clock in/out, patient load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : menu, staff, reports, billing",
+    "Manager: everything except billing and export; approves leaves and overrides",
+    "Nurse: patient vitals entry, lab order entry, prescription countersign",
+    "Cashier: appointment billing, receipt printing, shift close"
+  ],
+  "reports": [
+    "Appointments by day and hour: utilisation and no-show rate",
+    "Patient visit frequency: returning patients, new patients per month",
+    "Lab order status: pending, collected, reported counts",
+    "Prescription volume per doctor, per period",
+    "Staff shift summary: hours worked, patient load, notes"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for prescriptions",
+    "WhatsApp deep link for appointment reminders and confirmations",
+    "Email for lab result delivery (opt-in)",
+    "Google Calendar sync for appointment reminders"
+  ],
+  "onboarding": [
+    "Clinic basics: name, branch, address, phone, currency, working hours",
+    "Specialities: the clinic's medical specialities and the staff assigned",
+    "Appointment types: the visit types the clinic offers (consultation, follow-up, check-up)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: set up first appointment type, first patient record, first prescription format"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the appointment/patient/prescription schema and role templates.",
+  "landing_ar": {
+    "headline": "العيادات العامة",
+    "sub": "مواعيد، سجلات مرضى ووصفات طباعة من لوحة واحدة",
+    "benefits": [
+      "حجز المواعيد وحظر التداخل",
+      "سجلات مرضى مشفرة وخابلة للحذف",
+      "وصفات طباعة فورية"
+    ],
+    "faq": [
+      "كيف أسجل مريض جديد؟",
+      "هل يمكنني حذف سجل patient؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "General Clinic Management",
+    "sub": "Appointments, patient records and prescription printing from one dashboard",
+    "benefits": [
+      "Appointment scheduling with conflict prevention",
+      "Encrypted patient records with export/delete on request",
+      "Printable prescriptions instantly"
+    ],
+    "faq": [
+      "How do I register a new patient?",
+      "Can I delete a patient record?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 120 EGP / month, 1 branch, up to 3 staff",
+    "- Professional: 250 EGP / month, unlimited staff, reports",
+    "- Enterprise: custom for multi-branch clinics"
+  ],
+  "competitors": [
+    {
+      "name": "Dafne",
+      "price": "from 300 EGP/mo",
+      "weak": "no encrypted patient data export",
+      "edge": "field-level AES-256-GCM encryption and deletion on request"
+    },
+    {
+      "name": "Tiba",
+      "price": "from 250 EGP/mo",
+      "weak": "no WhatsApp appointment reminders",
+      "edge": "WhatsApp deep links for reminders and confirmations"
+    },
+    {
+      "name": "Sehaty",
+      "price": "from 280 EGP/mo",
+      "weak": "no prescription print layout customisation",
+      "edge": "fully customisable prescription templates"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add appointment calendar screen with conflict detection",
+      "brief": "Build the UI for the appointment calendar: day/week view, patient names, status colours, duration slots, no-overlap validation. Done when the calendar prevents double-booking and saves appointments to Firestore.",
+      "done": "When appointment creation blocks overlapping times and persists data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add encrypted patient record screen",
+      "brief": "Build the patient record screen: name, phone, guardian phone, visit history, consent flag. Done when the data is stored with encryption metadata and is viewable only to role-gated users.",
+      "done": "When patient record stores data with encryption and role-based access",
+      "phase": "M1"
+    },
+    {
+      "title": "Add lab order screen with status tracking",
+      "brief": "Build the lab order screen: test type, status flow (pending → collected → reported), dates, result entry. Done when the status updates propagate and the audit log records each change.",
+      "done": "When lab order status tracking works end-to-end with audit logging",
+      "phase": "M2"
+    },
+    {
+      "title": "Add printable prescription editor",
+      "brief": "Build the prescription editor: medicine list, dosage, instructions, doctor signature, printable layout. Done when the prescription prints to ESC/POS thermal printer and renders correctly in the browser.",
+      "done": "When prescription prints correctly both thermally and as browser view",
+      "phase": "M2"
+    },
+    {
+      "title": "Add WhatsApp deep link for appointment reminder",
+      "brief": "Build the WhatsApp deep link that sends an appointment reminder to the patient. Done when the link opens WhatsApp with pre-filled appointment details (date, time, clinic name).",
+      "done": "When WhatsApp link opens chat with pre-filled appointment info",
+      "phase": "M2"
+    },
+    {
+      "title": "Add visit summary screen with printable PDF",
+      "brief": "Build the visit summary recapping symptoms, recommendations, follow-up dates. Done when the summary renders as a PDF that prints correctly from browser and thermal printer.",
+      "done": "When visit summary PDF generates and prints correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add staff shift clock in/out screen",
+      "brief": "Build the shift screen: clock in/out, patient load per hour, notes. Done when clock in/out saves timestamps and the shift summary displays correct data.",
+      "done": "When shift clock in/out works and summary displays correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add appointment no-show report",
+      "brief": "Build the report showing appointments by day/hour with no-show counts and rates. Done when the report pulls live data from Firestore and displays correct rates.",
+      "done": "When no-show report pulls live data and displays correctly",
+      "phase": "M4"
+    },
+    {
+      "title": "Add patient visit frequency report",
+      "brief": "Build the report showing returning vs new patients per month. Done when the report computes and displays the frequency breakdown from Firestore data.",
+      "done": "When visit frequency report computes correctly from live data",
+      "phase": "M4"
+    },
+    {
+      "title": "Add onboarding flow for initial clinic setup",
+      "brief": "Build the onboarding flow: clinic basics, specialities, staff addition, first appointment type. Done when the flow completes and the clinic appears in the system with all defaults.",
+      "done": "When onboarding flow works end-to-end and clinic is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Patient health data is special-category: mishandling violates PDPL",
+    "Encryption key loss makes patient records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Over-prescription risk if the system does not flag duplicate medicines"
+  ]
+}

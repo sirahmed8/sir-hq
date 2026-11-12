@@ -1,0 +1,167 @@
+{
+  "slug": "wholesale-distribution",
+  "name_ar": "جملة وتوزيع",
+  "name_en": "Wholesale and distribution",
+  "group": "retail-and-commerce",
+  "base": "market + b2b",
+  "order": 19,
+  "wave": 3,
+  "why": "Wholesale distributors sell to other businesses (restaurants, shops, pharmacies). They need tiered pricing, large-quantity discounts, receivables/credit book and B2B invoicing (ETA).",
+  "operator": "The wholesale distributor manages bulk inventory, customer credit accounts and ETA e-invoices. Their day is price tiers, outstanding receivables and compliance with ETA invoicing rules.",
+  "entities": [
+    "Distributor (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Customer (id, distributorId, name, phone, creditLimitPiasters, creditUsedPiasters, paymentTerms, isB2B, status, repAssigned)",
+    "Product (id, distributorId, sku, nameAr, nameEn, category, unitPricePiasters, costPiasters, taxRate, unit (box,pack,litre), minOrderQty, maxOrderQty, status, locationShelf)",
+    "PriceTier (id, productId, minQty, maxQty, discountPercent, isActive)",
+    "Receivable (id, customerId, amountPiasters, dueDate, status, createdAt, lastPaymentAt, notes)",
+    "B2BInvoice (id, saleId, etaSigned, qrCode, sealHash, status, issuedAt, notes)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, distributorId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "box, pack, crate, litre, tonne, piece",
+  "batches": "No : wholesale carries no stock or expiry",
+  "expiry": "Not applicable. Receivables have due dates not expiry dates",
+  "special": "The core structures are the price tier system (min qty / max qty / discount), the receivable tracking with due dates and the B2B invoice with ETA signing and QR code. Tiered pricing by volume is the key differentiator.",
+  "screens": [
+    "Product catalogue: grid of products with name, price per unit, min/max order qty, price tier badge",
+    "Product detail: full info, all active price tiers, cost, min/max qty",
+    "Customer account: credit limit, credit used, payment terms, status, rep assigned, receivables list",
+    "Price tier manager: add/edit tier (minQty, maxQty, discount%), set active, compute discounts",
+    "Receivable tracker: list of outstanding receivables, due dates, aging, receive payment, mark paid",
+    "B2B invoice: generate ETA-compliant invoice with QR code and seal hash, sign, send to customer",
+    "Purchase order: receive from supplier, update stock, record cost",
+    "Cash register: scan SKU, apply price tier discount, tender payment, print receipt with invoice",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, pricing, customers, invoices, reports, billing",
+    "Sales rep: manage customers, create price tiers, approve receivables, generate invoices",
+    "Cashier: scan items, apply price tier discount, tender payment, print receipt",
+    "Accountant: receivables aging, invoice verification, ledger export"
+  ],
+  "reports": [
+    "Sales by day and hour: revenue per period, peak hours",
+    "Price tier performance: which tiers are active, how much volume each tier drives",
+    "Receivables aging: total outstanding, by due date bucket, collection rate per period",
+    "B2B invoice volume: invoices issued, paid, outstanding per period",
+    "Customer credit: total credit used vs limit, top customers by volume"
+  ],
+  "integrations": [
+    "ETA e-invoice signer (server-side) for generating QR code and seal hash",
+    "Esc/POS thermal printer for receipts and invoices",
+    "WhatsApp deep link for customer receivable notifications and invoice copies",
+    "Email for invoice delivery (opt-in)"
+  ],
+  "onboarding": [
+    "Distributor basics: name, branch, address, phone, currency, working hours",
+    "Initial product list: the starting catalogue with SKU, prices and price tier structure",
+    "Price tier scheme: the min/max qty and discount levels the distributor uses",
+    "Customer setup: the first B2B customer with credit limit and payment terms",
+    "First week plan: add first product, set first price tier, first customer, first invoice"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the price tier system and role templates.",
+  "landing_ar": {
+    "headline": "جملة وتوزيع",
+    "sub": "أسعار متدرجة، ذمم مدينة وفواتيرETA من لوحة واحدة",
+    "benefits": [
+      "أسعار متدرجة حسب الكمية",
+      "متابعة الذمم المدينة",
+      "فواتير ETA التلقائية"
+    ],
+    "faq": [
+      "كيف أُنشئ سعراً متدرجاً؟",
+      "ما هي شروط الائتمان للعملاء؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Wholesale & Distribution Management",
+    "sub": "Tiered pricing, receivables and B2B invoicing from one dashboard",
+    "benefits": [
+      "Tiered pricing by volume with min/max qty and discount",
+      "Receivables aging and collection tracking",
+      "ETA-compliant B2B invoicing with QR code"
+    ],
+    "faq": [
+      "How do I create a price tier?",
+      "What are the credit terms for customers?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 150 products",
+    "- Professional: 450 EGP / month, unlimited products, receivables module",
+    "- Enterprise: custom for wholesale distributor networks"
+  ],
+  "competitors": [
+    {"name": "Dukaan", "price": "from 500 EGP/mo", "weak": "no price tier system", "edge": "full tiered pricing by volume with min/max qty and auto discount"},
+    {"name": "Watania", "price": "from 480 EGP/mo", "weak": "no receivables aging", "edge": "full receivables aging with due date buckets and collection rate"},
+    {"name": "Tasheel", "price": "from 520 EGP/mo", "weak": "no ETA B2B invoice", "edge": "full ETA invoicing with QR code and seal hash"}
+  ],
+  "tasks": [
+    {
+      "title": "Add product catalogue with price tier badges",
+      "brief": "Build the product catalogue: grid of products with name, price per unit, min/max order qty, price tier badge. Done when the catalogue loads and displays items with price tier badges correctly.",
+      "done": "When product catalogue displays live data with price tier badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add price tier manager",
+      "brief": "Build the price tier screen: add/edit tier (minQty, maxQty, discount%), set active, compute discounts. Done when the tier is saved and discounts apply correctly at sale.",
+      "done": "When price tier manager works end-to-end with discount computation at sale",
+      "phase": "M1"
+    },
+    {
+      "title": "Add customer account with credit and receivables",
+      "brief": "Build the customer screen: credit limit, credit used, payment terms, status, rep assigned, receivables list. Done when the customer is saved and credit used updates correctly.",
+      "done": "When customer account works with credit tracking and receivables list",
+      "phase": "M1"
+    },
+    {
+      "title": "Add receivable tracker with due dates and aging",
+      "brief": "Build the receivable screen: list outstanding, due dates, aging buckets, receive payment, mark paid. Done when the receivable is saved and aging computes correctly.",
+      "done": "When receivable tracker works end-to-end with aging computation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add B2B invoice generator with ETA signing",
+      "brief": "Build the invoice screen: generate ETA-compliant invoice with QR code and seal hash, sign, send to customer. Done when the invoice is generated with correct ETA fields and the QR code is valid.",
+      "done": "When B2B invoice generator works end-to-end with ETA signing and valid QR",
+      "phase": "M2"
+    },
+    {
+      "title": "Add cash register with price tier discount",
+      "brief": "Build the cash register: scan SKU, apply price tier discount, tender payment, print receipt with invoice reference. Done when the sale applies the correct tier discount and receipt prints.",
+      "done": "When cash register works end-to-end with price tier discount",
+      "phase": "M1"
+    },
+    {
+      "title": "Add receivables aging report",
+      "brief": "Build the report showing total outstanding, by due date bucket, collection rate per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When receivables aging report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add B2B invoice volume report",
+      "brief": "Build the report showing invoices issued, paid, outstanding per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When B2B invoice volume report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add customer credit report",
+      "brief": "Build the report showing total credit used vs limit, top customers by volume. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When customer credit report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial wholesale setup",
+      "brief": "Build the onboarding flow: distributor basics, initial product list, price tier scheme, customer setup. Done when the flow completes and the distributor appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and distributor is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes customer and receivable records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "ETA invoicing without proper spec sign-off can violate tax law",
+    "Credit extended without clear limits and terms can violate consumer protection law"
+  ]
+}

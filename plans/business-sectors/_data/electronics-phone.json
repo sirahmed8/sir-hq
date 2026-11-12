@@ -1,0 +1,182 @@
+{
+  "slug": "electronics-phone",
+  "name_ar": "إلكترونيات وموبايلات",
+  "name_en": "Electronics and mobile",
+  "group": "retail",
+  "base": "retail",
+  "order": 17,
+  "wave": 3,
+  "why": "Electronics shops sell phones and accessories with IMEI tracking, warranty dates and service/repair intake. Each phone is a serialised unit with its own warranty claim.",
+  "operator": "The electronics shop owner manages a serialised inventory of phones and accessories, warranty claims and repair jobs. Their day is receiving new stock, tracking warranty expiry and handling repair quotes.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "PhoneUnit (id, shopId, imei, model, colour, storage, warrantyStart, warrantyEnd, costPiasters, pricePiasters, status, locationShelf, faultNote)",
+    "Accessory (id, shopId, name, type, pricePiasters, costPiasters, stockQty, status, locationShelf)",
+    "RepairJob (id, phoneId, customerName, customerPhone, complaint, quotePiasters, approvedBy, status, completedAt, notes)",
+    "WarrantyClaim (id, phoneId, customerName, customerPhone, issue, status, claimedAt, resolvedAt, authorisedBy)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays, leadTimeDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, unit, set",
+  "batches": "No : electronics shop carries no stock or expiry (IMEI is serial number not batch)",
+  "expiry": "Warranty has start and end dates, not product expiry",
+  "special": "The core structures are the IMEI-tracked phone unit, the repair job with quote and status, and the warranty claim lifecycle. IMEI is equipment data not personal data but receipts carry buyer phone if captured.",
+  "screens": [
+    "Phone catalogue: grid of phone units with IMEI, model, colour, storage, price, warranty status, fault note",
+    "Phone detail: full unit info, warranty dates, fault note, history of repairs",
+    "Accessory catalogue: grid of accessories with name, type, price, stock",
+    "Repair job creation: enter phone IMEI, complaint, generate quote, set status (draft/approved/in-progress/completed)",
+    "Warranty claim creation: enter phone IMEI, customer details, issue, set status (open/pending/resolved)",
+    "Repair status tracker: per job, view progress, mark completed, print completion receipt",
+    "Warranty claim tracker: per unit, view status, resolution, update status",
+    "Cash register: scan IMEI or SKU, apply discount, tender payment, print receipt with IMEI",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, repairs, warranties, reports, billing",
+    "Sales rep: manage phone stock, create repair jobs, handle warranty claims",
+    "Technician: view repair jobs, mark in-progress/completed, update warranty claims",
+    "Cashier: scan IMEI/SKU, tender payment, print receipt"
+  ],
+  "reports": [
+    "Phone inventory by model and storage: count per model/colour/storage, turnover rate",
+    "Repair job pipeline: draft/approved/in-progress/completed counts, average duration",
+    "Warranty claim rate: open/pending/resolved counts, resolution time, common issues",
+    "Phone sales by model and period: volume and revenue per model per month",
+    "Accessory sales by type and period: volume and revenue per accessory type per month"
+  ],
+  "integrations": [
+    "Web API for IMEI validation (optional, carrier lookup)",
+    "Esc/POS thermal printer for receipts and repair completion notes",
+    "WhatsApp deep link for customer repair status updates and warranty notifications",
+    "Email for warranty resolution notice (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial inventory: the starting phone list with IMEI, model, colour, storage, price and warranty dates",
+    "Repair types: the repair categories (screen replacement, battery, charging port, water damage, others)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first phone stock, create first repair job, first warranty claim"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the IMEI-tracked phone unit and role templates.",
+  "landing_ar": {
+    "headline": "إلكترونيات وموبايلات",
+    "sub": "هواتف، ضمانات وإصلاح من لوحة واحدة",
+    "benefits": [
+      "تتبع IMEI لكل وحدة",
+      "إدارة Claims الضمان",
+      "ملفات الصيانة"
+    ],
+    "faq": [
+      "كيف أتبع الوحدة ب IMEI ?",
+      "كم مدة الضمان؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Electronics & Mobile Management",
+    "sub": "IMEI-tracked units, warranties and repairs from one dashboard",
+    "benefits": [
+      "IMEI tracking per unit",
+      "Warranty claim lifecycle",
+      "Repair job pipeline"
+    ],
+    "faq": [
+      "How do I track a unit by IMEI?",
+      "What is the warranty period?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 50 phone units",
+    "- Professional: 450 EGP / month, unlimited units, repair module",
+    "- Enterprise: custom for electronics chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "GadgetPro",
+      "price": "from 550 EGP/mo",
+      "weak": "no IMEI tracking",
+      "edge": "full IMEI per unit with warranty and repair lifecycle"
+    },
+    {
+      "name": "PhoneCare",
+      "price": "from 520 EGP/mo",
+      "weak": "no repair job pipeline",
+      "edge": "full repair job from quote to completion with status tracking"
+    },
+    {
+      "name": "Mobility",
+      "price": "from 580 EGP/mo",
+      "weak": "no warranty claim lifecycle",
+      "edge": "full warranty claim open/pending/resolved with resolution tracking"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add IMEI-tracked phone catalogue",
+      "brief": "Build the phone catalogue: grid of phone units with IMEI, model, colour, storage, price, warranty status, fault note. Done when the catalogue loads and displays units with IMEI badges correctly.",
+      "done": "When phone catalogue displays live data with IMEI tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add repair job creation and status tracker",
+      "brief": "Build the repair job screen: enter phone IMEI, complaint, generate quote, set status (draft/approved/in-progress/completed). Done when the job is saved and status updates propagate.",
+      "done": "When repair job creation works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add warranty claim creation and tracker",
+      "brief": "Build the warranty claim screen: enter phone IMEI, customer details, issue, set status (open/pending/resolved). Done when the claim is saved and status updates propagate.",
+      "done": "When warranty claim creation works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add repair status tracker per job",
+      "brief": "Build the repair tracker: per job view progress, mark completed, print completion receipt. Done when the tracker updates job status and prints receipt correctly.",
+      "done": "When repair status tracker works end-to-end and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add warranty claim tracker per unit",
+      "brief": "Build the warranty tracker: per unit view status, resolution, update status. Done when the tracker updates claim status and displays correct state.",
+      "done": "When warranty claim tracker works end-to-end and displays correct state",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with IMEI/SKU scanning",
+      "brief": "Build the cash register: scan IMEI or SKU, apply discount, tender payment, print receipt with IMEI. Done when the sale records IMEI and receipt prints correctly.",
+      "done": "When cash register works end-to-end with IMEI scanning and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add phone inventory by model report",
+      "brief": "Build the report showing count per model/colour/storage and turnover rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When phone inventory report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add repair pipeline report",
+      "brief": "Build the report showing repair jobs by status (draft/approved/in-progress/completed) and average duration. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When repair pipeline report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add warranty claim rate report",
+      "brief": "Build the report showing warranty claims by status (open/pending/resolved) and resolution time. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When warranty claim rate report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial electronics shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial phone inventory with IMEI, repair types, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes phone unit and warranty records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Warranty claims without clear start/end dates can violate consumer protection law",
+    "IMEI data stored without proper consent can raise privacy concerns if receipts expose buyer phone"
+  ]
+}

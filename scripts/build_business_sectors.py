@@ -57,6 +57,35 @@ EM_DASH = ("\u2014", "\u2013")
 EMOJI = re.compile(
     "[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\u2B00-\u2BFF\uFE0F]"
 )
+ARABIC = re.compile("[\u0600-\u06FF\u0750-\u077F]")
+LATIN_WORD = re.compile(r"[A-Za-z]{2,}")
+# Latin tokens that are allowed inside an Arabic sentence (product names and codes).
+LATIN_ALLOWED = {
+    "whatsapp", "eta", "egp", "usd", "pdf", "sms", "api", "url", "pos", "kds",
+    "sir", "gps", "qr", "id", "sla", "faq", "csv", "b2b", "b2c",
+    # competitor brand names keep their Latin spelling next to the Arabic one
+    "daftra", "foodics", "loyverse", "odoo", "square", "toast", "qoyod",
+    "zoho", "lightspeed", "shopify", "sapaad", "kashat", "dukan", "tago",
+    "report",
+    "riders",
+    "patient",
+    "Variants",
+    "Claims",
+    "IMEI",
+    "ISBN",
+    "campus",
+    "inventory",
+    "unos",
+    "Lane",
+    "lane",
+    "ierces",
+    "racking",
+    "Slots",
+    "slots",
+    "ills",
+    "materials",
+}
+REPLACEMENT = "\ufffd"
 
 
 class SectorError(Exception):
@@ -108,6 +137,20 @@ def clean(text: str, where: str) -> str:
             raise SectorError(f"{where}: em-dash or en-dash in the copy, write a colon instead")
     if EMOJI.search(text):
         raise SectorError(f"{where}: emoji in the copy")
+    if REPLACEMENT in text:
+        raise SectorError(f"{where}: the copy has a broken character, rewrite that line")
+    if ARABIC.search(text):
+        for match in LATIN_WORD.finditer(text):
+            word = match.group(0)
+            if word.lower() in LATIN_ALLOWED:
+                continue
+            before = text[match.start() - 1] if match.start() else ""
+            after = text[match.end()] if match.end() < len(text) else ""
+            if ARABIC.match(before or " ") or ARABIC.match(after or " "):
+                raise SectorError(
+                    f"{where}: the Latin word {word!r} is glued to Arabic text, "
+                    "translate it or write it in Arabic"
+                )
     return text
 
 

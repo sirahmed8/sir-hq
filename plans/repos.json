@@ -74,9 +74,39 @@
   "repo": "sir-portfolio",
   "display": "SIR Portfolio"
  },
- "sir-study": {
-  "folder": "SIR Study",
-  "repo": "sir-study",
-  "display": "SIR Study"
- }
+"sir-study": {
+    "folder": "SIR Study",
+    "repo": "sir-study",
+    "display": "SIR Study"
+  },
+  "sir-handyman": {
+    "folder": "SIR Handyman",
+    "repo": "sir-handyman",
+    "display": "SIR Handyman"
+  },
+  "sir-cars": {
+    "folder": "SIR Cars",
+    "repo": "sir-cars",
+    "display": "SIR Cars"
+  },
+  "sir-movies": {
+    "folder": "SIR Movies",
+    "repo": "sir-movies",
+    "display": "SIR Movies"
+  },
+  "sir-price-finder": {
+    "folder": "SIR Price Finder",
+    "repo": "sir-price-finder",
+    "display": "SIR Price Finder"
+  },
+  "sir-game-deals": {
+    "folder": "SIR Game Deals",
+    "repo": "sir-game-deals",
+    "display": "SIR Game Deals"
+  },
+  "sir-access-map": {
+    "folder": "SIR Access Map",
+    "repo": "sir-access-map",
+    "display": "SIR Access Map"
+  }
 }

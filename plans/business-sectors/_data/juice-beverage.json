@@ -1,0 +1,181 @@
+{
+  "slug": "juice-beverage",
+  "name_ar": "عصائر ومشروبات",
+  "name_en": "Juice and drinks",
+  "group": "food-and-drink",
+  "base": "restaurant",
+  "order": 34,
+  "wave": 4,
+  "why": "Juice and beverage quick-service shops need a modifier-heavy POS (sizes, extras), daily fresh prep checklist and flavour matrix. The key is the modifier grid and daily prep checklists.",
+  "operator": "The juice shop owner manages a modifier-heavy POS, flavour recipes and daily fresh prep. Their day is size/extras selection, recipe adherence and waste tracking.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Flavour (id, shopId, nameAr, nameEn, ingredientsAr, ingredientsEn, priceDeltaPiasters, isDefault, isAvailable)",
+    "Modifier (id, shopId, nameAr, nameEn, isRequired, optionsAr (comma-separated), optionsEn (comma-separated), priceDeltaPiasters, isAvailable)",
+    "DailyPrep (id, shopId, date, flavoursPrepared (array), modifiersUsed (array), wastePiasters, notes)",
+    "Order (id, shopId, lines with menuItemId, modifiers, quantity, totalPiasters, status, openedAt, closedAt)",
+    "MenuItem (id, sectionId, nameAr, nameEn, pricePiasters, costPiasters, taxRate, isAvailable, station, prepMinutes, allergens)",
+    "StockItem (id, nameAr, unit, costPiasters, quantity, isBatch, supplierId, reorderPoint)"
+  ],
+  "units": "portion, glass, litre, shot, cup",
+  "batches": "Yes for fresh produce: dairy, fruit juices, shot syrups. The shop consumes the oldest batch first",
+  "expiry": "Fresh produce has expiry dates tracked per batch; the shop sees alerts for items expiring in three days, and the waste log records what was thrown out",
+  "special": "The core structures are the modifier-heavy POS (sizes, extras), the flavour matrix and the daily prep checklist. Modifier grid is the key differentiator from standard restaurant template.",
+  "screens": [
+    "Menu catalogue: grid of items with name, price, station, availability",
+    "Modifier grid: sizes (small/medium/large), extras (extra shot, syrup, whipped cream), price delta per modifier, required/optional flag",
+    "Flavour matrix: list of flavours with ingredients and price delta, default flavour flag",
+    "Daily prep checklist: date, flavours prepared (array), modifiers used (array), waste in piasters, notes",
+    "Order creation: select menu item, add modifiers from the grid, set quantity, compute total with modifier deltas, set status",
+    "Order list: all orders with item, modifiers, quantity, total, status, opened/closed time",
+    "Stock and waste: current stock levels, waste log per day, expiry alerts for batches",
+    "Cash register: scan menu item, add modifiers, tender payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : menu, modifiers, daily prep, reports, billing",
+    "Cashier: scan menu item, add modifiers from grid, tender payment, print receipt",
+    "Prep staff: follow daily prep checklist, prepare flavours and modifiers, record waste",
+    "Manager: create modifiers and flavours, set daily prep, approve waste adjustments"
+  ],
+  "reports": [
+    "Sales by hour and day: revenue per period, peak hours for juice sales",
+    "Flavour popularity: which flavours sell most, revenue per flavour per period",
+    "Modifier performance: which sizes and extras are most added, revenue per modifier per period",
+    "Daily waste log: waste in piasters per period, reasons, trends",
+    "Stock turnover: current stock levels, reorder frequency, waste vs stock ratio"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and waste logs",
+    "WhatsApp deep link for daily waste summary and modifier shortages",
+    "Email for inventory reorder requests (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial menu: the starting menu items with price, station and availability",
+    "Modifier grid: the sizes and extras the shop uses with price deltas",
+    "Flavour matrix: the starting flavours with ingredients and price deltas",
+    "Daily prep checklist: the first date and the flavours to prepare",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first modifier, first flavour, first daily prep checklist"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the modifier grid and role templates.",
+  "landing_ar": {
+    "headline": "عصائر ومشروبات",
+    "sub": "مقاسات وإضافات من لوحة واحدة",
+    "benefits": [
+      "مصفوفة المقاسات والإضافات",
+      "مصفوفة النكهات",
+      "قائمة التحضير اليومية"
+    ],
+    "faq": [
+      "ما المقاسات المتوفرة؟",
+      "ما النكهات المتوفرة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Juice & Drinks Management",
+    "sub": "Modifier-heavy POS, flavour matrix and daily prep from one dashboard",
+    "benefits": [
+      "Modifier-heavy POS with sizes and extras",
+      "Flavour matrix with ingredients and pricing",
+      "Daily prep checklist and waste tracking"
+    ],
+    "faq": [
+      "What sizes are available?",
+      "What flavours are available?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 130 EGP / month, 1 branch, up to 30 menu items",
+    "- Professional: 280 EGP / month, unlimited items, modifier module",
+    "- Enterprise: custom for juice shop chains"
+  ],
+  "competitors": [
+    {
+      "name": "JuicePro",
+      "price": "from 350 EGP/mo",
+      "weak": "no modifier grid",
+      "edge": "full modifier grid with sizes, extras and price deltas"
+    },
+    {
+      "name": "FreshJuice",
+      "price": "from 330 EGP/mo",
+      "weak": "no daily prep checklist",
+      "edge": "daily prep checklist with flavours, modifiers and waste tracking"
+    },
+    {
+      "name": "DrinkPoint",
+      "price": "from 380 EGP/mo",
+      "weak": "no flavour matrix",
+      "edge": "full flavour matrix with ingredients and price deltas"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add modifier grid with sizes and extras",
+      "brief": "Build the modifier grid: sizes (small/medium/large), extras (extra shot, syrup, whipped cream), price delta per modifier, required/optional flag. Done when the grid loads and modifiers can be added to an order.",
+      "done": "When modifier grid works and modifiers can be added to orders",
+      "phase": "M1"
+    },
+    {
+      "title": "Add flavour matrix",
+      "brief": "Build the flavour screen: list of flavours with ingredients Ar/En, price delta, default flag. Done when the flavour matrix loads and flavours can be selected.",
+      "done": "When flavour matrix works and flavours can be selected per order",
+      "phase": "M1"
+    },
+    {
+      "title": "Add daily prep checklist",
+      "brief": "Build the daily prep screen: date, flavours prepared (array), modifiers used (array), waste in piasters, notes. Done when the prep is saved and waste is tracked.",
+      "done": "When daily prep checklist works end-to-end with waste tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order creation with modifiers",
+      "brief": "Build the order screen: select menu item, add modifiers from the grid, set quantity, compute total with modifier deltas, set status. Done when the order saves all fields and the receipt prints correctly.",
+      "done": "When order creation works end-to-end with modifiers and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add sales by hour report",
+      "brief": "Build the report showing revenue per hour and per day. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When sales by hour report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add flavour popularity report",
+      "brief": "Build the report showing which flavours sell most and revenue per flavour per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When flavour popularity report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add modifier performance report",
+      "brief": "Build the report which sizes and extras are most added and revenue per modifier per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When modifier performance report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add daily waste log report",
+      "brief": "Build the report showing waste in piasters per period, reasons, trends. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When daily waste log report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add stock turnover report",
+      "brief": "Build the report showing current stock levels, reorder frequency, waste vs stock ratio. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When stock turnover report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add onboarding flow for initial juice shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial menu, modifier grid, flavour matrix, daily prep checklist, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes menu and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Waste tracking without proper audit can lead to inventory discrepancies",
+    "Modifier grid without price delta validation can cause revenue leakage"
+  ]
+}

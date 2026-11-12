@@ -1,0 +1,178 @@
+{
+  "slug": "dental-clinic",
+  "name_ar": "عيادة أسنان",
+  "name_en": "Dental clinic",
+  "group": "health-and-beauty",
+  "base": "clinic + dental",
+  "order": 15,
+  "wave": 2,
+  "why": "Dental clinics need treatment plans, staged payments (deposit + installments) and a tooth chart, distinct from general clinic appointments.",
+  "operator": "The dentist sees patients across shifts. Their day is treatment plans, staged payments, tooth charting and follow-up reminders. Each treatment has a cost, a deposit and a schedule for the remaining installments.",
+  "entities": [
+    "DentalClinic (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Patient (id, clinicId, name, phone, encryptedHealthData, consentWhatsApp, guardianPhone, visitsCount)",
+    "TreatmentPlan (id, patientId, nameAr, nameEn, surfaces, chartNumber, depositPiasters, totalPiasters, installmentCount, status, notes)",
+    "ToothChart (id, patientId, chart with tooth numbers, surfaces marked, treatment notes per tooth)",
+    "Installment (id, treatmentPlanId, amountPiasters, dueDate, status, paidAt)",
+    "Appointment (id, clinicId, patientId, dateTime, duration, type, status, notes)"
+  ],
+  "units": "visit, treatment, installment, tooth",
+  "batches": "No : dental clinic carries no stock or expiry",
+  "expiry": "Not applicable. Treatment plans are not product-based",
+  "special": "The core structures are the treatment plan with staged payments, the tooth chart per patient, the installment tracker and the appointment system. Patient data is special-category: encrypted, exportable on request, deletable on request.",
+  "screens": [
+    "Appointment calendar: day/week view with patient names, status colours",
+    "Patient record: name, phone, guardian, visit history, consent flag, encrypted health summary",
+    "Treatment plan editor: add plan, select tooth chart, set deposit and total, choose installment count",
+    "Tooth chart: interactive chart with tooth numbers, mark surfaces treated, add notes per tooth",
+    "Installment tracker: list of installments per treatment, amounts due, paid status, receipt print",
+    "Payment screen: accept deposit or installment, record payment, print receipt",
+    "Shift summary: patient load, treatments completed, outstanding installments"
+  ],
+  "roles": [
+    "Owner: everything : treatment plans, staff, reports, billing",
+    "Dentist: create treatment plans, edit tooth chart, approve installments",
+    "Dental assistant: enter treatment plans, chart teeth, mark installments paid",
+    "Cashier: accept payments, print receipts, shift close"
+  ],
+  "reports": [
+    "Treatment plan volume per dentist per period",
+    "Installment collection rate: collected vs outstanding, aging report",
+    "Tooth chart completion: which plans have full charting vs partial",
+    "Patient treatment history: all plans per patient, completion rate",
+    "Shift summary: hours worked, treatments completed, outstanding deposits"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for payment receipts and treatment plans",
+    "WhatsApp deep link for appointment reminders and follow-up prompts",
+    "Email for treatment plan copies (opt-in)",
+    "Google Calendar sync for appointment reminders"
+  ],
+  "onboarding": [
+    "Clinic basics: name, branch, address, phone, currency, working hours",
+    "Specialities: the dental services offered (cleaning, filling, root canal, ortho, etc.)",
+    "Treatment plan types: the plan templates the clinic uses (single treatment, multi-tooth, full mouth)",
+    "Staff: add the initial team with their role templates",
+    "First week plan: set up first treatment plan template, first patient, first payment flow"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the treatment plan/installment/tooth chart schema and role templates.",
+  "landing_ar": {
+    "headline": "عيادة الأسنان",
+    "sub": "خطط علاجية، تقسيط وخرائط أسنان من لوحة واحدة",
+    "benefits": [
+      "خطة علاجية بتقسيط مراحل",
+      "خرائط أسنان تفاعلية",
+      "تذكيرات المتابعة"
+    ],
+    "faq": [
+      "كيف أنشئ خطة علاجية جديدة؟",
+      "كيف أدفع التقسيط؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Dental Clinic Management",
+    "sub": "Treatment plans, staged payments and tooth charting from one dashboard",
+    "benefits": [
+      "Staged payment plans with deposit and installments",
+      "Interactive tooth chart per patient",
+      "Follow-up reminders and tracking"
+    ],
+    "faq": [
+      "How do I create a new treatment plan?",
+      "How do I pay an installment?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 3 staff",
+    "- Professional: 300 EGP / month, unlimited staff, treatment plans",
+    "- Enterprise: custom for multi-branch dental groups"
+  ],
+  "competitors": [
+    {
+      "name": "Denta",
+      "price": "from 350 EGP/mo",
+      "weak": "no tooth chart or installment tracking",
+      "edge": "full tooth chart with installment tracking and printable charts"
+    },
+    {
+      "name": "OralCare",
+      "price": "from 320 EGP/mo",
+      "weak": "no WhatsApp reminders",
+      "edge": "WhatsApp deep links for appointment and follow-up reminders"
+    },
+    {
+      "name": "Smile",
+      "price": "from 330 EGP/mo",
+      "weak": "no staged payment plans",
+      "edge": "full staged payment (deposit + installments) per treatment plan"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add treatment plan editor with tooth chart",
+      "brief": "Build the UI for creating a treatment plan: select tooth chart, set deposit and total price, choose installment count. Done when the plan saves to Firestore and the tooth chart is selectable.",
+      "done": "When treatment plan editor works and saves plan with tooth chart",
+      "phase": "M1"
+    },
+    {
+      "title": "Add installment tracker per treatment plan",
+      "brief": "Build the installment screen: list of installments, amounts due, paid status, receipt print. Done when each installment is recorded and the total matches the plan.",
+      "done": "When installment tracker records payments and computes outstanding correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add interactive tooth chart",
+      "brief": "Build the tooth chart UI: tooth numbers, mark surfaces treated, add notes per tooth. Done when the chart saves and displays correctly per patient.",
+      "done": "When tooth chart saves patient data and displays correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add payment screen for deposits and installments",
+      "brief": "Build the payment screen: accept deposit or installment payment, record payment, print receipt. Done when payment saves to the installment doc and receipt prints correctly.",
+      "done": "When payment screen works end-to-end and receipt prints",
+      "phase": "M2"
+    },
+    {
+      "title": "Add WhatsApp deep link for appointment reminder",
+      "brief": "Build the WhatsApp deep link that sends an appointment reminder to the patient. Done when the link opens WhatsApp with pre-filled appointment details.",
+      "done": "When WhatsApp link opens chat with pre-filled appointment info",
+      "phase": "M2"
+    },
+    {
+      "title": "Add treatment plan completion report",
+      "brief": "Build the report showing treatment plans by completion status. Done when the report pulls live data and displays completion rates per dentist.",
+      "done": "When treatment completion report pulls live data and displays correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add outstanding installments aging report",
+      "brief": "Build the aging report: installments by due date, how many overdue, total outstanding. Done when the report computes from Firestore and displays correct aging buckets.",
+      "done": "When aging report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add patient treatment history screen",
+      "brief": "Build the screen showing all treatment plans per patient, their status and completion. Done when the screen pulls and displays patient's full treatment history.",
+      "done": "When patient treatment history screen works and displays correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add onboarding flow for initial dental setup",
+      "brief": "Build the onboarding flow: clinic basics, dental specialities, treatment plan templates, staff addition. Done when the flow completes and the clinic appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and clinic is created",
+      "phase": "M1"
+    },
+    {
+      "title": "Add payment summary report",
+      "brief": "Build the report showing total payments collected per period, per dentist, outstanding per patient. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When payment summary report computes correctly from live data",
+      "phase": "M2"
+    }
+  ],
+  "risks": [
+    "Patient health data is special-category: mishandling violates PDPL",
+    "Encryption key loss makes patient records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Staged payments can create disputes if installment terms are unclear"
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "slug": "pet-shop",
+  "name_ar": "محل حيوانات أليفة",
+  "name_en": "Pet shop",
+  "group": "retail",
+  "base": "retail",
+  "order": 27,
+  "wave": 4,
+  "why": "Pet shops sell pet food, accessories and grooming services. They need FEFO food tracking, grooming slot scheduling and vet link hand-off. The key is FEFO pet food and grooming appointments.",
+  "operator": "The pet shop owner manages pet food stock, accessories and grooming appointments. Their day is food stock checks, grooming slot scheduling and vet referral hand-offs.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Product (id, shopId, sku, nameAr, nameEn, type (food/toy/accessory), brand, weightKg (for food), pricePiasters, costPiasters, taxRate, fe4oFlag, expiryDate, stockQty, status, locationShelf)",
+    "GroomingAppointment (id, shopId, petName, petType, dateTime, duration, service (bath/trim/ full groom), pricePiasters, status, notes)",
+    "Customer (id, shopId, name, phone, optInWhatsApp, purchaseHistoryCount, totalSpentPiasters)",
+    "VetReferral (id, shopId, petName, petType, issue, referredTo, referredAt, status)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, pack, kilogram, liter, appointment",
+  "batches": "Yes for pet food: FEFO batches with supplier, received date, expiry date and cost, so the shop can sell by batch and claim credit",
+  "expiry": "Pet food has expiry dates tracked per batch; the shop sees alerts for items expiring in 30/60/90 days",
+  "special": "The core structures are the FEFO-tracked pet food, the grooming appointment with service type and duration, and the vet referral hand-off. FEFO food expiry is the key differentiator from regular retail.",
+  "screens": [
+    "Product catalogue: grid of pet products with name, type, price, weight (for food), FEFO badge, expiry date badge, stock",
+    "Product detail: full info, batch details, supplier, reorder point, FEFO expiry alert",
+    "Grooming appointment scheduler: select service (bath/trim/full groom), date/time, pet name and type, set price, status (booked/in-progress/done)",
+    "Customer profile: name, phone, purchase history, opt-in WhatsApp, grooming history",
+    "FEFO food radar: items expiring in 30/60/90 days, value at risk, one-tap discount tag",
+    "Vet referral hand-off: enter issue, referred clinic, referral status (pending/accepted/rejected), date",
+    "Cash register: scan SKU or product, apply FEFO discount if urgent, tender payment, print receipt with FEFO note",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, grooming, vet referrals, reports, billing",
+    "Groomer: create grooming appointments, mark in-progress/done, update pet notes",
+    "Sales rep: manage product stock, create grooming appointments, handle vet referrals",
+    "Cashier: scan products, tender payment, print receipt"
+  ],
+  "reports": [
+    "Product sales by type: food vs toys vs accessories, revenue per type per period",
+    "FEFO food radar: items expiring in 30/60/90 days, value at risk, discounts applied",
+    "Grooming appointment pipeline: booked/in-progress/done counts per period, average duration",
+    "Customer retention: visit count per customer, total spent per customer, re-book rate",
+    "Vet referral status: pending/accepted/rejected counts per period"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and grooming completion notes",
+    "WhatsApp deep link for grooming ready notifications and vet referral follow-ups",
+    "Email for vaccination record requests (opt-in)",
+    "SMS for food expiry alerts (optional)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial product list: the starting pet food and accessories with SKU, prices and FEFO flag",
+    "Grooming services: the service types (bath, trim, full groom) and pricing",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first stock, create first grooming appointment, first vet referral"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the FEFO pet food flag and role templates.",
+  "landing_ar": {
+    "headline": "محل حيوانات أليفة",
+    "sub": "طعام، إكسسوارات وحجوزات من لوحة واحدة",
+    "benefits": [
+      "تتبع FEFO للطعام",
+      "حجوزات الحلاقة",
+      "حيل الإحالة للطبيب البيطري"
+    ],
+    "faq": [
+      "كيف أحجز موعد حلاقة؟",
+      "ما نوع الطعام الموجود؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Pet Shop Management",
+    "sub": "Pet food, accessories and grooming from one dashboard",
+    "benefits": [
+      "FEFO-tracked pet food with expiry",
+      "Grooming appointment scheduling",
+      "Vet referral hand-off"
+    ],
+    "faq": [
+      "How do I book a grooming appointment?",
+      "What food is available?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 120 EGP / month, 1 branch, up to 50 products",
+    "- Professional: 250 EGP / month, unlimited products, grooming module",
+    "- Enterprise: custom for pet shop chains"
+  ],
+  "competitors": [
+    {
+      "name": "PetCare",
+      "price": "from 300 EGP/mo",
+      "weak": "no FEFO food tracking",
+      "edge": "full FEFO pet food tracking with expiry radar and 30/60/90 day alerts"
+    },
+    {
+      "name": "CocoPet",
+      "price": "from 280 EGP/mo",
+      "weak": "no grooming appointment scheduler",
+      "edge": "full grooming appointment from booking to completion with status"
+    },
+    {
+      "name": "PawShop",
+      "price": "from 320 EGP/mo",
+      "weak": "no vet referral hand-off",
+      "edge": "full vet referral from issue to accepted/rejected with status"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add FEFO-tracked pet food catalogue",
+      "brief": "Build the product catalogue: grid of pet products with name, type, price, weight (for food), FEFO badge, expiry date badge, stock. Done when the catalogue loads and displays products with FEFO badges and expiry dates correctly.",
+      "done": "When product catalogue displays live data with FEFO tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add grooming appointment scheduler",
+      "brief": "Build the grooming appointment screen: select service (bath/trim/full groom), date/time, pet name and type, set price, status (booked/in-progress/done). Done when the appointment is saved and status updates propagate.",
+      "done": "When grooming appointment scheduler works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add FEFO food radar with expiry alerts",
+      "brief": "Build the FEFO radar screen: items expiring in 30/60/90 days, value at risk, one-tap discount tag. Done when the radar pulls live data and the discount tag can be applied.",
+      "done": "When FEFO radar works end-to-end with discount tag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add customer profile with grooming history",
+      "brief": "Build the customer profile: name, phone, purchase history, opt-in WhatsApp, grooming history. Done when the profile saves and displays correct data.",
+      "done": "When customer profile works and displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add vet referral hand-off screen",
+      "brief": "Build the referral screen: enter issue, referred clinic, referral status (pending/accepted/rejected), date. Done when the referral is saved and status updates propagate.",
+      "done": "When vet referral hand-off works end-to-end with status tracking",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register with FEFO discount",
+      "brief": "Build the cash register: scan SKU or product, apply FEFO discount if urgent, tender payment, print receipt with FEFO note. Done when the sale applies the discount and receipt prints correctly.",
+      "done": "When cash register works end-to-end with FEFO discount and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add grooming appointment pipeline report",
+      "brief": "Build the report showing grooming appointments by status (booked/in-progress/done) and average duration per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When grooming pipeline report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add customer retention report",
+      "brief": "Build the report showing visit count per customer, total spent per customer, re-book rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When customer retention report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add vet referral status report",
+      "brief": "Build the report showing referral status (pending/accepted/rejected) counts per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When vet referral status report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial pet shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial product list with FEFO flag, grooming services, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes product and appointment records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "FEFO expiry without proper batch tracking can safety-compromise pets",
+    "Vet referral without documented hand-off can lead to lost follow-up"
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "slug": "furniture-carpentry",
+  "name_ar": "أثاث ونجارة",
+  "name_en": "Furniture and carpentry",
+  "group": "retail-and-commerce",
+  "base": "retail + production",
+  "order": 29,
+  "wave": 4,
+  "why": "Furniture shops sell custom-sized items, require deposits for big-ticket orders and offer delivery slots. Distinct from fast retail: long production cycles, custom specs and deposits.",
+  "operator": "The furniture carpenter sells custom pieces, manages client deposits and coordinates delivery. Their day is client specs, deposit tracking and delivery slot scheduling.",
+  "entities": [
+    "Shop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "DesignSpec (id, shopId, clientName, clientPhone, drawingsAr, drawingsEn, dimensions (l,w,h), material, finish, status, createdAt)",
+    "Order (id, shopId, designSpecId, clientName, clientPhone, depositPiasters, totalPiasters, balancePiasters, status, deliverySlot, deliveryDate, notes)",
+    "DeliverySlot (id, shopId, date, startTime, endTime, assigned, status)",
+    "Payment (id, orderId, amountPiasters, method, status, paidAt, receiptPrinted)",
+    "Staff (id, shopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, meter, set, room",
+  "batches": "No : furniture shop carries no stock or expiry",
+  "expiry": "Not applicable. Orders have delivery dates not expiry dates",
+  "special": "The core structures are the design specification per client, the order with deposit and balance, and the delivery slot scheduling. Deposits are a fixed percentage of the total and are tracked separately.",
+  "screens": [
+    "Design spec editor: enter client name and phone, upload or draw sketches (Ar/En), set dimensions (l,w,h), select material and finish, save spec",
+    "Order creation: select design spec, set deposit percentage and amount, set total price, compute balance, set delivery slot and date, set status (draft/confirmed/in-progress/completed)",
+    "Delivery slot scheduler: available slots per day, assign slot, mark assigned, update status",
+    "Order list: all orders with status, client, deposit, balance, delivery slot and date",
+    "Payment screen: record payment against order balance, update status, print receipt",
+    "Design gallery: view saved design specs with client name and dimensions",
+    "Cash register: scan order reference, record payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : designs, orders, deposits, delivery, reports, billing",
+    "Carpenter: create design specs, update orders, mark payments received",
+    "Sales rep: create design specs, client quotes, order creation",
+    "Cashier: record payments against orders, print receipts"
+  ],
+  "reports": [
+    "Order book: all orders by status (draft/confirmed/in-progress/completed), total revenue, total deposits, total outstanding balance",
+    "Deposit tracking: total deposits received vs total orders, outstanding deposits per order",
+    "Delivery slot utilisation: slots booked vs available per period, on-time delivery rate",
+    "Revenue per period: total sales, deposits collected, balance collected",
+    "Popular materials and finishes: which combinations are most requested"
+  ],
+  "integrations": [
+    "WhatsApp deep link for client communication (spec updates, delivery notifications)",
+    "Esc/POS thermal printer for receipts and payment records",
+    "Google Calendar for delivery slot scheduling (optional)",
+    "SMS for delivery ETA alerts (optional)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial design specs: the starting catalogue of sample designs with dimensions and materials",
+    "Deposit policy: the percentage and terms for deposits on orders",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first design spec, first order, first deposit received"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the design spec flag and role templates.",
+  "landing_ar": {
+    "headline": "أثاث ونجارة",
+    "sub": "مقاسات مخصصة، تقسيط وSlots التسليم من لوحة واحدة",
+    "benefits": [
+      "تصاميم مقاس مخصص",
+      "نظام التقسيط مع الوديعة",
+      "Slots التسليم المتاحة"
+    ],
+    "faq": [
+      "هل يمكن تصميم قطعة بأبعاد محددة؟",
+      "ما نسبة الوديعة المطلوبة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Furniture & Carpentry Management",
+    "sub": "Custom designs, deposits and delivery slots from one dashboard",
+    "benefits": [
+      "Custom design specifications per client",
+      "Deposit tracking with percentage of total",
+      "Delivery slot scheduling and tracking"
+    ],
+    "faq": [
+      "Can I design a piece with specific dimensions?",
+      "What deposit percentage is required?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 20 design specs",
+    "- Professional: 450 EGP / month, unlimited specs, deposit module",
+    "- Enterprise: custom for furniture chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "FurniturePro",
+      "price": "from 600 EGP/mo",
+      "weak": "no deposit tracking",
+      "edge": "full deposit tracking with percentage of total and balance computation"
+    },
+    {
+      "name": "CarpentryMart",
+      "price": "from 550 EGP/mo",
+      "weak": "no delivery slot scheduler",
+      "edge": "delivery slot scheduling with available slots and on-time rate"
+    },
+    {
+      "name": "DesignHub",
+      "price": "from 620 EGP/mo",
+      "weak": "no order book with status tracking",
+      "edge": "full order book with status (draft/confirmed/in-progress/completed)"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add design spec editor with Ar/En sketches and dimensions",
+      "brief": "Build the design spec screen: client name/phone, sketches Ar/En, dimensions l/w/h, material and finish. Done when the spec is saved and linked to an order.",
+      "done": "When design spec editor works and links to order creation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order creation with deposit and delivery slot",
+      "brief": "Build the order screen: select design spec, set deposit % and amount, compute balance, set delivery slot and date, set status. Done when the order saves all fields and the status updates correctly.",
+      "done": "When order creation works end-to-end with deposit and delivery slot",
+      "phase": "M1"
+    },
+    {
+      "title": "Add delivery slot scheduler with available slots",
+      "brief": "Build the delivery slot screen: available slots per day, assign slot, mark assigned, update status. Done when the scheduler saves the slot and displays availability correctly.",
+      "done": "When delivery slot scheduler works end-to-end with availability display",
+      "phase": "M1"
+    },
+    {
+      "title": "Add payment screen against order balance",
+      "brief": "Build the payment screen: record payment against order balance, update status, print receipt. Done when the payment saves and the order balance updates correctly.",
+      "done": "When payment screen works end-to-end and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add order book report with status breakdown",
+      "brief": "Build the report showing all orders by status, total revenue, total deposits, total outstanding balance. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When order book report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add deposit tracking report",
+      "brief": "Build the report showing total deposits received vs total orders, outstanding deposits per order. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When deposit tracking report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add delivery slot utilisation report",
+      "brief": "Build the report showing slots booked vs available per period, on-time delivery rate. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When delivery slot utilisation report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add revenue per period report",
+      "brief": "Build the report showing total sales, deposits collected, balance collected per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When revenue per period report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add popular materials and finishes report",
+      "brief": "Build the report showing which material/finish combinations are most requested. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When popular materials report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add onboarding flow for initial furniture shop setup",
+      "brief": "Build the onboarding flow: shop basics, initial design specs, deposit policy, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes design specs and order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Deposits without clear percentage and terms can violate consumer protection law",
+    "Delivery slots without clear confirmation can lead to no-show disputes"
+  ]
+}

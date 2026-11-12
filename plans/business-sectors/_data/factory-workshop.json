@@ -1,0 +1,181 @@
+{
+  "slug": "factory-workshop",
+  "name_ar": "مصنع وورشة إنتاج",
+  "name_en": "Factory workshop",
+  "group": "production",
+  "base": "production",
+  "order": 32,
+  "wave": 4,
+  "why": "Small production workshops need bill of materials, work orders and output tracking with scrap. Distinct from retail: bill of materials, output tracking and scrap tracking.",
+  "operator": "The workshop owner manages bills of materials, work orders and output. Their day is job orders, material consumption and output verification against spec.",
+  "entities": [
+    "Workshop (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "BillOfMaterials (id, workshopId, productName, productSku, lines with componentName and quantity, totalComponents, status)",
+    "WorkOrder (id, workshopId, billOfMaterialsId, customerName, customerPhone, quantityOrdered, quantityCompleted, status (pending/in-progress/completed), scrappedQty, notes, dueDate)",
+    "Component (id, billOfMaterialsId, name, quantityPerUnit, consumedQty, remainingQty, status)",
+    "OutputRecord (id, workOrderId, actualOutputQty, expectedOutputQty, scrapQty, notes, recordedAt)",
+    "Supplier (id, workshopId, name, phone, paymentTerms, visitDays, leadTimeDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, workshopId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "unit, component, work order, output",
+  "batches": "No : workshop carries no stock or expiry",
+  "expiry": "Not applicable. Work orders have due dates, components are consumed per build",
+  "special": "The core structures are the bill of materials per product, the work order with consumed components and the output record with scrap tracking. Bill of materials is the key differentiator from retail.",
+  "screens": [
+    "Bill of materials editor: enter product name/SKU, add component lines (name, quantity per unit), save BOM, set status (active/inactive)",
+    "Work order creation: select BOM, enter customer name and phone, enter quantity ordered, set status (pending/in-progress/completed), set due date, compute total components needed",
+    "Component consumption tracker: per work order, view components, mark consumed, update remaining qty per component",
+    "Output record: enter actual output qty, compare to expected, enter scrap qty, add notes, save",
+    "Work order list: all orders with status, customer, quantity ordered, completed, scrapped, due date",
+    "Component consumption report: per BOM, which components are low or consumed per period",
+    "Output summary: actual vs expected per period, scrap total per period",
+    "Cash register: scan work order reference, record payment, print receipt"
+  ],
+  "roles": [
+    "Owner: everything : BOMs, work orders, output, reports, billing",
+    "Master craftsman: create BOMs, update work orders, mark output received",
+    "Workshop assistant: consume components per work order, record output",
+    "Sales rep: create work orders, client quotes, order management"
+  ],
+  "reports": [
+    "Work order pipeline: pending/in-progress/completed per period, average duration, scrapped qty per period",
+    "BOM component consumption: per BOM which components are low or consumed per period, reorder suggestions",
+    "Output summary: actual vs expected per period, scrap total per period and reason",
+    "Revenue per product per period: total completed work orders, revenue per product type per month",
+    "Supplier performance: lead time actual vs expected per supplier per period"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for receipts and output records",
+    "WhatsApp deep link for client order status updates and delivery notifications",
+    "Email for order updates and completion notices (opt-in)",
+    "SMS for component low-stock alerts (optional)"
+  ],
+  "onboarding": [
+    "Workshop basics: name, branch, address, phone, currency, working hours",
+    "Initial bill of materials: the starting BOM for the workshop's main product with component lines",
+    "Work order types: the work order categories the workshop handles",
+    "Staff: add the initial team with their role templates",
+    "First week plan: create first BOM, first work order, first output record"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the bill of materials and role templates.",
+  "landing_ar": {
+    "headline": "مصنع وورشة إنتاج",
+    "sub": "بills of materials، أوامر عمل ومخرجات من لوحة واحدة",
+    "benefits": [
+      "Bills of materials per product",
+      "Work orders with component consumption",
+      "Output record with scrap tracking"
+    ],
+    "faq": [
+      "كيف أنشئ Bill of Materials جديد؟",
+      "كيف أحصي المكونات المستهلكة؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Factory Workshop Management",
+    "sub": "Bills of materials, work orders and output tracking from one dashboard",
+    "benefits": [
+      "Bill of materials per product",
+      "Work orders with component consumption tracking",
+      "Output record with scrap tracking"
+    ],
+    "faq": [
+      "How do I create a new Bill of Materials?",
+      "How do I track consumed components?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 200 EGP / month, 1 branch, up to 5 BOMs",
+    "- Professional: 450 EGP / month, unlimited BOMs, work order module",
+    "- Enterprise: custom for workshop chains"
+  ],
+  "competitors": [
+    {
+      "name": "FactoryPro",
+      "price": "from 600 EGP/mo",
+      "weak": "no bill of materials",
+      "edge": "full BOM with component lines and quantity per unit"
+    },
+    {
+      "name": "WorkshopMart",
+      "price": "from 550 EGP/mo",
+      "weak": "no work order output tracking",
+      "edge": "full work order from creation to output with scrap tracking"
+    },
+    {
+      "name": "BuildCo",
+      "price": "from 620 EGP/mo",
+      "weak": "no supplier performance report",
+      "edge": "supplier performance with lead time actual vs expected"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add bill of materials editor",
+      "brief": "Build the BOM screen: product name/SKU, component lines (name, quantity per unit), save BOM, set status. Done when the BOM is saved and can be selected for work order creation.",
+      "done": "When BOM editor works and BOM can be selected for work order",
+      "phase": "M1"
+    },
+    {
+      "title": "Add work order creation and component consumption",
+      "brief": "Build the work order screen: select BOM, enter customer and phone, quantity ordered, set status, due date, compute components needed. Done when the work order saves and component consumption tracker updates correctly.",
+      "done": "When work order creation works end-to-end with component consumption",
+      "phase": "M1"
+    },
+    {
+      "title": "Add component consumption tracker",
+      "brief": "Build the component tracker: per work order, view components, mark consumed, update remaining qty. Done when marking a component as consumed updates the remaining qty correctly.",
+      "done": "When component consumption tracker works end-to-end with remaining qty update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add output record screen",
+      "brief": "Build the output screen: enter actual output qty, compare to expected, enter scrap qty, add notes, save. Done when the output record saves and the work order status updates correctly.",
+      "done": "When output record works end-to-end with work order status update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add work order list with status and due date",
+      "brief": "Build the work order list: all orders with status, customer, quantity ordered, completed, scrapped, due date. Done when the list loads and filters correctly by status.",
+      "done": "When work order list works and filters by status correctly",
+      "phase": "M1"
+    },
+    {
+      "title": "Add BOM component consumption report",
+      "brief": "Build the report showing per BOM which components are low or consumed per period and reorder suggestions. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When BOM component consumption report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add output summary report",
+      "brief": "Build the report showing actual vs expected per period, scrap total per period and reason. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When output summary report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add revenue per product report",
+      "brief": "Build the report showing total completed work orders and revenue per product type per month. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When revenue per product report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add supplier performance report",
+      "brief": "Build the report showing lead time actual vs expected per supplier per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When supplier performance report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial workshop setup",
+      "brief": "Build the onboarding flow: workshop basics, initial BOM, work order types, staff addition. Done when the flow completes and the workshop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and workshop is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes BOM and work order records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Component consumption without tracking can lead to material shortages mid-production",
+    "Scrap tracking without reason can violate consumer protection law on waste reporting"
+  ]
+}

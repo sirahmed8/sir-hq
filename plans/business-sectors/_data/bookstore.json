@@ -1,0 +1,178 @@
+{
+  "slug": "bookstore",
+  "name_ar": "مكتبة بيع",
+  "name_en": "Bookstore",
+  "group": "education-and-community",
+  "base": "retail",
+  "order": 21,
+  "wave": 3,
+  "why": "A bookstore sells books by ISBN, tracks second-hand stock and manages customer wishes. Distinct from the library circulation model: this is a sales model, not a lending model.",
+  "operator": "The bookstore owner manages inventory, purchases from suppliers and customer wish lists. Their day is receiving shipments, pricing copies and matching customers to books they want.",
+  "entities": [
+    "Bookstore (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Product (id, bookstoreId, sku, isbn, titleAr, titleEn, authorAr, authorEn, category, unitPricePiasters, costPiasters, taxRate, condition, status, locationShelf)",
+    "Customer (id, bookstoreId, name, phone, whatsAppOptIn, purchaseHistoryCount, totalSpentPiasters)",
+    "Wishlist (id, customerId, productId, notes, createdAt, notified)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Staff (id, bookstoreId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, copy, set",
+  "batches": "No : bookstore carries no stock or expiry (condition indicates wear, not expiry)",
+  "expiry": "Not applicable. Books have condition states not expiry dates",
+  "special": "The core structures are the product catalogue with condition states, the wishlist system and the customer purchase history. Condition (new/used) replaces expiry for second-hand stock.",
+  "screens": [
+    "Product catalogue: grid of books with title, author, ISBN, price, condition (new/used), availability",
+    "Product detail: full book info, edition notes, condition description, purchase options",
+    "Wishlist manager: customer wishes, notify when available, prioritise purchases",
+    "Customer profile: purchase history, total spent, wishlist, opt-in status",
+    "Purchase order: receive shipment from supplier, record items, update stock",
+    "Cash register: scan SKU, apply discount, tender payment, print receipt",
+    "Staff shift: clock in/out, customer load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : inventory, pricing, reports, billing",
+    "Cashier: scan items, apply discounts, tender payment, print receipt",
+    "Stock clerk: receive shipments, update stock, relocate products",
+    "Assistant: customer wishlist management, special orders"
+  ],
+  "reports": [
+    "Sales by day and hour: revenue per period, peak hours",
+    "Product popularity: most sold books, editions, authors per period",
+    "Customer lifetime value: total spent, visit frequency, average ticket",
+    "Wishlist conversion: how many wishes turned into purchases",
+    "Inventory aging: how long copies have been in stock by condition"
+  ],
+  "integrations": [
+    "Barcode scanner for SKU entry at till",
+    "Esc/POS thermal printer for receipts and special orders",
+    "WhatsApp deep link for customer notifications (new arrivals, wished-back-in-stock)",
+    "Email for invoice and special order updates (opt-in)"
+  ],
+  "onboarding": [
+    "Shop basics: name, branch, address, phone, currency, working hours",
+    "Initial inventory: the starting book list with ISBN, titles, prices and condition",
+    "Product categories: fiction, non-fiction, children, academic, second-hand",
+    "Staff: add the initial team with their role templates",
+    "First week plan: receive first shipment, list first products, first customer sale"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the product catalogue with condition states and role templates.",
+  "landing_ar": {
+    "headline": "مكتبة بيع",
+    "sub": "كتب جديدة وكتب قديمة من لوحة واحدة",
+    "benefits": [
+      "كتالوج كتب بال ISBN والسعر",
+      "قوائم Wunsch (wishlist) للعملاء",
+      "تاريخ المشتريات لكل عميل"
+    ],
+    "faq": [
+      "هل tienen كتب قديمة؟",
+      "كيف أحجز كتاباً ليس موجوداً؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Bookstore Management",
+    "sub": "ISBN catalogue, wishlists and customer purchase history from one dashboard",
+    "benefits": [
+      "ISBN-tracked product catalogue with condition",
+      "Wishlist system with notification",
+      "Customer purchase history and LTV"
+    ],
+    "faq": [
+      "Do you have second-hand books?",
+      "How do I order a book not in stock?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 100 EGP / month, 1 branch, up to 50 products",
+    "- Professional: 220 EGP / month, unlimited products, reports",
+    "- Enterprise: custom for bookstore chains"
+  ],
+  "competitors": [
+    {
+      "name": "Nas",
+      "price": "from 250 EGP/mo",
+      "weak": "no condition tracking (new/used)",
+      "edge": "condition-aware catalogue with new/used pricing"
+    },
+    {
+      "name": "Dar Al-Kitab",
+      "price": "from 230 EGP/mo",
+      "weak": "no wishlist system",
+      "edge": "full wishlist with notification when back in stock"
+    },
+    {
+      "name": "Rawy",
+      "price": "from 280 EGP/mo",
+      "weak": "no customer LTV reports",
+      "edge": "customer lifetime value and purchase history reports"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add product catalogue grid with condition states",
+      "brief": "Build the product catalogue: grid of books with title, author, ISBN, price, condition (new/used), availability. Done when the catalogue loads and displays books from Firestore with correct condition badges.",
+      "done": "When product catalogue displays live data with condition badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add wishlist manager per customer",
+      "brief": "Build the wishlist screen: customer wishes, notify when available, prioritise purchases. Done when a wishlist item can be added and the notification flag is saved.",
+      "done": "When wishlist manager works and saves notification flag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add customer profile with purchase history",
+      "brief": "Build the customer profile screen: purchase history, total spent, wishlist, opt-in status. Done when the profile saves and displays customer data correctly.",
+      "done": "When customer profile works and displays live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add purchase order receipt screen",
+      "brief": "Build the purchase order screen: receive shipment from supplier, record items, update stock. Done when the order saves and stock increments correctly.",
+      "done": "When purchase order works end-to-end and stock updates",
+      "phase": "M2"
+    },
+    {
+      "title": "Add cash register with SKU scanning",
+      "brief": "Build the cash register: scan SKU, apply discount, tender payment, print receipt. Done when the sale is recorded and receipt prints correctly.",
+      "done": "When cash register works end-to-end and receipt prints",
+      "phase": "M2"
+    },
+    {
+      "title": "Add customer lifetime value report",
+      "brief": "Build the LTV report: total spent, visit frequency, average ticket per customer. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When LTV report pulls live data and displays correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add wishlist conversion report",
+      "brief": "Build the report showing how many wishes turned into purchases per period. Done when the report computes from Firestore and displays correct conversion rates.",
+      "done": "When wishlist conversion report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add inventory aging report by condition",
+      "brief": "Build the aging report: copies in stock by condition (new/used) and how long. Done when the report computes from Firestore and displays correct aging buckets.",
+      "done": "When inventory aging report computes correctly from live data",
+      "phase": "M4"
+    },
+    {
+      "title": "Add onboarding flow for initial bookstore setup",
+      "brief": "Build the onboarding flow: shop basics, initial inventory, product categories, staff addition. Done when the flow completes and the shop appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and shop is created",
+      "phase": "M1"
+    },
+    {
+      "title": "Add personalisation engraving flow",
+      "brief": "Build the engraving flow: enter text, real-time preview on product item, save engraving details per order. Done when the engraving text is saved and preview updates instantly.",
+      "done": "When personalisation engraving flow works end-to-end",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "No special-category data risks (this is a retail sales model)",
+    "Encryption key loss makes product records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Second-hand condition descriptions must not mislead buyers consumer-protection law"
+  ]
+}

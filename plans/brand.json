@@ -89,10 +89,46 @@
   "folder": "SIR Study",
   "display": "SIR Study"
  },
- "ahome": {
-  "color": "#BE185D",
-  "mono": "SH",
-  "folder": "AHome",
-  "display": "AHome"
- }
+"ahome": {
+    "color": "#BE185D",
+    "mono": "SH",
+    "folder": "AHome",
+    "display": "AHome"
+  },
+  "sir-handyman": {
+    "color": "#F59E0B",
+    "mono": "HM",
+    "folder": "SIR Handyman",
+    "display": "SIR Handyman"
+  },
+  "sir-cars": {
+    "color": "#2563EB",
+    "mono": "CR",
+    "folder": "SIR Cars",
+    "display": "SIR Cars"
+  },
+  "sir-movies": {
+    "color": "#EA580C",
+    "mono": "MV",
+    "folder": "SIR Movies",
+    "display": "SIR Movies"
+  },
+  "sir-price-finder": {
+    "color": "#059669",
+    "mono": "PF",
+    "folder": "SIR Price Finder",
+    "display": "SIR Price Finder"
+  },
+  "sir-game-deals": {
+    "color": "#DB2777",
+    "mono": "GD",
+    "folder": "SIR Game Deals",
+    "display": "SIR Game Deals"
+  },
+  "sir-access-map": {
+    "color": "#4F46E5",
+    "mono": "AM",
+    "folder": "SIR Access Map",
+    "display": "SIR Access Map"
+  }
 }

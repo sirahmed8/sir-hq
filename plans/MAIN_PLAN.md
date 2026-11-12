@@ -20,7 +20,13 @@ Rebuild every product from scratch as a premium, production-hosted SIR project, 
 | 6 | GLOBAL | SIR Life | `SIR Life` | (consumes the shared kit) |
 | 6 | GLOBAL | SIR ModPack | `SIR ModPack` | (consumes the shared kit) |
 | 6 | GLOBAL | SIR Mods for GTA V | `SIR Mods for GTA V` | (consumes the shared kit) |
+| 6 | GLOBAL | SIR Price Finder | `SIR Price Finder` | (consumes the shared kit) |
+| 7 | GLOBAL | SIR Handyman | `SIR Handyman` | (consumes the shared kit) |
 | 8 | GLOBAL | SIR Controller | `SIR Controller` | (consumes the shared kit) |
+| 9 | GLOBAL | SIR Cars | `SIR Cars` | (consumes the shared kit) |
+| 9 | GLOBAL | SIR Movies | `SIR Movies` | (consumes the shared kit) |
+| 9 | GLOBAL | SIR Game Deals | `SIR Game Deals` | (consumes the shared kit) |
+| 10 | GLOBAL | SIR Access Map | `SIR Access Map` | (consumes the shared kit; built last, owner may drop) |
 | 3 | CLIENT | SIR Negm Furniture | `SIR Negm Furniture` | plans only; handoff pack for friend; no build/CI/deploy until Ahmed says |
 
 All web products need: the Cloudflare and Firebase logins. SIR Platform was cancelled as a project on 2026-11-12 (owner decision): it is a shared standards kit, `plans/SHARED_PLATFORM_KIT.md`, and every product ships on all platforms (web, Windows, macOS, Linux, Android, iOS). Shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product. SIR Portfolio is built from the finished products. **Every GLOBAL product has: own Firebase project, own GitHub repo named exactly after the product, owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions, competitor matrix, feature parity with best-in-category, SHARED_PLATFORM_KIT reuse.**

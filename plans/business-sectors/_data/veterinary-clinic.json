@@ -1,0 +1,178 @@
+{
+  "slug": "veterinary-clinic",
+  "name_ar": "عيادة بيطرية",
+  "name_en": "Veterinary clinic",
+  "group": "health-and-beauty",
+  "base": "clinic + shop",
+  "order": 26,
+  "wave": 4,
+  "why": "Veterinary clinics need appointment scheduling, pet records (vaccinations), pet food/drug sales with FEFO and reminders. Some controlled vet drugs are tracked like a pharmacy log.",
+  "operator": "The vet sees animals across shifts. Their day is appointments, vaccination records, pet food/drug sales and controlled-substance tracking. Client consent is required for photos of pets.",
+  "entities": [
+    "Clinic (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Pet (id, clinicId, name, species, breed, ownerName, ownerPhone, vaccinationRecord (array with vaccine type, date, nextDue), status, notes)",
+    "Appointment (id, clinicId, petId, dateTime, duration, type (consultation/vaccination/surgery), status, notes)",
+    "DrugSale (id, clinicId, productName, activeIngredient, quantityPiasters, costPiasters, taxRate, fe4oFlag, supplierId, expiryDate, status, prescriptionRequired)",
+    "ControlledDrugLog (id, clinicId, drugName, batchId, quantityPiasters, dateIn, dateOut, authorisedBy, reason, status (administered/sold/wasted))",
+    "Staff (id, clinicId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "visit, appointment, drug sale, controlled dose",
+  "batches": "Yes for drugs and food: batches with supplier, received date, expiry date and cost, so the clinic can sell by batch and claim credit",
+  "expiry": "Drugs and food have expiry dates tracked per batch; the clinic sees alerts for items expiring in 30/60/90 days",
+  "special": "The core structures are the pet record with vaccination history, the drug sale with FEFO batch tracking, the controlled drug append-only log and the appointment system. Patient (pet) data has lower sensitivity than pharmacy but still requires consent for photos.",
+  "screens": [
+    "Appointment calendar: day/week view with animal names, status colours and duration slots",
+    "Patient record: name, species, breed, owner name and phone, vaccination history (type, date, next due), notes, photo consent flag",
+    "Drug catalogue: list of drugs with active ingredient, price, FEFO flag, expiry date, supplier, reorder point",
+    "Controlled drug log: append-only list of administered/sold/wasted drugs with date, batch, quantity and authorised user",
+    "Drug sale screen: select drug, enter quantity, check FEFO expiry, record sale, compute price with tax",
+    "Vaccination reminder: list of pets due for vaccination, send notice",
+    "Staff shift: clock in/out, patient load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : appointments, drugs, controlled log, reports, billing",
+    "Vet: create appointments, prescribe drugs, view controlled log, approve administration",
+    "Veterinary assistant: enter drug sales, update controlled log, record vaccinations",
+    "Cashier: record drug sales, print receipt, shift close"
+  ],
+  "reports": [
+    "Vaccination compliance: pets due per period, by vaccine type, send-overdue notices",
+    "Drug sales by type and period: which drugs sell most, revenue per drug per month",
+    "Controlled drug log: administered vs sold vs wasted counts per period, audit trail",
+    "Appointment no-show rate: per period, by vet, with overdue notice rates",
+    "Drug expiry radar: items expiring in 30/60/90 days, value at risk"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer for prescriptions and receipts",
+    "WhatsApp deep link for vaccination reminders and drug pick-up notifications",
+    "Email for vaccination records and prescription copies (opt-in)",
+    "SMS for drug expiry alerts (optional)"
+  ],
+  "onboarding": [
+    "Clinic basics: name, branch, address, phone, currency, working hours",
+    "Initial drug catalogue: the starting list of common veterinary drugs with active ingredient, price and FEFO flag",
+    "Vaccination schedule: the standard vaccine types and dates for dogs/cats",
+    "Staff: add the initial team with their role templates",
+    "First week plan: set up first appointment type, first drug catalogue entry, first vaccination reminder"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the pet record/drug sale/controlled log schema and role templates.",
+  "landing_ar": {
+    "headline": "العيادة البيطرية",
+    "sub": "مواعيد، لقاحات ومبيعات أدوية من لوحة واحدة",
+    "benefits": [
+      "تتبع اللقاحات وتذكيرات",
+      "حزمة الأدوية بتracking FEFO",
+      "سجل controlled drug append-only"
+    ],
+    "faq": [
+      "كيف أسجل لقاحاً جديداً؟",
+      "ما هي الأدوية المسيطر عليها؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Veterinary Clinic Management",
+    "sub": "Appointments, vaccinations and drug sales from one dashboard",
+    "benefits": [
+      "Vaccination compliance tracking and overdue notices",
+      "FEFO drug batch tracking with expiry radar",
+      "Controlled drug append-only log with audit trail"
+    ],
+    "faq": [
+      "How do I register a new vaccination?",
+      "What are controlled drugs?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 150 EGP / month, 1 branch, up to 5 staff",
+    "- Professional: 300 EGP / month, unlimited staff, drug module",
+    "- Enterprise: custom for veterinary chains"
+  ],
+  "competitors": [
+    {
+      "name": "VetPro",
+      "price": "from 400 EGP/mo",
+      "weak": "no FEFO batch tracking",
+      "edge": "full FEFO batch tracking with expiry radar and 30/60/90 day alerts"
+    },
+    {
+      "name": "AnimalCare",
+      "price": "from 380 EGP/mo",
+      "weak": "no controlled drug log",
+      "edge": "append-only controlled drug log with authorisation and reason per entry"
+    },
+    {
+      "name": "PetClinic",
+      "price": "from 420 EGP/mo",
+      "weak": "no vaccination reminder",
+      "edge": "vaccination reminder with notice sending (WhatsApp/SMS)"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add patient record with vaccination history",
+      "brief": "Build the patient screen: name, species, breed, owner name and phone, vaccination history (type, date, next due), notes, photo consent flag. Done when the patient is saved with vaccination history and consent flag.",
+      "done": "When patient record works with vaccination history and consent flag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add drug catalogue with FEFO flag and expiry",
+      "brief": "Build the drug catalogue: list of drugs with active ingredient, price, FEFO flag, expiry date, supplier, reorder point. Done when the catalogue loads and displays drugs with FEFO badge and expiry.",
+      "done": "When drug catalogue displays live data with FEFO flag and expiry date",
+      "phase": "M1"
+    },
+    {
+      "title": "Add controlled drug append-only log",
+      "brief": "Build the controlled drug log: append-only list of administered/sold/wasted drugs with date, batch, quantity, authorised user. Done when the log saves each entry as append-only and the audit trail is persistent.",
+      "done": "When controlled drug log works end-to-end with append-only audit",
+      "phase": "M1"
+    },
+    {
+      "title": "Add drug sale screen with FEFO check",
+      "brief": "Build the drug sale screen: select drug, enter quantity, check FEFO expiry, record sale, compute price with tax. Done when the sale saves and the FEFO expiry check works correctly.",
+      "done": "When drug sale works end-to-end with FEFO check and price computation",
+      "phase": "M1"
+    },
+    {
+      "title": "Add vaccination reminder screen",
+      "brief": "Build the reminder screen: list of pets due for vaccination, send notice (WhatsApp/SMS). Done when the reminder list pulls live data and the notice can be sent.",
+      "done": "When vaccination reminder works end-to-end with notice sending",
+      "phase": "M1"
+    },
+    {
+      "title": "Add controlled drug log audit report",
+      "brief": "Build the report showing administered vs sold vs wasted counts per period with audit trail. Done when the report computes from Firestore and displays correct figures and the append-only nature is verifiable.",
+      "done": "When controlled drug log audit report computes correctly from live data and shows append-only",
+      "phase": "M2"
+    },
+    {
+      "title": "Add drug expiry radar report (30/60/90 days)",
+      "brief": "Build the radar report showing items expiring in 30/60/90 days and value at risk. Done when the report computes from Firestore and displays correct buckets and values.",
+      "done": "When drug expiry radar report computes correctly from live data and shows correct buckets",
+      "phase": "M2"
+    },
+    {
+      "title": "Add vaccination compliance report (due per period)",
+      "brief": "Build the report showing pets due for vaccination per period by vaccine type, with overdue notice rates. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When vaccination compliance report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add appointment no-show rate report",
+      "brief": "Build the report showing no-show rate per period by vet, with overdue notice rates. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When appointment no-show report computes correctly from live data",
+      "phase": "M2"
+    },
+    {
+      "title": "Add onboarding flow for initial veterinary clinic setup",
+      "brief": "Build the onboarding flow: clinic basics, initial drug catalogue, vaccination schedule, staff addition. Done when the flow completes and the clinic appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and clinic is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes patient and drug records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Controlled drug log without append-only enforcement and audit can violate legal requirements",
+    "Drug sales without proper prescription recording can violate veterinary regulations"
+  ]
+}

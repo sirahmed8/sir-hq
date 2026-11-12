@@ -1,0 +1,181 @@
+{
+  "slug": "pharmacy-chain",
+  "name_ar": "سلسلة صيدليات",
+  "name_en": "Pharmacy chain",
+  "group": "health-and-beauty",
+  "base": "pharmacy + branches",
+  "order": 41,
+  "wave": 4,
+  "why": "Pharmacy chains are common in Egypt. They need multi-branch support, centralised buying and the same FEFO/expiry/controlled-drug logic as a single pharmacy but across many locations. The owner owns several businesses on one bill.",
+  "operator": "The pharmacy chain owner manages multiple branch pharmacies under one account. Their day is branch stock visibility, centralised purchasing and ensuring each branch FEFO compliance and controlled-drug log.",
+  "entities": [
+    "Chain (id, nameAr, nameEn, ownerId, taxRegistration, currency, openingHours, branchesCount, isActive)",
+    "Branch (id, chainId, nameAr, nameEn, address, phone, currency, taxRegistration, openingHours, fe4oEnabled, controlledDrugEnabled)",
+    "PharmacyProduct (id, branchId, sku, nameAr, nameEn, activeIngredient, pricePiasters, costPiasters, taxRate, fe4oFlag, expiryDate, supplierId, status, locationShelf)",
+    "Supplier (id, chainId, name, phone, paymentTerms, visitDays, leadTimeDays, isPreferred)",
+    "PurchaseOrder (id, branchId, supplierId, status, lines, expectedAt, totalPiasters)",
+    "ControlledDrugLog (id, branchId, drugName, batchId, quantityPiasters, dateIn, dateOut, authorisedBy, reason, status (administered/sold/wasted))",
+    "Employee (id, branchId, name, phone, role, hourlyRatePiasters, status)",
+    "ChainAuditLog (id, chainId, action, performedBy, performedAt, notes)"
+  ],
+  "units": "batch, box, bottle, tube",
+  "batches": "Yes for all drugs and food: batches with supplier, received date, expiry date and cost, so each branch can sell by batch and claim credit",
+  "expiry": "Each branch sees alerts for items expiring in 30/60/90 days; central view shows aggregate expiry across all branches",
+  "special": "The core structures are the chain with branches, the per-branch pharmacy product with FEFO and the centralised controlled-drug log per branch. Multi-branch support with shared central buying is the key differentiator from a single pharmacy.",
+  "screens": [
+    "Chain overview: all branches, branch stock summary, central buying dashboard, expiry aggregate view",
+    "Branch selector: switch between branches, view branch-specific data (products, controlled log, staff)",
+    "Product catalogue per branch: grid of pharmacy products with name, active ingredient, price, FEFO badge, expiry date badge, stock qty",
+    "FEFO food radar per branch: items expiring in 30/60/90 days, value at risk, one-tap discount tag",
+    "Controlled drug log per branch: append-only list of administered/sold/wasted drugs with date, batch, quantity, authorised user",
+    "Supplier management: list of suppliers per chain, preferred flag, lead time, contact",
+    "Purchase order: create per branch, receive from supplier, update branch stock",
+    "Cash register per branch: scan SKU or product, apply FEFO discount if urgent, tender payment, print receipt with branch name"
+  ],
+  "roles": [
+    "Owner: everything : chain, branches, products, controlled logs, reports, billing across all branches",
+    "Branch manager: manage branch products, controlled log, staff, purchase orders, view chain overview",
+    "Pharmacist: per branch - manage products, controlled drug log, approve administration,",
+    "Cashier: per branch - scan products, tender payment, print receipt"
+  ],
+  "reports": [
+    "Chain-wide expiry aggregate: items expiring in 30/60/90 days across all branches, total value at risk",
+    "Branch product sales: which products sell most per branch, revenue per branch per period",
+    "Controlled drug log per branch: administered vs sold vs wasted counts per period, audit trail per branch",
+    "Centralised buying: purchase orders created, received, total spend per period, preferred supplier performance",
+    "FEFO food radar aggregate: total items expiring across all branches, discounts applied across chain"
+  ],
+  "integrations": [
+    "Esc/POS thermal printer per branch for receipts and controlled log records",
+    "WhatsApp deep link per branch for stock alerts and supplier contact",
+    "Email for purchase order updates and supplier contracts (opt-in)",
+    "Centralised dashboard: Firebase for chain-wide data, branch-level IndexedDB for local ops"
+  ],
+  "onboarding": [
+    "Chain basics: name, owner, tax registration, currency, opening hours, initial branch count",
+    "Initial branch: the first branch address, phone, currency, opening hours, FEFO and controlled drug enabled flag",
+    "Initial product list: the starting pharmacy product list per branch with SKU, active ingredient, price and FEFO flag",
+    "Supplier list: the first preferred supplier with terms and lead time",
+    "First week plan: create first branch, first product, first purchase order"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the chain/branch/pharmacy product/schema and role templates.",
+  "landing_ar": {
+    "headline": "سلسلة صيدليات",
+    "sub": "فروع، مشتريات مركزية وتracking FEFO من لوحة واحدة",
+    "benefits": [
+      "عرض مركزي لجميع الفروع",
+      "مشتريات مركزية",
+      "Tracking FEFO مركزي"
+    ],
+    "faq": [
+      "كيف أضيف فرع جديد؟",
+      "كيف أشرف على المشتريات المركزية؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Pharmacy Chain Management",
+    "sub": "Chain, branches, central buying and FEFO tracking from one dashboard",
+    "benefits": [
+      "Chain overview with all branches",
+      "Centralised buying and supplier management",
+      "FEFO tracking across all branches"
+    ],
+    "faq": [
+      "How do I add a new branch?",
+      "How do I manage central buying?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 300 EGP / month, 1 branch, up to 20 products per branch",
+    "- Professional: 600 EGP / month, unlimited products per branch, centralised buying module",
+    "- Enterprise: custom for pharmacy chain networks"
+  ],
+  "competitors": [
+    {
+      "name": "ChainCare",
+      "price": "from 700 EGP/mo",
+      "weak": "no centralised buying module",
+      "edge": "full centralised buying with supplier management and purchase orders per branch"
+    },
+    {
+      "name": "Pharmachain",
+      "price": "from 680 EGP/mo",
+      "weak": "no FEFO aggregate view",
+      "edge": "chain-wide FEFO aggregate: items expiring across all branches and total value at risk"
+    },
+    {
+      "name": "Medichain",
+      "price": "from 720 EGP/mo",
+      "weak": "no branch switching",
+      "edge": "single UX to switch between all branches with all data per branch"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Add chain overview with branch switching",
+      "brief": "Build the chain screen: all branches, branch stock summary, central buying dashboard, expiry aggregate view. Done when the chain overview loads and branch switching works correctly.",
+      "done": "When chain overview works and branch switching displays correct per-branch data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add branch-specific product catalogue with FEFO",
+      "brief": "Build the product catalogue per branch: grid of products with name, active ingredient, price, FEFO badge, expiry date badge, stock qty. Done when the catalogue loads and displays products with FEFO badges correctly per branch.",
+      "done": "When product catalogue per branch displays live data with FEFO badges",
+      "phase": "M1"
+    },
+    {
+      "title": "Add FEFO food radar per branch",
+      "brief": "Build the FEFO radar screen per branch: items expiring in 30/60/90 days, value at risk, one-tap discount tag. Done when the radar pulls branch-specific live data and the discount tag works.",
+      "done": "When FEFO radar per branch works end-to-end with discount tag",
+      "phase": "M1"
+    },
+    {
+      "title": "Add controlled drug log per branch",
+      "brief": "Build the controlled drug log per branch: append-only list of administered/sold/wasted drugs with date, batch, quantity, authorised user. Done when the log saves each entry as append-only and the audit trail is persistent per branch.",
+      "done": "When controlled drug log per branch works end-to-end with append-only audit",
+      "phase": "M1"
+    },
+    {
+      "title": "Add supplier management per chain",
+      "brief": "Build the supplier screen: list of suppliers per chain, preferred flag, lead time, contact. Done when the supplier is saved and appears in the purchase order screen.",
+      "done": "When supplier management works and suppliers appear in purchase orders",
+      "phase": "M1"
+    },
+    {
+      "title": "Add purchase order per branch",
+      "brief": "Build the purchase order screen: create per branch, receive from supplier, update branch stock. Done when the order saves and branch stock increments correctly.",
+      "done": "When purchase order per branch works end-to-end with stock update",
+      "phase": "M1"
+    },
+    {
+      "title": "Add cash register per branch with FEFO discount",
+      "brief": "Build the cash register per branch: scan SKU or product, apply FEFO discount if urgent, tender payment, print receipt with branch name. Done when the sale records correctly and receipt prints with branch name.",
+      "done": "When cash register per branch works end-to-end with FEFO discount and receipt prints",
+      "phase": "M1"
+    },
+    {
+      "title": "Add chain-wide expiry aggregate report",
+      "brief": "Build the report showing items expiring in 30/60/90 days across all branches and total value at risk. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When chain-wide expiry aggregate report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add branch product sales report",
+      "brief": "Build the report showing which products sell most per branch and revenue per branch per period. Done when the report computes from Firestore and displays correct figures.",
+      "done": "When branch product sales report computes correctly from live data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add controlled drug log per branch audit report",
+      "brief": "Build the report showing administered vs sold vs wasted counts per period per branch with audit trail. Done when the report computes from Firestore and displays correct figures and the append-only nature is verifiable per branch.",
+      "done": "When controlled drug log audit report computes correctly from live data per branch and shows append-only",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Encryption key loss makes chain and branch records unrecoverable across all branches",
+    "WhatsApp template rejection if not approved by Meta",
+    "FEFO expiry without proper batch tracking can safety-compromise patients across branches",
+    "Centralised buying without clear audit per branch can violate legal requirements on per-branch reporting"
+  ]
+}

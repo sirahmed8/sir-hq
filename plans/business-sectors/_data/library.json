@@ -1,0 +1,163 @@
+{
+  "slug": "library",
+  "name_ar": "مكتبة",
+  "name_en": "Library",
+  "group": "education-and-community",
+  "base": "library",
+  "order": 22,
+  "wave": 3,
+  "why": "Egyptian public and private libraries need circulation tracking, deposit management, study-desker booking and a public OPAC page. Lending deposits and child-data privacy rules apply.",
+  "operator": "The library manager oversees book circulation, membership fees, study-desker bookings and overdue fines. Their day is member check-in, book returns and fine collection.",
+  "entities": [
+    "Library (id, nameAr, nameEn, branchId, address, phone, currency, taxRegistration, openingHours)",
+    "Member (id, libraryId, name, phone, encryptedChildData, parentConsent, class, membershipType, joinDate, expiryDate, depositsPiasters)",
+    "Book (id, libraryId, isbn, titleAr, titleEn, authorAr, authorEn, category, unitPricePiasters, costPiasters, status, locationShelf)",
+    "Borrowing (id, memberId, bookId, borrowedAt, dueDate, returnedAt, finePiasters, status)",
+    "StudyDesk (id, libraryId, label, capacity, status, bookedBy, bookedAt, expiresAt)",
+    "Staff (id, libraryId, name, phone, role, hourlyRatePiasters, status)"
+  ],
+  "units": "book, member, desk, borrowing",
+  "batches": "No : library carries no stock or expiry",
+  "expiry": "Not applicable. Borrowing is time-based not product-based",
+  "special": "The core structures are the membership with deposits, the borrowing lifecycle, the study-desk booking and the child-data privacy flag. Member data with children (under 18) requires parent consent and minimal fields.",
+  "screens": [
+    "OPAC public page: search books by ISBN, title or author, view availability",
+    "Member check-in: scan member card, view active borrowings, due dates",
+    "Book checkout: scan book barcode, decrement stock, record borrowing with due date",
+    "Study desk booking: available desks, book slot, confirm booking, cancel booking",
+    "Return book: scan borrowing record, mark returned, compute fine if overdue",
+    "Fine management: unpaid fines per member, receipt print, write-off reason",
+    "Staff shift: clock in/out, member load per hour, notes"
+  ],
+  "roles": [
+    "Owner: everything : book inventory, membership, reports, billing",
+    "Librarian: member check-in/out, book check-in/out, fine assessment",
+    "Assistant: member registration, study desk booking, fine collection",
+    "Cashier: fine receipts, shift close"
+  ],
+  "reports": [
+    "Active borrowings per day: how many books out, by category",
+    "Overdue fines revenue: total unpaid, collected, written off per period",
+    "Study desk utilisation: booked hours vs available per day",
+    "Member retention: new members, renewals, lapsed members per month",
+    "Book circulation by category: which genres are most borrowed"
+  ],
+  "integrations": [
+    "Barcode scanner for book and member check-in",
+    "Esc/POS thermal printer for fine receipts and overdue notices",
+    "WhatsApp deep link for overdue notices and membership renewals",
+    "Email for membership renewal notices (opt-in)"
+  ],
+  "onboarding": [
+    "Library basics: name, branch, address, phone, currency, working hours",
+    "Collection: the initial book inventory with ISBN, titles and categories",
+    "Membership types: the categories (student, adult, child, family) and deposit amounts",
+    "Study desks: the desks available and their capacity",
+    "First week plan: register first member, check out first book, book first desk"
+  ],
+  "seed": "No sector-specific seed data. The engine provides the membership/borrowing/desk schema and role templates.",
+  "landing_ar": {
+    "headline": "المكتبة",
+    "sub": "حصر، إرجاع ودور من لوحة واحدة",
+    "benefits": [
+      "حجز مقاعد للدراسة",
+      "تعقّب الاستعارات",
+      "إدارة الغرامات"
+    ],
+    "faq": [
+      "كيف أصبح عضواً في المكتبة؟",
+      "ما غرامة التأخر في الإرجاع؟"
+    ]
+  },
+  "landing_en": {
+    "headline": "Library Management",
+    "sub": "Circulation, deposits and study-desk booking from one dashboard",
+    "benefits": [
+      "Membership with deposit tracking",
+      "Borrowing lifecycle with due dates",
+      "Study-desk booking and utilisation"
+    ],
+    "faq": [
+      "How do I become a library member?",
+      "What is the late-return fine?"
+    ]
+  },
+  "pricing": [
+    "- Starter: 80 EGP / month, 1 branch, up to 20 members",
+    "- Professional: 180 EGP / month, unlimited members, reports",
+    "- Enterprise: custom for multi-branch library networks"
+  ],
+  "competitors": [
+    {"name": "Kitab", "price": "from 200 EGP/mo", "weak": "no child-data consent flag", "edge": "parent consent and minimal child fields with deletion on request"},
+    {"name": "Maktaba", "price": "from 180 EGP/mo", "weak": "no study-desk booking", "edge": "full study-desk booking with utilisation reports"},
+    {"name": "Dar", "price": "from 220 EGP/mo", "weak": "no OPAC public page", "edge": "online OPAC search by ISBN, title, author"}
+  ],
+  "tasks": [
+    {
+      "title": "Add OPAC public search page",
+      "brief": "Build the public search page: search books by ISBN, title or author, view availability status. Done when the page loads and displays matching books from Firestore.",
+      "done": "When OPAC search works and displays live book data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add member check-in with scan",
+      "brief": "Build the member check-in screen: scan member card, view active borrowings, due dates. Done when the scan works and displays member data correctly.",
+      "done": "When member check-in works with barcode scan and displays data",
+      "phase": "M1"
+    },
+    {
+      "title": "Add book checkout and check-in screen",
+      "brief": "Build the checkout screen: scan book barcode, record borrowing with due date, decrement availability. Done when checkout records borrowing and check-in updates status and computes fines.",
+      "done": "When book checkout/check-in works end-to-end with due dates and fines",
+      "phase": "M1"
+    },
+    {
+      "title": "Add study desk booking screen",
+      "brief": "Build the desk booking screen: available desks, book slot, confirm, cancel. Done when a desk can be booked and the booking is saved to Firestore.",
+      "done": "When study desk booking works end-to-end",
+      "phase": "M2"
+    },
+    {
+      "title": "Add fine management screen",
+      "brief": "Build the fine screen: unpaid fines per member, receipt print, write-off reason. Done when fines are tracked and receipts print correctly.",
+      "done": "When fine management works and receipts print",
+      "phase": "M2"
+    },
+    {
+      "title": "Add member registration with parent consent for children",
+      "brief": "Build the member screen: name, phone, class, membership type, parent consent flag for under-18. Done when the member is saved with consent flag and minimal child data.",
+      "done": "When member registration works with parent consent flag",
+      "phase": "M2"
+    },
+    {
+      "title": "Add overdue fines revenue report",
+      "brief": "Build the report showing total unpaid, collected and written-off fines per period. Done when the report pulls live data and displays correct figures.",
+      "done": "When fines revenue report pulls live data and displays correctly",
+      "phase": "M3"
+    },
+    {
+      "title": "Add study desk utilisation report",
+      "brief": "Build the report showing booked hours vs available per day. Done when the report computes from Firestore and displays correct utilisation.",
+      "done": "When study desk utilisation report computes correctly from live data",
+      "phase": "M3"
+    },
+    {
+      "title": "Add book circulation by category report",
+      "brief": "Build the report showing which genres are most borrowed per period. Done when the report computes from Firestore and displays correct circulation counts.",
+      "done": "When book circulation report computes correctly from live data",
+      "phase": "M4"
+    },
+    {
+      "title": "Add onboarding flow for initial library setup",
+      "brief": "Build the onboarding flow: library basics, initial book inventory, membership types, study desks. Done when the flow completes and the library appears with all defaults.",
+      "done": "When onboarding flow works end-to-end and library is created",
+      "phase": "M1"
+    }
+  ],
+  "risks": [
+    "Member data with children (under 18) requires parent consent and minimal fields per PDPL",
+    "Encryption key loss makes member records unrecoverable",
+    "WhatsApp template rejection if not approved by Meta",
+    "Overdue fines that accumulate without a cap can violate consumer protection law"
+  ]
+}
