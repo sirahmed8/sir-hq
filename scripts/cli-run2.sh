@@ -3,6 +3,7 @@
 # Usage: cli-run2.sh <task-name> <project-folder>
 # Reads ops/WORKER_PREAMBLE.md + ops/briefs/<task>.prompt.txt, done marker ops/agy-runs/done/<task>.done, log ops/agy-runs/cli-<task>.log
 # Which model runs next comes from scripts/cli_pool.py (shared cooldown file, so two tasks never hammer a model that is out of quota).
+# AHome (private data of Ahmed and Habiba) only ever goes to local models (AGENTS.md law): the pool is asked for "local" models only.
 NAME="$1"; DIR="$2"
 ROOT=/d/Projects/_SIR
 GAME_SNAP="/d/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json"
@@ -12,6 +13,8 @@ DONE=$ROOT/ops/agy-runs/done/$NAME.done
 LOG=$ROOT/ops/agy-runs/cli-$NAME.log
 DEVIN="$LOCALAPPDATA/devin/cli/bin/devin.exe"
 CONT="Continue task $NAME. Read $PREAMBLE, then .sir/CHECKPOINT.md, the checklist file named in the brief, the brief $PROMPT, git status, git diff --stat and the last commits. Repair anything broken first, then finish every unticked item completely (commit, push and checkpoint after each item), then write the report and run the done command from the manual. Do not stop until every item is ticked and CI on main is green."
+POOL_ARGS=""
+case "$DIR" in *[Aa][Hh]ome*) POOL_ARGS="local" ;; esac
 cd "$DIR" || exit 1
 # Run the whole runner tree at BelowNormal priority so automations never freeze the laptop.
 WINPID=$(cat /proc/$$/winpid 2>/dev/null || true)
@@ -19,7 +22,7 @@ WINPID=$(cat /proc/$$/winpid 2>/dev/null || true)
 for round in $(seq 1 40); do
   [ -e "$DONE" ] && { echo "done marker present" >> "$LOG"; exit 0; }
   if [ -e "$GAME_SNAP" ]; then echo "=== game mode active: runner paused $(date +%H:%M)" >> "$LOG"; exit 0; fi
-  pick=$(python $ROOT/scripts/cli_pool.py pick)
+  pick=$(python "$ROOT/scripts/cli_pool.py" pick $POOL_ARGS)
   case "$pick" in
     WAIT*)
       secs=${pick#WAIT }
@@ -46,7 +49,7 @@ for round in $(seq 1 40); do
     kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;
   esac
   code=$?
-  why=$(python $ROOT/scripts/cli_pool.py report "$pick" $code "$LOG" $offset $(( $(date +%s) - t0 )))
+  why=$(python "$ROOT/scripts/cli_pool.py" report "$pick" $code "$LOG" $offset $(( $(date +%s) - t0 )))
   echo "=== round $round ended code $code ($why) $(date +%H:%M)" >> "$LOG"
   sleep 20
 done

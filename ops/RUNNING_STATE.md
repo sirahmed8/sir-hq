@@ -44,7 +44,7 @@ Freed 14.81 GB regenerable space: D: 2.03→14.82 GB (+12.79), C: 7.61→9.63 GB
   - 1sir1ahmed1: weekly 5%, 5h 100%
   - a01083835229 (paid): Gemini 4 Argon 100%, Claude/GPT 50% weekly
 - Next heavy round (r43+) should use a01083835229 paid reserve (Gemini 4 Argon) or ahmedalaa2006.7.6 if available.
-- Free CLI pool (kilo/opencode/devin): 28 available, 0 cooling - ready for scout/verifier work.
+- Free CLI pool (kilo/opencode/devin/local Ollama): 31 entries, 2 new OpenCode free models proven (nemotron-3.5-lightning-free, beam-free); AHome runs local models only; OpenRouter free cap shared, resets 00:00 UTC. Limits: ops/USAGE_LIMITS.md. Owner one-tap sign-ups: ops/research/free-tools-2026-11-12.md.
 
 <!-- r42-usage:start -->
 ## Usage windows & heavy-round plan (r42)

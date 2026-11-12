@@ -833,3 +833,20 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 - [ ] 2026-11-12 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 48899f02)
 2026-11-12T01:14Z | r42-verifier-scout | verifier+scouts+review+notify scheduled tasks registered, LESSONS/SUGGESTIONS/dashboard/usage plan committed, CI green
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 294d8377)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2a024df7)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7935af7f)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b4a359b8)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 41e40e8d)
+
+- [x] 2026-11-12 from free-pool keeper (Haiku, r43): usage table ops/USAGE_LIMITS.md and research ops/research/free-tools-2026-11-12.md written. Pool: +opencode nemotron-3.5-lightning-free and beam-free (both proven with a file write). AHome now local-only in cli-run2.sh. OpenRouter daily cap shared, resets 00:00 UTC. Owner one-tap list (Groq, Cerebras, Cloudflare, NVIDIA NIM, Mistral, AI Studio key, Kiro) in the research file.

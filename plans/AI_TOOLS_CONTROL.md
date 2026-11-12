@@ -67,3 +67,15 @@ Round r36 (2026-11-12, infra): widened pool and manager coverage. Smoke scratch:
 
 ## 10. When Claude is gone (succession, about 2026-11-23)
 Nothing depends on Claude except two things: screen operation of ZCode and the hourly Claude cron (session only). Everything else is OS tasks: `SIR_HQ_Autopilot` (starts workers), `SIR_HQ_Watchdog` (repairs, queues CI fixes and audits, cleans disk), `SIR_HQ_ManagerTick` (hourly; when no manager note was written for 50 minutes it runs `ops/MANAGER_PROMPT.md` through a free model from the pool, so a free AI is the manager automatically). A new human or AI manager: read section 6 of this file, run `python scripts/ai-status.py`, and keep appending notes to `ops/HQ_CHECKPOINT.md`; as long as notes are fresh the free manager stays idle. To change what the free manager does edit `ops/MANAGER_PROMPT.md`. To pause everything: `Stop-ScheduledTask` on the three tasks and delete nothing.
+
+## 10. Round r43 (2026-11-12, Haiku pool keeper): free-model additions and proofs
+Tiny real task in each scratch folder: create `proof.txt` containing exactly `TINY_OK`, read it back. Scratch: `ops/agy-runs/scratch/r43/`.
+| Entry | Result | Note |
+|---|---|---|
+| `opencode|opencode/nemotron-3.5-lightning-free` | PASS | file written and read back; in POOL |
+| `opencode|opencode/beam-free` | PASS | file written and read back; in POOL; keeps data 30 days, never for private work |
+| `opencode|opencode/nemotron-3-ultra-free` | FAIL | "Model unavailable" (not in `opencode models`); removed from POOL. The OpenRouter NVIDIA ultra model stays in POOL via kilo/opencode |
+| `qwen|qwen2.5-coder:1.5b` (local) | FAIL | replied DONE but wrote no file (tool use too weak); removed from POOL |
+Runner and pool changes: `scripts/cli-run2.sh` now sends AHome tasks only to local models (`cli_pool.py pick local`); `scripts/cli_pool.py` now reads only error lines for limits, puts all `openrouter/` entries on cooldown to 00:00 UTC on the OpenRouter daily cap, and lists new OpenCode free models. Both checked with `py_compile`, `bash -n`, and unit tests against a scratch state file.
+No new CLI was installed. Installed tools (kilo, opencode, devin, gemini, qwen, goose, crush, cline, kimi, ollama, agy) already had runner branches.
+Vendor limits and which free services need the owner: `ops/USAGE_LIMITS.md`, `ops/research/free-tools-2026-11-12.md`.
