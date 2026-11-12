@@ -6,8 +6,8 @@
 // After a press the buttons are removed from the message, so one message is answered once.
 // One instance only: the pid is written to ops/telegram-listener.pid (hq_autopilot.py restarts it when it dies).
 // Usage: node telegram-inbox.mjs   (runs until stopped; long-polls the Bot API)
-import { execFile, execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
+import { execFile, execFileSync, spawn } from 'node:child_process';
+import { appendFileSync, existsSync, readFileSync, writeFileSync, renameSync, mkdirSync } from 'node:fs';
 
 const OPS = 'D:/Projects/_SIR/ops';
 const OFFSET_FILE = `${OPS}/telegram-offset.txt`;
@@ -19,7 +19,28 @@ const PID_FILE = `${OPS}/telegram-listener.pid`;
 const GAME_SNAPSHOT = 'D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json';
 const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
 const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
-const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off'];
+const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off', 'استلام المدير الاحتياطي=takeover', 'رجوع لكلود=handback'];
+// Backup manager (owner, 2026-11-12): while on, every message goes to scripts/backup_manager.py (see ops/BACKUP_MANAGER.md)
+const BM_STATE = `${OPS}/backup-manager.json`;
+const BM_DIR = `${OPS}/backup-manager`;
+const BM_SCRIPT = 'D:/Projects/_SIR/scripts/backup_manager.py';
+function bmActive() { try { return !!JSON.parse(readFileSync(BM_STATE, 'utf8')).active; } catch { return false; } }
+function bmSet(active) { writeFileSync(BM_STATE, JSON.stringify({ active, since: new Date().toISOString() })); }
+function bmDispatch(payload) {
+  mkdirSync(BM_DIR, { recursive: true });
+  const file = `${BM_DIR}/in-${payload.id}.json`;
+  writeFileSync(file, JSON.stringify(payload));
+  const child = spawn('python', [BM_SCRIPT, file], { detached: true, stdio: 'ignore', windowsHide: true,
+    env: { ...process.env, SIR_TELEGRAM_BOT_TOKEN: token, SIR_TELEGRAM_CHAT_ID: chatId, PYTHONUTF8: '1' } });
+  child.unref();
+}
+async function takeover(on) {
+  bmSet(on);
+  if (on) {
+    await sendText('[المدير الاحتياطي] استلمت. من دلوقتي كلمني هنا (كتابة، فويس، صور) وأنا بكمل من مكان كلود وبوزع المهام وبتابع. للرجوع لكلود ابعت /handback.');
+    bmDispatch({ id: `takeover-${Date.now()}`, kind: 'text', text: 'Ahmed switched you on as the manager. Read the checkpoints and the queue, tell him the current state in a few lines, and continue the HQ duty.' });
+  } else await sendText('[المدير الاحتياطي] رجعت الإدارة لكلود. الرسائل هتتسجل بس لحد ما كلود يقراها.');
+}
 
 function userEnv(name) {
   if (process.env[name]) return process.env[name];
@@ -170,6 +191,7 @@ async function handleButton(cq) {
     return;
   }
 
+  if (data === 'takeover' || data === 'handback') { await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام' }); await takeover(data === 'takeover'); return; }
   await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام، بنفذ' });
   runAction(data); // not awaited: polling continues while the command runs
 }
@@ -189,11 +211,18 @@ async function poll() {
     const stamp = new Date(m.date * 1000).toISOString();
     appendFileSync(INBOX, `- ${stamp} from Ahmed (Telegram): ${text}\n`);
     console.log(`AHMED (Telegram ${stamp}): ${text}`);
-    if (/^\/status/i.test(text)) runAction('status');
+    if (/^\/(takeover|manager)|^(استلم|المدير الاحتياطي|كمل انت|كمّل انت)\s*$/i.test(text)) await takeover(true);
+    else if (/^\/handback|^(رجع الإدارة لكلود|رجوع لكلود)\s*$/i.test(text)) await takeover(false);
+    else if (/^\/status/i.test(text)) runAction('status');
     else if (/^\/queue/i.test(text)) runAction('queue');
     else if (/^\/(menu|start|help)/i.test(text)) {
       const { err } = await run('node', [SEND_BUTTONS, ...MENU]);
       if (err) console.log('menu failed: ' + err.message);
+    } else if (bmActive()) {
+      const kind = m.voice || m.audio ? 'voice' : m.photo ? 'photo' : m.document ? 'document' : 'text';
+      const fileId = m.voice?.file_id || m.audio?.file_id || (m.photo ? m.photo[m.photo.length - 1].file_id : '') || m.document?.file_id || '';
+      if (kind === 'text' && !m.text) await sendText('[المدير الاحتياطي] النوع ده من الرسايل مش مدعوم، ابعت كتابة أو فويس أو صورة.');
+      else bmDispatch({ id: `${u.update_id}`, kind, text: m.text || m.caption || '', file_id: fileId, file_name: m.document?.file_name || '' });
     }
   }
 }

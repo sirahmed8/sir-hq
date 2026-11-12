@@ -3,7 +3,7 @@
     "name": "r53-education-hub-plan",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Education Hub: big merged plan",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -514,7 +514,7 @@
     "name": "r49b-skills-deep-4",
     "folder": "D:/Projects/_SIR",
     "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -595,14 +595,14 @@
     "name": "r52-plan-sir-laptop-manager",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r52-plan-sir-modpack",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -623,7 +623,7 @@
     "name": "r52-plan-sir-jobs",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -651,5 +651,60 @@
     "folder": "D:/Projects/SIR Jobs",
     "title": "Fix failures from r45-jobs-scout-fixes verification",
     "done": false
+  },
+  {
+    "name": "ci-sir-study-20261112-0700-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from ci-sir-study-20261112-0700 verification",
+    "done": false
+  },
+  {
+    "name": "r54-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r56-business-sector-depth",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: 25+ sectors, each with its own specialised plan",
+    "done": false,
+    "parallel_ok": true
   }
 ]

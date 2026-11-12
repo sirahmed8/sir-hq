@@ -348,3 +348,4 @@
 
 ## Worker note (2026-11-12, r49b-skills-deep-4 continuation)
 - Found the missing-4 digests were already committed (b757d41) but 7 of 13 were hallucinated/generic (auth, auth0, automation, audio-setup-mixers, base44-cli, base44-sdk, base44-troubleshooter). Re-read every real SKILL.md + references and rewrote all 7 accurately; spot-checked the other 6 (accurate). Commit ced95c7 pushed to origin/main. PROGRESS-missing-4.md documents the correction. Report updated at ops/agy-runs/reports/r49b-skills-deep-4.md. Slice missing-4 is now genuinely complete: 13/13 real digests.
+- 2026-11-12 (backup manager) Telegram bot can take over as manager: /takeover, /handback; text tested end to end with opencode; voice and photo paths written, not yet tested live. SIR Autonomy MCP registered in opencode and kilo. Six small-project plan briefs (r54) and Business sector depth (r56) queued.
