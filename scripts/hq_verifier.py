@@ -49,6 +49,8 @@ def build_prompt(task: dict, checklists: list) -> str:
     name, folder, title = task["name"], task["folder"], task.get("title", task["name"])
     checklist_block = "\n".join(f"- {p}" for p in checklists) or "- (no checklist file found: use the brief items)"
     return f"""You are the SIR verifier for task {name} ({title}).
+
+CI RULE: if the file D:/Projects/_SIR/ops/ci-quota-exhausted.flag exists, GitHub Actions minutes are used up and every CI job ends in about 3 seconds with zero steps. For the checklist item about CI being green, do NOT mark FAIL for that reason: mark it PASS only if the same commit passes the full LOCAL verification you run yourself (tests, lint, build), and write 'CI blocked by the Actions quota, local verification passed' in the evidence column. If local verification fails, mark FAIL as usual.
 Project folder: {folder}
 Project key: {project_key(folder)}
 

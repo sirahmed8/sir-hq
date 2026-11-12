@@ -157,7 +157,7 @@ def start_runner(task: dict, state: dict) -> None:
     rs["started"] = time.time()
     log(f"runner started for {task['name']} pid {p.pid}")
     if not rs.get("start_told"):
-        telegram(f"[الإدارة] بدأت أكمل شغل {task.get('title', task['name'])} بأدوات مجانية. مش محتاج منك حاجة.")
+        log(f"owner message skipped (start): {task['name']}")  # per-task Telegram messages stopped 2026-11-12: one daily summary instead
         rs["start_told"] = True
 
 
@@ -180,7 +180,7 @@ def handle(task: dict, queue: list, state: dict) -> None:
         task["done"] = True
         save(QUEUE, queue)
         log(f"task done: {task['name']}")
-        telegram(f"[الإدارة] خلصت مهمة: {task.get('title', task['name'])}. بنكمل على اللي بعدها.")
+        log(f"owner message skipped (done): {task['name']}")
         return
     if minutes_since_activity(task["folder"]) < STALL_MINUTES or runner_alive(rs):
         return  # someone is working on it

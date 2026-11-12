@@ -44,6 +44,17 @@ def overall_of(path: Path) -> str:
     return "FAIL" if any(r["verdict"] == "FAIL" for r in rows) else ("PASS" if rows else "UNKNOWN")
 
 
+def label_of(task: str) -> str:
+    try:
+        import json
+        for r in json.loads((Path("D:/Projects/_SIR/ops/round_labels.json")).read_text(encoding="utf-8")):
+            if r["task"] == task:
+                return f"{r['label']} ({r['title'][:40]})"
+    except Exception:
+        pass
+    return task
+
+
 def fails(argv: list) -> int:
     dry = "--dry" in argv
     state = load_json(STATE, {})
@@ -53,8 +64,8 @@ def fails(argv: list) -> int:
     sent = 0
     for path in sorted(VERIFICATIONS.glob("*.md")):
         task = path.stem
-        if overall_of(path) != "FAIL" or task in told:
-            continue
+        if overall_of(path) != "FAIL" or task in told or task.startswith("ci-"):
+            continue  # CI-fix tasks are not owner news; one daily summary covers them
         rows = rows_of(path)
         bad = [r["item"] for r in rows if r["verdict"] == "FAIL"]
         text = ("تدقيق مهمة لم ينجح\n"
