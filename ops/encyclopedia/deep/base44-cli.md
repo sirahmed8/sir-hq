@@ -1,30 +1,30 @@
 # base44-cli
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44--base44-cli.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-cli\SKILL.md` (gemini-plugin base44 0.1.7, 758 lines) plus its 50-file references/ directory.
 
 ## Summary
-A command-line utility skill for Base44 encoding and decoding. Base44 is a binary-to-text encoding similar to Base64 but uses 44 printable ASCII characters, providing more compact representation for binary data. The skill supports file encoding/decoding, stdin/stdout operations, and batch mode for processing multiple files.
+The operating manual for the Base44 CLI (`npx base44`), the command-line tool for everything Base44-platform: creating and linking projects, scaffolding local files for externally provisioned apps, local dev (`base44 dev`, with a `--remote` mode that hits production data), deploying all resources, pushing entities/functions/actors/agents/agent-skills/connectors/auth config, managing secrets, generating TypeScript types, running scripts via `base44 exec`, site deploy, and a generic `base44 api` escape hatch that searches/calls the platform's OpenAPI spec for anything without a dedicated command. It enforces a strict state check: existing project (`base44/config.jsonc` present) -> hand off to base44-sdk; provisioned app (`BASE44_APP_ID` env or Stripe Projects flow) -> `scaffold`, never `create`; otherwise -> `create`.
 
 ## When to use / when NOT
-Use when you need a more compact encoding than Base64 for embedding binary data in text-based formats (JSON, XML, YAML). Do NOT use Base44 when maximum compatibility is required — some older systems may not support the 44-character alphabet, and Base64 is more universally supported. Do NOT skip the output format specification; the skill can output to stdout, a file, or base64-compatible format, and the default behavior may not match your needs.
+Use for all CLI-level Base44 work: project creation/linking/eject, auth (login/logout/whoami), deploys, entity/function/actor/agent/connector/auth-config push-pull, secrets, types generation, exec, site hosting, and arbitrary API calls. Do NOT use it to write application code in an existing project (that is base44-sdk), and do NOT run bare `base44` — always via the local dev dependency (`npx`/`yarn`/`pnpm`).
 
 ## Inputs, outputs, tools
-- Inputs: data string or file path, operation (encode, decode), output target (stdout, file, variable), batch mode flag.
-- Outputs: encoded text string or decoded binary data, operation confirmation, error message for invalid input.
-- Tools: base44 CLI binary, standard input/output, file system. MCP: gemini-plugin connector.
+- Inputs: user intent, presence of `base44/config.jsonc`, `base44/.app.jsonc`, env vars (`BASE44_APP_ID`, `BASE44_ACCESS_TOKEN`, `BASE44_REFRESH_TOKEN`, `BASE44_API_KEY`), CLI args.
+- Outputs: local project scaffold/edits, deployed Base44 resources, JSON output with `--json`, TypeScript `types.d.ts`.
+- Tools: `base44` npm package as devDependency (never a global install), `npx base44 whoami|login|create|scaffold|link|eject|dev|deploy|entities push|functions deploy|actors deploy|agents push|agent-skills push|connectors *|auth *|secrets *|types generate|exec|site deploy|api search|catalog|grep|fetch|workflows list|runs|logs|dashboard open|visibility|workspace *`. MCP: none. 50 reference files cover each command.
 
 ## 5 most important rules
-1. **Always specify the output target** — the skill defaults to printing to stdout; redirect to a file or variable if you need to capture the result.
-2. **Use batch mode for multiple files** — the skill can process an entire directory of files in a single command; this is more efficient than running the skill once per file.
-3. **Verify round-trip encoding** — encode a value, then decode it, and confirm the result matches the original; this ensures the skill is working correctly with your data.
-4. **Be aware of character set limitations** — the 44-character alphabet excludes `+`, `/`, and `=` (which are in Base64); if your data contains these characters, they will be encoded differently.
-5. **Check file encoding before running** — the skill expects UTF-8 encoded files; non-UTF-8 files may produce unexpected results or errors.
+1. **Mandatory auth check first**: run `npx base44 whoami` at session start; if not logged in, STOP and have the user run `npx base44 login` — never proceed unauthenticated. (Skipped automatically when `BASE44_API_KEY`/`BASE44_ACCESS_TOKEN` env auth is present.)
+2. **NEVER call `base44` directly** — always `npx base44` (or yarn/pnpm); the CLI is a local dev dependency.
+3. **State check before acting**: config.jsonc exists -> base44-sdk territory; provisioned app -> `scaffold` (running `create` makes a duplicate app); neither -> `create` (read create.md first — it is marked MUST READ).
+4. **`base44 dev` hits a throwaway local backend; `base44 dev --remote` hits PRODUCTION data** — default to local, warn loudly before `--remote`.
+5. **Build through the CLI**: `npx base44 build` injects `VITE_BASE44_APP_ID`; a bare `npm run build` produces a site whose API calls fail. Prefer dedicated commands over `base44 api`, but use `api` when a dedicated command does more than asked.
 
 ## Risks / owner notes
-The most common issue is unexpected character encoding in the output when the input contains characters outside the 44-character alphabet. The owner should test with sample data before relying on the skill for critical workflows. Base44 is not as widely supported as Base64; ensure your downstream systems support the 44-character alphabet before adopting this skill.
+`--remote` dev and `deploy` touch live production data and incur real platform usage — confirm with the owner before running against a production app. `secrets set` handles credentials; values must never be echoed into files or logs. `eject`/`scaffold` write code locally — verify app identity (`.app.jsonc`) to avoid wiring the wrong app.
 
 ## Category / tags
-utility · encoding, base44, cli, text-processing, data-formats
+build · base44, cli, deployment, baaS, scaffolding, devops, typescript
 
 ## Revisions
-The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.
+Single revision (gemini-plugin base44 0.1.7). Not present in other tool stores — canonical and only source.

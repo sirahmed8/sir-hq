@@ -1,30 +1,30 @@
 # auth
 
-Source read: `C:\Users\a7med\.config\kilo\skills\auth\SKILL.md` (kilo revision; identical copies in codex/cursor/windsurf/opencode; not in claude).
+Source read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\auth\SKILL.md` (vercel-plugin revision, 539 lines; supersedes the identical 321-line codex/cursor/kilo/opencode copies).
 
 ## Summary
-A security skill that manages authentication flows for applications, supporting OAuth 2.0, OpenID Connect, JWT validation, and session management. It provides middleware for protecting routes, handling token refresh, and revoking sessions. The skill enforces password policies, social login integration, and can generate secure authentication URLs with proper redirect handling.
+An authentication integration guide for Vercel-deployed Next.js apps covering four providers: Clerk (recommended, native Vercel Marketplace integration with auto-provisioned env vars and unified billing), Better Auth (self-hosted, data stays in your own database), Descope (Marketplace native, visual flow builder), and Auth0 (enterprise SSO/SAML). It also covers Vercel-native primitives: Sign in with Vercel (OAuth/OIDC provider), Vercel Passport (deployment protection), and Vercel KMS (managed signing keys). All examples target Next.js 16, where the request-interception file is `proxy.ts`; Next.js 15 and earlier use `middleware.ts`.
 
 ## When to use / when NOT
-Use when building authentication for any web or mobile application — the skill provides a secure, standards-based foundation that handles the complex details of OAuth and OIDC. Do NOT implement custom authentication from scratch — the skill's OAuth/OIDC handling has been audited for common vulnerabilities (CSRF, token replay, open redirect). Do NOT skip the token validation step; the skill validates JWT signatures and expiration before granting access, and will reject requests with invalid or expired tokens.
+Use when adding sign-in/sign-up to a Vercel-hosted Next.js app and choosing or wiring an auth provider. Do NOT use it to audit or fix an existing auth implementation's security posture (that is vibe-auth-hardening / owasp-vulnerability-shield), and do NOT use it for non-Next.js frameworks beyond reading the provider decision matrix.
 
 ## Inputs, outputs, tools
-- Inputs: request with auth header, OAuth client config, OIDC discovery URL, session store configuration.
-- Outputs: authenticated user session, JWT payload, access decision (grant/deny), refreshed access token (if applicable), error response for invalid auth.
-- Tools: OAuth 2.0 libraries, OpenID Connect discovery, JWT library, session store (Redis, Memcached), password hashing (bcrypt, argon2). MCP: none required (pure auth logic).
+- Inputs: the target framework (Next.js version), chosen provider, env vars (`CLERK_SECRET_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `DATABASE_URL`, etc.), route protection requirements.
+- Outputs: `proxy.ts`/`middleware.ts` config, provider setup, sign-in/sign-up pages, session access patterns, protected API routes.
+- Tools: `vercel integration add clerk|descope`, `npm install @clerk/nextjs` / `@descope/nextjs-sdk` / `@auth0/nextjs-auth0`, Better Auth server + route handler + DB schema. MCP: none; cross-references marketplace, routing-middleware, env-vars skills.
 
 ## 5 most important rules
-1. **Always validate JWT signature and expiration** — the skill will reject tokens with invalid signatures or expired `exp` claims; never trust the raw token without validation.
-2. **Use OAuth 2.0 Authorization Code Flow with PKCE for mobile** — the skill enforces PKCE to prevent authorization code interception; do not use the implicit flow for new mobile apps.
-3. **Implement token refresh before expiry** — the skill can auto-refresh access tokens using refresh tokens; do not wait for token expiry to trigger re-authentication.
-4. **Store refresh tokens securely** — the skill recommends httpOnly, secure cookies with SameSite=Strict; never store refresh tokens in localStorage or expose them in URLs.
-5. **Revoke sessions on logout** — the skill invalidates all active sessions for the user; do not rely on browser close to clear sessions.
+1. **Clerk is the default recommendation** — fastest setup via `vercel integration add clerk`, which auto-provisions env vars and bills through Vercel.
+2. **Use `proxy.ts` on Next.js 16** (export `proxy`), `middleware.ts` on 15 and earlier (export `middleware`) — the skill's examples are written for 16.
+3. **Clerk Core 3 breaking changes (March 2026)**: `auth()` is async, `auth.protect()` is awaited directly, `clerkClient()` is async, `authMiddleware()` removed, `@clerk/types` deprecated; upgrade via `npx @clerk/upgrade` (Node 20.9+).
+4. **Pick by need, not habit**: fastest setup/prebuilt UI → Clerk; passwordless/social flows → Descope; enterprise SSO/SAML/multi-tenant → Auth0; data in your own DB → Better Auth.
+5. **Better Auth needs Postgres** — provision `DATABASE_URL` from the Marketplace and define the schema; keep it fast on Vercel per the skill's checklist.
 
 ## Risks / owner notes
-The most common auth vulnerability is missing PKCE on mobile flows, which exposes authorization codes to interception. The owner should ensure that all mobile OAuth flows include PKCE. Token leakage through logs is another risk; the skill sanitizes headers before logging, but application code must also avoid logging auth headers.
+Marketplace installs create real billing relationships on the Vercel account — confirm the owner wants Clerk/Descope billing before running `vercel integration add`. Auth env vars are secrets; never commit them. Choosing Auth0 vs Clerk is a long-term identity decision the owner should confirm.
 
 ## Category / tags
-security · authentication, oauth, oidc, jwt, session-management, password-policy, middleware
+security · authentication, nextjs, clerk, better-auth, descope, auth0, oauth, vercel-marketplace, middleware
 
 ## Revisions
-The kilo copy is the canonical source; codex, cursor, and windsurf copies are identical. The gemini-plugin version exists as `<plugin>--auth.md` but lacks the PKCE enforcement and cookie security rules present in the kilo revision. The kilo revision is the canonical source for this skill.
+The vercel-plugin copy (539 lines) is the newest and best: it adds Better Auth, Vercel Passport/KMS/Sign-in-with-Vercel primitives, and Next.js 16 `proxy.ts` guidance. The codex/cursor/kilo/opencode copies (321 lines, identical) cover only Clerk/Descope/Auth0 with `middleware.ts` examples — still correct but older.

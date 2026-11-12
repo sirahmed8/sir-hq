@@ -1,30 +1,30 @@
 # base44-troubleshooter
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44--base44-troubleshooter.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-troubleshooter\SKILL.md` (gemini-plugin base44, 160 lines) plus references/project-logs.md.
 
 ## Summary
-A troubleshooting skill for Base44 encoding issues that helps diagnose and resolve encoding errors, data corruption, and format mismatches. It provides diagnostic commands to identify the root cause of encoding failures, validates input data, and suggests corrective actions. The skill can also generate test cases to verify that the encoding/decoding pipeline is working correctly.
+A focused runbook for diagnosing production issues in a deployed Base44 app using the Base44 CLI. It covers three tools: `base44 logs` (function logs with `--follow` realtime streaming, `--level`, `--function`, `--since/--until`, `--limit` capped at 500), `base44 workflows runs`/`list` (the automation system — cron schedules, entity triggers, connector events — where failed runs carry the failing task and underlying error, and `consecutiveFailures` flags broken workflows), and auth/app-context resolution via `npx base44 whoami`, `base44/.app.jsonc`, or `--app-id`. Its central lesson: logs are not read-after-write — one-shot fetches lag ~20-30s ingestion, so an empty result right after a run proves nothing; the variable to change is TIME, never flags.
 
 ## When to use / when NOT
-Use when Base44 encoding/decoding failures occur in production or during development — the skill will identify the root cause (invalid characters, corrupted input, algorithm mismatch). Do NOT ignore encoding errors — the skill will classify them as input errors, algorithm mismatches, or data corruption, and each requires different remediation. Do NOT use the troubleshooter as a replacement for proper input validation — the skill is diagnostic, not preventive; proper validation should still be in place.
+Use when a deployed Base44 app has production errors, a function is failing, or "my scheduled job didn't run". Do NOT use it for local development issues (use `base44 dev`), for writing code (base44-sdk), or as a substitute for reading the function source — it diagnoses from logs and workflow runs only.
 
 ## Inputs, outputs, tools
-- Inputs: error message or failed encode/decode result, input data sample, expected output format.
-- Outputs: diagnostic report (root cause, suggested fix), validated input sample, test cases for pipeline verification.
-- Tools: base44 CLI, diagnostic scripts, test data generator. MCP: gemini-plugin connector.
+- Inputs: app context (linked `base44/.app.jsonc`, `--app-id app_123`, or cwd), optional function name, time range, log level.
+- Outputs: log lines (realtime via `--follow` or one-shot), failed workflow runs with the failing task + error, a diagnosis.
+- Tools: `npx base44 whoami` (auth gate — if expired, user must run `npx base44 login`), `npx base44 logs [--follow|--level error|--function|--since|--until|--limit|--env prod|preview]`, `npx base44 workflows runs [--status failed]`, `npx base44 workflows list`. MCP: none.
 
 ## 5 most important rules
-1. **Always provide the exact error message** — the skill uses pattern matching on error output to classify the issue; generic descriptions may not produce accurate diagnostics.
-2. **Test with a known input-output pair** — the skill will generate test cases based on a known good encode-decode cycle; provide at least one valid pair to anchor the diagnostics.
-3. **Check for character set mismatches** — the skill will flag if the input contains characters outside the 44-character Base44 alphabet; these must be handled or excluded.
-4. **Verify the encoding algorithm version** — the skill can detect which Base44 variant is being used (there are minor version differences); ensure sender and receiver are using the same version.
-5. **Document the root cause and fix** — the skill generates a diagnostic report; the owner should save this for future reference and to prevent recurrence.
+1. **Logs lag ~20-30s; empty means "not ingested yet", not "healthy"** — wait and re-run the same command; never diagnose by widening `--limit`/`--level`/`--order`.
+2. **For a reproducible failure, start with `logs --follow` and trigger the function while watching** — never decide on a timer or a fixed read window; delivery is per-invocation (lines arrive when the invocation ends).
+3. **"Scheduled job didn't run" → check `workflows runs`, not function logs** — function logs can't tell whether a run was dispatched; a failed run names the failing task and error. Note `manual` trigger just means no trigger type was stamped, and test runs appear tagged `(scheduled, test)`.
+4. **`--function` filters stamped rows only** — legacy per-function deployments emit unstamped rows a filtered view hides; if a filtered run is empty, re-run unfiltered before concluding.
+5. **Respect the stream contract**: `--since`/`--until`/`--order` are rejected with `--follow`; a mid-run stream loss exits 1 (re-run, don't change flags); `--limit` above 500 is clamped; `No logs found` is ambiguous (ingestion lag, wrong function name, unpublished app on `--env prod`).
 
 ## Risks / owner notes
-The most common issue is assuming all Base44 implementations are identical — there are minor variations in the alphabet and padding scheme. The owner should verify that all systems in the pipeline use the same Base44 specification. Ignoring the diagnostic report and applying a generic fix can mask the real issue and lead to recurring problems.
+`--env prod` reads live production logs — they may contain user data; don't paste raw log lines into tracked files or reports. Requires the user to be logged in (`base44 login`) when the token expires — an owner action.
 
 ## Category / tags
-utility · troubleshooting, base44, encoding, diagnostic, data-integrity
+ops · base44, troubleshooting, logs, monitoring, workflows, debugging, production
 
 ## Revisions
-The gemini-plugin copy is the only revision available; no codex, kilo, or cursor copies exist. This is the canonical source for this skill.
+Single revision (gemini-plugin base44). References sibling base44-cli workflow references — canonical and only source.

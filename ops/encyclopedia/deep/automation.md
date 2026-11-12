@@ -1,30 +1,30 @@
 # automation
 
-Source read: `C:\Users\a7med\.gemini\antigravity\builtin\skills\automation\SKILL.md` (antigravity-builtin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\antigravity\builtin\skills\automation\SKILL.md` (antigravity-builtin revision, the only copy).
 
 ## Summary
-A workflow automation skill that defines and executes multi-step agent tasks with conditional branching, error handling, and cross-tool integration. It reads YAML or JSON workflow definitions, executes each step in sequence, and supports retry logic, fallback actions, and checkpoint persistence. The skill is used by the SIR autopilot to orchestrate complex operations across multiple agents and tool ecosystems.
+An interactive guide for creating scheduled background automations in Antigravity/Gemini. A scheduled automation is a background sidecar (`"builtin": "schedule"`) that runs on a cron schedule and starts a fresh agent conversation (`agentapi new-conversation`) on each run — each run has no memory of prior runs, so the prompt must be fully self-contained. The skill drives a strict 5-turn creation flow: ask cadence, confirm time/day, capture the task prompt, write `sidecar.json`, then optionally test-run to discover and record the exact permissions the automation needs.
 
 ## When to use / when NOT
-Use when you need to orchestrate complex, multi-step operations that span different tools or agents — the skill ensures each step completes before the next begins, handles failures gracefully, and persists state so the workflow can be resumed after an interruption. Do NOT use for simple one-command tasks — the skill adds overhead that isn't justified for single-operation tasks. Do NOT modify workflow definitions while a run is in progress — the skill will lock the definition file and reject changes; any edits must wait for the current run to complete or be aborted.
+Use when the user wants a recurring scheduled agent task ("summarize my emails every morning", "every Monday send me a to-do list") or invokes `/automation`. Do NOT use it for UI sidecars, continuous command/daemon sidecars, or in-turn timers — those use the `schedule` tool instead. Do NOT use it for one-shot or event-driven automation.
 
 ## Inputs, outputs, tools
-- Inputs: workflow definition file (YAML/JSON), step list, retry counts, fallback actions, checkpoint directory.
-- Outputs: step execution results, success/failure status per step, checkpoint file for resume, logs of all step outputs.
-- Tools: filesystem read/write, YAML/JSON parsers, git for checkpoint persistence, node.js for step execution. MCP: antigravity-builtin connector.
+- Inputs: cadence (hourly/daily/weekly/custom cron), specific time/day, the task description, the user's IANA timezone.
+- Outputs: `~/.gemini/config/sidecars/<slug>/sidecar.json` with `builtin: "schedule"`, `args: ["CRON_TZ=<zone> <cron>", "agentapi", "new-conversation", "--", "<self-contained prompt>"]`, `restart_policy: "always"`, `display_name`, and `agent_permissions.access_grants` populated from a real test run.
+- Tools: `ask_question` for cadence/time, `write_to_file` for sidecar.json, `agentapi new-conversation` for test runs, the Automations dashboard (`sidecar://dashboard`) for enabling. Skills/MCP tools may be consulted during the test run.
 
 ## 5 most important rules
-1. **Always define a checkpoint directory** — the skill writes a checkpoint file after each step; without this, the workflow cannot be resumed after an interruption or model restart.
-2. **Use retry logic sparingly** — the skill retries a step up to 3 times before moving to the fallback; excessive retries can mask underlying issues that should be fixed directly.
-3. **Specify fallback actions for critical steps** — if a step fails after retries, the skill executes the fallback; never leave a critical step without a fallback defined.
-4. **Persist workflow definitions in version control** — the skill reads from the git repo; if the definition file is lost, the workflow history is lost too.
-5. **Review workflow logs after each run** — the skill generates detailed logs; the owner should review them to identify bottlenecks or recurring failures.
+1. **Cron must be prefixed `CRON_TZ=<IANA zone>`** — detect the host timezone, map to IANA (never abbreviations like PST or raw offsets), and don't double-prefix a user-supplied `CRON_TZ=`/`TZ=` cron.
+2. **The run prompt must be self-contained** — every scheduled run is a brand-new conversation with zero memory of previous runs.
+3. **Never hallucinate permissions** — only grant `command(...)`, `read_file(...)`, `write_file(...)`, `mcp(server/tool)`, `read_url(domain)` entries actually verified during a test run; never wildcards like `command(*)` or `mcp(*)`.
+4. **Never enable the automation yourself** — do not set `"enabled": true` or invoke any enable RPC; the user enables `<display_name>` in the Automations dashboard.
+5. **Use snake_case fields and lowercase restart_policy** (`"always"` required for schedule sidecars), absolute paths in args, `"--"` before the prompt, and never put sidecar.json in an ephemeral CitC workspace.
 
 ## Risks / owner notes
-The most common failure is forgetting the checkpoint directory — the next worker cannot resume the workflow and must start from the beginning. The owner should always include a checkpoint path when defining a new workflow. Workflow definitions that are edited mid-run can cause unpredictable behavior; the skill's lock mechanism prevents this, but the owner should be aware that concurrent edits are rejected.
+Enabling happens on the owner's machine via the dashboard — the agent must hand off with the exact `display_name`. Permissions discovered in a test run reflect that run only; a task needing new tools later will be auto-denied until grants are updated. Automations run unattended with the user's credentials — the self-contained prompt should avoid destructive actions.
 
 ## Category / tags
-ops · workflow, automation, orchestration, checkpoint, yaml, error-handling, cross-tool
+automation · scheduling, cron, sidecar, antigravity, background-tasks, agentapi, permissions
 
 ## Revisions
-The antigravity-builtin copy is the only revision; it is not available in claude, codex, cursor, or kilo skill stores. This is the canonical source, and all tool folders should have this deep digest propagated to them via propagate-deep.mjs.
+Single revision (antigravity-builtin). Not present in claude/codex/cursor/kilo skill stores — this is the canonical and only source.
