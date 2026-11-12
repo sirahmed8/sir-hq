@@ -225,3 +225,9 @@
 - Next step: `python scripts/ai-status.py`; read r44 outputs (`plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`) and `ops/verifications/`; NotebookLM `Data Bank.pdf` upload now possible through Claude in Chrome (file is 288 KB: use file_upload on the Add source dialog).
 - Open promises: privacy follow-up (AHome earlier rounds used outside models; tell the owner again if he asks, never read AHome files); owner one-tap sign-ins for Cline and Kimi are optional; order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/USAGE_LIMITS.md`, `ops/RUNNING_STATE.md`.
+
+## HQ note (2026-11-12 08:25)
+- Now: CI green on all 7 projects (Study fixed by worker). Done by workers (claims, unverified): r43 Study, Study CI fix, r44 plans. Running: audit-ahome (local-only runner, since 06:27). Queued: r38 (AHome), r45-study-scout-fixes, r45-jobs-scout-fixes (approved from `ops/SUGGESTIONS.md`).
+- Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; read r44 outputs (`plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`), `ops/verifications/` and any new pending items in `ops/SUGGESTIONS.md`; NotebookLM `Data Bank.pdf` upload through Claude in Chrome.
+- Open promises: verify worker claims by running or screenshot; AHome stays local-only; order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`, `ops/USAGE_LIMITS.md`.
