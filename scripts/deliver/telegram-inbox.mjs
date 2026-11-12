@@ -51,6 +51,8 @@ const chatId = userEnv('SIR_TELEGRAM_CHAT_ID');
 if (!token || !chatId) { console.log('telegram-inbox: token or chat id missing'); process.exit(1); }
 writeFileSync(PID_FILE, String(process.pid));
 
+let offset = existsSync(OFFSET_FILE) ? Number(readFileSync(OFFSET_FILE, 'utf8')) || 0 : 0;
+
 const tg = new TelegramBot({ token, chatId });
 
 function bmActive() { try { return !!JSON.parse(readFileSync(BM_STATE, 'utf8')).active; } catch { return false; } }
