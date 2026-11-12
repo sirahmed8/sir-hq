@@ -14,7 +14,7 @@ Use when managing PostgreSQL-compatible access control in AlloyDB Omni and you n
 - Tools: `psql`, `gcloud iam`, AlloyDB IAM integration, `pg_role`, `pg_authid`. MCP: gemini-plugin connector.
 
 ## 5 most important rules
-1. **Always use IAM-authenticated users for application connections** — password-less connections via Google Cloud IAM are more secure and easier to manage.
+1. **Always use IAM-authenticated users for application connections** — Google Cloud IAM authentication is more secure and easier to manage than passwords.
 2. **Never grant LOGIN privilege to more roles than necessary** — the skill will generate a role audit report highlighting overly permissive roles.
 3. **Synchronize role changes via the skill, not direct SQL** — if you CREATE ROLE in psql, the IAM sync will be out of date; use the skill's API for all role modifications.
 4. **Enforce password policies for non-IAM users** — the skill can validate password strength and expire old passwords after 90 days.

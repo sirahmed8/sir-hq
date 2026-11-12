@@ -15,7 +15,7 @@ Use when setting up observability for a new AlloyDB Omni deployment or migrating
 
 ## 5 most important rules
 1. **Always scrape `pg_exporter` metrics** — these provide the most detailed database-level metrics (query timing, lock wait, transaction stats) that are essential for capacity planning.
-2. **Configure a replica lag alert at 5 seconds** — replication lag beyond this threshold can indicate network issues or a lagging replica that should be promoted to primary.
+2. **Configure a replica lag alert at 5 seconds** — if a replica falls behind by more than 5 seconds, the skill will flag a warning and recommend promotion or investigation.
 3. **Set a disk usage alert at 80%** — when storage reaches 80%, the skill will trigger a warning; at 95%, it will generate a critical alert and page on-call.
 4. **Include query duration percentiles in dashboards** — p95 and p99 query times help identify slow queries before they impact users.
 5. **Export alert history for 90 days** — the skill can store alert events in a time-series database; this data is invaluable for root-cause analysis of intermittent issues.
