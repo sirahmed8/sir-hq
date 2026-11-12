@@ -252,3 +252,6 @@ Sweep: autopilot alive, 5 active, review backlog 11 (r69 reviewer round queued f
 
 ## HQ note (2026-11-13 00:35) [claude]
 Sweep: autopilot alive, queue was thin (5 open) so r70 improvement cycles queued for Study, Jobs, Laptop Manager, Portfolio, AI. C: 3.0 GB free (r67 report pending). Review backlog 5 (r69 reviewing). No new owner messages.
+
+## HQ note (2026-11-13 01:45) [claude]
+r67 found the C: cause: system pagefile growth under memory pressure from 22 parallel agents plus worker caches. MAX_PARALLEL lowered 22 -> 9 (autopilot restarted). C: was 0 again at 01:30. r70 cycles running for current projects, review backlog 12.
