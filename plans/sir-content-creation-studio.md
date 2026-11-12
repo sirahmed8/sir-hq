@@ -1,88 +1,118 @@
-# PLAN: SIR Content Creation Studio (Wave 4, GLOBAL product, not started)
-Audited 2026-11-10. Replaces `SIR Content Creation Studio (v1)` (in `legacy/`, kept until M6). Free local editing, paid cloud queue and scheduler in EGP. It also runs the owner's brand-channel publishing, so it doubles as the engine for standard 26 marketing of the other products. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
+# PLAN: SIR Content Creation Studio
 
-## 1. Purpose (plain words)
-A desktop program that turns an idea into a short vertical video (Shorts, Reels, TikTok) or a longer video: script, voice, captions, footage or images, music, render. It can schedule posts to a brand's accounts through the platforms' official APIs, always with a human-approved draft first. For global users: any creator anywhere can produce and schedule content with the same tools.
+Version 1.0.0. Rewritten 2026-11-12 (r52). Replaces the old 87-line plan and the DEEP plan; keeps what is still true (names, security rules, legacy facts, media-rights and Remotion-licence checks, platform matrix, pricing). Supersedes stack notes that said Cloudflare Pages only: the standing owner rule (OWNER_DEFAULTS item 2, WORKER_PREAMBLE item 15) requires Firebase Hosting AND Vercel dual hosting, and rule 13 requires its own Firebase project `sir-content-studio`. Decisions recorded in section 5.
 
-## 2. Names and IDs
-| Item | Value |
-|---|---|
-| Folder | `D:\Projects\SIR Content Creation Studio` |
-| GitHub (private) | `sirahmed8/sir-content-creation-studio` |
-| Stack (planned) | Electron + Vite + React shell, local engine Python 3.12 (FastAPI on 127.0.0.1) with Remotion for rendering, one Python version pinned everywhere (legacy had 3.10, 3.11 and 3.13 mixed); web dashboard on Cloudflare Pages for the scheduler |
-| Domain | candidate `sirstudio.app` (owner checks and buys; price "(unsourced, verify)"); `pages.dev` until then |
-| Platforms | **Platform Matrix (GLOBAL):** Windows desktop ✅ (first); Web dashboard ✅; macOS Electron build ⏭️ M6+ (only if a user asks); Linux Electron build ⏭️ M6+; Android ⏭️ skipped; iOS ⏭️ skipped; TV ⏭️ skipped; watchOS ⏭️ skipped; Car ⏭️ skipped. Browser extension: skipped. All platforms share the same Firebase project and auth. |
-| Money | **Pricing & Free Tier:** Free local editing with a watermark-free export. Pro in EGP for the cloud render queue and the scheduler (price to test, "(unsourced, verify)"); "subscriptions launching soon" + email capture until keys exist. EGP first, USD/SAR/AED toggle auto-detected from locale/IP with manual override. Owner gets all Pro features free. Subscription grants owner all permissions in owner dashboard. |
+## 1. Who it is for and the promise
 
-## 3. Current state
-Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30); 9 commits, all setup/plan. PORTFOLIO.md: 2 of 19 tasks.
-Legacy facts (`ops/inventory/SIR-Content-Creation-Studio.md`, 2026-10-29, tests not run): 120 test files; personal state tracked in git (profile, uid, pro flag, `studio.db`, audio files); no server-side token check (owner by env in 6 files); unsigned installer older than the last source commit; CI failing; Python version mismatch; no social publishing code exists (the "ByteVibeHQ publishing" idea has no spec). Treat all legacy claims as unverified.
+Creators, podcasters, agencies and media teams who want to turn a long-form recording or a script into a finished vertical short (Shorts, Reels, TikTok) or a longer video, with captions, voice, footage or images, music, render and a human-approved posting schedule, without uploading raw footage to a cloud editor they do not control. First users: Ahmed's ByteVibeHQ brand accounts; then any creator anywhere. GLOBAL: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV.
 
-## 4. Security and conduct rules
-1. Personal state files are not tracked; history purge for the legacy repo happens at M6 (owner action only if a rewrite is needed).
-2. Pro and owner checks are server-side (verified ID token, allow-list) (use `owner-auth` from SHARED_PLATFORM_KIT). Test: forged local `.studio_pro.json` unlocks nothing.
-3. Provider keys live in the OS credential store (desktop) or server secrets, never in the renderer bundle or git.
-4. Publishing: official APIs only, human-approved draft, a posting rate cap per account, an audit log. No engagement bots, no automated likes, follows or comments, no fake accounts, no scripting X's website, no CAPTCHA bypass. Tests: scheduler refuses to publish an unapproved draft; refuses more than the cap.
-5. Brand voice accounts post as the brand; they never pose as Ahmed in live conversations.
-6. Media rights: every music, font, stock clip and model used has a licence entry in `docs/LICENSES.csv`; the exporter refuses an asset with no licence. AI-generated media labeled where a platform requires it.
-7. Remotion licence terms for commercial use: "(unsourced, verify)" at M0; default is read the official licence page and record the answer before selling Pro.
-8. Local-only mode works offline with local models; nothing is uploaded without a visible switch.
-9. **Owner-only analytics page**: separate route, server-verified owner token, shows all metrics (renders, posts published, errors, cost). No other user sees it.
+**One-sentence promise (sell the end state):** Open SIR Content Creation Studio on your laptop, paste a script or drop a recording, and twenty minutes later you hold a captioned, branded, ready-to-post vertical video plus a calendar of approved drafts waiting for one tap to publish, rendered locally so your footage never leaves your machine.
 
-## 5. Shared pieces
-Platform `owner-auth`, `ai-proxy` (script/voice providers with fallback), `billing-fallback`, `legal-pack`, `i18n`, `ui/styles/hooks`, Telegram sender (approval taps for posts). The scheduler and approval flow here is also the engine other plans call for their own marketing calendars; do not build another scheduler in other products. Laptop Manager's game mode must be able to pause renders (small endpoint). **Reuses SHARED_PLATFORM_KIT entirely; only rendering/scheduling features differ.**
+## 2. Competitors
 
-## 6. Screens and entities
-Home (projects), Idea to script, Storyboard/timeline, Voice and captions, Media library, Render queue, Schedule (calendar of drafts, approved, posted), Accounts, Analytics (real numbers from APIs only), Pricing, Settings and Profile, Help, **Owner dashboard**. Entities: Project, Scene, Asset, License, RenderJob, Draft, ScheduledPost, Account, AuditEntry, Subscription.
-Five states, Arabic RTL (captions with correct Arabic shaping) and English, themes, 320 px to 4K for the dashboard, WCAG 2.2 AA, own logo.
+Full study with sources: `ops/competitors/sir-content-creation-studio.md` (10 competitors: Opus Clip, CapCut, Canva, InVideo, Descript, Buffer, Hootsuite, Repurpose.io, Vidyo.ai, Riverside). Headline: the category is split between cloud editors that watermark on free and lock features behind subscriptions (CapCut Pro 599.99 EGP/month, Opus Clip Pro $29/month), and schedulers that do not edit (Buffer, Hootsuite). Our edge: offline-first editing with no watermark on free export, local NVENC render, Arabic RTL captions with correct shaping, a human-approved scheduler for official APIs only, and an owner analytics page.
 
-## 7. AI
-Script writer, caption translator, voice (local TTS first, provider fallback), thumbnail suggestions. Chain via `ai-proxy` (from SHARED_PLATFORM_KIT), cost cap per day, kill switch; evals: caption accuracy on 20 Arabic clips (word error rate recorded), script safety (no false claims in sample health or finance prompts: refuses). Support assistant grounded in docs; free users 5 per day; owner unmetered.
+## 3. Features
 
-## 8. Operations (standard 26 from SHARED_PLATFORM_KIT)
-Render failure alerts, disk-space guard (render budget and cleanup), weekly Telegram report (renders, posts published, errors, cost), update channel with signed installer (owner certificate), status JSON for the dashboard.
+**On par with best-in-category:**
+- Project and idea to script: script drafter with hook variations, retention body and CTA; thumbnail and title suggestions.
+- Storyboard and timeline: multi-track timeline (video, B-roll, captions, voice, music) with draggable handles and a frame-accurate scrubber; Dynamic Island active-only tab bar.
+- Voice and captions: local TTS first with provider fallback; Whisper word-level timestamps; kinetic subtitle styles (Ali Abdaal yellow-highlight, Hormozi bold, clean minimal); Arabic RTL shaping with no diacritic clipping; custom fonts.
+- Media library: stock B-roll and SFX cache tagged by mood; brand kit (logos, fonts, watermark); license table per asset.
+- Render: hardware-accelerated FFmpeg (NVENC with CPU fallback), audio normalization to -14 LUFS, voice ducking, progress bar overlay, thermal sentinel.
+- Schedule: calendar of drafts, approved and posted; drag-and-drop between days; 24-hour veto window; posting cap per account; audit log.
+- Accounts: Meta (Instagram/Facebook), TikTok, YouTube, Reddit, X via official APIs only; encrypted token storage; token refresh daemons.
+- Publishing: human-in-the-loop approval via Telegram (preview GIF plus Approve/Edit/Cancel); drafts-only mode until platform apps are approved.
+- Analytics: real view counts, retention and follower growth from platform APIs only; no invented numbers.
+- Settings, profile, pricing, help, owner dashboard.
 
-## 9. Launch, legal and visibility
-Owner buys domain, code-signing certificate, payment accounts, platform developer app approvals (YouTube, Meta, TikTok review queues take time; keep drafts-only mode until approved). Legal pack: privacy, terms, refunds, DPA, sub-processors, AI-output disclosure, DMCA process.
-**Dual hosting**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout).
-Visibility: Arabic queries ("برنامج عمل فيديوهات ريلز"), tutorial videos made with the product itself, comparison pages once sourced, `llms.txt`, facts page.
+**Owner's own ideas (ported from TickTick `30-Day Projects Sprint` / `أفكار برامج ومشاريع` and legacy, per PROJECT_MERGE_RECORD):**
+- Sprint Day 5 (SIR CCS): local-first studio with the scheduler idea; ByteVibeHQ publishing as the flagship brand channel (v1 had no spec; this plan supplies it).
+- Idea sourcing: owner's notes in `My notes` column "Me" for content ideas (never the "habobty" column).
+- 12-week marketing launch calendar for the product itself (waitlist, Shorts case studies, podcaster outreach, affiliate program).
+- Bulk CSV-to-video batch worker (20 vertical videos from a CSV of tips/quotes).
+- Silent background render daemon with no console windows.
+- Nightly encrypted asset and video backup routine.
+- Turnkey creator quickstart guide in Arabic and English.
+- Platform API approvals kept in drafts-only mode until the owner's developer consoles are ready.
 
-## 10. Three-Milestone Roadmap (owner-visible checks)
-| Milestone | Goal | Owner-Visible Exit Check |
+**Explicitly NOT built:** no engagement bots, no automated likes/follows/comments, no fake accounts, no scripting X's website, no CAPTCHA bypass, no deepfake or defamatory content, no media without a recorded licence. Publishing refuses an unapproved draft and refuses more than the cap.
+
+## 4. Platform matrix (what v1 includes)
+
+| Platform | v1 state | Notes |
 |---|---|---|
-| **M1–M2: Core Slice** | Script to 15 second rendered MP4 with captions on the laptop; render time recorded; parity: feature checklist from legacy ticked; media library with license table | 1. Run desktop app → write script → render 15s MP4 with captions → file exists, ffprobe prints 15s. 2. Media library shows license table for each asset. 3. Screenshot at 390/1280, LTR/RTL, light/dark. |
-| **M3: Security, Legal, Billing, Owner Page** | Token tests, unapproved-publish test, billing fallback test, legal pages, owner-only analytics page live | 1. Forged token test returns 403 (CI). 2. Scheduler refuses unapproved draft (test). 3. Open `/owner` → server-verified token required → shows renders, posts, cost. 4. Pricing page shows "Subscriptions launching soon" + email capture. 5. Legal pages exist at `/legal/*`. 6. Dual hosting verified: curl both Firebase and Vercel URLs. |
-| **M4–M6: AI, Quality, Release** | Caption word error rate and script safety evals recorded; quality screenshots; offline test; a11y; installer smoke test on clean profile; signed installer (owner); scheduler live for one brand account in drafts-then-approved mode | 1. Run `npm run eval:caption` → WER recorded. 2. Run `npm run eval:script-safety` → refuses false claims. 3. Lighthouse mobile 90+ JSON saved. 4. Installer smoke test on clean VM passes. 5. Owner signs installer. 6. Scheduler live for one brand account in drafts-then-approved mode. |
+| Web (responsive, PWA installable) | in v1 | Next.js App Router for the scheduler/dashboard; Arabic RTL first, English second; light/dark/system/high-contrast |
+| Windows desktop | in v1 | Tauri v2 (or Electron) with local NVENC GPU access, signed installer, self-update channel, Download page on the site |
+| macOS | M6+ | Electron/Tauri build only if a user asks; same codebase |
+| Linux | M6+ | same, on request |
+| Android phone/tablet | M5-M6 | PWA for approving drafts and viewing analytics; Capacitor wrapper if a native feel is wanted |
+| iOS / iPad | M5-M6 | PWA / SideStore unsigned .ipa until paid Apple account |
+| Wear OS | skip v1 | no real use for a video editor; revisit with evidence |
+| watchOS | skip v1 | same |
+| TV (Android/Apple) | skip v1 | video timeline editing requires a high-resolution multi-track screen |
+| Car (Android Auto/CarPlay) | skip | no allowed car category fits |
+| Widgets / Live Activities | M6 | render-progress and scheduled-post widgets |
+| Browser extension | skip | no use case |
 
-## 11. Next 10 tasks (each under 2 hours)
-1. Deep scan of legacy: feature list and tracked personal files (names only) into `.sir/reports/deep-scan.md`. Check: file lists each feature with keep/drop.
-2. Pin Python 3.12 (`.python-version`, `pyproject.toml`, CI) and create the engine skeleton with `/health`. Check: `uv run pytest` green; health returns 200.
-3. CI workflow with gitleaks. Check: green Actions URL.
-4. Remotion minimal composition rendering a 5 second caption clip from JSON. Files: `apps/render/`. Check: MP4 file exists, ffprobe prints duration 5 s.
-5. Arabic caption shaping test with a fixture sentence (RTL, diacritics) in the rendered frame. Check: image diff against a golden frame.
-6. License table `docs/LICENSES.csv` and the exporter check. Check: test fails when an asset has no licence row.
-7. Credential store wrapper (Windows Credential Manager) for provider keys. Check: key round-trips; no key in repo (gitleaks).
-8. Draft model and approval flow (draft, approved, scheduled, posted) with tests. Check: unapproved publish is refused.
-9. Posting cap and audit log tests. Check: the cap test passes; audit lines are append-only.
-10. Dry-run publisher against a mock platform server. Check: mock receives the right payload; no real network call.
+All platforms share the same Firebase project and auth.
 
-## 12. Risks and open questions (defaults)
-- Platform API approvals and policy changes: default is drafts-only mode first; check each platform's current rules when connecting ("(unsourced, verify)").
-- GPU, disk and time limits on the laptop: default is a render budget and a queue with cleanup.
-- Music and stock-media licensing: default is only assets with a recorded licence.
-- Competitor and pricing claims: `plans/competitors/sir-content-creation-studio.md` must carry links or "(unsourced, verify)".
+## 5. Architecture (on the shared kit, `plans/SHARED_PLATFORM_KIT.md`)
 
-## 13. Only the owner can do
-Sign in to platform developer consoles and approve app reviews; buy domain and certificate; create payment accounts and paste keys; approve each connected brand account; lawyer review before paid launch.
+- **App**: desktop shell (Tauri v2 or Electron) + Vite + React for the studio UI, local engine Python 3.12 (FastAPI on 127.0.0.1) with Remotion for rendering; web dashboard on Next.js App Router for the scheduler and approvals. Deployed identically to **Firebase Hosting** and **Vercel** (Vercel imports the GitHub repo via Vercel CLI; same build, same env vars on both; both curl-checked per rule 15). Repo `sirahmed8/sir-content-creation-studio` (private). App version stays 1.0.0.
+- **Backend**: Firebase project `sir-content-studio` (own project per rule 13): Auth (Google sign-in, JWKS-verified ID token on server), Firestore (deny-by-default rules, emulator-tested), Firebase Storage for media, App Check where available. Decision recorded: legacy used Cloudflare Pages only; superseded by the dual-host and own-Firebase rules. Cloudflare remains an ADR alternative for the render queue if Firebase costs bite.
+- **Accounts**: `owner-auth` package pattern - server-verified token, `OWNER_EMAILS`/`OWNER_UIDS` allow-list, email_verified, fail closed; HttpOnly+Secure+SameSite=Strict session cookie; rate limits on auth and AI; no localStorage tokens; provider keys in the OS credential store on desktop or server secrets, never the renderer bundle.
+- **Owner-only analytics page**: `/owner` route, server-verified owner token only, real metrics (renders, posts published, errors, cost, subscriptions, downloads). Non-owner gets 403.
+- **AI**: `ai-proxy` with the standing fallback chain (Gemini flash-lite -> flash -> any Gemini -> OpenRouter free -> other free -> local), per-project keys, `AI_ENABLED` kill switch, daily cost cap in `config/limits.json` ($3.00/day default), free users 5 per rolling 24h with badge, owner unmetered. Script writer, caption translator, voice (local TTS first), thumbnail suggestions. Evals: caption word error rate on 20 Arabic clips, script safety (refuses false claims in health/finance prompts).
+- **Billing**: `billing-fallback` - "Subscriptions launching soon" + email lead capture until Paymob keys exist; EGP primary with auto-detected USD/SAR/AED; subscription grants owner all permissions.
+- **Legal**: `legal-pack` generated from `data-inventory.yml`, marked "AI-drafted, to be reviewed by a qualified lawyer before paid launch"; Egypt PDPL 151/2020 and IP law 82/2002 tasks.
+- **Ops**: `/api/health`, nightly temp-cache cleanup, token refresh daemons, weekly dependency update, static status JSON, weekly Arabic Telegram report, emergency alerts; AI daily cost cap.
+- **Support assistant**: floating drawer grounded only in `docs/help/*.md`.
+- **Skills used for this plan** (from ops/SKILLS_INDEX.md + encyclopedia): sir-skill-library, taste-design-engine, anti-vibecoded-design-system, emil-motion-impeccable, cognitive-product-intuition, modern-ui-ux-design-system, high-conversion-copywriting, mobile-ergonomics-polish, motion-graphics-engine, meta-social-sidecar, music-prompter, gemini-omni-flash-api, firebase_auth_basics, firebase_firestore, firestore_rules_creation, firebase_security_rules_auditor, vibe-auth-hardening, zero-trust-security-hardening, legal-compliance-shield, omniroute-resilience-gateway, database-reliability-transactions, production-engineering-standards, react-best-practices, nextjs, verification, skills-discovery-engine, agent-reach (read-only platform research).
 
-## 14. Competitor Matrix (from plans/competitors/sir-content-creation-studio.md)
-| Competitor | Strengths | Flaws | Our Edge | Ideas to Steal |
-|---|---|---|---|---|
-| CapCut | Free, templates, auto-captions | Watermark on free, cloud-only, no scheduler | Offline-first, no watermark, local models, scheduler | Template library |
-| Canva | Design + video, brand kit | Not video-first, subscription for Pro | Video-first, local render, Arabic RTL | Brand kit |
-| (to be sourced) | | | | |
+## 6. Premium quality bar
 
-*Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
+- Apple-level motion: spring physics (stiffness 400/damping 30 micro, 300/28 layout), transform+opacity only, 120Hz-safe, reduced-motion path, matching open/close for every sheet/drawer; Dynamic Island active-only tab bar (monochrome SVG when inactive, expands to icon + text when active).
+- Arabic (Egyptian creator tone) RTL-first and English; per-character bidi detection in inputs; `<bdi>` isolation for mixed text; Alexandria/Cairo + Inter/Bebas Neue pairing; `tabular-nums` on numbers; kinetic subtitle shaping with no diacritic clipping.
+- Five states on every view: idle, skeleton matching final geometry, empty with one CTA, error with Retry, populated with virtualization fine at 1,000+ items.
+- Accessibility: WCAG 2.2 AA, 44px targets, full keyboard nav, focus visible, 320px to 4K, zoom 80-200%.
+- No AI slop: no purple-blue gradients, no sparkle icons, no emoji headings, no pill-button spam, no hype words, no em-dashes in copy, no fake counts or reviews.
+- Signature interaction (from `.sir/MASTER_PLAN.md` and `.sir/DESIGN.md`): the render progress overlay with a horizontal progress bar synchronized to duration and a "Wait for it..." pulse pill during the first 3 seconds; the Telegram one-tap approval flow.
 
-## 15. Feature Parity Target (best-in-category)
-Match or exceed the best creator tool for: offline-first editing, local AI models, no watermark free export, multi-platform scheduler with approval flow, Arabic RTL captions, Remotion render quality, own logo, owner analytics.
+## 7. Free tier and pricing (EGP primary, USD/SAR/AED auto-detected)
+
+- **Free**: full local editing, no watermark on free export, local TTS, Whisper captions, manual timeline, 3 free cloud renders per month with a watermarked corner badge if cloud is used; marketplace browsing.
+- **Pro** (test price, "(unsourced, verify)" until 10 creator interviews): 290 EGP/month or 2,900 EGP/year (~$6 / $60 placeholder pending FX check) - unlimited 1080p renders, kinetic subtitles, auto-publishing, cloud render queue, scheduler, brand kit, 100GB storage. Paymob (Cards, Vodafone Cash, Meeza) and Fawry.
+- **Fallback**: until payment keys exist, CTA reads "Subscriptions launching soon" with email capture; never a broken checkout.
+- Owner gets all Pro features free; subscription grants owner all permissions.
+- Competitor anchors (sourced): CapCut Pro 599.99 EGP/month, Ultra 3949.99 EGP/month (capcut.com/pricing, checked 2026-11-12); Opus Clip Pro $29/month, Starter $15/month (opus.pro/pricing, checked 2026-11-12). Our Pro sits below CapCut Pro and roughly matches Opus Clip's monthly price while staying offline-first.
+
+## 8. Milestones M0-M6 (acceptance tests)
+
+| Milestone | Scope | Acceptance test |
+|---|---|---|
+| **M0 Foundations + Desktop kit** | Repo scaffold (exists), `.sir/` kit (exists), Firebase project `sir-content-studio` + Vercel import, CI green, **recreate the Desktop folder kit from scratch** (`folder.ico`, SIR Projects shortcuts, Versions.txt 1.0.0) | `npm run build` exit 0; `/api/health` 200; `gh run list` green or local verify pasted (CI quota flag rule); Desktop folder exists with real shortcuts and folder.ico; sign-in brand check screenshot shows no Firebase project id |
+| **M1 Core slice** | Local engine health endpoint, project create/open, transcript from a sample clip, Remotion 5s caption clip render, tests for each | `uv run pytest` green; health returns 200; MP4 file exists and ffprobe prints duration 5s; Arabic caption frame golden-image diff passes |
+| **M2 Parity with the old project** | Captions, reframing, export; scheduler for Instagram/TikTok/Facebook/Reddit via official APIs; calendar with 24-hour veto window; license table and exporter check | feature checklist from legacy ticked; media library shows license table; unapproved publish refused (test); cap test passes; audit lines append-only |
+| **M3 Security, legal, billing, owner page** | Deny-by-default rules + emulator tests, forged-token 403, billing fallback, legal pages, `/owner` analytics, credential store, Python version pin | Forged token 403 in CI; scheduler refuses unapproved draft (test); open `/owner` -> server-verified token required -> shows renders, posts, cost; pricing shows "Subscriptions launching soon" + lead capture creates one Firestore doc; no key in repo (gitleaks); both Firebase and Vercel URLs curl 200 |
+| **M4 AI** | Clip finder and caption writer with eval clips; hashtag and title helper; support assistant; thermal sentinel; batch worker | `npm run eval:caption` WER recorded; `npm run eval:script-safety` refuses false claims; support assistant refuses ungrounded answers on 10 prompts |
+| **M5 Quality sweep** | 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for critical journeys, screenshots at 390 and 1280 in LTR and RTL; PWA approvals | Lighthouse mobile 90+ JSON saved; Playwright e2e green; screenshots archived in `.sir/evidence/`; installer smoke test on clean profile passes |
+| **M6 Release and retirement** | Rebuilt signed installer (owner certificate), update channel, platform API approvals, retire v1 folder, move `legacy/` to old projects | installer smoke test on clean VM passes; owner signs installer; scheduler live for one brand account in drafts-then-approved mode; checkpoint records both live URLs; `legacy/` moved and recorded |
+
+## 9. First 10 tasks for free agents
+
+Written and queue-ready in `ops/briefs/sir-content-creation-studio-tasks.md` (T1-T10: deep scan, secrets report, Python pin and engine skeleton, Remotion caption clip, Arabic caption shaping test, license table and exporter check, credential store, draft approval flow, posting cap and audit log, dry-run publisher against a mock platform).
+
+## 10. Risks and open questions (defaults)
+
+- Platform API approvals take time (owner accounts); keep drafts-only mode until approved.
+- GPU, disk and time limits on Ahmed's laptop: render budgets, queue with cleanup, thermal sentinel.
+- Music and stock-media licensing: only assets with a recorded licence; exporter refuses an asset with no licence row.
+- Remotion licence terms for commercial use: "(unsourced, verify)" at M0; read the official licence page and record the answer before selling Pro.
+- Competitor and pricing claims: `ops/competitors/sir-content-creation-studio.md` must carry links or "(unsourced, verify)".
+- Personal state tracked in legacy git (profile, uid, pro flag, studio.db, audio files): untrack and purge history at M6 (owner action only if a rewrite is needed).
+- Unsigned installer stays unsigned until earnings allow a certificate (no budget).
+
+## 11. Only the owner can do
+
+Sign in to platform developer consoles (Meta, Google/YouTube, TikTok, Reddit, X) and approve app reviews; buy domain and code-signing certificate; create payment accounts and paste keys into `.env` (never git); approve each connected brand account; rotate the legacy Firebase admin keys and personal state found in `legacy/`; lawyer review before paid launch; Search Console/Bing sign-in; Apple Developer account when iOS store submission is wanted.
