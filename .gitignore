@@ -85,3 +85,9 @@ ops/tasks/
 
 # wrangler local state
 .wrangler/
+
+# backup manager runtime state (r64)
+ops/backup-manager/
+ops/telegram-media/
+ops/backup-manager.json
+ops/backup-manager-chat.jsonl.tmp
