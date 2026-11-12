@@ -1,0 +1,18 @@
+# Verification: r45-study-scout-fixes
+
+## Checklist Results
+| Item | Description | PASS/FAIL | Evidence |
+|------|-------------|-----------|----------|
+| 1 | or.html SIMPLEX tableau SVG had inline `min-width:580px` inside a 212px-wide wrapper at 320px viewport, hiding ~63% of the diagram behind horizontal scroll with unreadable labels. Fix: replace `min-width:580px` with `max-width:620px` so the SVG scales to the wrapper and never overflows. | PASS | Commit 06f35c0faa4bcdae282031a5f09b55b2bf0f00a7 ("Fix or.html SIMPLEX tableau SVG overflow at 320px (r45)"), guides/or.html:2796. Probe (Playwright, headless Chrome) at 320/390/768/1280 px: `320-rtl svg w=212 wrap clientW=212 scrollW=212 pageOverflow=false`; `390-ltr svg w=282 clientW=282 scrollW=282`; `768-ltr svg w=620 clientW=660 scrollW=660`; `1280-ltr svg w=620 clientW=792 scrollW=792`. No `min-width` remains on any SVG in or.html. Screenshots: `D:/Projects/_SIR/ops/verifications/evidence/r45-or-320-rtl.png`, `r45-or-390-rtl.png`. |
+| 2 | Project's own checks (tests, lint, type check, build) must pass. | PASS | `powershell -ExecutionPolicy Bypass -File scripts/verify.ps1` (11/11 steps): core files OK, inter-guide hyperlinks OK, deep button wiring OK (all 8 guides), T-106 accuracy audit 100% (50/50 or.html quiz blocks), T-021 integrity 105/105 (73/73 graded-refusal, 32/32 cited explanations), dev server scripts OK, unit tests 44 ran (1 skipped: Playwright browser not installed locally — pre-existing, unrelated to this change), status.json regenerated, shared-asset drift guard OK. Local gitleaks step reported 2 leaks in the gitignored `.env` (GEMINI_API_KEY), which is never committed; no secret is in tracked files. |
+| 3 | CI on `main` must be green. | PASS | `gh run list --limit 3` in `D:/Projects/SIR Study`: run 43169595259 "Verify SIR Study" conclusion=success, status=completed (push, 10m44s). Run 43168617862 (the fix commit) conclusion=success. Run 43165440207 conclusion=success. All three green. |
+| 4 | Web app: serve/open headless, screenshot at 390 px wide, look at it. | PASS | Served `http://127.0.0.1:3300/or.html` (already running `scripts/serve.py`). Screenshots taken at 320 px and 390 px RTL: `D:/Projects/_SIR/ops/verifications/evidence/r45-or-320-rtl.png`, `r45-or-390-rtl.png`. Probe measurements above confirm the Simplex tableau SVG is fully inside the viewport at both widths with zero horizontal scroll and no page overflow. |
+
+## Overall: PASS
+
+## Notes
+- The fix is a one-line CSS change (min-width -> max-width) at guides/or.html:2796, committed and pushed to `main` before this verification round; working tree is clean.
+- Verified at all four required widths (320/390/768/1280): the SVG scales down to the wrapper at narrow widths and caps at its native 620px width at wide ones. No clipping, no horizontal scroll, no page-level overflow at any width.
+- Shared lessons checked against the touched screen: L4 (panel content never clipped / no horizontal scroll to read labels) — satisfied, the overflow-x:auto wrapper now has scrollW == clientW at every tested width. L18/L19 are not applicable to this static study-guide diagram (no browser-default disable needed here, no interactive click targets inside the SVG).
+- Local-only caveat: the project's gitleaks step (step 8/11) flags 2 secrets in the gitignored `.env` file. This is pre-existing local config, never committed, and CI's own gitleaks run is green (run 43169595259 conclusion=success). Not a regression from this change.
+- Playwright browser acceptance test (test_browser.py) is skipped locally because no Playwright-managed browser is installed; this is pre-existing and unrelated to the CSS fix.
