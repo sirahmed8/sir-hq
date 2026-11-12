@@ -243,3 +243,9 @@
 - Next step: `python scripts/ai-status.py`; read `ops/bus/ahmed-telegram.md` for the button answer (if `ops/decisions-ahome-code-ok.txt` exists, the owner said yes: change the AHome runner to allow outside models for code-only tasks and keep private data local, in `scripts/cli-run2.sh`); read r44 outputs and `ops/verifications/`.
 - Open promises: WhatsApp digest and NotebookLM `Data Bank.pdf` upload need Claude in Chrome connected; verify worker claims (r43, r44, r45); order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`, `ops/USAGE_LIMITS.md`.
+
+## HQ note (2026-11-12 11:00)
+- Now: WhatsApp digest skipped again (third time in a row: Claude in Chrome extension not connected; it worked once around 07:00). Nothing else changed since 10:25: CI green on all 7; AHome waits on the owner's button answer (`ahome_code_ok` or `ahome_local_only`).
+- Next step: `python scripts/ai-status.py`; retry `mcp__claude-in-chrome__tabs_context_mcp` at the next digest; check `ops/decisions-ahome-code-ok.txt` and `ops/bus/ahmed-telegram.md`; read r44 outputs and `ops/verifications/`.
+- Open promises: Chrome extension sign-in by the owner (open Claude panel in Chrome); WhatsApp digest and NotebookLM `Data Bank.pdf` upload; verify worker claims r43 to r45; order of use Claude, free tools, Haiku, never Sonnet.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`.
