@@ -345,6 +345,12 @@
     "name": "ci-sir-20261112-0951",
     "folder": "D:/Projects/_SIR",
     "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0951-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0951 verification",
     "done": false
   }
 ]
