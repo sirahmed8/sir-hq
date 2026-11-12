@@ -199,3 +199,9 @@
 - Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; then read `ops/agy-runs/reports/r37-verify-jobs.md`, r39, r41 and r36 reports and check each on screen or by command; confirm CI for SIR AI commit 8012ade with `gh run list --limit 1` in `D:/Projects/SIR AI`.
 - Open promises: NotebookLM `Data Bank.pdf` (needs Claude in Chrome reconnected); verify r33/r34/r35 through r37; session crons (hourly watch, WhatsApp digest) must be recreated after any restart; SIR AI items 2-3 are in `SIR AI/.sir/CHECKPOINT.md` "Round 27", covered by r40.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `plans/OWNER_METHOD.md` (owner order 2026-11-12).
+
+## HQ note (2026-11-12 03:00)
+- Now: queue holds r37 (verify Jobs/Laptop/Control Room), r38 (AHome batches 2+3), r40 (SIR AI vision plan), r42 (free-agent verifier, scouts, LESSONS.md, SUGGESTIONS.md, usage windows). WhatsApp digest skipped: Claude in Chrome extension not connected. Last push failed (GitHub unreachable); local commits pending.
+- Next step: `git -C D:/Projects/_SIR push origin main`; `python scripts/ai-status.py`; read r37, r36, r39, r41 reports in `ops/agy-runs/reports/`; when r42 lands, check `ops/verifications/` and `ops/SUGGESTIONS.md`.
+- Open promises: reconnect Claude in Chrome (owner: open Claude panel in Chrome, sign in) then run WhatsApp digest and NotebookLM Data Bank.pdf upload; reports in plain words (no heartbeat/pid); recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r42-verifier-scout.md`, memory `feedback-plain-words-and-staff-agents`.
