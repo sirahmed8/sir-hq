@@ -4,6 +4,7 @@ Real prayer times each day (Aladhan, Egyptian method, Cairo area) decide when ea
 A duty runs once per day, within 120 minutes after its time, and never while a game runs (game-mode snapshot).
 It starts `claude -p` headless with ops/duties/<name>.md (Gmail and Calendar tools; fallback manager may swap the command for another agent CLI).
 State: _local/duties_state.json, log: ops/duties.log."""
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import subprocess
 import time

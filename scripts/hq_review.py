@@ -14,6 +14,7 @@ What one run does, in order:
 Usage: python hq_review.py [--dry] [--no-telegram] [--limit N]
 Exit code 0 when the run itself worked.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import re
 import subprocess

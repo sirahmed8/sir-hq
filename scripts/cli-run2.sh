@@ -43,7 +43,7 @@ for round in $(seq 1 40); do
     qwen) OPENAI_BASE_URL=http://localhost:11434/v1 OPENAI_API_KEY=ollama OPENAI_MODEL="$model" timeout 3300 qwen -p "$msg" --auth-type openai >> "$LOG" 2>&1 ;;
     goose) GOOSE_PROVIDER=ollama GOOSE_MODEL="$model" timeout 3300 goose run -t "$msg" >> "$LOG" 2>&1 ;;
     crush) timeout 3300 crush run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
-    cline) timeout 3300 cline -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
+    cline) timeout 3300 cline -P cline --thinking high -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     gemini) timeout 3300 gemini -p "$msg" --yolo --skip-trust >> "$LOG" 2>&1 ;;
     aider) timeout 3300 aider --model "$model" --yes-always --message "$msg" >> "$LOG" 2>&1 ;;
     kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;

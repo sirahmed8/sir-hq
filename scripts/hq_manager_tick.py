@@ -1,6 +1,7 @@
 """Hourly fallback HQ manager (scheduled task SIR_HQ_ManagerTick).
 If no manager note was appended to ops/HQ_CHECKPOINT.md for 50 minutes (Claude gone or asleep), a free model from the shared pool
 runs ops/MANAGER_PROMPT.md in D:/Projects/_SIR. Usage: python hq_manager_tick.py [--dry]"""
+import nowindow  # noqa: F401  (no console windows for child processes)
 import shutil
 import subprocess
 import sys

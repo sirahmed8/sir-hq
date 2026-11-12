@@ -12,6 +12,7 @@ rounds never overlap, then hands over to the real script:
 Usage: python r42_rounds.py <verifier|scouts|review|notify-fails|notify-daily> [--dry]
 Exit code 0 when the round itself worked.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import subprocess
 import sys
 import time

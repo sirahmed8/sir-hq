@@ -11,6 +11,7 @@ Usage:
   python scout.py --all [--dry]                            every project in hq_team.PROJECTS
 Exit code 0 when the run itself worked.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import re
 import sys

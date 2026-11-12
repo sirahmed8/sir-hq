@@ -14,6 +14,7 @@ Rules:
 Usage: python hq_verifier.py [--task NAME] [--limit N] [--dry]
 Exit code 0 when the run itself worked (even if a task FAILed); 1 on a setup problem.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import re
 import sys
 from pathlib import Path

@@ -249,7 +249,7 @@
     "name": "audit-ahome-20261112-0111",
     "folder": "D:/Projects/AHome",
     "title": "AHome: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "r36-more-free-workers",
@@ -267,7 +267,7 @@
     "name": "r38-ahome-feedback2",
     "folder": "D:/Projects/AHome",
     "title": "r38 AHome feedback 2",
-    "done": false
+    "done": true
   },
   {
     "name": "r39-portfolio-copy",
@@ -351,6 +351,48 @@
     "name": "ci-sir-20261112-0951-fix1",
     "folder": "D:/Projects/_SIR",
     "title": "Fix failures from ci-sir-20261112-0951 verification",
+    "done": true
+  },
+  {
+    "name": "ci-ahome-20261112-1401",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إصلاح الفحص الآلي الأحمر",
+    "done": false
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261112-1401",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "audit-sir-study-20261112-1401",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "r46-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: competitors and feature gaps",
+    "done": false
+  },
+  {
+    "name": "r46-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: competitors and feature gaps",
+    "done": false
+  },
+  {
+    "name": "r46-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: competitors and feature gaps",
+    "done": false
+  },
+  {
+    "name": "r46-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: competitors and feature gaps",
     "done": false
   }
 ]

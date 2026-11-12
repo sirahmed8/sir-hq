@@ -1,0 +1,5 @@
+Round r46 (2026-11-12): competitor matrix and feature-gap round for THIS project. Read D:/Projects/AGENTS.md, ops/WORKER_PREAMBLE.md, ops/LESSONS.md (section 'Design principle for every product'), standard/OWNER_DEFAULTS.md and the project's own AGENTS.md and .sir/CHECKPOINT.md. Use the same format as D:/Projects/SIR AI/.sir/plans/COMPETITOR_MATRIX.md.
+1. Find the 5 best direct competitors or best-in-class apps for what this product does (web search; mark unverified prices). For each: strongest 3 features, weakest 3 flaws, what we copy, what we do better.
+2. Write .sir/plans/COMPETITOR_MATRIX.md and .sir/plans/FEATURE_GAPS.md (at least 20 concrete gaps or ideas, ranked, each with an acceptance test). Premium Apple-level quality is the bar.
+3. Implement the 3 highest-value, lowest-risk items from the gaps list at the root, verified on screen at 320/390/768/1280, Arabic and English, light and dark; commit and push straight to main; CI must be seen green.
+4. Update .sir/CHECKPOINT.md, add one line to D:/Projects/_SIR/ops/bus/sir-hq.md. Never open AHome. No emoji, no em-dashes in copy, truth rule.

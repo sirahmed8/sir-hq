@@ -9,6 +9,7 @@ What it does each run (no AI, no network except `gh`):
 6. every model in the pool cooling for more than 3 hours -> one Telegram note (once)
 Never touches AHome files: for AHome it only reads git and gh output. Log: ops/watchdog.log.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import shutil
 import subprocess

@@ -12,6 +12,7 @@ Every 5 minutes:
 No product code is written here; the free CLI agents do the work from the brief files.
 To add work: python scripts/queue-add.py <name> <brief.md> <folder> "<title>" (builds the prompt file and appends to the queue).
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import re
 import subprocess

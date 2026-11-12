@@ -6,6 +6,7 @@ No secrets are printed. AHome private content is never read: only source, tests 
 Usage from the other r42 scripts:
     from hq_team import ROOT, OPS, PROJECTS, log, pool_pick, pool_report, run_agent
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import hashlib
 import json
 import os
@@ -151,7 +152,7 @@ def agent_command(pick: str, prompt: str) -> list:
         "qwen": ["qwen", "-p", prompt, "--auth-type", "openai"],
         "goose": ["goose", "run", "-t", prompt],
         "crush": ["crush", "run", "-m", model, prompt],
-        "cline": ["cline", "-p", "--yolo", "-m", model, prompt],
+        "cline": ["cline", "-P", "cline", "--thinking", "high", "-p", "--yolo", "-m", model, prompt],
         "gemini": ["gemini", "-p", prompt, "--yolo", "--skip-trust"],
         "aider": ["aider", "--model", model, "--yes-always", "--message", prompt],
         "kimi": ["kimi", "-p", prompt, "--yolo"],

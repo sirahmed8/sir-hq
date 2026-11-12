@@ -13,6 +13,7 @@ report <entry> <code> <log> <offset> <seconds>
 status                    -> table of every entry with its cooldown
 State: ops/agy-runs/model-pool.json. Order = strongest first. Edit POOL to add or remove models.
 """
+import nowindow  # noqa: F401  (no console windows for child processes)
 import json
 import re
 import sys
@@ -47,8 +48,7 @@ POOL = [
     "goose|qwen3:4b",
     "crush|ollama/qwen3:8b",
     "crush|ollama/qwen3:4b",
-    "cline|default",
-    "kimi|default",
+    "cline|reflection/beam-free",
     "gemini|default",
     "aider|ollama/qwen3:8b",
 ]
