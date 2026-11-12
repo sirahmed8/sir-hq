@@ -1,6 +1,12 @@
 # PLAN: SIR Hagoozat (Wave 5, GLOBAL product, rebuild from zero)
 
-**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
+## Vision (owner, 2026-11-12, `PRODUCT_DIRECTION_2026-11-12.md` section 4)
+
+SIR Hagoozat takes the whole booking family: football pitch booking and every other booking idea, such as a position coach, other service bookings and handymen (section 5 of the direction file). Each idea is decided one by one: a module of Hagoozat if it is a booking, a separate project if it is a different product. Every module meets the same premium standard.
+
+- The decision for every booking idea is done in this round and written in section 3.4 below: every idea is marked "module of SIR Hagoozat" or "separate product", with the reason in one line.
+
+**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file, which the git history keeps. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Hagoozat` holds the kit files, three legacy apps and nothing that runs. Verified today: the private GitHub repo `sirahmed8/sir-hagoozat` exists, default branch `main`, last update 2026-11-09 (checked with `gh repo view`). Not verified: the Firebase project for this product does not exist yet (no `.firebaserc` in the product folder, and the Firebase CLI was not on the PATH in the round that wrote this plan).
 
@@ -82,7 +88,7 @@ Every line says where it came from, so nothing gets silently rebuilt thinner tha
 | Achievements, XP, leaderboards | `legacy/11Players` and `legacy/EGFootball5` | M4, driven by real matches |
 | Communities, chat, announcements, support tickets | `legacy/11Players`, `legacy/EGFootball5` | M4 |
 | Tactical board and live match scoreboard | `legacy/EGFootball5` (`PitchTacticalBoard`, live scoreboard) | M4, live score first, tactics after |
-| Web-to-app wrappers for Hagoozat Elite, Obour Hub and the player cards | TickTick "أفكار برامج ومشاريع" ideas 6, 7, 8 | M4 (Android and iOS) and M5 (Windows installer) |
+| Web-to-app wrappers for Hagoozat Elite, Education Hub and the player cards | TickTick "أفكار برامج ومشاريع" ideas 6, 7, 8 | M4 (Android and iOS) and M5 (Windows installer) |
 | Owner cash register with offline ledger and walk-in bookings | `legacy/Hagoozat Elite` owner dashboard | M4 |
 | Player passport with verified games played | `legacy/11Players` rating and karma engine | M2 to M4, never invented numbers |
 | Announcements, onboarding, guide, unsubscribe, thank-you, data-deletion pages | `legacy/EGFootball5` and `legacy/11Players` routes | M3, with the legal pack |
@@ -92,7 +98,42 @@ Every line says where it came from, so nothing gets silently rebuilt thinner tha
 
 ### 3.3 Explicitly out of scope for v1
 
-Paid player adds, referee and professional-player booking, betting and any money-back-on-score, drone filming, and anything that needs a hardware sensor in the pitch.
+Betting and any money-back-on-score, drone filming, and anything that needs a hardware sensor in the pitch.
+
+### 3.4 The booking family: what is a Hagoozat module and what is another product
+
+Decided in this round, one line of reason each, as the owner asked (`PRODUCT_DIRECTION_2026-11-12.md` sections 4 and 5). The rule used: if the thing is a booking of a time slot for a service, and the customer, the payment, the calendar and the rating are the same objects, it is a Hagoozat module. If the customer, the data and the day are a different business, it is its own product.
+
+**Modules of SIR Hagoozat (same slot, same customer, same payment, same rating):**
+
+This table is about product boundaries, not about release order. Only pitch slots, the split bill, open matches, tournaments, the QR entry and the owner console are in the first release; every other module below is M5 or later, and each one reuses the slot engine rather than adding a second booking system.
+
+| Idea | Where it comes from | One-line reason |
+|---|---|---|
+| Padel and padbol courts | Yalla Hagz offers both today | Same venue, same slot, same booking engine, only the sport and the court differ |
+| Indoor hall and small futsal court slots | Same venues, other surfaces | A hall is a pitch with walls, so it shares the slot, the price per period and the QR entry |
+| Large football field slots (7-a-side and 11-a-side) | Courty lists 5, 7 and 11-a-side in Egypt | One pitch can hold more than one format, so it is a slot attribute and not a new product |
+| Referee booking for a match | Matchiva offers it today | It is a booking attached to an existing match slot, paid in the same basket |
+| Professional player booking for a match | Matchiva offers it today | Same, a service booked against a match the customer already has |
+| Position coach booking (a training session) | TickTick idea 30, mapped to Hagoozat | A coach is booked for a slot, the same booking flow with a different provider type |
+| Extra floodlight hour, ball, bibs and keeper gloves as add-ons | Legacy `dynamicPricing` and the venue extras in the legacy pitch pages | They are priced per slot and paid in the same transaction, so they are add-ons and not products |
+| Equipment rental (balls, bibs, cones, pump) | Common in Egyptian venues, not offered by any competitor found | It rides on the same slot and the same payment, so it belongs in the basket |
+| Match photographer or recorder booking | Legacy `broadcaster` and the live stream in EGFootball5 | The legacy app already had a broadcaster surface, and it is booked against a match |
+| Tournament organisation service for a venue | Kourtiva and Yalla Hagz run tournaments for venues | The owner pays for running a bracket on their pitch, which is a service on the venue, not a separate product |
+| Stadium or training-ground multi-day booking | Natural growth from hourly slots | The same slot model with a longer window and a different price, so it stays a slot |
+| Venue add-on: extra hour after the slot | Every Egyptian venue sells it | It is the same slot engine with a different duration |
+
+**Own products, decided elsewhere on 2026-11-12 and kept here for the record (not modules):**
+
+| Idea | Home | One-line reason |
+|---|---|---|
+| Handyman bookings (plumbers, electricians, painters) | `plans/sir-handyman.md`, own product, planning only | The customer, the entities and the flow are a service marketplace with its own supply of workers, so folding it into Hagoozat would bloat the scope |
+| Car buying, selling and tracking | `plans/sir-cars.md`, own product, planning only | It is a marketplace with listings and price history, not a booking, and the competitors there are completely different |
+| Price and game-deal finder | `plans/sir-deals.md`, own product, planning only | It is price comparison and alerts, not a booking, and it needs lawful retailer data before it starts |
+| Movie discovery and tracking | `plans/sir-movies.md`, own product, planning only | It is entertainment tracking with affiliate links, a different daily use case from booking a pitch |
+| Accessibility map | `plans/accessibility-map-module-note.md`, module of SIR Life Part B | It is a community life tool with no revenue of its own, and it shares the map layer with the other SIR Life location features |
+
+**Rule for any new booking idea that arrives later:** write one line here with the same shape ("module of SIR Hagoozat" or "own product") and the reason, before any code is planned. If the answer needs more than one line of reasoning, it is its own product.
 
 ---
 
