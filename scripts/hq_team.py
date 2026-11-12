@@ -175,12 +175,27 @@ def run_agent(pick: str, prompt: str, cwd, tag: str, timeout: int = 1800) -> tup
     env = os.environ.copy()
     tool, model = pick.split("|", 1)
     if tool == "aider":
+        keys = {}
         try:
             for line in open("D:/Projects/_SIR/_local/api-keys.env", encoding="utf-8"):
-                if line.startswith("GOOGLE_AI_STUDIO_KEY="):
-                    env["GEMINI_API_KEY"] = line.split("=", 1)[1].strip()
+                if "=" in line:
+                    k, v = line.strip().split("=", 1)
+                    keys[k] = v
         except OSError:
             pass
+        if model.startswith("gemini/"):
+            env["GEMINI_API_KEY"] = keys.get("GOOGLE_AI_STUDIO_KEY", "")
+        elif model.startswith("nvidia_nim/"):
+            env["NVIDIA_NIM_API_KEY"] = keys.get("NVIDIA_API_KEY", "")
+        elif model.startswith("openai/@cf/"):
+            env["OPENAI_API_BASE"] = f"https://api.cloudflare.com/client/v4/accounts/{keys.get('CLOUDFLARE_ACCOUNT_ID', '')}/ai/v1"
+            env["OPENAI_API_KEY"] = keys.get("CLOUDFLARE_API_TOKEN", "")
+        elif model == "openai/GLM-5.3":
+            env["OPENAI_API_BASE"] = "https://api.sambanova.ai/v1"
+            env["OPENAI_API_KEY"] = keys.get("SAMBANOVA_API_KEY", "")
+        for k in ("GROQ_API_KEY",):
+            if k in keys:
+                env[k] = keys[k]
     if tool == "qwen":
         env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama",
                     "OPENAI_MODEL": model})

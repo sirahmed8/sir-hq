@@ -45,6 +45,9 @@ POOL = [
     "cline|reflection/beam-free",
     "gemini|default",
     "aider|groq/openai/gpt-oss-120b",
+    "aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b",
+    "aider|openai/@cf/openai/gpt-oss-120b",
+    "aider|openai/GLM-5.3",
     "aider|gemini/gemini-flash-lite-latest",
     "aider|gemini/gemini-flash-latest",
 ]

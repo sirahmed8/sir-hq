@@ -1,0 +1,471 @@
+[
+ {
+  "label": "AHome R1",
+  "task": "r14-ahome",
+  "title": "إصلاحات المشروع الخاص",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R1",
+  "task": "r15-laptop",
+  "title": "Laptop Manager overnight work",
+  "state": "done by worker",
+  "verified": "FAIL"
+ },
+ {
+  "label": "Jobs R1",
+  "task": "r15-jobs",
+  "title": "Jobs inbox assistant, phase 1",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R1",
+  "task": "r15-control",
+  "title": "Control Room and Telegram menu",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R2",
+  "task": "r16-laptop",
+  "title": "Laptop Manager: fix review findings",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R2",
+  "task": "r16-jobs",
+  "title": "SIR Jobs round 16",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R1",
+  "task": "r16-study",
+  "title": "SIR Study round 16",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R2",
+  "task": "r16-control",
+  "title": "Control Room round 16",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R2",
+  "task": "r17-ahome-verify",
+  "title": "AHome round 14 verification",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R3",
+  "task": "r18-ahome-phone",
+  "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R2",
+  "task": "r19-study",
+  "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R4",
+  "task": "r21-ahome",
+  "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R3",
+  "task": "r19-jobs",
+  "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R3",
+  "task": "r19-control",
+  "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R3",
+  "task": "r20-study",
+  "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R3",
+  "task": "r22-laptop",
+  "title": "Laptop Manager: واجهة الموبايل",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R4",
+  "task": "r22-control",
+  "title": "لوحة التحكم: واجهة الموبايل",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R4",
+  "task": "r22-jobs",
+  "title": "SIR Jobs: واجهة الموبايل",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R4",
+  "task": "r22-study",
+  "title": "SIR Study: واجهة الموبايل",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R5",
+  "task": "r23-jobs-cv",
+  "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R6",
+  "task": "r24-jobs-apply",
+  "title": "SIR Jobs: التقديم على الشغل بموافقتك",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R4",
+  "task": "r24-games",
+  "title": "الألعاب: تحسين الأداء والجرافيكس",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "SIR AI R1",
+  "task": "r25-sir-ai",
+  "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R5",
+  "task": "r26-infra",
+  "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R5",
+  "task": "r27-study-sources",
+  "title": "SIR Study: سحب المواد الجديدة وترتيبها",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R7",
+  "task": "r28-jobs-autoapply",
+  "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study F1",
+  "task": "ci-sir-study-20261111-0621",
+  "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop A1",
+  "task": "audit-sir-laptop-manager-20261111-0841",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs A1",
+  "task": "audit-sir-jobs-20261111-0841",
+  "title": "SIR Jobs: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study A1",
+  "task": "audit-sir-study-20261111-1011",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R5",
+  "task": "r30-ahome-local-core",
+  "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome A1",
+  "task": "audit-ahome-20261111-1011",
+  "title": "AHome: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R5",
+  "task": "laptop-updates-20261111",
+  "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R8",
+  "task": "r29-jobs-verify-applies",
+  "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R6",
+  "task": "r31-desktop-organize",
+  "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop A2",
+  "task": "audit-sir-laptop-manager-20261111-1951",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study A2",
+  "task": "audit-sir-study-20261111-1951",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R6",
+  "task": "r33-ahome-feedback",
+  "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R9",
+  "task": "r34-jobs-ui-overhaul",
+  "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R7",
+  "task": "r35-control-room-laptop-ui",
+  "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome A2",
+  "task": "audit-ahome-20261112-0051",
+  "title": "AHome: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome A3",
+  "task": "audit-ahome-20261112-0111",
+  "title": "AHome: دورة فحص ذاتي",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R8",
+  "task": "r36-more-free-workers",
+  "title": "r36 more free workers",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R10",
+  "task": "r37-verify-jobs",
+  "title": "r37 verify today's UI",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "AHome R7",
+  "task": "r38-ahome-feedback2",
+  "title": "r38 AHome feedback 2",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Portfolio R1",
+  "task": "r39-portfolio-copy",
+  "title": "r39 Portfolio copy",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "SIR AI R2",
+  "task": "r40-sir-ai-vision",
+  "title": "r40 SIR AI vision plan",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R9",
+  "task": "r41-disk-regenerable",
+  "title": "r41 disk regenerable",
+  "state": "done by worker",
+  "verified": "PASS"
+ },
+ {
+  "label": "HQ R10",
+  "task": "r42-verifier-scout",
+  "title": "r42 verifier and scouts",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop F1",
+  "task": "r15-laptop-fix1",
+  "title": "Fix failures from r15-laptop verification",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R6",
+  "task": "r43-study-mobile-card-tables",
+  "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R11",
+  "task": "r44-portfolio-plans-upgrade",
+  "title": "r44 plans upgrade all products",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study F2",
+  "task": "ci-sir-study-20261112-0700",
+  "title": "SIR Study: red CI after cleanup commit",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R7",
+  "task": "r45-study-scout-fixes",
+  "title": "SIR Study: scout findings",
+  "state": "done by worker",
+  "verified": "PASS"
+ },
+ {
+  "label": "Jobs R11",
+  "task": "r45-jobs-scout-fixes",
+  "title": "SIR Jobs: scout findings",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ F1",
+  "task": "ci-sir-20261112-0901",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "state": "done by worker",
+  "verified": "FAIL"
+ },
+ {
+  "label": "HQ F2",
+  "task": "ci-sir-20261112-0941",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "state": "done by worker",
+  "verified": "PASS"
+ },
+ {
+  "label": "HQ F3",
+  "task": "ci-sir-20261112-0951",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "state": "done by worker",
+  "verified": "FAIL"
+ },
+ {
+  "label": "HQ F4",
+  "task": "ci-sir-20261112-0951-fix1",
+  "title": "Fix failures from ci-sir-20261112-0951 verification",
+  "state": "done by worker",
+  "verified": "PASS"
+ },
+ {
+  "label": "AHome F1",
+  "task": "ci-ahome-20261112-1401",
+  "title": "AHome: إصلاح الفحص الآلي الأحمر",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop A3",
+  "task": "audit-sir-laptop-manager-20261112-1401",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Study A3",
+  "task": "audit-sir-study-20261112-1401",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Jobs R12",
+  "task": "r46-jobs",
+  "title": "SIR Jobs: competitors and feature gaps",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Portfolio R2",
+  "task": "r46-portfolio",
+  "title": "SIR Portfolio: competitors and feature gaps",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study R8",
+  "task": "r46-study",
+  "title": "SIR Study: competitors and feature gaps",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Laptop R6",
+  "task": "r46-laptop-manager",
+  "title": "SIR Laptop Manager: competitors and feature gaps",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ F5",
+  "task": "ci-sir-20261112-0901-fix1",
+  "title": "Fix failures from ci-sir-20261112-0901 verification",
+  "state": "open",
+  "verified": ""
+ }
+]

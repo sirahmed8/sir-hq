@@ -45,7 +45,7 @@ for round in $(seq 1 40); do
     crush) timeout 3300 crush run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     cline) timeout 3300 cline -P cline --thinking high -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     gemini) timeout 3300 gemini -p "$msg" --yolo --skip-trust >> "$LOG" 2>&1 ;;
-    aider) ( set -a; . D:/Projects/_SIR/_local/api-keys.env; set +a; export GEMINI_API_KEY="$GOOGLE_AI_STUDIO_KEY"; timeout 3300 aider --model "$model" --yes-always --no-auto-commits --message "$msg" ) >> "$LOG" 2>&1 ;;
+    aider) ( . D:/Projects/_SIR/scripts/aider-env.sh; aider_env "$model"; timeout 3300 aider --model "$model" --yes-always --no-auto-commits --no-show-model-warnings --message "$msg" ) >> "$LOG" 2>&1 ;;
     kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;
   esac
   code=$?
