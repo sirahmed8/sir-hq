@@ -66,10 +66,11 @@ def runners():
     state = _json(os.path.join(OPS, "autopilot_state.json"), {})
     queue = _json(os.path.join(OPS, "AUTOPILOT_QUEUE.json"), [])
     titles = {e.get("name"): e.get("title", "") for e in queue if isinstance(e, dict)}
+    done_names = {e.get("name") for e in queue if isinstance(e, dict) and e.get("done")}
     entries = []
     for name, info in (state.get("runners") or {}).items():
         pid = info.get("pid") if isinstance(info, dict) else None
-        if pid:
+        if pid and name not in done_names:  # a finished task whose old pid was reused by another process is not a live worker
             entries.append((name, int(pid), info.get("started")))
     alive = live_pids([p for _, p, _ in entries])
     out = []
