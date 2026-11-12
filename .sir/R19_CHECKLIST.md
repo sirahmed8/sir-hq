@@ -42,7 +42,7 @@ Based on ops/reviews/2026-11-10/review-control-room.md
   - FIXED: Single parse_tasks parser in generate_dashboard.py used everywhere. Task counts now consistent. (generate_dashboard.py:125-147)
 
 - M3. Size and structure
-  - FIXED (2026-11-12): generate_dashboard.py is a 28-line shim; dashboard_main.py split into dashboard_config-free modules all under 300 lines: dashboard_sources.py (275), dashboard_autopilot.py (228), dashboard_reports.py (228), dashboard_artifacts.py (167), dashboard_projects.py (140), dashboard_handover.py (221), dashboard_data.py (230), dashboard_main.py (244), dashboard_privacy.py (17). Template split into 15 partials each under 300 lines, byte-identical concat pinned by tests/test_r19_m3_modular_split.py (now also asserts every dashboard_*.py module <300 lines). One-shot patch scripts remain archived under ops/agy-runs/ and legacy/.
+  - FIXED (2026-11-12, task ci-sir-20261112-0901-fix1-fix1): the page template lives in `plans/dashboard_parts/*.html` (head 10, style 255, body 34, script_data 204, script_ui 122, script_boot 152 lines) and `plans/dashboard_page.py` joins them in order; `plans/dashboard_template.html` is the assembled mirror and the generator keeps it current. The retired pipeline's dead modules (`dashboard_main`, `dashboard_data`, `dashboard_sources`, `dashboard_autopilot`, `dashboard_reports`, `dashboard_artifacts`, `dashboard_projects`, `dashboard_handover`) and its stale template partials are removed; the one-shot split scripts are archived under `ops/archive/legacy-dashboard-pipeline/`. Every `plans/dashboard_*.py` module and the generator stay under 300 lines, pinned by `tests/test_r19_m3_modular_split.py` (parts concatenate to the mirror, every part and module under 300 lines).
 
 - M4. Silent fallbacks hide failures
   - FIXED: git_sync_status returns "unknown" on exception. get_ci_status shows "unknown" on timeout. json.load guarded, broken project skipped. (generate_dashboard.py:98-122, 413-449, 1020-1021)
@@ -86,4 +86,4 @@ Open: none
 
 ## Next Steps
 
-All review findings resolved including M3 (module split completed 2026-11-12). Remaining verification: browser screenshots captured at .sir/evidence/r19/shots-src/ (16 PNGs, before/after x light/dark x 390/1280 x en/ar). Report at ops/agy-runs/reports/r19-control.md.
+All review findings resolved including M3 (module split completed 2026-11-12, re-pinned for the rebuilt page in task ci-sir-20261112-0901-fix1-fix1). Remaining verification: browser screenshots captured at .sir/evidence/r19/shots-src/ (16 PNGs, before/after x light/dark x 390/1280 x en/ar). Report at ops/agy-runs/reports/r19-control.md.

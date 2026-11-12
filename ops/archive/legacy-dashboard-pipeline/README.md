@@ -1,8 +1,16 @@
 # Archived dashboard pipeline scripts
 
-These two one-shot scripts patched the retired Control Room generator (the `const D = {...}` page
-and its `dashboard_main.py` / `dashboard_data.py` module split). They were used once to split the
-old pipeline into small modules and they no longer match any file in `plans/`.
+These scripts belong to the retired Control Room page (the `const D = {...}` page with `const $ =`)
+and to the retired generator modules. They do not match any file in `plans/` any more and they
+crash or report nothing useful against the rebuilt page.
+
+Archived here on 2026-11-12 (task ci-sir-20261112-0901-fix1-fix1):
+
+- `split_dashboard_modules.py`, `split_generator_modules.py`: one-shot patches that split the old
+  generator into small modules.
+- `audit_control_numbers.py`, `check_git_hashes.py`: audit helpers that read the old page format
+  (`const D = {...}; const $ =`) out of `ops/dashboard.html`.
+- `update-dashboard-data.mjs` (+ its test): memory helper that patched the old page data block.
 
 The live pipeline is now:
 

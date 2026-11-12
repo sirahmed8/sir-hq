@@ -7,9 +7,9 @@ One page that tells Ahmed the true state of every project (what is built, what i
 ## 2. Names and parts
 | Part | Where | State |
 |---|---|---|
-| Dashboard generator | `plans/generate_dashboard.py` + `plans/dashboard_template.html` (about 117 KB) | built, unverified |
+| Dashboard generator | `plans/generate_dashboard.py` (reads `plans/dashboard_parts/*.html` through `plans/dashboard_page.py`, feeds `plans/dashboard_feeds.py`, `plans/dashboard_repos.py`, `plans/dashboard_notes.py`) | built, verified 2026-11-12: the artifact, `ops/dashboard.html` and `ops/public/dashboard.html` are byte-identical, `pytest tests -q` = 62 passed |
 | Local server on port 8899 with 15 minute refresh, health JSON, restart supervisor | `scripts/serve-control-room.py`, scheduled task `SIR_ControlRoom_Server` | built, unverified; `ops/control-room-health.json` said "healthy" at 2026-11-10 |
-| Published page (Claude artifact) | link in `ops/DASHBOARD_URL.txt`; refresh with `scripts/refresh-control-room.py`, which writes `ops/artifact/CHANGED.txt` | built, unverified; republish is a manual HQ step |
+| Published page (Claude artifact) | link in `ops/DASHBOARD_URL.txt`; refresh with `scripts/refresh-control-room.py`, which writes `ops/artifact/CHANGED.txt` | built, unverified; `scripts/publish_artifact.py` records a hash in `ops/artifact/PUBLISHED.txt` only when the publish really succeeded (last true hash `20ee1159`); republish is an HQ step |
 | Telegram sender | `scripts/deliver/send-telegram.mjs` | **verified today**: `node --test scripts/deliver/send-telegram.test.mjs` = 6 of 6 pass (mock server) |
 | Telegram buttons and approvals | `scripts/deliver/send-buttons.mjs`, `approval.py`, `telegram-inbox.mjs` | built, unverified |
 | Briefing formatter | `scripts/deliver/format-briefing.mjs` with `test-format-briefing.mjs` | built, unverified |
@@ -58,7 +58,7 @@ Weekly Telegram report per product (one block each) plus emergency alerts (outag
 1. Run the four `scripts/test_*.py` files as scripts and save results. Files: `.sir/evidence` in `_SIR/ops/reviews/`. Check: exit codes recorded.
 2. Add the AHome fence test for the generator. Files: `plans/test_dashboard_privacy.py`. Check: passes; fails if a note string is injected.
 3. Write `docs/status-schema.md` and make the generator warn on a missing `.sir/status.json`. Check: warning list printed for projects without it.
-4. "Verified needs evidence" rule in `generate_dashboard.py`. Check: unit test with a fake project.
+4. "Verified needs evidence" rule in the feeds: a round counts as verified only when a verification file shows PASS. Check: `tests/test_r42_dashboard.py` drives `plans/dashboard_feeds.py` with a fake project.
 5. Owner page generated from `ops/OWNER_ACTIONS.md` (one tap per item, exact steps). Check: screenshot at 390 px.
 6. Weekly report builder using `format-briefing.mjs`; dry run output saved. Check: test-format-briefing passes plus a golden file.
 7. Approval replay protection in `approval.py` with tests. Check: second callback returns "already used".

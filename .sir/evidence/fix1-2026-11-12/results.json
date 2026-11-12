@@ -1,0 +1,902 @@
+{
+ "runs": 112,
+ "failures": [],
+ "all": [
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "light",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 320,
+   "theme": "dark",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "light",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 390,
+   "theme": "dark",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "light",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 768,
+   "theme": "dark",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "light",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "ar",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "now",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "projects",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "tools",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "checks",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "ideas",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "owner",
+   "overflow": false,
+   "clipped": []
+  },
+  {
+   "width": 1280,
+   "theme": "dark",
+   "lang": "en",
+   "view": "accounts",
+   "overflow": false,
+   "clipped": []
+  }
+ ]
+}
