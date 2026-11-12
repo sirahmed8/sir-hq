@@ -237,3 +237,9 @@
 - Next step: `python scripts/ai-status.py`; retry `tabs_context_mcp` for the next WhatsApp digest and the NotebookLM `Data Bank.pdf` upload; read r44 outputs and `ops/verifications/`.
 - Open promises: Chrome extension must be signed in (owner: open Claude panel in Chrome); verify worker claims; AHome stays local-only; recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`.
+
+## HQ note (2026-11-12 10:25)
+- Now: CI green on all 7 projects. HQ CI fixed by a worker (gitleaks allowlist narrow, checked). AHome audit and r38 wait on a weak local model (qwen3:8b loops, no AHome commit for about 4 hours). Owner was asked by Telegram buttons whether AHome SOURCE CODE may go to outside free models (`ahome_code_ok` or `ahome_local_only` in `ops/telegram-actions.json`); no answer yet.
+- Next step: `python scripts/ai-status.py`; read `ops/bus/ahmed-telegram.md` for the button answer (if `ops/decisions-ahome-code-ok.txt` exists, the owner said yes: change the AHome runner to allow outside models for code-only tasks and keep private data local, in `scripts/cli-run2.sh`); read r44 outputs and `ops/verifications/`.
+- Open promises: WhatsApp digest and NotebookLM `Data Bank.pdf` upload need Claude in Chrome connected; verify worker claims (r43, r44, r45); order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`, `ops/USAGE_LIMITS.md`.
