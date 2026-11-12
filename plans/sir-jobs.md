@@ -1,79 +1,131 @@
-# PLAN: SIR Jobs (Wave 2, private income tool)
-Audited 2026-11-10. Replaces the old `D:\Projects\Jobs` data folder (data imported, folder kept for now). Private tool for one owner: not sold, not listed, `noindex`. Commercial items are marked "n/a" with the reason.
+# PLAN: SIR Jobs (Wave 2, PERSONAL class, private income engine)
 
-## 1. Purpose (plain words)
-It finds remote and local jobs and freelance gigs that fit Ahmed, ranks them, writes a draft application for each good one, and tracks what really happened. Nothing is sent without his approval, and a row never says "Applied" unless there is proof. Goal behind it: the first income of 1,200 EGP.
+Rebuilt 2026-11-12 (r52-plan-sir-jobs). Replaces the 2026-11-10 audit content; keeps what is still true. PERSONAL product: only Ahmed, never sold, never listed, `noindex`, no public hosting. Commercial sections are marked n/a with the reason; an outline for the hypothetical case is included only so a future GLOBAL spin-off has a starting point, not because it will happen.
+
+## 1. Who it is for and the one-sentence promise
+
+Ahmed (Vibe Coder, second-year CS, Cairo) and nobody else. **Promise: "Open your laptop and every honest, well-fitting remote or freelance opportunity for a Vibe Coder is already found, scored, drafted, applied-to (cap 10 a day) and logged with proof, so your only job is the final tap and the interview."** Sell the end state: income from real work, measured in real numbers, with zero invented claims and zero wasted hours on bad-fit applications. Goal: real, measured income (see `.sir/INCOME_MODEL.md`, 2026-11-11); the old fixed 1,200 EGP figure is cancelled (owner, 2026-11-11).
 
 ## 2. Names and IDs
+
 | Item | Value |
 |---|---|
 | Folder | `D:\Projects\SIR Jobs` |
 | GitHub (private) | `sirahmed8/sir-jobs` |
-| Runtime | Node (ESM, no framework), `src/server.mjs` on `127.0.0.1:3456`, scheduled tasks `SIR_Jobs_Server` and `SIR-Jobs-Weekly-Digest` |
-| Platforms | Windows local dashboard plus phone browser over Tailscale: built, unverified. Web hosting, Android, iOS, macOS, TV, watch: skipped (private tool; phone uses the tailnet page) |
-| Money | none charged. Subscription, EGP checkout, legal packs: n/a. Default: if ever offered to others, rebuild on the shared kit billing and legal pack, never inside this folder |
+| Runtime | Node ESM, no framework, `src/server.mjs` on `127.0.0.1:3456`; scheduled tasks `SIR_Jobs_Server`, `SIR-Jobs-Weekly-Digest`; SQLite local store |
+| Platforms | Windows local dashboard (built, locally verified 2026-11-12) plus phone browser over Tailscale; everything else: see matrix (section 4) |
+| Money | None charged; PERSONAL class. Subscription, EGP checkout, legal paid packs: n/a (never sold). If ever offered to others: rebuild on shared-kit billing and legal pack, never inside this folder |
+| Domain | None (loopback + tailnet only) |
+| Analytics page | Owner-only `/admin` (loopback); no public analytics |
 
-## 3. Current state
-Claimed in `.sir/CHECKPOINT.md` (2026-11-10): M0 to M6 and 24 audit cycles done, 18 tasks T-001 to T-018 green. PORTFOLIO.md (2026-11-08): 21 of 21 tasks, 44 commits, 86 tests.
-Verified by this audit on 2026-11-10: `npm test` (chain of 24 suites joined by `&&`) ran to its final suite with 4 of 4 passing in that suite and no failure printed. Per-suite counts were not captured; the "86 tests" number is unverified. `npm run doctor` and `verify.ps1` were not re-run.
-Built, unverified: scraper to shortlist to draft to approval pipeline (`src/pipeline.mjs`, `src/drafter.mjs`), fit scoring with evals (`src/fit-evaluator.mjs`, `scripts/ai_eval.mjs`), undo (`src/undo.mjs`), Telegram send ledger that stops duplicate sends (`src/telegram-ledger.mjs`), money-goal engine (`src/money-engine.mjs`), cached exchange rates (`src/fx.mjs`), offline CV PDF, tailnet auth check (`src/auth.mjs`), kanban dashboard with six views, daemon scripts.
-Not started or not proven: real outcomes (interviews, replies, income) recorded with evidence; the 5 "staged" opportunities have no proof of any reply; scraper terms-of-use review per source; Arabic job boards; local-model draft path for CV text (see risk 2); freelance platform profile checklist for the owner.
+## 3. Current state (honest, dated)
 
-## 4. Security and conduct rules
-1. Loopback bind plus `Tailscale-User-Login` check; no public ingress. Test: `test/test-security.mjs` (exists, re-run and keep).
-2. A row may be "Applied" only with a proof file (screenshot, email id or confirmation URL) in `data/store/proof/`. Test: a pipeline test rejects "Applied" without proof.
-3. No auto-submit to any site whose terms forbid automation. No CAPTCHA bypass, no fake claims in a CV, no engagement bots, no impersonation in live chats. Every submission is a human click.
-4. Personal documents (CV, phone, address) never go to an outside AI provider. Drafts that include them use the local model; outside providers may only see the public job text. Test: a redaction unit test on the prompt builder.
-5. Secrets in Credential Manager or untracked `.env`; gitleaks in CI.
-6. Telegram sends go through the ledger (one brief per day).
+- 2026-11-12 (r46-jobs): competitor matrix + 3 feature gaps implemented and committed; `npm test` all suites pass; `npm run lint` 0 problems; `npm run typecheck` 0 errors; `npm run doctor` HEALTHY; r46 audit 28/28 checks at 320/390/768/1280 EN+AR light+dark. CI quota flag file exists (`ops/ci-quota-exhausted.flag`) but runs today execute and pass (e.g. test run 43254213557, 5 steps, success); local verification is the standing proof while the flag exists.
+- Built and locally verified: scraper-to-shortlist-to-draft-to-apply pipeline, fit scoring with evals, undo, Telegram ledger, FX cache, offline CV PDF, tailnet auth, kanban dashboard with six views, auto-apply engine (cap 10/day, dedupe, 15 skip rules, truth audit, Gmail/CDP/owner-queue channels), proof ledger, contacts log.
+- Not proven: real interviews, real replies, real income. Zero applications have been verified as submitted with proof (r29-jobs-verify-applies removed a fake fixture; `applications_sent: 0`). Staged opportunities count only after a real reply. Nothing on this page is "live" in the commercial sense.
+- Open: scraper terms review per source; Arabic board sources not yet added; redaction test enforced for CV text to outside providers; income model refresh quarterly.
 
-## 5. Shared pieces
-- Telegram delivery: use `scripts/deliver/send-telegram.mjs` (the shared sender), not a second bot. The ledger stays here because it is job-specific.
-- AI calls: for anything not personal, go through `_SIR/scripts/ai/ask.ps1` (fallback chain, usage ledger). When the shared kit's ai-proxy exists, switch to it.
-- Design tokens and settings/profile: reuse the Laptop Manager and Study look until Platform extracts the kit (last wave).
-- Gig income feeds SIR Portfolio only as real, proven results (case studies), never as numbers from this tracker unless proof exists.
+## 4. Platform matrix (what v1 includes)
 
-## 6. Screens and entities
-Screens: Pipeline board, Job detail, Drafts, Outcomes, Cash hub (money goal), Security and diagnostics, Settings and Profile. Entities: Job, Application, Contact, Draft, Outcome, Proof, MoneyGoal.
-Five states on each, Arabic RTL and English, light/dark/system/contrast, 320 px to 4K, WCAG 2.2 AA, own logo.
-
-## 7. AI and assistant
-Fit score with a written rubric; drafts in Arabic or English matching the posting; "why this job fits / does not fit" in plain words. Fallback: local model, then an outside provider on public text only, then a rule-based score. Eval set of past real outcomes in `scripts/ai_eval.mjs`; a new model is accepted only if it beats the stored score. Kill switch: `JOBS_AI=off` env. Support assistant: n/a (single owner); the doctor page explains failures.
-
-## 8. Operations
-Weekly digest (Monday brief) and one daily money brief, both via Telegram in simple Arabic: new fits, drafts waiting for approval, proofs missing, next deadline. Health line in `.sir/health.txt`. Backups: `scripts/snapshot.py all` weekly to `D:\Projects\Backups\SIR-Jobs-data` with a monthly restore check. Dependency update weekly (few dependencies).
-
-## 9. Milestones with exit checks
-| M | Goal | Exit check |
+| Platform | v1 | Notes |
 |---|---|---|
-| M0 | Foundations | `npm run verify` green; `docs/THREAT_MODEL.md`; ADR-001 auth exist |
-| M1 | Clean tracker | a script prints counts: rows with proof vs without; zero "Applied" without proof |
-| M2 | Pipeline | `npm run pipeline:offline` produces a shortlist and drafts from fixtures |
-| M3 | Security | `node test/test-security.mjs` passes; redaction test passes |
-| M4 | AI | `npm run evals` prints a score and saves it to `.sir/evidence/` |
-| M5 | Quality | screenshots at 320, 390, 768, 1440 in light/dark/RTL; a11y test passes |
-| M6 | Real outcomes | at least one real application submitted by the owner with proof; first reply logged |
+| Web (local dashboard) | YES | The product. Browser over loopback or Tailscale; Arabic RTL, English, light/dark/system/contrast |
+| Windows app | LATER | Only if the dashboard moves to a tray app; follow `plans/WINDOWS_APP_STANDARD.md` then |
+| macOS | n/a | Owner has no Mac |
+| Linux | n/a | Not used by owner |
+| Android | LATER | Phone uses the tailnet page today; native app only if needed |
+| iOS | LATER | Same as Android |
+| Wear OS / watchOS | n/a | No use case for a job pipeline on a watch |
+| TV | n/a | No use case |
+| Car | n/a | No use case |
 
-## 10. Next 10 tasks (each under 2 hours)
-1. Run `npm test` with output saved per suite and record counts. Files: `scripts/verify.ps1`, `.sir/evidence/tests-2026-11-10.md`. Check: file lists suite names and pass counts.
-2. Proof rule: reject "Applied" without a proof file. Files: `src/pipeline-db.mjs`, `test/test-pipeline.mjs`. Check: new test passes; old rows without proof show "unverified".
-3. Report command `npm run proof-report` printing rows with and without proof. Files: `scripts/proof-report.mjs`. Check: output matches the data.
-4. Prompt redaction for outside providers (strip name, phone, address, email). Files: `src/drafter.mjs`, `test/test-redaction.mjs`. Check: test feeds a CV and finds none of the fields in the prompt.
-5. Source terms review: for each scraper source in `scripts/digest/`, write the terms URL and "allowed / manual only" in `docs/SOURCES.md`. Check: every source has a row; disallowed ones are switched off in config.
-6. Add two Arabic-region sources (Wuzzuf and a remote board) as official feeds or manual-import only. Files: `scripts/digest/sources/`. Check: offline fixture test passes. (Whether their terms allow it: "(unsourced, verify)".)
-7. Draft quality eval: 10 past real postings with accepted/rejected drafts, score in `.sir/evidence/`. Check: score printed by `npm run evals`.
-8. Owner checklist file `docs/OWNER_STEPS.md`: freelance profile (Upwork, Freelancer, Mostaql), payout method, one tap each, plain Arabic. Check: file exists with exact clicks; nothing requires the agent to sign in.
-9. Gitleaks and CI run proof: push and record the Actions URL. Check: green run URL in checkpoint.
-10. Weekly report builder dry run to Telegram with the ledger test for duplicates. Check: second send same day is blocked (test), real send returns ok.
+Why not every platform: PERSONAL class, one owner, one laptop plus a phone. Forcing all-platform parity here would burn the plan for zero user value. The shared kit's all-platform rule applies to GLOBAL products; Jobs adopts tokens, motion, i18n, help-center, security-baseline, operations-standard only (see `plans/SHARED_PLATFORM_KIT.md`, "PERSONAL products adopt").
+
+## 5. Category and competitors
+
+Category: AI career autopilot (job discovery, ATS optimization, auto-apply, tracking). Full matrix with 10 competitors, pricing with sources and dates, complaints, advantage map and ideas to steal: **`ops/competitors/sir-jobs.md`** (researched 2026-11-12). Best-in-class bar to match: Huntr (CRM + tracker), Teal (resume match loop), Simplify (autofill breadth), LoopCV (low-cost auto-apply), Jobscan (ATS depth) - replicated locally, privately, free.
+
+## 6. Features (best-in-category parity plus owner's own ideas)
+
+Parity targets (all local, no paywall):
+1. Job discovery: official feeds and manual import only (Remotive, RemoteOK, WeWorkRemotely RSS, Wuzzuf, Mostaql, LinkedIn manual paste); per-source terms review in `docs/SOURCES.md`; disallowed sources switched off.
+2. Fit scoring with written rubric + eval set (`scripts/ai_eval.mjs`); accepts a model only if it beats the stored score.
+3. ATS-style keyword match + missing keywords per job (gap 9).
+4. Drafting in Arabic or English matching the posting; "why it fits / does not fit" in plain words.
+5. Application kanban with stages (staged, applied, interviewed, offered, rejected, ghosted), follow-up strip (done, r46), export JSON/CSV (done, r46), contacts CRM tab (done, r46).
+6. Auto-apply: vetted matches only, cap 10/day, dedupe by URL, 15 skip rules, second-pass truth audit; channels in priority order Gmail API (post-exposure only), CDP browser with screenshot proof, owner queue (`_local/apply_queue.json`).
+7. Proof ledger: no "Applied" without proof file; outcomes (interview/offer/reject/ghost) with dates and amounts (gap 4).
+8. Follow-ups: day-3/day-7 post-interview nudges (gap 6); overdue alert strip (done).
+9. Weekly outcomes digest (Arabic, simple) + one daily money brief via Telegram, through the shared sender and the job-specific ledger; per-source and per-role-family counters (gap 7).
+10. Money/cash hub: cached FX (USD/EGP), money-goal engine kept as an honest tracker against the income model, never a fake fixed target.
+11. Analytics (owner-only): response rate, interview rate, offer rate by source and role family; integers only; empty states show 0 (gap 11).
+12. Contacts/warm-intro finder: surface logged contacts at the target company (gap 16).
+13. Tailored CV export per application (gap 20); per-job attached resume version (gap 5).
+14. Offline CV PDF; offline-first dashboard; `data/contacts.json` atomic writes.
+
+Owner's own ideas, ported forward (sources cited):
+- From `legacy/Jobs/sir_ahmed_ai_job_automation_master_prompt.md`: 4-year Vibe Coder roadmap context, Arabic/English bilingual evaluator premium, Google Workspace + TickTick career-platforms note (Upwork, Almentor, Roeya, EdClub, iFixit), DataAnnotation/Appen/Telus class evaluator work as a first income wedge.
+- From owner decision 2026-11-11 (AGENTS.md, Job applications): auto-apply without waiting for a tap, vetted truthful matches, max 10/day, each logged and reported on Telegram, sign-in via his Google chooser allowed, forms filled from his real profile and portfolio site, never ID uploads, never payments.
+- From owner decision 2026-11-11 (Income target): real and measured; SIR Jobs researches what a Vibe Coder can truly earn (`.sir/INCOME_MODEL.md`); no fixed figure anywhere.
+- From TickTick-adjacent legacy notes: Upwork Freelance Track and career platforms list (kept as owner checklist `docs/OWNER_STEPS.md`, not as scraping targets).
+- From `.sir/plans/FEATURE_GAPS.md` (r46, ranked 1-22): items 1-3 done; 4-22 queued by value (outcome tracker, per-job documents, interview nudges, weekly digest, negotiation tracker, keyword matcher, manual add, analytics, no-applications nudge, 中文/हिन्दी dictionaries, TOTP, calendar sync, warm intro, offer comparison, CSV import, confidence score, tailored CV, vibe tags, offline queue).
+- From SIR Jobs's own originated lessons (adopted into OWNER_DEFAULTS.md): per-character bidi detection, native-app feel, five states, real zeros - the codebase is the reference implementation for these rules.
+
+## 7. Architecture (on the shared kit; PERSONAL tier)
+
+- **Accounts**: single owner, loopback bind + `Tailscale-User-Login` check; no Firebase Auth needed (SHARED_PLATFORM_KIT section "PERSONAL products"). If ever spun out: owner-auth pack from the kit.
+- **Owner-only analytics page**: `/admin` (loopback) shows real counters only (applications, replies, interviews, offers, income vs model); fail closed; never public.
+- **AI with fallback chain** (`plans/AI_FALLBACK_CHAIN.md` order): Gemini `flash-lite-latest` → `flash` → any Gemini → OpenRouter free → local Ollama (`D:\Projects\AI_Models_Hub`). Personal documents (CV, phone, address, notes) never go to an outside provider: local model or redacted public job text only (redaction unit test on the prompt builder). Kill switch `JOBS_AI=off`. `private=true` forces local; fail closed if local unavailable.
+- **Hosting**: none. PERSONAL class: no Firebase Hosting, no Vercel, no domain (n/a by class, owner decision 2026-11-12 portfolio map). If ever offered: dual hosting per kit section 15, own Firebase project, own repo, legal pack, lawyer review.
+- **Data**: SQLite (local), atomic writes; backups weekly via `scripts/snapshot.py` to `D:\Projects\Backups\SIR-Jobs-data` with monthly restore check; gitleaks in CI; secrets in Credential Manager/untracked `.env`.
+- **Notifications**: shared sender `_SIR/scripts/deliver/send-telegram.mjs`; one brief per day via the ledger; weekly Monday digest at :00 Cairo.
+- **Kit adoption**: design-tokens, motion, i18n, help-center, ui/styles/hooks, changelog, security-baseline, operations-standard, launch-package (prepared, unused), visibility-standard (n/a, noindex). NOT adopted: billing, owner-auth (single owner), bot-link, signed-webhook.
+
+## 8. Premium quality bar
+
+Design: one design system (shared tokens until kit extraction); spring motion (transform/opacity only, 120 Hz safe); Arabic RTL-first and English; per-character bidi detection in every input; `<bdi>`/`unicode-bidi:isolate` for mixed runs; five states on every screen (idle, loading skeleton, empty with one action, error with retry, populated); 44 px touch targets; light/dark/system/high-contrast; WCAG 2.2 AA; 320-1920 px no clipping; real zeros, never invented numbers; version stays 1.0.0; no emoji in UI; no em-dashes in copy; escaping discipline (escHtml/escapeJs/safeHref); headless muted browser tests that always close. Verification: `npm test`, `npm run lint`, `npm run typecheck`, `npm run doctor` green before any push; screenshots at the widths above; browser audits (r34/r46-style CDP harnesses) with zero defects before claiming done.
+
+## 9. Free tier and fair pricing (EGP and USD)
+
+**n/a for this product (PERSONAL, never sold).** Outline only, if a GLOBAL spin-off ever happens: Free (1 owner, local, 5 applications/day, manual import), Pro USD 9/mo or 450 EGP/mo (auto-apply 10/day, AI scoring, digests), Pro Plus USD 19/mo or 950 EGP/mo (tailored CV export, interview prep, priority evals); EGP first with USD toggle auto-detected from locale (never manual-only); Paymob/Fawry for Egypt; lawyer-reviewed legal pack before any paid launch; never inside this folder.
+
+## 10. Milestones M0 to M6 with acceptance tests
+
+| M | Goal | Acceptance test |
+|---|---|---|
+| M0 | Desktop folder kit recreated (owner default 19): `D:\Projects\Desktop\SIR Projects\SIR Jobs\` with folder.ico (project root), Start/Stop dev, web link (tailnet), Open project folder, Versions.txt (1.0.0, plain status); GitHub repo exists and is private | Folder exists; folder.ico is the project's icon; shortcuts resolve; Versions.txt says 1.0.0; `gh repo view sirahmed8/sir-jobs` shows private |
+| M1 | Clean tracker with proof discipline | `npm run proof-report` prints rows with and without proof; zero "Applied" without proof; old rows without proof show "unverified" |
+| M2 | Pipeline offline reproduces | `npm run pipeline:offline` produces shortlist + drafts from fixtures; `npm test` green |
+| M3 | Security | `node test/test-security.mjs` passes; redaction test passes; gitleaks clean |
+| M4 | AI quality | `npm run evals` prints a score, saves to `.sir/evidence/`; model swap requires beating stored score |
+| M5 | Quality | Screenshots 320/390/768/1440 light/dark/RTL; a11y audit passes; r46-audit 28/28; zero horizontal overflow |
+| M6 | Real outcomes | At least one real application submitted with proof file; first reply logged with date; income ledger in `.sir/evidence/` shows real USD/EGP amounts or honest zeros |
+
+Exit rule: a milestone is done only when its acceptance test was run and its output recorded; nothing is "working" because the code exists.
 
 ## 11. Risks and open questions (defaults)
-- Job-board terms may forbid scraping: default is official feeds and manual import; switch off the source otherwise.
-- "Staged" opportunities can look like progress: default is they count only after a real reply.
-- Python 3 and Node both used (`scripts/snapshot.py`): default is keep, they are small.
-- Market claims (pay rates, platform fees) are not in this plan; any added later need a source or "(unsourced, verify)".
+
+- Job-board terms may forbid scraping: default is official feeds and manual import; switch the source off otherwise (`docs/SOURCES.md`).
+- Auto-apply can spam: cap 10/day, truth audit, proof ledger, per-source terms check; if a source forbids automation, it is manual-only.
+- "Staged" looking like progress: counts only after a real reply.
+- Python 3 and Node both used (`scripts/snapshot.py`): keep, they are small.
+- Outside AI sees public job text only; personal data local-only.
+- Market claims (rates, fees) not in this plan unless sourced or "(unsourced, verify)".
+- CI quota: while `ops/ci-quota-exhausted.flag` exists, local verification is the green proof; still commit and push to main. (Flag is stale as of 2026-11-12: runs pass; the flag stays until the owner deletes it.)
+- AHome/Habiba data never enters this product; no exceptions.
 
 ## 12. Only the owner can do
-Sign in to job and freelance platforms, solve CAPTCHAs, click Submit on applications, set payout details, accept contracts, any identity check.
 
-## 13. Market-grade note
-`plans/competitors/sir-jobs.md` holds the competitor study (check it for dates and links; unsourced lines stay tagged). Country rules (Egypt PDPL 151/2020 for stored contact data) apply only if third-party contacts are stored: default is store names and emails of recruiters minimally, delete after 12 months.
+Sign in to job/freelance platforms, solve CAPTCHAs, click Submit (when not auto-submitted under the 2026-11-11 mandate), set payout details, accept contracts, identity checks, buy anything.
+
+## 13. Skills picked for this product (from `ops/SKILLS_INDEX.md`)
+
+Design: modern-ui-ux-design-system, anti-vibecoded-design-system, emil-motion-impeccable, a11y-debugging, mobile-ergonomics-polish, modern-app-engineering, react-best-practices, high-conversion-copywriting
+Security: owasp-vulnerability-shield, zero-trust-security-hardening, vibe-auth-hardening
+AI/automation: ai-sdk, ai-gateway, gemini-api-dev, workflow, karpathy-skills
+Data/integrations: gdrive, gsheets, gcalendar (interview sync, owner tap), agent-reach (read-only research), video-digest (analyze job-hunt content)
+Applied from SIR Jobs already: per-character bidi, native-app feel, five states, real zeros (see OWNER_DEFAULTS.md "Adopted from SIR Jobs")
+
+## 14. Next steps into tasks
+
+The first 10 tasks for the free agents are in **`ops/briefs/sir-jobs-tasks.md`** (title + one-paragraph brief each, ready to queue). Competitor matrix: `ops/competitors/sir-jobs.md`. Gap backlog: `D:\Projects\SIR Jobs\.sir\plans\FEATURE_GAPS.md` (items 4-22).
