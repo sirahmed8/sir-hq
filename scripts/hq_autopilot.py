@@ -36,6 +36,14 @@ LIMIT_WORDS = re.compile(r"usage limit|rate limit|quota (exceeded|reached)|out o
 LOG_MAX_BYTES = 512 * 1024
 
 
+def team_note(msg: str) -> None:
+    try:
+        with open(OPS / "bus" / "team.md", "a", encoding="utf-8") as f:
+            f.write(f"{time.strftime('%m-%d %H:%M')} autopilot {msg}\n")
+    except OSError:
+        pass
+
+
 def log(msg: str) -> None:
     if LOG.exists() and LOG.stat().st_size > LOG_MAX_BYTES:
         LOG.replace(LOG.with_suffix(".log.old"))
@@ -156,6 +164,7 @@ def start_runner(task: dict, state: dict) -> None:
     rs["pid"] = p.pid
     rs["started"] = time.time()
     log(f"runner started for {task['name']} pid {p.pid}")
+    team_note(f"START {task['name']} (runner pid {p.pid})")
     if not rs.get("start_told"):
         log(f"owner message skipped (start): {task['name']}")  # per-task Telegram messages stopped 2026-11-12: one daily summary instead
         rs["start_told"] = True

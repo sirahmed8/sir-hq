@@ -723,67 +723,78 @@
     "name": "r60-build-sir-business",
     "folder": "D:/Projects/SIR Business",
     "title": "SIR Business: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-cars",
     "folder": "D:/Projects/SIR Cars",
     "title": "SIR Cars: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-content-creation-studio",
     "folder": "D:/Projects/SIR Content Creation Studio",
     "title": "SIR Content Creation Studio: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-controller",
     "folder": "D:/Projects/SIR Controller",
     "title": "SIR Controller: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-education-hub",
     "folder": "D:/Projects/SIR Education Hub",
     "title": "SIR Education Hub: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-hagoozat",
     "folder": "D:/Projects/SIR Hagoozat",
     "title": "SIR Hagoozat: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-handyman",
     "folder": "D:/Projects/SIR Handyman",
     "title": "SIR Handyman: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-life",
     "folder": "D:/Projects/SIR Life",
     "title": "SIR Life: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-modpack",
     "folder": "D:/Projects/SIR ModPack",
     "title": "SIR ModPack: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-mods-gta-v",
     "folder": "D:/Projects/SIR Mods for GTA V",
     "title": "SIR Mods for GTA V: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-movies",
     "folder": "D:/Projects/SIR Movies",
     "title": "SIR Movies: rescan, then build from the first task",
-    "done": false
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
     "name": "r60-build-sir-jobs",
@@ -808,5 +819,103 @@
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: rescan, then build from the first task",
     "done": false
+  },
+  {
+    "name": "r61-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Content Creation Studio: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Controller: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-education-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Life: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR ModPack: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Mods for GTA V: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: planning refresh only (no building)",
+    "done": false,
+    "parallel_ok": true
   }
 ]
