@@ -465,6 +465,91 @@ def parse_account_ledger():
     return rows[-10:]
 
 
+def parse_verifications():
+    """Parse ops/verifications/ for verification results."""
+    verifications_dir = os.path.join(OPS, "verifications")
+    if not os.path.isdir(verifications_dir):
+        return []
+    items = []
+    for fname in sorted(os.listdir(verifications_dir)):
+        if not fname.endswith(".md"):
+            continue
+        task_name = fname[:-3]
+        fpath = os.path.join(verifications_dir, fname)
+        try:
+            content = io.open(fpath, encoding="utf-8").read()
+        except Exception:
+            continue
+        # Extract PASS/FAIL items
+        pass_count = len(re.findall(r"\|\s*PASS\s*\|", content, re.I))
+        fail_count = len(re.findall(r"\|\s*FAIL\s*\|", content, re.I))
+        overall = "PASS" if "Overall: PASS" in content or "## Overall: PASS" in content else "FAIL"
+        items.append({
+            "task": task_name,
+            "overall": overall,
+            "pass": pass_count,
+            "fail": fail_count,
+            "total": pass_count + fail_count,
+        })
+    return items
+
+
+def parse_suggestions():
+    """Parse ops/SUGGESTIONS.md for scout findings."""
+    fpath = os.path.join(OPS, "SUGGESTIONS.md")
+    if not os.path.isfile(fpath):
+        return []
+    try:
+        content = io.open(fpath, encoding="utf-8").read()
+    except Exception:
+        return []
+    # Parse each suggestion entry
+    entries = []
+    sections = re.split(r"^## ", content, flags=re.MULTILINE)
+    for sec in sections[1:]:  # Skip header
+        lines_sec = sec.splitlines()
+        if not lines_sec:
+            continue
+        header = lines_sec[0].strip()
+        # Parse header: timestamp | project | severity
+        parts = [p.strip() for p in header.split("|")]
+        timestamp = parts[0] if len(parts) > 0 else ""
+        project = parts[1] if len(parts) > 1 else ""
+        severity = parts[2] if len(parts) > 2 else "medium"
+        
+        finding = ""
+        evidence = ""
+        proposed_brief = ""
+        status = "pending"
+        hq_note = ""
+        
+        for ln in lines_sec[1:]:
+            ln = ln.strip()
+            if ln.startswith("**Finding:**"):
+                finding = ln.replace("**Finding:**", "").strip()
+            elif ln.startswith("**Evidence:**"):
+                evidence = ln.replace("**Evidence:**", "").strip()
+            elif ln.startswith("**Proposed Brief:**"):
+                proposed_brief = ln.replace("**Proposed Brief:**", "").strip()
+            elif ln.startswith("**Status:**"):
+                status = ln.replace("**Status:**", "").strip()
+            elif ln.startswith("**HQ Note:**"):
+                hq_note = ln.replace("**HQ Note:**", "").strip()
+        
+        if finding and not finding.startswith("<") and "<" not in header:
+            entries.append({
+                "timestamp": timestamp,
+                "project": project,
+                "severity": severity,
+                "finding": finding,
+                "evidence": evidence,
+                "proposed_brief": proposed_brief,
+                "status": status,
+                "hq_note": hq_note,
+            })
+    return entries
+
+
 def archived_count():
     try:
         r = subprocess.run(
@@ -1220,6 +1305,8 @@ def main():
         daemon_health=get_control_room_daemon_health(),
         autopilot=(lambda ap: {**ap, "workers": parse_cli_workers()})(parse_autopilot()),
         account_ledger=parse_account_ledger(),
+        verifications=parse_verifications(),
+        suggestions=parse_suggestions(),
     )
 
     data["gemini_handover"] = parse_gemini_handover(projects)

@@ -823,3 +823,12 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 1ec83893)
 
 - 2026-11-12 kilo-worker: SIR Portfolio r39 copy rewrite pushed to main — SIR AI reframed as flagship public product (sign up on the website, desktop app, phone remote, everything syncs) in products.json and ui.json; 'private project / early stage' wording removed from products.json, ui.json, MASTER_PLAN.md, PLAN.md and the README draft; content:check 0 errors 0 warnings, 829 tests pass, axe 24/24 and keyboard audit pass, both Firebase and Vercel redeployed and curl-checked 200.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b5640388)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash acfdbccd)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 48899f02)

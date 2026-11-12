@@ -1491,6 +1491,14 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
           <span id="side-ci-text">CI</span>
         </a>
+        <a href="#verifications" id="side-ver" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          <span id="side-ver-text">Verifications</span>
+        </a>
+        <a href="#suggestions" id="side-sug" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 2v20"/><path d="M9.5 9h5"/><path d="M9.5 14.5h5"/></svg>
+          <span id="side-sug-text">Suggestions</span>
+        </a>
         <a href="#ledgers" id="side-ledgers" class="sidebar-link">
           <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           <span id="side-ledgers-text">Ledgers</span>
@@ -1607,6 +1615,22 @@ th:first-child, td:first-child { text-align: left; padding-left: 14px; position:
         </details>
       </div>
     </div>
+  </section>
+
+  <section id="verifications" class="panel" style="margin-top:20px;border-top:2px solid var(--accent)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 id="txt-ver-title">Task Verifications</h2>
+      <div class="sub" id="txt-ver-sub">Verifier results for tasks marked done by autopilot. PASS/FAIL per checklist item with evidence.</div>
+    </div>
+    <div class="rows" id="ver-rows"></div>
+  </section>
+
+  <section id="suggestions" class="panel" style="margin-top:20px;border-top:2px solid var(--warn)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 id="txt-sug-title">Scout Suggestions</h2>
+      <div class="sub" id="txt-sug-sub">Daily findings from project scouts: bugs, missing features, polish, risks, and ideas. HQ approves/rejects.</div>
+    </div>
+    <div class="rows" id="sug-rows"></div>
   </section>
 
   <section id="ledgers" class="panel">
@@ -1972,7 +1996,7 @@ const i18n = {
     stampPrefix: "Updated: ",
     syncSame: "site and artifact are the same version",
     syncWait: "artifact is waiting for republish",
-    navNow: "Now", navHandover: "Handover", navCi: "CI", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
+    navNow: "Now", navHandover: "Handover", navCi: "CI", navVer: "Verifications", navSug: "Suggestions", navLedgers: "Ledgers", navWaves: "Waves", navProjects: "Projects",
     navPlatforms: "Platforms", navAccounts: "Accounts", navWorkforce: "Workforce", navActivity: "Activity",
     handoverLabel: "OPERATIONAL INDEPENDENCE PROTOCOL",
     handoverTitle: "Gemini Autonomous Handover & Master Plans",
@@ -2007,6 +2031,10 @@ const i18n = {
     ctxCopied: "Copied",
     ledgersTitle: "Owner Request Ledgers",
     ledgersSub: "Tracking every numbered request made by Ahmed across all active projects.",
+    verTitle: "Task Verifications",
+    verSub: "Verifier results for tasks marked done by autopilot. PASS/FAIL per checklist item with evidence.",
+    sugTitle: "Scout Suggestions",
+    sugSub: "Daily findings from project scouts: bugs, missing features, polish, risks, and ideas. HQ approves/rejects.",
     wavesTitle: "Build order, one project at a time",
     wavesSub: "HQ opens a project chat, reviews its reports, then asks you before the next one starts. Platform and Portfolio come last on purpose, built from the finished products.",
     projectsTitle: "Projects & Portfolios",
@@ -2109,7 +2137,7 @@ const i18n = {
     stampPrefix: "تم التحديث: ",
     syncSame: "الموقع والأرتيفاكت نفس الإصدار",
     syncWait: "الأرتيفاكت بانتظار إعادة النشر",
-    navNow: "الآن", navHandover: "التسليم", navCi: "الفحص", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
+    navNow: "الآن", navHandover: "التسليم", navCi: "الفحص", navVer: "التدقيق", navSug: "المقترحات", navLedgers: "طلبات المالك", navWaves: "المراحل", navProjects: "المشاريع",
     navPlatforms: "المنصات", navAccounts: "الحسابات", navWorkforce: "فريق العمل", navActivity: "النشاطات",
     handoverLabel: "بروتوكول الاستقلالية التشغيلية",
     handoverTitle: "تسليم العمليات المستقلة لـ Gemini والخطط الرئيسية",
@@ -2144,6 +2172,10 @@ const i18n = {
     ctxCopied: "تم النسخ",
     ledgersTitle: "سجل طلبات المالك",
     ledgersSub: "متابعة دقيقة لكل طلب مرقّم للمهندس أحمد عبر كافة المشاريع النشطة.",
+    verTitle: "تدقيق المهام",
+    verSub: "نتائج التدقيق للمهام المنجزة بواسطة المساعد التلقائي. نجاح/فشل لكل بند مع الأدلة.",
+    sugTitle: "مقترحات الكشافة",
+    sugSub: "اكتشافات يومية من كشافة المشاريع: أخطاء، ميزات مفقودة، صقل، مخاطر، وأفكار. المقر يوافق/يرفض.",
     wavesTitle: "ترتيب البناء: مشروع واحد في كل مرحلة",
     wavesSub: "تفتح إدارة المقر محادثة المشروع، وتراجع تقاريره، ثم تستأذنك قبل بدء المشروع التالي. المنصة ومعرض الأعمال يأتيان أخيراً ليعتمدا على المنتجات المكتملة.",
     projectsTitle: "المشاريع والمنظومات",
@@ -2396,6 +2428,101 @@ function renderRemote(lang) {
           <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} &rarr;</a>
         </span>
       </li>
+    `;
+  }).join("");
+}
+
+function renderVerifications(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const vers = D.verifications || [];
+  if (!$("#ver-rows")) return;
+  if (!vers.length) {
+    $("#ver-rows").innerHTML = `<div style="padding:16px;color:var(--muted);text-align:center">${isAr ? "لا توجد تدقيقات بعد" : "No verifications yet"}</div>`;
+    return;
+  }
+  $("#ver-rows").innerHTML = vers.map((v) => {
+    const overallPass = v.overall === "PASS";
+    const stClass = overallPass ? "verified" : "backlog";
+    const stLabel = overallPass ? (isAr ? "ناجح" : "PASS") : (isAr ? "فاشل" : "FAIL");
+    return `
+      <details class="row" id="v-${v.task}">
+        <summary aria-label="${esc(v.task)} verification">
+          <i class="dot" style="background:${overallPass ? 'var(--ok)' : 'var(--bad)'}" aria-hidden="true"></i>
+          <span class="summary-title">
+            <span class="name">${esc(v.task)}</span><br>
+            <span class="sub">${isAr ? "التدقيق الكلي" : "Overall"}: <b>${esc(v.overall)}</b> · ${v.pass} ${isAr ? "ناجح" : "PASS"} / ${v.fail} ${isAr ? "فاشل" : "FAIL"}</span>
+          </span>
+          <span class="stw"><span class="st ${stClass}">${stLabel}</span></span>
+        </summary>
+        <div class="detail">
+          <div class="panel">
+            <h3>${isAr ? "تفاصيل التدقيق" : "Verification Details"}</h3>
+            <p class="sub">${isAr ? "ملف التدقيق: ops/verifications/" : "Verification file: ops/verifications/"}${esc(v.task)}.md</p>
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+              <span class="pill ${overallPass ? 'ok' : 'bad'}">${isAr ? `${v.pass}/${v.total} بنود ناجحة` : `${v.pass}/${v.total} items passed`}</span>
+              ${v.fail > 0 ? `<span class="pill bad">${isAr ? `${v.fail} بنود فاشلة - مهمة تصحيح مطلوبة` : `${v.fail} items failed - fix task needed`}</span>` : ""}
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+  }).join("");
+}
+
+function renderSuggestions(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const sugs = D.suggestions || [];
+  if (!$("#sug-rows")) return;
+  if (!sugs.length) {
+    $("#sug-rows").innerHTML = `<div style="padding:16px;color:var(--muted);text-align:center">${isAr ? "لا توجد مقترحات بعد - الكشافة تعمل يومياً" : "No suggestions yet - scouts run daily"}</div>`;
+    return;
+  }
+  $("#sug-rows").innerHTML = sugs.map((s, idx) => {
+    const sev = (s.severity || "medium").toLowerCase();
+    let sevClass = "mute";
+    let sevLabel = sev;
+    if (sev === "critical") { sevClass = "bad"; sevLabel = isAr ? "حرج" : "CRITICAL"; }
+    else if (sev === "high") { sevClass = "bad"; sevLabel = isAr ? "عالي" : "HIGH"; }
+    else if (sev === "medium") { sevClass = "warn"; sevLabel = isAr ? "متوسط" : "MEDIUM"; }
+    else if (sev === "low") { sevClass = "info"; sevLabel = isAr ? "منخفض" : "LOW"; }
+    const status = (s.status || "pending").toLowerCase();
+    let statusClass = "warn";
+    let statusLabel = isAr ? "معلق" : "PENDING";
+    if (status === "approved") { statusClass = "ok"; statusLabel = isAr ? "معتمد" : "APPROVED"; }
+    else if (status === "rejected") { statusClass = "bad"; statusLabel = isAr ? "مرفوض" : "REJECTED"; }
+    return `
+      <details class="row" id="s-${idx}">
+        <summary aria-label="${esc(s.finding || s.project)} suggestion">
+          <i class="dot" style="background:${sevClass === 'bad' ? 'var(--bad)' : sevClass === 'warn' ? 'var(--warn)' : sevClass === 'ok' ? 'var(--ok)' : 'var(--accent)'}" aria-hidden="true"></i>
+          <span class="summary-title">
+            <span class="name">${esc(s.project || "Unknown")}</span><br>
+            <span class="sub">${esc(s.finding || "Finding")}</span>
+          </span>
+          <span class="stw">
+            <span class="pill ${sevClass}" style="font-size:10px;padding:2px 6px">${esc(sevLabel)}</span>
+            <span class="pill ${statusClass}" style="font-size:10px;padding:2px 6px;margin-inline-start:4px">${esc(statusLabel)}</span>
+          </span>
+        </summary>
+        <div class="detail">
+          <div class="meta-grid">
+            <div class="meta-card">
+              <h3>${isAr ? "الدليل" : "Evidence"}</h3>
+              <p class="sub" style="overflow-wrap:anywhere">${esc(s.evidence || "-")}</p>
+            </div>
+            <div class="meta-card">
+              <h3>${isAr ? "المهمة المقترحة" : "Proposed Brief"}</h3>
+              <p class="sub" style="overflow-wrap:anywhere">${esc(s.proposed_brief || "-")}</p>
+            </div>
+          </div>
+          ${s.hq_note ? `<div class="panel" style="background:var(--warn-soft);border-color:var(--warn)"><h3>${isAr ? "ملاحظة المقر" : "HQ Note"}</h3><p>${esc(s.hq_note)}</p></div>` : ""}
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <span class="pill mute">${isAr ? "الوقت: " : "Time: "}${esc(s.timestamp || "-")}</span>
+            <span class="pill mute">${isAr ? "الفئة: " : "Category: "}${esc(s.category || "bug")}</span>
+          </div>
+        </div>
+      </details>
     `;
   }).join("");
 }
@@ -3019,6 +3146,8 @@ function applyLang(lang) {
   if ($("#nav-now-text")) $("#nav-now-text").textContent = t.navNow;
   if ($("#nav-handover-text")) $("#nav-handover-text").textContent = t.navHandover;
   if ($("#nav-ci-text")) $("#nav-ci-text").textContent = t.navCi;
+  if ($("#side-ver-text")) $("#side-ver-text").textContent = t.navVer;
+  if ($("#side-sug-text")) $("#side-sug-text").textContent = t.navSug;
   if ($("#nav-ledgers-text")) $("#nav-ledgers-text").textContent = t.navLedgers;
   if ($("#nav-waves-text")) $("#nav-waves-text").textContent = t.navWaves;
   if ($("#nav-projects-text")) $("#nav-projects-text").textContent = t.navProjects;
@@ -3083,6 +3212,8 @@ function applyLang(lang) {
   renderAttention(lang);
   renderCI(lang);
   renderRemote(lang);
+  renderVerifications(lang);
+  renderSuggestions(lang);
   renderLanes(lang);
   renderFilterChips(lang);
   renderRows(lang);
@@ -3243,7 +3374,7 @@ quickPills.forEach(pill => {
 });
 
 if ("IntersectionObserver" in window) {
-  const sectionIds = ["now", "handover", "ci-remote", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "workforce", "activity"];
+  const sectionIds = ["now", "handover", "ci-remote", "verifications", "suggestions", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "workforce", "activity"];
   const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

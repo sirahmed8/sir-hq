@@ -1,6 +1,7 @@
 """Hourly fallback HQ manager (scheduled task SIR_HQ_ManagerTick).
 If no manager note was appended to ops/HQ_CHECKPOINT.md for 50 minutes (Claude gone or asleep), a free model from the shared pool
 runs ops/MANAGER_PROMPT.md in D:/Projects/_SIR. Usage: python hq_manager_tick.py [--dry]"""
+import shutil
 import subprocess
 import sys
 import time
@@ -55,6 +56,8 @@ def main() -> None:
     if cmd is None:
         log(f"skip: {tool} has no manager command")
         return
+    # Windows CreateProcess does not apply PATHEXT, so a bare "opencode" fails; resolve the real file.
+    cmd = [cmd[0] if Path(cmd[0]).is_absolute() else (shutil.which(cmd[0]) or cmd[0])] + cmd[1:]
     env = None
     if tool in ("qwen", "goose"):
         import os

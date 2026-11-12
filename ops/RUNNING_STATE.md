@@ -1,4 +1,4 @@
-# Running state of HQ (keep this file current; it is printed after every compaction and reset). Updated 2026-11-11 06:45
+# Running state of HQ (keep this file current; it is printed after every compaction and reset). Updated 2026-11-12 02:45
 
 ## OS background tasks (Windows, run without any chat)
 SIR_HQ_Autopilot (5 min, MAX_PARALLEL 5, workers), SIR_HQ_Watchdog (10 min: repairs, CI fix tasks, audits, disk, leaked browsers), SIR_HQ_ManagerTick (hourly free-model manager when no HQ note for 50 min), SIR_HQ_Duties (10 min: day rhythm from real prayer times: fajr, health_asr, isha_summary, health_isha, via claude -p), SIR_Portfolio_Refresh (weekly), game pause file: D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json.
@@ -26,5 +26,52 @@ Never stop for approval on consent taps; passwords, 2FA codes, CAPTCHAs, payment
 
 ## New standards (2026-11-11)
 plans/AI_FALLBACK_CHAIN.md (per-project keys, Gemini then OpenRouter then other free providers then local), plans/WINDOWS_APP_STANDARD.md (installer, Firebase sign-in, self-update, download page, Product Kit folder, Projects-Hub.html), plans/COMPACTION_PROTOCOL.md.
+
+## Disk cleanup r41 (2026-11-12)
+Freed 14.81 GB regenerable space: D: 2.03→14.82 GB (+12.79), C: 7.61→9.63 GB (+2.02). Deleted legacy node_modules (9.3 GB), legacy build outputs (2.4 GB), caches (pnpm 0.49, Playwright 1.58, Gradle 0.51, Temp 0.22), _quarantine folders, browser profiles, old agy-runs logs. Protected: legacy/, old projects/, games/, AI_Models_Hub, Backups/, AHome data, git history, secrets.
+
 ## Daily pool health
 - pool health 2026-11-12: available=28 cooling=0
+
+## Usage windows & scheduling (r42)
+- 5-hour window resets: 10 AM daily (owner). Current window: 2:45 AM - 7:45 AM (next reset ~10:00 AM).
+- Weekly quota resets: Antigravity free accounts ~2026-11-17, Claude weekly ~2026-11-16 2 AM.
+- Scheduling rule: Heavy rounds (verification, full audits, UI overhauls) scheduled into accounts with >50% weekly remaining and >50% 5h remaining.
+- Current account availability for heavy work:
+  - a7medorabe7: weekly exhausted (0%), 5h exhausted
+  - a01083835229: weekly exhausted (0%), 5h 100% (but paid reserve has Gemini 4 Argon)
+  - ahmedalaa2006.7.6: weekly 24%, 5h 23%
+  - 1sir1ahmed1: weekly 5%, 5h 100%
+  - a01083835229 (paid): Gemini 4 Argon 100%, Claude/GPT 50% weekly
+- Next heavy round (r43+) should use a01083835229 paid reserve (Gemini 4 Argon) or ahmedalaa2006.7.6 if available.
+- Free CLI pool (kilo/opencode/devin): 28 available, 0 cooling - ready for scout/verifier work.
+
+<!-- r42-usage:start -->
+## Usage windows & heavy-round plan (r42)
+
+How the numbers are read: from the tool's own usage banner, never by sending a test message.
+- Five-hour window resets at 10:00 (owner).
+- Claude weekly resets 02:00 (owner).
+- Antigravity free accounts reset weekly around 2026-11-17.
+- Codex monthly limit resets around 2026-11-27.
+- NotebookLM daily limit resets around 05:49.
+
+Heavy rounds go to (at least 50% left in both windows):
+- a7medorabe7@gmail.com / Claude Sonnet 4.6 (Thinking), Claude Opus 4.6 (Thinking), GPT-OSS 120B (Medium): 5h 100%, weekly 100% (read 2026-11-09 operator14)
+- a01083835229@gmail.com / Claude and GPT models (Claude Opus 5.5, Claude Sonnet 5.5, GPT-OSS 120B): 5h 50%, weekly 100% (read 2026-11-09 operator23)
+
+Light work only (one window is low):
+- a7medorabe7 / Gemini: 5h 12%, weekly 10% (read 2026-11-09 evening)
+- a01083835229 / Gemini: 5h 100%, weekly 18% (read 2026-11-09 evening)
+- 1sir1ahmed1 / Gemini: 5h 49%, weekly 16% (read 2026-11-09 evening)
+- a7medorabe7@gmail.com / Gemini 3.8 Flash High: 5h 100%, weekly 10% (read 2026-11-09 operator14)
+
+Unknown, read the banner before using:
+- --- / --- (read ---)
+- OpenCode (Copilot, Google, OpenRouter) / opencode free models (read 2026-11-09 operator15)
+- Kilo Gateway (a7medorabe7@gmail.com) / kilo free router and stealth models (read 2026-11-09 operator15)
+- Codex (ChatGPT login in ~/.codex/auth.json) / gpt-6-luna (read 2026-11-09 operator15)
+
+Free CLI pool (kilo, opencode, devin, codex): separate from these accounts and used first for verification and scout rounds.
+Plan written 2026-11-12 03:08 by scripts/hq_usage_plan.py.
+<!-- r42-usage:end -->

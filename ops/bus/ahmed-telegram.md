@@ -6,3 +6,5 @@
 - 2026-11-11T04:14:28.256Z from Ahmed (Telegram button): study_dl_done
 - 2026-11-11T13:27:16.972Z from Ahmed (Telegram button): study_dl_done
 - 2026-11-11T18:37:09.000Z from Ahmed (Telegram): ارفع وظبط الملفات الكبيرة دي واتصرف متستناش مني اعمل حاجة فيهم
+- 2026-11-11T22:56:27.726Z from Ahmed (Telegram button): clean_disk
+- 2026-11-11T23:27:28.006Z from Ahmed (Telegram button): clean_disk
