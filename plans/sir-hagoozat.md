@@ -6,7 +6,7 @@ SIR Hagoozat takes the whole booking family: football pitch booking and every ot
 
 - The decision for every booking idea is done in this round and written in section 3.4 below: every idea is marked "module of SIR Hagoozat" or "separate product", with the reason in one line.
 
-**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file, which the git history keeps. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
+**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file, which the git history keeps. Extended the same day by round r53c: the two sides side by side (3.5), the payments readiness ladder (5.5.1), the calendar, notifications and reviews rules (5.8), and the final decision for every unplanned idea, which now lives in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md`. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Hagoozat` holds the kit files, three legacy apps and nothing that runs. Verified today: the private GitHub repo `sirahmed8/sir-hagoozat` exists, default branch `main`, last update 2026-11-09 (checked with `gh repo view`). Not verified: the Firebase project for this product does not exist yet (no `.firebaserc` in the product folder, and the Firebase CLI was not on the PATH in the round that wrote this plan).
 
@@ -63,6 +63,9 @@ Full table with sources, dates and the second ring of competitors: `D:/Projects/
 | Split payment, each player pays their own share when joining | The number one owner complaint in Egypt | Kourtiva; legacy `PitchSplitBillCalculator` |
 | Open matches with the missing places shown | Fills an under-booked slot instead of losing it | Kourtiva; legacy 11Players lobbies |
 | QR entry pass per confirmed booking, with a scan log | Tells the owner which bookings actually happened | Kourtiva |
+| Calendar sync: Apple Calendar and Google Calendar deep links plus an .ics download for every confirmed booking | Players and owners keep the slot in their own calendar; reminders fire even without the app | Our gap, zero competitors do it well |
+| Reviews and ratings that carry proof: a venue is rated only by players with a finished booking, a player is rated only by a match that was played | Trust without invented reviews, the number one thing fake apps break | Kourtiva staff roles and player search; our gap on proven reviews |
+| Notifications a person can switch off: booking confirmed, a squad member joined, the reminder before the slot, the deposit verdict, the owner's day digest | A booking nobody hears about is a booking that is lost | Yalla Hagz venue chat, Spond reminders |
 | Tournaments (knockout, league, single round) | Retention for regular players | Kourtiva, Yalla Hagz, legacy EGFootball5 |
 | Player passport: stats, badges, ratings, position | Keeps players inside the product | Yalla Hagz "passport and badges"; legacy 11Players |
 | Pitch owner console: schedule, prices, cash register, utilisation, no-shows | What the owner is actually paid for | Playtomic, MATCHi, Pitchbooking |
@@ -129,11 +132,31 @@ This table is about product boundaries, not about release order. Only pitch slot
 |---|---|---|
 | Handyman bookings (plumbers, electricians, painters) | `plans/sir-handyman.md`, own product, planning only | The customer, the entities and the flow are a service marketplace with its own supply of workers, so folding it into Hagoozat would bloat the scope |
 | Car buying, selling and tracking | `plans/sir-cars.md`, own product, planning only | It is a marketplace with listings and price history, not a booking, and the competitors there are completely different |
-| Price and game-deal finder | `plans/sir-deals.md`, own product, planning only | It is price comparison and alerts, not a booking, and it needs lawful retailer data before it starts |
+| Price finder | `plans/sir-price-finder.md`, own product, planning only | It is price comparison and alerts with a lawful-feed gate, and a shopper is not a player |
+| Game-deal finder | `plans/sir-game-deals.md`, own product, planning only | It shares the comparison engine with the price finder but not the audience, and the owner split it on purpose on 2026-11-12 |
 | Movie discovery and tracking | `plans/sir-movies.md`, own product, planning only | It is entertainment tracking with affiliate links, a different daily use case from booking a pitch |
-| Accessibility map | `plans/accessibility-map-module-note.md`, module of SIR Life Part B | It is a community life tool with no revenue of its own, and it shares the map layer with the other SIR Life location features |
+| Accessibility map | `plans/sir-access-map.md`, own product, built last | The owner decided every unplanned idea is its own project on 2026-11-12, and it is a crowd-moderated place-claim product, not a personal routine feature |
+
+The full decision for every unplanned idea, with the reason and the lawful-data rules, is in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md` (2026-11-12).
 
 **Rule for any new booking idea that arrives later:** write one line here with the same shape ("module of SIR Hagoozat" or "own product") and the reason, before any code is planned. If the answer needs more than one line of reasoning, it is its own product.
+
+### 3.5 The two sides, side by side
+
+One product, two customers, two different days and two different definitions of success. Every screen belongs to one of these columns, and nothing is built for one side that hurts the other.
+
+| | **Player and customer side** | **Owner and venue side** |
+|---|---|---|
+| Who they are | The amateur footballer, the organiser of the Saturday match, the parent who pays for the pitch | The person who owns one pitch or a hall, the receptionist, the operator with several venues |
+| What they came for | A free slot tonight, a fair split of the bill, a balanced team | A filled Tuesday, fewer no-shows, the cash collected at the door without a spreadsheet |
+| The screen they open first | The pitch list and the map, filtered by area, turf and price | The day view: today's bookings, the money due, the empty slots to publish |
+| The action that matters | Book and share the link, then each person pays their own share | Publish the free slot to the players nearby, then confirm the deposit |
+| What they must never see | Ads, a fake pitch, an invented player, a price that is not the real price | Another owner's pitches, another owner's money, another owner's players |
+| How they pay | One share at join time, a wallet or a card, and the rest at the venue | A deposit collected in the app, the rest in cash at the venue, and a ledger that says which is which |
+| What they are asked to give | A phone number, visible to the owner only after a booking exists | The pitch address, the prices per period, the house rules, the cancellation policy |
+| What keeps them coming back | The pass in the phone, the calendar entry, the squad, the passport with real stats | The daily digest, the utilisation number, the no-show number, the review that means something |
+| What "success" is | The match happened and everybody paid their share | The slot was filled, the player arrived, the money was collected |
+| The plan that serves them | Sections 1, 3.1, 3.2, 4, 7 and the tasks T7, T8, T9 | Sections 1, 3.1, 5.3, 5.5, 7 and the tasks T10 and the M4 owner console |
 
 ---
 
@@ -224,6 +247,21 @@ Free players get 5 AI calls per rolling 24 hours with a visible badge, the owner
 - Wallet and card payments through Paymob and Fawry in test mode. The webhook is HMAC-SHA256 signed with the timestamp inside the signed body, verification is server-side only, and tampered, replayed, unsigned and wrong-timestamp events are rejected.
 - Refunds and cancellation follow one written policy for every venue, published on the pitch page before payment.
 
+#### 5.5.1 Payments readiness
+
+Money is the last thing that goes live and the first thing that must never be wrong. The ladder below is in order, and nothing moves up a step until the step below it is proven.
+
+| Step | What it proves | Honest state on 2026-11-12 |
+|---|---|---|
+| 1. The money arithmetic is exact | The split bill divides the slot price to the piastre, and a player who joins late pays the same share | Not built yet: the rule is specified here, the test is task T8 |
+| 2. The amount is shown before the payment | One screen with the total, the share, the deposit and what the venue receives | Not built yet: task T8 |
+| 3. The gateway runs in test mode | Paymob and Fawry accept the test card, the webhook is signed, a replayed or tampered event is rejected | Not built yet: task T8 and the signed-webhook tests |
+| 4. The owner's business account exists | The real merchant account, the tax treatment of the venue fee, the invoice | Owner only: listed in section 12 |
+| 5. The legal pages exist | Terms, cancellation and refund wording, privacy, each reviewed by a lawyer | Not built yet: milestone M3 |
+| 6. The first real charge | One venue with a written agreement, one real booking, one real refund, one real receipt | Not started: milestone M6, and only after steps 1 to 5 |
+
+Rules: no real charge before step 5. Every amount is computed on the server and never in the client. A deposit is refunded in full when the venue cancels. The refund path is proven with the test card before a real card exists. The fee schedule of each gateway is read on the official page on the day it is used, and until then it is "(unsourced, verify)" and it never appears on a pricing page.
+
 ### 5.6 Hosting and delivery
 
 - **Firebase Hosting** is primary. **Vercel** is the second host, the same repository imported with the Vercel CLI, the same build, the same environment variables on both. Both addresses are curl-checked and written into the project checkpoint.
@@ -234,6 +272,39 @@ Free players get 5 AI calls per rolling 24 hours with a visible badge, the owner
 ### 5.7 Security baseline
 
 Firestore rules deny by default. Server-side checks on every mutation. zod validation at every boundary. No secrets in git, gitleaks in CI. A CSP without `unsafe-inline` and without `unsafe-eval`. Analytics load only after consent, with Reject All as prominent as Accept. One-tap data export and one-tap deletion. Rate limits on auth, booking, uploads, AI and webhooks. No fake data in any path a user can see.
+
+### 5.8 Calendar, notifications and reviews
+
+**Calendar.** Every confirmed booking produces one calendar event, and the event is the same everywhere.
+
+- The event carries the venue name, the pitch size, the address, the amount paid, the booking reference and the QR pass. The start and the end are stored in UTC, and the venue timezone (Africa/Cairo, UTC+2 all year, Egypt has no daylight saving since 2023) is stored next to them, so a venue in another country stays correct.
+- **Google Calendar:** a deep link that opens the add-event form pre-filled, plus the .ics download of the same booking. The deep link needs no OAuth, so it works on a phone that is not signed in.
+- **Apple Calendar:** Apple publishes no add-event deep link, so the honest path is the .ics file and a subscribe URL per venue, offered from the same screen. The iPhone opens the .ics and lets the user add it to any calendar they own.
+- The .ics download works with no signal and no account, because the pass has to work at the gate.
+- The owner side gets the same two options, so a venue can publish its weekly slots to a shared calendar.
+- Nothing is written to anyone's calendar without a tap, and the screen says plainly that the product does not keep syncing after that, because there is no server-side calendar account in v1.
+
+**Notifications.** Every kind is opt-in, and every kind has its own switch in the settings.
+
+| Kind | Channel | Who | When |
+|---|---|---|---|
+| Booking confirmed | Push and email | the player and the owner | the moment the slot is booked |
+| A squad member joined | Push | the organiser | when someone joins an open match |
+| The reminder before the slot | Push, three hours and one hour before | the player | only when the booking is confirmed |
+| The deposit verdict | Push and email | the player and the owner | when the owner verifies or rejects the receipt |
+| The owner's day digest | Email or Telegram, at a round time | the owner | once a day, and only when it has something in it |
+
+Rules: quiet hours come from the venue's own rules, one message per event, no marketing messages in any tier, the same message in Arabic and English, a visible stop in every message, and a message that is never sent for a booking that no longer exists.
+
+**Reviews.** A review is a claim about a real event, so it needs a real event behind it.
+
+- A venue is rated only by a player whose booking reached the "played" state, one review per booking.
+- A player is rated only by a member of the opposite team in a match that was played.
+- A rating is a number plus an optional sentence. The number is what the interface shows. The sentence is written by the person and is never generated, rewritten or translated by AI.
+- The booking reference is checked on the server, not in the client, and no review is published without it.
+- The venue can reply once per review. A review is never deleted silently: a removed review says why, and the history stays visible to the owner of the venue.
+- No average rating is shown for an entity with fewer than three reviews, because two reviews are not a reputation. It shows "new on SIR" instead.
+- AI never writes a review, never edits one and never answers with one.
 
 ---
 
@@ -477,3 +548,4 @@ Everything else is an agent's job.
 - Legacy sources, read-only: `D:/Projects/SIR Hagoozat/legacy/11Players`, `legacy/EGFootball5`, `legacy/Hagoozat Elite`
 - Legacy facts and red flags: `D:/Projects/_SIR/ops/inventory/11Players.md`, `EGFootball5.md`, `Merged-sites.md`
 - Owner ideas: `D:/Projects/_SIR/ops/TICKTICK_MAP.md` and `plans/PROJECT_MERGE_RECORD.md`
+- Decision for every unplanned idea (module or own project, with the reason and the lawful-data rules): `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md`

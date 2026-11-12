@@ -1,4 +1,6 @@
 # PLAN NOTE: Accessibility Map (idea 26) — Module of SIR Life Part B
+**SUPERSEDED on 2026-11-12 (round r53c).** The owner decided that every unplanned idea is its own small project, so the accessibility map is now its own product, SIR Access Map, and it is built last. The plan that matters is `D:/Projects/_SIR/plans/sir-access-map.md`; the decision and the reason are in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md`. The text below is kept for the record only and must not be used as a plan. The reason the owner changed it: one folder, one repository, one Firebase project and one Desktop kit per product, and the map is a crowd-moderated place-claim product rather than a personal routine feature.
+
 Created 2026-11-12 (r51-backlog-projects). Idea 26 from the owner's "أفكار برامج ومشاريع" note.
 
 ## Decision
