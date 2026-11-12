@@ -37,4 +37,17 @@ Done so far (23):
 28. performance-testing
 29. permissioned-github
 
-Next: physics-3d-collision (slice row 30)
+Done so far (40):
+30. physics-3d-collision
+31. plain-writing
+32. plugin
+33. ponytail-yagni-optimizer
+34. postman-mcp-server
+35. presentation-time-fitting
+36. qodo-codebase-wisdom
+37. qodo-review
+38. qodo-review-notes
+39. qodo-review-resolver
+40. qodo-setup
+
+Next: queues (slice row 41)
