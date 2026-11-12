@@ -1,3 +1,25 @@
+# SIR HQ checkpoint (updated 2026-11-12 20:20)
+
+## Now
+- Backup manager live on Telegram (/takeover, /handback; scripts/backup_manager.py, ops/BACKUP_MANAGER.md); text path tested, voice and photo paths not yet tested live.
+- Queue: r53-hagoozat-and-ideas and r56-business-sector-depth running; r54 plans for 6 small projects done; r58-new-project-folders queued.
+- AHome r57 (22 owner items) runs on Haiku, log ops/agy-runs/ahome-r57.log, checklist AHome/.sir/R57_CHECKLIST.md (5 of 22 at last count, relaunched).
+- Aider no longer opens browser tabs (flags in scripts/cli-run2.sh), SambaNova model removed from the pool.
+
+## Next step (exact)
+1. `python scripts/ai-status.py`; if r58 is done read ops/reports/new-project-folders-report.md and verify folders, repos, Desktop kits, TickTick parents.
+2. Relaunch the AHome Haiku run (same prompt as in ops/agy-runs/ahome-r57.log header) if it stopped before 22 of 22.
+3. After r53 and r56 finish: merge pass of the older r52 plans against plans/PRODUCT_DIRECTION_2026-11-12.md; test voice and photo through the Telegram backup manager.
+
+## Open promises
+- Owner decision pending: C: space (pagefile 25 GB, National Instruments 5 GB is his course software, keep).
+- Every project rescans itself before work (WORKER_PREAMBLE rule 20).
+
+## Re-read after a reset
+plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER.md, ops/HQ_CHECKPOINT.md (tail), ops/OWNER_REQUEST_LEDGER.md
+
+---
+
 # SIR Control Room checkpoint
 
 ## Now (control room rebuild, 2026-11-12)
@@ -7,6 +29,8 @@
 - NOT VERIFIED: WCAG contrast was not measured by a tool (checked by eye only); the detail sheet's spring close was not tested in a browser; the Claude artifact is not republished (HQ does that).
 - r52-plan-sir-controller: SIR Controller premium plan, competitor matrix, and 10 tasks written, committed to main, CI local verification green.
 - r52-plan-sir-life: SIR Life premium plan, competitor matrix, and 10 tasks written in `plans/sir-life.md`, `ops/competitors/sir-life.md` and `ops/briefs/sir-life-tasks.md`; committed as `2a9d444`, pushed to `main`, GitHub Actions `test` and `verify` runs 43256538157 and 43256538261 succeeded. Product-folder verification today: SIR Life `pnpm install`, `pnpm run typecheck`, `pnpm run build` and `node --test dist/tests/**/*.test.js` passed 65/65 tests in 18 suites; `package.json` still shows `0.1.0` and the product working tree has uncommitted `.sir` doc reversions, both handed to task T1 in the new tasks file.
+
+- r54-plan-sir-price-finder: SIR Price Finder premium plan, competitor matrix, and 10 tasks written in `plans/sir-price-finder.md`, `ops/competitors/sir-price-finder.md` and `ops/briefs/sir-price-finder-tasks.md`; committed as `a0cf697`, pushed to `main`, local verification green (typecheck, lint, build). Plan includes: platform matrix (web, PWA, Windows/macOS/Linux, Android, iOS), data model (Product/Store/Price/Wishlist/Alert), owner-only analytics page, free tier and fair EGP/USD pricing, M0-M6 with acceptance tests.
 
 ## Next step (exact)
 1. HQ republishes `ops/artifact/control-room.html` as the Claude artifact (same file path, the artifact's URL is in `ops/artifact/PUBLISHED.txt` flow).
