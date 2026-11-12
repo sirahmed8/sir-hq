@@ -29,6 +29,23 @@ def key(word: str) -> str:
     return word.strip(" .،,-_").lower().translate(ARABIC_FIX)
 
 
+COMPOUND = {"عبد", "ابو", "أبو", "ام", "أم", "بن", "ابن", "بنت", "ذو", "abd", "abdel", "abdul", "abu", "umm", "bin", "ibn", "bint"}
+
+
+def join_compounds(words):
+    """Keep names such as 'عبد الله' or 'Abu Bakr' as one word so they are not split into given and family names."""
+    out = []
+    i = 0
+    while i < len(words):
+        if key(words[i]) in {key(c) for c in COMPOUND} and i + 1 < len(words):
+            out.append(words[i] + " " + words[i + 1])
+            i += 2
+        else:
+            out.append(words[i])
+            i += 1
+    return out
+
+
 def clean_name(prefix: str, first: str, middle: str, last: str, suffix: str):
     """Return (prefix, first, middle, last, suffix, changed?)."""
     original = (prefix, first, middle, last, suffix)
@@ -46,6 +63,7 @@ def clean_name(prefix: str, first: str, middle: str, last: str, suffix: str):
             stats["repeats_removed"] += 1
             continue
         deduped.append(w)
+    deduped = join_compounds(deduped)
     if len(deduped) >= 2 and not middle.strip() and not last.strip():
         stats["split_full_name"] += 1
     if not deduped:
