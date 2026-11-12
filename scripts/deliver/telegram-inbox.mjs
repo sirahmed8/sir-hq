@@ -135,7 +135,7 @@ function armWatchdog() {
     const stageTxt = stage.stage ? ` (${stage.stage})` : '';
     if (!warned && Date.now() - jobInfo.startedAt > WATCHDOG_MS) {
       warned = true;
-      tg.sendMessage(`[المدير الاحتياطي] لسه بشغال على رسالتك${stageTxt}، يستنى شوية.`).catch(() => {});
+      tg.sendMessage(`[المدير الاحتياطي] لسه شغال على رسالتك${stageTxt}، استنى شوية.`).catch(() => {});
     }
   }, 30000);
   watchdogTimer.unref?.();
