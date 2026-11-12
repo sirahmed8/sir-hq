@@ -213,3 +213,9 @@
 - Also committed r41 leftovers: deleted old agy-runs reports (disk cleanup), r41 report + disk plan.
 - Known open: ops/artifact/PUBLISHED.txt still at 20ee1159 - HQ republishes when ready. Local-only Playwright test test_no_clipped_text fails at 320px on BOTH old and new dashboard (127 clipped elements at HEAD too) - pre-existing, not in CI gate.
 - Next step: first real scout run happens at 04:00 via SIR_HQ_Scouts; first verifier round at next :30. Watch ops/verifications/ and ops/SUGGESTIONS.md.
+
+## HQ note (2026-11-12 06:20)
+- Now: laptop restarted (autopilot back 04:04); free pool is NOT empty (only Kilo and OpenCode big-pickle cooling); false "limits out" Telegram alert fixed in `scripts/hq_autopilot.py` (needs whole pool empty) and autopilot restarted. Running: audit-ahome (Devin), r43 Study; waiting: r38 (AHome), r44 (all product plans). Haiku agents running (owner order): sir-ai-researcher (writes SIR AI `.sir/plans/COMPETITOR_MATRIX.md`, `FEATURE_IDEAS.md`), free-tools-scout (writes `ops/USAGE_LIMITS.md`, `ops/research/free-tools-2026-11-12.md`, adds tools to pool).
+- Next step: when the two Haiku agents report, read their files and verify the claims by command (`python scripts/ai-status.py`, `git log` in each repo); then read r44 outputs `plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`; check `ops/verifications/` and `ops/SUGGESTIONS.md` for r42 results.
+- Open promises: reconnect Claude in Chrome (WhatsApp digest, NotebookLM Data Bank.pdf); order of use Claude, free tools, Haiku, never Sonnet; plain-words reports; recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r44-portfolio-plans-upgrade.md`.
