@@ -765,6 +765,19 @@
     "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
+    "name": "r62-control-room-mirror",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room: free hosted mirror updated without Claude",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r62-ahome-smart-sync",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: smart TickTick and linked-app sync with auto classification",
+    "done": false
+  },
+  {
     "name": "r57-ahome-free",
     "folder": "D:/Projects/AHome",
     "title": "AHome: owner feedback round r57 (22 items) by free tools",
@@ -804,7 +817,7 @@
     "name": "r60-build-sir-portfolio",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: rescan, then build from the first task",
-    "done": false
+    "done": true
   },
   {
     "name": "r53-hagoozat-and-ideas",
@@ -858,14 +871,14 @@
     "name": "r61-plan-sir-education-hub",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Education Hub: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r61-plan-sir-hagoozat",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Hagoozat: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -886,35 +899,35 @@
     "name": "r61-plan-sir-modpack",
     "folder": "D:/Projects/_SIR",
     "title": "SIR ModPack: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r61-plan-sir-mods-gta-v",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Mods for GTA V: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r61-plan-sir-movies",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Movies: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r61-plan-sir-price-finder",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Price Finder: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r61-plan-sir-game-deals",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Game Deals: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {

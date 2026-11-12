@@ -21,6 +21,7 @@ const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
 const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
 const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off', 'استلام المدير الاحتياطي=takeover', 'رجوع لكلود=handback'];
 // Backup manager (owner, 2026-11-12): while on, every message goes to scripts/backup_manager.py (see ops/BACKUP_MANAGER.md)
+let lastIdleNote = 0;
 const BM_STATE = `${OPS}/backup-manager.json`;
 const BM_DIR = `${OPS}/backup-manager`;
 const BM_SCRIPT = 'D:/Projects/_SIR/scripts/backup_manager.py';
@@ -80,9 +81,13 @@ function loadActions() {
   try { return JSON.parse(readFileSync(ACTIONS, 'utf8')); } catch { return {}; }
 }
 
-async function runAction(name) {
+async function runAction(name, msgText = '') {
   const def = loadActions()[name];
-  if (!def || !Array.isArray(def.cmd)) { await sendText(`[الإدارة] الزرار "${name}" لسه مش متوصل بأمر.`); return; }
+  if (!def || !Array.isArray(def.cmd)) {
+    // no fixed command for this button: the AI manager decides what it means and does it (owner order 2026-11-12)
+    bmDispatch({ id: `btn-${Date.now()}`, kind: 'text', text: `Ahmed pressed the Telegram button "${name}" on this message of yours: "${String(msgText).slice(0, 600)}". Work out what the button means and do it (for example record that he exercised in the health log, move or cancel the reminder, mark the task, adjust the next reminder), then answer him in one short line.` });
+    return;
+  }
   if (running.has(name)) { await sendText('[الإدارة] الأمر ده شغال دلوقتي، استنى لما يخلص.'); return; }
   running.add(name);
   try {
@@ -193,7 +198,7 @@ async function handleButton(cq) {
 
   if (data === 'takeover' || data === 'handback') { await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام' }); await takeover(data === 'takeover'); return; }
   await api('answerCallbackQuery', { callback_query_id: cq.id, text: 'تمام، بنفذ' });
-  runAction(data); // not awaited: polling continues while the command runs
+  runAction(data, cq.message?.text || ''); // not awaited: polling continues while the command runs
 }
 
 async function poll() {
@@ -218,6 +223,9 @@ async function poll() {
     else if (/^\/(menu|start|help)/i.test(text)) {
       const { err } = await run('node', [SEND_BUTTONS, ...MENU]);
       if (err) console.log('menu failed: ' + err.message);
+    } else if (!bmActive() && (m.text || m.voice || m.photo) && Date.now() - lastIdleNote > 3600000) {
+      lastIdleNote = Date.now();
+      await sendText('[الإدارة] وصلتني رسالتك وهي متسجلة. كلود هو المدير دلوقتي. لو عايز المدير الاحتياطي (الأدوات المجانية) يرد عليك ابعت /takeover.');
     } else if (bmActive()) {
       const kind = m.voice || m.audio ? 'voice' : m.photo ? 'photo' : m.document ? 'document' : 'text';
       const fileId = m.voice?.file_id || m.audio?.file_id || (m.photo ? m.photo[m.photo.length - 1].file_id : '') || m.document?.file_id || '';
