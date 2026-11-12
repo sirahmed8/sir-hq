@@ -17,7 +17,9 @@ PLANS = HERE.parent / "plans"
 
 def _module_names():
     """Return the ordered list of template module files the generator now loads."""
-    src = io.open(PLANS / "dashboard_main.py", encoding="utf-8").read()
+    src = ""
+    for py in sorted(PLANS.glob("dashboard_*.py")):
+        src += io.open(py, encoding="utf-8").read()
     start = src.index("for name in (")
     end = src.index(")", start)
     block = src[start:end]
@@ -48,6 +50,14 @@ class ModularSplitTest(unittest.TestCase):
     def test_generator_file_is_under_300_lines(self):
         n = len(io.open(PLANS / "generate_dashboard.py", encoding="utf-8").read().splitlines())
         self.assertLess(n, 300, f"generate_dashboard.py is {n} lines; must be under 300")
+
+    def test_python_modules_are_under_300_lines(self):
+        big = []
+        for py in sorted(PLANS.glob("dashboard_*.py")):
+            n = len(io.open(py, encoding="utf-8").read().splitlines())
+            if n > 300:
+                big.append((py.name, n))
+        self.assertEqual(big, [], f"python modules over 300 lines: {big}")
 
 
 if __name__ == "__main__":

@@ -135,14 +135,13 @@ a:focus-visible {
 
 .copy-badge {
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-block;
   padding: 4px 10px;
   min-height: 32px;
   border-radius: 6px;
   border: 1px solid var(--line);
   font-family: var(--f-data);
+  overflow-wrap: anywhere;
   font-size: 12px;
   background: var(--bg);
   transition: all .15s;
@@ -232,7 +231,7 @@ summary:focus-visible {
   letter-spacing: .06em;
   color: var(--muted);
 }
-.truth-card p { margin: 0; font-size: 13px; line-height: 1.45; }
+.truth-card p { margin: 0; font-size: 13px; line-height: 1.45; overflow-wrap: break-word; }
 
 .verification-card {
   background: var(--surface);

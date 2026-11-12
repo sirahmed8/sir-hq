@@ -41,7 +41,7 @@
 
 .ms { margin-bottom: 8px; }
 .ms ul { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.ms li { display: grid; grid-template-columns: 24px 1fr; gap: 6px; font-size: 12.5px; align-items: center; }
+.ms li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 6px; font-size: 12.5px; align-items: center; overflow-wrap: anywhere; }
 .ms li.d { color: var(--muted); }
 .task-mark {
   font-family: var(--f-data);

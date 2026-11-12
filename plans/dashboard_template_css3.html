@@ -189,7 +189,7 @@ bdi, .num, code, .hash, .port, .mono {
 .grid2 { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
 .tiles {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(110px, 100%), 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -207,7 +207,7 @@ bdi, .num, code, .hash, .port, .mono {
 .tiles > div.tile.ok { border-top: 3px solid var(--ok); }
 .tiles > div.tile.bad { border-top: 3px solid var(--bad); }
 .tiles > div.tile.warn { border-top: 3px solid var(--warn); }
-.big { font: 700 28px/1 var(--f-data); font-variant-numeric: tabular-nums; }
+.big { font: 700 28px/1.25 var(--f-data); font-variant-numeric: tabular-nums; }
 
 .panel {
   background: var(--surface);
@@ -249,7 +249,10 @@ bdi, .num, code, .hash, .port, .mono {
   overflow-wrap: break-word;
 }
 .list li:last-child { border-bottom: none; }
-.checklist-item { display: flex; flex-direction: column; gap: 6px; padding: 2px 0; }
+.list li > *:nth-child(n+3) { grid-column: 1 / -1; }
+.list li .num, .list li .mono { display: inline; }
+.list li .pill { display: inline-block; white-space: normal; }
+li.checklist-item { display: flex; flex-direction: column; gap: 6px; padding: 2px 0; }
 .list li a {
   display: inline-block;
   padding: 3px 6px;

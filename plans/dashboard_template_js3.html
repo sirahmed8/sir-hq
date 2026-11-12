@@ -52,7 +52,6 @@ function renderTiles(lang) {
     return m;
   });
   $("#tiles").innerHTML = visible.join("");
-  $("#tiles").style.gridTemplateColumns = `repeat(${visible.length > 0 ? visible.length : 1}, 1fr)`;
 }
 
 function renderLedgers(lang) {

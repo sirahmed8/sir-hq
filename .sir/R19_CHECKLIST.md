@@ -42,7 +42,7 @@ Based on ops/reviews/2026-11-10/review-control-room.md
   - FIXED: Single parse_tasks parser in generate_dashboard.py used everywhere. Task counts now consistent. (generate_dashboard.py:125-147)
 
 - M3. Size and structure
-  - OPEN (accepted): generate_dashboard.py ~1200 lines, dashboard_template.html ~3100 lines remain single files; one-shot patch scripts archived under ops/agy-runs/ and legacy/. Modular split deferred - documented risk in plans/sir-control-room.md section 11. No correctness impact; tracked as tech debt.
+  - FIXED (2026-11-12): generate_dashboard.py is a 28-line shim; dashboard_main.py split into dashboard_config-free modules all under 300 lines: dashboard_sources.py (275), dashboard_autopilot.py (228), dashboard_reports.py (228), dashboard_artifacts.py (167), dashboard_projects.py (140), dashboard_handover.py (221), dashboard_data.py (230), dashboard_main.py (244), dashboard_privacy.py (17). Template split into 15 partials each under 300 lines, byte-identical concat pinned by tests/test_r19_m3_modular_split.py (now also asserts every dashboard_*.py module <300 lines). One-shot patch scripts remain archived under ops/agy-runs/ and legacy/.
 
 - M4. Silent fallbacks hide failures
   - FIXED: git_sync_status returns "unknown" on exception. get_ci_status shows "unknown" on timeout. json.load guarded, broken project skipped. (generate_dashboard.py:98-122, 413-449, 1020-1021)
@@ -81,9 +81,9 @@ Based on ops/reviews/2026-11-10/review-control-room.md
 
 ## Summary
 
-Fixed: C1, C2, H1, H2, H3, H4, H5, H6, H7, M1, M2, M4, M5, M6, M7, M8, L1, L2, L3, L4, L5, L6
-Open (accepted tech debt): M3 - generator/template remain single large files; split deferred and documented in plans/sir-control-room.md section 11
+Fixed: C1, C2, H1, H2, H3, H4, H5, H6, H7, M1, M2, M3, M4, M5, M6, M7, M8, L1, L2, L3, L4, L5, L6
+Open: none
 
 ## Next Steps
 
-All review findings resolved except M3 (accepted tech debt). Remaining verification: browser screenshots captured at .sir/evidence/r19/shots-src/ (16 PNGs, before/after x light/dark x 390/1280 x en/ar). Report at ops/agy-runs/reports/r19-control.md.
+All review findings resolved including M3 (module split completed 2026-11-12). Remaining verification: browser screenshots captured at .sir/evidence/r19/shots-src/ (16 PNGs, before/after x light/dark x 390/1280 x en/ar). Report at ops/agy-runs/reports/r19-control.md.
