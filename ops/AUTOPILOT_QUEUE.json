@@ -772,6 +772,13 @@
     "parallel_ok": true
   },
   {
+    "name": "r69-review-backlog",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify the finished tasks waiting in review",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
     "name": "r67-c-drive-space",
     "folder": "D:/Projects/_SIR",
     "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
@@ -789,13 +796,13 @@
     "name": "r62-ahome-smart-sync",
     "folder": "D:/Projects/AHome",
     "title": "AHome: smart TickTick and linked-app sync with auto classification",
-    "done": false
+    "done": true
   },
   {
     "name": "r57-ahome-free",
     "folder": "D:/Projects/AHome",
     "title": "AHome: owner feedback round r57 (22 items) by free tools",
-    "done": false
+    "done": true
   },
   {
     "name": "ci-sir-study-20261112-0700-fix1",
@@ -819,7 +826,7 @@
     "name": "r60-build-sir-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: rescan, then build from the first task",
-    "done": false
+    "done": true
   },
   {
     "name": "r60-build-sir-laptop-manager",
@@ -976,7 +983,7 @@
     "name": "r67-build-sir-portfolio",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: continue building from checkpoint",
-    "done": false
+    "done": true
   },
   {
     "name": "r67-voice-pipeline-verify",

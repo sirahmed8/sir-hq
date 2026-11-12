@@ -246,3 +246,6 @@ Sweep: autopilot alive, 8 active tasks, board inbox 2 review 2. Voice transcript
 
 ## HQ note (2026-11-12 22:35) [claude]
 Sweep: autopilot alive, 7 active, board inbox 4 review 7. C: hit 0 free: removed regenerable Playwright browsers (firefox, webkit, headless shell), now 0.8 GB; cause still unknown, r67 working on it. SIR Jobs last commit 4 h ago (runner alive): check next hour. AHome bot kit and SIR AI bot rounds queued.
+
+## HQ note (2026-11-12 23:35) [claude]
+Sweep: autopilot alive, 5 active, review backlog 11 (r69 reviewer round queued first), C: 3.4 GB free, SIR Laptop Manager last commit 3 h old (runner alive, check next hour). WhatsApp digest could not run: WhatsApp Web needs a QR scan by the owner.
