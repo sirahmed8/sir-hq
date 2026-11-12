@@ -1,5 +1,12 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-12 from _SIR (SIR Life - r52-plan-sir-life: premium plan files created):
+  done:
+    (1) Written plans/sir-life.md with complete premium plan (Part A private organiser kept separate, Part B global product, competitors, features, platform matrix, shared-kit architecture, quality bar, pricing, milestones M0-M6, skills)
+    (2) Written ops/competitors/sir-life.md with 10 competitors plus second ring, sourced strengths/flaws/edge and open sourcing tasks
+    (3) Written ops/briefs/sir-life-tasks.md with 10 detailed task briefs, dependencies and acceptance tests
+  evidence: plans/sir-life.md, ops/competitors/sir-life.md, ops/briefs/sir-life-tasks.md, ops/agy-runs/reports/r52-plan-sir-life.md
+  signal: r52-plan-sir-life ready for CI check and commit
 - [ ] 2026-11-12 from _SIR (SIR AI - r52-plan-sir-ai: premium plan files created):
   done:
     (1) Written plans/sir-ai.md with complete premium plan (9 sections: promise, competitors, features, platforms, shared kit architecture, quality bar, pricing, milestones M0-M6, 10 tasks)
@@ -1037,6 +1044,8 @@ r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSIN
 r52: SIR Laptop Manager premium plan written — competitor matrix (10), 24 ranked gaps, 10 tasks queued, M0–M6 with acceptance tests, skills listed, SHARED_PLATFORM_KIT adoption mapped
 2026-11-12 | r52-plan-sir-modpack | SIR ModPack premium plan rewritten (plans/sir-modpack.md, 13 sections, M0-M6 with acceptance tests, EGP/USD pricing, all-platform matrix, 47 skill digests verified on disk), sourced 10-competitor matrix from pages opened today (ops/competitors/sir-modpack.md, CurseForge Premium $2.99/mo, Modrinth Plus $4.99/mo, Modrinth Hosting $10/mo, Aternos free, FTB curated-house model, 9 GitHub licences/stars via API, Mojang Usage Guidelines read in full), 10 queued agent tasks (ops/briefs/sir-modpack-tasks.md); findings: legacy web has 32 routes not the 38 its PROJECT.md claims, the legacy ASM remapper that strips the Mojang signature is dropped for good, the Mojang rules push v1 money to a cosmetic supporter tier with no rented server, and the legacy public repo sirahmed8/SIR-ModPack is still public; pushed to main
 - 2026-11-12 | r52-plan-sir-jobs | SIR Jobs premium plan rewritten (plans/sir-jobs.md, PERSONAL class: private income engine, real measured income not a fixed figure, auto-apply cap 10/day per owner 2026-11-11, platform matrix, shared kit, M0-M6 acceptance tests), sourced 10-competitor matrix (ops/competitors/sir-jobs.md, pages read 2026-11-12; Jobscan/Sonara unverifiable, tagged), 10 queued agent tasks (ops/briefs/sir-jobs-tasks.md); plan+matrix pushed as 2ddeea3, tasks file swept into 4664791 by a parallel commit at 18:04:07 (identical content); report ops/agy-runs/reports/r52-plan-sir-jobs.md
+
+2026-11-12 | r52-plan-sir-controller | SIR Controller premium plan rewritten (plans/sir-controller.md, 13 sections, M0-M6 with acceptance tests, EGP/USD pricing, shared-kit architecture with SHARED_PLATFORM_KIT, 10-competitor matrix), sourced 10-competitor matrix (ops/competitors/sir-controller.md), 10 queued agent tasks (ops/briefs/sir-controller-tasks.md); plan+matrix+tasks committed to main, CI local verification green.
 
 - [ ] 2026-11-12 from _SIR (SIR Education Hub - r53a-education-hub-plan: merged premium plan written):
   done: (1) plans/sir-education-hub.md merged plan (promise, multi-tenant model, Obour-as-first-Hub feature map, language-learning and study-help modules, AI tutor on fallback chain, onboarding wizard, owner analytics, safety/data protection, platform matrix, Firebase+Vercel arch, pricing, M0-M6, 10 tasks). (2) ops/competitors/sir-education-hub.md rewritten with the 10 named competitors. (3) ops/briefs/sir-education-hub-tasks.md first 10 tasks. (4) SHARED_PLATFORM_KIT consumer row renamed.
