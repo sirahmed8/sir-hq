@@ -96,7 +96,7 @@ def tg(method: str, **params):
 def clean(text: str) -> str:
     """Telegram shows the reply as plain text (no markdown is parsed): strip decoration
     symbols so nothing changes the shape of a word, and keep spacing tidy."""
-    text = re.sub(r"[*`~]+", "", text)
+    text = re.sub(r"[*`~\[\]]+", "", text)
     text = re.sub(r"(?m)^\s{0,3}#{1,6}\s*", "", text)
     text = re.sub(r"[ \t]{2,}", " ", text)
     return re.sub(r"\n{3,}", "\n\n", text).strip()
@@ -127,7 +127,7 @@ def log(msg: str) -> None:
 
 
 def download(file_id: str, dest: Path) -> Path:
-    info = tg("getFile", file_id=file_id)["result"]
+    info = tg("getFile", file_id=file_id)
     url = f"https://api.telegram.org/file/bot{TOKEN}/{info['file_path']}"
     dest = dest.with_suffix(Path(info["file_path"]).suffix or dest.suffix)
     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -470,7 +470,7 @@ def main() -> int:
     try:
         stage("queued", f"{len(items)} message(s)")
         # quick ack: the owner sees he was heard, the real answer follows (r64)
-        send("[تمام، قريت رسالتك. بشوف وأرد عليك.]")
+        send("تمام، قريت رسالتك. بشوف وأرد عليك.")
         # media prep: transcribe every voice and describe every photo IN PARALLEL
         stage("media", f"{len(items)} item(s)")
         results = [None] * len(items)

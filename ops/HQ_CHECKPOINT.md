@@ -239,3 +239,7 @@ Owner complained Telegram replies look messy (symbols breaking words) and voice 
 
 ## HQ note (2026-11-12 21:25) [claude]
 Sweep: autopilot alive, 8 active tasks, board inbox 2 review 2. Voice transcription fixed (Groq needs .ogg name), public Control Room site deleted (Tailscale only), language guard on backup manager. C: only 0.24 GB free (falling about 4 GB per hour, cause unknown): urgent task r67-c-drive-space queued first.
+
+## HQ note (2026-11-12 22:10) [backup manager]
+- Fixed backup_manager voice/photo download: tg() now returns Telegram result directly, removed stale ["result"] index (KeyError broke every media message since 21:53 kit refactor). Verified live download of the failed voice file.
+- Removed square brackets from ack message and clean() so Telegram replies carry no decoration symbols.

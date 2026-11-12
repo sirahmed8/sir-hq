@@ -139,3 +139,5 @@ One line per distinct request or standing rule. Status is what files show today,
 - 2026-11-12 21:18 voice: wants clean organized Telegram message format, no symbols inside words; verify transcription is not hallucinating -> fixed whisper prompt bias + added reply cleaner in backup_manager.py
 
 | 11-12 | Voice: transcription sometimes hangs, keep developing it; keep workers finishing tasks and queue new ones so they never run dry | DONE | backup_manager.py transcribe hard cap + interim message; queued r67-build-sir-portfolio and r67-voice-pipeline-verify |
+
+- 22:05 Ahmed asked why messages arrive empty and why the ack has brackets; also asked progress on the 11 open tasks. Root cause found and fixed (see HQ_CHECKPOINT).
