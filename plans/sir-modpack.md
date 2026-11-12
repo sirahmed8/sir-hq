@@ -1,8 +1,8 @@
-# PLAN: SIR ModPack (Wave 6, public product, not started)
-Audited 2026-11-10. Replaces `SIR ModPack (v1)` (in `legacy/`, kept until M6). Free product; optional supporter tier in EGP.
+# PLAN: SIR ModPack (Wave 6, GLOBAL product, not started)
+Audited 2026-11-10. Replaces `SIR ModPack (v1)` (in `legacy/`, kept until M6). Free product; optional supporter tier in EGP. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
 
 ## 1. Purpose (plain words)
-A Windows launcher that installs a curated Minecraft modpack and manages a private server, plus a website with the download and a guide in Arabic. A player gets the pack running in one click.
+A Windows launcher that installs a curated Minecraft modpack and manages a private server, plus a website with the download and a guide in Arabic. A player gets the pack running in one click. For global users: any Minecraft player anywhere can install and manage the modpack.
 
 ## 2. Names and IDs
 | Item | Value |
@@ -11,8 +11,8 @@ A Windows launcher that installs a curated Minecraft modpack and manages a priva
 | GitHub (private) | `sirahmed8/sir-modpack-source` (legacy public repo `sirahmed8/SIR-ModPack`: review and decide at M6 whether to archive) |
 | Stack (planned) | Windows launcher on Tauri v2 (Rust + React/TypeScript) or the existing Python/pywebview, decided by a 2 hour spike in an ADR; manifest with SHA-256 per file; web hub on Cloudflare Pages |
 | Domain | candidate `sirmodpack.com` (owner checks and buys; price "(unsourced, verify)"); `pages.dev` until then |
-| Platforms | Windows launcher (first), web hub. macOS and Linux launcher: skipped for v1 (the pack targets the Windows players asked for). Android (Pojav-style) and consoles: skipped, out of scope |
-| Money | Free download. Optional supporter tier in EGP (perks: name on the supporters page, early builds). No pay-to-win, no paywalled mods. "Launching soon" + email capture until keys exist |
+| Platforms | **Platform Matrix (GLOBAL):** Windows launcher ✅ (first); Web hub ✅; macOS launcher ⏭️ M6+ (only if users ask); Linux launcher ⏭️ M6+; Android (Pojav-style) ⏭️ skipped v1; iOS ⏭️ skipped; TV ⏭️ skipped; watchOS ⏭️ skipped; Car ⏭️ skipped. Browser extension: skipped. All platforms share the same Firebase project and auth. |
+| Money | **Pricing & Free Tier:** Free download (full modpack, launcher, server manager). Optional supporter tier in EGP (perks: name on the supporters page, early builds). No pay-to-win, no paywalled mods. EGP first, USD/SAR/AED toggle auto-detected from locale/IP with manual override. "Launching soon" + email capture until keys exist. Owner gets all supporter perks free. Subscription grants owner all permissions in owner dashboard. |
 
 ## 3. Current state
 Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30); 9 commits, setup and plan only. PORTFOLIO.md: 2 of 18 tasks.
@@ -27,33 +27,32 @@ Legacy facts (`ops/inventory/SIR-ModPack-and-GTA-V-mods.md`, 2026-10-29, nothing
 6. Downloads: SHA-256 verified before install; the launcher refuses a mismatch. Test: corrupted file is rejected.
 7. Account data: the launcher never stores a Microsoft/Mojang password; sign-in uses the official device-code flow; tokens in Credential Manager. Test: grep finds no `accounts.json` tracking; `.gitignore` covers it.
 8. Server manager binds to localhost unless the player enables LAN; shows a warning before opening a port.
+9. **Owner-only analytics page**: separate route, server-verified owner token, shows all metrics (downloads, installs, server starts, errors). No other user sees it.
 
 ## 5. Shared pieces
-Platform `ui/styles/hooks`, `i18n`, `legal-pack`, `billing-fallback`, Telegram sender. The signed manifest/update channel idea is shared with Business and Content Studio (Electron updaters); write it once in Platform `sir-kit` only if two products reach it.
+Platform `ui/styles/hooks`, `i18n`, `legal-pack`, `billing-fallback`, Telegram sender. The signed manifest/update channel idea is shared with Business and Content Studio (Electron updaters); write it once in Platform `sir-kit` only if two products reach it. **Reuses SHARED_PLATFORM_KIT entirely; only Minecraft-specific features differ.**
 
 ## 6. Screens and entities
-Launcher: Home (play, update), Profiles (versions, RAM), Mods list (with licences), Server manager (start, stop, logs, backup), Settings and Profile, Help. Web: Landing, Download, Guide (Arabic first), Supporters, Legal. Entities: Pack, Mod, Manifest, Profile, Server, Backup, Supporter.
+Launcher: Home (play, update), Profiles (versions, RAM), Mods list (with licences), Server manager (start, stop, logs, backup), Settings and Profile, Help. Web: Landing, Download, Guide (Arabic first), Supporters, Legal, **Owner dashboard**. Entities: Pack, Mod, Manifest, Profile, Server, Backup, Supporter.
 Five states, Arabic RTL first and English, themes, 320 px to 4K web, WCAG 2.2 AA, own logo.
 
 ## 7. AI and support
-Support assistant (web and launcher) grounded in the guide and the known-issues file: "why does the game crash" reads the crash log locally and explains it in plain words; log text is not sent anywhere unless the user clicks Send. Chain via `ai-proxy`; free quota 5 per day; evals with 20 real-looking crash logs (Arabic and English). No AI in the install path.
+Support assistant (web and launcher) grounded in the guide and the known-issues file: "why does the game crash" reads the crash log locally and explains it in plain words; log text is not sent anywhere unless the user clicks Send. Chain via `ai-proxy` (from SHARED_PLATFORM_KIT); free quota 5 per day; evals with 20 real-looking crash logs (Arabic and English). No AI in the install path.
 
-## 8. Operations
+## 8. Operations (standard 26 from SHARED_PLATFORM_KIT)
 Release checklist (build, sign, upload, manifest hash check), weekly Telegram line (downloads from analytics that need no cookies, error reports with consent), mod update watcher (new versions of listed mods, with test install), status JSON on the site.
 
 ## 9. Launch, legal and visibility
-Owner buys the domain and a code-signing certificate (unsigned installers trigger SmartScreen warnings: "(unsourced, verify)" how severe). Legal: privacy, terms, "not affiliated with Mojang or Microsoft" notice, mod credits page, DMCA/takedown contact. Visibility: Arabic Minecraft queries ("مود باك ماينكرافت عربي"), YouTube install tutorials with transcripts, guide pages, `llms.txt`, facts page; game-community posts made honestly in the brand's name, no fake engagement.
+Owner buys the domain and a code-signing certificate (unsigned installers trigger SmartScreen warnings: "(unsourced, verify)" how severe). Legal: privacy, terms, "not affiliated with Mojang or Microsoft" notice, mod credits page, DMCA/takedown contact.
+**Dual hosting**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout).
+Visibility: Arabic Minecraft queries ("مود باك ماينكرافت عربي"), YouTube install tutorials with transcripts, guide pages, `llms.txt`, facts page; game-community posts made honestly in the brand's name, no fake engagement.
 
-## 10. Milestones with exit checks
-| M | Goal | Exit check |
+## 10. Three-Milestone Roadmap (owner-visible checks)
+| Milestone | Goal | Owner-Visible Exit Check |
 |---|---|---|
-| M0 | Deep scan, licence matrix, setup, CI | `docs/MOD_LICENSES.csv` complete for legacy pack; Minecraft guidelines read and summarized; green Actions URL |
-| M1 | Core slice | launcher installs the pack into a temp folder from a manifest and verifies every hash |
-| M2 | Parity | server manager, backups, profiles; checklist against legacy features |
-| M3 | Security and legal | corrupted download test, token storage test, legal pages |
-| M4 | Support assistant | crash-log eval recorded |
-| M5 | Quality | clean-VM install test, screenshots, a11y, RTL |
-| M6 | Release | signed installer (owner), site live, legacy repo archived or privatized |
+| **M1: Core Slice** | Launcher installs the pack into a temp folder from a manifest and verifies every hash; server manager, backups, profiles; checklist against legacy features | 1. Run launcher → install pack to temp folder → every SHA-256 verified. 2. Server manager starts/stops fake server, logs visible, backup/restore works. 3. Screenshot at 390/1280, LTR/RTL, light/dark. |
+| **M2: Security, Legal, Billing, Owner Page** | Corrupted download test, token storage test, legal pages, supporter tier page, owner-only analytics page live | 1. Corrupted file → install rejected (test). 2. Device-code sign-in → token in Credential Manager, no password prompt (grep test). 3. Open `/owner` → server-verified token required → shows downloads, installs, server starts. 4. Legal pages exist at `/legal/*`. 5. Supporter page shows perks, no paywall on gameplay. 6. Pricing page shows "Launching soon" + email capture. 7. Dual hosting verified: curl both Firebase and Vercel URLs. |
+| **M3–M6: Quality, Release** | Clean-VM install test, screenshots, a11y, RTL; signed installer (owner); site live; legacy repo archived or privatized | 1. Clean VM install test passes. 2. Lighthouse mobile 90+ JSON saved. 3. Owner signs installer. 4. Site live on both hosts. 5. Legacy repo archived or privatized. |
 
 ## 11. Next 10 tasks (each under 2 hours)
 1. Read the Minecraft Usage Guidelines in full and write `docs/MOJANG_RULES.md` with quoted section titles and the decisions it forces. Check: file has the URL and read date.
@@ -75,3 +74,15 @@ Owner buys the domain and a code-signing certificate (unsigned installers trigge
 
 ## 13. Only the owner can do
 Buy domain and code-signing certificate; sign in to GitHub releases, Cloudflare; contact mod authors if a licence says ask-first; accept any platform terms; lawyer review of terms.
+
+## 14. Competitor Matrix (from plans/competitors/sir-modpack.md)
+| Competitor | Strengths | Flaws | Our Edge | Ideas to Steal |
+|---|---|---|---|---|
+| CurseForge | Huge library, official app | Ads, no curated pack, no server manager | Curated pack, one-click, server manager, Arabic guide | Library breadth |
+| Modrinth | Open source, no ads | No curated pack, no server manager | Curated pack, server manager, Arabic | Open source ethos |
+| PrismLauncher | GPL-3, feature-rich | Complex UI, no curated pack | Simple UI, curated pack, Arabic | Instance management |
+
+*Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
+
+## 15. Feature Parity Target (best-in-category)
+Match or exceed the best Minecraft launcher for: one-click curated pack install, SHA-256 verified downloads, built-in server manager with backup, Arabic guide, no paywall on gameplay, supporter perks cosmetic only, signed installer, owner analytics, WCAG 2.2 AA.

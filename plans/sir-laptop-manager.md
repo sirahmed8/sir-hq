@@ -1,5 +1,5 @@
-# PLAN: SIR Laptop Manager (Wave 2, internal tool)
-Audited 2026-11-10. Replaces: `Laptop manager` and `antigravity-agent-suite` (both now under `legacy/`, kept until M6). Internal tool for one owner: not sold, not listed, `noindex`. Commercial items are marked "n/a" with the reason; nothing is silently dropped.
+# PLAN: SIR Laptop Manager (Wave 2, PERSONAL tool, building)
+Audited 2026-11-10. Replaces: `Laptop manager` and `antigravity-agent-suite` (both now under `legacy/`, kept until M6). Internal tool for one owner: not sold, not listed, `noindex`. **PERSONAL**: only Ahmed, never sold. Commercial items are marked "n/a" with the reason; nothing is silently dropped. Uses the same architecture and rules as GLOBAL products (SHARED_PLATFORM_KIT) where applicable.
 
 ## 1. Purpose (plain words)
 It keeps Ahmed's Windows laptop healthy. It shows disk, memory, battery and startup items on one page, cleans junk safely (everything goes to a quarantine folder first and can be restored), pauses heavy background programs while he plays a game, and keeps one set of AI-agent rules in sync across all his coding tools.
@@ -10,8 +10,8 @@ It keeps Ahmed's Windows laptop healthy. It shows disk, memory, battery and star
 | Folder | `D:\Projects\SIR Laptop Manager` |
 | GitHub (private) | `sirahmed8/sir-laptop-manager` |
 | Runtime | Python 3.14 (uv), `src/sir_laptop_manager/` (packages: agent_config, care, core, look, ops_ui, power, rag, startup, tray), ops page on `127.0.0.1:8765` |
-| Platforms | Windows: built, unverified (ops page, tray, scheduled task `SIR_Laptop_Manager`). iPhone companion over Tailscale: built, unverified. Web/PWA, Android, macOS, Linux, TV, watch, extension: skipped, a Windows-only tool |
-| Money | none (internal). Subscription, EGP pricing, checkout fallback: n/a. Default: if it is ever sold, move the generic parts to SIR Platform billing first |
+| Platforms | **Platform Matrix (PERSONAL):** Windows ✅ built, unverified (ops page, tray, scheduled task `SIR_Laptop_Manager`). iPhone companion over Tailscale ✅ built, unverified. Web/PWA, Android, macOS, Linux, TV, watch, extension: ⏭️ skipped, a Windows-only tool. |
+| Money | none (internal). Subscription, EGP pricing, checkout fallback: n/a. Default: if it is ever sold, move the generic parts to SIR Platform billing first. |
 
 ## 3. Current state
 Claimed in `.sir/CHECKPOINT.md` (2026-11-10): milestones M0 to M10 and rounds 8 to 13 done, "207/207 tests green", 96 source files typed clean. PORTFOLIO.md (2026-11-08) said 12 of 27 tasks, 29 commits.
@@ -33,6 +33,7 @@ Not started: Telegram report format per standard 26, evals for RAG (Arabic and E
 - Telegram reports and approvals: use the one shared sender `scripts/deliver/send-telegram.mjs` and the report format in section 8; do not write a second bot.
 - Design tokens and settings/profile screens: copy from the first finished SIR web product; Platform extracts them last. Until then keep them as `src/.../look/` and mark them "extract to Platform".
 - No auth, billing or AI proxy needed (single owner, loopback). The local RAG is the only AI feature and it stays local.
+- **Reuses SHARED_PLATFORM_KIT design tokens, motion, i18n, legal-pack patterns; no auth/billing/ai-proxy needed for personal use.**
 
 ## 6. Screens and entities
 Screens: Dashboard (disk, memory, battery, startup, health), Cleanup (dry run, quarantine, restore), Game mode, Shortcuts and startup doctor, Agent config sync, Local AI (RAG), Settings and Profile. Entities: CleanupPlan, QuarantineItem, Routine, AgentProfile, Skill, SyncRun, GameProfile.
@@ -47,16 +48,12 @@ In-product assistant = the RAG page grounded only in `docs/` and the runbook; an
 - Backups: weekly snapshot of `.sir/` state and config to `D:\Projects\Backups`, restore drill once per month.
 - Updates: `uv lock --upgrade` weekly on a branch of work, tests must pass before push to main.
 
-## 9. Milestones with exit checks
-| M | Goal | Exit check |
+## 9. Three-Milestone Roadmap (owner-visible checks)
+| Milestone | Goal | Owner-Visible Exit Check |
 |---|---|---|
-| M0 | Foundations | `scripts/verify.ps1` green; `docs/THREAT_MODEL.md` present; gitleaks 0 findings |
-| M1 | Dry-run cleanup and quarantine | clean, restore, hash compare test passes |
-| M2 | Agent config sync and routines | sync on a temp workspace leaves no deletion (test); routines listed by `schtasks` |
-| M3 | Security | rules 1 to 8 each have a passing test; 0 failing tests |
-| M4 | Local AI | RAG eval file with 20 Arabic and 20 English questions, score recorded in `.sir/evidence/rag-eval.md` |
-| M5 | Quality sweep | 5-state screenshots at 320, 390, 768, 1440; RTL and LTR; zoom 200 percent |
-| M6 | Retirement | `legacy/*` moved to `D:\Projects\old projects\`, old repos archived, keys rotated; recorded in checkpoint |
+| **M1: Foundations & Security** | `scripts/verify.ps1` green; `docs/THREAT_MODEL.md` present; gitleaks 0 findings; 0 failing tests; path traversal and bad-origin tests for every POST route | 1. Run `scripts/verify.ps1` → all green, writes `.sir/evidence/verify-latest.md` with real counts. 2. `git check-ignore` confirms no secrets. 3. CI green badge URL in checkpoint. 4. All 207 tests pass. |
+| **M2: Core Features Verified** | Dry-run cleanup and quarantine (clean, restore, hash compare test passes); agent config sync and routines (sync on temp workspace leaves no deletion; routines listed by `schtasks`); local AI RAG eval file with 20 Arabic and 20 English questions, score recorded | 1. Quarantine a temp file → restore → hashes equal (evidence). 2. Sync dry run on temp workspace → no deletions. 3. `schtasks /query` shows `SIR_Laptop_Manager` routine. 4. `.sir/evidence/rag-eval.md` has 20+20 scores. |
+| **M3: Quality & Retirement** | 5-state screenshots at 320, 390, 768, 1440; RTL and LTR; zoom 200%; `legacy/*` moved to `D:\Projects\old projects\`, old repos archived, keys rotated | 1. Screenshots of Cleanup and Game mode at 320/390/768/1440, RTL/LTR, light/dark, zoom 200%. 2. `scrollWidth <= innerWidth` in capture output. 3. `legacy/*` moved to `old projects\`. 4. Old GitHub repos archived. 5. Keys rotated (names only in `docs/OWNER_STEPS.md`). |
 
 ## 10. Next 10 tasks (each under 2 hours)
 1. Fix the 19 failing tests: restore or rename `execute_cleanup` in `src/sir_laptop_manager/ops_ui/server.py` or update the tests in `tests/test_ops_ui_server.py`. Check: `uv run --offline pytest -q` shows 0 failed.
@@ -81,3 +78,13 @@ Approve the Windows UAC prompt when installing the scheduled task; sign in to Ta
 
 ## 13. Market-grade note
 Competitor study exists at `plans/competitors/sir-laptop-manager.md` (dated 2026-11-09, some claims cite forums; any claim without a link there is "(unsourced, verify)"). Country law packs: n/a (single owner). Privacy: collects nothing off the machine.
+
+## 14. Competitor Matrix (from plans/competitors/sir-laptop-manager.md)
+| Competitor | Strengths | Flaws | Our Edge | Ideas to Steal |
+|---|---|---|---|---|
+| (to be sourced) | | | | |
+
+*Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
+
+## 15. Feature Parity Target (best-in-category)
+Match or exceed the best laptop manager for: quarantine-based cleanup with undo, game-mode service relief, agent-config sync across 18 tools, local RAG with Arabic/English, scheduled daemon with log rotation, Dynamic-Island style tabs, Arabic RTL, spring motion.

@@ -1,6 +1,7 @@
-# PLAN: SIR AI (Wave 4, plans done, no product code yet)
+# PLAN: SIR AI (Wave 4, GLOBAL product, plans done, no product code yet)
 Audited 2026-11-10. Replaces the old `SIR AI (v1)`, `SIR Tele Gateway` and the archived AgentsRoom (all in `legacy/`, kept until M6). `Odysseus app` in `legacy/` is AGPL-3.0 and is reference only: no code is copied from it, ever.
-Two tiers, built in this order: Tier 1 is Ahmed's personal assistant on his own PC (private, exempt from commercial items). Tier 2 is a paid multi-user cloud version and starts only after Tier 1 is verified end to end.
+Two tiers, built in this order: Tier 1 is Ahmed's personal assistant on his own PC (**PERSONAL**, private, exempt from commercial items). Tier 2 is a paid multi-user cloud version (**GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV) and starts only after Tier 1 is verified end to end.
+SIR AI is the manager's replacement: the owner opens it from laptop, Android, iPhone or anywhere, continues his work, sees what the agents are doing (thinking steps, CLI and model activity, usage limits) in one organized interface, gets notifications, and it follows him. For other users it is a personal AI that manages life and work (projects, tasks, summaries, WhatsApp, Telegram or other messengers, money), with memory (linked notes in the style of Obsidian memory, conversation memory), real MCP connectors per user (Google and more, marketplace style), automations and n8n links, plugins and skills, and an agentic-OS behaviour: the user gives an idea and the AI takes it from zero to a global product, runs the company side (marketing, support, purchases). Users bring their own Claude subscription, free CLIs and providers and pick who is the manager. Closed source, apps tied to the account, settings stored in JSON that shows in the settings UI, the AI can configure everything the user needs.
 
 ## 1. Purpose (plain words)
 An assistant Ahmed talks to by voice, text or camera on his own computer. It uses models that run on his machine first, remembers things he allows it to remember (and forgets on request), runs approved tasks, and reaches him through Telegram. Tier 2 would let other people use a hosted version with their own accounts.
@@ -10,10 +11,10 @@ An assistant Ahmed talks to by voice, text or camera on his own computer. It use
 |---|---|
 | Folder | `D:\Projects\SIR AI` |
 | GitHub (private) | `sirahmed8/sir-ai` |
-| Stack (planned) | pnpm monorepo: `apps/gateway` (Python 3.12, uv, FastAPI), `apps/web` (local UI, Next.js or Vite), `packages/*`; local models via Ollama in `D:\Projects\AI_Models_Hub`; speech: Faster-Whisper on the laptop GPU, text to speech engine to choose in an ADR (Edge-TTS is an unofficial client of a Microsoft service: terms "(unsourced, verify)"; default fallback is a local open-source TTS) |
+| Stack (planned) | pnpm monorepo: `apps/gateway` (Python 3.12, uv, FastAPI), `apps/web` (local UI, Next.js 15+ or Vite), `packages/*`; local models via Ollama in `D:\Projects\AI_Models_Hub`; speech: Faster-Whisper on the laptop GPU, text to speech engine to choose in an ADR (Edge-TTS is an unofficial client of a Microsoft service: terms "(unsourced, verify)"; default fallback is a local open-source TTS) |
 | Domain | none for Tier 1. Tier 2 candidate `sir-ai.app`, owner buys |
-| Platforms | Tier 1: Windows desktop + local web UI + Telegram. Tier 2: web and PWA, Android later. macOS, Linux, TV, watch: skipped for now |
-| Money | Tier 1 none. Tier 2: free local-only mode, Pro in EGP for cloud models and sync (price to test, "(unsourced, verify)"); "launching soon" fallback |
+| Platforms | **Platform Matrix:** Tier 1 (PERSONAL): Windows desktop ✅ + local web UI ✅ + Telegram ✅. Tier 2 (GLOBAL): Web (PWA) ✅, Android ✅ Expo M6+; iOS ✅ Expo M6+; Windows/macOS/Linux ✅ via PWA; Wear OS ⏭️ M6+; watchOS ⏭️ M6+; TV ⏭️ skipped v1; Car ⏭️ skipped v1. Browser extension: ⏭️ skipped. All platforms share the same Firebase project and auth. |
+| Money | Tier 1: none. Tier 2: free local-only mode, Pro in EGP for cloud models and sync (price to test, "(unsourced, verify)"); EGP first, USD/SAR/AED toggle auto-detected from locale/IP with manual override. "launching soon" fallback. Owner gets all Pro features free. Subscription grants owner all permissions in owner dashboard. |
 
 ## 3. Current state
 Not built. Verified from files: `legacy/` contains the old code; `.sir/reports/deep-scan.md` and an upgraded `.sir/PLAN.md`, `ARCHITECTURE.md`, `TASKS.md` (44 tasks over M0 to M6), `QUALITY.md`, `PRODUCTION.md` exist. The checkpoint (2026-11-08) says T-003 deep scan done and the next step is T-004, initialize the monorepo. No application code, no tests in this folder (git log: 10 commits, all documents). PORTFOLIO.md: 3 of 44 tasks. The old v1 claims (259 tests, voice pipeline, SQLite vector memory) are legacy, unverified.
@@ -23,37 +24,36 @@ Old defects to avoid (from the earlier inventory): session tokens in localStorag
 1. Telegram control: one allow-listed chat id; any action that changes files, runs a program or spends money needs an approval tap (inline button) and is written to an audit log. Test: a command from another chat id is ignored; an unapproved destructive tool call is refused.
 2. No tool may run a shell command built from model output without an allow-list of commands and a dry run. Test: prompt-injection fixtures (web page text telling the agent to "delete files") do nothing.
 3. Memory: the user sees, edits and deletes every memory; private text never goes to outside providers; routing flag `private=true` forces local models. Test: with `private=true` and the local model off, the call fails closed instead of using the cloud.
-4. Provider chain with failover (local, then free cloud tiers); keys only on the server side, never in a client bundle or git; model files are not committed (git LFS or download script).
+4. Provider chain with failover (local, then free cloud tiers) (use `ai-proxy` from SHARED_PLATFORM_KIT); keys only on the server side, never in a client bundle or git; model files are not committed (git LFS or download script).
 5. AGPL boundary: a CI check that no Odysseus source or dependency enters `apps/` or `packages/`.
 6. Tier 2 only: cookies HttpOnly, per-user quota, tenant isolation tests, privacy page that claims only what is true (no SOC 2 or ISO claim).
 7. Camera/microphone: explicit start button, visible indicator, nothing recorded without a switch; recordings stay local.
+8. **Owner-only analytics page (Tier 2)**: separate route, server-verified owner token, shows all metrics (users, tasks, approvals, AI cost, errors). No other user sees it.
 
 ## 5. Shared pieces
-This product is the idea source of Platform `ai-proxy`, but Platform builds its own small `ai-proxy` first (other products need it before SIR AI exists). SIR AI later consumes `@sir/ai-proxy` and adds local routing and tools on top. Telegram: the shared sender `_SIR/scripts/deliver/` for outbound; the inbound command handler is this product's (port ideas from `legacy/SIR Tele Gateway`). Design: Platform `ui/styles/hooks`. Laptop Manager's game-mode relief may need to pause Ollama: keep an endpoint for it.
+This product is the idea source of Platform `ai-proxy`, but Platform builds its own small `ai-proxy` first (other products need it before SIR AI exists). SIR AI later consumes `@sir/ai-proxy` and adds local routing and tools on top. Telegram: the shared sender `_SIR/scripts/deliver/` for outbound; the inbound command handler is this product's (port ideas from `legacy/SIR Tele Gateway`). Design: Platform `ui/styles/hooks`. Laptop Manager's game-mode relief may need to pause Ollama: keep an endpoint for it. **Tier 2 reuses SHARED_PLATFORM_KIT entirely; Tier 1 uses design tokens, motion, i18n, legal-pack patterns only.**
 
 ## 6. Screens and entities
-Chat, Voice mode, Camera/vision, Tasks (approval queue), Memory (what it remembers, with delete), Settings and providers, Owner dashboard (Tier 2), Help. Entities: Conversation, Message, Memory, Tool, Provider, Quota, User, AuditEntry.
+Chat, Voice mode, Camera/vision, Tasks (approval queue), Memory (what it remembers, with delete), Settings and providers, **Owner dashboard (Tier 2)**, Help. Entities: Conversation, Message, Memory, Tool, Provider, Quota, User, AuditEntry.
 Five states, Arabic RTL first and English, light/dark/contrast, 320 px to 4K, WCAG 2.2 AA, own logo.
 
 ## 7. AI features and evals
 Chat and voice with citations when it uses notes; tool use limited to a small allow-list; eval sets (Arabic and English, 40 prompts each): factuality on a fixed notes set, refusal of unsafe tools, prompt-injection fixtures, latency budget on the laptop (first token under a number to be measured and written down, not guessed). New models chosen monthly from `ops/MODELS.json`. Kill switch per tool and global. Support assistant for Tier 2 grounded in docs, free quota 5 per day, owner unmetered.
 
 ## 8. Operations
-Tier 1: daemon under Task Scheduler with restart, health endpoint, log rotation, weekly report to Telegram (tasks run, approvals, errors, local model disk use). Tier 2: standard 26 set (status JSON, backups with restore test, cost cap per day, emergency alerts) after launch.
+Tier 1: daemon under Task Scheduler with restart, health endpoint, log rotation, weekly report to Telegram (tasks run, approvals, errors, local model disk use). Tier 2: standard 26 set (status JSON, backups with restore test, cost cap per day, emergency alerts) after launch (from SHARED_PLATFORM_KIT).
 
 ## 9. Launch, legal and visibility (Tier 2 only)
-Owner buys domain, cloud plans, payment accounts. Legal pack with an AI-training prohibition clause ("we do not train on customer data without opt-in"), sub-processors list of the real providers used, DPA; lawyer review. Visibility: Arabic and English pages for "local AI assistant for Windows", comparison pages vs named assistants once sourced, `llms.txt`, facts page. None of this starts before Tier 1 is verified.
+Owner buys domain, cloud plans, payment accounts. Legal pack with an AI-training prohibition clause ("we do not train on customer data without opt-in"), sub-processors list of the real providers used, DPA; lawyer review.
+**Dual hosting (Tier 2)**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout).
+Visibility: Arabic and English pages for "local AI assistant for Windows", comparison pages vs named assistants once sourced, `llms.txt`, facts page. None of this starts before Tier 1 is verified.
 
-## 10. Milestones with exit checks
-| M | Goal | Exit check |
+## 10. Three-Milestone Roadmap (owner-visible checks)
+| Milestone | Goal | Owner-Visible Exit Check |
 |---|---|---|
-| M0 | Monorepo, CI, ADRs | `pnpm install && pnpm verify` green; ADR for TTS and database; green Actions URL |
-| M1 | Text chat on local model | `POST /chat` returns an answer from Ollama; latency number recorded |
-| M2 | Telegram bridge with approvals | allow-list and approval tests pass; one real approved task logged |
-| M3 | Security | injection fixtures pass; private-routing test passes; AGPL check passes |
-| M4 | Voice and memory | speech-to-text word error rate measured on 20 recorded Arabic/English clips; memory delete test |
-| M5 | Quality | screenshots at 390/1280, LTR/RTL; offline/local-only mode test |
-| M6 | Retirement and Tier 2 decision | legacy moved to `old projects`; written go/no-go for Tier 2 with evidence |
+| **M1: Tier 1 Core** | Monorepo, CI, ADRs; text chat on local model (`POST /chat` returns answer from Ollama; latency recorded); Telegram bridge with approvals (allow-list and approval tests pass; one real approved task logged) | 1. `pnpm install && pnpm verify` → green. 2. `curl POST /chat` → streamed tokens from Ollama; latency in `.sir/evidence/latency.md`. 3. Telegram: wrong chat id ignored; unapproved tool refused; one real approved task in audit log. 4. Screenshot at 390/1280, LTR/RTL, light/dark. |
+| **M2: Tier 1 Security & Features** | Injection fixtures pass; private-routing test passes; AGPL check passes; voice and memory (speech-to-text WER measured on 20 recorded Arabic/English clips; memory delete test) | 1. Prompt-injection fixtures → no shell execution. 2. `private=true` + local model off → call fails closed. 3. CI AGPL check → fixture with Odysseus path fails. 4. Speech-to-text WER recorded in `.sir/evidence/wer.md`. 5. Memory delete → removed from retrieval (test). 6. Screenshot at 390/1280, LTR/RTL, light/dark. |
+| **M3: Tier 2 Decision & Launch Prep** | Legacy moved to `old projects`; written go/no-go for Tier 2 with evidence; if go: dual hosting verified, owner dashboard live, legal pack ready, billing fallback tested | 1. `legacy/*` moved to `old projects\`. 2. `docs/TIER2_DECISION.md` with evidence (Tier 1 metrics, cost, user feedback). 3. If go: curl both Firebase and Vercel URLs → 200. 4. Open `/owner` → server-verified token → shows users, tasks, AI cost. 5. Legal pages at `/legal/*`. 6. Pricing page shows "Launching soon" + email capture. |
 
 ## 11. Next 10 tasks (each under 2 hours)
 1. Initialize the pnpm monorepo with `apps/gateway` (uv, FastAPI health route) and `apps/web` shell (T-004). Check: `pnpm verify` green; `GET /health` returns 200.
@@ -76,3 +76,13 @@ Owner buys domain, cloud plans, payment accounts. Legal pack with an AI-training
 
 ## 13. Only the owner can do
 Approve Windows prompts for microphone and camera; sign in to Telegram and provider accounts; paste provider keys into `.env`; Tier 2: buy domain and cloud plans, lawyer review.
+
+## 14. Competitor Matrix (from plans/competitors/sir-ai.md)
+| Competitor | Strengths | Flaws | Our Edge | Ideas to Steal |
+|---|---|---|---|---|
+| (to be sourced) | | | | |
+
+*Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
+
+## 15. Feature Parity Target (best-in-category)
+Match or exceed the best personal AI assistant for: local-first models, Obsidian-style linked memory, MCP connector marketplace, agentic-OS (idea to product), multi-platform (Windows, Android, iOS), user brings own subscriptions, closed source, settings in JSON, AI configures everything, owner analytics, Arabic RTL, spring motion.
