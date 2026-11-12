@@ -22,3 +22,5 @@
 11-12 19:52 autopilot START r61-plan-sir-access-map (runner pid 39376)
 19:55 opencode DONE r61-plan-sir-handyman planning-only: 42 tasks expanded in sir-handyman-tasks.md, REFRESH-LOG created, risks+open questions added, team board updated; ready for queue
 11-12 17:53Z devin START r61-plan-sir-access-map planning-only refresh (rule 20/22)
+17:55 devin START r61-plan-sir-modpack planning-only refresh of SIR ModPack plan (rule 20)
+- 2026-11-12 r61-plan-sir-business DONE: planning refresh committed; 41-sector catalogue linked, competitor research added, tasks expanded to 48; report at ops/agy-runs/reports/r61-plan-sir-business.md
