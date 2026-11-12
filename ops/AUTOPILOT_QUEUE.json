@@ -1,5 +1,26 @@
 [
   {
+    "name": "r53-education-hub-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: big merged plan",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r53-business-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: sectors big merged plan",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r53-hagoozat-and-ideas",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
     "name": "r14-ahome",
     "folder": "D:/Projects/AHome",
     "title": "إصلاحات المشروع الخاص",
@@ -609,7 +630,7 @@
     "name": "r52-plan-sir-study",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Study (slug sir-study)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
