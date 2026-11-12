@@ -94,9 +94,14 @@ def pick(local_only: bool = False) -> str:
     entries = [e for e in POOL if is_local(e)] if local_only else POOL
     if not entries:
         return "WAIT 3600"
-    for entry in entries:
-        if data.get(entry, {}).get("until", 0) <= now:
-            return entry
+    # load balancing (owner, 2026-11-12): the free tools must all work, so choose the available entry used longest ago
+    # instead of always the first one (the first one, Devin, was doing nearly everything while the others sat idle)
+    available = [e for e in entries if data.get(e, {}).get("until", 0) <= now]
+    if available:
+        entry = min(available, key=lambda e: (data.get(e, {}).get("last_pick", 0), POOL.index(e)))
+        data.setdefault(entry, {})["last_pick"] = now
+        save(data)
+        return entry
     soonest = min(data.get(e, {}).get("until", 0) for e in entries)
     return f"WAIT {int(max(soonest - now, 60))}"
 

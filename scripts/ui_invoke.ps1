@@ -18,7 +18,7 @@ if ($List) {
     if ($n -and $e.Current.ControlType.ProgrammaticName -match "Button|MenuItem|Hyperlink|ListItem") {
       Write-Output ($e.Current.ControlType.ProgrammaticName.Replace("ControlType.", "") + " | " + $n.Substring(0, [Math]::Min(40, $n.Length)))
       $i++
-      if ($i -ge 40) { break }
+      if ($i -ge 120) { break }
     }
   }
 }
