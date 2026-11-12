@@ -79,3 +79,10 @@ Source: research round r52, 2026-11-12. Every claim carries a source link or is 
 4. Source Descript, Buffer, Hootsuite, Repurpose.io, Vidyo.ai, Riverside current pricing pages.
 5. Source InVideo current pricing and watermark policy.
 6. Check Remotion licence terms for commercial use (owner action, M0) before selling Pro.
+## 11. Research update 2026-11-12 (r61)
+
+- Remotion licence (remotion.dev/docs/license/pricing, fetched 2026-11-12): free for individuals and companies of up to 3 people with unlimited commercial use; Company License required above 3 people, with a minimum of $100/mo for Remotion for Automators (batch/automated products). Our v1 ships on the free license; a Pro tier that resells render capacity needs a $100/mo minimum line item. Add to risks and monetisation.
+- TikTok Content Posting API (fetched 2026-11-12): unaudited clients are restricted to private viewing mode; an audit is required to lift restrictions. Our drafts-only mode already covers this, but the audit task must be explicit and owner-driven.
+- X (Twitter) API v2 write access may require a paid tier (Basic $100/mo); verify before promising X publishing. Default to drafts and manual post for X in v1.
+- Opus Clip 4.0 (opus.pro, fetched 2026-11-12): added prompt-to-clip, AI B-roll (Agent Opus), and an MCP connector on Pro. Add prompt-to-clip and AI B-roll to our M4 scope; consider a read-only MCP status surface in M6.
+- CapCut pricing (checked 2026-11-12): Pro 599.99 EGP/mo, Ultra 3949.99 EGP/mo, Teams 300 EGP/mo per seat (2 seats). Region-dependent; verify in Egypt before quoting.

@@ -59,15 +59,15 @@
   "seed": "No sector-specific seed data. The engine provides the property listing/lead pipeline/contract schema and role templates.",
   "landing_ar": {
     "headline": "مكتب عقاري",
-    "sub": "إدراجات، leads وحسابات العمولة من لوحة واحدة",
+    "sub": "إدراجات، عملاء محتملين، وحسابات العمولة من لوحة واحدة",
     "benefits": [
-      "إدارة الإدراجات مع Photos",
-      "مسار leads مع حالات",
+      "إدارة الإدراجات مع الصور",
+      "مسار العملاء المحتملين مع حالات",
       "عقود والعمولة التلقائية"
     ],
     "faq": [
       "كيف أضيف إدراج جديد؟",
-      "كيف أسيرlead عبر المسار؟"
+      "كيف أسير عميلاً محتملاً عبر المسار؟"
     ]
   },
   "landing_en": {

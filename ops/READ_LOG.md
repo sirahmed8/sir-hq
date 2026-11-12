@@ -188,3 +188,4 @@ A session with work but no line here is flagged by the nightly structure check a
 2026-11-12T17:19:23.260Z | claude-code | claude | AHome | AHome/AGENTS.md@2026-11-10 | item 1 (games sheet clipping), then 2, 4, 5, 6, 7, 3, 8, 10, 14, 18, 19, 20, 21, 22. Tab refresh subscriptions for the other tabs go with item 12.
 2026-11-12T17:29:32.427Z | claude-code | claude | SIR Cars | SIR Cars/AGENTS.md@2026-11-12 | (exact)
 2026-11-12T17:39:39.540Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-12, plans/PRODUCT_DIRECTION_2026-11-12.md@2026-11-12, ops/BACKUP_MANAGER.md@2026-11-12, ops/OWNER_REQUEST_LEDGER.md@2026-11-12 | (exact)
+2026-11-12T17:43:49.002Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-12, plans/PRODUCT_DIRECTION_2026-11-12.md@2026-11-12, ops/BACKUP_MANAGER.md@2026-11-12, ops/OWNER_REQUEST_LEDGER.md@2026-11-12 | (exact)
