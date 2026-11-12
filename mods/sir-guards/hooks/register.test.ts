@@ -1,7 +1,7 @@
 import { expect, test } from 'claude-code/testing'
 
 test('a pull request command is stopped and a plain push goes through', async ($, on) => {
-  on('session.cwd', () => ({ value: 'D:/Projects/SIR Obour Hub' }))
+  on('session.cwd', () => ({ value: 'D:/Projects/SIR Education Hub' }))
   on('tool.call', () => ({ result: {} }))
 
   const pr = await $.tool.call({ tool: 'Bash', command: 'gh pr create --fill' })
@@ -12,10 +12,10 @@ test('a pull request command is stopped and a plain push goes through', async ($
 })
 
 test('deleting legacy is stopped, moving it is not', async ($, on) => {
-  on('session.cwd', () => ({ value: 'D:/Projects/SIR Obour Hub' }))
+  on('session.cwd', () => ({ value: 'D:/Projects/SIR Education Hub' }))
   on('tool.call', () => ({ result: {} }))
 
-  const rm = await $.tool.call({ tool: 'Bash', command: 'rm -rf "D:/Projects/SIR Obour Hub/legacy"' })
+  const rm = await $.tool.call({ tool: 'Bash', command: 'rm -rf "D:/Projects/SIR Education Hub/legacy"' })
   expect(rm.deny).toContain('legacy')
 
   const mv = await $.tool.call({ tool: 'Bash', command: 'mv legacy "D:/Projects/old projects/x"' })

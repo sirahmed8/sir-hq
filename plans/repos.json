@@ -1,13 +1,8 @@
 {
- "sir-platform": {
-  "folder": "SIR Platform",
-  "repo": "sir-platform",
-  "display": "SIR Platform"
- },
- "sir-obour-hub": {
-  "folder": "SIR Obour Hub",
-  "repo": "sir-obour-hub",
-  "display": "SIR Obour Hub"
+ "sir-education-hub": {
+  "folder": "SIR Education Hub",
+  "repo": "sir-education-hub",
+  "display": "SIR Education Hub"
  },
  "sir-hagoozat": {
   "folder": "SIR Hagoozat",

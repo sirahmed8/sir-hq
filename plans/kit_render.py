@@ -203,7 +203,7 @@ Four layers, dependencies inward only: presentation, domain (no I/O), data, core
 
 ## Boundaries
 - Server verifies every identity and role; clients never decide privileges. Secrets only in Cloudflare/GitHub secrets (names in `docs/ENV.md`).
-- All AI calls go through the SIR Platform `ai-proxy` (or local models for private apps) with quota and refusal tests.
+- All AI calls go through the the shared kit `ai-proxy` (or local models for private apps) with quota and refusal tests.
 - Every external webhook is HMAC-signed with the timestamp inside the payload; idempotent handlers.
 """
 

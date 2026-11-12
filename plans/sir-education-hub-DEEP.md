@@ -1,5 +1,8 @@
-# DEEP PLAN & MASTER SPEC: SIR Obour Hub
-**Project**: SIR Obour Hub (`D:/Projects/SIR Obour Hub`)  
+# DEEP PLAN & MASTER SPEC: SIR Education Hub
+
+> Renamed 2026-11-12 from SIR Obour Hub (owner direction). The vision for the new product is at the top of `plans/sir-education-hub.md`; this deep spec is merged into that plan in the next round.
+
+**Project**: SIR Education Hub (`D:/Projects/SIR Education Hub`)  
 **Mission**: Sovereign Academic Portal, Timetable Hub, GPA Simulator & Campus Community for Obour Higher Institutes  
 **Academic Integrity Invariant**: Strict learning and schedule support only. Zero quiz solving or automated grading bots.  
 **Version**: 1.0.0 (Strictly enforced)  
@@ -8,13 +11,13 @@
 ---
 
 ## 1. Executive Summary & Product Purpose
-SIR Obour Hub is a high-craft, student-centric academic companion and campus portal engineered for the student body of Obour Higher Institutes (Computer Science, Engineering, Business Administration). It provides seamless, instant access to lecture timetables, hall allocations, attendance trackers, semester GPA forecasting tools, professor announcement streams, and verified curriculum materials, completely eliminating the confusion of fragmented social media channels and outdated PDF schedules.
+SIR Education Hub is a high-craft, student-centric academic companion and campus portal engineered for the student body of Obour Higher Institutes (Computer Science, Engineering, Business Administration). It provides seamless, instant access to lecture timetables, hall allocations, attendance trackers, semester GPA forecasting tools, professor announcement streams, and verified curriculum materials, completely eliminating the confusion of fragmented social media channels and outdated PDF schedules.
 
 ---
 
 ## 2. Legacy Forensic Audit & Porting Analysis
 
-### 2.1 Existing Legacy Assets (`SIR Obour Hub/legacy/`)
+### 2.1 Existing Legacy Assets (`SIR Education Hub/legacy/`)
 - **`Obour Academic Hub`**: Next.js & Python backend prototype containing earlier institute schedule views, grading calculators, and campus news feeds.
 - **Quarantine Note**: Historical Moodle quiz auto-solvers (`ba_quiz_live_solver.py`, `academic_submission_engine.py`) were permanently quarantined inside `_quarantine/` per workspace rule 14 (never take graded work for the owner).
 
@@ -35,7 +38,7 @@ SIR Obour Hub is a high-craft, student-centric academic companion and campus por
 - **Frontend**: Next.js 14 App Router, React 18, Tailwind CSS, Dynamic Island spring navigation.
 - **Backend**: Serverless API routes (Edge runtime) + Cloudflare D1 / Turso SQLite database for timetable data.
 - **Offline / PWA**: Stale-while-revalidate Service Worker caching entire semester schedules locally.
-- **Auth**: Optional student profile sign-in (email/passkey) via `SIR Platform` owner auth, with full guest read-only access for schedules.
+- **Auth**: Optional student profile sign-in (email/passkey) via `the shared kit` owner auth, with full guest read-only access for schedules.
 
 ### 3.2 Design Identity
 - **Brand Aesthetic**: Academic Prestige & Campus Beacon. Modern, accessible, vibrant, and orderly.
@@ -54,7 +57,7 @@ SIR Obour Hub is a high-craft, student-centric academic companion and campus por
 
 ## 4. Dependencies, Cross-Project Links & Risks
 - **Provides**: Direct campus context, exam date synchronizers, and hall directories to `SIR Study`.
-- **Consumes**: Curated study guides and cram sheets from `SIR Study`; authentication and UI tokens from `SIR Platform`.
+- **Consumes**: Curated study guides and cram sheets from `SIR Study`; authentication and UI tokens from `the shared kit`.
 - **Risks**: Unannounced institute timetable revisions; student privacy protection; exam stress friction.
 
 ---
@@ -192,7 +195,7 @@ SIR Obour Hub is a high-craft, student-centric academic companion and campus por
 ## 5. Mandatory Standards 24 to 27 Architecture
 
 ### 5.1 Launch Package (Standard 24)
-- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-obour-hub`), clean backend, target domain `obourhub.com` or `sir-obour.com` (~$10.00 / ~450 EGP/yr).
+- **Identity & Domain**: Fresh dedicated repository (`sirahmed8/sir-education-hub`), clean backend, target domain `obourhub.com` or `sir-obour.com` (~$10.00 / ~450 EGP/yr).
 - **Supported Platforms & Build Commands**:
   - Web & PWA: `npm run build` (Next.js 15 App Router static export + edge functions).
   - Mobile (Android / iOS PWA): `npx cap sync && npx cap build`.
@@ -206,7 +209,7 @@ SIR Obour Hub is a high-craft, student-centric academic companion and campus por
   3. Verify: Visit `/timetable`, test search for "Hall 533", confirm schedule loads offline in Airplane mode.
 
 ### 5.2 Market-Grade Compliance (Standard 25)
-- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-obour-hub.md` with cited sources comparing against official Obour SIS portal, unofficial Telegram groups, and global platforms like Chegg/Studocu.
+- **Competitor Study**: Documented in `_SIR/plans/competitors/sir-education-hub.md` with cited sources comparing against official Obour SIS portal, unofficial Telegram groups, and global platforms like Chegg/Studocu.
 - **Regional Regulatory Compliance**: Complies with Egyptian Data Protection Law 151/2020.
 - **Privacy-First Analytics**: Opt-in anonymized telemetry measuring peak traffic hours and popular lecture notes; zero grades or personal data captured.
 - **Legal Pack with Lawyer Disclaimer**: Pre-drafted Terms of Campus Marketplace and Fair Use Notice, marked: *"AI-drafted for technical clarity; to be reviewed by a qualified Egyptian attorney before commercial launch."*

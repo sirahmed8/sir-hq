@@ -53,7 +53,7 @@ SIR Life is Ahmed Alaa's personal lifestyle operating system, mindfulness journa
 
 ## 4. Dependencies, Cross-Project Links & Risks
 - **Provides**: Daily wellness status and Pomodoro state to `SIR Laptop Manager` and `SIR Study`.
-- **Consumes**: Morning briefing automation from `SIR AI`; owner authentication from `SIR Platform`.
+- **Consumes**: Morning briefing automation from `SIR AI`; owner authentication from `the shared kit`.
 - **Risks**: Habit tracker anxiety and guilt if streaks reset too harshly; prayer time calculation drift if astronomical formulas lack Cairo survey offsets.
 
 ---

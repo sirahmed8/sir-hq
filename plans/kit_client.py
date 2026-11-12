@@ -43,11 +43,11 @@ def sanitize(s):
     )
     s = s.replace("Ahmed", "the previous maintainer")
     s = s.replace(
-        "the SIR Platform `ai-proxy` (or local models for private apps)",
+        "the the shared kit `ai-proxy` (or local models for private apps)",
         "a server-side AI proxy",
     )
-    s = re.sub(r" \((?:SIR Platform )?`[a-z-]+`\)", "", s)
-    s = s.replace("SIR Platform", "the shared kit").replace(" (module 22)", "")
+    s = re.sub(r" \((?:the shared kit )?`[a-z-]+`\)", "", s)
+    s = s.replace("the shared kit", "the shared kit").replace(" (module 22)", "")
     s = re.sub(
         r"\n- Owner/admin only from a server-verified Firebase ID token[^\n]*",
         "\n- Owner and admin checks happen only on the server.",

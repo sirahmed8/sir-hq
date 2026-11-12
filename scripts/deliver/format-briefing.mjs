@@ -33,7 +33,7 @@ const PROJECT_NAMES_AR = {
   'sir-business': 'إدارة الأعمال والمبيعات',
   'sir-hagoozat': 'منصة حجوزات الملاعب',
   'sir-negm-furniture': 'معرض نجم للأثاث',
-  'sir-obour-hub': 'بوابة معاهد العبور',
+  'sir-education-hub': 'بوابة معاهد العبور',
   'sir-content-creation-studio': 'استوديو صناعة المحتوى',
   'sir-controller': 'متحكم أداء الألعاب',
   'sir-life': 'مساعد العادات والصحة',

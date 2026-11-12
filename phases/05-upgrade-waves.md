@@ -9,7 +9,7 @@ Per project:
 3. Security first: fix every finding, then harden the project to module 04 (threat model, rules, App Check, rate limits, headers, the CI security job).
 4. Restructure to the standard layout. Rule: **rebuild instead of patching** any area that scores ≤ 2/5 in the inventory (for example broken themes, messy UI, no real architecture).
    - First write a feature-parity checklist of everything the old version does.
-   - Rebuild on the SIR Platform, verify parity, then switch over. The `pre-sir-snapshot` branch keeps the old version.
+   - Rebuild on the the shared standards kit, verify parity, then switch over. The `pre-sir-snapshot` branch keeps the old version.
    - Areas scoring 3 or more are refactored incrementally, building at every step.
    - Record an ADR either way; no need to ask.
 5. Adopt the shared packages.

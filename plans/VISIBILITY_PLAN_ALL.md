@@ -11,7 +11,7 @@ Honest limit: nobody can promise rank 1 against large companies. The realistic w
 |---|---|---|---|
 | SIR Hagoozat | حجز ملعب خماسي، حجز ملاعب كرة قدم، تأجير ملعب | احجز ملعب كورة، ملاعب قريبة مني | book a five-a-side pitch in Cairo, football pitch rental Egypt |
 | SIR Business | برنامج كاشير للسوبر ماركت، برنامج مبيعات ومخازن، برنامج كاشير مطعم | كاشير للمحلات بالجنيه | POS software for small shops Egypt (e-invoicing terms only after it is built) |
-| SIR Obour Hub | ملخصات معهد العبور، حاسبة المعدل التراكمي، جدول محاضرات | شيتات العبور | Obour institute notes, GPA calculator |
+| SIR Education Hub | ملخصات معهد العبور، حاسبة المعدل التراكمي، جدول محاضرات | شيتات العبور | Obour institute notes, GPA calculator |
 | SIR Content Creation Studio | برنامج مونتاج فيديو بالذكاء الاصطناعي، جدولة منشورات | عمل ريلز بسرعة | AI short video maker with Arabic captions |
 | SIR AI (Tier 2) | مساعد ذكاء اصطناعي محلي على الكمبيوتر | شات بوت يشتغل من غير نت | local AI assistant for Windows |
 | SIR Controller | تشغيل يد بلايستيشن على الكمبيوتر، محاكي يد إكس بوكس | يد بلايستيشن على الكمبيوتر | use a PlayStation controller on PC |
@@ -59,7 +59,7 @@ Acceptance: running it twice on a fixture file with two fake engine replies prod
 ASO per store listing prepared for the owner: title, subtitle, keywords, screenshots with captions in Arabic and English, privacy labels that match the real data use, fair rating prompts, review replies. YouTube: one channel per brand, install and how-to videos with chapters and transcripts, titles tested on click-through. Store accounts and publishing are owner steps.
 
 ## 7. Private and internal projects (noindex)
-AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room, SIR Platform docs: no listing, `robots.txt` `Disallow: /`, `meta name="robots" content="noindex, nofollow"` wherever any page is reachable, no sitemap, no `llms.txt`. SIR Life Part A is private; only Part B (public app) is listed. SIR Negm Furniture visibility belongs to the client.
+AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room, the shared kit docs: no listing, `robots.txt` `Disallow: /`, `meta name="robots" content="noindex, nofollow"` wherever any page is reachable, no sitemap, no `llms.txt`. SIR Life Part A is private; only Part B (public app) is listed. SIR Negm Furniture visibility belongs to the client.
 
 ## 8. Cadence
 Month 0: foundation (identity file, facts pages, sitemap, `llms.txt`, schema, Search Console and Bing). Months 1 to 3: one pillar page and one comparison or alternatives page per product (only with sourced competitor facts), weekly check, first honest mentions. After that: monthly content, quarterly competitor refresh, continuous mention building. The manager reports ranks, AI-answer presence and traffic weekly on Telegram.

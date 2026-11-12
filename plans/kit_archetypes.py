@@ -234,7 +234,7 @@ ARCH = {
         + ["Each package ships with negative tests; no package imports a product."],
     ),
     "web-saas": dict(
-        label="Web + PWA + mobile product on the SIR Platform",
+        label="Web + PWA + mobile product on the the shared kit",
         platforms=WEB_SAAS,
         layout=LAYOUT_WEB,
         team=TEAM_WEB,

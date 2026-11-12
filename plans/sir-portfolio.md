@@ -26,7 +26,7 @@ Not started. `.sir/CHECKPOINT.md` is still the HQ setup note dated 2026-10-30 ("
 6. Cookie banner only if analytics is added; if added it blocks the tracker until consent and has an equal-prominence Reject button. Default: use Cloudflare Web Analytics without cookies, so no banner.
 7. CSP without `unsafe-eval`, security headers file verified by `curl -I`.
 
-## 5. Shared pieces (from SIR Platform)
+## 5. Shared pieces (from the shared kit)
 `@sir/styles` and `@sir/ui` for tokens, motion and RTL; `@sir/i18n` for ar/en; `@sir/legal-pack` for privacy and cookie pages. Until they exist, use local copies in `packages/` behind the same names. Telegram weekly visibility report via the shared sender. The assistant (if built) uses `@sir/ai-proxy`.
 
 ## 6. Pages and entities

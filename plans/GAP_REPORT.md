@@ -10,13 +10,13 @@ Rewritten 2026-11-10 by the plans audit. Part A is the current list of what is s
 | SIR Jobs | "86 tests, 24 suites green" | `npm test` chain ran to the last suite, 4 of 4 passing there; no per-suite counts | save per-suite counts; proof rule for "Applied" |
 | SIR Study | "M0 to M5 closed, CI green" | one guide's button check passed (73 buttons wired); nothing else re-run | run verify and audit scripts; record CI URL |
 | SIR Life | "65/65 tests", mission in checkpoint says nothing built | 65 of 65 pass on the old `dist/`; `tsc` missing so a fresh build could not run; version is 0.1.0 (rule: 1.0.0) | install deps, rebuild, rewrite checkpoint |
-| SIR Platform | "PLAT-01..05 verified" | file-based suite 5 of 5 pass; token lint passes; no typecheck, no render test; one file is 328 lines | add typecheck and render tests |
+| the shared kit | "PLAT-01..05 verified" | file-based suite 5 of 5 pass; token lint passes; no typecheck, no render test; one file is 328 lines | add typecheck and render tests |
 | SIR Control Room | "healthy daemon" | health JSON says healthy; sender tests 6 of 6 pass; script tests could not be imported as modules | run tests as files |
 | AHome | old plan text "not started" | folder holds a large working codebase (about 300 commits claimed); not re-verified (private) | run own tests, restore drill evidence |
 | Negm Furniture | "175/175 tests" | not run (plans-only freeze since 2026-11-09, build work was done on 2026-11-08) | verify after the owner lifts the freeze |
-| Obour Hub, Hagoozat, Business, Content Studio, AI (code), ModPack, GTA mods, Controller, Portfolio | plans said "planned, not started" | confirmed: checkpoints are the 2026-10-30 setup note (AI: 2026-11-08 docs only); no product code | start with deep scans |
+| Education Hub, Hagoozat, Business, Content Studio, AI (code), ModPack, GTA mods, Controller, Portfolio | plans said "planned, not started" | confirmed: checkpoints are the 2026-10-30 setup note (AI: 2026-11-08 docs only); no product code | start with deep scans |
 
-## 2. Missing shared pieces (all plans point to SIR Platform)
+## 2. Missing shared pieces (all plans point to the shared kit)
 - Not built: `owner-auth`, `signed-webhook` (only a verifier inside `payments`), `ai-proxy`, `billing-fallback` (only a modal), `legal-pack`, `i18n`, `telegram` wrapper, `sir-kit` CLI, docs/gallery site.
 - Ordering conflict: WAVE_STUDY says Platform last; products need these first. Default (written in every plan): each product keeps an internal `packages/<name>` with the Platform name and interface; Platform tasks 1 to 5 can run any time.
 - Telegram approvals exist in `_SIR/scripts/deliver/` (`approval.py`, `send-buttons.mjs`); replay protection and expiry are not tested.
@@ -36,7 +36,7 @@ Rewritten 2026-11-10 by the plans audit. Part A is the current list of what is s
 | Domain, certificate, payment accounts | owner steps in `LAUNCH_CHECKLIST_ALL.md`; prices unsourced |
 
 ## 4. Security items found while reading (names only, no secret values)
-- SIR Obour Hub `legacy/Obour Academic Hub/` holds two Firebase admin service-account JSON files (folder is git-ignored; rotate at launch).
+- SIR Education Hub `legacy/Obour Academic Hub/` holds two Firebase admin service-account JSON files (folder is git-ignored; rotate at launch).
 - SIR Mods for GTA V legacy had tracked `.env` files and a forgeable admin cookie; about 90 third-party DLLs without licence files: hard gate in its plan.
 - AHome root holds a service-account key file; verified git-ignored (not tracked).
 - SIR Controller legacy: about 20 tracked binaries, client-side owner gate with a hard-coded email, unverified "SIR Systems LLC" name in the EULA (remove unless a real entity is confirmed).
@@ -49,7 +49,7 @@ Rewritten 2026-11-10 by the plans audit. Part A is the current list of what is s
 - Part B GAP-01 and GAP-03 use Redis; the chosen stack has none (Cloudflare KV/Durable Objects or Firestore transactions). Replace the storage in those tasks, keep the acceptance criteria.
 - Part B GAP-04 (ETA USB token) and the Business e-invoicing claims are "(unsourced, verify)" until the official specs are read.
 - Old `TASK_BACKLOG_ALL.md` appendix marks tasks DONE without evidence; treat them as claims.
-- Project `.sir/MASTER_PLAN.md` files (Obour Hub, Life) differ in scope and stack from `plans/<slug>.md`; this audit's plans win until the manager rules.
+- Project `.sir/MASTER_PLAN.md` files (Education Hub, Life) differ in scope and stack from `plans/<slug>.md`; this audit's plans win until the manager rules.
 
 ## 6. Order and ownership still undecided (defaults applied)
 - Business vs Hagoozat first within wave 5: WAVE_STUDY lists Business first; the old launch checklist put Hagoozat first. Default: follow WAVE_STUDY; Hagoozat's pitch seeding needs real owners, which can start in parallel as an owner/outreach task.

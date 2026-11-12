@@ -1,4 +1,4 @@
-# Competitor Study: SIR Obour Hub (student portal, notes vault, timetable, GPA, AI tutor)
+# Competitor Study: SIR Education Hub (student portal, notes vault, timetable, GPA, AI tutor)
 
 > AUDIT 2026-11-12 (r52 plan rewrite): every row now carries a source link and a check date where one exists. Rows still marked "(unsourced, verify)" must not be copied into public copy, store listings or comparison pages until sourced. Student complaints quoted below are paraphrased from public forum threads unless a link is given; treat unlinked quotes as illustrative.
 

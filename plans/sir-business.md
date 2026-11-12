@@ -1,4 +1,17 @@
 # PLAN: SIR Business (Wave 5, GLOBAL product, not started)
+
+## Vision (owner, 2026-11-12, `PRODUCT_DIRECTION_2026-11-12.md` section 3)
+
+SIR Business is one site with business types. A business owner signs in, chooses the kind of business, then sets up and configures everything for that business. The sectors named by the owner so far: restaurant, pharmacy, library, market, cafe, clinic, gym, salon, bakery, car service, school shop, retail and wholesale. The full sector list is still to be researched and written down in the next round.
+
+- Free trial first, then a subscription.
+- One owner can add several businesses. Each business has its own team and workers, roles and permissions.
+- Each business gets a complete management system suited to its sector: inventory, orders, staff, schedules, finance, customers and reports, all connected.
+- The company holds the data about businesses, employees and usage, with strict privacy.
+- The old modes (Restaurant, Market, Library, Pharmacy) become sector templates of this one product.
+
+## Previous plan (merge in the next round)
+
 Audited 2026-11-10. Replaces `SIR Restaurant`, `SIR Market`, `SIR Pharmacy`, `SIR Library` (all in `legacy/`, kept until M6). Public product, free starter and paid plans in EGP. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
 
 ## 1. Purpose (plain words)
@@ -30,7 +43,7 @@ Nothing from legacy may be called working.
 8. Pharmacy and controlled-drug logs append-only; this is a record keeper, not medical advice. Egyptian pharmacy rules: "(unsourced, verify)" with a pharmacist before any pharmacy launch.
 9. **Owner-only analytics page**: separate route, server-verified owner token, shows all metrics (active shops, sales volume, errors, churn). No other user sees it.
 
-## 5. Shared pieces (SIR Platform; internal packages first)
+## 5. Shared pieces (the shared kit; internal packages first)
 `owner-auth`, `signed-webhook`, `billing-fallback`, `ai-proxy`, `legal-pack`, `i18n`, `ui/styles/hooks`, Telegram sender; ESC/POS receipt builder and quarantine-style undo are candidates to move to Platform after the second consumer. Hagoozat's owner dashboard pattern is reused for the web portal. **Reuses SHARED_PLATFORM_KIT entirely; only POS/business-logic features differ.**
 
 ## 6. Screens and entities

@@ -82,7 +82,7 @@ The memory hook prints your checkpoint, the never-forget list and your last step
 | 1 | `phases/01-workstation.md` | Remote Control and the iPhone, permissions, toolchain, agents, external AI workforce, n8n, autopilot routines, the same setup in Antigravity, Codex, OpenCode and Kilo, local AI, Laptop Manager as his "Personal OS" |
 | 2 | `phases/02-ahome-and-pc.md` | AHome fixes, retire AhmedAndHabiba, PC cleanup with quarantine |
 | 3 | `phases/03-inventory-and-merge.md` | Scan and score everything, TickTick, strategy, merges, benchmark against the best apps |
-| 4 | `phases/04-platform.md` | The shared SIR Platform and one golden-path product, end to end, on the zero-cost stack |
+| 4 | `phases/04-platform.md` | The shared the shared standards kit and one golden-path product, end to end, on the zero-cost stack |
 | 5 | `phases/05-upgrade-waves.md` | Upgrade every project, 2 at a time |
 | 6 | `phases/06-new-products.md` | New products from the TickTick ideas |
 | 7 | `phases/07-launchpad.md` | Desktop launchers, Command Center, TickTick, automations |

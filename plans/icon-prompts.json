@@ -1,13 +1,7 @@
 {
- "sir-platform": {
-  "folder": "SIR Platform",
-  "display": "SIR Platform",
-  "color": "#1F6FEB",
-  "concept": "stacked geometric layers forming a solid foundation, three offset isometric slabs"
- },
- "sir-obour-hub": {
-  "folder": "SIR Obour Hub",
-  "display": "SIR Obour Hub",
+ "sir-education-hub": {
+  "folder": "SIR Education Hub",
+  "display": "SIR Education Hub",
   "color": "#0E8F6E",
   "concept": "an open book with a small graduation cap and a spark of light above it"
  },

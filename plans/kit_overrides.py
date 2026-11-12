@@ -2,7 +2,7 @@
 
 SHARED = (
     "Keep owner-auth, signed-webhook, billing fallback (Launching Soon), ai-proxy, legal pack and design tokens/UI in separate internal packages (`packages/*`) with their own tests and READMEs, "
-    "because SIR Platform is built last by extracting and unifying them; write each reusable piece into `D:/Projects/_SIR/ops/bus/sir-platform.md` when it is done"
+    "because the shared kit is built last by extracting and unifying them; write each reusable piece into `D:/Projects/_SIR/old projects/SIR Platform-plans-from-SIR/sir-platform-bus.md` when it is done"
 )
 
 
@@ -86,7 +86,7 @@ def apply(D):
     )
     # shared concerns before Platform
     for s in (
-        "sir-obour-hub",
+        "sir-education-hub",
         "sir-hagoozat",
         "sir-business",
         "sir-content-creation-studio",
@@ -97,12 +97,6 @@ def apply(D):
         "sir-controller",
     ):
         add(D, s, "M0", SHARED)
-    add(
-        D,
-        "sir-platform",
-        "M0",
-        "Built last: extract and unify, do not invent. Read every finished product's shared packages and the messages in `ops/bus/sir-platform.md`, pick the best implementation of each concern, write the public contracts, move them into `packages/*`, and migrate the finished products onto them one at a time with their tests passing",
-    )
     add(
         D,
         "sir-portfolio",

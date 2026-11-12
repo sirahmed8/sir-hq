@@ -3,7 +3,7 @@ Owner and CEO: Ahmed Alaa. Manager (acts almost as CEO): Claude in the Claude de
 
 ## 1. The model
 - One human sets direction and signs what only a human can sign (identity, payments, contracts, filings). Everything else is run by the AI company: manager, reviewer, QA, specialists (roles in `_SIR/standard/roles`), workers on Antigravity, OpenCode and Kilo, and local models for private work.
-- Products: SIR Platform (shared auth, billing fallback, AI gateway, design system), SIR AI, Content Creation Studio, Business, Hagoozat, Obour Hub, Study, Jobs, Laptop Manager, Negm Furniture, Portfolio, ModPack, Life, Controller. AHome stays private forever: never listed, never exposed, no subscriptions.
+- Products: the shared kit (shared auth, billing fallback, AI gateway, design system), SIR AI, Content Creation Studio, Business, Hagoozat, Education Hub, Study, Jobs, Laptop Manager, Negm Furniture, Portfolio, ModPack, Life, Controller. AHome stays private forever: never listed, never exposed, no subscriptions.
 - Waves decide the order (`WAVE_STUDY.md`). The CEO can reorder at any time; no project is "finished" until he says so.
 
 ## 2. Company structure (human decisions, agents prepare the paperwork)

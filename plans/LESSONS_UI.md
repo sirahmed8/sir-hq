@@ -1,6 +1,6 @@
 # LESSONS_UI: Portfolio-Wide Modern UI/UX Engineering Rules
 
-Derived from owner testing on real physical hardware (iPhone 15 Safari/PWA and Android Xiaomi). These principles apply to every product across the SIR portfolio (AHome, SIR Business, SIR Hagoozat, SIR Obour Hub, SIR Study, SIR Jobs, etc.).
+Derived from owner testing on real physical hardware (iPhone 15 Safari/PWA and Android Xiaomi). These principles apply to every product across the SIR portfolio (AHome, SIR Business, SIR Hagoozat, SIR Education Hub, SIR Study, SIR Jobs, etc.).
 
 ---
 

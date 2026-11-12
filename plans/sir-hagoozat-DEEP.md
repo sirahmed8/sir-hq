@@ -56,7 +56,7 @@ SIR Hagoozat is the definitive football community and facility management platfo
 
 ## 4. Dependencies, Cross-Project Links & Risks
 - **Provides**: Tournament and recreation community hubs to `SIR Life`.
-- **Consumes**: Owner authentication and signed webhook verification from `SIR Platform`.
+- **Consumes**: Owner authentication and signed webhook verification from `the shared kit`.
 - **Risks**: Concurrent slot contention on prime Thursday/Friday evening slots; pitch owners manually overriding online bookings without syncing.
 
 ---

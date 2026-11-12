@@ -11,7 +11,7 @@
 ```mermaid
 graph TD
     subgraph CoreFoundation["Shared Platform Foundation (Wave 7)"]
-        Platform["SIR Platform (@sir/...)"]
+        Platform["the shared kit (@sir/...)"]
         AuthLib["@sir/owner-auth"]
         HookLib["@sir/signed-webhook"]
         ProxyLib["@sir/ai-proxy"]
@@ -32,7 +32,7 @@ graph TD
     subgraph Products["Commercial & Community Applications"]
         Business["SIR Business (POS & ETA Invoicing)"]
         Hagoozat["SIR Hagoozat (Pitch Booking & Split Pay)"]
-        Obour["SIR Obour Hub (Campus Hub & Notes)"]
+        Obour["SIR Education Hub (Campus Hub & Notes)"]
         Negm["SIR Negm Furniture (3D WebGL Studio & Handoff)"]
         Life["SIR Life (Habits & Cairo Prayer)"]
         Studio["SIR Content Creation Studio (AI Subtitles)"]
@@ -63,7 +63,7 @@ graph TD
 | **SIR AI** | `:8900` | `http://127.0.0.1:8900/api/v1/ping` | HTTP / WS | Hybrid (Local + Cloud) | `AI_Models_Hub`, OpenRouter |
 | **SIR Hagoozat** | `:4000` | `http://127.0.0.1:4000/api/health` | HTTP / WS | Commercial Public | Paymob, WhatsApp Cloud API, Supabase |
 | **SIR Business** | `:4200` | `http://127.0.0.1:4200/api/v1/status`| HTTP | Commercial Public | ETA e-Invoicing, Paymob, Fawry |
-| **SIR Obour Hub** | `:4300` | `http://127.0.0.1:4300/api/health` | HTTP | Campus Community | Cloudflare R2, Supabase |
+| **SIR Education Hub** | `:4300` | `http://127.0.0.1:4300/api/health` | HTTP | Campus Community | Cloudflare R2, Supabase |
 | **SIR Negm Furniture**| `:4400` | `http://127.0.0.1:4400/api/health` | HTTP | Commercial Handoff | Three.js WebGL, Paymob, WhatsApp API |
 | **SIR Content Studio**| `:4500` | `http://127.0.0.1:4500/api/status` | HTTP / IPC | Creator SaaS | Local FFmpeg, Meta Graph API, YouTube |
 | **SIR Life** | `:4600` | `http://127.0.0.1:4600/api/health` | HTTP | Personal / Public | Cairo Prayer Calculator, Local IndexedDB |
@@ -71,7 +71,7 @@ graph TD
 | **SIR ModPack** | Desktop | IPC / Local Sockets | Local | Gaming Desktop | Fabric API, Java Runtime |
 | **SIR Mods for GTA V**| Desktop | File System Hooks | Local | Gaming Desktop | ScriptHookV, OpenIV Archive |
 | **SIR Portfolio** | `:3100` | `http://127.0.0.1:3100/api/health` | HTTP | Public Founder Showcase | Next.js App Router, GEO `llms.txt` |
-| **SIR Platform** | Monorepo | Monorepo package build | NPM / Pnpm | Shared Library | Tailwind CSS v4, Framer Motion Springs |
+| **the shared kit** | Monorepo | Monorepo package build | NPM / Pnpm | Shared Library | Tailwind CSS v4, Framer Motion Springs |
 
 ---
 

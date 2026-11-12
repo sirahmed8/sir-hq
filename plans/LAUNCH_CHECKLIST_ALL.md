@@ -16,12 +16,12 @@ Prices and fees below are not sourced: every price is "(unsourced, verify)" at t
 ## 1. Per-product steps, in the order the plans reach their gate
 For each product: (a) buy the domain, (b) add it to Cloudflare Pages (the agent prints the exact DNS records), (c) create the accounts listed, (d) paste keys into the product's `.env` (names listed), (e) run the check, (f) the agent flips the switch.
 
-### SIR Business and SIR Hagoozat and SIR Obour Hub (wave 5)
+### SIR Business and SIR Hagoozat and SIR Education Hub (wave 5)
 | Item | Candidate names | Keys to paste (names only) | Check |
 |---|---|---|---|
 | SIR Business | `sirbusiness.app` | `PAYMOB_API_KEY`, `PAYMOB_HMAC_SECRET`, `FAWRY_MERCHANT_CODE`, `FAWRY_SECURITY_KEY`, `SIGNING_CERT_PATH` (desktop installer certificate) | pricing page checkout opens in test mode; installer runs on a clean Windows VM |
 | SIR Hagoozat | `hagoozat.com` or `hagoozat.app` | `PAYMOB_API_KEY`, `PAYMOB_INTEGRATION_ID_CARD`, `PAYMOB_INTEGRATION_ID_WALLET`, `PAYMOB_HMAC_SECRET` | a 5 EGP test booking moves to Confirmed; 20 parallel booking requests give 1 booking |
-| SIR Obour Hub | `obourhub.com` or `obour-hub.app` | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, plus rotation of the old Firebase admin keys | sign in with a Google student account; a note downloads; old keys return 401 |
+| SIR Education Hub | `obourhub.com` or `obour-hub.app` | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, plus rotation of the old Firebase admin keys | sign in with a Google student account; a note downloads; old keys return 401 |
 Also: tax authority e-invoicing onboarding for Business (certificates, possibly a USB token): "(unsourced, verify)" with an accountant; classmates' written consent for any shared notes; pitch-owner agreement for Hagoozat; at least 3 real pitches before any ad.
 
 ### SIR Content Creation Studio and SIR AI Tier 2 and SIR Controller (waves 4 and 8)
@@ -40,7 +40,7 @@ Also: tax authority e-invoicing onboarding for Business (certificates, possibly 
 ### SIR Negm Furniture (friend's project; plans only until you say)
 The client creates and owns the domain, Cloudflare, Firebase and Google Business Profile accounts and pays for them; Ahmed only walks him through `HANDOFF.md`. The planned contact method is a WhatsApp click link; the WhatsApp Business API and a Paymob deposit gateway are not planned (earlier text proposed them; removed until the client asks). Check: the friend can follow `HANDOFF.md` alone.
 
-### SIR Platform
+### the shared kit
 No purchase. Internal packages; docs site stays `noindex`.
 
 ## 2. Private products (no purchases, unlisted, noindex)

@@ -30,7 +30,7 @@ Not started: a written dashboard acceptance test (every number on the page trace
 6. The dashboard page served on port 8899 binds to 127.0.0.1; phone access only through the tailnet.
 
 ## 5. Shared pieces this tool owns for everyone
-- Telegram delivery, buttons and approvals: every other plan points here (and SIR Platform later wraps the same sender). Nobody writes a second bot.
+- Telegram delivery, buttons and approvals: every other plan points here (and the shared kit later wraps the same sender). Nobody writes a second bot.
 - Status schema: every project writes `.sir/status.json` (already present in Laptop Manager and Study); the dashboard reads it. Define the schema in `docs/status-schema.md` (task 3).
 - Quota and model ledger: `ops/ACCOUNT_LEDGER.md`, `ops/MODELS.json`, `scripts/sync_quota_ledger.py`.
 

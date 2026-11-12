@@ -11,7 +11,7 @@
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **SIR Hagoozat** | `competitors/sir-hagoozat.md` | Yes Paymob/ETA | Yes Mada/ApplePay | Yes WCAG 2.2 AA | Yes Opt-in | Yes Lawyer Notice | Yes Status page |
 | **SIR Business** | `competitors/sir-business.md` | Yes ETA e-invoice | Yes ZATCA Phase 2 | Yes Full DPA | Yes Opt-in | Yes Lawyer Notice | Yes Multi-tenant |
-| **SIR Obour Hub** | `competitors/sir-obour-hub.md` | Yes Student privacy | N/A | Yes Safe storage | Yes Pseudonymous | Yes Terms of Use | Yes Rate-limiting |
+| **SIR Education Hub** | `competitors/sir-education-hub.md` | Yes Student privacy | N/A | Yes Safe storage | Yes Pseudonymous | Yes Terms of Use | Yes Rate-limiting |
 | **SIR Negm Furniture** | `competitors/sir-negm-furniture.md`| Yes Consumer Prot. | Yes GCC Shipping | Yes Export terms | Yes Privacy-first | Yes Lawyer Notice | Yes 3D fallback |
 | **SIR Content Studio** | `competitors/sir-content-creation-studio.md`| Yes Local creator | Yes Arabic LLM | Yes GDPR export | Yes Opt-in | Yes AI Disclosure | Yes Token caps |
 | **SIR AI** | `competitors/sir-ai.md` | Yes Local models | Yes Arabic tokens | Yes Local-first | Yes Zero cloud PII | Yes AI Output limit | Yes Offline sync |
@@ -24,7 +24,7 @@
 | **SIR ModPack** | `competitors/sir-modpack.md` | Yes Local mirrors | Yes Universal | Yes COPPA (age 13+)| Yes Opt-in | Yes Minecraft EULA | Yes Hash verify |
 | **SIR Mods for GTA V** | `competitors/sir-mods-for-gta-v.md`| Yes Local mirrors | Yes Universal | Yes Fair use DMCA | Yes Opt-in | Yes Rockstar EULA | Yes Safe backup |
 | **SIR Portfolio** | `competitors/sir-portfolio.md` | Yes Founder profile | Yes Regional bio | Yes Cookie banner | Yes Plausible/Umami| Yes Copyright | Yes GEO llms.txt |
-| **SIR Platform** | N/A (Shared library) | Yes Standard | Yes RTL standard | Yes A11y standard | No Library only | Yes MIT / Proprietary| Yes Test suite |
+| **the shared kit** | N/A (Shared library) | Yes Standard | Yes RTL standard | Yes A11y standard | No Library only | Yes MIT / Proprietary| Yes Test suite |
 | **_SIR** | N/A (HQ Control Room) | Yes Ops truth | N/A | N/A | No Internal only | N/A | Yes Telegram bot |
 
 ---
@@ -61,7 +61,7 @@
 
 ## 3. Privacy-First Opt-In Analytics Architecture
 
-For all public commercial products (Hagoozat, Business, Obour Hub, Studio, Controller, Life):
+For all public commercial products (Hagoozat, Business, Education Hub, Studio, Controller, Life):
 1. **Zero Tracking by Default**: No telemetry beacons send data until the user confirms on the privacy banner.
 2. **Pseudonymous UUID**: User IDs are hashed with a daily salt; no real IP addresses, phone numbers, or email addresses in telemetry payloads.
 3. **Excluded Telemetry**:

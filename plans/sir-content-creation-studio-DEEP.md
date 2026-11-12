@@ -54,7 +54,7 @@ SIR Content Creation Studio is an autonomous programmatic video generation studi
 
 ## 4. Dependencies, Cross-Project Links & Risks
 - **Provides**: Automated promotional video and release changelog clips to `SIR Portfolio` and `SIR Jobs`.
-- **Consumes**: Speech synthesis from `SIR AI`; media storage and auth from `SIR Platform`.
+- **Consumes**: Speech synthesis from `SIR AI`; media storage and auth from `the shared kit`.
 - **Risks**: Social media API rate limits and shadow-bans if posting frequency is too aggressive; NVENC GPU rendering contention during gaming.
 
 ---

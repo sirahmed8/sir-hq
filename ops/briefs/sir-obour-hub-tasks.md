@@ -1,6 +1,6 @@
-# SIR Obour Hub - first 10 tasks for free agents (r52, 2026-11-12)
+# SIR Education Hub - first 10 tasks for free agents (r52, 2026-11-12)
 
-Queue-ready. Each task is under ~2 hours, commits and pushes to `main` in `D:/Projects/SIR Obour Hub` when its done-when passes. Product folder: `D:/Projects/SIR Obour Hub`. Product rules: read `AGENTS.md`, `.sir/PLAN.md`, `.sir/CHECKPOINT.md`, `D:/Projects/_SIR/plans/sir-obour-hub.md` first. Never touch `D:/Projects/AHome`, never open AHome/Habiba material, never port `solve_*` graded-work code, version stays 1.0.0, no placeholders, no fake data, five states on every view, Arabic RTL + English.
+Queue-ready. Each task is under ~2 hours, commits and pushes to `main` in `D:/Projects/SIR Education Hub` when its done-when passes. Product folder: `D:/Projects/SIR Education Hub`. Product rules: read `AGENTS.md`, `.sir/PLAN.md`, `.sir/CHECKPOINT.md`, `D:/Projects/_SIR/plans/sir-education-hub.md` first. Never touch `D:/Projects/AHome`, never open AHome/Habiba material, never port `solve_*` graded-work code, version stays 1.0.0, no placeholders, no fake data, five states on every view, Arabic RTL + English.
 
 ## T1 - Deep scan of legacy and plan upgrade
 Read every file under `legacy/Obour Academic Hub/` (344 TS/TSX files, ~62k lines) and `ops/inventory/Obour-Academic-Hub.md`. Write `.sir/reports/deep-scan.md`: every page and feature with a verdict (port / drop / rewrite), the data model to keep (subjects, exams, sections, questions), and the list of files that must never be ported (solve modes, fake fallbacks, credential scripts). Done-when: the report lists each of the 12+ pages with a verdict and names every file containing keys or graded-work logic (names only, no secret values).

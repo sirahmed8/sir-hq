@@ -3,54 +3,7 @@
 from kit_platforms import R, O, S
 
 A = {
-    "sir-platform": dict(
-        arch="platform-kit",
-        personality="precise, quiet, dependable",
-        signature="the `sir-kit` CLI scaffolds a new product folder, CI and tokens in one command",
-        modules=[
-            "owner-auth: verify Firebase ID tokens via JWKS (jose), OWNER_EMAILS/OWNER_UIDS, email_verified, fail closed",
-            "signed-webhook: HMAC over raw body with timestamp inside the payload, timing-safe, idempotent activation",
-            "ai-proxy: provider chain (on-device, gemini-free, groq, cerebras, workers-ai, openrouter-free), per-user quota, owner unmetered, refusal hooks",
-            "billing: gateway adapters (Paymob, Fawry, Stripe, LemonSqueezy) with the 'Subscriptions Launching Soon' fallback and email capture",
-            "legal: pack generated from a product's real data map (privacy, terms, cookies, refunds, DPA, sub-processors)",
-            "tokens + ui: palettes from a seed colour (light, dark, high-contrast), components, 5-state primitives, motion springs",
-            "i18n + settings: ICU messages, ar/en/zh-Hans/hi, shared Profile/Settings/Onboarding/Consent screens",
-            "project-kit: `sir-kit` CLI, CI template, verify script, evidence and checkpoint helpers",
-        ],
-        entities={
-            "ProductConfig": "id, slug, seedColor, locales, platforms, ownerEmails",
-            "QuotaLedger": "uid, day, used, limit, ownerBypass",
-            "WebhookEvent": "id, provider, receivedAt, signatureOk, processedAt",
-        },
-        compete=[
-            "shadcn/ui and Radix (component patterns)",
-            "Supabase/Clerk (auth ergonomics)",
-            "Vercel AI SDK (provider routing)",
-        ],
-        adrs=[
-            "Monorepo tooling (pnpm workspaces + Turborepo?)",
-            "How products consume the kit (private registry vs git workspace)",
-            "Token format (CSS variables + JSON, Style Dictionary or own)",
-        ],
-        tasks={
-            "M0": [
-                "Create the workspace, `pnpm verify`, CI, gitleaks, licence audit job",
-                "Write `docs/CONTRACTS.md`: public API of every package before coding",
-            ],
-            "M1": [
-                "owner-auth with a forged-token test suite",
-                "signed-webhook with replay and tamper tests",
-                "tokens + ui kit with Storybook-style gallery used for screenshots",
-            ],
-            "M2": [
-                "ai-proxy with eval harness",
-                "billing fallback and email capture",
-                "legal pack generator",
-                "`sir-kit init` scaffolds a product that passes `verify`",
-            ],
-        },
-    ),
-    "sir-obour-hub": dict(
+    "sir-education-hub": dict(
         arch="web-saas",
         personality="focused, encouraging, exam-season calm",
         signature="a 'today plan' card that turns the next exam date into a countdown ring and a three-step study path",

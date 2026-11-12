@@ -13,9 +13,9 @@ from products import PRODUCTS  # noqa: E402
 
 PROJECTS = "D:/Projects"
 
-COMMON_SECURITY = """- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (SIR Platform `owner-auth`).
-- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (SIR Platform `signed-webhook`).
-- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (SIR Platform `ai-proxy`).
+COMMON_SECURITY = """- Owner/admin only from a server-verified Firebase ID token (JWKS) plus OWNER_EMAILS / OWNER_UIDS; email path needs email_verified; fail closed when unset (the shared kit `owner-auth`).
+- Every webhook: HMAC over the raw body with the timestamp inside the signed payload, timing-safe compare, idempotent activation (the shared kit `signed-webhook`).
+- No AI key, token or secret in any client bundle or git; AI only through the server proxy with per-user quota; owner unmetered (the shared kit `ai-proxy`).
 - Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary.
 - Firestore/D1 rules deny by default, per-user/per-tenant claims, tested in the emulator. CSP with nonces, no unsafe-eval.
 - gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code)."""
@@ -35,7 +35,7 @@ MILESTONES = """### M0 Foundations
 ### M3 Security, legal, billing
 - [ ] Security checklist above is green with tests (forged cookie, unsigned webhook, unverified email, cross-tenant read all fail).
 - [ ] Legal pack generated from what the product really collects; cookie banner with equal Reject; account and data deletion flow.
-- [ ] Billing via SIR Platform with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
+- [ ] Billing via the shared kit with the "Subscriptions Launching Soon" fallback and email capture; activates when gateway keys are added.
 ### M4 AI
 {m4}
 ### M5 Quality sweep
@@ -109,7 +109,7 @@ MERGE = {
         "antigravity-agent-suite",
         "Laptop manager (moves in when replaced)",
     ],
-    "sir-obour-hub": ["Obour Academic Hub"],
+    "sir-education-hub": ["Obour Academic Hub"],
     "sir-study": ["materials/obour-year2-term1 (the old Obour Institute study folder)"],
     "sir-negm-furniture": ["Negm Furniture"],
     "sir-content-creation-studio": ["SIR Content Creation Studio (v1)"],

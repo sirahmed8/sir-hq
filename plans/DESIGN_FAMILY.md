@@ -63,7 +63,7 @@ All animation throughout the SIR portfolio adheres to the **Dynamic Island** phy
 | **SIR AI** | Cyber Violet / Electric Cyan | `#7C3AED` / `#06B6D4` | Obsidian Space | Frontier intelligence, crystalline, fluid cognition |
 | **SIR Hagoozat** | Pitch Turf Emerald / Lime | `#10B981` / `#84CC16` | Pitch Charcoal | Athletic, pulse-raising, immediate, outdoor turf |
 | **SIR Business** | Commercial Sapphire / Mint | `#2563EB` / `#10B981` | Clean Ledger Slate | High-trust, ultra-fast transaction, cashier tactile |
-| **SIR Obour Hub** | Academic Navy / Coral Sunset| `#1E3A8A` / `#F97316` | Campus Slate | Vibrant, youthful, campus community, collegiate |
+| **SIR Education Hub** | Academic Navy / Coral Sunset| `#1E3A8A` / `#F97316` | Campus Slate | Vibrant, youthful, campus community, collegiate |
 | **SIR Negm Furniture**| Artisan Bronze / Warm Sand | `#D97706` / `#F59E0B` | Deep Charcoal Obsidian| Luxury Artisanal Atelier, bespoke craftsmanship, 3D |
 | **SIR Content Studio**| Creator Crimson / Neon Pink| `#DC2626` / `#EC4899` | Dark Studio Matte | High-impact, viral, cinematic timeline editor |
 | **SIR Controller** | Cyber Neon Green / Steel | `#16A34A` / `#64748B` | Hard Anodized Alloy | Low-latency, esports weapon, mechanical precision |
@@ -71,7 +71,7 @@ All animation throughout the SIR portfolio adheres to the **Dynamic Island** phy
 | **SIR Mods for GTA V** | Sunburst Orange / Slate | `#EA580C` / `#475569` | High-Contrast Dark | High-octane action, safe mod sandbox |
 | **SIR Life** | Sage Green / Calming Teal | `#0D9488` / `#14B8A6` | Clean Ceramic Dark | Mindful serenity, healthy habits, spiritual focus |
 | **SIR Portfolio** | Founder Platinum / Sapphire| `#2563EB` / `#94A3B8` | Architectural Dark | Executive authority, verifiable truth, GEO engine |
-| **SIR Platform** | Monorepo Neutral / Indigo | `#6366F1` / `#64748B` | System Foundry | Universal parent tokens, high-performance base |
+| **the shared kit** | Monorepo Neutral / Indigo | `#6366F1` / `#64748B` | System Foundry | Universal parent tokens, high-performance base |
 | **_SIR** | Command Azure / Emerald | `#0284C7` / `#10B981` | Mission Control | Real-time operations truth, autonomous oversight |
 
 ---

@@ -31,7 +31,7 @@ Not started: the app-style screens in the old plan (Courses, Calendar with deadl
 
 ## 5. Shared pieces
 - Telegram sender: `scripts/deliver/send-telegram.mjs` (shared). Do not build another.
-- AI: local models through `_SIR/scripts/ai/ask.ps1` private mode. No SIR Platform ai-proxy needed.
+- AI: local models through `_SIR/scripts/ai/ask.ps1` private mode. No the shared kit ai-proxy needed.
 - Design family: share look with Jobs and Laptop Manager until Platform extracts tokens (last wave).
 - Auth/billing/legal: not needed.
 

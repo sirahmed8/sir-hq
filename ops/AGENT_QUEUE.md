@@ -17,8 +17,8 @@ The dashboard shows only the "Now" section under "Agents are on it". The chat th
 - [ ] SIR Content Creation Studio: ByteVibeHQ media pipeline integration, social video rendering templates.
 - [ ] SIR Business: Monorepo core architecture unifying Restaurant, Market, Pharmacy, and Library.
 - [ ] SIR Hagoozat: Hagoozat Elite core integration absorbing 11Players, EGFootball5, and Merged sites.
-- [ ] SIR Obour Hub: Golden path production build, institute key rotation on release.
+- [ ] SIR Education Hub: Golden path production build, institute key rotation on release.
 - [ ] SIR ModPack & SIR Mods for GTA V: Harden admin auth secret keys, review redistribute DLL licenses.
-- [ ] SIR Platform: Shared kit extraction from completed products (auth, billing Coming Soon fallback, legal pack).
+- [ ] the shared kit: Shared kit extraction from completed products (auth, billing Coming Soon fallback, legal pack).
 - [ ] SIR Portfolio: Personal site showcase built from verified shippable products.
 - [ ] Every project chat: deep scan first, plan 100x better, Desktop start and stop shortcuts working.

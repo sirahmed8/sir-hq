@@ -17,7 +17,7 @@ Run up to 3 agents at once and keep the queue full across projects, not only AHo
 
 ## 2. SIR Jobs: earn money
 - Use the main browser (Ahmed is signed in almost everywhere) and computer use to find real, paid, legitimate work: freelance platforms and remote job boards that fit his skills (web and app development, AI automation, Arabic/English content, design systems), plus local Egyptian options. Shortlist with an honest fit score, draft tailored proposals and applications from his real CV/portfolio, never invent experience, never apply or message as him without his rule allowing it: preparing and submitting through the platforms he is already signed in to is allowed; anything that speaks to a person live or involves payment or identity checks goes to OWNER_ACTIONS.md.
-- Also create products that earn: the manager picks the fastest legal route (sell a service package, templates, a small SaaS from SIR Platform with Launching Soon billing) and plans it with the Company blueprint (`plans/SIR_COMPANY_BLUEPRINT.md`).
+- Also create products that earn: the manager picks the fastest legal route (sell a service package, templates, a small SaaS from the shared kit with Launching Soon billing) and plans it with the Company blueprint (`plans/SIR_COMPANY_BLUEPRINT.md`).
 - Track outcomes (applications sent, replies, income in EGP) in Jobs' own checkpoint; honest numbers only.
 
 ## 3. Browser and computer use (cheap way)

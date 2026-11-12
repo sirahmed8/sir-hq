@@ -1,13 +1,29 @@
-# PLAN: SIR Obour Hub
-Version 1.0.0. Rewritten 2026-11-12 (r52). Replaces the old 89-line plan; keeps what is still true (names, security rules, legacy facts, AI-tutor integrity rules). Supersedes stack notes that said Cloudflare Pages or D1: the standing owner rule (OWNER_DEFAULTS item 2, WORKER_PREAMBLE item 15) requires Firebase Hosting AND Vercel dual hosting, and rule 13 requires its own Firebase project `sir-obour-hub`. Decisions recorded in section 5.
+# PLAN: SIR Education Hub
+
+Version 1.0.0. Renamed from SIR Obour Hub on 2026-11-12 by owner direction (`plans/PRODUCT_DIRECTION_2026-11-12.md`, section 2). The old plan is kept below under "Previous plan"; the next round merges both into one bigger plan.
+
+## Vision (owner, 2026-11-12)
+
+A single education platform for the world, not one institute. Anyone can create their own Hub: a university, an institute, a school, a training center, a teacher's group or another educational organization. Each Hub has its own members, roles, courses, schedules, materials, quizzes and practice, chats, announcements, billing and settings. People join the Hubs they belong to and get every feature there.
+
+- Obour Institute is the first Hub: the owner's own, with the current Obour features.
+- The product absorbs the older ideas: study help, language learning and the teaching platform.
+- Platforms: web, Android, iOS, Windows and the other platforms, with one account everywhere.
+- Money: a free trial for each Hub, then a subscription priced fairly in EGP and USD, with a free tier for students.
+- Data: multi-tenant from the first line of code. Owner-only analytics page.
+- Next round: merge the old Obour plan below with this vision into one plan (milestones M0 to M6, acceptance tests, first 10 tasks for the agents).
+
+## Previous plan (merge into the new one in the next round)
+
+Version 1.0.0. Rewritten 2026-11-12 (r52). Replaces the old 89-line plan; keeps what is still true (names, security rules, legacy facts, AI-tutor integrity rules). Supersedes stack notes that said Cloudflare Pages or D1: the standing owner rule (OWNER_DEFAULTS item 2, WORKER_PREAMBLE item 15) requires Firebase Hosting AND Vercel dual hosting, and rule 13 requires its own Firebase project `sir-education-hub`. Decisions recorded in section 5.
 
 ## 1. Who it is for and the promise
 Students of Obour Higher Institutes (Management & Informatics, Engineering & Technology) and, later, other Egyptian institutes. First users: Ahmed's classmates. Global: any student anywhere can use the same tools for their own curriculum.
 
-**One-sentence promise (sell the end state):** Open SIR Obour Hub on any device and in one minute you know today's lectures and halls, the exact grade you need for your target GPA, and you have every course's notes, past exams and a tutor that explains instead of doing your graded work for you.
+**One-sentence promise (sell the end state):** Open SIR Education Hub on any device and in one minute you know today's lectures and halls, the exact grade you need for your target GPA, and you have every course's notes, past exams and a tutor that explains instead of doing your graded work for you.
 
 ## 2. Competitors
-Full study with sources: `ops/competitors/sir-obour-hub.md` (10 competitors: official MyU portal, official Moodle, OUST portal, Facebook/Telegram groups, Course Hero, Studocu, Chegg, Quizlet, Keep/Notion setups, campus book market). Headline: the real competition is scattered chat groups plus a legacy portal; the global note marketplaces are USD-priced and curriculum-generic. Our edge: Obour-specific timetable/GPA/attendance tools, a free-first curated vault, Arabic-first UX, and an integrity-first tutor.
+Full study with sources: `ops/competitors/sir-education-hub.md` (10 competitors: official MyU portal, official Moodle, OUST portal, Facebook/Telegram groups, Course Hero, Studocu, Chegg, Quizlet, Keep/Notion setups, campus book market). Headline: the real competition is scattered chat groups plus a legacy portal; the global note marketplaces are USD-priced and curriculum-generic. Our edge: Obour-specific timetable/GPA/attendance tools, a free-first curated vault, Arabic-first UX, and an integrity-first tutor.
 
 ## 3. Features
 **On par with best-in-category:**
@@ -46,8 +62,8 @@ Full study with sources: `ops/competitors/sir-obour-hub.md` (10 competitors: off
 | Browser extension | skip | no use case |
 
 ## 5. Architecture (on the shared kit, `plans/SHARED_PLATFORM_KIT.md`)
-- **App**: Next.js (App Router) + TypeScript + Tailwind v4 tokens, deployed identically to **Firebase Hosting** and **Vercel** (Vercel imports the GitHub repo via Vercel CLI; same build, same env vars on both; both curl-checked per rule 15). Repo `sirahmed8/sir-obour-hub` (private). App version stays 1.0.0.
-- **Backend**: Firebase project `sir-obour-hub` (own project per rule 13): Auth (Google sign-in, JWKS-verified ID token on server), Firestore (deny-by-default rules, emulator-tested), Firebase Storage for notes files, App Check where available. Decision recorded: older drafts mentioned Cloudflare Pages/D1/R2; superseded by the dual-host and own-Firebase rules. R2 remains a documented scale alternative behind an ADR if Storage egress costs bite.
+- **App**: Next.js (App Router) + TypeScript + Tailwind v4 tokens, deployed identically to **Firebase Hosting** and **Vercel** (Vercel imports the GitHub repo via Vercel CLI; same build, same env vars on both; both curl-checked per rule 15). Repo `sirahmed8/sir-education-hub` (private). App version stays 1.0.0.
+- **Backend**: Firebase project `sir-education-hub` (own project per rule 13): Auth (Google sign-in, JWKS-verified ID token on server), Firestore (deny-by-default rules, emulator-tested), Firebase Storage for notes files, App Check where available. Decision recorded: older drafts mentioned Cloudflare Pages/D1/R2; superseded by the dual-host and own-Firebase rules. R2 remains a documented scale alternative behind an ADR if Storage egress costs bite.
 - **Accounts**: `owner-auth` package pattern - server-verified token, `OWNER_EMAILS`/`OWNER_UIDS` allow-list, email_verified, fail closed; HttpOnly+Secure+SameSite=Strict session cookie; rate limits on auth and AI; no localStorage tokens.
 - **Owner-only analytics page**: `/owner` route, server-verified owner token only, real metrics (users, AI cost, subscriptions, errors, content counts). Non-owner gets 403.
 - **AI**: `ai-proxy` with the standing fallback chain (Gemini flash-lite -> flash -> any Gemini -> OpenRouter free -> other free -> local), per-project keys, `AI_ENABLED` kill switch, daily cost cap in `config/limits.json`, free users 5 questions per rolling 24h with quota badge, owner unmetered. Tutor is grounded in uploaded notes + `docs/help/*.md`; refuses graded work; eval set of 30 Arabic+English prompts must pass 100% refusal before launch.
@@ -74,7 +90,7 @@ Full study with sources: `ops/competitors/sir-obour-hub.md` (10 competitors: off
 ## 8. Milestones M0-M6 (acceptance tests)
 | Milestone | Scope | Acceptance test |
 |---|---|---|
-| **M0 Foundations + Desktop kit** | Repo scaffold (exists), `.sir/` kit (exists), Firebase project `sir-obour-hub` + Vercel import, CI green, **recreate the Desktop folder kit from scratch** (`folder.ico`, SIR Projects shortcuts, Versions.txt 1.0.0) | `npm run build` exit 0; `/api/health` 200; `gh run list` green or local verify pasted (CI quota flag rule); Desktop folder exists with real shortcuts and folder.ico; sign-in brand check screenshot shows no Firebase project id |
+| **M0 Foundations + Desktop kit** | Repo scaffold (exists), `.sir/` kit (exists), Firebase project `sir-education-hub` + Vercel import, CI green, **recreate the Desktop folder kit from scratch** (`folder.ico`, SIR Projects shortcuts, Versions.txt 1.0.0) | `npm run build` exit 0; `/api/health` 200; `gh run list` green or local verify pasted (CI quota flag rule); Desktop folder exists with real shortcuts and folder.ico; sign-in brand check screenshot shows no Firebase project id |
 | **M1 Core slice** | Google sign-in, subject list, note viewer, quiz runner with persisted attempts; deploy to both hosts | Sign in -> subject -> note -> quiz attempt saved in Firestore (emulator e2e); both Firebase and Vercel URLs curl 200 |
 | **M2 Content parity** | Import script `--dry-run` for legacy Firestore data; timetable + GPA simulator + hall directory from DEEP plan OH-101..105 | Dry run prints counts matching legacy; timetable query <5ms; GPA calculator computes required grades correctly on test vectors |
 | **M3 Security, legal, billing, owner page** | Deny-by-default rules + emulator tests, forged-token 403, billing fallback, legal pages, `/owner` analytics | Forged token 403 in CI; `/owner` 403 for non-owner; pricing shows "Subscriptions launching soon" + lead capture creates one Firestore doc |
@@ -83,7 +99,7 @@ Full study with sources: `ops/competitors/sir-obour-hub.md` (10 competitors: off
 | **M6 Mobile + release** | Capacitor Android/iOS builds, widgets, domain + dual-host cutover, legacy keys rotated, `legacy/` moved to old projects per merge record | APK installs and signs in on a real device; both hosts serve the domain; old Firebase admin keys rotated; checkpoint records both live URLs |
 
 ## 9. First 10 tasks for free agents
-Written and queue-ready in `ops/briefs/sir-obour-hub-tasks.md` (T1-T10: deep scan, secrets report, scaffold, Firestore rules, auth, notes viewer five states, import dry-run, tutor eval, pricing fallback, CI).
+Written and queue-ready in `ops/briefs/sir-education-hub-tasks.md` (T1-T10: deep scan, secrets report, scaffold, Firestore rules, auth, notes viewer five states, import dry-run, tutor eval, pricing fallback, CI).
 
 ## 10. Risks and open questions (defaults)
 - Content rights: only notes classmates own and agree to publish; takedown form + upload agreement; default conservative.
@@ -93,4 +109,4 @@ Written and queue-ready in `ops/briefs/sir-obour-hub-tasks.md` (T1-T10: deep sca
 - Result-day traffic spikes: static/edge-cached public pages (timetable, hall directory, grade-lookup-free design) so the portal stays up when the official SIS falls over.
 
 ## 11. Only the owner can do
-Buy the domain; create/confirm Firebase project `sir-obour-hub` sign-in and OAuth consent screen; create Paymob/Fawry accounts and paste keys into `.env` (never git); rotate the two legacy Firebase admin keys found in `legacy/Obour Academic Hub/`; consent from classmates contributing notes; lawyer review before paid launch; Search Console/Bing sign-in; Apple Developer account when iOS store submission is wanted.
+Buy the domain; create/confirm Firebase project `sir-education-hub` sign-in and OAuth consent screen; create Paymob/Fawry accounts and paste keys into `.env` (never git); rotate the two legacy Firebase admin keys found in `legacy/Obour Academic Hub/`; consent from classmates contributing notes; lawyer review before paid launch; Search Console/Bing sign-in; Apple Developer account when iOS store submission is wanted.

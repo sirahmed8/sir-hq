@@ -20,5 +20,5 @@ Program: every product is rebuilt as a new SIR project. Rules and order: `plans/
 ## Next for HQ
 1. Keep the autopilot queue moving; review each finished report (diff, tests, one on-screen check of the riskiest change) and push or write a fix brief.
 2. Before 2026-11-23: finish the successor files (`GEMINI.md`, `plans/INSTRUCTIONS_FOR_MANAGER.md`, `plans/MANAGER_MEMORY.md`) and test them by starting one fresh Antigravity chat that must continue from the checkpoint alone.
-3. Open gaps (owner-side, never blocking): key rotation for the Obour Institutes keys when SIR Obour Hub ships; `ADMIN_SECRET_KEY` at the GTA deploy; legal truthful-claims sweep; publisher identity, domains, store accounts and payment keys (the owner buys them; see `ops/OWNER_ACTIONS.md`).
+3. Open gaps (owner-side, never blocking): key rotation for the Obour Institutes keys when SIR Education Hub ships; `ADMIN_SECRET_KEY` at the GTA deploy; legal truthful-claims sweep; publisher identity, domains, store accounts and payment keys (the owner buys them; see `ops/OWNER_ACTIONS.md`).
 4. Per product the project chat owns: port from `legacy\` (inventories in `ops/inventory/`), build, deploy, push to `main`; at M6 move `legacy\*` to `old projects\`. Never delete `legacy\` before M6.

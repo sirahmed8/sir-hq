@@ -9,7 +9,7 @@ B = {
         signature="a voice orb that reacts to your speech level and morphs into the answer card",
         modules=[
             "core: Python agent loop, tool use, memory (local), safety rules",
-            "gateway: provider chain extracted into the SIR Platform ai-proxy (this app is its reference client)",
+            "gateway: provider chain extracted into the the shared kit ai-proxy (this app is its reference client)",
             "voice: STT/TTS local first (whisper, piper/Kokoro-class), wake word optional",
             "vision: screen and image understanding with consent prompts",
             "shell: Windows tray app + local web UI (127.0.0.1)",

@@ -1,4 +1,5 @@
-# SHARED PLATFORM KIT (what every GLOBAL product reuses)
+# SHARED STANDARDS KIT (what every product reuses; not a product)
+Owner decision 2026-11-12 (`PRODUCT_DIRECTION_2026-11-12.md`, section 1): SIR Platform is cancelled as a project. This file is the shared standards kit: rules, patterns and reusable packages that every product follows. Every product ships on all platforms: web, Windows, macOS, Linux, Android and iOS.
 Version: 1.0.0 (living document, updated when a reusable piece is hardened in any product).
 One fix reaches all products. Each product builds these as internal `packages/*` first with the Platform names and interfaces, then swaps to `@sir/*` when Platform extracts them (Wave 7). PERSONAL products (SIR Jobs, SIR Study, SIR Laptop Manager, SIR Life Part A, SIR AI Tier 1) use design tokens, motion, i18n, legal-pack patterns only; no auth/billing/ai-proxy needed for single-owner loopback.
 

@@ -22,13 +22,13 @@ WAVES = [
     (
         5,
         "Products that earn the most",
-        ["sir-business", "sir-hagoozat", "sir-obour-hub"],
+        ["sir-business", "sir-hagoozat", "sir-education-hub"],
     ),
     (6, "Other paying products", ["sir-modpack", "sir-mods-for-gta-v", "sir-life"]),
     (
         7,
         "Last on purpose: extract and polish after everything else is built",
-        ["sir-platform", "sir-portfolio"],
+        ["sir-portfolio"],
     ),
     (8, "Optional, last (derived from x360ce, not Ahmed's own)", ["sir-controller"]),
 ]
@@ -64,8 +64,8 @@ def main():
         "## Decisions behind it",
         "- AHome first (his pick). Then the automations that save him time: SIR Study, SIR Jobs, SIR Laptop Manager (not sites or apps, so no platform kit needed).",
         "- SIR Negm Furniture belongs to a friend: HQ prepares a complete handoff pack in the project repo (docs, plan, a prompt for the friend's own AI agent); no GitHub, Firebase or Cloudflare accounts are created for it by Ahmed.",
-        "- SIR AI and SIR Content Creation Studio next, then the products expected to earn the most (Business, Hagoozat, Obour Hub), then the other paying ones.",
-        "- SIR Platform and SIR Portfolio are last on purpose. Each product keeps its shared concerns (owner auth, signed webhooks, billing fallback, AI proxy, legal pack, tokens and UI) in separate internal packages with tests; SIR Platform is then built by extracting and unifying the best versions, and SIR Portfolio shows the real finished products.",
+        "- SIR AI and SIR Content Creation Studio next, then the products expected to earn the most (Business, Hagoozat, Education Hub), then the other paying ones.",
+        "- the shared kit and SIR Portfolio are last on purpose. Each product keeps its shared concerns (owner auth, signed webhooks, billing fallback, AI proxy, legal pack, tokens and UI) in separate internal packages with tests; the shared kit is then built by extracting and unifying the best versions, and SIR Portfolio shows the real finished products.",
         "- SIR Controller derives from x360ce (not Ahmed's own work): optional, last.",
         "- Removed: " + "; ".join(f"{k}: {v}" for k, v in REMOVED.items()),
         "",

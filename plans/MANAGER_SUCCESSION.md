@@ -85,7 +85,7 @@ When the current manager (Claude HQ) is replaced or a new chat takes over, the n
 - **Checkpoint format** (in `HQ_CHECKPOINT.md` and every `.sir/CHECKPOINT.md`):
   ```
   Now: <what was just finished, with evidence>
-  Next step: <exact command or task, e.g., "Run task 3 in sir-obour-hub/.sir/TASKS.md">
+  Next step: <exact command or task, e.g., "Run task 3 in sir-education-hub/.sir/TASKS.md">
   Open promises: <list of things promised but not done, with owner/action>
   Re-read list: <files to re-read before next step>
   ```

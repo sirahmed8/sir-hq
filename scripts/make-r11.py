@@ -56,7 +56,7 @@ PLANNER = (
     "feature list with state (verified today or not), gaps, and the NEXT 25 TASKS each with files, steps and acceptance checks, ordered by value. "
     "STEP 3, ALL OTHER PROJECTS AND LEGACY: walk every other folder in D:/Projects (SIR AI, SIR Negm Furniture is frozen: plan only, no work, "
     "Obour Academic Hub, Hagoozat and its legacy, 11Players, EGFootball5, Business apps, Content Creation Studio, Controller, Optimizer, ModPack, "
-    "GTA mods, Odysseus, Life, Portfolio, SIR Platform, every legacy/ folder and old projects). Never delete or move anything. For each project "
+    "GTA mods, Odysseus, Life, Portfolio, the shared kit, every legacy/ folder and old projects). Never delete or move anything. For each project "
     "write plans/<slug>-DEEP.md (or its .sir/MASTER_PLAN.md): what it is, what exists in legacy, what is valuable to port, what is missing, what "
     "OTHER projects need from it or can reuse, dependencies and links between projects, risks, and the first 25 tasks in detail. Also write "
     "plans/PORTFOLIO_LINKS.md: a map of what connects to what and what shared packages or services should exist. "

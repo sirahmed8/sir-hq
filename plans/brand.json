@@ -1,15 +1,9 @@
 {
- "sir-platform": {
-  "color": "#1F6FEB",
-  "mono": "SP",
-  "folder": "SIR Platform",
-  "display": "SIR Platform"
- },
- "sir-obour-hub": {
+ "sir-education-hub": {
   "color": "#0E8F6E",
   "mono": "OH",
-  "folder": "SIR Obour Hub",
-  "display": "SIR Obour Hub"
+  "folder": "SIR Education Hub",
+  "display": "SIR Education Hub"
  },
  "sir-hagoozat": {
   "color": "#16A34A",

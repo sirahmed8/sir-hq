@@ -1,4 +1,4 @@
-# Competitor Study: SIR Obour Hub (Academic Campus Community & Services)
+# Competitor Study: SIR Education Hub (Academic Campus Community & Services)
 
 > AUDIT 2026-11-10 (plans audit): this file has no source links. Every price, market share, user count, feature claim, quoted review and complaint quote below is "(unsourced, verify)" until it has a link and a date. Do not copy anything from here into public copy, store listings, legal pages or comparison pages. Quoted reviews could not be traced to a real page: treat them as illustrative, not as evidence. Sourcing tasks are at the end of this file.
 **Date of Research**: 2026-11-09  
@@ -24,7 +24,7 @@
 
 ---
 
-## 3. "We Do Better" Advantage Map (SIR Obour Hub Superiority)
+## 3. "We Do Better" Advantage Map (SIR Education Hub Superiority)
 
 1. **High-Availability Resilient Exam & Grade Mirror**: Static edge-cached grade mirror capable of serving 20,000 students simultaneously with zero server downtime.
 2. **Curated Course Vault (R2 Powered)**: Organized by Academic Year -> Department (CS, Civil, Architecture, Business) -> Subject -> Doctor. 1-click download of verified lecture summaries and past exam sheets.

@@ -12,7 +12,7 @@ HQ is the manager: it prepares, it does not build. Ahmed opens one chat per proj
 - A private GitHub repo `sirahmed8/<repo>` with `origin` set and the kit pushed to `main`. No pull requests.
 
 ## Archetypes (data in `plans/kit_archetypes.py`, `kit_platforms.py`; per-product data in `kit_products_a.py`, `kit_products_b.py`)
-platform-kit (SIR Platform) · web-saas (Obour Hub, Hagoozat) · pos-desktop (Business) · desktop-engine (Content Creation Studio, SIR AI) · windows-tool (Controller) · internal-ops (Laptop Manager) · private-local (AHome, Jobs, Study) · static-site (Portfolio, Negm Furniture) · game-mod (ModPack, GTA mods) · selfhost-oss (Odysseus) · life-app (Life).
+platform-kit (the shared kit) · web-saas (Education Hub, Hagoozat) · pos-desktop (Business) · desktop-engine (Content Creation Studio, SIR AI) · windows-tool (Controller) · internal-ops (Laptop Manager) · private-local (AHome, Jobs, Study) · static-site (Portfolio, Negm Furniture) · game-mod (ModPack, GTA mods) · selfhost-oss (Odysseus) · life-app (Life).
 
 ## Regenerate
 `python plans/generate_plans.py` then `python plans/generate_kit.py`. The kit writer never touches `legacy/`, never overwrites a CHECKPOINT that a project chat has started, keeps existing README/SECURITY/.editorconfig, and replaces only the marked kit block in AGENTS.md. Edit the data files, not the generated output.

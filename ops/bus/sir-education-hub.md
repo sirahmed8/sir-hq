@@ -1,2 +1,2 @@
-# Inbox: SIR Obour Hub
+# Inbox: SIR Education Hub
 Newest first. Format and rules: README.md

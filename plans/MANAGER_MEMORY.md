@@ -62,11 +62,11 @@
 - **Risks**: Violation of workspace law if agents accidentally touch product code or provision cloud resources (strictly prohibited).
 - **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/plans/sir-negm-furniture-DEEP.md) · [Master Plan](file:///D:/Projects/SIR%20Negm%20Furniture/.sir/MASTER_PLAN.md)
 
-### 2.8 SIR Obour Hub | `SIR Obour Hub`
+### 2.8 SIR Education Hub | `SIR Education Hub`
 - **Status (M0 Ready, Plan Completed 2026-11-09)**: Sovereign academic portal and timetable hub for Obour Higher Institutes (CS, Engineering, Business). Rebuilding from `legacy/Obour Academic Hub` with all non-compliant quiz automation permanently quarantined. Edge serverless architecture with Cloudflare D1 / Turso SQLite database.
 - **Next 5 Tasks**: (1) `OH-101`: Academic timetable D1 schema & CS Year 2 seed data. (2) `OH-102`: Interactive semester schedule calendar with active lecture pulse. (3) `OH-103`: Egyptian 4.0 credit-hour GPA simulator. (4) `OH-104`: Lecture hall & campus building interactive locator (Hall 533). (5) `OH-105`: Official professor office hours & academic contact directory.
 - **Risks**: Academic policy compliance (strictly learning support only; zero quiz auto-solving); sudden timetable revisions by institute administration.
-- **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/plans/sir-obour-hub-DEEP.md) · [Master Plan](file:///D:/Projects/SIR%20Obour%20Hub/.sir/MASTER_PLAN.md)
+- **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/plans/sir-education-hub-DEEP.md) · [Master Plan](file:///D:/Projects/SIR%20Obour%20Hub/.sir/MASTER_PLAN.md)
 
 ### 2.9 SIR Hagoozat | `SIR Hagoozat`
 - **Status (M0 Ready, Plan Completed 2026-11-09)**: Football pitch reservation and tournament platform consolidating `Hagoozat Elite`, `11Players`, and `EGFootball5`. Edge serverless with PostgreSQL/D1 ACID row-level locking to eliminate double-booking race conditions during peak hours. Wave 0 security PR patched legacy unsigned webhook vulnerabilities.
@@ -115,11 +115,11 @@
 - **Risks**: Habit tracker anxiety if streak penalties are punitive; prayer calculation drift if solar angles lack Cairo survey correction.
 - **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/plans/sir-life-DEEP.md) · [Master Plan](file:///D:/Projects/SIR%20Life/.sir/MASTER_PLAN.md)
 
-### 2.17 SIR Platform | `SIR Platform`
+### 2.17 the shared kit | `the shared kit`
 - **Status (Wave 7 Shared Kit, Plan Completed 2026-11-09)**: The architectural keystone extracted last from verified implementations across all products. Monorepo hosting 7 packages: `@sir/owner-auth`, `@sir/signed-webhook`, `@sir/ai-proxy`, `@sir/tokens-and-ui`, `@sir/i18n`, `@sir/legal-pack`, and `sir-kit` CLI. Built once products prove their patterns in production.
 - **Next 5 Tasks**: (1) `PL-101`: Package `@sir/owner-auth` Tailnet WireGuard & loopback library. (2) `PL-102`: Package `@sir/signed-webhook` timing-safe HMAC verifier. (3) `PL-103`: Package `@sir/ai-proxy` privacy-preserving router. (4) `PL-104`: Package `@sir/tokens-and-ui` Dynamic Island spring engine. (5) `PL-105`: Package `@sir/i18n` bilingual Cairo/Inter dictionary resolver.
 - **Risks**: Premature abstraction locking project chats into rigid patterns; circular package dependencies.
-- **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/plans/sir-platform-DEEP.md) · [Master Plan](file:///D:/Projects/SIR%20Platform/.sir/MASTER_PLAN.md) · [Portfolio Links](file:///D:/Projects/_SIR/plans/PORTFOLIO_LINKS.md)
+- **Plan Links**: [Deep Plan](file:///D:/Projects/_SIR/old projects/SIR Platform-plans-from-SIR/sir-platform-DEEP.md) · [Master Plan](file:///D:/Projects/old%20projects/SIR%20Platform/.sir/MASTER_PLAN.md) · [Portfolio Links](file:///D:/Projects/_SIR/plans/PORTFOLIO_LINKS.md)
 
 ### 2.18 SIR Portfolio | `SIR Portfolio`
 - **Status (Wave 7 Public Wall, Plan Completed 2026-11-09)**: Ahmed Alaa's public developer showcase and sovereign product wall. Strictly adheres to the Truth Rule: reads physical verification states directly from `_SIR/ops/` and `_SIR/plans/` with zero inflated claims. Static export for Cloudflare Pages with live GitHub commit tickers and verified A4 CV download bridge.

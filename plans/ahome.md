@@ -36,7 +36,7 @@ Truth rule: nothing below is "working" until a reviewer runs it today.
 10. Backups are encrypted, kept in `D:\Projects\Backups`, and one restore is tested.
 
 ## 5. Shared pieces
-AHome shares nothing with other products and consumes nothing from SIR Platform. It may reuse only the design tokens idea (own copy). No data flows to or from any other project. The Telegram bot is AHome's own bot; Ahmed's report bot for other products is separate.
+AHome shares nothing with other products and consumes nothing from the shared kit. It may reuse only the design tokens idea (own copy). No data flows to or from any other project. The Telegram bot is AHome's own bot; Ahmed's report bot for other products is separate.
 
 ## 6. Screens, entities, UX
 Screens: Today, Calendar, Notes, Dates, Reminders, Assistant, Settings, Profile. Entities: Person (2), Event, Note, Reminder, Message, Device.

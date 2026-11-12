@@ -1,4 +1,4 @@
-# Phase 4 — The SIR Platform (foundation before rollout)
+# Phase 4 — The the shared standards kit (foundation before rollout)
 
 > **Read first:** `START_HERE.md`, then `standard/README.md`, `standard/02-architecture.md`, `standard/03-data-backend.md` and `standard/04-security-privacy.md`. **When this phase is done:** add an entry to `ops/MISSION_LOG.md`, update `ops/HQ_CHECKPOINT.md` and `REQUIREMENTS.md`, send the short report (`core/07-reporting.md`), and continue with `phases/05-upgrade-waves.md`.
 

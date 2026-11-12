@@ -8,7 +8,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 W = dict(speed=3, revenue=3, ready=2, free=2, ahmed=1, effort=-2)
 # speed: how soon one paying customer or paid job can exist. revenue: money per customer x reachable customers. ready: legacy code and assets close to shippable.
-# free: independence from the SIR Platform kit (5 = none needed). ahmed: his stated priority. effort: 1 small .. 4 very large.
+# free: independence from the the shared kit kit (5 = none needed). ahmed: his stated priority. effort: 1 small .. 4 very large.
 SCORES = {
     "sir-jobs": dict(
         speed=5,
@@ -55,7 +55,7 @@ SCORES = {
         effort=3,
         why="Large Egyptian market, but two-sided (players and pitch owners) so the first payer is slower; Pro is 59 EGP a month.",
     ),
-    "sir-obour-hub": dict(
+    "sir-education-hub": dict(
         speed=2,
         revenue=3,
         ready=4,
@@ -151,10 +151,6 @@ FIXED = {
         1,
         "Ahmed's first pick: private, local, independent of the platform kit, runs today and is improved in place.",
     ),
-    "sir-platform": (
-        2,
-        "Prerequisite for every web product. Build only the slice the next wave needs (M0 to M2) in step with the quick-cash projects.",
-    ),
 }
 CUT = [
     (2, 0),
@@ -199,7 +195,7 @@ def main():
         "Rule from Ahmed: start with AHome, then the projects that make money, then the rest, in a studied order, not random.",
         "",
         "Method: each project gets 0-5 scores from the Phase 3 inventories (`ops/PORTFOLIO.md`, `ops/inventory/`). Total = 3 x speed to first EGP + 3 x revenue size + 2 x legacy readiness + 2 x independence from the kit + 1 x Ahmed's priority - 2 x effort. Scores are judgements that rank projects; they do not forecast income. Edit `SCORES` in `plans/wave_study.py` and re-run when facts change.",
-        "Wave rules: AHome and SIR Platform are fixed. A project with independence 4+ and speed 3+ is quick cash (wave 2). Otherwise revenue under 2 means internal or personal (wave 5), total 25+ is wave 3, the rest of the paying products wave 4.",
+        "Wave rules: AHome and the shared kit are fixed. A project with independence 4+ and speed 3+ is quick cash (wave 2). Otherwise revenue under 2 means internal or personal (wave 5), total 25+ is wave 3, the rest of the paying products wave 4.",
         "",
         "| Project | Speed | Revenue | Ready | Free of kit | Ahmed | Effort | Total | Wave | Why |",
         "|---|---|---|---|---|---|---|---|---|---|",
@@ -227,8 +223,8 @@ def main():
     out += [
         "",
         "## Dependencies that fix the order",
-        "- Every web product (Negm, Portfolio, Obour Hub, Hagoozat, Business portal, Life) needs SIR Platform packages: owner-auth, signed-webhook, billing fallback, ui kit. Build those first, only as far as the next project needs.",
-        "- SIR Obour Hub proves the kit on the web path before Hagoozat reuses it. SIR Business is the largest revenue and the largest build, so its Restaurant mode starts as soon as the kit is proven.",
+        "- Every web product (Negm, Portfolio, Education Hub, Hagoozat, Business portal, Life) needs the shared kit packages: owner-auth, signed-webhook, billing fallback, ui kit. Build those first, only as far as the next project needs.",
+        "- SIR Education Hub proves the kit on the web path before Hagoozat reuses it. SIR Business is the largest revenue and the largest build, so its Restaurant mode starts as soon as the kit is proven.",
         "- AHome runs today with daemons: its chat must keep the services up and snapshot data before any change.",
         "- A project may be pulled earlier when Ahmed gets a customer for it; the order changes, the kits do not.",
     ]

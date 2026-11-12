@@ -1,4 +1,4 @@
-# Round labels (generated 2026-11-12 17:20)
+# Round labels (generated 2026-11-12 17:57)
 
 R = round, A = self-audit, F = fix. Numbers restart per project. The old global task id is in the second column.
 
@@ -58,14 +58,14 @@ R = round, A = self-audit, F = fix. Numbers restart per project. The old global 
 | HQ R11 | r44-portfolio-plans-upgrade | done by worker | not verified | r44 plans upgrade all products |
 | Study F2 | ci-sir-study-20261112-0700 | done by worker | not verified | SIR Study: red CI after cleanup commit |
 | Study R7 | r45-study-scout-fixes | done by worker | PASS | SIR Study: scout findings |
-| Jobs R11 | r45-jobs-scout-fixes | done by worker | not verified | SIR Jobs: scout findings |
+| Jobs R11 | r45-jobs-scout-fixes | done by worker | FAIL | SIR Jobs: scout findings |
 | HQ F1 | ci-sir-20261112-0901 | done by worker | FAIL | _SIR: إصلاح الفحص الآلي الأحمر |
 | HQ F2 | ci-sir-20261112-0941 | done by worker | PASS | _SIR: إصلاح الفحص الآلي الأحمر |
 | HQ F3 | ci-sir-20261112-0951 | done by worker | FAIL | _SIR: إصلاح الفحص الآلي الأحمر |
 | HQ F4 | ci-sir-20261112-0951-fix1 | done by worker | PASS | Fix failures from ci-sir-20261112-0951 verification |
 | AHome F1 | ci-ahome-20261112-1401 | done by worker | not verified | AHome: إصلاح الفحص الآلي الأحمر |
-| Laptop A3 | audit-sir-laptop-manager-20261112-1401 | done by worker | not verified | SIR Laptop Manager: دورة فحص ذاتي |
-| Study A3 | audit-sir-study-20261112-1401 | done by worker | not verified | SIR Study: دورة فحص ذاتي |
+| Laptop A3 | audit-sir-laptop-manager-20261112-1401 | done by worker | FAIL | SIR Laptop Manager: دورة فحص ذاتي |
+| Study A3 | audit-sir-study-20261112-1401 | done by worker | FAIL | SIR Study: دورة فحص ذاتي |
 | Jobs R12 | r46-jobs | done by worker | not verified | SIR Jobs: competitors and feature gaps |
 | Portfolio R2 | r46-portfolio | done by worker | not verified | SIR Portfolio: competitors and feature gaps |
 | Study R8 | r46-study | done by worker | not verified | SIR Study: competitors and feature gaps |
@@ -79,14 +79,30 @@ R = round, A = self-audit, F = fix. Numbers restart per project. The old global 
 | Portfolio R4 | r49-skills-deep-4 | done by worker | not verified | skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt) |
 | SIR AI R4 | r49-skills-deep-5 | done by worker | not verified | skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt) |
 | HQ R13 | r49-skills-deep-6 | done by worker | not verified | skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt) |
-| Portfolio F1 | r47-skills-encyclopedia-fix1 | open |  | Fix failures from r47-skills-encyclopedia verification |
+| Portfolio F1 | r47-skills-encyclopedia-fix1 | done by worker | not verified | Fix failures from r47-skills-encyclopedia verification |
 | HQ F6 | ci-sir-20261112-0901-fix1-fix1 | open |  | Fix failures from ci-sir-20261112-0901-fix1 verification |
 | Laptop F2 | r46-laptop-manager-fix1 | open |  | Fix failures from r46-laptop-manager verification |
 | HQ R14 | r49b-skills-deep-1 | open |  | skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing |
 | HQ R15 | r49b-skills-deep-2 | open |  | skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing |
 | HQ R16 | r49b-skills-deep-3 | open |  | skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing |
 | HQ R17 | r49b-skills-deep-4 | open |  | skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing |
-| HQ R18 | r49b-skills-deep-5 | open |  | skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing |
-| HQ R19 | r49b-skills-deep-6 | open |  | skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing |
+| HQ R18 | r49b-skills-deep-5 | done by worker | not verified | skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing |
+| HQ R19 | r49b-skills-deep-6 | done by worker | not verified | skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing |
 | Portfolio R5 | r50-portfolio-owner-fixes | open |  | Portfolio: owner corrections (projects list, previews, counts, timelin |
-| SIR Platform R1 | r51-backlog-projects | open |  | Backlog ideas into projects or modules, final product list |
+| SIR Platform R1 | r51-backlog-projects | done by worker | not verified | Backlog ideas into projects or modules, final product list |
+| Study A4 | audit-sir-study-20261112-1401-fix1 | open |  | Fix failures from audit-sir-study-20261112-1401 verification |
+| HQ R20 | r52-plan-sir-ai | done by worker | not verified | r52 premium plan: SIR AI (slug sir-ai) |
+| HQ R21 | r52-plan-sir-obour-hub | done by worker | not verified | r52 premium plan: SIR Education Hub (slug sir-education-hub) |
+| HQ R22 | r52-plan-sir-hagoozat | done by worker | not verified | r52 premium plan: SIR Hagoozat (slug sir-hagoozat) |
+| HQ R23 | r52-plan-sir-business | done by worker | not verified | r52 premium plan: SIR Business (slug sir-business) |
+| HQ R24 | r52-plan-sir-content-creation-studio | done by worker | not verified | r52 premium plan: SIR Content Creation Studio (slug sir-content-creati |
+| HQ R25 | r52-plan-sir-controller | open |  | r52 premium plan: SIR Controller (slug sir-controller) |
+| HQ R26 | r52-plan-sir-laptop-manager | open |  | r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager) |
+| HQ R27 | r52-plan-sir-modpack | open |  | r52 premium plan: SIR ModPack (slug sir-modpack) |
+| HQ R28 | r52-plan-sir-mods-gta-v | done by worker | not verified | r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v) |
+| HQ R29 | r52-plan-sir-life | open |  | r52 premium plan: SIR Life (slug sir-life) |
+| HQ R30 | r52-plan-sir-jobs | open |  | r52 premium plan: SIR Jobs (slug sir-jobs) |
+| HQ R31 | r52-plan-sir-study | open |  | r52 premium plan: SIR Study (slug sir-study) |
+| HQ R32 | r52-plan-sir-platform | done by worker | not verified | r52 premium plan: the shared kit (slug sir-platform) |
+| Jobs F1 | ci-sir-jobs-20261112-1741 | open |  | SIR Jobs: إصلاح الفحص الآلي الأحمر |
+| Jobs F2 | r45-jobs-scout-fixes-fix1 | open |  | Fix failures from r45-jobs-scout-fixes verification |

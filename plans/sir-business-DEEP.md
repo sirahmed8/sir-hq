@@ -57,8 +57,8 @@ SIR Business is an agency-grade, offline-resilient point-of-sale (POS) and inven
 ---
 
 ## 4. Dependencies, Cross-Project Links & Risks
-- **Provides**: Real-world commercial transaction processing and inventory models to `SIR Platform`.
-- **Consumes**: Owner authentication, signed webhooks, and billing fallback from `SIR Platform`.
+- **Provides**: Real-world commercial transaction processing and inventory models to `the shared kit`.
+- **Consumes**: Owner authentication, signed webhooks, and billing fallback from `the shared kit`.
 - **Risks**: Connectivity drops during peak shopping hours; thermal printer driver fragmentation; stock count drift between shifts.
 
 ---

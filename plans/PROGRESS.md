@@ -13,10 +13,10 @@ Overall: 32 / 223 boxes (14%). Boxes are ticked only with evidence.
 | SIR Content Creation Studio | wave 4 | 2 / 13 | 15% | `plans/sir-content-creation-studio.md` |
 | SIR Business | wave 5 | 2 / 14 | 14% | `plans/sir-business.md` |
 | SIR Hagoozat | wave 5 | 2 / 15 | 13% | `plans/sir-hagoozat.md` |
-| SIR Obour Hub | wave 5 | 2 / 17 | 12% | `plans/sir-obour-hub.md` |
+| SIR Education Hub | wave 5 | 2 / 17 | 12% | `plans/sir-education-hub.md` |
 | SIR Life | wave 6 | 2 / 13 | 15% | `plans/sir-life.md` |
 | SIR ModPack | wave 6 | 2 / 13 | 15% | `plans/sir-modpack.md` |
 | SIR Mods for GTA V | wave 6 | 2 / 13 | 15% | `plans/sir-mods-for-gta-v.md` |
-| SIR Platform | wave 7 | 2 / 17 | 12% | `plans/sir-platform.md` |
+| the shared kit | wave 7 | 2 / 17 | 12% | `old projects/SIR Platform-plans-from-SIR/sir-platform.md` |
 | SIR Portfolio | wave 7 | 2 / 14 | 14% | `plans/sir-portfolio.md` |
 | SIR Controller | wave 8 | 2 / 13 | 15% | `plans/sir-controller.md` |

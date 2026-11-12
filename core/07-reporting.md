@@ -19,7 +19,7 @@ At the end of each working day: update `MISSION_LOG.md`, the Command Center and 
 > **Status 2026-11-10.** This list is the 2026-10-29 target for "this month". It is a direction, not a claim: nothing on it is called done until a reviewer verified it end to end today (truth rule, `D:\Projects\AGENTS.md`). Reports to Ahmed go to his Telegram bot (`scripts/deliver/send-telegram.mjs`) in plain Arabic or English, with no emoji.
 
 - Remote Control is reliable from the iPhone; tools, connectors and skills are clean and documented.
-- The SIR Standard and SIR Platform exist; every project has the SIR file set, a CHECKPOINT and CI gates.
+- The SIR Standard and the shared standards kit exist; every project has the SIR file set, a CHECKPOINT and CI gates.
 - 2–3 flagship products are store-ready: web live; Windows in the Microsoft Store and as a direct installer; Android APKs published through free channels, with the AAB ready for Google Play; iOS builds ready for TestFlight once the Apple account is funded.
 - Every other project has an honest status and a wave plan in the Command Center.
 - The business engine is running: portfolio and CV done; ByteVibeHQ posting on all six platforms; the jobs agent finding, winning and delivering paid work; SIR Business sales kit ready.

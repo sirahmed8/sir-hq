@@ -11,7 +11,7 @@ It finds remote and local jobs and freelance gigs that fit Ahmed, ranks them, wr
 | GitHub (private) | `sirahmed8/sir-jobs` |
 | Runtime | Node (ESM, no framework), `src/server.mjs` on `127.0.0.1:3456`, scheduled tasks `SIR_Jobs_Server` and `SIR-Jobs-Weekly-Digest` |
 | Platforms | Windows local dashboard plus phone browser over Tailscale: built, unverified. Web hosting, Android, iOS, macOS, TV, watch: skipped (private tool; phone uses the tailnet page) |
-| Money | none charged. Subscription, EGP checkout, legal packs: n/a. Default: if ever offered to others, rebuild on SIR Platform billing and legal pack, never inside this folder |
+| Money | none charged. Subscription, EGP checkout, legal packs: n/a. Default: if ever offered to others, rebuild on the shared kit billing and legal pack, never inside this folder |
 
 ## 3. Current state
 Claimed in `.sir/CHECKPOINT.md` (2026-11-10): M0 to M6 and 24 audit cycles done, 18 tasks T-001 to T-018 green. PORTFOLIO.md (2026-11-08): 21 of 21 tasks, 44 commits, 86 tests.
@@ -29,7 +29,7 @@ Not started or not proven: real outcomes (interviews, replies, income) recorded 
 
 ## 5. Shared pieces
 - Telegram delivery: use `scripts/deliver/send-telegram.mjs` (the shared sender), not a second bot. The ledger stays here because it is job-specific.
-- AI calls: for anything not personal, go through `_SIR/scripts/ai/ask.ps1` (fallback chain, usage ledger). When SIR Platform's ai-proxy exists, switch to it.
+- AI calls: for anything not personal, go through `_SIR/scripts/ai/ask.ps1` (fallback chain, usage ledger). When the shared kit's ai-proxy exists, switch to it.
 - Design tokens and settings/profile: reuse the Laptop Manager and Study look until Platform extracts the kit (last wave).
 - Gig income feeds SIR Portfolio only as real, proven results (case studies), never as numbers from this tracker unless proof exists.
 

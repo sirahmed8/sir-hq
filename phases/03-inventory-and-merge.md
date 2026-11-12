@@ -39,7 +39,7 @@
   1. Name and identity: check domain availability and store-name and trademark conflicts.
   2. The surviving project, or a new project folder with the SIR file set.
   3. A feature-parity checklist for every source project.
-  4. Build on the SIR Platform; the whole standard applies.
+  4. Build on the the shared standards kit; the whole standard applies.
   5. Data migration: export/import scripts, a dry run, verified record counts.
   6. Redirects: old URLs return 301 to the new ones; deep links keep working.
   7. New Firebase, Vercel, GitHub and EAS setups (rule 17).

@@ -5,7 +5,7 @@ SIR = "D:/Projects/_SIR"
 
 state = """## State of the folders (2026-10-30, after the merge)
 - D:/Projects now holds ONLY: the SIR product folders, AHome (private, own name), AI_Models_Hub (model store), Android and Backups (you moved them in), old projects, _SIR, and the three auto-read rule files AGENTS.md / CLAUDE.md / GEMINI.md (Claude, Codex and Gemini read these automatically in every chat started in D:/Projects, so they stay).
-- Every old project lives INSIDE its new product as legacy/: SIR Hagoozat (Hagoozat Elite, 11Players, EGFootball5) · SIR Business (Restaurant, Market, Pharmacy, Library) · SIR Controller (v1, Optimizer) · SIR Laptop Manager (Laptop manager, agent suite) · SIR Obour Hub (Obour Academic Hub) · SIR AI (SIR AI v1, SIR Tele Gateway) · SIR Portfolio (sirahmed8 profile repo) · SIR Jobs (Jobs data) · SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Negm Furniture, SIR Odysseus (their v1). SIR Study holds the old Obour Institute study folder in materials/ and the Moodle scripts in _quarantine/.
+- Every old project lives INSIDE its new product as legacy/: SIR Hagoozat (Hagoozat Elite, 11Players, EGFootball5) · SIR Business (Restaurant, Market, Pharmacy, Library) · SIR Controller (v1, Optimizer) · SIR Laptop Manager (Laptop manager, agent suite) · SIR Education Hub (Obour Academic Hub) · SIR AI (SIR AI v1, SIR Tele Gateway) · SIR Portfolio (sirahmed8 profile repo) · SIR Jobs (Jobs data) · SIR Content Creation Studio, SIR ModPack, SIR Mods for GTA V, SIR Negm Furniture, SIR Odysseus (their v1). SIR Study holds the old Obour Institute study folder in materials/ and the Moodle scripts in _quarantine/.
 - AHome is NOT a SIR product: private project of Ahmed and Habiba, keeps its name, services run from D:/Projects/AHome (port 8090 verified), plan in AHome/.sir/PLAN.md.
 - One empty leftover: D:/Projects/Laptop manager (an empty shell; Ahmed's open Laptop manager chat sits in it; it disappears when that chat is closed or any agent can delete it then).
 - Old SIR AI app and SIR PowerSync were stopped at Ahmed's request. A duplicate whisper cache is in AI_Models_Hub/_whisper_duplicate_from_restore.
@@ -33,7 +33,7 @@ c = io.open(p, encoding="utf-8").read()
 add = (
     "**00000. 2026-10-30 FINAL MERGE STATE: read NEXT.md ('State of the folders'). All old projects are inside their new SIR product as legacy/; AHome is separate and keeps its name; "
     "Quarantine, START_HERE copy and mission zip are inside Projects/_SIR; Android and Backups were moved by Ahmed into D:/Projects (env vars and docs repointed). "
-    "Exact next steps: (1) agents: key rotation in Chrome, fix failing Actions, github-organize after Ahmed runs merge-approved-prs.ps1; (2) SIR Platform M0; (3) per plans/TIMELINE.md. "
+    "Exact next steps: (1) agents: key rotation in Chrome, fix failing Actions, github-organize after Ahmed runs merge-approved-prs.ps1; (2) the shared kit M0; (3) per plans/TIMELINE.md. "
     "Open: icons are letters until Ahmed runs generate-icons-agy.ps1; empty Laptop manager shell. Re-read: NEXT.md, plans/MASTER_REBUILD_PLAN.md, plans/AGENT_PROTOCOL.md, plans/PROGRESS.md.**\n"
 )
 c = c.replace("## Next step\n", "## Next step\n" + add, 1)

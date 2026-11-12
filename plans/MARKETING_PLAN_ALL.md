@@ -1,5 +1,5 @@
 # SIR MARKETING AND GROWTH PLAN (rewritten 2026-11-10 by the plans audit)
-Standards: 26 (autonomous operations) and 27 (visibility). Scope: public products only. AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room and SIR Platform get no marketing (private or internal). SIR Negm Furniture is the friend's brand: Ahmed gives the client advice in the handoff pack but runs no campaigns for it.
+Standards: 26 (autonomous operations) and 27 (visibility). Scope: public products only. AHome, SIR Study, SIR Jobs, SIR Laptop Manager, SIR Control Room and the shared kit get no marketing (private or internal). SIR Negm Furniture is the friend's brand: Ahmed gives the client advice in the handoff pack but runs no campaigns for it.
 Truth rules for all copy: no number, user count, review, logo or "verified" badge unless it is real and linked. No claim about a feature that is not built and verified (the lines below say "planned" until then). No em-dashes, no hype words, no emoji. Banned words: seamless, robust, empower, elevate, harness, unleash, delve, game-changing, cutting-edge.
 Gate: a product's marketing starts only when its plan has passed M5 (quality sweep) and a reviewer verified the main journey on the same day. Before that, only a waitlist page with an honest "in build" status and the visibility foundation (sitemap, `llms.txt`, facts page) may exist.
 
@@ -8,7 +8,7 @@ Gate: a product's marketing starts only when its plan has passed M5 (quality swe
 |---|---|---|---|---|
 | SIR Hagoozat | احجز ملعب خماسي واقسم السعر بين اللاعبين | Book a five-a-side pitch and split the price | amateur football players and pitch owners in one area of Cairo or Giza | booking and split bill planned |
 | SIR Business | كاشير ومخزون للمحل بالجنيه، يشتغل بدون إنترنت | Cash register and stock for small shops, works offline | owners of small supermarkets and restaurants | offline POS planned; e-invoicing planned later, do not mention until built |
-| SIR Obour Hub | ملخصات ومواعيد ومعدل تراكمي لطلاب معاهد العبور | Notes, timetable and GPA planner for Obour students | Ahmed's classmates first | planned |
+| SIR Education Hub | ملخصات ومواعيد ومعدل تراكمي لطلاب معاهد العبور | Notes, timetable and GPA planner for Obour students | Ahmed's classmates first | planned |
 | SIR Content Creation Studio | اعمل فيديو قصير من فكرة في دقائق | Make a short video from an idea | small creators and brands, Arabic first | planned |
 | SIR AI (Tier 2 only) | مساعد يشتغل على جهازك ويحافظ على خصوصيتك | An assistant that runs on your PC and keeps your data local | privacy-minded power users | planned, Tier 1 is private |
 | SIR Controller | شغّل يد التحكم في أي لعبة على الكمبيوتر | Make any controller work in any PC game | PC gamers | mapper derived from x360ce; no FPS claim |

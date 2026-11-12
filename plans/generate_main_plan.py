@@ -11,14 +11,13 @@ from products import PRODUCTS  # noqa: E402
 
 BUS = "D:/Projects/_SIR/ops/bus"
 PROVIDES = {
-    "sir-platform": "owner-auth, signed-webhook, ai-proxy, billing fallback, legal pack, tokens and ui kit, i18n and settings, sir-kit CLI",
     "sir-ai": "the AI gateway idea that became the Platform ai-proxy; local assistant",
     "sir-laptop-manager": "agent-config sync, local RAG, routines, workspace health report",
     "sir-portfolio": "the public product wall; shows real statuses of every product",
     "sir-jobs": "income engine: paid freelance and remote work leads",
     "ahome": "nothing: private, isolated, no data to or from any other project",
 }
-NEEDS = "the Cloudflare and Firebase logins; shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product and extracted into SIR Platform last"
+NEEDS = "the Cloudflare and Firebase logins; shared concerns (owner-auth, signed-webhook, billing fallback, ai-proxy, legal pack, tokens and UI) are kept as internal packages in each product and extracted into the shared kit last"
 
 
 def main():
@@ -37,7 +36,7 @@ Rebuild every product from scratch as a premium, production-hosted SIR project, 
 |---|---|---|---|
 {table}
 
-All web products need: {NEEDS}. SIR Platform and SIR Portfolio are built last, from the finished products.
+All web products need: {NEEDS}. the shared kit and SIR Portfolio are built last, from the finished products.
 
 ## How every project chat works
 1. Read `D:/Projects/_SIR/NEXT.md`, this file, your project's `.sir/CHECKPOINT.md` and `.sir/TASKS.md`; your first task is a deep scan of `legacy/` and the plan, then you improve the plan.

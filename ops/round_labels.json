@@ -382,7 +382,7 @@
   "task": "r45-jobs-scout-fixes",
   "title": "SIR Jobs: scout findings",
   "state": "done by worker",
-  "verified": "not verified"
+  "verified": "FAIL"
  },
  {
   "label": "HQ F1",
@@ -424,14 +424,14 @@
   "task": "audit-sir-laptop-manager-20261112-1401",
   "title": "SIR Laptop Manager: دورة فحص ذاتي",
   "state": "done by worker",
-  "verified": "not verified"
+  "verified": "FAIL"
  },
  {
   "label": "Study A3",
   "task": "audit-sir-study-20261112-1401",
   "title": "SIR Study: دورة فحص ذاتي",
   "state": "done by worker",
-  "verified": "not verified"
+  "verified": "FAIL"
  },
  {
   "label": "Jobs R12",
@@ -528,8 +528,8 @@
   "label": "Portfolio F1",
   "task": "r47-skills-encyclopedia-fix1",
   "title": "Fix failures from r47-skills-encyclopedia verification",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "HQ F6",
@@ -577,15 +577,15 @@
   "label": "HQ R18",
   "task": "r49b-skills-deep-5",
   "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "HQ R19",
   "task": "r49b-skills-deep-6",
   "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "Portfolio R5",
@@ -598,6 +598,118 @@
   "label": "SIR Platform R1",
   "task": "r51-backlog-projects",
   "title": "Backlog ideas into projects or modules, final product list",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Study A4",
+  "task": "audit-sir-study-20261112-1401-fix1",
+  "title": "Fix failures from audit-sir-study-20261112-1401 verification",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R20",
+  "task": "r52-plan-sir-ai",
+  "title": "r52 premium plan: SIR AI (slug sir-ai)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R21",
+  "task": "r52-plan-sir-obour-hub",
+  "title": "r52 premium plan: SIR Education Hub (slug sir-education-hub)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R22",
+  "task": "r52-plan-sir-hagoozat",
+  "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R23",
+  "task": "r52-plan-sir-business",
+  "title": "r52 premium plan: SIR Business (slug sir-business)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R24",
+  "task": "r52-plan-sir-content-creation-studio",
+  "title": "r52 premium plan: SIR Content Creation Studio (slug sir-content-creation-studio)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R25",
+  "task": "r52-plan-sir-controller",
+  "title": "r52 premium plan: SIR Controller (slug sir-controller)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R26",
+  "task": "r52-plan-sir-laptop-manager",
+  "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R27",
+  "task": "r52-plan-sir-modpack",
+  "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R28",
+  "task": "r52-plan-sir-mods-gta-v",
+  "title": "r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R29",
+  "task": "r52-plan-sir-life",
+  "title": "r52 premium plan: SIR Life (slug sir-life)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R30",
+  "task": "r52-plan-sir-jobs",
+  "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R31",
+  "task": "r52-plan-sir-study",
+  "title": "r52 premium plan: SIR Study (slug sir-study)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R32",
+  "task": "r52-plan-sir-platform",
+  "title": "r52 premium plan: the shared kit (slug sir-platform)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs F1",
+  "task": "ci-sir-jobs-20261112-1741",
+  "title": "SIR Jobs: إصلاح الفحص الآلي الأحمر",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Jobs F2",
+  "task": "r45-jobs-scout-fixes-fix1",
+  "title": "Fix failures from r45-jobs-scout-fixes verification",
   "state": "open",
   "verified": ""
  }
