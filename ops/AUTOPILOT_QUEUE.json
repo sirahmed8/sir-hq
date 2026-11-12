@@ -768,7 +768,7 @@
     "name": "r62-control-room-mirror",
     "folder": "D:/Projects/_SIR",
     "title": "Control Room: free hosted mirror updated without Claude",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -823,7 +823,7 @@
     "name": "r53-hagoozat-and-ideas",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -936,5 +936,26 @@
     "title": "SIR Access Map: planning refresh only (no building)",
     "done": true,
     "parallel_ok": true
+  },
+  {
+    "name": "r63-control-room-private",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room mirror: password, Tailscale links, privacy audit",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r64-telegram-first",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r65-ahome-apk-adb-updates",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
+    "done": false,
+    "parallel_ok": false
   }
 ]
