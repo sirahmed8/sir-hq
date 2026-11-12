@@ -231,3 +231,9 @@
 - Next step: `python scripts/ai-status.py` and `tail -20 ops/autopilot.log`; read r44 outputs (`plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`), `ops/verifications/` and any new pending items in `ops/SUGGESTIONS.md`; NotebookLM `Data Bank.pdf` upload through Claude in Chrome.
 - Open promises: verify worker claims by running or screenshot; AHome stays local-only; order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`, `ops/USAGE_LIMITS.md`.
+
+## HQ note (2026-11-12 09:00)
+- Now: WhatsApp digest skipped this round (Claude in Chrome extension disconnected again; it worked at about 07:00). Everything else unchanged: CI green on all 7, audit-ahome running locally, r38 and r45 (Study, Jobs) queued.
+- Next step: `python scripts/ai-status.py`; retry `tabs_context_mcp` for the next WhatsApp digest and the NotebookLM `Data Bank.pdf` upload; read r44 outputs and `ops/verifications/`.
+- Open promises: Chrome extension must be signed in (owner: open Claude panel in Chrome); verify worker claims; AHome stays local-only; recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/SUGGESTIONS.md`.
