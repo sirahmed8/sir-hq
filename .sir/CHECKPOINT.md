@@ -255,3 +255,9 @@
 - Next step: `python scripts/ai-status.py`; `ls ops/verifications` and read new PASS/FAIL reports (FAIL becomes a `<task>-fix1` queue task automatically); `ops/bus/ahmed-telegram.md` for the button answer; if `ops/decisions-ahome-code-ok.txt` exists, allow outside models for AHome code-only tasks in `scripts/cli-run2.sh`.
 - Open promises: Claude in Chrome sign-in (WhatsApp digest, NotebookLM `Data Bank.pdf`); local-only verification for AHome rounds; verify r43, r44; order of use Claude, free tools, Haiku, never Sonnet.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, `ops/SUGGESTIONS.md`.
+
+## HQ note (2026-11-12 13:00)
+- Now: WhatsApp digest skipped for the fourth time in a row (Claude in Chrome not connected; it worked once at about 07:00). All else as at 12:25: CI green on all 7, verifier running every 30 minutes, AHome stalled on the local model, owner's AHome button unanswered.
+- Next step: `python scripts/ai-status.py`; `ls ops/verifications`; retry `mcp__claude-in-chrome__tabs_context_mcp` at the next digest; check `ops/bus/ahmed-telegram.md`.
+- Open promises: Chrome extension sign-in by the owner; WhatsApp digest and NotebookLM `Data Bank.pdf`; local-only verification for AHome rounds; verify r43, r44.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/verifications/`, `ops/SUGGESTIONS.md`.
