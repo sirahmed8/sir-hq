@@ -454,7 +454,7 @@
     "name": "r47-skills-encyclopedia-fix1",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "Fix failures from r47-skills-encyclopedia verification",
-    "done": false
+    "done": true
   },
   {
     "name": "ci-sir-20261112-0901-fix1-fix1",
@@ -500,7 +500,7 @@
     "name": "r49b-skills-deep-5",
     "folder": "D:/Projects/_SIR",
     "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -521,5 +521,102 @@
     "folder": "D:/Projects/SIR Platform",
     "title": "Backlog ideas into projects or modules, final product list",
     "done": false
+  },
+  {
+    "name": "audit-sir-study-20261112-1401-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261112-1401 verification",
+    "done": false
+  },
+  {
+    "name": "r52-plan-sir-ai",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR AI (slug sir-ai)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-obour-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Obour Hub (slug sir-obour-hub)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Business (slug sir-business)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Content Creation Studio (slug sir-content-creation-studio)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Controller (slug sir-controller)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-laptop-manager",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Life (slug sir-life)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-jobs",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-study",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Study (slug sir-study)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-platform",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Platform (slug sir-platform)",
+    "done": false,
+    "parallel_ok": true
   }
 ]
