@@ -1,0 +1,23 @@
+# First 10 tasks to hand to the free agents: SIR Study
+
+Ready to queue. Each task is under 2 hours. Title + one-paragraph brief. Working folder `D:\Projects\SIR Study`. Run `scripts/verify.ps1` (all 11 checks) before each commit and push to `main` (private repo `sirahmed8/sir-study`). Tick the matching line in `.sir/TASKS.md` with evidence in `.sir/evidence/`. Truth rule: nothing called working until verified today.
+
+1. **M2 flashcards + spaced-repetition backend (SM-2)**. Implement `scripts/flashcards.py` with a card model (front/back/source file+page), an SM-2 schedule (interval growth, ease factor, lapse handling), a review queue, and unit tests in `tests/test_flashcards.py` covering interval growth, lapse reset and overdue selection. Wire the existing flashcard UI in `guides/*.html` to read/write the backend store under `data/flashcards/` (outside git) and add a keyboard run (1-4 answers) test. Exit: `pytest tests/test_flashcards.py` green and a screenshot at 390 px showing a review session.
+
+2. **Portal/Moodle watcher (T-103)**. Finish `scripts/portal_sync.py` as a scheduled, read-only watcher: read the Obour Moodle pages through Ahmed's already-signed-in Chrome (never type a password; one-tap report if a sign-in screen shows), snapshot diff against `materials/_audited_items.json`, download new lectures/attachments, dedup by sha256 + name, file into `{Lectures,Assignments,Quizzes,Summaries,Practice}`, regenerate `guides/portal-deadlines.json`, and send one Telegram "مادة جديدة" (course, item, due date) per new item via `scripts/deliver/send-telegram.mjs`. Register/update `SIR_Study_Sync` (every 3 hours, paused when game-mode snapshot exists) and add a dry-run mode. Exit: dry run prints the diff without writing; one real run recorded in `.sir/evidence/portal-sync-*.md`.
+
+3. **Drive mirror (T-107)**. Implement `scripts/drive_mirror.py` that mirrors `materials/` and `guides/` into per-subject Drive folders using the Drive connector, with a content-hash manifest, no duplicates, resumable uploads, and a run after every change (hook into portal sync). Add `tests/test_drive_mirror.py` (planted duplicate never uploads twice; changed lecture updates exactly one file). Exit: manifest written to `.sir/evidence/drive-manifest.json` and tests green.
+
+4. **Retire the old Obour scripts (T-023 / M6)**. Move the legacy Obour Institute scripts folder to `D:\Projects\old projects\` keeping course materials in place, update `.sir/PLAN.md` and `AGENTS.md` references, and record the move in `.sir/CHECKPOINT.md`. Do not delete `legacy/`/`materials/` source. Exit: path recorded and `scripts/verify.ps1` still green.
+
+5. **Coverage proof generator (per subject)**. Extend `guides/COVERAGE.md` generation so each subject lists syllabus topics vs guide sections and shows missing ones; add `scripts/generate_coverage.py` and a verify step. Exit: regenerated file shows gaps (or "no gaps") per subject with source citations.
+
+6. **English shell completion**. Finish `scripts/i18n` wiring so nav, buttons, settings and tab labels translate and the toggle switches language + direction across all 8 pages; add a Playwright test (`tests/test_browser.py`) asserting `lang`/`dir` flip and no page errors at 390 px. Exit: test passes in CI.
+
+7. **Accuracy audit harness**. Make `scripts/verify_accuracy.py` re-derive formulas and examples against source material for all 7 subjects (not just OR and SAD), record errors found and fixes in `.sir/evidence/accuracy-audit-*.md`, and add it to `verify.ps1`. Exit: harness runs in CI and reports 0 unresolved errors or lists them.
+
+8. **Desktop folder kit (M0)**. Recreate `Desktop/SIR Projects/SIR Study` from scratch for the new build: `folder.ico` (file named `folder.ico` in project root, never `icon.ico` or `assets/brand`), shortcuts Open/Start dev/Stop dev/Open folder, and `Versions.txt` (1.0.0, plain status). Re-run `D:/Projects/_SIR/scripts/make-icons-and-desktop.ps1` if the logo changed. Exit: 3 `.lnk` files verified and `Versions.txt` present.
+
+9. **Telegram reminder privacy test**. Add `tests/test_briefing_privacy.py` asserting no material text in reminder messages (dates and subject names only) and that the sender uses `scripts/deliver/send-telegram.mjs`. Exit: test passes and a dry-run reminder is recorded in `.sir/evidence/`.
+
+10. **Phone check + horizontal-scroll guard**. Open the guide over the tailnet, screenshot at 390 px, and assert `scrollWidth <= innerWidth` for all 8 pages in both themes; fix any overflow. Add the assertion to `tests/test_browser.py`. Exit: 8 pages x 2 themes green, screenshots in `.sir/evidence/r52/`.
