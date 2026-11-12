@@ -423,8 +423,8 @@
   "label": "Laptop A3",
   "task": "audit-sir-laptop-manager-20261112-1401",
   "title": "SIR Laptop Manager: دورة فحص ذاتي",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "Study A3",
@@ -465,6 +465,20 @@
   "label": "HQ F5",
   "task": "ci-sir-20261112-0901-fix1",
   "title": "Fix failures from ci-sir-20261112-0901 verification",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Portfolio R3",
+  "task": "r47-skills-encyclopedia",
+  "title": "HQ: skills encyclopedia and organization",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "SIR AI R3",
+  "task": "r48-video-digest",
+  "title": "HQ: video digest skill",
   "state": "open",
   "verified": ""
  }

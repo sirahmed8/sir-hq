@@ -1,4 +1,4 @@
-# Round labels (generated 2026-11-12 14:50)
+# Round labels (generated 2026-11-12 15:16)
 
 R = round, A = self-audit, F = fix. Numbers restart per project. The old global task id is in the second column.
 
@@ -64,10 +64,12 @@ R = round, A = self-audit, F = fix. Numbers restart per project. The old global 
 | HQ F3 | ci-sir-20261112-0951 | done by worker | FAIL | _SIR: إصلاح الفحص الآلي الأحمر |
 | HQ F4 | ci-sir-20261112-0951-fix1 | done by worker | PASS | Fix failures from ci-sir-20261112-0951 verification |
 | AHome F1 | ci-ahome-20261112-1401 | done by worker | not verified | AHome: إصلاح الفحص الآلي الأحمر |
-| Laptop A3 | audit-sir-laptop-manager-20261112-1401 | open |  | SIR Laptop Manager: دورة فحص ذاتي |
+| Laptop A3 | audit-sir-laptop-manager-20261112-1401 | done by worker | not verified | SIR Laptop Manager: دورة فحص ذاتي |
 | Study A3 | audit-sir-study-20261112-1401 | open |  | SIR Study: دورة فحص ذاتي |
 | Jobs R12 | r46-jobs | open |  | SIR Jobs: competitors and feature gaps |
 | Portfolio R2 | r46-portfolio | done by worker | not verified | SIR Portfolio: competitors and feature gaps |
 | Study R8 | r46-study | open |  | SIR Study: competitors and feature gaps |
 | Laptop R6 | r46-laptop-manager | open |  | SIR Laptop Manager: competitors and feature gaps |
-| HQ F5 | ci-sir-20261112-0901-fix1 | open |  | Fix failures from ci-sir-20261112-0901 verification |
+| HQ F5 | ci-sir-20261112-0901-fix1 | done by worker | not verified | Fix failures from ci-sir-20261112-0901 verification |
+| Portfolio R3 | r47-skills-encyclopedia | open |  | HQ: skills encyclopedia and organization |
+| SIR AI R3 | r48-video-digest | open |  | HQ: video digest skill |

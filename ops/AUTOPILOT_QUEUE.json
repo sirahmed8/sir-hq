@@ -1,416 +1,416 @@
 [
-  {
-    "name": "r14-ahome",
-    "folder": "D:/Projects/AHome",
-    "title": "إصلاحات المشروع الخاص",
-    "done": true
-  },
-  {
-    "name": "r15-laptop",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "Laptop Manager overnight work",
-    "done": true
-  },
-  {
-    "name": "r15-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "Jobs inbox assistant, phase 1",
-    "done": true
-  },
-  {
-    "name": "r15-control",
-    "folder": "D:/Projects/_SIR",
-    "title": "Control Room and Telegram menu",
-    "done": true
-  },
-  {
-    "name": "r16-laptop",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "Laptop Manager: fix review findings",
-    "done": true
-  },
-  {
-    "name": "r16-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs round 16",
-    "done": true
-  },
-  {
-    "name": "r16-study",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study round 16",
-    "done": true
-  },
-  {
-    "name": "r16-control",
-    "folder": "D:/Projects/_SIR",
-    "title": "Control Room round 16",
-    "done": true
-  },
-  {
-    "name": "r17-ahome-verify",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome round 14 verification",
-    "done": true
-  },
-  {
-    "name": "r18-ahome-phone",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
-    "done": true
-  },
-  {
-    "name": "r19-study",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
-    "done": true
-  },
-  {
-    "name": "r21-ahome",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
-    "done": true
-  },
-  {
-    "name": "r19-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
-    "done": true
-  },
-  {
-    "name": "r19-control",
-    "folder": "D:/Projects/_SIR",
-    "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
-    "done": true
-  },
-  {
-    "name": "r20-study",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
-    "done": true
-  },
-  {
-    "name": "r22-laptop",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "Laptop Manager: واجهة الموبايل",
-    "done": true
-  },
-  {
-    "name": "r22-control",
-    "folder": "D:/Projects/_SIR",
-    "title": "لوحة التحكم: واجهة الموبايل",
-    "done": true
-  },
-  {
-    "name": "r22-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: واجهة الموبايل",
-    "done": true
-  },
-  {
-    "name": "r22-study",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: واجهة الموبايل",
-    "done": true
-  },
-  {
-    "name": "r23-jobs-cv",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
-    "done": true
-  },
-  {
-    "name": "r24-jobs-apply",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: التقديم على الشغل بموافقتك",
-    "done": true
-  },
-  {
-    "name": "r24-games",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "الألعاب: تحسين الأداء والجرافيكس",
-    "done": true
-  },
-  {
-    "name": "r25-sir-ai",
-    "folder": "D:/Projects/SIR AI",
-    "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
-    "done": true
-  },
-  {
-    "name": "r26-infra",
-    "folder": "D:/Projects/_SIR",
-    "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
-    "done": true
-  },
-  {
-    "name": "r27-study-sources",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: سحب المواد الجديدة وترتيبها",
-    "done": true
-  },
-  {
-    "name": "r28-jobs-autoapply",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
-    "done": true
-  },
-  {
-    "name": "ci-sir-study-20261111-0621",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
-    "done": true
-  },
-  {
-    "name": "audit-sir-laptop-manager-20261111-0841",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "SIR Laptop Manager: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "audit-sir-jobs-20261111-0841",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "audit-sir-study-20261111-1011",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "r30-ahome-local-core",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
-    "done": true
-  },
-  {
-    "name": "audit-ahome-20261111-1011",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "laptop-updates-20261111",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
-    "done": true
-  },
-  {
-    "name": "r29-jobs-verify-applies",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
-    "done": true
-  },
-  {
-    "name": "r31-desktop-organize",
-    "folder": "D:/Projects/_SIR",
-    "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
-    "done": true
-  },
-  {
-    "name": "audit-sir-laptop-manager-20261111-1951",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "SIR Laptop Manager: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "audit-sir-study-20261111-1951",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "r33-ahome-feedback",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
-    "done": true
-  },
-  {
-    "name": "r34-jobs-ui-overhaul",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
-    "done": true
-  },
-  {
-    "name": "r35-control-room-laptop-ui",
-    "folder": "D:/Projects/_SIR",
-    "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
-    "done": true
-  },
-  {
-    "name": "audit-ahome-20261112-0051",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "audit-ahome-20261112-0111",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: دورة فحص ذاتي",
-    "done": true
-  },
-  {
-    "name": "r36-more-free-workers",
-    "folder": "D:/Projects/_SIR",
-    "title": "r36 more free workers",
-    "done": true
-  },
-  {
-    "name": "r37-verify-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "r37 verify today's UI",
-    "done": true
-  },
-  {
-    "name": "r38-ahome-feedback2",
-    "folder": "D:/Projects/AHome",
-    "title": "r38 AHome feedback 2",
-    "done": true
-  },
-  {
-    "name": "r39-portfolio-copy",
-    "folder": "D:/Projects/SIR Portfolio",
-    "title": "r39 Portfolio copy",
-    "done": true
-  },
-  {
-    "name": "r40-sir-ai-vision",
-    "folder": "D:/Projects/SIR AI",
-    "title": "r40 SIR AI vision plan",
-    "done": true
-  },
-  {
-    "name": "r41-disk-regenerable",
-    "folder": "D:/Projects/_SIR",
-    "title": "r41 disk regenerable",
-    "done": true
-  },
-  {
-    "name": "r42-verifier-scout",
-    "folder": "D:/Projects/_SIR",
-    "title": "r42 verifier and scouts",
-    "done": true
-  },
-  {
-    "name": "r15-laptop-fix1",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "Fix failures from r15-laptop verification",
-    "done": true
-  },
-  {
-    "name": "r43-study-mobile-card-tables",
-    "folder": "D:/Projects/SIR Study",
-    "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
-    "done": true
-  },
-  {
-    "name": "r44-portfolio-plans-upgrade",
-    "folder": "D:/Projects/_SIR",
-    "title": "r44 plans upgrade all products",
-    "done": true
-  },
-  {
-    "name": "ci-sir-study-20261112-0700",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: red CI after cleanup commit",
-    "done": true
-  },
-  {
-    "name": "r45-study-scout-fixes",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: scout findings",
-    "done": true
-  },
-  {
-    "name": "r45-jobs-scout-fixes",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: scout findings",
-    "done": true
-  },
-  {
-    "name": "ci-sir-20261112-0901",
-    "folder": "D:/Projects/_SIR",
-    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
-    "done": true
-  },
-  {
-    "name": "ci-sir-20261112-0941",
-    "folder": "D:/Projects/_SIR",
-    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
-    "done": true
-  },
-  {
-    "name": "ci-sir-20261112-0951",
-    "folder": "D:/Projects/_SIR",
-    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
-    "done": true
-  },
-  {
-    "name": "ci-sir-20261112-0951-fix1",
-    "folder": "D:/Projects/_SIR",
-    "title": "Fix failures from ci-sir-20261112-0951 verification",
-    "done": true
-  },
-  {
-    "name": "ci-ahome-20261112-1401",
-    "folder": "D:/Projects/AHome",
-    "title": "AHome: إصلاح الفحص الآلي الأحمر",
-    "done": true
-  },
-  {
-    "name": "audit-sir-laptop-manager-20261112-1401",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "SIR Laptop Manager: دورة فحص ذاتي",
-    "done": false
-  },
-  {
-    "name": "audit-sir-study-20261112-1401",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: دورة فحص ذاتي",
-    "done": false
-  },
-  {
-    "name": "r46-jobs",
-    "folder": "D:/Projects/SIR Jobs",
-    "title": "SIR Jobs: competitors and feature gaps",
-    "done": false
-  },
-  {
-    "name": "r46-portfolio",
-    "folder": "D:/Projects/SIR Portfolio",
-    "title": "SIR Portfolio: competitors and feature gaps",
-    "done": true
-  },
-  {
-    "name": "r46-study",
-    "folder": "D:/Projects/SIR Study",
-    "title": "SIR Study: competitors and feature gaps",
-    "done": false
-  },
-  {
-    "name": "r46-laptop-manager",
-    "folder": "D:/Projects/SIR Laptop Manager",
-    "title": "SIR Laptop Manager: competitors and feature gaps",
-    "done": false
-  },
-  {
-    "name": "ci-sir-20261112-0901-fix1",
-    "folder": "D:/Projects/_SIR",
-    "title": "Fix failures from ci-sir-20261112-0901 verification",
-    "done": false
-  },
-  {
-    "name": "r47-skills-encyclopedia",
-    "folder": "D:/Projects/_SIR",
-    "title": "HQ: skills encyclopedia and organization",
-    "done": false
-  },
-  {
-    "name": "r48-video-digest",
-    "folder": "D:/Projects/_SIR",
-    "title": "HQ: video digest skill",
-    "done": false
-  }
+ {
+  "name": "r14-ahome",
+  "folder": "D:/Projects/AHome",
+  "title": "إصلاحات المشروع الخاص",
+  "done": true
+ },
+ {
+  "name": "r15-laptop",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "Laptop Manager overnight work",
+  "done": true
+ },
+ {
+  "name": "r15-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "Jobs inbox assistant, phase 1",
+  "done": true
+ },
+ {
+  "name": "r15-control",
+  "folder": "D:/Projects/_SIR",
+  "title": "Control Room and Telegram menu",
+  "done": true
+ },
+ {
+  "name": "r16-laptop",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "Laptop Manager: fix review findings",
+  "done": true
+ },
+ {
+  "name": "r16-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs round 16",
+  "done": true
+ },
+ {
+  "name": "r16-study",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study round 16",
+  "done": true
+ },
+ {
+  "name": "r16-control",
+  "folder": "D:/Projects/_SIR",
+  "title": "Control Room round 16",
+  "done": true
+ },
+ {
+  "name": "r17-ahome-verify",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome round 14 verification",
+  "done": true
+ },
+ {
+  "name": "r18-ahome-phone",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
+  "done": true
+ },
+ {
+  "name": "r19-study",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
+  "done": true
+ },
+ {
+  "name": "r21-ahome",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
+  "done": true
+ },
+ {
+  "name": "r19-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
+  "done": true
+ },
+ {
+  "name": "r19-control",
+  "folder": "D:/Projects/_SIR",
+  "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+  "done": true
+ },
+ {
+  "name": "r20-study",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
+  "done": true
+ },
+ {
+  "name": "r22-laptop",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "Laptop Manager: واجهة الموبايل",
+  "done": true
+ },
+ {
+  "name": "r22-control",
+  "folder": "D:/Projects/_SIR",
+  "title": "لوحة التحكم: واجهة الموبايل",
+  "done": true
+ },
+ {
+  "name": "r22-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: واجهة الموبايل",
+  "done": true
+ },
+ {
+  "name": "r22-study",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: واجهة الموبايل",
+  "done": true
+ },
+ {
+  "name": "r23-jobs-cv",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
+  "done": true
+ },
+ {
+  "name": "r24-jobs-apply",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: التقديم على الشغل بموافقتك",
+  "done": true
+ },
+ {
+  "name": "r24-games",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "الألعاب: تحسين الأداء والجرافيكس",
+  "done": true
+ },
+ {
+  "name": "r25-sir-ai",
+  "folder": "D:/Projects/SIR AI",
+  "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
+  "done": true
+ },
+ {
+  "name": "r26-infra",
+  "folder": "D:/Projects/_SIR",
+  "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
+  "done": true
+ },
+ {
+  "name": "r27-study-sources",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: سحب المواد الجديدة وترتيبها",
+  "done": true
+ },
+ {
+  "name": "r28-jobs-autoapply",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
+  "done": true
+ },
+ {
+  "name": "ci-sir-study-20261111-0621",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
+  "done": true
+ },
+ {
+  "name": "audit-sir-laptop-manager-20261111-0841",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "audit-sir-jobs-20261111-0841",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "audit-sir-study-20261111-1011",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "r30-ahome-local-core",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
+  "done": true
+ },
+ {
+  "name": "audit-ahome-20261111-1011",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "laptop-updates-20261111",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
+  "done": true
+ },
+ {
+  "name": "r29-jobs-verify-applies",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
+  "done": true
+ },
+ {
+  "name": "r31-desktop-organize",
+  "folder": "D:/Projects/_SIR",
+  "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
+  "done": true
+ },
+ {
+  "name": "audit-sir-laptop-manager-20261111-1951",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "audit-sir-study-20261111-1951",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "r33-ahome-feedback",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
+  "done": true
+ },
+ {
+  "name": "r34-jobs-ui-overhaul",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
+  "done": true
+ },
+ {
+  "name": "r35-control-room-laptop-ui",
+  "folder": "D:/Projects/_SIR",
+  "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
+  "done": true
+ },
+ {
+  "name": "audit-ahome-20261112-0051",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "audit-ahome-20261112-0111",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "r36-more-free-workers",
+  "folder": "D:/Projects/_SIR",
+  "title": "r36 more free workers",
+  "done": true
+ },
+ {
+  "name": "r37-verify-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "r37 verify today's UI",
+  "done": true
+ },
+ {
+  "name": "r38-ahome-feedback2",
+  "folder": "D:/Projects/AHome",
+  "title": "r38 AHome feedback 2",
+  "done": true
+ },
+ {
+  "name": "r39-portfolio-copy",
+  "folder": "D:/Projects/SIR Portfolio",
+  "title": "r39 Portfolio copy",
+  "done": true
+ },
+ {
+  "name": "r40-sir-ai-vision",
+  "folder": "D:/Projects/SIR AI",
+  "title": "r40 SIR AI vision plan",
+  "done": true
+ },
+ {
+  "name": "r41-disk-regenerable",
+  "folder": "D:/Projects/_SIR",
+  "title": "r41 disk regenerable",
+  "done": true
+ },
+ {
+  "name": "r42-verifier-scout",
+  "folder": "D:/Projects/_SIR",
+  "title": "r42 verifier and scouts",
+  "done": true
+ },
+ {
+  "name": "r15-laptop-fix1",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "Fix failures from r15-laptop verification",
+  "done": true
+ },
+ {
+  "name": "r43-study-mobile-card-tables",
+  "folder": "D:/Projects/SIR Study",
+  "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
+  "done": true
+ },
+ {
+  "name": "r44-portfolio-plans-upgrade",
+  "folder": "D:/Projects/_SIR",
+  "title": "r44 plans upgrade all products",
+  "done": true
+ },
+ {
+  "name": "ci-sir-study-20261112-0700",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: red CI after cleanup commit",
+  "done": true
+ },
+ {
+  "name": "r45-study-scout-fixes",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: scout findings",
+  "done": true
+ },
+ {
+  "name": "r45-jobs-scout-fixes",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: scout findings",
+  "done": true
+ },
+ {
+  "name": "ci-sir-20261112-0901",
+  "folder": "D:/Projects/_SIR",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "done": true
+ },
+ {
+  "name": "ci-sir-20261112-0941",
+  "folder": "D:/Projects/_SIR",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "done": true
+ },
+ {
+  "name": "ci-sir-20261112-0951",
+  "folder": "D:/Projects/_SIR",
+  "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+  "done": true
+ },
+ {
+  "name": "ci-sir-20261112-0951-fix1",
+  "folder": "D:/Projects/_SIR",
+  "title": "Fix failures from ci-sir-20261112-0951 verification",
+  "done": true
+ },
+ {
+  "name": "ci-ahome-20261112-1401",
+  "folder": "D:/Projects/AHome",
+  "title": "AHome: إصلاح الفحص الآلي الأحمر",
+  "done": true
+ },
+ {
+  "name": "audit-sir-laptop-manager-20261112-1401",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "SIR Laptop Manager: دورة فحص ذاتي",
+  "done": true
+ },
+ {
+  "name": "audit-sir-study-20261112-1401",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: دورة فحص ذاتي",
+  "done": false
+ },
+ {
+  "name": "r46-jobs",
+  "folder": "D:/Projects/SIR Jobs",
+  "title": "SIR Jobs: competitors and feature gaps",
+  "done": false
+ },
+ {
+  "name": "r46-portfolio",
+  "folder": "D:/Projects/SIR Portfolio",
+  "title": "SIR Portfolio: competitors and feature gaps",
+  "done": true
+ },
+ {
+  "name": "r46-study",
+  "folder": "D:/Projects/SIR Study",
+  "title": "SIR Study: competitors and feature gaps",
+  "done": false
+ },
+ {
+  "name": "r46-laptop-manager",
+  "folder": "D:/Projects/SIR Laptop Manager",
+  "title": "SIR Laptop Manager: competitors and feature gaps",
+  "done": false
+ },
+ {
+  "name": "ci-sir-20261112-0901-fix1",
+  "folder": "D:/Projects/_SIR",
+  "title": "Fix failures from ci-sir-20261112-0901 verification",
+  "done": true
+ },
+ {
+  "name": "r47-skills-encyclopedia",
+  "folder": "D:/Projects/SIR Portfolio",
+  "title": "HQ: skills encyclopedia and organization",
+  "done": false
+ },
+ {
+  "name": "r48-video-digest",
+  "folder": "D:/Projects/SIR AI",
+  "title": "HQ: video digest skill",
+  "done": false
+ }
 ]
