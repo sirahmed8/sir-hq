@@ -130,3 +130,10 @@ One line per distinct request or standing rule. Status is what files show today,
 8. Ordered, clean PDF reports (no half-empty pages) for the owner deliveries.
 9. Windsurf (and any other strong free coding CLI): evaluate, install if free, add to the rotation; plus the "per-group WhatsApp list" (cohort, archive, work and job groups) so the digest covers every group.
 10. SIR AI hosting and delivery: Vercel mirror, app/download locations, and the Telegram bot token owner step; then tell him exactly where the product lives.
+| 11-12 | Stay with the backup manager (Claude at 5% weekly left); continue what Claude was doing plus backup manager work | OPEN | this ledger; backup manager active |
+
+| 11-12 | Screenshot of "Ran 7 commands" modal (backup manager activation); confirm manager running and report state | DONE | this ledger; reply file |
+
+| 11-12 | خلص اخر المهام الي بعتهالك ف التيلي هنا وخلي عندك context window لشات تيليجرام عشان تبقى فاهم الشات عادي | DONE | reply-739920726; backup manager reviewed recent chat context |
+- 2026-11-12 21:15 voice: transcriber misses English words; asked about Telegram bot profile photo quality task -> queued r66-bot-profile-photo
+- 2026-11-12 21:18 voice: wants clean organized Telegram message format, no symbols inside words; verify transcription is not hallucinating -> fixed whisper prompt bias + added reply cleaner in backup_manager.py

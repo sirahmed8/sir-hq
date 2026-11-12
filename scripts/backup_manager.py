@@ -80,8 +80,17 @@ def tg(method: str, **params):
         return json.loads(r.read().decode("utf-8"))
 
 
+def clean(text: str) -> str:
+    """Telegram shows the reply as plain text (no markdown is parsed): strip decoration
+    symbols so nothing changes the shape of a word, and keep spacing tidy."""
+    text = re.sub(r"[*`~]+", "", text)
+    text = re.sub(r"(?m)^\s{0,3}#{1,6}\s*", "", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
+
+
 def send(text: str) -> None:
-    text = text.strip() or "تم."
+    text = clean(text) or "تم."
     for i in range(0, len(text), 3800):
         try:
             tg("sendMessage", chat_id=CHAT_ID, text=text[i:i + 3800])
@@ -113,7 +122,7 @@ def transcribe(path: Path) -> str:
             boundary = uuid.uuid4().hex
             parts = []
             for name, value in (("model", "whisper-large-v3"), ("response_format", "json"), ("temperature", "0"),
-                                ("prompt", "كلام بالعربي المصري مع كلمات إنجليزي عن مشاريع برمجة ومنتجات SIR وتطبيقات")):
+                                ("prompt", "كلام مصري بالعامية، أحياناً كلمات إنجليزي عن شغل ودراسة وكومبيوتر ومشاريع")):
                 parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode("utf-8"))
             parts.append((f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{path.stem}.ogg"\r\n'
                           "Content-Type: application/octet-stream\r\n\r\n").encode("utf-8") + data + b"\r\n")

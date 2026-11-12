@@ -219,3 +219,17 @@ Sweep ok: autopilot alive, r54 plans done (6 small projects), r53-hagoozat and r
 
 ## HQ note (2026-11-12 20:40) [claude]
 Sweep ok: autopilot alive, 9 active tasks (current projects building, AHome r57 and r62 on free tools, control-room mirror running), board synced (inbox 2, review 0). C: 4.6 GB free and falling without a cause in user caches (pagefile 25 GB suspected): watch next hour, no cleanup possible. No new Telegram replies.
+
+## HQ note (2026-11-12 21:05) [backup manager]
+Owner switched fully to the backup manager (Claude weekly quota at ~5%). Continued standing work: queue healthy, 11 open tasks all with live runners (r60 builds on Jobs/Laptop/Study/AI, r53-hagoozat, r58 new project folders, r61-plan-life, r63-control-room-private, r57-ahome-free). C: back to 4.3 GB free after the 0.2 GB dip; watchdog holding. No stalls found.
+## HQ note (2026-11-12 21:20) [backup manager]
+Owner sent the "Ran 7 commands" screenshot (backup-manager activation + privacy round queue). Verified queue moving: r60 builds (AI/Jobs/Laptop), r58 project folders, r61 plans, r63 control-room-private all wrote within the last minutes; no stalls. Disk and workers unchanged.
+
+## HQ note (2026-11-12 21:04) [backup manager]
+Owner asked to close out last Telegram requests and keep full Telegram chat context. Confirmed recent items answered (Control Room pages.dev explanation, 7-commands modal, queue/worker status). Queue active (12 open, runners alive, pool has free tools; Kilo/OpenCode some cooling). No stalls fixed.
+
+## HQ note (2026-11-12 21:20) [backup manager]
+- Ahmed asked about bot profile photo quality: queued r66-bot-profile-photo (split from r64 item 4). Explained voice transcriber misses English words like Command Menu.
+
+## HQ note (2026-11-12 21:25) [backup manager]
+Owner complained Telegram replies look messy (symbols breaking words) and voice transcript hallucinates "SIR products and translation apps". Fixed: whisper prompt hint neutralized in scripts/backup_manager.py, added clean() strip of markdown symbols before send, persona formatting rules added. Verified transcribe() on voice-739920732.oga.
