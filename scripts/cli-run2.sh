@@ -14,7 +14,8 @@ LOG=$ROOT/ops/agy-runs/cli-$NAME.log
 DEVIN="$LOCALAPPDATA/devin/cli/bin/devin.exe"
 CONT="Continue task $NAME. Read $PREAMBLE, then .sir/CHECKPOINT.md, the checklist file named in the brief, the brief $PROMPT, git status, git diff --stat and the last commits. Repair anything broken first, then finish every unticked item completely (commit, push and checkpoint after each item), then write the report and run the done command from the manual. Do not stop until every item is ticked and CI on main is green."
 POOL_ARGS=""
-case "$DIR" in *[Aa][Hh]ome*) POOL_ARGS="local" ;; esac
+# AHome source work uses the normal free pool (owner 2026-11-12); private content is still never opened
+
 cd "$DIR" || exit 1
 # Run the whole runner tree at BelowNormal priority so automations never freeze the laptop.
 WINPID=$(cat /proc/$$/winpid 2>/dev/null || true)

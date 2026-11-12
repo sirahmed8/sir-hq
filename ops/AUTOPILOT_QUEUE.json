@@ -765,6 +765,12 @@
     "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
+    "name": "r57-ahome-free",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: owner feedback round r57 (22 items) by free tools",
+    "done": false
+  },
+  {
     "name": "ci-sir-study-20261112-0700-fix1",
     "folder": "D:/Projects/SIR Study",
     "title": "Fix failures from ci-sir-study-20261112-0700 verification",
