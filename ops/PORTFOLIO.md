@@ -29,6 +29,12 @@ Final product list (owner, 2026-11-12, `plans/PRODUCT_DIRECTION_2026-11-12.md` s
 | **SIR Price Finder** | `SIR Price Finder` | `main` | 1 | 2026-11-12 | +1 | Wave 6 | Planning | 0/10 | Price comparison across Amazon.eg, Noon, Jumia, global stores. Skeleton created r58. Private repo `sirahmed8/sir-price-finder`. |
 | **SIR Game Deals** | `SIR Game Deals` | `main` | 1 | 2026-11-12 | +1 | Wave 9 | Planning | 0/10 | Game discounts and free games across stores, price history, alerts. Skeleton created r58. Private repo `sirahmed8/sir-game-deals`. |
 | **SIR Access Map** | `SIR Access Map` | `main` | 1 | 2026-11-12 | +1 | Wave 10 | Planning | 0/10 | Crowd-sourced accessibility map for Egypt/Arab world. Skeleton created r58. Private repo `sirahmed8/sir-access-map`. Built last. |
+| **SIR Handyman** | `SIR Handyman` | `main` | 1 | 2026-11-12 | +1 | Wave 7 | Planning | 0/10 | On-demand home services in Egypt. Skeleton created r58. Private repo `sirahmed8/sir-handyman`. |
+| **SIR Cars** | `SIR Cars` | `main` | 1 | 2026-11-12 | +1 | Wave 9 | Planning | 0/10 | Car ownership in Egypt: price estimates, maintenance, fuel, workshops, parts. Skeleton created r58. Private repo `sirahmed8/sir-cars`. |
+| **SIR Movies** | `SIR Movies` | `main` | 1 | 2026-11-12 | +1 | Wave 9 | Planning | 0/10 | Movie/series discovery with Arabic support, where-to-watch, cinema showtimes. Skeleton created r58. Private repo `sirahmed8/sir-movies`. |
+| **SIR Price Finder** | `SIR Price Finder` | `main` | 1 | 2026-11-12 | +1 | Wave 6 | Planning | 0/10 | Price comparison across Amazon.eg, Noon, Jumia, global stores. Skeleton created r58. Private repo `sirahmed8/sir-price-finder`. |
+| **SIR Game Deals** | `SIR Game Deals` | `main` | 1 | 2026-11-12 | +1 | Wave 9 | Planning | 0/10 | Game discounts and free games across stores, price history, alerts. Skeleton created r58. Private repo `sirahmed8/sir-game-deals`. |
+| **SIR Access Map** | `SIR Access Map` | `main` | 1 | 2026-11-12 | +1 | Wave 10 | Planning | 0/10 | Crowd-sourced accessibility map for Egypt/Arab world. Skeleton created r58. Private repo `sirahmed8/sir-access-map`. Built last. |
 
 ## Consolidated Legacy Locations (Read-Only until M6 Cutover)
 Every merged product preserves its original source code in `legacy/` inside its new SIR project folder. Never delete `legacy/` before Milestone 6.
