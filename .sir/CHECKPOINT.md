@@ -1,9 +1,10 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
+- r67-c-drive-space DONE (2026-11-12 23:30): C: was 0.24 GB free, now 5.3 GB. Cause: MAX_PARALLEL=22 CLI agents exhausted 24 GB RAM, system pagefile grew on C:, plus worker caches (playwright/uv/npm/pnpm) downloading to C:. Fixes: caches moved to D:\Caches via user env vars + cli-run2.sh exports, ms-playwright moved, MAX_PARALLEL 22->12, watchdog warns once <2 GB and cleans temp+npm+pip+uv+pnpm. D: also tight (7.4 GB); Windows Update cache needs one elevated cleanmgr (owner).
 - Claude weekly quota about 5 percent; owner talks to the backup manager on Telegram (state ops/backup-manager.json active). backup_manager.py now answers first through direct_reply() (strong model, about 2 s, no tools) and starts the agent path only when needed; language guard rejects mixed-script replies; voice fix (.ogg name for Groq); r64 worker is still editing the same file.
 - Control Room: public Pages site deleted; private on Tailscale (https://ahmed.tail9e9aa7.ts.net); task SIR_HQ_Dashboard regenerates it every 30 minutes.
-- C: drive almost full (0 free at 22:30, 0.8 GB after removing Playwright firefox and webkit); r67 is finding the cause. Queue also has r64 telegram-first, r65 AHome APK and updates, r68 SIR AI bot answers, r64-ahome-bot-kit, r57 and r62 AHome. A Haiku subagent runs the WhatsApp digest.
+- Queue also has r64 telegram-first, r65 AHome APK and updates, r68 SIR AI bot answers, r64-ahome-bot-kit, r57 and r62 AHome. A Haiku subagent runs the WhatsApp digest.
 
 ## Next step (exact)
 1. `python scripts/ai-status.py`, `python scripts/taskboard.py list`; verify the 7 tasks in review (ops/verifications), read ops/tasks/reports.

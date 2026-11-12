@@ -17,6 +17,12 @@ POOL_ARGS=""
 # AHome source work uses the normal free pool (owner 2026-11-12); private content is still never opened
 
 cd "$DIR" || exit 1
+# Keep worker temp files and package/browser caches on D: (C: is nearly full; user-level env vars set 2026-11-12).
+export TMP="D:\\Caches\\tmp" TEMP="D:\\Caches\\tmp" \
+  npm_config_cache="D:\\Caches\\npm" PIP_CACHE_DIR="D:\\Caches\\pip" \
+  UV_CACHE_DIR="D:\\Caches\\uv" PLAYWRIGHT_BROWSERS_PATH="D:\\Caches\\ms-playwright" \
+  npm_config_store_dir="D:\\Caches\\pnpm-store"
+mkdir -p /d/Caches/tmp
 # Run the whole runner tree at BelowNormal priority so automations never freeze the laptop.
 WINPID=$(cat /proc/$$/winpid 2>/dev/null || true)
 [ -n "$WINPID" ] && powershell -NoProfile -Command "(Get-Process -Id $WINPID -EA 0).PriorityClass='BelowNormal'" 2>/dev/null

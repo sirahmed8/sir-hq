@@ -5,7 +5,7 @@ What it does each run (no AI, no network except `gh`):
 2. autopilot heartbeat older than 12 minutes -> start the scheduled task SIR_HQ_Autopilot again
 3. a project whose last CI run on main is red and that has no open task -> queue a "fix CI" task for it (brief written from a template)
 4. queue empty -> queue an audit-loop task for up to 2 projects (the project that has gone longest without a commit first)
-5. C: free space under 3 GB -> clear temp, npm and pip caches (regenerable only), tell Ahmed once per episode
+5. C: free space under 4.5 GB -> clear temp, npm, pip, uv and pnpm caches (regenerable only); under 2 GB -> also tell Ahmed once per episode
 6. every model in the pool cooling for more than 3 hours -> one Telegram note (once)
 Never touches AHome files: for AHome it only reads git and gh output. Log: ops/watchdog.log.
 """
@@ -174,11 +174,13 @@ def main() -> None:
     if free_gb < 4.5:
         run(["powershell", "-NoProfile", "-Command",
              "Get-ChildItem $env:TEMP -Force -EA 0 | ? { $_.Name -ne 'claude' } | % { Remove-Item $_.FullName -Recurse -Force -EA 0 }; "
-             "Remove-Item \"$env:LOCALAPPDATA\\CrashDumps\\*\" -Recurse -Force -EA 0; npm cache clean --force; pip cache purge"], timeout=240)
+             "Remove-Item \"$env:LOCALAPPDATA\\CrashDumps\\*\" -Recurse -Force -EA 0; "
+             "npm cache clean --force 2>$null; pip cache purge 2>$null; uv cache clean --force 2>$null; "
+             "Remove-Item \"$env:LOCALAPPDATA\\pnpm-cache\\*\" -Recurse -Force -EA 0"], timeout=240)
         after = shutil.disk_usage("C:/").free / 1024**3
         log(f"C: low ({free_gb:.1f} GB): cleaned temp and caches, now {after:.1f} GB")
-        if not state.get("disk_told"):
-            telegram(f"[الإدارة] مساحة C: كانت {free_gb:.1f} جيجا. نضفت الملفات المؤقتة، بقت {after:.1f} جيجا.")
+        if free_gb < 2.0 and not state.get("disk_told"):
+            telegram(f"[الإدارة] مساحة C: نزلت تحت 2 جيجا ({free_gb:.1f} جيجا). نضفت الملفات المؤقتة والكاشات، بقت {after:.1f} جيجا. لو لسه بتقل كل يوم قولّي.")
             state["disk_told"] = True
     elif free_gb > 6:
         state["disk_told"] = False

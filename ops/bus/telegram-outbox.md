@@ -9,3 +9,4 @@
 2026-11-12T18:23:49Z | r62-control-room-mirror | Control Room live mirror URL sent (sir-control-room-0dce50.pages.dev, auto-publish every 30 min)
 2026-11-12T19:00Z | daily-summary | ملخص اليوم
 2026-11-12T19:33Z | r63-control-room-private | Control Room private Tailscale URL sent (ahmed.tail9e9aa7.ts.net, tailnet only, no password)
+2026-11-12T23:30 Cairo | r67-c-drive-space | C: was 0.2GB free (22 parallel agents grew pagefile+caches); caches moved to D:, MAX_PARALLEL 22->12, watchdog warns<2GB+cleans; now 5.3GB free; msg 709

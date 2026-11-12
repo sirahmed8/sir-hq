@@ -63,3 +63,11 @@
 11-12 21:34 autopilot START r67-c-drive-space (runner pid 28448)
 2026-11-12 devin START r64-telegram-first continuing: repair pass then items 1-6 per brief
 11-12 21:49 devin DONE r66-bot-profile-photo bot profile photo replaced with 1024px brand icon, verified via API
+2026-11-12 devin DONE r64-telegram-first: burst queue+model race+kit+avatar+robustness+persona live-verified (~30s reply), report ops/agy-runs/reports/r64-telegram-first.md
+11-12 22:21 claude NOTE backup_manager.py: added direct_reply() fast path (strong model, about 2 s, JSON reply plus needs_agent) before the agent race; owner had empty replies and 10 minute waits because only devin worked. Keep it. Also found: prepare_item failed with KeyError 'result' (check transcribe cloudflare path and TG.call result handling).
+11-12 22:30 autopilot START r60-build-sir-study (runner pid 16804)
+11-12 23:20 devin DONE r62-ahome-smart-sync: all brief items verified; repaired 4 broken things (cloak import, corner test, context-menu outside-tap bug, stale :3000 build); serial suite 1040/1041 green; report ops/agy-runs/reports/r62-ahome-smart-sync.md; agy-done ok
+22:40 devin DONE r67-build-sir-portfolio: repairs + 11 feature gaps shipped, all 22 triaged, both hosts deployed and curl-verified; report ops/agy-runs/reports/r67-build-sir-portfolio.md
+11-12 22:55 autopilot START r65-ahome-apk-adb-updates (runner pid 35900)
+11-12 23:20 autopilot START r69-review-backlog (runner pid 31552)
+2026-11-12 23:30 devin DONE r67-c-drive-space: C: 0.24->5.30 GB free; cause=22 parallel CLI agents (RAM exhausted, pagefile grew) + worker caches on C:; caches moved to D: via user env vars, ms-playwright moved, MAX_PARALLEL 22->12, watchdog warns once <2GB and cleans temp+npm+pip+uv+pnpm; report ops/agy-runs/reports/r67-c-drive-space.md
