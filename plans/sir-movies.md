@@ -1,8 +1,8 @@
 # PLAN: SIR Movies (small independent project, planning only)
 
-Created 2026-11-12 (r51-backlog-projects). Idea 29 from the owner's "أفكار برامج ومشاريع" note. **Rewritten 2026-11-12 (r54) into the full premium plan.** Supersedes the r51 text; git history keeps it. Canonical competitor study: `D:/Projects/_SIR/ops/competitors/sir-movies.md` (opened sources dated 2026-11-12). First ten build tasks: `D:/Projects/_SIR/ops/briefs/sir-movies-tasks.md`.
+Created 2026-11-12 (r51-backlog-projects). Idea 29 from the owner's "أفكار برامج ومشاريع" note. **Rewritten 2026-11-12 (r54) into the full premium plan; refreshed again 2026-11-12 evening (r61) with new market research, a concrete API and licensing map, an expanded screen and API list, and 48 build tasks.** Supersedes the r51 text; git history keeps it. Canonical competitor study: `D:/Projects/_SIR/ops/competitors/sir-movies.md`. Build task queue: `D:/Projects/_SIR/ops/briefs/sir-movies-tasks.md` (48 tasks since r61). Refresh log: `plans/sir-movies-REFRESH-LOG.md`.
 
-**Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. This is a plan-only round: no folder, no repo, no code, no keys were created in this round. Verified today: the old plan file existed in git (`b3cc6a1` is the tip at time of writing); `D:\Projects\SIR Movies` does not exist; `sirahmed8/sir-movies` was not checked or created. Everything about competitors is "what their own pages showed on 2026-11-12", never an audited fact.
+**Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. As of the r61 rescan on 2026-11-12: `D:\Projects\SIR Movies` exists as a skeleton (README, AGENTS.md, .sir/CHECKPOINT.md + PLAN_REFRESH.md, .gitignore, assets/brand, scripts, folder.ico; git commit `009dd34`, remote `origin https://github.com/sirahmed8/sir-movies.git` configured and `main` tracking `origin/main`). No product code, no packages, no apps exist yet. Its `.sir/CHECKPOINT.md` still says "No commits yet" and is stale; the r60 build brief exists at `ops/briefs/r60-build-sir-movies.md`. Everything about competitors, prices and APIs below is "what the source showed on the date written", never an audited fact.
 
 **Product class: GLOBAL.** Anyone in Egypt, the Arab world and globally can use it; accounts, subscriptions, dual hosting, owner-only analytics, all platforms planned.
 
@@ -38,10 +38,10 @@ The one-sentence promise, in the words a user would use:
 | Domain candidates | `sirmovies.app` or an `.eg` name; owner checks availability and price "(unsourced, verify)". Until then Firebase and Vercel default URLs |
 | Firebase project | `sir-movies`, created at M1, separate from every other SIR product. Not verified today |
 | Payment | Paymob and Fawry in test mode first (EGP), Stripe later (USD); until keys exist: "Subscriptions launching soon" plus email capture |
-| Wave | 9 (after current GLOBAL products); build starts only when HQ assigns it |
-| Desktop kit | M0 recreates it per OWNER_DEFAULTS item 19 |
+| Wave | 9 (after current GLOBAL products); an r60 build brief exists (`ops/briefs/r60-build-sir-movies.md`) and HQ decides when build rounds run |
+| Desktop kit | Partially done: `folder.ico` exists at the project root; Versions.txt and shortcuts still owed (M0 tail) |
 
-**Current state, honestly:** a plan exists (this file), a competitor study exists, ten tasks are queued. No code, no folder, no repo, no deployment, no keys. Egyptian cinema data sources are unbuilt and unlicensed. JustWatch developer program status is unknown (their developers site did not resolve on 2026-11-12). TMDB licensing for a monetised product is unverified. Every public claim must wait on those three checks.
+**Current state, honestly (r61 rescan, 2026-11-12):** plan, competitor study and a 48-task queue exist; the project skeleton and private GitHub repo exist (commit `009dd34`). No product code, no Firebase project, no deployment, no keys, no TMDB or JustWatch or Watchmode account keys. Legal landscape changed since r54: Egypt's PDPL grace period ended 2026-10-31 (see 6.9); TMDB confirmed a $149 USD/month commercial API tier on 2026-10-14 (see 6.10). Every public claim still waits on the checks in section 11.
 
 ---
 
@@ -62,9 +62,64 @@ Full study: `D:/Projects/_SIR/ops/competitors/sir-movies.md` (10 competitors, op
 | TMDB | Metadata is free and rich | We build the product on it legally with attribution |
 | CimaClub | Pirate demand is real; product is illegal and ephemeral | The legal, safe, durable alternative for new releases and cinema |
 
+### 3.1 r61 research refresh (2026-11-12): what is new and what it changes
+
+Sources opened today; every claim is what the page showed, not an audited fact.
+
+**New competitors found (added to `ops/competitors/sir-movies.md`):**
+
+| Competitor | What it proves | Our edge |
+|---|---|---|
+| ReelRifter | AI chat over your own watchlist, MCP server for Claude/ChatGPT/Grok, Chrome/Edge scrobble extension, spoiler-free "catch me up", year-in-review cards, Pro-gated AI | Same AI-over-your-data idea but Arabic-first, EGP pricing, Egypt cinema, legal where-to-watch; their AI is English-only today |
+| Moviebase | Free movie+TV tracker with Trakt two-way sync, TMDB data, episode tracking, streaming availability, Premium removes ads | Arabic RTL, Egypt providers (Shahid, Watch iT, TOD), cinema showtimes, shared lists in Arabic |
+| Movie Paradise (Android) | Multi-source ratings side by side (IMDb, RT, Metacritic, Letterboxd, Trakt), Jellyfin/Plex auto-watch, smart lists, AI chat | Same comparison pattern, but web+mobile cross-platform, Arabic, Egypt-first providers |
+| Simkl | Scrobbling from Plex/Kodi/VLC/Netflix at scale; PRO/VIP recommendation engine | Optional power-user scrobble import later; we stay consumer-simple first |
+| Omniphile / Logfolio / Limelight | Personal trackers and public-page trackers keep multiplying; Letterboxd still lacks TV tracking | We track movies AND series from day one with episode progress |
+
+**Pricing facts verified today (record with date; never publish without re-check):** Letterboxd Pro $18.99/year on US App Store (2026); Trakt VIP $59.99/year or $5.99/month, free accounts limited to one community app since July 2026 (2026); Simkl PRO/VIP exists with recommendation engine (2026); ReelRifter gates AI behind Pro (2026).
+
+**Data-source map now concrete (was "unknown" in r54):**
+
+| Source | Status found 2026-11-12 | What it gives us | Cost |
+|---|---|---|---|
+| TMDB API | Free for non-commercial with attribution; **commercial tier confirmed at $149 USD/month** by TMDB staff in their forum (2026-10-14); API terms forbid using TMDB content to train ML/AI models and cap caching at 6 months | Movies+series metadata, cast, trailers, watch providers per region, recommendations | $0 until monetisation; $149/mo commercial, or stay non-commercial until revenue justifies it |
+| JustWatch Partner API | Real product: `apis.justwatch.com` content-partner API + widget + data dump; contract + partner token required; branded "JustWatch" link mandatory next to every widget; 500+ providers, 120+ countries, daily updates | Best-in-class where-to-watch data and widget revenue | Contract/partnership, terms unsourced; fallback stays TMDB watch-providers + curation |
+| Watchmode API | Public pricing page: Developer free 2,500 credits/mo non-commercial (3 countries, attribution required); Startup $349/mo commercial 54 countries; Business $599/mo; 436 services, daily catalog updates, title-leaving dates, awards | Where-to-watch alternative/complement to TMDB providers; "leaving soon" alerts are a differentiator | Free dev tier; commercial is expensive, evaluate at M2/M3 |
+| International Showtimes API | `api.internationalshowtimes.com/v5`, 120+ countries, cinemas+movies+showtimes+deep booking links, free trial key | Possible licensed Egypt cinema feed (coverage of Egypt unverified) | Trial then paid, terms unsourced |
+| The Boxoffice Company "Source" | 70+ countries, 25 languages, showtimes + ticketing URLs, real-time | Enterprise-grade cinema data option | Enterprise pricing, contact sales |
+| elCinema licensing | Public licensing page: licensed data via SOAP/REST web service, weekly updates typical | The Egypt-native cinema data option, editorial-grade | Contract required |
+| VOX Cinemas Egypt | Public showtimes page verified live (egy.voxcinemas.com/showtimes) listing City Centre Alexandria/Almaza/Mall of Egypt times | Proof the curated-permission path has real data to work with | Written agreement needed for structured use |
+
+**Regulation change (critical, was not in r54):** Egypt PDPL Executive Regulations (Decree 816/2025, issued 2025-11-01) grace period **ended 2026-10-31**. From that date the PDPL is fully enforced: controllers need a PDPC licence, a registered Data Protection Officer (DPO categories A/B/C, exam required), 72-hour breach notification, consent for cross-border transfers, and criminal sanctions exist. See section 6.9.
+
+**Feature trends the category moved to in 2026:** AI chat over the user's own watchlist (ReelRifter, Movie Paradise); MCP/assistant integration so external AI can read the user's lists; browser-extension scrobbling from streaming sites; spoiler-safe story-so-far recaps; multi-source ratings comparison; smart lists that self-update; year-in-review shareable cards; air-date calendars. We adopt the cheap ones (ratings comparison, smart lists, year-in-review, air-date calendar) and defer the heavy ones (extension scrobble, MCP) to M5+.
+
 ---
 
 ## 4. Features
+
+### 4.0 Screens and surfaces (r61: made explicit)
+
+Every screen below ships with the five states (idle, loading skeleton matching final geometry, empty with one action, error with retry, populated), WCAG 2.2 AA, 44px targets, Arabic RTL and English LTR, light/dark/system/high-contrast themes.
+
+| Surface | Route / place | Contents |
+|---|---|---|
+| Marketing home | `/` (signed out) | Promise in five seconds, trending rail, cinema "now showing" teaser, pricing teaser, legal links |
+| Discovery home (app) | `/` signed-in | "Now showing in Egypt" cinema rail, trending EG, new on services you use, continue-watching rail, genre chips, search bar |
+| Search | `/search?q=` | Movies+series mixed results, Arabic/Latin, filters (year, genre, kind, provider, rating), recent searches per user |
+| Title detail | `/title/[tmdbId]` | Poster/backdrop, Ar/En titles, year, runtime, genres, synopsis, cast top 10, trailers (YouTube embed, muted, captions), where-to-watch panel grouped (subscribe/rent/buy/free) with "leaving soon" badge where the source supports it, in-app rating aggregate, my-status chip, share sheet, multi-source ratings strip |
+| Multi-source ratings strip | on title detail | IMDb / RT / Metacritic / Letterboxd scores where freely available via TMDB external IDs or public pages, each labelled with source and date; absent sources show a dash, never a guess |
+| Track / diary | `/track` | Watchlist states, episode progress, year/month diary, stats summary |
+| Reviews | on title detail + `/reviews` | Text reviews, spoiler tag, report/hide moderation, helpful votes |
+| Lists | `/lists`, `/lists/[id]` | Shared lists, member ticks, invite sheet, smart lists (self-updating filter lists) |
+| Cinema | `/cinema` | City → chain → branch → day picker, showtimes grid, booking link (only under agreement) or official-page link with checked date |
+| Alerts / notifications centre | `/alerts` | Availability alerts, episode reminders, premiere reminders; quiet hours; delivery log |
+| Year in review | `/year/[yyyy]` | Personal recap: counts, hours estimate, top genres, shareable card image |
+| Profile & settings | `/profile` | Locale/region/currency, notification prefs, linked imports, export, delete account, AI opt-in |
+| Pricing | `/pricing` | Free/Pro tiers, EGP/USD auto-detect, "Subscriptions launching soon" + lead capture until keys exist |
+| Owner analytics | `/owner` | Server-gated executive dashboard (section 6.3) |
+| Legal | `/legal/privacy` `/legal/terms` `/legal/refunds` `/legal/cookies` | PDPL-aware, truthful claims only |
+| Help / support | `/help` | Grounded help centre + support assistant (AI, docs-only) |
 
 ### 4.1 Parity with the best in the category, must ship
 
@@ -202,7 +257,22 @@ subscriptions/{uid}              tier, status, gateway (paymob|fawry|stripe), re
 analyticsDaily/{yyyy-mm-dd}      signups, wau, titlesLogged, searches, whereClicks, affiliateClicks,
                                  showtimeViews, mrrEgpCents, mrrUsdCents, aiCalls, aiCostMicros, errors
 events/{eventId}                 short-lived raw events, TTL 30 days, then aggregates only
+alerts/{alertId}                 uid, kind (availability|episode|premiere|leavingSoon),
+                                 tmdbId, providerId?, seasonEpisode?, fireAt, status
+                                 (pending|sent|failed|cancelled), channel (push|email|telegram), quietHours
+notifications/{notifId}           uid, alertId?, title, body, locale, sentAt, deliveredAt?,
+                                 openedAt?, channel, status
+smartLists/{listId}              ownerUid, name, filters {kind, genres[], yearRange, providers[],
+                                 minRating}, refreshPolicy (daily|weekly), itemTmdbIds[] (derived)
+imports/{importId}               uid, source (imdb-csv|trakt|letterboxd), status, matched,
+                                 unmatched[], createdAt, deletedAt?
+moderation/{reportId}            reporterUid, targetType (review|list), targetId, reason,
+                                 status (open|hidden|dismissed), createdAt
+aiThreads/{threadId}             uid, surface (why-this|search|support), locale, createdAt,
+                                 lastMessageAt   (message bodies TTL 30 days)
 ```
+
+r61 additions to the r54 model: `alerts`, `notifications`, `smartLists`, `imports`, `moderation`, `aiThreads`. Rules for them: alerts/notifications/imports/aiThreads are owner-scoped read+write with server-side fan-out for sends; smartLists are owner-scoped with `itemTmdbIds` writable only by the server-side refresh job; moderation is write-once by reporter, status flips only server-side; `aiThreads` message bodies carry a 30-day TTL and are excluded from analytics.
 
 Rules: deny by default; every user reads/writes only their own docs; sharedLists enforce membership and visibility server-side; titles collection world-readable (public TMDB data) but writable only by server; analyticsEvents write-only from clients, read never. Emulator tests prove cross-user read fails and list-membership enforcement.
 
@@ -237,6 +307,36 @@ This is the floor from `D:/Projects/_SIR/standard/23-premium-code-bar.md`, writt
 
 **Evidence before the word done.** Screenshots at 320, 390, 768, 1280 and 1920 px in Arabic and English in light and dark, plus 3840 px once. Playwright on the critical journeys (search, detail, add to watchlist, offline sync). Lighthouse mobile 85 or better on the detail route. A click-target audit in CI. The self-audit loop runs until two clean cycles in a row.
 
+### 6.9 Egypt PDPL compliance (enforced since 2026-10-31, r61)
+
+The PDPL grace period ended 2026-10-31. What this means concretely for SIR Movies:
+
+1. **Licence:** processing personal data of people in Egypt requires a PDPC Controller/Processor licence via the PDPC electronic portal. This is an owner/legal step, not code. Until the licence position is decided, the honest options are (a) launch free-tier-only with minimal data and a documented lawful basis, or (b) gate Egyptian sign-ups behind a notice. Recommended answer in section 11.
+2. **DPO:** a registered Data Protection Officer (PDPC categories A/B/C) must be appointed; registration requires passing the PDPC exam. Owner action; an agent cannot do it.
+3. **Breach notification:** 72 hours to the PDPC, then notify affected users within 3 working days. Build this into the incident runbook now (`docs/incidents.md`), even before launch.
+4. **Cross-border transfers:** consent is required for transferring personal data outside Egypt. Firebase/Google infrastructure is outside Egypt, so the privacy policy and consent flow must say this plainly and collect consent at sign-up. No silent transfers.
+5. **Data subject rights:** export and erasure already planned (one-tap delete, JSON export). Extend with a "what we hold about you" view and a breach-contact channel.
+6. **Consent records:** `leads` already requires `consent:true`; extend the same explicit-consent pattern to marketing email, AI features that send user text to model providers, and cross-border processing. Store consent version + timestamp.
+7. **Children:** watch history of minors is sensitive-adjacent under PDPL; recommended answer: 16+ for accounts, age gate at sign-up asking date of birth, no accounts under 16.
+8. **Criminal exposure:** PDPL carries criminal sanctions including possible imprisonment for certain violations; the privacy page and terms must be lawyer-reviewed before any paid launch.
+
+### 6.10 External API surface and cost map (r61)
+
+Every external call goes through `packages/data` server-side; clients never hold third-party keys. Costs are what the vendor's own page showed on 2026-11-12.
+
+| Call | Provider | Used for | Cost today | Gate |
+|---|---|---|---|---|
+| `GET /3/search/multi`, `/3/movie/{id}`, `/3/tv/{id}`, `/3/movie/{id}/videos`, `/3/movie/{id}/watch/providers`, `/3/trending/*`, `/3/movie/{id}/recommendations`, `/3/movie/{id}/similar`, `/3/discover/*` | TMDB | All metadata, search, providers, recommendations | Free non-commercial with attribution; **$149 USD/mo commercial** (TMDB staff, forum 2026-10-14) | Re-read terms before M3; never use TMDB content to train AI; cache max 6 months |
+| YouTube embed + oEmbed/noembed | YouTube | Trailers | Free; embed only, muted, captions | No scraping; honour YouTube ToS |
+| Partner API `apis.justwatch.com/contentpartner/v2/content` + widget | JustWatch | Where-to-watch offers, provider catalogue, widget revenue | Contract required; branded link mandatory | Partnership outreach task; fallback TMDB providers + curation |
+| `api.watchmode.com` sources/title endpoints | Watchmode | Where-to-watch complement, "leaving soon" dates | Free dev 2,500 credits/mo (3 countries, attribution); commercial $349+/mo | Evaluate at M2; free tier usable for dev only |
+| `api.internationalshowtimes.com/v5` | International Showtimes | Egypt cinema showtimes candidate | Free trial key; paid after | Verify Egypt coverage before relying |
+| elCinema licensed web service | elCinema | Egypt cinema editorial-grade data | Contract required | Outreach task; weekly update cadence |
+| Chain official pages (VOX, CFC, Galaxy, Plaza, Americana) | Chains | Curated showtimes fallback with written permission | Free with permission | `docs/cinema-partners.md` records each answer |
+| FCM / Expo push | Firebase/Expo | Availability, episode, premiere alerts | Free tier | Quiet hours enforced client+server |
+| Paymob / Fawry | Gateways | EGP subscriptions | Test mode free; live needs owner merchant accounts | Owner action; fallback "launching soon" + lead capture |
+| Gemini/OpenRouter/Groq free tiers | AI providers | AI features per 6.4 | Free tiers with daily caps | Keys on this product's own accounts; `AI_ENABLED` kill switch |
+
 ---
 
 ## 7. Lawful content rules (hard)
@@ -265,7 +365,9 @@ Every public price page carries a source link and date, or "(unsourced, verify)"
 
 **Fairness:** no ads in the tracking flow; no selling watch history; cancel as easy as sign-up; refunds per published policy; until keys exist, "Subscriptions launching soon" plus email capture writing a Lead.
 
-**Revenue (secondary):** affiliate commission from streaming sign-ups and cinema ticket bookings, disclosed. Affiliate never gates a free feature; it only earns when a user chooses to subscribe/book through us.
+**Revenue (secondary):** affiliate commission from streaming sign-ups and cinema ticket bookings, disclosed. Affiliate never gates a free feature; it only earns when a user chooses to subscribe/book through us. JustWatch's partner program also pays for widget/API-driven referrals where a contract exists (terms unsourced, verify).
+
+**Unit-economics reality check (r61):** TMDB commercial API is $149 USD/month; Watchmode commercial starts at $349/month; JustWatch partnership terms unknown. Therefore: stay on TMDB free non-commercial tier until the product has revenue or until the owner approves the commercial licence; do not promise "where-to-watch powered by JustWatch" in marketing until a contract exists; the free tier must carry the product alone (it does: tracking, lists, cinema curated, alerts).
 
 ---
 
@@ -283,9 +385,9 @@ Every public price page carries a source link and date, or "(unsourced, verify)"
 
 **Exit rule for every milestone:** verify passes, CI seen green or quota flag recorded with local output, checkpoint updated, report in `ops/agy-runs/reports/`, nothing called working unless seen that day.
 
-### 9.1 The first ten build tasks
+### 9.1 The build task queue
 
-The ten tasks are ready to queue, each with a title and a one-paragraph brief: `D:/Projects/_SIR/ops/briefs/sir-movies-tasks.md` (round r54). The order is the dependency order: the scaffold, the Firebase project and auth, the data model and rules, the TMDB source, the where-to-watch source, the first screens, the showtimes, the tracking core, the owner page and billing, and the quality pass. Tasks 1 to 4 can run side by side; everything from 5 on needs the scaffold and the rules to be green first.
+The queue is `D:/Projects/_SIR/ops/briefs/sir-movies-tasks.md`: **48 tasks** since the r61 refresh, grouped by milestone (M0 foundations, M1 scaffold/auth/data, M2 TMDB+discovery, M3 tracking+lists, M4 cinema+alerts+AI, M5 billing/legal/owner/launch prep, M6 polish/verification), each with an exit check and the skills that fit. Dependencies are stated inside each task; tasks marked "parallel-safe" can run side by side. First 10 are ready to hand to free agents the moment HQ queues them; the rest follow in dependency order.
 
 ---
 
@@ -308,20 +410,28 @@ Selected from `ops/SKILLS_INDEX.md`; no new skill installed.
 
 ## 11. Risks and open questions
 
-- **TMDB commercial terms:** free tier covers non-commercial and development; before M3 monetisation the owner or an agent must read TMDB's commercial/API terms and either switch to a licensed feed or confirm eligibility. Default: do not monetise until terms read; until then, launch gate is blocked, not faked.
-- **Egyptian cinema data:** no public licence found as of 2026-11-12. Default: manual curation from chain-published pages, dated and sourced, only for chains that grant written permission or whose pages allow it; otherwise only "coming soon" editorial with links. Never scrape behind a prohibition.
-- **JustWatch partnership:** developer program status unknown; rely on TMDB watch providers + manual Egypt curation. If a partner feed appears, swap the source behind the same `StreamingProviderMapping` interface.
-- **Watch iT / WeTV / Yango Play terms:** link-out only (we never embed); terms re-read before listing logos or prices.
-- **AI hallucinated "why":** eval gate; if Arabic quality is below threshold, the feature ships hidden, not shipped weak.
-- **Affiliate disclosure:** plain-language "إعلان قد نربح منه" near every affiliate link; owner legal review before launch.
+Each risk carries the recommended default; the owner can override any of them.
+
+- **PDPL is now enforced (grace period ended 2026-10-31).** Watch history, ratings, reviews and alerts are personal data; processing Egyptian users' data without a licence/DPO posture is a legal risk with criminal exposure. *Recommended:* before any public launch, (a) keep data minimisation (no location precision beyond city, no contacts import), (b) privacy policy + consent at sign-up covering cross-border processing, (c) owner pursues the PDPC licence and DPO registration (owner/legal action, not code), (d) engineer the 72h breach runbook and the export/delete flows first (tasks in the queue), (e) until licence posture is settled, treat Egypt-facing launch as "wait for owner legal review" — the product can still be built and demoed.
+- **TMDB commercial terms:** confirmed $149 USD/month commercial tier (staff answer, 2026-10-14); free tier is non-commercial with attribution; TMDB content may not train AI models; cache capped at 6 months. *Recommended:* build and demo on the free tier; do not enable paid subscriptions until either revenue covers it or the owner approves the licence; never feed TMDB text into model training.
+- **Where-to-watch data economics:** JustWatch partner API needs a contract (branded link mandatory); Watchmode free tier is dev-only (3 countries, attribution); commercial Watchmode is $349+/mo. *Recommended:* M2 ships TMDB watch-providers (regions eg/sa/ae/us) + manual Egypt curation for Shahid/Watch iT/TOD/Yango Play; treat Watchmode free tier as a dev cross-check only; pursue JustWatch partnership in parallel as an outreach task, never a dependency.
+- **Egyptian cinema data:** no public licence found; VOX's public showtimes page verified live 2026-11-12. *Recommended:* outreach to VOX/CFC/City Centre/Galaxy/Plaza/Americana for written permission (task in queue); until then curated `data/showtimes.json` with `source` + `checkedAt` shown in UI; evaluate International Showtimes API Egypt coverage and elCinema licensing as paid options only if a chain deal fails.
+- **Watch iT / WeTV / Yango Play / TOD terms:** link-out only (we never embed); prices and plan names "(unsourced, verify)" until their pages are read on a real device. *Recommended:* a sourcing task opens each provider page and records plan/price with date before any comparison page ships.
+- **AI hallucinated "why":** eval gate in both languages; if Arabic quality is below threshold the feature ships hidden. *Recommended:* deterministic taste scoring first, AI only phrases the explanation; AI chat over watchlist data deferred to M5+ behind Pro.
+- **New-entrant pressure:** ReelRifter/Movie Paradise already do AI-over-watchlist + multi-source ratings in English. *Recommended:* our defensible niche stays Arabic-first + Egypt cinema + EGP pricing + shared lists; do not race them feature-for-feature on AI chat.
+- **Affiliate disclosure:** plain-language "إعلان قد نربح منه" near every affiliate link; lawyer review before launch.
+- **Trakt restructuring risk:** Trakt tightened free-tier limits in 2025-2026 ($59.99/yr VIP); importing from Trakt is still valuable but treat their API as a source, not a dependency.
 - **Competitor drift:** this study is dated; re-run before any public comparison page.
-- **Store accounts and certificates:** owner actions; nothing assumes they exist.
+- **Store accounts, certificates, domains, payment keys:** owner actions; nothing assumes they exist.
+- **Open question — PDPL licence cost/timeline:** unknown until the owner or a lawyer engages the PDPC portal. Blocks only the *public launch*, not the build.
+- **Open question — JustWatch/Watchmode/elCinema commercial terms:** all require outreach; recommended first move is a single email/partner form per source, logged in `docs/cinema-partners.md` and `ops/` notes.
+- **Open question — Arabic title coverage in TMDB:** Egyptian/Arab indie titles may be thin in TMDB; *recommended:* measure coverage during M2 with a sample of 50 Arab titles and record gaps in the checkpoint; fallback is manual Arabic-title alias entries in `titles` (server-written only).
 
 ---
 
 ## 12. Only the owner can do
 
-Buy `sirmovies.app` or choose an `.eg` name after checking rules and price; create the Firebase project `sir-movies` (or approve an agent to); open Vercel, Paymob, Fawry, and later Stripe accounts; TMDB commercial eligibility decision; cinema chain agreements (VOX, Cairo Festival City, Galaxy, Plaza, Americana); Apple Developer and Google Play accounts when ready; code-signing certificates; legal review of privacy, terms, refunds and PDPL pages; recruit beta testers.
+Buy `sirmovies.app` or choose an `.eg` name after checking rules and price; create the Firebase project `sir-movies` (or approve an agent to); open Vercel, Paymob, Fawry, and later Stripe accounts; TMDB commercial eligibility decision ($149 USD/month confirmed 2026-10-14); cinema chain agreements (VOX, Cairo Festival City, Galaxy, Plaza, Americana) and elCinema licensing outreach; JustWatch and Watchmode partnership outreach; International Showtimes API trial evaluation; **PDPL: engage the PDPC licence process and appoint a registered DPO (exam required) — the single biggest launch blocker found in r61**; Apple Developer and Google Play accounts when ready; code-signing certificates; legal review of privacy, terms, refunds and PDPL pages; recruit beta testers.
 
 ---
 

@@ -64,14 +64,39 @@ Read from the pages opened on 2026-11-12, not from an aggregator.
 
 ---
 
-## 4. Sourcing tasks still open
+## 4. Second ring added 2026-11-12 (r61 refresh)
+
+Found while re-researching the category on 2026-11-12. Same truth rules as section 1: claims are what the pages showed today, never audited facts.
+
+| Competitor | Market | What it is | Strengths (from its own pages) | Flaws / gaps | Our edge | Source |
+|---|---|---|---|---|---|---|
+| ReelRifter | Global | Movie/TV tracker with AI recommendations, "chat with your data", MCP integration for Claude/ChatGPT/Grok, browser-extension scrobbler, spoiler-free "catch me up", year-in-review cards | AI-over-your-watchlist is now a shipped pattern; MCP server lets external assistants read the user's lists; extension scrobbles Netflix/Disney+/Prime/Max automatically; rewatch auto-tracking; public REST API | English-only; AI features gated behind Pro; US/global centric; no cinema showtimes, no Arabic, no Egypt providers | Same AI-over-data pattern but Arabic-first, EGP pricing, Egypt cinema and providers; we defer MCP/extension to M6+ candidates | https://reelrifter.com/features (opened 2026-11-12) |
+| Moviebase | Global | Free movie+TV tracker on TMDB data; Trakt two-way sync; episode tracking; streaming availability; Premium removes ads | Two-way Trakt sync is a strong retention hook; free tier genuinely useful; Android+iOS | English-first; no cinema showtimes; no shared lists in Arabic; no EGP | Arabic RTL, Egypt providers, cinema, shared lists; Trakt import is in our queue (task 14) | https://moviebase.app/resources/best-free-movie-tracker-apps (opened 2026-11-12) |
+| Movie Paradise | Android | Tracker/diary (does not stream): multi-source ratings (IMDb, RT, Metacritic, Letterboxd, Trakt side by side), Jellyfin/Plex auto-watch, smart lists, AI chat, watch alerts per provider | Multi-source ratings comparison is now table stakes for trackers; media-server scrobbling; per-provider notification control | Android-only; English-first; no cinema; no shared social lists; AI chat unproven | Same ratings-comparison strip planned (plan 4.0); web+mobile cross-platform; Arabic; Egypt | https://play.google.com/store/apps/details?id=com.techkitlabs.movieparadise (opened 2026-11-12) |
+| Simkl | Global | Tracking + scrobble hub: automatic tracking from Plex, Kodi, VLC, Netflix, Crunchyroll; PRO/VIP recommendation engine; 40k+ shows, 150k+ movies catalog | Scrobbling at scale is proven; recommendations gated to paid tiers | Developer-flavoured UX; dated design; not Arabic; no cinema | Optional scrobble import later; we stay consumer-simple first | https://simkl.com/vip/need/stats/ (opened 2026-11-12) |
+| Omniphile | Apple ecosystem | Personal tracker: dated watches, half/quarter-star ratings, Letterboxd/IMDb/Trakt import, films+TV+books+games | Cross-media tracking; import coverage | Apple-only; English; no cinema; no where-to-watch depth | Cross-platform; Arabic; cinema+providers | https://www.omniphile.app/blog/best-movie-tracker-app (opened 2026-11-12) |
+| Logfolio | Web | Public-page tracker: films/TV/anime/books/games/albums on one shareable page at logfolio.co/name | Shareable public profile page is a nice growth loop | English; no cinema; no providers aggregation depth | Shareable lists already planned; Arabic social layer | https://logfolio.co/alternatives/letterboxd/ (opened 2026-11-12) |
+| Limelight | Apple | "Where it's streaming + what to watch next + everything you've seen"; paid alerts per episode/season; Just For You picks | Clean modern positioning; per-episode alert monetisation | Apple-only; English; no cinema; no shared lists | Same alert model planned (task 20); cross-platform Arabic | https://www.thelimelight.app/best-movie-tracker-apps (opened 2026-11-12) |
+
+**Category-level findings from the 2026-11-12 re-research:**
+
+1. **AI-over-your-watchlist is now a shipped feature, not a differentiator.** ReelRifter and Movie Paradise both ship it; ReelRifter even exposes an MCP server. Our answer stays the same: deterministic scoring first, AI only phrases; Arabic eval gate; Pro-gated.
+2. **Multi-source ratings comparison is expected.** Movie Paradise shows IMDb/RT/Metacritic/Letterboxd/Trakt side by side. We add the strip using TMDB external IDs only (task 10); absent sources show a dash.
+3. **Trakt tightened its free tier** (one community app per free account since July 2026; VIP $59.99/yr or $5.99/mo as of 2026). Import from Trakt stays valuable; do not depend on their API.
+4. **Letterboxd Pro is $18.99/year** (US App Store, 2026) and still has no TV tracking — our movies+series-from-day-one edge holds.
+5. **Data economics are now concrete:** TMDB commercial API $149 USD/month (staff-confirmed 2026-10-14); JustWatch Partner API exists but needs a contract with mandatory branded link; Watchmode free dev tier (2,500 credits/mo, 3 countries, attribution) vs $349/mo commercial; International Showtimes API covers 120+ countries with a free trial; elCinema sells licensed data via web service; The Boxoffice Company "Source" covers 70+ countries enterprise-style.
+6. **Regulatory:** Egypt PDPL grace period ended 2026-10-31 — licence + registered DPO now required for processing Egyptian users' data. This is the biggest new constraint; see `plans/sir-movies.md` section 6.9.
+
+## 5. Sourcing tasks still open
 
 Each under one hour; none blocks the plan, all block public claims.
 
-1. Read TMDB developer docs: API terms for commercial use, image attribution requirements, watch-providers endpoint coverage for EG; record with date and link before M1 builds on it.
-2. Read JustWatch developer/affiliate program status and terms (developers.justwatch.com did not resolve on 2026-11-12); otherwise plan M2 where-to-watch on TMDB watch-providers + manual curation for Egypt-only services.
+1. ~~Read TMDB developer docs~~ Partially answered 2026-10-14: commercial tier is $149 USD/month (TMDB staff, forum). Still open: exact commercial terms text, image attribution requirements detail, watch-providers EG coverage confirmation — read the full terms before M3.
+2. ~~JustWatch developer program status~~ Answered 2026-11-12: a real Partner API exists (`apis.justwatch.com`, contract + partner token, branded link mandatory, 120+ countries, daily updates). Still open: partnership terms, revenue share, Egypt coverage depth — outreach required.
 3. Contact VOX Cinemas, Cairo Festival City, City Centre (Almaza, Maadi, Smart Village), Plaza, Galaxy and Americana chains for data-sharing or affiliate agreements; record answers in ops, never scrape without written agreement.
 4. Open Watch iT and WeTV pricing pages on a device/browser where they render, record plan names and prices with dates.
 5. Recheck Letterboxd Pro and Patron prices on https://letterboxd.com/pro/ and record before any comparison page is published.
 6. Confirm IMDb's non-commercial data terms if we ever use IMDb IDs beyond interoperability aliases; prefer TMDB as canonical and IMDb for external linking only.
 7. Check elCinema's booking link partner model (their /booking/ pages) for a possible affiliate or API partnership; do not copy their content, only structure our own with chain permission.
+8. **PDPL (new, r61):** Egypt's PDPL grace period ended 2026-10-31; controllers need a PDPC licence and a registered DPO. Owner/legal action: engage the PDPC portal, price the licence, identify a DPO category (A/B/C) — blocks public launch, not the build. Source: Baker McKenzie update 2026-10 and LegalIn English translation of Decree 816/2025.
+9. **Evaluate Egypt cinema data feeds (new, r61):** International Showtimes API (`api.internationalshowtimes.com/v5`, 120+ countries, free trial key — verify Egypt coverage), The Boxoffice Company Source (70+ countries, enterprise), elCinema licensed web service (SOAP/REST, weekly updates). Get trial/quote for at least International Showtimes before paying any chain-deal alternative.

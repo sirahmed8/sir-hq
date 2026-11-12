@@ -39,3 +39,5 @@
 18:00 devin DONE r61-plan-sir-modpack planning-only: 50 tasks in sir-modpack-tasks.md, plan s14 + REFRESH-LOG + competitor addendum committed; no build (rule 22)
 2026-11-12 r61-plan-sir-price-finder DONE: planning refresh - plan +5 sections (research/screens/API/launch/risks), competitor addendum, tasks 10->60 with skills, REFRESH-LOG written; no build per rule 22
 20:01 devin DONE r61-plan-sir-mods-gta-v planning-only: tasks expanded 10->45, plan section 23 delta added, competitor file second-pass research (Enhanced edition, Sept-2026 Rockstar guidelines, 5 new installer competitors), REFRESH-LOG created; no build per rule 22
+2026-11-12 devin START r61-plan-sir-movies planning-only refresh (rule 20/22)
+2026-11-12 devin DONE r61-plan-sir-movies planning-only: plan+competitors refreshed (PDPL enforced, TMDB $149/mo, JustWatch/Watchmode APIs mapped, 7 new competitors), tasks 10->48, REFRESH-LOG written; no build (rule 22)
