@@ -1,19 +1,17 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
-- r67-c-drive-space DONE (2026-11-12 23:30): C: was 0.24 GB free, now 5.3 GB. Cause: MAX_PARALLEL=22 CLI agents exhausted 24 GB RAM, system pagefile grew on C:, plus worker caches (playwright/uv/npm/pnpm) downloading to C:. Fixes: caches moved to D:\Caches via user env vars + cli-run2.sh exports, ms-playwright moved, MAX_PARALLEL 22->12, watchdog warns once <2 GB and cleans temp+npm+pip+uv+pnpm. D: also tight (7.4 GB); Windows Update cache needs one elevated cleanmgr (owner).
-- Claude weekly quota about 5 percent; owner talks to the backup manager on Telegram (state ops/backup-manager.json active). backup_manager.py now answers first through direct_reply() (strong model, about 2 s, no tools) and starts the agent path only when needed; language guard rejects mixed-script replies; voice fix (.ogg name for Groq); r64 worker is still editing the same file.
-- Control Room: public Pages site deleted; private on Tailscale (https://ahmed.tail9e9aa7.ts.net); task SIR_HQ_Dashboard regenerates it every 30 minutes.
-- Queue also has r64 telegram-first, r65 AHome APK and updates, r68 SIR AI bot answers, r64-ahome-bot-kit, r57 and r62 AHome. A Haiku subagent runs the WhatsApp digest.
+- 2026-11-13 00:40: autopilot alive; r70 improvement cycles queued for the current projects (Study, Jobs, Laptop Manager, Portfolio, AI); r69 reviewer round clears the review backlog; r64/r65/r67/r68 rounds from the owner's Telegram requests are in progress or reported in ops/tasks/reports.
+- Backup manager on Telegram: direct_reply() fast path now reads the LIVE status (ai-status) so it no longer says the tools are stopped; language guard and voice fix in place. Control Room private on Tailscale only. C: 3.0 GB free (cause still being traced by r67).
+- WhatsApp digest needs a QR scan by the owner.
 
 ## Next step (exact)
-1. `python scripts/ai-status.py`, `python scripts/taskboard.py list`; verify the 7 tasks in review (ops/verifications), read ops/tasks/reports.
-2. Check `df -h /c`; read ops/tasks/reports/r67-c-drive-space.md when it exists.
-3. Ask the owner to test a simple message to the backup manager (expected reply in seconds).
+1. `python scripts/ai-status.py`, `python scripts/taskboard.py list`; read ops/tasks/reports (r64, r67, r69, r70) and ops/verifications; add the next tasks with `python scripts/taskboard.py add ...`.
+2. `df -h /c`; if under 2 GB run the safe cleanup from r67's report.
+3. Ask the owner whether the backup manager now answers in seconds.
 
 ## Open promises
-- C: space cause unknown; SIR Jobs last commit 4 h old while its runner is alive.
-- Non-current projects stay planning only (rule 22).
+- C: space cause; WhatsApp QR; planning-only rule for non-current projects stays.
 
 ## Re-read after a reset
 plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_README.md, ops/HQ_CHECKPOINT.md (tail), ops/bus/team.md (tail)
