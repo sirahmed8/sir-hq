@@ -1,0 +1,205 @@
+{
+  "slug": "butcher-fresh-grocery",
+  "name_ar": "ملحمة وخضار",
+  "name_en": "Butcher and fresh grocery",
+  "group": "food-and-drink",
+  "base": "market",
+  "order": 7,
+  "wave": 1,
+  "why": "It is the shop where the cold chain decides the profit: the meat and the dairy that must sell first, the cutting rules the customers argue about, and the weight price that has to be exact.",
+  "operator": "The owner buys at the market before dawn and cuts by hand all day. Their world is the cold chain: what must be sold today, what is at the end of its date, and what the customer will argue about on the scale. The third pain is the price list: the price of the cut changes with the market every week, and a printed board cannot keep up.",
+  "entities": [
+    "Shop (id, name, branchId, address, phone, currency, openingHours)",
+    "Product (id, sku, nameAr, nameEn, categoryId, cutName, unit, unitPricePiasters, costPiasters, taxRate, supplierId, reorderPoint, isWeighed, isBatch, shelfLifeDays)",
+    "Category (id, nameAr, nameEn, order, iconKey)",
+    "Cut (id, productId, nameAr, nameEn, yieldPercent, pricePerKgPiasters)",
+    "Batch (id, productId, supplierId, quantity, receivedAt, expiryAt, costPiasters, coldChainTempCelsius)",
+    "DailyPrice (id, productId, date, pricePiasters, reason)",
+    "Sale (id, branchId, cashierId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, productId, batchId, cutId, quantity, weightGrams, unitPricePiasters, note)",
+    "Waste (id, productId, batchId, quantity, reason, loggedBy, createdAt)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)"
+  ],
+  "units": "kilogram and gram for the weight, piece for the counted items, bunch for the vegetables and tray for the prepared mixes",
+  "batches": "Yes for everything perishable: the meat, the poultry, the fish and the dairy, each with the received date, the expiry and the purchase cost",
+  "expiry": "The radar shows the batches that go first with the quantity and the cost, and the cold chain temperature is recorded at receiving so a broken chain is visible",
+  "special": "The structures specific to this sector are the cuts and their yield, the daily price per kilogram that follows the market, the cold chain log at receiving, and the weight sale with the customer choosing the cut",
+  "screens": [
+    "Butcher till: the cut list with the price per kilogram, the scale value and the choice of cut for the customer",
+    "Cold chain receiving: the delivery with the temperature, the expiry of every tray and the difference against the order",
+    "Expiry radar: what must be sold today, tomorrow and this week, with the cost and the write off",
+    "Daily price board: change the price per kilogram for today with the reason, and print the board for the shop",
+    "Cutting list: the cuts of each animal with the yield and the price, so the owner knows what the piece is worth",
+    "Stock: the raw material by batch with the days left and the reorder point",
+    "End of day: the money counted, the waste of the day in money and the weight sold per category"
+  ],
+  "roles": [
+    "Owner: everything, including the prices, the suppliers and the staff",
+    "Manager: everything except billing, approves the price change and the write off",
+    "Butcher: the cuts, the stock and the receiving, no cash",
+    "Cashier: the counter, the scale, the payment and the shift close"
+  ],
+  "reports": [
+    "Weight sold per category per day",
+    "Expiry loss in money per batch",
+    "Margin per cut after the real purchase cost",
+    "Price change history: what the price was and why it moved",
+    "Cold chain record per delivery with the temperature at receiving",
+    "Cash reconciliation per shift"
+  ],
+  "integrations": [
+    "Weighing scale through the local bridge or WebSerial, with a manual weight entry as a fallback",
+    "Thermal printer through ESC/POS for the receipt and the batch label",
+    "A temperature probe recorded at receiving, typed in when the probe is not connected",
+    "WhatsApp for the order confirmation and for the daily price board to the regulars through the shop own account"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Products: the cuts and the vegetables with the price per kilogram",
+    "Shelf life: the days each item stays fresh, and the rule for the write off",
+    "Suppliers: the market suppliers with the visit days",
+    "Team: the butcher and the cashier with their roles",
+    "Receiving: the first delivery with the batches, the expiry and the temperature",
+    "First week plan: sell a weighed cut, receive a delivery, print the price board, close the shift",
+    "Review and finish"
+  ],
+  "seed": [
+    "Category list in Arabic: لحوم بقري, لحوم غنم, دواجن, سمك, خضار, فاكهة, ألبان, بيض",
+    "A cut list with the common cuts and the yield field left empty for the shop to fill from its own experience",
+    "Weight and piece units with the price per kilogram",
+    "A receipt layout with the weight line and the cut name",
+    "Role templates for the butcher and the cashier"
+  ],
+  "landing_ar": {
+    "headline": "ملحمة بتعرف التالف باليوم، والسعر بالكيلو بيتغير كل يوم",
+    "sub": "استلام بيسجّل الحرارة والتاريخ، وميزان دقيق، ولوحة أسعار تتحدث",
+    "benefits": [
+      "شاشة التالف: كل دفعة بتاريخها وكميتها وتكلفتها",
+      "الاستلام بيسجّل حرارة الشحنة، فلو في خلل بيبان",
+      "لوحة الأسعار بتتحدث الصبح والزبون يشوف السعر الصح"
+    ],
+    "faq": [
+      "الزبون بيحتج على الوزن؟ الوزن من الميزان والإيصال فيه الوزن والسعر بالكيلو",
+      "بتنفع من غير نت؟ أيوه: البيع والطباعة بيفضلوا شغالين"
+    ]
+  },
+  "landing_en": {
+    "headline": "A butcher that sees the expiry by the day and follows the market price by the kilo",
+    "sub": "Receiving records the temperature and the date, the scale is exact, and the price board updates itself",
+    "benefits": [
+      "The expiry screen shows every batch with its date, its quantity and its cost",
+      "Receiving records the temperature of the delivery, so a broken cold chain is visible",
+      "The price board updates in the morning and the customer sees the right price"
+    ],
+    "faq": [
+      "What if the customer argues about the weight? The weight comes from the scale and the receipt shows the weight and the price per kilo",
+      "Does it work with no connection? Yes: selling and printing keep working"
+    ]
+  },
+  "pricing": [
+    "The free tier fits one counter: one business, one branch, two seats, the weighed till and the shift",
+    "Starter adds the receiving with the cold chain, the expiry radar and a year of history",
+    "The Business tier adds the daily price board, the cut yields and the purchasing",
+    "The kiosk for the cuts board is priced per device"
+  ],
+  "competitors": [
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "A general ERP with no weight flow for a butcher",
+      "edge": "The cuts, the yields, the daily price and the cold chain log as one flow"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "No batch expiry and no daily price for a market that moves every week",
+      "edge": "The batches, the daily price and the cold chain record"
+    },
+    {
+      "name": "Odoo",
+      "price": "One App Free at US$0, Standard US$8.95 per user per month on annual billing (odoo.com/pricing, opened 2026-11-12)",
+      "weak": "A partner project for a shop that needs the scale to work today",
+      "edge": "One price, ready today, in Arabic, with the scale and the printer"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the butcher pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for butcher-fresh-grocery in packages/core/src/sectors/registry.ts with the base template market and the modules (pos, weights, cuts, batches, expiry, daily price, purchasing, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('butcher-fresh-grocery') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the butcher data model with the cuts and the cold chain",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/butcher/schema.ts: products with the cut reference, cuts with the yield and the price per kilo, batches with the expiry and the temperature at receiving, daily prices with a reason and the sale line with the weight and the cut.",
+      "done": "The schema compiles with no any, the validation rejects a received batch without a temperature when the category needs the cold chain, and the tests pass."
+    },
+    {
+      "title": "Build the butcher seed with the Arabic categories",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/butcher/seed.ts with the Arabic categories, the common cuts with an empty yield, the weight units, the receipt layout and the role templates. No price is invented and no customer is seeded.",
+      "done": "The seed loads, the test asserts the categories and the units, and it asserts that the yields and the prices are empty."
+    },
+    {
+      "title": "Write the butcher terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/butcher/glossary.ts with the trade words: لحمة, قطع, دفعة, وزن, سعر الكيلو, تالف, and the counter words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the weighed cut sale with the cut choice",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the sale where the cashier chooses the product, the customer chooses the cut, the scale value lands in the line in grams, and the price per kilogram multiplies it, with the manual weight fallback.",
+      "done": "The sale stores the grams, the cut and the batch, the total matches the scale value, and a manual weight is accepted and marked as manual."
+    },
+    {
+      "title": "Build the cold chain receiving screen",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the receiving: the delivery, the temperature at arrival typed or read, the expiry of every tray, the difference against the order, and the batch created with the real cost.",
+      "done": "A batch is created with the temperature, the expiry and the cost, the difference against the order is shown, and a missing temperature is blocked for the cold chain categories."
+    },
+    {
+      "title": "Build the expiry radar and the write off with a reason",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the expiry screen with the 7, 30 and 90 day bands, the quantity, the cost and the write off with a reason, all audited with the user and the time.",
+      "done": "The batches appear in the right order, the write off reduces the stock and the reason is stored, and the audit log shows who did it."
+    },
+    {
+      "title": "Build the daily price board",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the screen where the owner changes the price per kilogram for today with a reason, keeps the history, and prints a board for the shop window and sends it to the regulars on WhatsApp.",
+      "done": "The price applies to the new sales of today only, the old price stays in the history, and the printed board shows the new price and the date."
+    },
+    {
+      "title": "Build the butcher report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: the weight sold per category per day, the expiry loss per batch, the margin per cut after the real cost, the price change history, the cold chain record and the cash reconciliation, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the butcher landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the weighed sale and the cold chain receiving as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The cold chain record is only as good as the reading at receiving, so a missing temperature is blocked for the categories that need it instead of being invented",
+    "The shelf life of the meat and the dairy comes from the packaging and the supplier, and the app never extends it",
+    "Food safety rules belong to the health authority and the shop, so the product records and never advises",
+    "The customer name on a weighed order is optional and is never required to sell"
+  ]
+}

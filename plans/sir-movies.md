@@ -6,6 +6,8 @@ Created 2026-11-12 (r51-backlog-projects). Idea 29 from the owner's "أفكار 
 
 **Product class: GLOBAL.** Anyone in Egypt, the Arab world and globally can use it; accounts, subscriptions, dual hosting, owner-only analytics, all platforms planned.
 
+**The decision behind this project.** The reason SIR Movies is its own product and not a module of another one, the lawful-content rules that apply to it and the exact folder, repository, Firebase and Desktop names are in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md` (2026-11-12, round r53c).
+
 ---
 
 ## 1. Who it is for, and the promise
@@ -217,6 +219,24 @@ Rules: deny by default; every user reads/writes only their own docs; sharedLists
 
 Firestore rules deny by default; zod at every boundary; no secrets in git; gitleaks in CI; CSP without unsafe-inline/eval; analytics after consent with Reject All as prominent as Accept; rate limits on auth, sync, AI, webhooks; affiliate links disclosed next to the button; no fake data anywhere a user can see.
 
+### 6.8 The premium quality bar for this product
+
+This is the floor from `D:/Projects/_SIR/standard/23-premium-code-bar.md`, written for this product. It is not a wish list: each line is checked by the self-audit before a milestone is called done.
+
+**Motion, Apple level.** One shared spring config across the app (stiffness 300 to 400, damping 28 to 30), transform and opacity only, 120 Hz safe. Every sheet, drawer, modal and panel opens and closes with the same spring; an open-only animation is a defect. Micro-interactions 100 to 150 ms, standard 200 to 300 ms, large 300 to 500 ms, press scale 0.98, and a reduced-motion path for every animation. The poster grid uses a spring on insert and on remove, never a jump.
+
+**Two languages, one layout.** Egyptian Arabic first for the catalogue and the Egyptian cinemas, English second, both shipped together and never one as a partial translation. RTL designed first with logical CSS properties only and flipped directional icons. Every text input detects Arabic or Latin per character as the user types and moves the caret and the direction live; every mixed run is isolated with `<bdi>` or `unicode-bidi: isolate`; the words "RTL" and "LTR" never reach the user. Currency and date and time are auto-detected from the visitor locale with a manual override on top, and formatted with `Intl`.
+
+**Five states on every screen.** Idle, loading skeleton, empty with exactly one action, error with a retry, populated. The empty state never shows a fake film, a fake rating, a fake poster or a fake showtime; a title with no aggregate rating shows a dash, not a zero.
+
+**Accessibility.** WCAG 2.2 AA. Every control has an accessible name, touch targets at least 44 px with no covered hit area, a full keyboard path on every screen, visible focus, zoom from 80 to 200 percent, no horizontal scroll from 320 px to 3840 px, reduced motion honoured, and a colour pair that passes contrast in light, dark, system and high-contrast themes. Trailers never autoplay with sound, and every one of them has a caption or a text alternative.
+
+**The look.** One design system: tokens for colour, spacing on a 4 and 8 px grid, radii, shadows, type and motion. A calm dark canvas with one accent for the primary action, no purple-blue gradients, no emoji headings, no pill buttons on data inputs, no hype words, and no em dashes in the copy. One component per control, never two. Arabic screen face: IBM Plex Sans Arabic, Cairo or Tajawal.
+
+**Native app feel.** The browser's text selection and the right-click menu are disabled site-wide and replaced by the app's own menu with in-app actions and a refresh, while normal select, copy and paste keep working inside real input fields.
+
+**Evidence before the word done.** Screenshots at 320, 390, 768, 1280 and 1920 px in Arabic and English in light and dark, plus 3840 px once. Playwright on the critical journeys (search, detail, add to watchlist, offline sync). Lighthouse mobile 85 or better on the detail route. A click-target audit in CI. The self-audit loop runs until two clean cycles in a row.
+
 ---
 
 ## 7. Lawful content rules (hard)
@@ -262,6 +282,10 @@ Every public price page carries a source link and date, or "(unsourced, verify)"
 | M6 | TV decision, store readiness, visibility, launch | Android TV / Apple TV ADR decided; store listings drafted with truthful screenshots (no fake users); `llms.txt`, JSON-LD, Arabic visibility pages for "أين أشاهد" queries verified; notification delivery failure rate under agreed threshold for 30 days; accessibility pass (WCAG 2.2 AA); legacy untouched; launch checklist complete |
 
 **Exit rule for every milestone:** verify passes, CI seen green or quota flag recorded with local output, checkpoint updated, report in `ops/agy-runs/reports/`, nothing called working unless seen that day.
+
+### 9.1 The first ten build tasks
+
+The ten tasks are ready to queue, each with a title and a one-paragraph brief: `D:/Projects/_SIR/ops/briefs/sir-movies-tasks.md` (round r54). The order is the dependency order: the scaffold, the Firebase project and auth, the data model and rules, the TMDB source, the where-to-watch source, the first screens, the showtimes, the tracking core, the owner page and billing, and the quality pass. Tasks 1 to 4 can run side by side; everything from 5 on needs the scaffold and the rules to be green first.
 
 ---
 

@@ -1,0 +1,199 @@
+{
+  "slug": "barber",
+  "name_ar": "حلاقة رجالي",
+  "name_en": "Barber",
+  "group": "health-and-beauty",
+  "base": "service",
+  "order": 9,
+  "wave": 2,
+  "why": "It is the smallest service shop that still needs a queue: a walk in, a ticket, a chair and a fast sell, with the lowest data risk in the catalogue.",
+  "operator": "The owner cuts hair all day and the queue is the whole management problem. Two chairs, one barber, and the person who walks in and expects to be next. The money is small but steady, and the pain is short: the wait is too long, the barber is alone, and the daily total is in a notebook.",
+  "entities": [
+    "Shop (id, name, branchId, address, phone, currency, openingHours, taxRegistration)",
+    "Barber (id, name, phone, role, chairId, commissionPercent, serviceIds, status)",
+    "Chair (id, branchId, label, status)",
+    "Service (id, nameAr, nameEn, durationMinutes, pricePiasters, commissionPercent, isActive)",
+    "Ticket (id, branchId, number, clientName, clientPhone, barberId, serviceIds, issuedAt, calledAt, servedAt, status, source)",
+    "WalkIn (id, branchId, clientName, clientPhone, arrivedAt, calledAt, status)",
+    "Client (id, name, phone, whatsappOptIn, lastVisitAt, visitCount)",
+    "Sale (id, branchId, clientId, barberId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, serviceId, barberId, quantity, unitPricePiasters, commissionPiasters)",
+    "RetailProduct (id, nameAr, unit, pricePiasters, costPiasters, quantity, isBatch, openedAt)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)"
+  ],
+  "units": "service, session, piece and minute as the booked duration",
+  "batches": "Only for the retail shelf (the shave cream, the oil, the tonic): the opening date is recorded so the shelf knows what is fresh",
+  "expiry": "The opened retail products show the days left, and nothing else in this sector expires",
+  "special": "The structures specific to this sector are the queue and the ticket: the walk in arrives, takes a number, is called, and the ticket turns into a sale",
+  "screens": [
+    "The queue: the waiting list with the names and the wait time, and the call button that puts the next person on the chair",
+    "Ticket display: the big number on the screen for the customer to watch",
+    "The chair view: the barber sees his day, his client and the service",
+    "Fast sell: the service, the price and the payment in two taps",
+    "Retail shelf: the products sold next to the cut, with the opening date",
+    "End of day: the money counted, the clients served, the average wait and the empty slots"
+  ],
+  "roles": [
+    "Owner: everything, including the prices, the staff and the reports",
+    "Barber: the queue, his clients, the sale of his services",
+    "Cashier: takes the payment and closes the shift when there is a second person"
+  ],
+  "reports": [
+    "Clients served per barber per day and the average wait",
+    "Revenue per service and per barber with the commission",
+    "Empty slots by hour",
+    "The walk in share against the booked clients",
+    "Cash reconciliation per shift"
+  ],
+  "integrations": [
+    "Thermal printer through ESC/POS for the receipt and the ticket",
+    "WhatsApp for the ticket number and the reminder of the next visit through the shop own account",
+    "Card terminal through Paymob and the mobile wallets at the counter",
+    "A tablet on the wall in a browser full screen for the ticket display"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Chairs: the number of chairs and their labels",
+    "Services: the cuts with the duration and the price",
+    "Team: the barbers with the commission percentage",
+    "Queue: the way the shop calls the clients (a number on the screen, a name, or a voice)",
+    "Retail shelf: the products sold next to the cut",
+    "First week plan: issue a ticket, serve a client, close the shift, print the end of day",
+    "Review and finish"
+  ],
+  "seed": [
+    "Service categories in Arabic: قص شعر, حلاقة, لحية, غسيل, صبغة, وعناية",
+    "Chair labels and the ticket display layout",
+    "Role templates for the barber and the cashier",
+    "A receipt layout with the barber, the service and the wait time"
+  ],
+  "landing_ar": {
+    "headline": "حلاقة بنظام أرقام: الزبون يدخل، ياخد رقم، ويتنادى عليه",
+    "sub": "طابور واضح على الشاشة، بيع سريع، وختام يوم بيقول كام قصّيت وكم استنيت",
+    "benefits": [
+      "الزبون بيشوف رقمه على الشاشة بدل ما يسأل",
+      "الكوافير بياخد الطابور كله في شاشة واحدة",
+      "بتعرف أكتر وقت الإشغال وأكتر وقت فاضي"
+    ],
+    "faq": [
+      "ينفع من غير نت؟ أيوه: التذاكر والبيع والطباعة بيفضلوا شغالين",
+      "الزبون بينسى ميعاده؟ رقم التذكرة على واتساب وبتتقدر تتابعه"
+    ]
+  },
+  "landing_en": {
+    "headline": "A barber shop with a number system: the client walks in, takes a number and is called",
+    "sub": "A clear queue on the screen, a fast sell, and an end of day that says how many you cut and how long people waited",
+    "benefits": [
+      "The client watches the number on the screen instead of asking",
+      "The barber sees the whole queue on one screen",
+      "You see the busiest hour and the hour you lose"
+    ],
+    "faq": [
+      "Does it work with no connection? Yes: the tickets, the sale and the printing keep working",
+      "What if a client forgets the appointment? The ticket number goes on WhatsApp and you can follow up"
+    ]
+  },
+  "pricing": [
+    "The free tier fits a one barber shop: one business, one branch, two seats, the queue and the fast sell",
+    "Starter adds the ticket display, the reminders and a year of history",
+    "The Business tier adds the retail shelf, the commissions and the reports",
+    "The extra barber is priced as a seat, not as a new business"
+  ],
+  "competitors": [
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "An ERP where a barber needs a number and a chair",
+      "edge": "A queue flow built for the walk in, in Arabic, at a price a one chair shop can pay"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "A retail till with no queue and no barber commission",
+      "edge": "The queue, the ticket and the commission per barber"
+    },
+    {
+      "name": "Odoo",
+      "price": "One App Free at US$0, Standard US$8.95 per user per month on annual billing (odoo.com/pricing, opened 2026-11-12)",
+      "weak": "A partner project for a queue that should take an hour to set up",
+      "edge": "Ready in one hour on any tablet, in Arabic"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the barber pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for barber in packages/core/src/sectors/registry.ts with the base template service and the modules (pos, queue, tickets, staff, retail, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('barber') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the barber data model with the queue and the tickets",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/barber/schema.ts: barbers with the commission, chairs, services with the duration, the walk in with the arrival and the call, the ticket with the number and the states, and the sale that closes a served ticket.",
+      "done": "The schema compiles with no any, the ticket number is unique per branch and per day, and the tests pass."
+    },
+    {
+      "title": "Build the barber seed with the Arabic service categories",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/barber/seed.ts with the Arabic service categories, the chair labels, the ticket display layout, the role templates and the receipt layout. No price and no client is invented.",
+      "done": "The seed loads, the test asserts the categories, and it asserts that no client, price or commission was seeded."
+    },
+    {
+      "title": "Write the barber terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/barber/glossary.ts with the trade words: تذكرة, رقم, طابور, قص, حلاقة, عمولة, and the counter words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the queue screen with the call button",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the queue: the waiting clients with their name, their arrival time and the waiting minutes, the call button that moves the person to the chair, and the ticket number that the display shows.",
+      "done": "A walk in appears in the queue with the waiting time, the call moves him to the chair, and the number on the display matches the ticket."
+    },
+    {
+      "title": "Build the ticket display for the wall",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the full screen ticket display for the tablet on the wall: the current number in a large type, the last called numbers, the shop name and the time, with a quiet mode that dims the screen after a minute.",
+      "done": "The display shows the called number in a readable size at 1920 px, it updates when a client is called, and the quiet mode dims it without hiding it."
+    },
+    {
+      "title": "Build the fast sell with the service and the payment",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the fast sell: the service, the barber, the price and the payment in two taps, the receipt that names the service and the wait, and the client link when the phone number is given.",
+      "done": "A sale closes the served ticket, the total matches the price and the wait time, and the receipt prints with the service and the barber."
+    },
+    {
+      "title": "Build the retail shelf with the opening date",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the small retail shelf of this sector: the products, the price, the quantity and the opening date, with the days left, and the sale of a product next to the cut.",
+      "done": "The shelf lists the days left for every opened product, the sale reduces the quantity, and the stock never goes below zero without an audit entry."
+    },
+    {
+      "title": "Build the barber report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: clients served per barber with the average wait, the revenue per service and per barber with the commission, the empty slots by hour, the walk in share and the cash reconciliation, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the barber landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the queue and the ticket display as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The client name and the phone are optional at the till and belong to the shop, so they never enter our analytics",
+    "The queue order is the shop own rule, and the app never reorders the clients by its own idea",
+    "The retail products of a barber shop are a small shelf, so no expiry rule is applied to anything that has no opening date"
+  ]
+}

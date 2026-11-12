@@ -10,7 +10,7 @@
     "name": "r53-business-plan",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Business: sectors big merged plan",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -493,7 +493,7 @@
     "name": "r49b-skills-deep-1",
     "folder": "D:/Projects/_SIR",
     "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -535,7 +535,7 @@
     "name": "r50-portfolio-owner-fixes",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
-    "done": false
+    "done": true
   },
   {
     "name": "r51-backlog-projects",
@@ -588,7 +588,7 @@
     "name": "r52-plan-sir-controller",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Controller (slug sir-controller)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -616,7 +616,7 @@
     "name": "r52-plan-sir-life",
     "folder": "D:/Projects/_SIR",
     "title": "r52 premium plan: SIR Life (slug sir-life)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -644,7 +644,7 @@
     "name": "ci-sir-jobs-20261112-1741",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: إصلاح الفحص الآلي الأحمر",
-    "done": false
+    "done": true
   },
   {
     "name": "r45-jobs-scout-fixes-fix1",
@@ -662,21 +662,21 @@
     "name": "r54-plan-sir-handyman",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r54-plan-sir-cars",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Cars: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r54-plan-sir-movies",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Movies: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -690,14 +690,14 @@
     "name": "r54-plan-sir-game-deals",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Game Deals: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r54-plan-sir-access-map",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {

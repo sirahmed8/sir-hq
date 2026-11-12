@@ -1,0 +1,207 @@
+{
+  "slug": "bakery",
+  "name_ar": "مخبز وحلواني",
+  "name_en": "Bakery",
+  "group": "food-and-drink",
+  "base": "restaurant",
+  "order": 6,
+  "wave": 1,
+  "why": "It sells by weight and it produces during the night, so it needs the kitchen of the restaurant and the costing of the retail sector at the same time.",
+  "operator": "The owner is in the shop at four in the morning while the first batch bakes, then at the counter at seven with the queue of the commuters. Their pain is the weight and the price: the customer asks for three quarters of a kilo and the shop has to be fast and exact. The second pain is yesterday bread: it is good food on the second day and a loss on the third, and the owner decides the discount by feel.",
+  "entities": [
+    "Bakery (id, name, branchId, address, phone, currency, openingHours, taxRegistration)",
+    "Product (id, sku, nameAr, nameEn, categoryId, unit, unitPricePiasters, costPiasters, taxRate, isWeighed, isBatch, shelfLifeDays)",
+    "Category (id, nameAr, nameEn, order, iconKey)",
+    "ProductionBatch (id, productId, producedAt, quantity, costPiasters, expiresAt, status, note)",
+    "DailyPrice (id, productId, date, pricePiasters, reason)",
+    "Sale (id, branchId, cashierId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, productId, quantity, weightGrams, unitPricePiasters, discountPiasters, isWeighed)",
+    "Waste (id, productId, productionBatchId, quantity, reason, loggedBy, createdAt)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)",
+    "Employee (id, name, phone, role, station, hourlyRatePiasters, status)",
+    "StockItem (id, nameAr, unit, costPiasters, quantity, supplierId, reorderPoint)"
+  ],
+  "units": "piece, kilo, gram, portion, pack, tray, dozen, with the weight sold per kilogram and the pastries sold per piece",
+  "batches": "Yes for everything made in house: each production batch carries the date, the quantity, the cost of the ingredients and the expiry, so the owner knows what yesterday bread cost him",
+  "expiry": "The day old rules are per product: the shelf life, the day it becomes discounted and the day it is written off. The screen shows the batches that expire today with the quantity, and one tap writes them off with a reason",
+  "special": "The structures specific to this sector are the production batches from the night shift, the weight based selling with the scale, the daily price changes for a holiday or a promotion, and the day old discount rule",
+  "screens": [
+    "Weighed till: the pastries and the bread by the weight, with the scale value and the price per kilogram, and the quick keys for the most sold items",
+    "Production plan: what the night shift bakes, how much, and what was actually produced against the plan",
+    "Day old screen: the batches that expire today, the quantity, and the discount rule or the write off",
+    "Stock: the flour, the sugar, the butter, the fillings and the packaging, with the last count and the reorder point",
+    "Daily price: change the price of an item for today only, with the reason written in the audit log",
+    "Purchasing: the order to the supplier with the last price and the quantity",
+    "Shift and the end of day: the money counted, the waste of the day in money and the number of pieces sold"
+  ],
+  "roles": [
+    "Owner: everything, including the prices and the staff",
+    "Manager: everything except billing, approves the write offs and the price changes",
+    "Baker: the production plan and the batches, no cash",
+    "Cashier: the counter, the scale, the payment and the shift close",
+    "Assistant: the counter and the stock count, no price change"
+  ],
+  "reports": [
+    "Sales by product and by hour: the morning rush measured",
+    "Day old waste in money per day: the loss the owner never measured",
+    "Margin per product after the real batch cost",
+    "Production against the plan: what was baked and what was sold",
+    "Stock of the raw material with the days left",
+    "Cash reconciliation per shift"
+  ],
+  "integrations": [
+    "Weighing scale through the local bridge or WebSerial, with a manual weight entry as a fallback",
+    "Thermal printer through ESC/POS for the receipt and for the batch label with the date",
+    "Camera scanner on the phone for the stock count of the flour and the packaging",
+    "WhatsApp for the order confirmation and for the day old offer to the regulars through the bakery own account"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Products: the items the shop sells, with the ones sold by weight marked",
+    "Shelf life: the number of days each item stays fresh, and the rule for the day old discount",
+    "Raw material: the flour, the sugar, the butter and the packaging with the counts",
+    "Team: the baker, the cashier and the assistant",
+    "Suppliers: the main suppliers with the visit days",
+    "First week plan: weigh one item, produce one batch, close the shift, set the day old rule",
+    "Review and finish"
+  ],
+  "seed": [
+    "Category list in Arabic: عيش, معجنات, بيتزا, كيك, حلويات, بسكويت, كرواسون, سندويتشات",
+    "A weight and piece unit set with the price per kilogram",
+    "A shelf life list per category as a starting point, marked to be confirmed by the shop",
+    "A receipt layout with the weight line and the production date for the items that are made in house",
+    "Role templates for the baker, the cashier and the assistant"
+  ],
+  "landing_ar": {
+    "headline": "مخبز بيحسب بالوزن، وبيعرف خسران امبارح بالجنيه",
+    "sub": "كاشير بالميزان، دفعات إنتاج بالليل، وقاعدة خصم اليوم التاني",
+    "benefits": [
+      "الوزن بيتحسب من الميزان والسعر للكيلو واضح على الشاشة",
+      "دفعة الإنتاج بالليل مسجلة بالتاريخ والكمية والتكلفة",
+      "خصم اليوم التاني قاعدة بتتحط مرة وتطبّق لوحدها"
+    ],
+    "faq": [
+      "الخبز التاني بيتحوّل لخصم تلقائي قبل ما يبقى هدر، والقاعدة بتحدد يوم الخصم",
+      "ينفع أكسر الماكينة؟ لأ: الكاشير بيفضل شغال والطباعة بتطلع من الجهاز"
+    ]
+  },
+  "landing_en": {
+    "headline": "A bakery that sells by weight and knows what yesterday bread cost",
+    "sub": "A till with the scale, night production batches, and a day old rule you set once",
+    "benefits": [
+      "The weight comes from the scale and the price per kilo is on the screen",
+      "The night batch is recorded with its date, its quantity and its cost",
+      "The day old discount rule is set once and applies itself"
+    ],
+    "faq": [
+      "Is the day old bread thrown away? It is converted by the rule before it becomes waste, and the rule decides the discount day",
+      "Does it work with a broken connection? Yes: the till keeps selling and the receipt prints from the device"
+    ]
+  },
+  "pricing": [
+    "The free tier fits a small bakery with one counter: one business, one branch, two seats, the weighed till and the shift",
+    "Starter adds the production plan, the day old rule and a year of history",
+    "The Business tier adds the purchasing, the raw material stock and the waste report",
+    "The kiosk for the self service bread shelf is priced per device"
+  ],
+  "competitors": [
+    {
+      "name": "Foodics (فودكس)",
+      "price": "Quote only, no rate card published (foodics.com, opened 2026-11-12)",
+      "weak": "Restaurant shaped, with no weight based bakery flow",
+      "edge": "The weight, the production batch and the day old rule as first class screens"
+    },
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "A general ERP where a baker needs a scale and a batch",
+      "edge": "A bakery flow with the scale, the batches and the Arabic words of the trade"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "No production batches, no day old rule and no weight pricing",
+      "edge": "The production and the expiry life of the shop, priced in pounds"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the bakery pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for bakery in packages/core/src/sectors/registry.ts with the base template restaurant and the mix of retail modules (pos, weights, production, expiry, purchasing, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('bakery') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the bakery data model with the production batches",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/bakery/schema.ts: products with the weighed flag and the shelf life, production batches with the date, the quantity and the cost, daily prices with a reason, the waste log and the sale lines with the weight in grams.",
+      "done": "The schema compiles with no any, the validation rejects a sale of a product without a production batch when the category requires one, and the tests pass."
+    },
+    {
+      "title": "Build the bakery seed with the Arabic categories and the shelf lives",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/bakery/seed.ts with the Arabic categories, the weight and piece units, the shelf life per category marked as a starting point to confirm, the receipt layout with the weight line and the production date, and the role templates.",
+      "done": "The seed loads, the test asserts the categories and the shelf lives, and it asserts that no price was invented."
+    },
+    {
+      "title": "Write the bakery terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/bakery/glossary.ts with the trade words: عيش, معجنات, دفعة, اليوم التاني, خصم, وزن, and the counter words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the weighed till and the scale driver",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the weight based sale: the cashier presses the weight button, the scale value lands in the line in grams, the price per kilogram multiplies it, and the manual entry stays available when the scale does not answer.",
+      "done": "A weighed sale stores the grams and the price matches the scale value, the simulated driver test passes, and a manual weight is accepted and marked as manual."
+    },
+    {
+      "title": "Build the production plan and the night batches",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the screen where the night shift records what it baked: the product, the quantity, the ingredients cost and the expiry, and the comparison with what was sold during the day.",
+      "done": "A batch records the production date and the expiry, the plan against the sale comparison matches a manual count in the test, and the batch label prints with the date."
+    },
+    {
+      "title": "Build the day old screen with the discount rule",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the day old screen: the batches that expire today with the quantity, the rule for the discount day, one tap to apply the discount and one tap to write off with a reason, each written to the audit log.",
+      "done": "The batches due today are listed with their quantities, the discount rule applies the right percentage, the write off reduces the stock and both actions are audited."
+    },
+    {
+      "title": "Build the raw material stock and the purchasing",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the stock of the flour, the sugar, the butter, the fillings and the packaging with the last count and the reorder point, and the order to the supplier with the last price.",
+      "done": "The low stock list names the items below their reorder point with the last purchase price, and the order prints with the quantity and the price."
+    },
+    {
+      "title": "Build the bakery report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: sales by product and by hour, the day old waste in money, the margin per product after the real batch cost, the production against the plan, the raw material stock and the cash reconciliation, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the bakery landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the weighed till and the day old screen as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The shelf life list is a starting point and the shop must confirm it from the real product, because a wrong shelf life is a food safety question",
+    "The scale is the source of the price, so the manual entry is always available and marked as manual in the receipt",
+    "The day old rule never disposes stock on its own without the owner seeing the amount and pressing the button",
+    "Allergen labelling is the shop own text: the product never decides that an item is safe for someone"
+  ]
+}

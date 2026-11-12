@@ -1,0 +1,210 @@
+{
+  "slug": "cafe",
+  "name_ar": "كافيه",
+  "name_en": "Cafe",
+  "group": "food-and-drink",
+  "base": "restaurant",
+  "order": 4,
+  "wave": 1,
+  "why": "It is the second most common food business in Egypt and the hardest case for a fast till, because the order is modifiers and drinks with different sizes, ice and extras, and the queue is short and impatient.",
+  "operator": "The owner runs a small cafe with a barista, a waiter and a cash box. The day is a rush in the morning, a slower afternoon and a delivery peak at night. They lose money on the drinks they make wrong, on the ice and the milk that runs out at eight in the morning, and on the discount the waiter gives away to be nice. Their real question every day is which drink and which food carries the business.",
+  "entities": [
+    "Cafe (id, name, branchId, address, phone, currency, openingHours, serviceChargePercent, taxRegistration)",
+    "Counter (id, branchId, label, kind, status)",
+    "MenuSection (id, nameAr, nameEn, order, isHidden)",
+    "MenuItem (id, sectionId, nameAr, nameEn, pricePiasters, costPiasters, taxRate, station, isAvailable)",
+    "ModifierGroup (id, menuItemId, nameAr, nameEn, isRequired, maxChoices)",
+    "Modifier (id, groupId, nameAr, nameEn, priceDeltaPiasters, isDefault, isAvailable, trackStock)",
+    "Recipe (id, menuItemId, lines, yield, milkMl, iceGrams, caffeineGrams)",
+    "Order (id, branchId, counterId, serviceType, status, lines, totalsPiasters, createdAt, idempotencyKey)",
+    "OrderLine (id, orderId, menuItemId, modifiers, quantity, unitPricePiasters, note, status)",
+    "StockItem (id, nameAr, unit, costPiasters, quantity, supplierId, reorderPoint, isBatch, expiryAt)",
+    "PrepList (id, branchId, itemId, quantityNeeded, quantityDone, preparedAt)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)",
+    "Employee (id, name, phone, role, hourlyRatePiasters, status)",
+    "Customer (id, name, phone, whatsappOptIn, loyaltyPoints, tier)"
+  ],
+  "units": "cup, portion, piece, gram, millilitre, shot, and the day parts that price a drink differently",
+  "batches": "Only for the dairy and the prepared bases: the milk, the cream and the syrups carry a batch with an opening date, so the morning stock knows what is fresh",
+  "expiry": "A short alert for the opened milk and the bases, plus the daily preparation list, which is the real expiry problem in a cafe: what was prepared yesterday and what was sold",
+  "special": "The structures specific to this sector are the modifier groups (size, ice, extras, syrup, milk type), the day parts with their own prices, the daily preparation list, and the order that has to be made in under a minute",
+  "screens": [
+    "Quick order: the grid of the top items with the modifiers one tap away, built for a queue that will not wait",
+    "Drink builder: size, ice, milk, extra shot, syrup, with the price updating as the barista taps",
+    "Till: the fast checkout with the card, the cash and the wallet, and the receipt that names the drink exactly as it was built",
+    "Availability: one tap marks a drink as sold out and the grid, the QR menu and the delivery screen lose it at once",
+    "Preparation list: what to prepare before opening and what to restock during the day, with the quantity done and the quantity left",
+    "Stock for the bar: the milk, the beans, the syrups and the ice, with the last count and the reorder point",
+    "Day parts: the prices for the morning, the afternoon and the evening, with what was sold in each",
+    "Shift and the till report: the money counted against the sales, the discounts given and the waste of the day"
+  ],
+  "roles": [
+    "Owner: everything, including the menu, the prices and the staff",
+    "Manager: everything except billing, approves discounts and voids",
+    "Barista: makes the drinks, updates the availability, records the preparation list",
+    "Cashier: takes the payment, closes the shift, hands over the drawer",
+    "Waiter: takes the order for the table service, serves and closes the table"
+  ],
+  "reports": [
+    "Sales and cups per hour: when the queue really happens",
+    "The drink and the food that carry the business: margin per item",
+    "Average ticket: the price of the basket, by day part",
+    "Discounts given and who gave them: the number that hides in the margin",
+    "Preparation waste: what was prepared and not sold, in money",
+    "Stock of the bar: milk, beans and syrups with the days left"
+  ],
+  "integrations": [
+    "Thermal printer through ESC/POS, and a customer display on the second screen for the waiting queue",
+    "Barcode scanner in keyboard mode for the packaged items on the side",
+    "Card terminal through Paymob, mobile wallets and InstaPay on the counter",
+    "Delivery apps through a manual link first, with the channel shown honestly",
+    "WhatsApp for the order confirmation through the cafe own account"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Counters: the number of counters and whether there is table service",
+    "Menu: import the drinks and the food with the price and the modifiers",
+    "Day parts: the morning, the afternoon and the evening with their prices",
+    "Team: the barista, the cashier and the waiter with their roles",
+    "Bar stock: the milk, the beans and the syrups with the counts",
+    "First week plan: build one drink end to end, print a receipt, close the shift, set the day parts",
+    "Review and finish"
+  ],
+  "seed": [
+    "Menu sections in Arabic: espresso, brewed coffee, cold coffee, tea, matcha, juices, shakes, breakfast, sandwiches, sweets",
+    "Modifier groups with the common sets: size, ice, milk type, extra shot, syrup, without sugar",
+    "A day part preset with morning, afternoon and evening",
+    "A receipt layout with the drink written the way it was built (size, ice and extras on separate lines)",
+    "An empty stock list and an empty preparation list, so the shop enters its own milk and beans"
+  ],
+  "landing_ar": {
+    "headline": "كافيه بيشتغل في دقيقة: مشروبات بموديفايرز، والشغل من غير ما ينقطع",
+    "sub": "كاشير سريع، شاشة تعديل المشروب، وقائمة تحضير الصبح قبل ما تفتح",
+    "benefits": [
+      "المشروب بيتظبط في 3 نقرات: حجم، تلج، حليب، زيادة",
+      "بتعرف أنهي مشروب بيدفع الإيجار و أنهي بيضيع",
+      "قائمة التحضير بتعرفك إحنا جبت كام قبل ما تفتح"
+    ],
+    "faq": [
+      "بيشتغل من غير نت؟ أيوه: الطلب والطباعة بيفضلوا شغالين والمزامنة بتتم بعدين",
+      "الدليفري Apps متوصّلة؟ لحد ما نأكد من كل واجهة هنعملها إدخال يدوي مكتوب بوضوح"
+    ]
+  },
+  "landing_en": {
+    "headline": "A cafe that runs in a minute: drinks with modifiers, and stock you can see",
+    "sub": "A fast till, a drink builder screen, and the morning preparation list before you open the door",
+    "benefits": [
+      "A drink is built in three taps: size, ice, milk, extra shot",
+      "You see which drink carries the rent and which one disappears",
+      "The preparation list tells you how much to make before opening"
+    ],
+    "faq": [
+      "Does it work without a connection? Yes: orders and printing keep working and the sync happens after",
+      "Are the delivery apps connected? Until each interface is confirmed they are a clearly labelled manual entry"
+    ]
+  },
+  "pricing": [
+    "The free tier fits a one person coffee bar: one business, one branch, two seats, the quick order and the shift",
+    "Starter adds the drink builder, the day parts and a year of history",
+    "The Business tier adds the preparation list, the stock for the bar and the waste report, which is where a cafe loses money quietly",
+    "Kiosk and the customer display are priced per device"
+  ],
+  "competitors": [
+    {
+      "name": "Foodics (فودكس)",
+      "price": "Quote only, no rate card published (foodics.com, opened 2026-11-12)",
+      "weak": "Built for the full service restaurant, heavier than a cafe counter needs",
+      "edge": "A cafe sized flow: the quick order, the modifiers and the preparation list, at a published price"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "A generic till with no modifiers and no recipe for the drink cost",
+      "edge": "The drink builder and the cost of every cup from the real recipes"
+    },
+    {
+      "name": "Square",
+      "price": "Free with processing fees, Plus US$49 per month per location (squareup.com, opened 2026-11-12)",
+      "weak": "Not offered in Egypt, no Arabic and no local payment rails",
+      "edge": "The Egyptian till with wallet and InstaPay, and the receipts in Arabic"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the cafe pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for cafe in packages/core/src/sectors/registry.ts with the base template restaurant, the modules (pos, modifiers, dayparts, prep, stock, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('cafe') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the cafe data model with modifiers and day parts",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/cafe/schema.ts: menu items, modifier groups with a required flag and a maximum number of choices, modifiers with a price delta and a stock flag, recipes with the milk and the ice, day parts and the preparation list.",
+      "done": "The schema compiles with no any, the validation rejects a drink without its required modifier, and the tests pass."
+    },
+    {
+      "title": "Build the cafe seed with the modifier groups",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/cafe/seed.ts with the Arabic menu sections, the modifier groups (size, ice, milk type, extra shot, syrup, no sugar), the day part preset, the receipt layout that prints the modifiers on separate lines, and the role templates.",
+      "done": "The seed loads, the test asserts the modifier groups, and no drink price is invented."
+    },
+    {
+      "title": "Write the cafe terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/cafe/glossary.ts with the cafe words: the drink names, the modifier words, the preparation words, the till words and the receipt words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the quick order grid and the drink builder",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the grid of the top items with large touch targets and the drink builder that opens the modifiers of the chosen item, updating the price live and refusing to continue when a required modifier is missing.",
+      "done": "A drink is built in three taps, the price always matches the modifiers, and the missing required modifier blocks the cart."
+    },
+    {
+      "title": "Build the availability switch and the day parts",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the screen where the barista marks a drink as sold out with one tap, which removes it from the grid, the QR menu and the delivery view, and build the day part prices with the sales of each part.",
+      "done": "A sold out drink disappears everywhere within the branch, the audit log records who did it, and the day part report shows the sales of each part."
+    },
+    {
+      "title": "Build the morning preparation list",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the preparation list: what to prepare before opening and what to restock during the day, with the quantity needed, the quantity done and the timestamps, and the waste of what was prepared and not sold.",
+      "done": "The list shows the real counts, the waste report values the difference in money, and the list is linked to the real sales of the previous days."
+    },
+    {
+      "title": "Write the cafe receipt layout and the golden file",
+      "area": "core",
+      "phase": "M2",
+      "brief": "Build the receipt templates for 80 mm and 58 mm with the drink written exactly as it was built, the modifiers on their own lines, the tax line and the QR for the receipt lookup, and store a golden file per width.",
+      "done": "The golden file test passes for both widths, the modifiers never wrap and the tax line equals the cart total."
+    },
+    {
+      "title": "Build the cafe report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: sales and cups per hour, margin per drink and per food, the average ticket by day part, the discounts given with the user who gave them, the preparation waste, and the bar stock with the days left, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the cafe landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the drink builder and the preparation list as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim on it matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The drink cost depends on the real purchase prices of the milk, the beans and the syrups, so a missing cost is flagged and never counted as zero",
+    "Delivery app interfaces are not confirmed, so the first release keeps a labelled manual entry instead of a fake integration",
+    "The preparation waste report needs a real count of what was prepared, so the shop is asked for it once a day and the app never guesses it",
+    "Nothing in this pack decides whether a drink is safe for a guest with an allergy: that stays with the shop"
+  ]
+}

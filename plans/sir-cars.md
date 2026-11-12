@@ -8,7 +8,9 @@ SIR Cars is its own small independent project with the same premium standard as 
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Cars` does not exist yet, no Firebase project exists for it, and no GitHub repo exists for it. The old r51 note assumed a repo `sirahmed8/sir-cars`; that assumption is unverified and is re-checked in M0. Verified today: this plan and the competitor file were written in this round.
 
-**Product class: GLOBAL.** Anyone in the world can use it, accounts and subscriptions exist, every platform is planned, the owner has an owner-only analytics page, the site is hosted twice (Firebase Hosting and Vercel), and a paid subscription gives the owner every permission inside the product. It is listed in `PRODUCT_DIRECTION_2026-11-12.md` section 8 among the small independent projects created from the unplanned ideas.
+**Product class: GLOBAL.** Anyone in the world can use it, accounts and subscriptions exist, every platform is planned, the owner has an owner-only analytics page, the site is hosted twice (Firebase Hosting and Vercel), and a paid subscription gives the owner every permission inside the product.
+
+**The decision behind this project.** The reason SIR Cars is its own product and not a module of another one, the lawful-data rules that apply to it and the exact folder, repository, Firebase and Desktop names are in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md` (2026-11-12, round r53c). It is listed in `PRODUCT_DIRECTION_2026-11-12.md` section 8 among the small independent projects created from the unplanned ideas.
 
 ---
 

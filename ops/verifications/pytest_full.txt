@@ -1,0 +1,631 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.2.0, pluggy-1.7.0 -- D:\Projects\SIR Laptop Manager\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Projects\SIR Laptop Manager
+configfile: pyproject.toml
+plugins: mock-3.17.0
+collecting ... collected 294 items
+
+tests/test_agent_config_sync.py::test_sync_copies_all_18_agents_and_skills PASSED [  0%]
+tests/test_agent_config_sync.py::test_sync_never_delete_preserves_unmanaged_files PASSED [  0%]
+tests/test_agent_config_sync.py::test_sync_no_claude_flag PASSED         [  1%]
+tests/test_care_cleaner.py::test_scan_cache_category PASSED              [  1%]
+tests/test_care_cleaner.py::test_cleaner_containment_enforcement PASSED  [  1%]
+tests/test_care_cleaner.py::test_execute_cleanup_dry_run_leaves_files_untouched PASSED [  2%]
+tests/test_care_cleaner.py::test_execute_cleanup_age_filtering PASSED    [  2%]
+tests/test_care_cleaner.py::test_cleaner_locked_file_recovery PASSED     [  2%]
+tests/test_care_cleaner.py::test_profile_cache_categories PASSED         [  3%]
+tests/test_core_models.py::test_quarantine_item_valid PASSED             [  3%]
+tests/test_core_models.py::test_quarantine_item_negative_size_rejected PASSED [  3%]
+tests/test_core_models.py::test_disk_space_report_validation PASSED      [  4%]
+tests/test_core_models.py::test_cleanup_plan_defaults PASSED             [  4%]
+tests/test_core_paths.py::test_paths_config_structure PASSED             [  4%]
+tests/test_core_paths.py::test_paths_quarantine_inside_project PASSED    [  5%]
+tests/test_cycle7_improvements.py::test_send_notification_mock PASSED    [  5%]
+tests/test_cycle7_improvements.py::test_telemetry_history_engine PASSED  [  5%]
+tests/test_cycle7_improvements.py::test_battery_wear_analytics PASSED    [  6%]
+tests/test_cycle7_improvements.py::test_quarantine_retention_lifecycle PASSED [  6%]
+tests/test_cycle7_improvements.py::test_process_relief_safety_guardrails PASSED [  6%]
+tests/test_cycle7_improvements.py::test_tray_companion_status PASSED     [  7%]
+tests/test_defensive_resiliency.py::test_rag_engine_is_ollama_online_handles_unreachable PASSED [  7%]
+tests/test_defensive_resiliency.py::test_rag_search_lexical_fallback_finds_matches PASSED [  7%]
+tests/test_defensive_resiliency.py::test_rag_search_falls_back_to_lexical_when_embed_fails PASSED [  8%]
+tests/test_defensive_resiliency.py::test_get_rag_stats_telemetry_reports_daemon_status PASSED [  8%]
+tests/test_defensive_resiliency.py::test_get_rag_search_results_defensive_against_exceptions PASSED [  8%]
+tests/test_defensive_resiliency.py::test_index_html_contains_auto_reconnect_and_offline_badge PASSED [  9%]
+tests/test_disk_runway.py::test_runway_insufficient_history_few_samples PASSED [  9%]
+tests/test_disk_runway.py::test_runway_insufficient_span_under_three_days PASSED [  9%]
+tests/test_disk_runway.py::test_runway_estimates_days_until_full PASSED  [ 10%]
+tests/test_disk_runway.py::test_runway_growing_space_has_no_deadline PASSED [ 10%]
+tests/test_dpi_scaling.py::test_get_real_display_metrics_returns_positive_numbers PASSED [ 10%]
+tests/test_dpi_scaling.py::test_get_real_display_metrics_falls_back_on_exception PASSED [ 11%]
+tests/test_dpi_scaling.py::test_calculate_dpi_matrix_covers_standard_scales PASSED [ 11%]
+tests/test_dpi_scaling.py::test_calculate_dpi_matrix_with_safe_gap PASSED [ 11%]
+tests/test_dpi_scaling.py::test_calculate_bounds_for_display_custom_overrides PASSED [ 12%]
+tests/test_dpi_scaling.py::test_windhawk_manager_calibration_contains_dpi_matrix PASSED [ 12%]
+tests/test_dpi_scaling.py::test_ops_ui_static_index_contains_high_dpi_media_queries PASSED [ 12%]
+tests/test_dpi_scaling.py::test_ops_ui_static_index_contains_dpi_matrix_table PASSED [ 13%]
+tests/test_every_post_route.py::test_every_dispatch_post_route_is_in_valid_posts PASSED [ 13%]
+tests/test_every_post_route.py::test_unknown_post_route_returns_404 PASSED [ 13%]
+tests/test_every_post_route.py::test_failing_handler_returns_4xx_with_error PASSED [ 14%]
+tests/test_every_post_route.py::test_game_mode_undo_http_post_returns_json_not_405 PASSED [ 14%]
+tests/test_game_mode.py::test_game_mode_storage_init PASSED              [ 14%]
+tests/test_game_mode.py::test_discover_installed_games_empty PASSED      [ 15%]
+tests/test_game_mode.py::test_discover_installed_games_mocked PASSED     [ 15%]
+tests/test_game_mode.py::test_get_running_game_none PASSED               [ 15%]
+tests/test_game_mode.py::test_get_running_game_detected PASSED           [ 16%]
+tests/test_game_mode.py::test_get_running_game_minecraft_java PASSED     [ 16%]
+tests/test_game_mode.py::test_pause_heavy_apps_dry_run PASSED            [ 17%]
+tests/test_game_mode.py::test_pause_heavy_apps_live PASSED               [ 17%]
+tests/test_game_mode.py::test_restore_paused_apps PASSED                 [ 17%]
+tests/test_game_mode.py::test_evaluate_game_mode_workflows PASSED        [ 18%]
+tests/test_game_mode.py::test_pause_writes_marker_even_with_no_apps PASSED [ 18%]
+tests/test_game_mode.py::test_evaluate_clears_empty_marker_on_game_exit PASSED [ 18%]
+tests/test_game_mode.py::test_evaluate_already_paused_on_empty_marker PASSED [ 19%]
+tests/test_logon_automation.py::test_is_port_in_use PASSED               [ 19%]
+tests/test_logon_automation.py::test_get_services_status PASSED          [ 19%]
+tests/test_logon_automation.py::test_run_startup_sequence_skipped_if_game_running PASSED [ 20%]
+tests/test_logon_automation.py::test_run_startup_sequence_dry_run PASSED [ 20%]
+tests/test_logon_automation.py::test_run_startup_sequence_live PASSED    [ 20%]
+tests/test_logon_automation.py::test_generate_vbs_wrapper PASSED         [ 21%]
+tests/test_ops_ui_a11y.py::test_skip_link_exists_and_targets_main PASSED [ 21%]
+tests/test_ops_ui_a11y.py::test_all_modals_have_dialog_role_and_aria_modal PASSED [ 21%]
+tests/test_ops_ui_a11y.py::test_modal_close_buttons_have_aria_label PASSED [ 22%]
+tests/test_ops_ui_a11y.py::test_tablist_has_wai_aria_attributes PASSED   [ 22%]
+tests/test_ops_ui_a11y.py::test_live_regions_and_alert_announcements PASSED [ 22%]
+tests/test_ops_ui_a11y.py::test_interactive_telemetry_cards_have_accessible_roles PASSED [ 23%]
+tests/test_ops_ui_a11y.py::test_search_and_form_controls_have_accessible_names PASSED [ 23%]
+tests/test_ops_ui_a11y.py::test_command_palette_and_confirm_sheet_accessibility PASSED [ 23%]
+tests/test_ops_ui_a11y.py::test_high_contrast_and_focus_visible_styles_present PASSED [ 24%]
+tests/test_ops_ui_endpoints.py::test_ops_server_api_quarantine_inspect_nonexistent PASSED [ 24%]
+tests/test_ops_ui_endpoints.py::test_ops_server_api_agents PASSED        [ 24%]
+tests/test_ops_ui_endpoints.py::test_ops_server_api_health_processes PASSED [ 25%]
+tests/test_ops_ui_endpoints.py::test_ops_server_api_agents_inspect PASSED [ 25%]
+tests/test_ops_ui_endpoints.py::test_ops_server_api_quarantine_restore_dry_run_nonexistent PASSED [ 25%]
+tests/test_ops_ui_endpoints.py::test_ops_server_cycle7_get_endpoints PASSED [ 26%]
+tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/] PASSED [ 26%]
+tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/health] PASSED [ 26%]
+tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/quarantine] PASSED [ 27%]
+tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/agents] PASSED [ 27%]
+tests/test_ops_ui_endpoints.py::test_dashboard_escapes_untrusted_values PASSED [ 27%]
+tests/test_ops_ui_server.py::test_ops_server_index PASSED                [ 28%]
+tests/test_ops_ui_server.py::test_ops_server_api_health PASSED           [ 28%]
+tests/test_ops_ui_server.py::test_ops_server_api_look PASSED             [ 28%]
+tests/test_ops_ui_server.py::test_ops_server_api_startup PASSED          [ 29%]
+tests/test_ops_ui_server.py::test_ops_server_api_quarantine PASSED       [ 29%]
+tests/test_ops_ui_server.py::test_ops_server_api_daemon_log_tail PASSED  [ 29%]
+tests/test_ops_ui_server.py::test_ops_server_api_dry_run_clean PASSED    [ 30%]
+tests/test_ops_ui_server.py::test_ops_server_api_care_categories PASSED  [ 30%]
+tests/test_ops_ui_server.py::test_ops_server_api_rag_stats PASSED        [ 30%]
+tests/test_ops_ui_server.py::test_ops_server_api_rag_search_empty_query PASSED [ 31%]
+tests/test_ops_ui_server.py::test_session_endpoint_returns_token_for_own_host PASSED [ 31%]
+tests/test_ops_ui_server.py::test_session_endpoint_rejects_foreign_host PASSED [ 31%]
+tests/test_ops_ui_server.py::test_session_endpoint_rejects_foreign_origin PASSED [ 32%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-origin-/api/look/fix-gap] PASSED [ 32%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-origin-/api/care/clean-dry-run] PASSED [ 32%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[foreign-origin-/api/look/fix-gap] PASSED [ 33%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[foreign-origin-/api/care/clean-dry-run] PASSED [ 33%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[null-origin-/api/look/fix-gap] PASSED [ 34%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[null-origin-/api/care/clean-dry-run] PASSED [ 34%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-token-/api/look/fix-gap] PASSED [ 34%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-token-/api/care/clean-dry-run] PASSED [ 35%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-token-/api/look/fix-gap] PASSED [ 35%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-token-/api/care/clean-dry-run] PASSED [ 35%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-host-/api/look/fix-gap] PASSED [ 36%]
+tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-host-/api/care/clean-dry-run] PASSED [ 36%]
+tests/test_ops_ui_server.py::test_fix_gap_defaults_to_dry_run PASSED     [ 36%]
+tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": "true"}] PASSED [ 37%]
+tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": 1}] PASSED [ 37%]
+tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": false}] PASSED [ 37%]
+tests/test_ops_ui_server.py::test_fix_gap_executes_only_when_confirmed PASSED [ 38%]
+tests/test_ops_ui_server.py::test_post_rejects_bad_json_and_oversized_body PASSED [ 38%]
+tests/test_performance_optimization.py::test_gpu_status_ttl_caching PASSED [ 38%]
+tests/test_performance_optimization.py::test_ollama_online_ttl_caching PASSED [ 39%]
+tests/test_performance_optimization.py::test_quarantine_fast_count_matches_list PASSED [ 39%]
+tests/test_performance_optimization.py::test_health_telemetry_latency_sub_25ms PASSED [ 39%]
+tests/test_performance_optimization.py::test_index_html_contains_visibility_api_and_sparkline_cache PASSED [ 40%]
+tests/test_power_and_updates.py::test_power_inspector_status PASSED      [ 40%]
+tests/test_power_and_updates.py::test_system_updates_inspector_gpu PASSED [ 40%]
+tests/test_powershell_scripts.py::test_restore_look_defaults_to_dry_run_and_writes_nothing PASSED [ 41%]
+tests/test_powershell_scripts.py::test_restore_look_plan_uses_gap_4_dword PASSED [ 41%]
+tests/test_powershell_scripts.py::test_restore_look_has_no_hidden_failures PASSED [ 41%]
+tests/test_powershell_scripts.py::test_execute_aborts_without_elevation PASSED [ 42%]
+tests/test_powershell_scripts.py::test_execute_aborts_when_reg_export_fails PASSED [ 42%]
+tests/test_powershell_scripts.py::test_execute_aborts_when_restore_point_fails PASSED [ 42%]
+tests/test_powershell_scripts.py::test_execute_reports_failed_write_and_not_success PASSED [ 43%]
+tests/test_powershell_scripts.py::test_execute_with_all_safety_nets_writes_typed_values PASSED [ 43%]
+tests/test_powershell_scripts.py::test_dev_stop_kills_only_our_server FAILED [ 43%]
+tests/test_quarantine_engine.py::test_quarantine_and_restore_cycle PASSED [ 44%]
+tests/test_quarantine_engine.py::test_quarantine_collision_safety PASSED [ 44%]
+tests/test_quarantine_engine.py::test_search_and_purge_expired PASSED    [ 44%]
+tests/test_quarantine_purge.py::test_purge_bucket_dry_run_keeps_files PASSED [ 45%]
+tests/test_quarantine_purge.py::test_purge_bucket_execute_removes PASSED [ 45%]
+tests/test_quarantine_purge.py::test_purge_bucket_missing_returns_error PASSED [ 45%]
+tests/test_quarantine_purge.py::test_route_purge_defaults_to_dry_run PASSED [ 46%]
+tests/test_r22_browser_audit.py::test_dashboard_layout_rules_at_every_size PASSED [ 46%]
+tests/test_r22_browser_audit.py::test_sheets_fit_the_viewport PASSED     [ 46%]
+tests/test_r22_layout_structure.py::test_design_tokens_defined_once PASSED [ 47%]
+tests/test_r22_layout_structure.py::test_task_dock_replaces_the_floating_panel PASSED [ 47%]
+tests/test_r22_layout_structure.py::test_panel_surface_is_opaque_in_every_theme PASSED [ 47%]
+tests/test_r22_layout_structure.py::test_app_shell_keeps_page_text_out_of_the_tab_bar PASSED [ 48%]
+tests/test_r22_layout_structure.py::test_daemon_card_has_no_pipe_separators PASSED [ 48%]
+tests/test_r22_layout_structure.py::test_look_page_uses_cards_on_phones_and_table_from_768 PASSED [ 48%]
+tests/test_r22_layout_structure.py::test_rag_keyboard_hint_is_desktop_only PASSED [ 49%]
+tests/test_r22_layout_structure.py::test_rag_counters_use_two_column_grid PASSED [ 49%]
+tests/test_r22_layout_structure.py::test_space_title_uses_one_language_per_direction PASSED [ 50%]
+tests/test_r22_layout_structure.py::test_checkboxes_have_a_44px_hit_area PASSED [ 50%]
+tests/test_r22_layout_structure.py::test_version_stays_at_one_zero_zero PASSED [ 50%]
+tests/test_r25_i18n.py::test_binding_ids_exist_in_markup PASSED          [ 51%]
+tests/test_r25_i18n.py::test_i18n_key_parity PASSED                      [ 51%]
+tests/test_r25_i18n.py::test_binding_keys_exist_in_both_dicts PASSED     [ 51%]
+tests/test_r25_i18n.py::test_arabic_values_contain_arabic_script PASSED  [ 52%]
+tests/test_r25_i18n.py::test_onclick_handlers_resolve_to_defined_functions PASSED [ 52%]
+tests/test_r25_i18n.py::test_arabic_navigation_renders_rtl PASSED        [ 52%]
+tests/test_r25_i18n.py::test_escape_closes_settings_and_drawer PASSED    [ 53%]
+tests/test_r25_i18n.py::test_english_default_unchanged PASSED            [ 53%]
+tests/test_r26_dynamic_i18n.py::test_reclaimable_row_ids_exist_in_markup PASSED [ 53%]
+tests/test_r26_dynamic_i18n.py::test_no_binding_targets_missing_ids PASSED [ 54%]
+tests/test_r26_dynamic_i18n.py::test_trf_helper_and_keys_present PASSED  [ 54%]
+tests/test_r26_dynamic_i18n.py::test_dynamic_badges_localize_arabic PASSED [ 54%]
+tests/test_r26_dynamic_i18n.py::test_gpu_badge_shows_live_telemetry PASSED [ 55%]
+tests/test_r26_dynamic_i18n.py::test_reclaimable_row_renders PASSED      [ 55%]
+tests/test_r27_feedback_i18n.py::test_no_literal_showtoast_calls PASSED  [ 55%]
+tests/test_r27_feedback_i18n.py::test_plural_helpers_present PASSED      [ 56%]
+tests/test_r27_feedback_i18n.py::test_new_keys_in_both_dicts PASSED      [ 56%]
+tests/test_r27_feedback_i18n.py::test_binding_ids_all_exist PASSED       [ 56%]
+tests/test_r27_feedback_i18n.py::test_arabic_feedback_surfaces PASSED    [ 57%]
+tests/test_r46_browser_cards.py::test_cards_layout_all_contexts PASSED   [ 57%]
+tests/test_r46_browser_cards.py::test_health_check_button_refreshes_score PASSED [ 57%]
+tests/test_r46_browser_cards.py::test_updates_card_initial_state_is_honest PASSED [ 58%]
+tests/test_r46_health_score.py::test_good_machine_scores_high_and_has_no_findings PASSED [ 58%]
+tests/test_r46_health_score.py::test_low_disk_is_critical_and_dominates_the_score PASSED [ 58%]
+tests/test_r46_health_score.py::test_high_memory_and_cpu_findings PASSED [ 59%]
+tests/test_r46_health_score.py::test_battery_wear_finding_uses_health_and_wear PASSED [ 59%]
+tests/test_r46_health_score.py::test_desktop_without_battery_renormalizes_weights PASSED [ 59%]
+tests/test_r46_health_score.py::test_many_high_startup_entries_produce_one_finding PASSED [ 60%]
+tests/test_r46_health_score.py::test_stale_startup_entry_is_reported PASSED [ 60%]
+tests/test_r46_health_score.py::test_score_route_is_registered PASSED    [ 60%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsTitle] PASSED [ 61%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsRun] PASSED [ 61%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsSummaryExcellent] PASSED [ 61%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsBandFair] PASSED [ 62%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsLowDiskTitle] PASSED [ 62%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsHighMemoryTitle] PASSED [ 62%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsBatteryWearTitle] PASSED [ 63%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsManyStartupTitle] PASSED [ 63%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battTitle] PASSED [ 63%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battRec] PASSED [ 64%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battNoCapacity] PASSED [ 64%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updTitle] PASSED [ 64%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updCount] PASSED [ 65%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updLast] PASSED [ 65%]
+tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updUnavailable] PASSED [ 65%]
+tests/test_r46_health_score.py::test_new_cards_and_controls_exist PASSED [ 66%]
+tests/test_r46_health_score.py::test_bindings_reference_existing_ids PASSED [ 66%]
+tests/test_r46_updates_cache.py::test_winget_updates_are_parsed_and_cached PASSED [ 67%]
+tests/test_r46_updates_cache.py::test_winget_absent_is_reported_honestly PASSED [ 67%]
+tests/test_r46_updates_cache.py::test_updates_route_payload_has_no_install_action PASSED [ 67%]
+tests/test_r46_updates_cache.py::test_updates_route_is_registered PASSED [ 68%]
+tests/test_rag_bilingual_eval.py::test_bilingual_arabic_english_retrieval PASSED [ 68%]
+tests/test_rag_engine.py::test_rag_chunks PASSED                         [ 68%]
+tests/test_rag_engine.py::test_rag_cosine PASSED                         [ 69%]
+tests/test_rag_engine.py::test_rag_indexing_and_search PASSED            [ 69%]
+tests/test_rag_engine.py::test_rag_file_exclusions PASSED                [ 69%]
+tests/test_round11_improvements.py::test_process_flags_defaults_to_devnull_stdin PASSED [ 70%]
+tests/test_round11_improvements.py::test_dev_start_vbs_launches_pythonw_directly FAILED [ 70%]
+tests/test_round11_improvements.py::test_server_handles_port_already_bound_silently PASSED [ 70%]
+tests/test_round11_improvements.py::test_gpu_telemetry_ttl_caching PASSED [ 71%]
+tests/test_round11_improvements.py::test_battery_wear_ttl_caching PASSED [ 71%]
+tests/test_round11_improvements.py::test_scheduled_tasks_ttl_caching PASSED [ 71%]
+tests/test_round11_improvements.py::test_parse_lnk_fast_accuracy PASSED  [ 72%]
+tests/test_round11_improvements.py::test_shortcut_doctor_ttl_caching PASSED [ 72%]
+tests/test_round11_improvements.py::test_index_html_contains_settings_popover_and_navigation_rail PASSED [ 72%]
+tests/test_round12_disk_space.py::test_safe_clean_orchestrator_dry_run PASSED [ 73%]
+tests/test_round12_disk_space.py::test_safe_clean_orchestrator_live_and_quarantine PASSED [ 73%]
+tests/test_round12_disk_space.py::test_live_clean_quarantines_large_files PASSED [ 73%]
+tests/test_round12_disk_space.py::test_quarantine_cli_restore PASSED     [ 74%]
+tests/test_round12_disk_space.py::test_disk_space_watcher_alert_evaluation PASSED [ 74%]
+tests/test_round12_disk_space.py::test_disk_space_watcher_reports_missing_sender PASSED [ 74%]
+tests/test_round12_disk_space.py::test_scheduled_cleanup_manager PASSED  [ 75%]
+tests/test_round12_disk_space.py::test_space_breakdown_and_clean_endpoints PASSED [ 75%]
+tests/test_round12_disk_space.py::test_index_html_contains_space_allocation_card PASSED [ 75%]
+tests/test_round13_game_services.py::test_game_services_snapshot_lifecycle PASSED [ 76%]
+tests/test_round13_game_services.py::test_pause_non_essential_services_dry_run PASSED [ 76%]
+tests/test_round13_game_services.py::test_pause_non_essential_services_live PASSED [ 76%]
+tests/test_round13_game_services.py::test_restore_services_via_task_scheduler PASSED [ 77%]
+tests/test_round13_game_services.py::test_retained_services_priority_adjustment PASSED [ 77%]
+tests/test_round13_game_services.py::test_game_mode_undo_route_dispatch PASSED [ 77%]
+tests/test_round13_game_services.py::test_restore_services_returns_quickly_for_daemons PASSED [ 78%]
+tests/test_round13_game_services.py::test_no_telegram_listener_in_service_definitions PASSED [ 78%]
+tests/test_round13_sovereign_services.py::test_daemon_status_contract PASSED [ 78%]
+tests/test_round13_sovereign_services.py::test_daemon_file_logging PASSED [ 79%]
+tests/test_round13_sovereign_services.py::test_parent_process_detection PASSED [ 79%]
+tests/test_round13_sovereign_services.py::test_parent_process_ide_detection PASSED [ 79%]
+tests/test_round13_sovereign_services.py::test_daemon_status_route_resolution PASSED [ 80%]
+tests/test_round13_sovereign_services.py::test_health_telemetry_includes_daemon PASSED [ 80%]
+tests/test_round13_sovereign_services.py::test_install_autostart_script_attributes PASSED [ 80%]
+tests/test_round13_sovereign_services.py::test_index_html_contains_daemon_health_banner PASSED [ 81%]
+tests/test_round4_improvements.py::test_shortcut_doctor_audits_shortcuts PASSED [ 81%]
+tests/test_round4_improvements.py::test_scheduled_tasks_inspector PASSED [ 81%]
+tests/test_round4_improvements.py::test_deep_disk_report PASSED          [ 82%]
+tests/test_round4_improvements.py::test_startup_reversible_disable_dry_run PASSED [ 82%]
+tests/test_round4_improvements.py::test_startup_reversible_enable_dry_run PASSED [ 82%]
+tests/test_round4_improvements.py::test_ops_ui_routes_extended_schemas PASSED [ 83%]
+tests/test_round4_improvements.py::test_github_actions_workflow_validity PASSED [ 83%]
+tests/test_round8_improvements.py::test_shortcuts_fix_and_restore_cycle PASSED [ 84%]
+tests/test_round8_improvements.py::test_startup_disable_invalid_and_restore_mocked PASSED [ 84%]
+tests/test_round8_improvements.py::test_look_pack_v2_export_and_generation PASSED [ 84%]
+tests/test_startup_inspector.py::test_startup_inspector_scan PASSED      [ 85%]
+tests/test_startup_inspector.py::test_startup_impact_estimation PASSED   [ 85%]
+tests/test_tailnet_allowlist.py::test_tailnet_host_discovery_and_allowlists PASSED [ 85%]
+tests/test_tailnet_allowlist.py::test_config_file_tailnet_hosts_parsing PASSED [ 86%]
+tests/test_tailnet_allowlist.py::test_env_var_tailnet_hosts_override PASSED [ 86%]
+tests/test_tailnet_allowlist.py::test_get_health_with_loopback_hosts PASSED [ 86%]
+tests/test_tailnet_allowlist.py::test_get_health_with_allowed_tailnet_domain PASSED [ 87%]
+tests/test_tailnet_allowlist.py::test_offloopback_host_without_identity_header_is_rejected PASSED [ 87%]
+tests/test_tailnet_allowlist.py::test_offloopback_host_with_wrong_identity_is_rejected PASSED [ 87%]
+tests/test_tailnet_allowlist.py::test_get_health_with_allowed_tailnet_ip PASSED [ 88%]
+tests/test_tailnet_allowlist.py::test_get_health_rejects_foreign_host PASSED [ 88%]
+tests/test_tailnet_allowlist.py::test_get_health_rejects_spoofed_tailnet_subdomain PASSED [ 88%]
+tests/test_tailnet_allowlist.py::test_post_guarded_with_allowed_tailnet_origin PASSED [ 89%]
+tests/test_tailnet_allowlist.py::test_post_guarded_rejects_foreign_origin PASSED [ 89%]
+tests/test_tailnet_allowlist.py::test_cors_options_preflight_for_allowed_origin PASSED [ 89%]
+tests/test_tailnet_allowlist.py::test_cors_options_preflight_rejects_foreign_origin PASSED [ 90%]
+tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_authorized PASSED [ 90%]
+tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_case_insensitive PASSED [ 90%]
+tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_rejected_for_intruder PASSED [ 91%]
+tests/test_tailnet_auth_mobile.py::test_client_disconnect_handled_gracefully PASSED [ 91%]
+tests/test_tailnet_auth_mobile.py::test_mobile_responsive_css_and_zero_em_dashes PASSED [ 91%]
+tests/test_tailnet_auth_mobile.py::test_ui_zero_emojis_strictly_enforced PASSED [ 92%]
+tests/test_windhawk_manager.py::test_windhawk_manager_listing PASSED     [ 92%]
+tests/test_windhawk_manager.py::test_windhawk_manager_settings_reader PASSED [ 92%]
+tests/test_windhawk_manager.py::test_windhawk_export_snapshot PASSED     [ 93%]
+tests/test_windhawk_manager.py::test_windhawk_verify_dlls PASSED         [ 93%]
+tests/test_windhawk_manager.py::test_windhawk_dpi_bounds_calculation PASSED [ 93%]
+tests/test_windhawk_manager.py::test_windhawk_look_calibration_validation PASSED [ 94%]
+tests/test_windhawk_manager.py::test_guard_returns_false_when_restore_point_fails PASSED [ 94%]
+tests/test_windhawk_manager.py::test_guard_returns_true_when_restore_point_succeeds PASSED [ 94%]
+tests/test_windhawk_manager.py::test_set_mod_setting_dry_run_writes_nothing PASSED [ 95%]
+tests/test_windhawk_manager.py::test_set_mod_setting_uses_dword_for_int_and_sz_for_text PASSED [ 95%]
+tests/test_windhawk_manager.py::test_set_mod_setting_requires_elevation PASSED [ 95%]
+tests/test_windhawk_manager.py::test_set_mod_setting_reports_unverified_write PASSED [ 96%]
+tests/test_windhawk_manager.py::test_fix_gap_defaults_to_dry_run PASSED  [ 96%]
+tests/test_windhawk_manager.py::test_fix_gap_blocked_when_restore_point_fails PASSED [ 96%]
+tests/test_windhawk_manager.py::test_fix_gap_rejects_out_of_range PASSED [ 97%]
+tests/test_windhawk_manager.py::test_fix_gap_executes_with_guard_and_dword PASSED [ 97%]
+tests/test_zero_trust_security.py::test_backup_integrity_signature_and_tamper_detection PASSED [ 97%]
+tests/test_zero_trust_security.py::test_backup_dangerous_command_syntax_rejection PASSED [ 98%]
+tests/test_zero_trust_security.py::test_process_relief_ancestor_and_system_protection PASSED [ 98%]
+tests/test_zero_trust_security.py::test_path_traversal_fortress PASSED   [ 98%]
+tests/test_zero_trust_security.py::test_secret_redaction_pipeline PASSED [ 99%]
+tests/test_zero_trust_security.py::test_sliding_window_rate_limiter PASSED [ 99%]
+tests/test_zero_trust_security.py::test_tamper_evident_security_audit_log PASSED [100%]
+
+================================== FAILURES ===================================
+_____________________ test_dev_stop_kills_only_our_server _____________________
+tests\test_powershell_scripts.py:178: in test_dev_stop_kills_only_our_server
+    assert ours.poll() is not None, "our server was not stopped"
+E   AssertionError: our server was not stopped
+E   assert None is not None
+E    +  where None = poll()
+E    +    where poll = <Popen: returncode: None args: ['D:\\Projects\\SIR Laptop Manager\\.venv\\Sc...>.poll
+________________ test_dev_start_vbs_launches_pythonw_directly _________________
+tests\test_round11_improvements.py:30: in test_dev_start_vbs_launches_pythonw_directly
+    assert "pythonw.exe" in content
+E   assert 'pythonw.exe' in 'CreateObject("WScript.Shell").Run "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File ""D:\\Projects\\SIR Laptop Manager\\scripts\\dev-start.ps1""", 0, False\n'
+=================================== PASSES ====================================
+__________________________ test_restore_paused_apps ___________________________
+---------------------------- Captured stdout call -----------------------------
+SUCCESS: Attempted to run the scheduled task "SIR_Jobs_Server".
+SUCCESS: Attempted to run the scheduled task "SIR_Study_Server".
+SUCCESS: Attempted to run the scheduled task "SIR_ControlRoom_Server".
+______________________ test_evaluate_game_mode_workflows ______________________
+---------------------------- Captured stderr call -----------------------------
+time=2026-11-12T17:34:04.021+02:00 level=INFO source=routes.go:2454 msg="server config" env="map[CUDA_VISIBLE_DEVICES: GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL: HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:0 OLLAMA_CREATE_REMOTE:false OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:true OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://127.0.0.1:11434 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:5m0s OLLAMA_KV_CACHE_TYPE:q8_0 OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:1 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:D:\\Projects\\AI_Models_Hub\\ollama OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:false OLLAMA_NUM_PARALLEL:2 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES:]"
+time=2026-11-12T17:34:04.022+02:00 level=INFO source=routes.go:2456 msg="Ollama cloud disabled: false"
+-------------------------- Captured stderr teardown ---------------------------
+time=2026-11-12T17:34:04.035+02:00 level=INFO source=images.go:1007 msg="total blobs: 35"
+_________________ test_pause_writes_marker_even_with_no_apps __________________
+---------------------------- Captured stderr call -----------------------------
+time=2026-11-12T17:34:04.051+02:00 level=INFO source=images.go:1016 msg="total unused blobs removed: 0"
+time=2026-11-12T17:34:04.054+02:00 level=INFO source=routes.go:2516 msg="Listening on 127.0.0.1:11434 (version 0.40.11)"
+time=2026-11-12T17:34:04.058+02:00 level=INFO source=runner.go:60 msg="discovering available GPUs..."
+_________________________ test_quarantine_cli_restore _________________________
+---------------------------- Captured stdout call -----------------------------
+Restored 1 files successfully from q_20261112_153752_1fd565.
+=========================== short test summary info ===========================
+PASSED tests/test_agent_config_sync.py::test_sync_copies_all_18_agents_and_skills
+PASSED tests/test_agent_config_sync.py::test_sync_never_delete_preserves_unmanaged_files
+PASSED tests/test_agent_config_sync.py::test_sync_no_claude_flag
+PASSED tests/test_care_cleaner.py::test_scan_cache_category
+PASSED tests/test_care_cleaner.py::test_cleaner_containment_enforcement
+PASSED tests/test_care_cleaner.py::test_execute_cleanup_dry_run_leaves_files_untouched
+PASSED tests/test_care_cleaner.py::test_execute_cleanup_age_filtering
+PASSED tests/test_care_cleaner.py::test_cleaner_locked_file_recovery
+PASSED tests/test_care_cleaner.py::test_profile_cache_categories
+PASSED tests/test_core_models.py::test_quarantine_item_valid
+PASSED tests/test_core_models.py::test_quarantine_item_negative_size_rejected
+PASSED tests/test_core_models.py::test_disk_space_report_validation
+PASSED tests/test_core_models.py::test_cleanup_plan_defaults
+PASSED tests/test_core_paths.py::test_paths_config_structure
+PASSED tests/test_core_paths.py::test_paths_quarantine_inside_project
+PASSED tests/test_cycle7_improvements.py::test_send_notification_mock
+PASSED tests/test_cycle7_improvements.py::test_telemetry_history_engine
+PASSED tests/test_cycle7_improvements.py::test_battery_wear_analytics
+PASSED tests/test_cycle7_improvements.py::test_quarantine_retention_lifecycle
+PASSED tests/test_cycle7_improvements.py::test_process_relief_safety_guardrails
+PASSED tests/test_cycle7_improvements.py::test_tray_companion_status
+PASSED tests/test_defensive_resiliency.py::test_rag_engine_is_ollama_online_handles_unreachable
+PASSED tests/test_defensive_resiliency.py::test_rag_search_lexical_fallback_finds_matches
+PASSED tests/test_defensive_resiliency.py::test_rag_search_falls_back_to_lexical_when_embed_fails
+PASSED tests/test_defensive_resiliency.py::test_get_rag_stats_telemetry_reports_daemon_status
+PASSED tests/test_defensive_resiliency.py::test_get_rag_search_results_defensive_against_exceptions
+PASSED tests/test_defensive_resiliency.py::test_index_html_contains_auto_reconnect_and_offline_badge
+PASSED tests/test_disk_runway.py::test_runway_insufficient_history_few_samples
+PASSED tests/test_disk_runway.py::test_runway_insufficient_span_under_three_days
+PASSED tests/test_disk_runway.py::test_runway_estimates_days_until_full
+PASSED tests/test_disk_runway.py::test_runway_growing_space_has_no_deadline
+PASSED tests/test_dpi_scaling.py::test_get_real_display_metrics_returns_positive_numbers
+PASSED tests/test_dpi_scaling.py::test_get_real_display_metrics_falls_back_on_exception
+PASSED tests/test_dpi_scaling.py::test_calculate_dpi_matrix_covers_standard_scales
+PASSED tests/test_dpi_scaling.py::test_calculate_dpi_matrix_with_safe_gap
+PASSED tests/test_dpi_scaling.py::test_calculate_bounds_for_display_custom_overrides
+PASSED tests/test_dpi_scaling.py::test_windhawk_manager_calibration_contains_dpi_matrix
+PASSED tests/test_dpi_scaling.py::test_ops_ui_static_index_contains_high_dpi_media_queries
+PASSED tests/test_dpi_scaling.py::test_ops_ui_static_index_contains_dpi_matrix_table
+PASSED tests/test_every_post_route.py::test_every_dispatch_post_route_is_in_valid_posts
+PASSED tests/test_every_post_route.py::test_unknown_post_route_returns_404
+PASSED tests/test_every_post_route.py::test_failing_handler_returns_4xx_with_error
+PASSED tests/test_every_post_route.py::test_game_mode_undo_http_post_returns_json_not_405
+PASSED tests/test_game_mode.py::test_game_mode_storage_init
+PASSED tests/test_game_mode.py::test_discover_installed_games_empty
+PASSED tests/test_game_mode.py::test_discover_installed_games_mocked
+PASSED tests/test_game_mode.py::test_get_running_game_none
+PASSED tests/test_game_mode.py::test_get_running_game_detected
+PASSED tests/test_game_mode.py::test_get_running_game_minecraft_java
+PASSED tests/test_game_mode.py::test_pause_heavy_apps_dry_run
+PASSED tests/test_game_mode.py::test_pause_heavy_apps_live
+PASSED tests/test_game_mode.py::test_restore_paused_apps
+PASSED tests/test_game_mode.py::test_evaluate_game_mode_workflows
+PASSED tests/test_game_mode.py::test_pause_writes_marker_even_with_no_apps
+PASSED tests/test_game_mode.py::test_evaluate_clears_empty_marker_on_game_exit
+PASSED tests/test_game_mode.py::test_evaluate_already_paused_on_empty_marker
+PASSED tests/test_logon_automation.py::test_is_port_in_use
+PASSED tests/test_logon_automation.py::test_get_services_status
+PASSED tests/test_logon_automation.py::test_run_startup_sequence_skipped_if_game_running
+PASSED tests/test_logon_automation.py::test_run_startup_sequence_dry_run
+PASSED tests/test_logon_automation.py::test_run_startup_sequence_live
+PASSED tests/test_logon_automation.py::test_generate_vbs_wrapper
+PASSED tests/test_ops_ui_a11y.py::test_skip_link_exists_and_targets_main
+PASSED tests/test_ops_ui_a11y.py::test_all_modals_have_dialog_role_and_aria_modal
+PASSED tests/test_ops_ui_a11y.py::test_modal_close_buttons_have_aria_label
+PASSED tests/test_ops_ui_a11y.py::test_tablist_has_wai_aria_attributes
+PASSED tests/test_ops_ui_a11y.py::test_live_regions_and_alert_announcements
+PASSED tests/test_ops_ui_a11y.py::test_interactive_telemetry_cards_have_accessible_roles
+PASSED tests/test_ops_ui_a11y.py::test_search_and_form_controls_have_accessible_names
+PASSED tests/test_ops_ui_a11y.py::test_command_palette_and_confirm_sheet_accessibility
+PASSED tests/test_ops_ui_a11y.py::test_high_contrast_and_focus_visible_styles_present
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_api_quarantine_inspect_nonexistent
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_api_agents
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_api_health_processes
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_api_agents_inspect
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_api_quarantine_restore_dry_run_nonexistent
+PASSED tests/test_ops_ui_endpoints.py::test_ops_server_cycle7_get_endpoints
+PASSED tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/]
+PASSED tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/health]
+PASSED tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/quarantine]
+PASSED tests/test_ops_ui_endpoints.py::test_read_endpoints_reject_foreign_host[/api/agents]
+PASSED tests/test_ops_ui_endpoints.py::test_dashboard_escapes_untrusted_values
+PASSED tests/test_ops_ui_server.py::test_ops_server_index
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_health
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_look
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_startup
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_quarantine
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_daemon_log_tail
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_dry_run_clean
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_care_categories
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_rag_stats
+PASSED tests/test_ops_ui_server.py::test_ops_server_api_rag_search_empty_query
+PASSED tests/test_ops_ui_server.py::test_session_endpoint_returns_token_for_own_host
+PASSED tests/test_ops_ui_server.py::test_session_endpoint_rejects_foreign_host
+PASSED tests/test_ops_ui_server.py::test_session_endpoint_rejects_foreign_origin
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-origin-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-origin-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[foreign-origin-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[foreign-origin-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[null-origin-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[null-origin-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-token-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[no-token-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-token-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-token-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-host-/api/look/fix-gap]
+PASSED tests/test_ops_ui_server.py::test_state_changing_posts_are_guarded[bad-host-/api/care/clean-dry-run]
+PASSED tests/test_ops_ui_server.py::test_fix_gap_defaults_to_dry_run
+PASSED tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": "true"}]
+PASSED tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": 1}]
+PASSED tests/test_ops_ui_server.py::test_fix_gap_only_real_true_executes[{"confirm": false}]
+PASSED tests/test_ops_ui_server.py::test_fix_gap_executes_only_when_confirmed
+PASSED tests/test_ops_ui_server.py::test_post_rejects_bad_json_and_oversized_body
+PASSED tests/test_performance_optimization.py::test_gpu_status_ttl_caching
+PASSED tests/test_performance_optimization.py::test_ollama_online_ttl_caching
+PASSED tests/test_performance_optimization.py::test_quarantine_fast_count_matches_list
+PASSED tests/test_performance_optimization.py::test_health_telemetry_latency_sub_25ms
+PASSED tests/test_performance_optimization.py::test_index_html_contains_visibility_api_and_sparkline_cache
+PASSED tests/test_power_and_updates.py::test_power_inspector_status
+PASSED tests/test_power_and_updates.py::test_system_updates_inspector_gpu
+PASSED tests/test_powershell_scripts.py::test_restore_look_defaults_to_dry_run_and_writes_nothing
+PASSED tests/test_powershell_scripts.py::test_restore_look_plan_uses_gap_4_dword
+PASSED tests/test_powershell_scripts.py::test_restore_look_has_no_hidden_failures
+PASSED tests/test_powershell_scripts.py::test_execute_aborts_without_elevation
+PASSED tests/test_powershell_scripts.py::test_execute_aborts_when_reg_export_fails
+PASSED tests/test_powershell_scripts.py::test_execute_aborts_when_restore_point_fails
+PASSED tests/test_powershell_scripts.py::test_execute_reports_failed_write_and_not_success
+PASSED tests/test_powershell_scripts.py::test_execute_with_all_safety_nets_writes_typed_values
+PASSED tests/test_quarantine_engine.py::test_quarantine_and_restore_cycle
+PASSED tests/test_quarantine_engine.py::test_quarantine_collision_safety
+PASSED tests/test_quarantine_engine.py::test_search_and_purge_expired
+PASSED tests/test_quarantine_purge.py::test_purge_bucket_dry_run_keeps_files
+PASSED tests/test_quarantine_purge.py::test_purge_bucket_execute_removes
+PASSED tests/test_quarantine_purge.py::test_purge_bucket_missing_returns_error
+PASSED tests/test_quarantine_purge.py::test_route_purge_defaults_to_dry_run
+PASSED tests/test_r22_browser_audit.py::test_dashboard_layout_rules_at_every_size
+PASSED tests/test_r22_browser_audit.py::test_sheets_fit_the_viewport
+PASSED tests/test_r22_layout_structure.py::test_design_tokens_defined_once
+PASSED tests/test_r22_layout_structure.py::test_task_dock_replaces_the_floating_panel
+PASSED tests/test_r22_layout_structure.py::test_panel_surface_is_opaque_in_every_theme
+PASSED tests/test_r22_layout_structure.py::test_app_shell_keeps_page_text_out_of_the_tab_bar
+PASSED tests/test_r22_layout_structure.py::test_daemon_card_has_no_pipe_separators
+PASSED tests/test_r22_layout_structure.py::test_look_page_uses_cards_on_phones_and_table_from_768
+PASSED tests/test_r22_layout_structure.py::test_rag_keyboard_hint_is_desktop_only
+PASSED tests/test_r22_layout_structure.py::test_rag_counters_use_two_column_grid
+PASSED tests/test_r22_layout_structure.py::test_space_title_uses_one_language_per_direction
+PASSED tests/test_r22_layout_structure.py::test_checkboxes_have_a_44px_hit_area
+PASSED tests/test_r22_layout_structure.py::test_version_stays_at_one_zero_zero
+PASSED tests/test_r25_i18n.py::test_binding_ids_exist_in_markup
+PASSED tests/test_r25_i18n.py::test_i18n_key_parity
+PASSED tests/test_r25_i18n.py::test_binding_keys_exist_in_both_dicts
+PASSED tests/test_r25_i18n.py::test_arabic_values_contain_arabic_script
+PASSED tests/test_r25_i18n.py::test_onclick_handlers_resolve_to_defined_functions
+PASSED tests/test_r25_i18n.py::test_arabic_navigation_renders_rtl
+PASSED tests/test_r25_i18n.py::test_escape_closes_settings_and_drawer
+PASSED tests/test_r25_i18n.py::test_english_default_unchanged
+PASSED tests/test_r26_dynamic_i18n.py::test_reclaimable_row_ids_exist_in_markup
+PASSED tests/test_r26_dynamic_i18n.py::test_no_binding_targets_missing_ids
+PASSED tests/test_r26_dynamic_i18n.py::test_trf_helper_and_keys_present
+PASSED tests/test_r26_dynamic_i18n.py::test_dynamic_badges_localize_arabic
+PASSED tests/test_r26_dynamic_i18n.py::test_gpu_badge_shows_live_telemetry
+PASSED tests/test_r26_dynamic_i18n.py::test_reclaimable_row_renders
+PASSED tests/test_r27_feedback_i18n.py::test_no_literal_showtoast_calls
+PASSED tests/test_r27_feedback_i18n.py::test_plural_helpers_present
+PASSED tests/test_r27_feedback_i18n.py::test_new_keys_in_both_dicts
+PASSED tests/test_r27_feedback_i18n.py::test_binding_ids_all_exist
+PASSED tests/test_r27_feedback_i18n.py::test_arabic_feedback_surfaces
+PASSED tests/test_r46_browser_cards.py::test_cards_layout_all_contexts
+PASSED tests/test_r46_browser_cards.py::test_health_check_button_refreshes_score
+PASSED tests/test_r46_browser_cards.py::test_updates_card_initial_state_is_honest
+PASSED tests/test_r46_health_score.py::test_good_machine_scores_high_and_has_no_findings
+PASSED tests/test_r46_health_score.py::test_low_disk_is_critical_and_dominates_the_score
+PASSED tests/test_r46_health_score.py::test_high_memory_and_cpu_findings
+PASSED tests/test_r46_health_score.py::test_battery_wear_finding_uses_health_and_wear
+PASSED tests/test_r46_health_score.py::test_desktop_without_battery_renormalizes_weights
+PASSED tests/test_r46_health_score.py::test_many_high_startup_entries_produce_one_finding
+PASSED tests/test_r46_health_score.py::test_stale_startup_entry_is_reported
+PASSED tests/test_r46_health_score.py::test_score_route_is_registered
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsRun]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsSummaryExcellent]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsBandFair]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsLowDiskTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsHighMemoryTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsBatteryWearTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[hsManyStartupTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battRec]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[battNoCapacity]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updTitle]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updCount]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updLast]
+PASSED tests/test_r46_health_score.py::test_new_keys_exist_in_both_languages[updUnavailable]
+PASSED tests/test_r46_health_score.py::test_new_cards_and_controls_exist
+PASSED tests/test_r46_health_score.py::test_bindings_reference_existing_ids
+PASSED tests/test_r46_updates_cache.py::test_winget_updates_are_parsed_and_cached
+PASSED tests/test_r46_updates_cache.py::test_winget_absent_is_reported_honestly
+PASSED tests/test_r46_updates_cache.py::test_updates_route_payload_has_no_install_action
+PASSED tests/test_r46_updates_cache.py::test_updates_route_is_registered
+PASSED tests/test_rag_bilingual_eval.py::test_bilingual_arabic_english_retrieval
+PASSED tests/test_rag_engine.py::test_rag_chunks
+PASSED tests/test_rag_engine.py::test_rag_cosine
+PASSED tests/test_rag_engine.py::test_rag_indexing_and_search
+PASSED tests/test_rag_engine.py::test_rag_file_exclusions
+PASSED tests/test_round11_improvements.py::test_process_flags_defaults_to_devnull_stdin
+PASSED tests/test_round11_improvements.py::test_server_handles_port_already_bound_silently
+PASSED tests/test_round11_improvements.py::test_gpu_telemetry_ttl_caching
+PASSED tests/test_round11_improvements.py::test_battery_wear_ttl_caching
+PASSED tests/test_round11_improvements.py::test_scheduled_tasks_ttl_caching
+PASSED tests/test_round11_improvements.py::test_parse_lnk_fast_accuracy
+PASSED tests/test_round11_improvements.py::test_shortcut_doctor_ttl_caching
+PASSED tests/test_round11_improvements.py::test_index_html_contains_settings_popover_and_navigation_rail
+PASSED tests/test_round12_disk_space.py::test_safe_clean_orchestrator_dry_run
+PASSED tests/test_round12_disk_space.py::test_safe_clean_orchestrator_live_and_quarantine
+PASSED tests/test_round12_disk_space.py::test_live_clean_quarantines_large_files
+PASSED tests/test_round12_disk_space.py::test_quarantine_cli_restore
+PASSED tests/test_round12_disk_space.py::test_disk_space_watcher_alert_evaluation
+PASSED tests/test_round12_disk_space.py::test_disk_space_watcher_reports_missing_sender
+PASSED tests/test_round12_disk_space.py::test_scheduled_cleanup_manager
+PASSED tests/test_round12_disk_space.py::test_space_breakdown_and_clean_endpoints
+PASSED tests/test_round12_disk_space.py::test_index_html_contains_space_allocation_card
+PASSED tests/test_round13_game_services.py::test_game_services_snapshot_lifecycle
+PASSED tests/test_round13_game_services.py::test_pause_non_essential_services_dry_run
+PASSED tests/test_round13_game_services.py::test_pause_non_essential_services_live
+PASSED tests/test_round13_game_services.py::test_restore_services_via_task_scheduler
+PASSED tests/test_round13_game_services.py::test_retained_services_priority_adjustment
+PASSED tests/test_round13_game_services.py::test_game_mode_undo_route_dispatch
+PASSED tests/test_round13_game_services.py::test_restore_services_returns_quickly_for_daemons
+PASSED tests/test_round13_game_services.py::test_no_telegram_listener_in_service_definitions
+PASSED tests/test_round13_sovereign_services.py::test_daemon_status_contract
+PASSED tests/test_round13_sovereign_services.py::test_daemon_file_logging
+PASSED tests/test_round13_sovereign_services.py::test_parent_process_detection
+PASSED tests/test_round13_sovereign_services.py::test_parent_process_ide_detection
+PASSED tests/test_round13_sovereign_services.py::test_daemon_status_route_resolution
+PASSED tests/test_round13_sovereign_services.py::test_health_telemetry_includes_daemon
+PASSED tests/test_round13_sovereign_services.py::test_install_autostart_script_attributes
+PASSED tests/test_round13_sovereign_services.py::test_index_html_contains_daemon_health_banner
+PASSED tests/test_round4_improvements.py::test_shortcut_doctor_audits_shortcuts
+PASSED tests/test_round4_improvements.py::test_scheduled_tasks_inspector
+PASSED tests/test_round4_improvements.py::test_deep_disk_report
+PASSED tests/test_round4_improvements.py::test_startup_reversible_disable_dry_run
+PASSED tests/test_round4_improvements.py::test_startup_reversible_enable_dry_run
+PASSED tests/test_round4_improvements.py::test_ops_ui_routes_extended_schemas
+PASSED tests/test_round4_improvements.py::test_github_actions_workflow_validity
+PASSED tests/test_round8_improvements.py::test_shortcuts_fix_and_restore_cycle
+PASSED tests/test_round8_improvements.py::test_startup_disable_invalid_and_restore_mocked
+PASSED tests/test_round8_improvements.py::test_look_pack_v2_export_and_generation
+PASSED tests/test_startup_inspector.py::test_startup_inspector_scan
+PASSED tests/test_startup_inspector.py::test_startup_impact_estimation
+PASSED tests/test_tailnet_allowlist.py::test_tailnet_host_discovery_and_allowlists
+PASSED tests/test_tailnet_allowlist.py::test_config_file_tailnet_hosts_parsing
+PASSED tests/test_tailnet_allowlist.py::test_env_var_tailnet_hosts_override
+PASSED tests/test_tailnet_allowlist.py::test_get_health_with_loopback_hosts
+PASSED tests/test_tailnet_allowlist.py::test_get_health_with_allowed_tailnet_domain
+PASSED tests/test_tailnet_allowlist.py::test_offloopback_host_without_identity_header_is_rejected
+PASSED tests/test_tailnet_allowlist.py::test_offloopback_host_with_wrong_identity_is_rejected
+PASSED tests/test_tailnet_allowlist.py::test_get_health_with_allowed_tailnet_ip
+PASSED tests/test_tailnet_allowlist.py::test_get_health_rejects_foreign_host
+PASSED tests/test_tailnet_allowlist.py::test_get_health_rejects_spoofed_tailnet_subdomain
+PASSED tests/test_tailnet_allowlist.py::test_post_guarded_with_allowed_tailnet_origin
+PASSED tests/test_tailnet_allowlist.py::test_post_guarded_rejects_foreign_origin
+PASSED tests/test_tailnet_allowlist.py::test_cors_options_preflight_for_allowed_origin
+PASSED tests/test_tailnet_allowlist.py::test_cors_options_preflight_rejects_foreign_origin
+PASSED tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_authorized
+PASSED tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_case_insensitive
+PASSED tests/test_tailnet_auth_mobile.py::test_tailscale_user_identity_rejected_for_intruder
+PASSED tests/test_tailnet_auth_mobile.py::test_client_disconnect_handled_gracefully
+PASSED tests/test_tailnet_auth_mobile.py::test_mobile_responsive_css_and_zero_em_dashes
+PASSED tests/test_tailnet_auth_mobile.py::test_ui_zero_emojis_strictly_enforced
+PASSED tests/test_windhawk_manager.py::test_windhawk_manager_listing
+PASSED tests/test_windhawk_manager.py::test_windhawk_manager_settings_reader
+PASSED tests/test_windhawk_manager.py::test_windhawk_export_snapshot
+PASSED tests/test_windhawk_manager.py::test_windhawk_verify_dlls
+PASSED tests/test_windhawk_manager.py::test_windhawk_dpi_bounds_calculation
+PASSED tests/test_windhawk_manager.py::test_windhawk_look_calibration_validation
+PASSED tests/test_windhawk_manager.py::test_guard_returns_false_when_restore_point_fails
+PASSED tests/test_windhawk_manager.py::test_guard_returns_true_when_restore_point_succeeds
+PASSED tests/test_windhawk_manager.py::test_set_mod_setting_dry_run_writes_nothing
+PASSED tests/test_windhawk_manager.py::test_set_mod_setting_uses_dword_for_int_and_sz_for_text
+PASSED tests/test_windhawk_manager.py::test_set_mod_setting_requires_elevation
+PASSED tests/test_windhawk_manager.py::test_set_mod_setting_reports_unverified_write
+PASSED tests/test_windhawk_manager.py::test_fix_gap_defaults_to_dry_run
+PASSED tests/test_windhawk_manager.py::test_fix_gap_blocked_when_restore_point_fails
+PASSED tests/test_windhawk_manager.py::test_fix_gap_rejects_out_of_range
+PASSED tests/test_windhawk_manager.py::test_fix_gap_executes_with_guard_and_dword
+PASSED tests/test_zero_trust_security.py::test_backup_integrity_signature_and_tamper_detection
+PASSED tests/test_zero_trust_security.py::test_backup_dangerous_command_syntax_rejection
+PASSED tests/test_zero_trust_security.py::test_process_relief_ancestor_and_system_protection
+PASSED tests/test_zero_trust_security.py::test_path_traversal_fortress
+PASSED tests/test_zero_trust_security.py::test_secret_redaction_pipeline
+PASSED tests/test_zero_trust_security.py::test_sliding_window_rate_limiter
+PASSED tests/test_zero_trust_security.py::test_tamper_evident_security_audit_log
+FAILED tests/test_powershell_scripts.py::test_dev_stop_kills_only_our_server
+FAILED tests/test_round11_improvements.py::test_dev_start_vbs_launches_pythonw_directly
+================== 2 failed, 292 passed in 366.76s (0:06:06) ==================

@@ -1,0 +1,208 @@
+{
+  "slug": "gym-fitness",
+  "name_ar": "جيم ولياقة",
+  "name_en": "Gym and fitness",
+  "group": "health-and-beauty",
+  "base": "service",
+  "order": 10,
+  "wave": 2,
+  "why": "It sells months at a time: the membership, the class seat and the coach share, and the owner lives from renewals that nobody tracks.",
+  "operator": "The owner runs a hall with a floor, a class room and a coach on shift. The business is renewals: a member who came three times in the month and will not come back, a membership that was frozen in July and forgot to restart, and a coach who counts the class attendance by hand. The pain is the member list in a notebook and the argument about a month that was paid but not used.",
+  "entities": [
+    "Gym (id, name, branchId, address, phone, currency, openingHours, taxRegistration)",
+    "Plan (id, nameAr, nameEn, periodDays, pricePiasters, sessionsIncluded, classAccess, isActive)",
+    "Membership (id, memberId, planId, startsAt, expiresAt, status, freezeUntil, notes)",
+    "Member (id, name, phone, whatsappOptIn, birthYear, emergencyContact, consentGivenAt, createdAt)",
+    "Freeze (id, membershipId, fromDate, toDate, reason, loggedBy)",
+    "Class (id, branchId, titleAr, coachId, roomId, startsAt, endsAt, capacity, bookedCount)",
+    "ClassBooking (id, classId, memberId, bookedAt, attended, checkedInAt)",
+    "CheckIn (id, memberId, membershipId, at, method)",
+    "Coach (id, name, phone, role, commissionPercent, hourlyRatePiasters, status)",
+    "BodyMetric (id, memberId, recordedAt, weightKg, heightCm, bodyFatPercent, note)",
+    "Sale (id, branchId, memberId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, planId, quantity, unitPricePiasters, coachId)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)"
+  ],
+  "units": "month, session, class seat, day and the plan period in days",
+  "batches": "None. Nothing in a gym is sold per batch, and the pack does not carry the expiry machinery",
+  "expiry": "The membership has an expiry date and a freeze window, and the screen shows who is about to lapse so the owner can call before the month ends",
+  "special": "The structures specific to this sector are the membership with its plan, its freeze and its expiry, the class with a capacity and a booking list, the check in at the door, and the coach share of the membership revenue",
+  "screens": [
+    "Front desk: the member comes, the check in happens with the phone number or the card, and the screen says if the membership is active, frozen or expired",
+    "Members: the list with the plan, the last visit, the visits this month and the days to the expiry",
+    "Membership: the new member, the plan, the start, the payment, and the card with the number that opens the door",
+    "Class book: the classes of the week with the coach, the room, the capacity and the booked names",
+    "Freeze and pause: a member asks to freeze for a month, the membership shows the new dates and the reason is stored",
+    "Coach sheet: the classes of each coach, the attendance per class and the money the coach share gives",
+    "End of day: the check ins, the new memberships, the renewals and the money counted"
+  ],
+  "roles": [
+    "Owner: everything, including the plans, the coaches and the reports",
+    "Manager: everything except billing, approves the freeze, the refund and the discount",
+    "Receptionist: the check in, the membership, the class booking and the payment",
+    "Coach: his classes, his attendance list and his clients, no money",
+    "Cleaner and maintenance: the tasks and the stock of the cleaning materials, no member data"
+  ],
+  "reports": [
+    "Active members, new this month, lapsed and frozen",
+    "Renewals due in the next fourteen days with the last visit of each",
+    "Visits per member per month: who is coming and who is fading",
+    "Class fill rate per class and per coach",
+    "Coach share per period",
+    "Revenue per plan and the churn by plan",
+    "Cash reconciliation per shift"
+  ],
+  "integrations": [
+    "A door reader or a QR code on the phone for the check in, with the manual check in as a fallback",
+    "Thermal printer through ESC/POS for the receipt and the membership card",
+    "WhatsApp for the expiry reminder and the class reminder through the gym own account",
+    "Card terminal through Paymob and the mobile wallets at the front desk"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Plans: the monthly, the quarterly and the annual plans with the price and what they include",
+    "Coaches: the team with the commission or the hourly rate",
+    "Classes: the class types, the rooms and the capacity",
+    "Members: the first members with the plan and the start date",
+    "Check in method: the reader, the QR code or the manual list",
+    "First week plan: check a member in, book a class, sell a membership, run the end of day",
+    "Review and finish"
+  ],
+  "seed": [
+    "Plan templates in Arabic with the period, the price and the sessions included",
+    "Class type list in Arabic: كلاس, تمارين, تدريب فردي, and the rooms",
+    "Role templates for the receptionist, the coach and the manager",
+    "A membership card layout with the member number, the plan and the expiry",
+    "An empty member list, never seeded with fake names"
+  ],
+  "landing_ar": {
+    "headline": "جيم بيعرف مين جاي ومين داخلش، والتجديد بيتابع قبل ما يوقف",
+    "sub": "تسجيل دخول بالباب، حصص بالسعة، وعضويات ليها تجميد وتاريخ انتهاء",
+    "benefits": [
+      "شاشة الباب: العضوية نشطة ولا مجمدة ولا منتهية في ثانية",
+      "قائمة المتجددين خلال أسبوعين مع آخر زيارة لكل واحد",
+      "نسبة الحضور للحصص والمدرّب بيتحسب من الحضور الحقيقي"
+    ],
+    "faq": [
+      "العضو تجمد شهر؟ التجميد بيتسجل بسببه وبيتعدل تاريخ الانتهاء، والموضوع واضح في السجل",
+      "بيشتغل من غير نت؟ أيوه: تسجيل الدخول والبيع بيفضلوا شغالين"
+    ]
+  },
+  "landing_en": {
+    "headline": "A gym that knows who comes and who stops coming, and tracks the renewal before it lapses",
+    "sub": "Check in at the door, classes with a real capacity, and memberships with a freeze and an expiry date",
+    "benefits": [
+      "The door screen says in one second whether the membership is active, frozen or expired",
+      "The list of the renewals due in two weeks with the last visit of each member",
+      "The class fill rate and the coach share are computed from the real attendance"
+    ],
+    "faq": [
+      "What if a member freezes for a month? The freeze is recorded with its reason, the expiry moves, and it stays visible in the member record",
+      "Does it work with no connection? Yes: the check in and the sale keep working"
+    ]
+  },
+  "pricing": [
+    "The free tier fits a small hall with one desk: one business, one branch, two seats, the check in and the membership list",
+    "Starter adds the class book, the expiry reminders and a year of history",
+    "The Business tier adds the coach share, the fill rate report, the freezes and the multi branch transfer",
+    "The door hardware is the shop own device: we support the reader and the QR code, and we never force a bundle"
+  ],
+  "competitors": [
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "An ERP where a gym needs a door, a class and a renewal list",
+      "edge": "The check in, the class capacity and the renewals are the product"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "A retail till with no membership and no class book",
+      "edge": "The membership, the freeze and the class attendance in one pack"
+    },
+    {
+      "name": "Square",
+      "price": "Free with processing fees, Plus US$49 per month per location (squareup.com, opened 2026-11-12)",
+      "weak": "No membership engine and no Arabic, and it is not offered in Egypt",
+      "edge": "The membership life cycle and the Arabic front desk"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the gym pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for gym-fitness in packages/core/src/sectors/registry.ts with the base template service and the modules (pos, memberships, check in, classes, attendance, coaches, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('gym-fitness') returns the manifest and the registry test asserts the modules and the flags."
+    },
+    {
+      "title": "Write the gym data model with the memberships and the classes",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/gym/schema.ts: plans, memberships with the start, the expiry and the status, the freeze, the member, the class with the capacity, the class booking with the attendance, the check in and the coach share.",
+      "done": "The schema compiles with no any, the validation rejects a booking over the class capacity, and the tests pass."
+    },
+    {
+      "title": "Build the gym seed with the plan templates",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/gym/seed.ts with the Arabic plan templates, the class types and rooms, the role templates, the membership card layout and the empty member list. No price, member or coach is invented.",
+      "done": "The seed loads, the test asserts the plans and the class types, and it asserts that no member was seeded."
+    },
+    {
+      "title": "Write the gym terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/gym/glossary.ts with the trade words: عضوية, تجديد, تجميد, حصة, كلاس, تسجيل دخول, مدرّب, and the front desk words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the front desk check in screen",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the check in: find the member by the phone number or the card, show the membership state in one line (active, frozen, expired), record the visit, and let the desk sell a renewal or a freeze on the spot.",
+      "done": "The check in records the visit with the method, an expired membership is refused with a clear message and a renewal action, and the whole flow works on a tablet."
+    },
+    {
+      "title": "Build the class book with the capacity and the attendance",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the weekly class book: the classes with the coach, the room, the time and the capacity, the booked names, the wait list when it is full, and the attendance the coach marks.",
+      "done": "A booking over the capacity is refused and offered the wait list, the coach marks the attendance, and the fill rate is computed from it."
+    },
+    {
+      "title": "Build the membership screen with the freeze and the expiry",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the membership: the plan, the start, the expiry, the freeze with a reason and a period, the renewal, and the list of the members who lapse in the next fourteen days.",
+      "done": "A freeze moves the expiry and keeps the reason, a renewal extends the period, and the lapsing list names each member with the last visit."
+    },
+    {
+      "title": "Build the coach sheet and the share",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the coach view: the classes, the attendance per class and the share of the money, with the period sheet and the payout mark.",
+      "done": "The sheet matches a manual calculation in the test, it uses only the classes that really happened, and the payout mark is stored."
+    },
+    {
+      "title": "Build the gym report pack",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: the active, the new, the lapsed and the frozen, the renewals due, the visits per member, the class fill rate, the coach share, the revenue and the churn by plan, each with the CSV export.",
+      "done": "Every report computes its own numbers, the test matches a manual calculation and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the gym landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline: the Arabic headline first, the front desk and the class book as the proof blocks with real screenshots, the two questions answered, and the English mirror.",
+      "done": "The page passes the layout rules at 320 to 1920 px in both languages and both themes, and every claim matches a screen that exists."
+    }
+  ],
+  "risks": [
+    "The member data (body metrics, emergency contact) is personal data of the gym: it never enters our analytics and can be exported and deleted",
+    "Body metrics are optional and never required for a membership",
+    "The coach share is the gym own agreement, and the product never changes the percentage",
+    "Nothing in this pack gives health or nutrition advice, and the app never claims that it does"
+  ]
+}

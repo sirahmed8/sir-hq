@@ -1,0 +1,24 @@
+1.6G	C:\Users\a7med\AppData\Local/Claude-Data
+1.5G	C:\Users\a7med\AppData\Local/Discord
+826M	C:\Users\a7med\AppData\Local/Bytedance
+447M	C:\Users\a7med\AppData\Local/agy
+402M	C:\Users\a7med\AppData\Local/copilot
+400M	C:\Users\a7med\AppData\Local/devin
+376M	C:\Users\a7med\AppData\Local/DLSS Swapper
+332M	C:\Users\a7med\AppData\Local/antigravity-updater
+275M	C:\Users\a7med\AppData\Local/Epic Games
+244M	C:\Users\a7med\AppData\Local/aikido-mcp
+224M	C:\Users\a7med\AppData\Local/@zcodedesktop-updater
+133M	C:\Users\a7med\AppData\Local/cache
+120M	C:\Users\a7med\AppData\Local/curseforge-updater
+110M	C:\Users\a7med\AppData\Local/electron
+479M	/c/Users/a7med/.android
+251M	/c/Users/a7med/.antigravity-ide
+201M	/c/Users/a7med/.bun
+132M	/c/Users/a7med/.agent-reach
+87M	/c/Users/a7med/.ai_suite_backups
+6.2M	/c/Users/a7med/-update
+4.0M	/c/Users/a7med/.aider
+3.2M	/c/Users/a7med/.aitk
+2.7M	/c/Users/a7med/.agentsroom
+169K	/c/Users/a7med/.antigravity_cockpit

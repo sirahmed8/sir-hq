@@ -1,0 +1,223 @@
+{
+  "slug": "supermarket",
+  "name_ar": "سوبر ماركت",
+  "name_en": "Supermarket",
+  "group": "food-and-drink",
+  "base": "market",
+  "order": 1,
+  "wave": 1,
+  "why": "It is the anchor shop of every retail street in Egypt and the hardest test of the point of sale: real speed, real queues, perishable stock and a supplier who calls with a price change mid-morning.",
+  "operator": "The owner runs a supermarket with three to twelve staff across a morning and an evening shift. Their day is dominated by three things: the queue at the till, perishable stock that has to be rotated before it spoils, and suppliers who change prices by phone. The money leaks in two places nobody measures: expired dairy and meat, and shrink on the shelf. There is usually no stock system at all, so reorder is a phone call and the end of day cash is counted from memory.",
+  "entities": [
+    "Store (id, name, branchId, areaSquareMeters, openingHours, workingDays, taxRegistration, receiptHeader, currency)",
+    "Product (id, sku, barcode, nameAr, nameEn, categoryId, unit, unitPricePiasters, costPiasters, taxRate, brandId, supplierId, reorderPoint, isWeighed, isBatch, taxExempt)",
+    "Category (id, nameAr, nameEn, parentId, shelfOrder, colorToken, iconKey)",
+    "Shelf (id, categoryId, label, position, capacityUnits)",
+    "Batch (id, productId, supplierId, quantity, receivedAt, expiryAt, costPiasters, locationCode)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays, priceListId, lastOrderAt, rating)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, receivedAt, totalPiasters)",
+    "GoodsReceipt (id, purchaseOrderId, receivedBy, lines, discrepancies, note, createdAt)",
+    "Sale (id, branchId, cashierId, lines, payments, totalsPiasters, discountsPiasters, taxPiasters, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, productId, batchId, quantity, unitPricePiasters, weightGrams, discountPiasters, isWeighed)",
+    "Customer (id, name, phone, whatsappOptIn, loyaltyPoints, tier, creditLimitPiasters, balancePiasters, lastVisitAt)",
+    "LoyaltyTransaction (id, customerId, saleId, points, tierAfter, reason)",
+    "Shift (id, branchId, openedBy, openedAt, floatPiasters, closedAt, countedPiasters, expectedPiasters)",
+    "StockCount (id, branchId, countedBy, lines, variancePiasters, status, countedAt)",
+    "Waste (id, productId, batchId, quantity, reason, loggedBy, createdAt)",
+    "Employee (id, name, phone, role, branchId, hireDate, hourlyRatePiasters, status)"
+  ],
+  "units": "piece, pack, box, kilogram, gram, litre, millilitre, and weight based selling where the price is per kilogram and the number comes from the scale",
+  "batches": "Yes for everything dated: dairy, meat, frozen, bread, juice. Every batch keeps supplier, received date, expiry date and cost, so the shop can sell by batch, claim credit and see the real margin per batch instead of per item",
+  "expiry": "Expiry is a radar, not a report: 7 days critical, 30 days watch, 90 days plan. The shelf list shows the earliest expiry first inside each category, and a one tap discount on a batch is written to the audit log with who did it and when",
+  "special": "No tables, no appointments and no prescriptions. The structures specific to this sector are the shelf life per category, the produce and butchery area with its own price list per kilogram, the weighing and labelling station, and the customer 360 with the credit book for regulars who pay at the end of the month",
+  "screens": [
+    "Till: the fastest screen in the product. Barcode scanner, quick keys grid for the top twenty items, a held basket, mixed payment, and a weight button that opens the scale for produce",
+    "Weigh and label: the cashier puts the item on the scale, the weight lands in the cart, and a label with the product name, the weight and the price prints for the bag",
+    "Fresh list: the produce and meat wall with the price per kilogram, the batch behind each item and a one tap change of price for today only",
+    "Shelf and expiry: the oldest batch first, with the quantity left, the cost and the shelf it is on, and a button to discount or to write it off as waste",
+    "Goods receipt: the delivery arrives, the cashier scans the barcode and counts, the screen shows the difference between what was ordered and what arrived, and the receipt closes the purchase order",
+    "Purchase order: the owner writes the order to a supplier from the reorder suggestion, with the last price of every item shown next to the new one",
+    "Stock count: count the shelf with the phone camera or a scanner, see the difference against the system per item, and post the count with a reason",
+    "Customer 360: what this customer buys, when, how much they owe, their points, and one tap to send a WhatsApp message with the receipt",
+    "Shift close: count the drawer, compare with the expected cash, see the difference before it becomes a fight, print the Z report and hand over to the next shift"
+  ],
+  "roles": [
+    "Owner: everything, including billing, exports and the staff list",
+    "Manager: everything except billing and export; approves discounts above the cashier limit; receives goods",
+    "Cashier: sells, takes payment, prints receipts, cannot void a line without the manager override",
+    "Stock controller: receives deliveries, counts stock, writes waste, sets reorder points, cannot sell",
+    "Shelf filler: stock counts and expiry checks, no pricing and no cash",
+    "Supplier buyer: creates purchase orders, sees supplier price lists, no access to customer data"
+  ],
+  "reports": [
+    "Sales by hour: where the money comes from across the day, so the shift plan matches the real queue",
+    "Sales by category and by item: which shelf pays for the rent",
+    "Expiry loss in piasters per day: the number the owner has never seen before",
+    "Stock valuation at cost and at retail: what the shop really holds",
+    "Low stock list with the reorder suggestion: what to order tomorrow",
+    "Shrink: counted difference against the system per item, with the value",
+    "Cash reconciliation per shift: expected against counted, with the over and short",
+    "Top customers and loyalty: who comes back, who is owed"
+  ],
+  "integrations": [
+    "Thermal receipt printer through ESC/POS over USB, Bluetooth or the local network, with a golden file test for the 58 mm and 80 mm layouts",
+    "Electronic weighing scale through the local bridge or WebSerial, with the weight landing in the cart",
+    "Barcode scanner in keyboard mode, with a camera scanner on the phone for stock counts",
+    "Cash drawer kicked on a cash payment",
+    "WhatsApp receipt for the customer through the shop own account, with the shop choosing paper, message or both",
+    "ETA e receipt and e invoice pipeline behind one server side signer, only after the official specification is read"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, city, phone, currency, working hours and the number of tills",
+    "Categories: pick the shelves the shop really has from the seeded list, and set the order of the aisles",
+    "Weighed items: mark the produce and meat as sold by weight and set the price per kilogram",
+    "Supplier: add the main supplier with the visit days and the payment terms",
+    "Team: add the staff with the role template and the till PIN",
+    "First week plan: print a test receipt, count one shelf, receive one delivery, set the tax rate, choose the receipt layout",
+    "Review and finish: the business opens in trial mode with a days left chip"
+  ],
+  "seed": [
+    "Category tree in Arabic with the usual Egyptian supermarket shelves: vegetables, fruit, meat, fish, dairy, bread, dry goods, drinks, household, personal care, baby",
+    "Unit set with weight and pack conversions, and a quick key grid of the twenty most scanned items the shop can rename in one tap",
+    "Shelf life per category that the shop can change per product, marked as a starting point",
+    "Receipt layout for 80 mm with the store header, the tax line, the loyalty line and the QR for the receipt lookup",
+    "Role templates with the permissions above and a PIN policy for the till",
+    "Reorder points per category left empty on purpose, so the shop sets them from its own velocity after a week of sales"
+  ],
+  "landing_ar": {
+    "headline": "سوبر ماركت بيتظبط في يوم واحد: باركود، ميزان، وتالف بيتعرف قبل ما يبقى خسارة",
+    "sub": "كاشير بيشتغل من غير نت، مخزون بالتاريخ، واستلام بيفرق بين اللي اتبعت واللي وصل",
+    "benefits": [
+      "الكاشير بيلمس الباركود والميزان: الصنف بيتحسب في ثانية بدون كتابة",
+      "التالف بيتعرض بالأيام مش بالتقرير: كل صنف بتاريخه وكمية منه",
+      "المالك بيعرف خسارة التالف بالجنيه قبل نهاية الشهر"
+    ],
+    "faq": [
+      "هي شغال من غير نت؟ أيوه: الكاشير بيكمّل لحد ما يرجع الاتصال، والطباعة بتطلع من الجهاز نفسه",
+      "كل فاتورة بتطلع برقم ورسوم ضريبية صح؟ الأرقام بتبقى بالجنيه المئوي وبتتراجع في الـZ report، والتوقيع الضريبي بيتبني بعد ما نقرأ المواصفة الرسمية"
+    ]
+  },
+  "landing_en": {
+    "headline": "A supermarket that sorts itself out in one day: barcode, scale, and expiry you can see before it becomes a loss",
+    "sub": "A till that works with no connection, stock that knows its date, and a goods receipt that shows the difference between what was ordered and what arrived",
+    "benefits": [
+      "The cashier touches the barcode and the scale: the item is priced in a second with no typing",
+      "Expiry is a live list, not a report: every dated item with how many are left",
+      "The owner sees the cost of expired stock in pounds before the month ends"
+    ],
+    "faq": [
+      "Does it work without internet? Yes: the till keeps selling and the receipt prints from the device, then the queue syncs when the connection is back",
+      "Is every receipt numbered and does the tax line add up? The money is kept in integer piasters and reconciled in the Z report, and the tax signer is built only after the official specification is read"
+    ]
+  },
+  "pricing": [
+    "Free tier fits a one till shop: one business, one branch, two seats, the till, the stock list and thirty days of history",
+    "The Starter tier adds one year of history and five seats, which is where a supermarket with three tills lives",
+    "The Business tier is the one to watch: weigh and label, purchasing, transfers between branches and the expiry loss report sit behind it, because that is where the work is",
+    "Extra branches and extra seats are priced separately, and the annual price is ten months paid for twelve"
+  ],
+  "competitors": [
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month for unlimited history (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "Advanced inventory, purchase orders and transfers are paid add-ons, and there is no expiry or batch handling to buy",
+      "edge": "The expiry radar, FEFO and the goods receipt with the difference are part of the pack, in Arabic, priced in pounds"
+    },
+    {
+      "name": "Odoo",
+      "price": "One App Free at US$0, Standard US$8.95 per user per month on annual billing (odoo.com/pricing, opened 2026-11-12)",
+      "weak": "Needs an implementation partner for anything real, and the price is in dollars",
+      "edge": "One price for the whole shop, ready on day one, with the Arabic cashier flow that Odoo never had"
+    },
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "Cluttered legacy interface and a quote led sales motion",
+      "edge": "Same sector depth with an Apple grade Arabic interface, offline in the browser and a fair free tier"
+    },
+    {
+      "name": "Square",
+      "price": "Free with processing fees, Plus US$49 per month per location (squareup.com, opened 2026-11-12)",
+      "weak": "Not offered in Egypt and no Arabic, so no local payment rails and no local tax story",
+      "edge": "Built for the Egyptian till: cash, wallet, InstaPay and card through Paymob, with the ETA receipt pipeline"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the supermarket pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the pack manifest for supermarket in packages/core/src/sectors/registry.ts with id, nameAr, nameEn, group, base template market, the modules it turns on, the feature flags, the role templates and the terminology map. The registry lists real module names only, nothing that is not implemented.",
+      "done": "The manifest loads, getSector('supermarket') returns it, and a unit test asserts the id, the module list and the role list."
+    },
+    {
+      "title": "Write the supermarket data model and its validation",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities of this sector in packages/core/src/sectors/supermarket/schema.ts with the fields listed in the sector plan, add Zod validation at the boundaries, and add the money fields as integer piasters only.",
+      "done": "TypeScript compiles with no any, the validation rejects a sale without a branch, and the schema tests pass."
+    },
+    {
+      "title": "Build the supermarket catalog seed with units and shelf lives",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/supermarket/seed.ts with the Arabic category tree, the unit set with weight conversions, the per category shelf life, the receipt layout and the empty reorder points. Every seed record carries the seed flag so the app can label it as a starting point.",
+      "done": "The seed loads without a database, the test asserts the category count and that no reorder point was invented."
+    },
+    {
+      "title": "Write the supermarket terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/supermarket/glossary.ts with every word the sector needs: the aisle names, the till words, the stock words, the expiry words and the receipt words in Arabic and English. No generic wording is allowed, so a supermarket cashier reads supermarket words.",
+      "done": "The glossary has no entry from the generic retail set, the screen test asserts the label appears in the rendered till, and Arabic and English are both present."
+    },
+    {
+      "title": "Build the weigh and label screen for the produce wall",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the weighed item flow to the till: the cashier presses the weight button, the scale value lands in the cart line, the label prints with product, weight and price, and the flow works with a simulated scale driver when no hardware is present.",
+      "done": "A sale of a weighed item stores the weight in grams, the printed label matches the cart line, and the simulated driver test passes."
+    },
+    {
+      "title": "Build the expiry and shelf screen for the stock controller",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the expiry radar for this sector: 7, 30 and 90 day bands, the earliest batch first inside each category, the quantity left, the cost and the shelf, with the discount and the waste actions that write to the audit log.",
+      "done": "The screen lists the batches in the right order, the discount writes an audit entry with the user and the time, and the waste entry reduces the stock."
+    },
+    {
+      "title": "Build the goods receipt screen with the difference",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the receiving flow: open the purchase order, scan the barcode, count, see the difference between the ordered and the arrived quantity and the money, then close the purchase order and update the batch cost and the expiry.",
+      "done": "A receipt with a missing item shows the difference, closes the order as partial and creates the batch with the real expiry and cost."
+    },
+    {
+      "title": "Write the supermarket receipt layout and the golden file",
+      "area": "core",
+      "phase": "M2",
+      "brief": "Build the 80 mm and 58 mm receipt templates for this sector with the store header, the weighed line format, the tax line, the loyalty line and the QR for the receipt lookup, and store one golden file per width.",
+      "done": "The golden file test passes for both widths, the printed line never wraps, and the tax line equals the cart total."
+    },
+    {
+      "title": "Build the supermarket report pack and the dashboard cards",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the report pack of this sector: sales by hour, sales by category, expiry loss in pounds, low stock with the reorder suggestion, shrink per item, and the cash reconciliation per shift, with the CSV export for each.",
+      "done": "Each report returns its own data from the business own documents, the numbers match a manual calculation in the test, and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Publish the supermarket landing page in Arabic and English",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Build the sector page from the outline in the sector plan: the Arabic first headline, the three benefits, the questions answered, and the proof blocks that are screenshots of the real till, the expiry screen and the goods receipt. English mirrors it.",
+      "done": "The page passes the layout rules at 320, 390, 768, 1280 and 1920 px in both languages and both themes, the copy matches the sector plan, and no price or claim without a source appears on it."
+    }
+  ],
+  "risks": [
+    "The expiry radar is a safety tool, so the seed shelf lives are starting points only and the shop must confirm them from the real packaging labels",
+    "Weight based selling depends on the scale being right, so a manual weight entry stays available and the printed label shows the weight",
+    "Credit for regulars is a shop ledger and not a lending product, so no interest, no instalments and no collections are built",
+    "The tax line is calculated in integer piasters and reconciled, but the official ETA signer stays off until the specification is read and signed off by the accountant"
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "slug": "restaurant",
+  "name_ar": "مطعم",
+  "name_en": "Restaurant",
+  "group": "food-and-drink",
+  "base": "restaurant",
+  "order": 3,
+  "wave": 1,
+  "why": "It is the deepest existing competition in the market and the sector that needs the most from the engine: tables, a kitchen, a waiter, a delivery app and a food cost that has to be exact.",
+  "operator": "The owner stands between the kitchen and the floor, and their day is a sequence of small fires: a table that waited too long, a dish that came out wrong, a delivery order that the driver is waiting for, and the cost of the food against the price on the menu. They know the menu by heart and the stock by guess. The two things they cannot see are which dish actually makes money once the waste and the labour are counted, and how many covers the second shift really served.",
+  "entities": [
+    "Restaurant (id, name, branchId, address, phone, currency, seats, openingHours, taxRegistration, serviceChargePercent)",
+    "Table (id, branchId, label, seats, zone, status, shape, positionX, positionY, mergedWithTableId)",
+    "Zone (id, nameAr, nameEn, kind, order)",
+    "MenuSection (id, nameAr, nameEn, order, isHidden)",
+    "MenuItem (id, sectionId, nameAr, nameEn, pricePiasters, costPiasters, taxRate, isAvailable, station, prepMinutes, allergens)",
+    "MenuItemVariant (id, menuItemId, nameAr, nameEn, priceDeltaPiasters, isDefault)",
+    "Recipe (id, menuItemId, yield, lines with productId and quantity, wastePercent)",
+    "Order (id, branchId, tableId, serviceType, status, openedBy, openedAt, lines, totalsPiasters, guestCount, discountPiasters, serviceChargePiasters, idempotencyKey)",
+    "OrderLine (id, orderId, menuItemId, variantId, quantity, unitPricePiasters, note, status, firedAt, station)",
+    "KitchenTicket (id, orderId, station, status, firedAt, readyAt, note)",
+    "Sale (id, branchId, orderId, payments, totalsPiasters, closedAt)",
+    "Payment (id, saleId, method, amountPiasters, reference, cashGivenPiasters, changePiasters)",
+    "DeliveryOrder (id, orderId, channel, driverName, driverPhone, address, status, promisedAt, deliveredAt, pickupAt)",
+    "Supplier (id, nameAr, phone, paymentTerms, visitDays)",
+    "PurchaseOrder (id, supplierId, status, lines, expectedAt, totalPiasters)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters, covers, labourCostPiasters)",
+    "Employee (id, name, phone, role, station, hourlyRatePiasters, status)",
+    "StockItem (id, nameAr, unit, costPiasters, quantity, isBatch, supplierId, reorderPoint)"
+  ],
+  "units": "portion, plate, piece, kilogram, gram, litre, shot, cup, and recipe quantities that are converted into the cost of one portion",
+  "batches": "Yes for anything that arrives dated: dairy, meat, frozen, sauces. The kitchen consumes the oldest batch first, so the cost of a dish is the cost of the batch that was actually used",
+  "expiry": "The kitchen sees a simple alert for the items that expire in three days, and the waste log records what was thrown out with the reason. A full expiry radar belongs to the supermarket pack, not here",
+  "special": "The structures specific to this sector are tables and zones with the floor plan, the kitchen stations and the kitchen display, the recipe and the food cost, the split bill, the waiter and the handheld order, and the delivery order that leaves the building",
+  "screens": [
+    "Floor plan: the tables on a map with their state (free, seated, ordered, ready to serve, bill asked), the time since seated, and the order total, so the floor is read in one glance",
+    "Table order: the waiter opens a table, adds items with the modifiers and the note, sends to the kitchen with one tap, and the table state changes",
+    "Kitchen display: the tickets by station, the time on each one with the colour, and the buttons for ready and served, so the cook sees only what is cooking",
+    "The till: the sale that closes the table, the split by guest or by item, the service charge, the discount with the manager override, and the receipt",
+    "Menu and availability: the owner marks a dish as sold out and every till, the QR menu and the delivery screen lose it at once",
+    "Food cost: what each dish really costs after the recipe and the waste, against the price on the menu, with the margin",
+    "Delivery orders: the orders from the delivery apps and the own delivery, the driver, the promise time, and the handover",
+    "Shift and covers: the shift with the number of covers served, the labour cost and the sales per hour",
+    "Stock and purchase: what the kitchen consumed today from the stock, what ran low, and the order to the supplier"
+  ],
+  "roles": [
+    "Owner: everything, including the menu, the prices, the staff and the reports",
+    "Manager: everything except billing; approves discounts, voids and free items",
+    "Waiter: opens tables, takes orders, sends to the kitchen, prints the bill",
+    "Cashier: takes the payment, closes the table, opens and closes the shift",
+    "Cook (kitchen): the kitchen display only, marks ready, cannot see the money",
+    "Delivery driver: only the orders assigned to him, with the status buttons and the handover"
+  ],
+  "reports": [
+    "Sales by hour and covers per hour: the truth about the second shift",
+    "Food cost and margin per dish: which dishes pay for the kitchen",
+    "Best and worst sellers: what to push and what to drop from the menu",
+    "Kitchen time: how long each station takes, from fired to ready",
+    "Table turn time: how long a table sits before it is closed",
+    "Delivery orders: how many, how late, per channel",
+    "Waste per day with the reason: what was thrown out and why",
+    "Shift summary: sales, covers, discounts, labour and cash variance"
+  ],
+  "integrations": [
+    "Kitchen display: any Android tablet or a spare screen on the same network, with a simulated driver in the tests",
+    "Thermal receipt printer through ESC/POS and a customer display on a second screen",
+    "Delivery apps: read only status and order intake through each provider own connection, marked as a manual link until the provider API is confirmed",
+    "WhatsApp for the customer confirmation and the delivery order update through the restaurant own account",
+    "Card terminal through Paymob and the local wallet and InstaPay on the counter",
+    "ETA e receipt and e invoice behind the server side signer, off until the specification is read"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency and the opening hours",
+    "Floor: the zones and the tables, with the seats and the layout on the map",
+    "Menu: import the dishes from a spreadsheet or add them one by one, with the price and the station",
+    "Kitchen stations: the stations the kitchen works with (grill, fryer, cold, pastry, bar)",
+    "Team: the staff with their role template and the station or the zone they work",
+    "Stock: the main ingredients with the cost, and the recipes for the top dishes",
+    "First week plan: open a table, send an order to the kitchen, print a bill, close the shift, and set the service charge",
+    "Review and finish"
+  ],
+  "seed": [
+    "Menu sections in Arabic: starters, salads, main courses, grills, sides, desserts, drinks and shisha when the shop serves it",
+    "A station list with the usual kitchen stations and a ready made table shape set for two, four and six seats",
+    "Role templates with the waiter, the cook and the driver permissions",
+    "A receipt layout with the table number, the service charge line and the kitchen ticket number",
+    "An empty recipe book and an empty stock list, so the shop enters its own dishes and real costs"
+  ],
+  "landing_ar": {
+    "headline": "مطعم بيتحكم فيه: الترابيزة، المطبخ، والدليفري في شاشة واحدة",
+    "sub": "كاشير وأرضية ومطبخ، من غير نت، وكل وصفة بتعرف تكلفتها الحقيقية",
+    "benefits": [
+      "الترابيزة على خريطة: كام واحد قاعد ولسه مستني إيه من ساعة",
+      "المطبخ شاشته بتوصله تيكيت واحد وتفضل لايك",
+      "بتعرف تكلفة كل أكلة في المنيو من غير ما تخمّن"
+    ],
+    "faq": [
+      "لو النت مقطوع؟ الكاشير والأرضية والمطبخ بيفضلوا شغالين، وبعدين بيتبعتوا لما يرجع الاتصال",
+      "الدليفري Apps بتتعمل معاه؟ أيوه، بس لحد ما نتأكد من واجهة كل تطبيق هنعملها ربط يدوي بدل ما نعتمد على كلام غير متأكد"
+    ]
+  },
+  "landing_en": {
+    "headline": "A restaurant you can actually run: the floor, the kitchen and the delivery on one screen",
+    "sub": "Till, floor and kitchen with no connection, and every dish that knows its real food cost",
+    "benefits": [
+      "The tables on a map: how many are seated, how long they have waited, and what is on the table",
+      "The kitchen gets one ticket and stops shouting",
+      "You see the real cost of every dish on the menu, not a guess"
+    ],
+    "faq": [
+      "What if the connection drops? The till, the floor and the kitchen keep working, and everything syncs when the connection is back",
+      "Do the delivery apps work with it? Yes, but until each provider interface is confirmed we do it as a manual link rather than pretend an integration we have not verified"
+    ]
+  },
+  "pricing": [
+    "The free tier runs a small cafe counter: one business, one branch, two seats, the till and the shift",
+    "Starter adds the floor plan, the waiter handheld and a year of history for a restaurant with five seats",
+    "The Business tier adds the kitchen display, the delivery orders, the recipes and the food cost, which is the difference between running a restaurant and guessing",
+    "Kiosk and the customer display are priced per device, never as a forced hardware bundle"
+  ],
+  "competitors": [
+    {
+      "name": "Foodics (فودكس)",
+      "price": "Quote only, no rate card published; claims 40,000 or more restaurants (foodics.com, opened 2026-11-12)",
+      "weak": "Restaurant only, quote led sales and an opaque price",
+      "edge": "The same Arabic depth at a published price, and every other sector on the same account"
+    },
+    {
+      "name": "Toast",
+      "price": "Quote only, hardware lock in (pos.toasttab.com/pricing, opened 2026-11-12)",
+      "weak": "Approved hardware only and a United States payments model",
+      "edge": "Any Android tablet works, and the payment rails are the Egyptian ones"
+    },
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "A wide ERP where a restaurant wants a floor and a kitchen",
+      "edge": "The floor, the kitchen and the delivery are the product, in a fast Arabic interface"
+    },
+    {
+      "name": "Odoo",
+      "price": "One App Free at US$0, Standard US$8.95 per user per month on annual billing (odoo.com/pricing, opened 2026-11-12)",
+      "weak": "The restaurant is a separate app from the shop, and the price is in dollars",
+      "edge": "One account for the restaurant and the shop next door, priced in pounds"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the restaurant pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for restaurant in packages/core/src/sectors/registry.ts with the base template restaurant, the modules (pos, tables, kds, inventory, recipes, orders, shifts, deliveries), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('restaurant') returns the manifest and the registry test asserts the module list and the flags."
+    },
+    {
+      "title": "Write the restaurant data model with tables, zones and recipes",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities of this sector in packages/core/src/sectors/restaurant/schema.ts: tables with a position and a state, zones, menu sections and items with variants and allergens, recipes with yield and lines, orders with a service type, kitchen tickets, and the delivery order. Money stays in integer piasters.",
+      "done": "The schema compiles with no any, the validation rejects an order without a table for a dine in service, and the tests pass."
+    },
+    {
+      "title": "Build the restaurant seed with the Arabic menu sections and the floor tables",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/restaurant/seed.ts with the Arabic menu sections, the station list, the table shapes for two, four and six seats, the role templates and the receipt layout with the table and ticket numbers. The menu items, the stock and the recipes stay empty.",
+      "done": "The seed loads, the test asserts the sections and the tables, and it asserts that no dish and no recipe was invented."
+    },
+    {
+      "title": "Write the restaurant terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/restaurant/glossary.ts with the words the floor and the kitchen use: ترابيزة, تيكيت, إرسال, مشروب, صنف, تقسيط, and the kitchen stations, in Arabic and English.",
+      "done": "The glossary covers the floor, the kitchen and the receipt with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the interactive floor plan",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the floor map with drag to place the tables, the state of each table (free, seated, ordered, ready, bill asked), the minutes since seated and the order total, and the actions to seat, open the order and close the table.",
+      "done": "A table can be moved and the position persists, the state changes with the order, and the screen passes the layout rules at 320 to 1920 px."
+    },
+    {
+      "title": "Build the kitchen display and the ticket routing",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the kitchen view: tickets by station, the time on each one with the colour bands, the ready and served buttons, and the routing from the order line to the right station. The view must run on a tablet in a bright kitchen with large touch targets.",
+      "done": "An order line lands on the right station, the timer starts when it is fired, and the ready button updates the table state on the floor."
+    },
+    {
+      "title": "Build the waiter order flow with modifiers and notes",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the waiter flow: open a table, add items with the variants and the note, send to the kitchen in one tap, see the sent state and the running total, and split the bill by guest or by item.",
+      "done": "A waiter can open, order, send and split a table without touching the till, and the split produces separate receipts that add up to the table total."
+    },
+    {
+      "title": "Build the food cost and the recipe cost screen",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the recipe cost: each dish with its lines, the yield, the cost of one portion from the batch that was used, the waste percentage and the margin against the menu price.",
+      "done": "The cost of a portion equals the sum of its lines divided by the yield, the margin matches a manual calculation in the test, and a dish with a missing cost is flagged instead of counted as zero."
+    },
+    {
+      "title": "Build the delivery order screen with the manual link",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the delivery screen: orders from each channel with the driver, the promise time, the status buttons and the handover, and a clearly labelled manual entry for a channel whose interface is not confirmed. No fake integration status is ever shown.",
+      "done": "A manually entered delivery order reaches the till and prints, and the screen states which channel is connected and which is manual."
+    },
+    {
+      "title": "Build the restaurant report pack and the shift summary",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Add the reports of this sector: sales and covers per hour, food cost and margin per dish, kitchen time per station, table turn time, delivery counts and late orders, waste with the reason, and the shift summary with cash variance, each with the CSV export.",
+      "done": "Every report computes its own numbers from the business documents, the test matches a manual calculation and the export opens in a spreadsheet."
+    }
+  ],
+  "risks": [
+    "Food cost is only as honest as the purchase prices, so an item without a real cost is flagged and never treated as free",
+    "Delivery app interfaces change often, so the first release keeps a clearly labelled manual entry instead of pretending an integration we have not verified",
+    "Service charge and tax rules differ between the cities, so the percentages are set per business and never assumed by the product",
+    "Allergens are shown as the shop wrote them, and the product never decides that a dish is safe for a guest"
+  ]
+}

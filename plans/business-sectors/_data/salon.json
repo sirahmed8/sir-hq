@@ -1,0 +1,210 @@
+{
+  "slug": "salon",
+  "name_ar": "صالون",
+  "name_en": "Salon",
+  "group": "health-and-beauty",
+  "base": "service",
+  "order": 8,
+  "wave": 2,
+  "why": "It is a booking business that sells time, not goods: the chair, the stylist and the hour are the stock, and the owner loses money when the book is empty in the afternoon.",
+  "operator": "The owner runs chairs, not shelves. The day is a booking sheet with names on it, and the pain is the gap: an empty two o clock on a Tuesday, a client who wants the same stylist as last time and she is with someone else, and a stylist who asks for her commission at the end of the week and gets an argument about it. The second pain is the client who no shows and the slot is lost.",
+  "entities": [
+    "Salon (id, name, branchId, address, phone, currency, openingHours, taxRegistration)",
+    "Stylist (id, name, phone, role, chairId, commissionPercent, serviceIds, workingHours, status)",
+    "Chair (id, branchId, label, kind, status)",
+    "Service (id, nameAr, nameEn, durationMinutes, pricePiasters, categoryId, commissionPercent, isActive)",
+    "ServiceCategory (id, nameAr, nameEn, order)",
+    "Appointment (id, branchId, clientId, stylistId, serviceIds, startsAt, endsAt, status, pricePiasters, depositPiasters, source, note)",
+    "Client (id, name, phone, whatsappOptIn, notes, preferredStylistId, loyaltyPoints, lastVisitAt)",
+    "Package (id, clientId, serviceId, sessionsTotal, sessionsUsed, pricePiasters, validUntil, status)",
+    "Sale (id, branchId, clientId, stylistId, lines, totalsPiasters, payments, createdAt, idempotencyKey)",
+    "SaleLine (id, saleId, serviceId, stylistId, quantity, unitPricePiasters, commissionPiasters)",
+    "RetailProduct (id, nameAr, unit, pricePiasters, costPiasters, quantity, categoryId)",
+    "Commission (id, stylistId, periodStart, periodEnd, servicePiasters, retailPiasters, totalPiasters, paidAt, status)",
+    "Shift (id, branchId, openedBy, openedAt, closedAt, floatPiasters, countedPiasters)",
+    "NoShow (id, appointmentId, stylistId, minutes, penaltyPiasters, recordedAt)"
+  ],
+  "units": "session, service, piece, box and minute as the booked duration, with the retail add ons sold by the piece",
+  "batches": "Only for the retail shelf (the dyes, the creams and the oils): the batch with the opening date so the shelf knows what is fresh, exactly like the pharmacy",
+  "expiry": "The opened products on the shelf show the days left, and the packages of sessions show the last day they can be used",
+  "special": "The structures specific to this sector are the chair, the stylist and the time slot, the appointment with a deposit and a no show penalty, the package of sessions with its expiry, and the commission of the stylist",
+  "screens": [
+    "The book: the day with the columns of the stylists and the slots, the booked, the free and the blocked, with the name and the phone",
+    "New booking: the client, the service, the stylist, the time, the deposit and the reminder, in one flow that works on the phone",
+    "Wait list: the clients who want a slot and accept a cancellation, called in order",
+    "The stylist view: her day, her clients, the services, the times and the money she made that day",
+    "Retail shelf: the products sold next to the service, with the opening date and the days left",
+    "Packages: the sessions bought and used, with the expiry, for the client and for the salon",
+    "Commission sheet: the period, the money per stylist, the retail share and the payout",
+    "End of day: the money counted, the appointments served, the no shows and the empty slots"
+  ],
+  "roles": [
+    "Owner: everything, including the staff, the prices, the commissions and the reports",
+    "Manager: everything except billing, approves a discount and a no show penalty",
+    "Receptionist: the book, the walk in, the reminder and the payment",
+    "Stylist: her day, her clients, the sale of her services and the retail she suggests",
+    "Assistant: the shelf, the orders and the cleaning tasks"
+  ],
+  "reports": [
+    "Booked hours per stylist per day: who is idle and who is full",
+    "Empty slots by hour: the money the salon gave away by being quiet",
+    "Revenue per service and per stylist, and the margin after the commission",
+    "No show rate per stylist and per day",
+    "Retail sales per stylist and the product that sells with a service",
+    "Packages sold, used and expired",
+    "Commission sheet per period"
+  ],
+  "integrations": [
+    "WhatsApp for the booking confirmation, the reminder and the cancellation offer through the salon own account",
+    "Thermal printer through ESC/POS for the receipt and the appointment card",
+    "Google Calendar through the user own account as an optional second view, never as the source of truth",
+    "Card terminal through Paymob and the mobile wallets at the reception"
+  ],
+  "onboarding": [
+    "Business basics: name, branch, address, phone, currency, opening hours",
+    "Chairs: the chairs and the stations, with the label the salon uses",
+    "Services: the services with the duration and the price, imported from a spreadsheet or added by hand",
+    "Team: the stylists with their commission percentage and the working hours",
+    "Clients: the first clients with a phone number and their preference",
+    "Packages: the rules for the packages of sessions and how long they stay valid",
+    "First week plan: book a client, send a reminder, sell a service, close the shift, run the commission sheet",
+    "Review and finish"
+  ],
+  "seed": [
+    "Service categories in Arabic: قص, صبغة, علاج, عناية, مكياج, nail, and the retail shelf",
+    "A duration and commission field per service, left for the salon to fill",
+    "Chair labels and a booking grid layout for one, three and six chairs",
+    "Role templates for the receptionist, the stylist and the assistant",
+    "A receipt layout with the stylist, the service, the duration and the deposit"
+  ],
+  "landing_ar": {
+    "headline": "صالون بمواعيد واضحة، والكراسي مشغولة في الوقت الصح",
+    "sub": "دفتر مواعيد على الموبايل، عمولة واضحة للكوافيرة، وباقات جلسات لها تاريخ انتهاء",
+    "benefits": [
+      "دفتر المواعيد вид واضح: مين عندها وقت فاضية ومين مشغولة",
+      "العمولة بتتحسب من كل خدمة تم بيعها فعلًا، والورقة بتطلع قبل آخر الشهر",
+      "العميل بيجيله تذكير على واتساب ويقدر يلغي"
+    ],
+    "faq": [
+      "العميلة مش هتعرف تيجي؟ التذكير وقائمة الانتظار بيوصلوا حد بدل ما يقعد الوقت فاضي",
+      "العمولات بتتحسب ازاي؟ من كل خدمة تم بيعها فعلًا في الفترة، والورقة بتطلع للفترة"
+    ]
+  },
+  "landing_en": {
+    "headline": "A salon with a clear book, and chairs that are busy at the right hour",
+    "sub": "The booking book on the phone, a commission the stylist agrees with, and session packages that expire on a date",
+    "benefits": [
+      "The book shows who is free and who is busy at a glance",
+      "The commission is computed from the services really sold and the sheet comes out before the month ends",
+      "The client gets a WhatsApp reminder and can cancel, which fills the slot instead of losing it"
+    ],
+    "faq": [
+      "What if the client does not show up? The reminder and the wait list fill the slot instead of losing it, and the no show is recorded with the minutes",
+      "How are the commissions computed? From every service really sold in the period, and the sheet comes out for that period"
+    ]
+  },
+  "pricing": [
+    "The free tier fits one chair: one business, one branch, two seats, the book and the till",
+    "Starter adds the reminders, the wait list and a year of history",
+    "The Business tier adds the packages, the retail shelf with the opening dates and the commission sheet",
+    "The booking page on the public site is priced per business, not per stylist"
+  ],
+  "competitors": [
+    {
+      "name": "Daftra (دفترة)",
+      "price": "Free start, published rates not readable on the page opened (daftra.com, opened 2026-11-12)",
+      "weak": "An ERP where a salon needs a book, a chair and a commission",
+      "edge": "A salon flow built on the chair and the hour, with the commission the stylist can check"
+    },
+    {
+      "name": "Square",
+      "price": "Free with processing fees, Plus US$49 per month per location (squareup.com, opened 2026-11-12)",
+      "weak": "Bookings are an add on and there is no stylist commission model",
+      "edge": "The book, the wait list and the commission are part of the pack"
+    },
+    {
+      "name": "Loyverse",
+      "price": "Free POS, add-ons from US$5 per store per month (loyverse.com/pricing, opened 2026-11-12)",
+      "weak": "A retail till with no appointments and no time based stock",
+      "edge": "The time is the stock here, so the whole product is built around it"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Register the salon pack in the sector registry",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Add the manifest for salon in packages/core/src/sectors/registry.ts with the base template service and the modules (pos, appointments, staff schedule, packages, commissions, retail, shifts), the feature flags, the role templates and the terminology map.",
+      "done": "getSector('salon') returns the manifest and the registry test asserts the modules and the commission role."
+    },
+    {
+      "title": "Write the salon data model with appointments, packages and commissions",
+      "area": "core",
+      "phase": "M1",
+      "brief": "Type the entities in packages/core/src/sectors/salon/schema.ts: stylists with the commission percentage and the working hours, chairs, services with the duration, appointments with the status and the deposit, packages with the sessions used, sales with the commission per line and the commission sheet.",
+      "done": "The schema compiles with no any, the validation rejects an overlapping booking for the same stylist, and the tests pass."
+    },
+    {
+      "title": "Build the salon seed with the Arabic service categories",
+      "area": "data",
+      "phase": "M1",
+      "brief": "Write packages/core/src/sectors/salon/seed.ts with the Arabic service categories, the chair labels, the role templates, the receipt layout and the empty duration and commission fields. No price, no client and no stylist is invented.",
+      "done": "The seed loads, the test asserts the categories and the chairs, and it asserts that no client or commission was seeded."
+    },
+    {
+      "title": "Write the salon terminology map in Arabic and English",
+      "area": "ui",
+      "phase": "M1",
+      "brief": "Create packages/ui/src/sector/salon/glossary.ts with the trade words: موعد, stylist, chair, عمولة, جلسة, باقة, no show, and the reception words, in Arabic and English.",
+      "done": "The glossary covers every screen of the sector with no generic shop wording and the label test passes."
+    },
+    {
+      "title": "Build the booking book grid",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the day book: the stylists as columns, the slots as rows, the booked, the free and the blocked cells, with the client name and phone on the cell, and the drag to move a booking within the stylist working hours.",
+      "done": "A booking appears in the right column and slot, a double booking for the same stylist is refused, and the layout holds at 320 to 1920 px."
+    },
+    {
+      "title": "Build the new booking flow with the deposit and the reminder",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the booking: the client, the services, the stylist, the time, the deposit and the price, with the WhatsApp confirmation and the reminder, and the option to block a slot without a name.",
+      "done": "A booking sends the confirmation and the reminder through the salon account, the deposit is recorded, and the slot appears on the book."
+    },
+    {
+      "title": "Build the wait list and the no show flow",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the wait list: the clients who want a slot and accept a cancellation, offered in order when a slot frees, plus the no show record with the minutes and the penalty with the manager approval.",
+      "done": "A freed slot offers the first client on the list, the accepted booking is created, and the no show is recorded with the penalty and the audit entry."
+    },
+    {
+      "title": "Build the packages with the expiry and the sessions used",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the packages: buying a number of sessions at a price, the sessions used and left per client, the expiry date, and the use of a session at the till reducing the count.",
+      "done": "Buying a package creates it with the sessions total and the expiry, a sale reduces the sessions used, and an expired package cannot be used and is flagged."
+    },
+    {
+      "title": "Build the commission sheet",
+      "area": "web",
+      "phase": "M2",
+      "brief": "Build the commission period: the money per stylist from the services really sold and the retail share, the total and the payout mark, with the CSV export for the payroll.",
+      "done": "The sheet matches a manual calculation in the test, the payout mark is stored, and the export opens in a spreadsheet."
+    },
+    {
+      "title": "Build the salon report pack and the public booking page",
+      "area": "web",
+      "phase": "M3",
+      "brief": "Add the reports of this sector: booked hours per stylist, the empty slots by hour, the revenue per service and per stylist, the no show rate, the retail sales and the package usage, each with the CSV export, and build the public booking page for the salon with the services, the free slots and the request form.",
+      "done": "Every report computes its own numbers, a booking request from the public page lands on the book, and the layout rules pass at 320 to 1920 px in both languages."
+    }
+  ],
+  "risks": [
+    "The client notes and the preferences are personal data of the salon, so they never enter our analytics and can be exported and deleted",
+    "The reminder and the cancellation offer go through the salon own WhatsApp account, and the template rules of the platform apply to them",
+    "The commission percentage is the salon own agreement, and the product never changes it",
+    "Before and after photos of a client need a written consent, so the app asks for it before any photo is stored"
+  ]
+}

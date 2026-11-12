@@ -8,7 +8,9 @@ SIR Game Deals is its own small independent project with the same premium standa
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Game Deals` does not exist yet, no Firebase project exists for it, and no GitHub repo exists for it. This round wrote the plan, the competitor study and the task briefs only, and it created no folder, no repo, no code and no key. Verified today by our own probes: Steam's public store endpoint returns `$39.99 USD` for Elden Ring with `cc=EG` while the same call returns `249.00 SR` for `cc=SA` and `249.00 AED` for `cc=AE`, so Steam has no Egyptian pound price and the Egypt row of the competitor study rests on a measurement, not on an assumption.
 
-**Product class: GLOBAL.** Anyone in the world can use it, accounts and subscriptions exist, every platform is planned, the owner has an owner-only analytics page, the site is hosted twice (Firebase Hosting and Vercel), and a paid subscription gives the owner every permission inside the product. It is listed in `PRODUCT_DIRECTION_2026-11-12.md` section 8 among the small independent projects created from the unplanned ideas.
+**Product class: GLOBAL.** Anyone in the world can use it, accounts and subscriptions exist, every platform is planned, the owner has an owner-only analytics page, the site is hosted twice (Firebase Hosting and Vercel), and a paid subscription gives the owner every permission inside the product.
+
+**The decision behind this project.** The reason SIR Game Deals is its own product and not a module of the price finder, the lawful-data rules that apply to it and the exact folder, repository, Firebase and Desktop names are in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md` (2026-11-12, round r53c). It is listed in `PRODUCT_DIRECTION_2026-11-12.md` section 8 among the small independent projects created from the unplanned ideas.
 
 ---
 
