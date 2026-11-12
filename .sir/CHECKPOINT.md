@@ -5,6 +5,8 @@
 - DONE in OS: Windows task `SIR_HQ_Dashboard` every 30 minutes (next runs at :00 and :30), pythonw, hidden, priority 7, one manual run verified (artifact regenerated at 15:31, task Ready).
 - VERIFIED headless (Playwright, Chromium, muted, closed): 320, 390, 768, 1280 x Arabic, English x light, dark = 16 combinations; no horizontal overflow, no single-word line stacking, no console errors, all 7 tabs open. Screenshots: `.sir/evidence/control-room-rebuild/`, results in `results.json` there.
 - NOT VERIFIED: WCAG contrast was not measured by a tool (checked by eye only); the detail sheet's spring close was not tested in a browser; the Claude artifact is not republished (HQ does that).
+- r52-plan-sir-controller: SIR Controller premium plan, competitor matrix, and 10 tasks written, committed to main, CI local verification green.
+- r52-plan-sir-life: SIR Life premium plan, competitor matrix, and 10 tasks written in `plans/sir-life.md`, `ops/competitors/sir-life.md` and `ops/briefs/sir-life-tasks.md`; committed as `2a9d444`, pushed to `main`, GitHub Actions `test` and `verify` runs 43256538157 and 43256538261 succeeded. Product-folder verification today: SIR Life `pnpm install`, `pnpm run typecheck`, `pnpm run build` and `node --test dist/tests/**/*.test.js` passed 65/65 tests in 18 suites; `package.json` still shows `0.1.0` and the product working tree has uncommitted `.sir` doc reversions, both handed to task T1 in the new tasks file.
 
 ## Next step (exact)
 1. HQ republishes `ops/artifact/control-room.html` as the Claude artifact (same file path, the artifact's URL is in `ops/artifact/PUBLISHED.txt` flow).
