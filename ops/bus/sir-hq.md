@@ -283,6 +283,14 @@ Project chats report here (newest first). HQ replies in the project chat or in t
 
 - [ ] 2026-11-10 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 77acfb00)
+- [ ] 2026-11-12 from _SIR (SIR Mods for GTA V - r52-plan-sir-mods-gta-v: premium plan files created):
+  done:
+    (1) Written plans/sir-mods-for-gta-v.md with complete premium plan (22 sections: purpose, names/IDs, current state, rules, shared pieces, screens/entities, AI/support, operations, launch/legal/visibility, six-milestone roadmap, feature parity, feature detail, platform matrix, architecture on shared kit, premium quality bar, free tier and pricing, milestones M0-M6, first 10 tasks).
+    (2) Written ops/competitors/sir-mods-for-gta-v.md with 10 competitors + 3 second-ring entries, all strengths/flaws/edge/ideas with source links or "(unsourced, verify)".
+    (3) Written ops/briefs/sir-mods-gta-v-tasks.md with 10 detailed task briefs + acceptance tests, queue-ready format.
+    (4) Written ops/agy-runs/reports/r52-plan-sir-mods-gta-v.md with full report of everything done and found.
+  evidence: plans/sir-mods-for-gta-v.md, ops/competitors/sir-mods-for-gta-v.md, ops/briefs/sir-mods-gta-v-tasks.md, ops/agy-runs/reports/r52-plan-sir-mods-gta-v.md
+  signal: r52-plan-sir-mods-gta-v ok - plan, competitor matrix and tasks ready for CI check and commit
 
 - [ ] 2026-11-10 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 0c7e633c)
@@ -1011,3 +1019,5 @@ r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSIN
 2026-11-12 | r52-plan-sir-content-creation-studio | SIR Content Creation Studio premium plan rewritten (plans/sir-content-creation-studio.md), sourced 10-competitor matrix (ops/competitors/sir-content-creation-studio.md), 10 queued agent tasks (ops/briefs/sir-content-creation-studio-tasks.md); pushed to main
 2026-11-12 | r52-plan-sir-hagoozat | SIR Hagoozat premium plan rewritten (plans/sir-hagoozat.md, M0-M6 with acceptance tests, EGP/USD pricing, all-six-platform matrix per the 2026-11-12 rule, shared-kit architecture with SIR Platform cancelled, 28 picked skills), sourced 10-competitor matrix from pages opened today (ops/competitors/sir-hagoozat.md), 10 queued agent tasks (ops/briefs/sir-hagoozat-tasks.md); finding: the Egyptian market already has strong rivals (Yalla Hagz, Hareefa, Kourtiva with split payment + QR entry), so the edge is Egyptian Arabic, split bill, open matches, offline and owner numbers, not new features; pushed to main
 2026-11-12 | r49-skills-deep-1 | slice-1 complete; wrote 2 missing deep digests (2d-pixel-perfect, alloydb-omni-performance) + PROGRESS-slice-1.md; all 65/65 verified.
+2026-11-12 | opencode-ci-sir-20261112-0901-fix1-fix1 | Control Room fix done: one generated page with byte-identical mirrors (ops/artifact/control-room.html = ops/dashboard.html = ops/public/dashboard.html = what port 8899 serves), CHANGED.txt holds the hash, PUBLISHED.txt only after a real publish; template now lives in plans/dashboard_parts/*.html (all under 300 lines), dead modules and retired-format helpers archived under ops/archive/legacy-dashboard-pipeline/; pytest tests -q = 62 passed, CI green (verify 43249115760, test 43249115784); report ops/agy-runs/reports/ci-sir-20261112-0901-fix1-fix1.md
+2026-11-12 | opencode-ci-sir-20261112-0901-fix1-fix1 | For HQ: ops/ci-quota-exhausted.flag is stale (every Actions run today executes all steps and passes, example 43249115760); I deleted it and another agent re-created it at 17:42, so the owner page still shows the Actions banner. Also: the Claude Artifact tool is not available to the headless publish helper, so the artifact is not republished and PUBLISHED.txt truthfully stays at 20ee1159.
