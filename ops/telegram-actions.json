@@ -1,91 +1,108 @@
 {
-  "status": {
-    "cmd": [
-      "python",
-      "D:/Projects/_SIR/scripts/deliver/status-brief.py"
-    ]
-  },
-  "jobs_inbox_scan": {
-    "cmd": [
-      "node",
-      "D:/Projects/SIR Jobs/scripts/inbox/run.mjs",
-      "--process-only"
-    ]
-  },
-  "queue": {
-    "cmd": [
-      "python",
-      "D:/Projects/_SIR/scripts/deliver/queue-brief.py"
-    ]
-  },
-  "clean_disk": {
-    "cmd": [
-      "D:/Projects/SIR Laptop Manager/.venv/Scripts/sir-laptop-admin.exe",
-      "care",
-      "clean",
-      "--execute"
-    ],
-    "reply": "[الإدارة] تم تنضيف المساحة الآمن (مع نسخة حجر صحي للتراجع)."
-  },
-  "game_off": {
-    "cmd": [
-      "powershell",
-      "-Command",
-      "Get-Process | Where-Object {$_.Name -match 'game|steam|epic|origin|battlenet|riot|ubisoft|ea|gog'} | Stop-Process -Force"
-    ],
-    "reply": "[الإدارة] تم إغلاق عمليات الألعاب."
-  },
-  "pause_services": {
-    "cmd": [
-      "D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe",
-      "-m",
-      "sir_laptop_manager.care.game_mode",
-      "pause"
-    ],
-    "reply": "[الإدارة] تم إيقاف الخدمات غير الأساسية."
-  },
-  "resume_services": {
-    "cmd": [
-      "D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe",
-      "-m",
-      "sir_laptop_manager.care.game_mode",
-      "restore"
-    ],
-    "reply": "[الإدارة] تم استعادة الخدمات الموقوفة."
-  },
-  "approve_no": {
-    "cmd": [
-      "cmd",
-      "/c",
-      "echo",
-      "skipped"
-    ],
-    "reply": "[الإدارة] تمام، مش هنضف دلوقتي. هفكرك لو المساحة نزلت أكتر."
-  },
-  "view_pipeline": {
-    "cmd": [
-      "powershell",
-      "-Command",
-      "Start-Process 'http://127.0.0.1:3456/#view-pipeline'"
-    ],
-    "reply": "[الخط] فتح لوحة Pipeline في المتصفح."
-  },
-  "study_dl_done": {
-    "cmd": [
-      "cmd",
-      "/c",
-      "echo",
-      "ok"
-    ],
-    "reply": "[الإدارة] تمام. هبدأ تنزيل ملفات المعهد وأبلغك."
-  },
-  "study_dl_later": {
-    "cmd": [
-      "cmd",
-      "/c",
-      "echo",
-      "later"
-    ],
-    "reply": "[الإدارة] تمام، هفكرك وقت الفجر."
-  }
+ "status": {
+  "cmd": [
+   "python",
+   "D:/Projects/_SIR/scripts/deliver/status-brief.py"
+  ]
+ },
+ "jobs_inbox_scan": {
+  "cmd": [
+   "node",
+   "D:/Projects/SIR Jobs/scripts/inbox/run.mjs",
+   "--process-only"
+  ]
+ },
+ "queue": {
+  "cmd": [
+   "python",
+   "D:/Projects/_SIR/scripts/deliver/queue-brief.py"
+  ]
+ },
+ "clean_disk": {
+  "cmd": [
+   "D:/Projects/SIR Laptop Manager/.venv/Scripts/sir-laptop-admin.exe",
+   "care",
+   "clean",
+   "--execute"
+  ],
+  "reply": "[الإدارة] تم تنضيف المساحة الآمن (مع نسخة حجر صحي للتراجع)."
+ },
+ "game_off": {
+  "cmd": [
+   "powershell",
+   "-Command",
+   "Get-Process | Where-Object {$_.Name -match 'game|steam|epic|origin|battlenet|riot|ubisoft|ea|gog'} | Stop-Process -Force"
+  ],
+  "reply": "[الإدارة] تم إغلاق عمليات الألعاب."
+ },
+ "pause_services": {
+  "cmd": [
+   "D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe",
+   "-m",
+   "sir_laptop_manager.care.game_mode",
+   "pause"
+  ],
+  "reply": "[الإدارة] تم إيقاف الخدمات غير الأساسية."
+ },
+ "resume_services": {
+  "cmd": [
+   "D:/Projects/SIR Laptop Manager/.venv/Scripts/python.exe",
+   "-m",
+   "sir_laptop_manager.care.game_mode",
+   "restore"
+  ],
+  "reply": "[الإدارة] تم استعادة الخدمات الموقوفة."
+ },
+ "approve_no": {
+  "cmd": [
+   "cmd",
+   "/c",
+   "echo",
+   "skipped"
+  ],
+  "reply": "[الإدارة] تمام، مش هنضف دلوقتي. هفكرك لو المساحة نزلت أكتر."
+ },
+ "view_pipeline": {
+  "cmd": [
+   "powershell",
+   "-Command",
+   "Start-Process 'http://127.0.0.1:3456/#view-pipeline'"
+  ],
+  "reply": "[الخط] فتح لوحة Pipeline في المتصفح."
+ },
+ "study_dl_done": {
+  "cmd": [
+   "cmd",
+   "/c",
+   "echo",
+   "ok"
+  ],
+  "reply": "[الإدارة] تمام. هبدأ تنزيل ملفات المعهد وأبلغك."
+ },
+ "study_dl_later": {
+  "cmd": [
+   "cmd",
+   "/c",
+   "echo",
+   "later"
+  ],
+  "reply": "[الإدارة] تمام، هفكرك وقت الفجر."
+ },
+ "ahome_code_ok": {
+  "cmd": [
+   "python",
+   "-c",
+   "open('D:/Projects/_SIR/ops/decisions-ahome-code-ok.txt','w').write('owner allows outside free models for AHome SOURCE CODE only, never messages, notes, photos, calendar, names tied to private facts')"
+  ],
+  "reply": "[الإدارة] تمام: كود AHome بس ممكن يتبعت لنماذج مجانية. الرسايل والصور والملاحظات والتقويم تفضل محلية بس."
+ },
+ "ahome_local_only": {
+  "cmd": [
+   "cmd",
+   "/c",
+   "echo",
+   "local"
+  ],
+  "reply": "[الإدارة] تمام: AHome يفضل على النماذج المحلية بس، وهيمشي أبطأ."
+ }
 }
