@@ -1,7 +1,7 @@
 # Windows UI Automation helper: find a Chrome window by title part, then list or invoke elements by name. Used when a page needs a real click (native file picker).
 # Usage: powershell -File ui_invoke.ps1 -Window "iCloud" -List            (lists clickable element names)
 #        powershell -File ui_invoke.ps1 -Window "iCloud" -Click "Import vCard"
-param([string]$Window, [string]$Click = "", [switch]$List)
+param([string]$Window, [string]$Click = "", [string]$SelectTab = "", [switch]$List)
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 $root = [System.Windows.Automation.AutomationElement]::RootElement
@@ -21,6 +21,14 @@ if ($List) {
       if ($i -ge 40) { break }
     }
   }
+}
+if ($SelectTab) {
+  foreach ($e in $all) {
+    if ($e.Current.ControlType.ProgrammaticName -match "TabItem" -and $e.Current.Name -like "*$SelectTab*") {
+      try { $e.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select(); Write-Output "tab selected"; exit 0 } catch { try { $e.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke(); Write-Output "tab invoked"; exit 0 } catch { Write-Output "tab select failed"; exit 4 } }
+    }
+  }
+  Write-Output "tab not found"; exit 5
 }
 if ($Click) {
   foreach ($e in $all) {
