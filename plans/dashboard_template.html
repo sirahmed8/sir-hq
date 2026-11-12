@@ -252,7 +252,8 @@ bdi { unicode-bidi: isolate; }
   .topbar { padding-inline: var(--s6); }
   .grid.wide { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
   .sheet { inset-inline: auto 0; top: 0; bottom: 0; width: min(440px, 92vw); max-height: none; border-radius: var(--r-sheet) 0 0 var(--r-sheet); transform: translateX(104%); border-top: 0; border-inline-start: 1px solid var(--line); padding-top: var(--s5); }
-  .sheet.on { transform: translateX(0); }
+  [dir="rtl"] .sheet { transform: translateX(-104%); }
+  .sheet.on, [dir="rtl"] .sheet.on { transform: translateX(0); }
   .sheet .grab { display: none; }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
