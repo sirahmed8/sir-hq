@@ -53,3 +53,12 @@
 11-12 21:04 claude NOTE backup_manager.py: added WEAK_MODELS skip list and reply_problem() language check (owner got Chinese/Russian mixed replies); keep both when you edit it (r64)
 2026-11-12 devin START r61-plan-sir-life planning-only refresh continuation (rule 20/22): fixing half-done tasks file, adding research, REFRESH-LOG, report
 2026-11-12 devin DONE r61-plan-sir-life planning-only: repaired half-done tasks file (T38-T42 were wrong-product copy-paste), plan +sections 15-19, competitor second pass (Sahibukum/Barakah occupy prayer-planner position), 42 tasks with acceptance+skills, REFRESH-LOG written; report ops/agy-runs/reports/r61-plan-sir-life.md
+11-12 21:19 autopilot START r66-bot-profile-photo (runner pid 24956)
+2026-11-12 21:24 devin START r60-build-sir-ai repair+continue (lock taken, resuming Task 4 from uncommitted Capacitor/phone work)
+11-12 21:24 autopilot START r67-build-sir-portfolio (runner pid 28816)
+11-12 21:24 autopilot START r67-voice-pipeline-verify (runner pid 23900)
+2026-11-12 devin START r67-voice-pipeline-verify verifying hang fix in backup_manager.py
+2026-11-12 devin DONE r67-voice-pipeline-verify PASS: live transcribe 1.3s+0.9s Arabic, only transient 21:07 provider errors, cap+fallback code verified, no changes needed
+2026-11-12 devin DONE r63-control-room-private: public Pages site already deleted by owner (cancelled in queue); verified Tailscale-only serving (serve status tailnet-only, funnel off, 8899 loopback, host+file allow-lists, OWNER_ACTIONS.md 404), privacy audit clean (no emails/phones/Habiba/secrets/chat; AHome = product names only, private:true row), no localhost links in dashboard, Tailscale URL sent to owner on Telegram (msg 687); report ops/reports/control-room-private-report.md
+11-12 21:34 autopilot START r67-c-drive-space (runner pid 28448)
+2026-11-12 devin START r64-telegram-first continuing: repair pass then items 1-6 per brief
