@@ -1,0 +1,89 @@
+# Competitor study: SIR Handyman (on-demand home services, Egypt first)
+
+Category: on-demand home services marketplace (plumber, electrician, carpenter, painter, AC technician, cleaner, pest control and more), customer posts a request, a nearby verified worker accepts or quotes, live tracking, agreed price, ratings, in-app chat.
+
+Research date: 2026-11-12. Method: DuckDuckGo HTML search on 2026-11-12 plus direct fetches of the competitors' own public pages on 2026-11-12. Pages that opened are cited with the date; anything not read on an opened page is tagged "(unsourced, verify)" and must not be copied into public copy, a store listing, a legal page or a comparison page until it is read on the vendor's own page.
+
+Truth rules for this file:
+1. Every number that belongs to a competitor is their own claim, written as "their claim". We did not verify a single booking, worker, rating or price.
+2. Anything not read on a page we opened today is tagged "(unsourced, verify)".
+3. Competitor prices are third-party prices. Our prices are a different thing: see `plans/sir-handyman.md` section 7.
+4. No assets, text or code are copied from any competitor.
+5. The old r51 note named Taskday, Khidmeh and Handyman.com.eg. On 2026-11-12 the real Egyptian field is FilKhedma, Khidhma, Mahlola, Mu'een, YalaFix, Taskty, Fixawy and SAADK (below); "Khidmeh" is the Khidhma brand on khidhma.com, and Taskday's home-services line appears as Taskty on Google Play. Neither Taskday nor Khidmeh evidenced a live product under those exact names on 2026-11-12 ("(unsourced, verify)").
+
+Canonical file for SIR Handyman. The competitor section of `plans/sir-handyman.md` (r51, 2026-11-12) is superseded by this file and must not be quoted as current.
+
+---
+
+## 1. The ten that matter
+
+| # | Competitor | Market | What it is | Strengths (from its own pages) | Flaws (from its own pages) | Our edge | Ideas to steal | Source (opened 2026-11-12 unless noted) |
+|---|---|---|---|---|---|---|---|---|
+| 1 | FilKhedma | Egypt (Cairo and nationwide claim) | App-only home services: cleaning, plumbing, electricity, AC maintenance and installation, carpentry, gas water heaters, alumetal, TV dish, pest control, painting | 1-month quality guarantee on maintenance services, vetted "Heroes", flexible scheduling, iOS and Android apps, wide service range, B2B partner program, 19125 hotline | App required to book (no web booking on the page), cleaning not covered by the 1-month guarantee, web page built on a dated GeneratePress template, no visible live tracking or upfront quote flow on the page, membership or subscription absent (model unclear) | Quote-based agreed price before work starts, worker identity shown before arrival, live tracking, in-app chat, ratings tied to completed jobs, Egyptian Arabic copy, free for homeowners | 1-month maintenance guarantee wording, "vetted Hero" naming, B2B partner lane for property managers, service-category breadth incl. alumetal and gas water heaters | https://www.filkhedma.com (opened 2026-11-12) |
+| 2 | Khidhma | Egypt (Cairo, New Cairo / Al Rehab focus) | Web-first home services with fixed-price listings and "verified professionals" | Fixed prices shown per service (home cleaning from EGP 99/149/199, plumber EGP 150, electrician EGP 175, their prices), discount code KHIDHMA20, Arabic and English site, customer reviews on the page, web booking works today | Their claims of 100k+ bookings, 4.9 average rating, 5k+ verified professionals and "41s response time" are unverified; app "coming soon"; coverage looks Cairo-only; odd category mix (vehicle repair); suspiciously low entry prices (from EGP 10/15/20) | Transparent quote-then-agree flow, broader Egypt coverage, worker ID verification with a pass/fail flag, live tracking, in-app chat, honest numbers only | Fixed price list per service with a booking button, discount-code mechanic, review carousel, "app coming soon" waitlist capture | https://www.khidhma.com (opened 2026-11-12) |
+| 3 | Mahlola | Egypt | Home maintenance and handyman: HVAC, electrical, moving freight / logistics | Positioned for home and commercial/industries (HVAC and freight), English and Arabic, simple site | Extremely thin site: no prices, no guarantee, no app links found, no ratings shown, "Built by KOGNS" footer, no live booking flow visible | Full request-quote-visit loop with tracking and chat in one product, Egyptian Arabic first, verified workers, ratings | Industry/B2B lane (HVAC and facility contracts) as a later tier | https://www.mahlola.com/en (opened 2026-11-12) |
+| 4 | Mu'een | Egypt (6th of October, Giza) | Smart on-demand home services platform, app on iOS and Android | Their claims: 10K+ service requests, 500+ professional providers, 25+ categories, 4.9 rating, 10,000+ downloads, verified pros, GPS location request, real-time tracking wording, promotions, B2B provider tools | Their claims unverified; 6th October base suggests Giza-first coverage; hours 7:00-22:00 only; heavy template look, no web booking, no public price list, no guarantee wording | Transparent agreed price before the visit, wider hours (24/7 request, scheduled visit), Egyptian Arabic, worker ID shown, ratings tied to completed jobs, in-app chat | Request tracking stepper (choose, location, schedule, done), provider-side app for schedule and request management, promotion slots | https://mueen-app.com (opened 2026-11-12) |
+| 5 | YalaFix | Egypt | "Egypt's Home & Property Maintenance", membership model | 10 categories incl. swimming pool and landscaping, same-day booking claim, satisfaction guarantee claim, Pro membership EGP 299/month with priority scheduling and up to 30% off (their claim), Cairo/Giza/Alexandria mentions | EGP 299/month membership is paywalled value, site shows an obviously placeholder phone pattern (+20 123 456 7890, "(unsourced, verify)"), emoji-heavy page, no app links found, guarantee wording vague | Free for homeowners, no mandatory membership, transparent quotes, verified workers, live tracking, Egyptian Arabic | Membership tier as a later optional plan (not core), category breadth incl. pool and landscaping, "membership" naming for a household plan (later) | https://yalafix.com (opened 2026-11-12) |
+| 6 | Taskty | Egypt | Home services marketplace (Google Play: com.tasktyapp.taskty), "أول سوق للخدمات المنزلية علي الانترنت فى مصر" | Free app, broad services (cleaning, furniture cleaning, pest control, plumbing, electricity, furniture moving), Arabic-first store listing | No web presence found on 2026-11-12 beyond store listings ("(unsourced, verify)"), ratings counts not read, model and coverage unclear, no guarantee, no tracking, no quotes visible | Quote-first agreed price, live tracking, chat, verified ID, ratings on completed jobs | Furniture moving and furniture cleaning as catalog categories, Arabic-first Play Store listing | https://play.google.com/store/apps/details?id=com.tasktyapp.taskty&hl=ar (search snippet 2026-11-12, page not opened, "(unsourced, verify)") |
+| 7 | Fixawy | Egypt | Home services app: plumbing, electricity, carpentry, AC, gypsum board, aluminium, tiling, painting | Their pitch (Cairo360 2017 article): only pros who pass interviews, quality assurance and safety tests enter the network; no fee until work is done wording in the article | The Cairo360 article is from 2017 and Fixawy shows no live app store presence found on 2026-11-12 ("(unsourced, verify)"), coverage and status unverified, likely stale | Verified worker pipeline as a core trust feature, safety tests for gas and electrical work, Egyptian Arabic | Interview + QA + safety test onboarding wording, 2017-era proof the Egyptian market accepts vetted-pro positioning | https://www.cairo360.com/article/city-life/fixawy-get-all-your-problems-fixed/ (article fetched via search snippet 2026-11-12, "(unsourced, verify)") |
+| 8 | SAADK (سعدك) | Egypt | Home services app (App Store eg, id6471861888) | Their pitch: all home services in one app, approved and qualified companies, clear pricing, compare offers from multiple companies, customer ratings | App Store page not opened on 2026-11-12 ("(unsourced, verify)"), company-based model only (no individual craftsmen), coverage, ratings and pricing not read | Individual verified craftsmen plus companies, compare offers, clear pricing, Egyptian Arabic, free for homeowners | "Compare offers" from multiple providers before choosing, approved-company lane for larger jobs | https://apps.apple.com/eg/app/saadk-سعدك/id6471861888 (store listing found via search 2026-11-12, page not opened, "(unsourced, verify)") |
+| 9 | ServiceMarket | UAE (Dubai, Abu Dhabi, Sharjah) | Aggregator marketplace for 25+ home services incl. handyman, maintenance, moving, salon at home, healthcare at home | 150,000+ happy customers and 15,000+ reviews and 4.8/5 rating (their claims), partner companies licensed and vetted, live 7-days contact center, huge catalog, AMC (annual maintenance contracts), verified review stream | Partner-aggregator model (no own workforce), no Egypt presence, booking through partners makes price and quality less predictable, DHA-licensed under Service Souk FZCO scope, Gulf-only | Egypt-first with Egyptian Arabic, own verified-worker network with ID check, agreed price before work, no partner-handoff surprises | Annual maintenance contract (AMC) as a later B2B/household tier, review stream on the homepage, "over 25 services" catalog breadth, live contact-center 7 days | https://www.servicemarket.com (opened 2026-11-12) |
+| 10 | Urban Company | India, UAE and KSA (via noon) | Global at-home services platform: cleaning, repairs, beauty, "InstaHelp" | Trained professional network with structured training, 4.8+ rating claim, under-30-minute service claim for some categories, huge scale, noon partnership launched 2025 for UAE and KSA home services, strong brand | No Egypt presence (UAE/KSA through noon only), heavy commission model for partners (their public pitch, "(unsourced, verify)"), no Egyptian Arabic, no quote-then-agree transparency for open-ended repairs, opaque pricing in some categories | Egypt-first market with Egyptian Arabic, transparent agreed price, local payment rails (Paymob, Fawry), fair worker take rate, worker identity shown, ratings tied to completed jobs | Structured worker training and certification as a trust badge, "InstaHelp"-style instant slot for small jobs as a later tier, training academy for workers (later) | https://www.urbancompany.com (opened via search snippets 2026-11-12), https://home.noon.com (snippet 2026-11-12), https://investorrelations.urbancompany.com (announcement snippet 2026-11-12), all "(unsourced, verify)" for feature claims |
+
+### Second ring found on 2026-11-12, kept for the record (snippets only, "(unsourced, verify)" for every claim)
+
+| Competitor | Note | Link |
+|---|---|---|
+| TaskRabbit | US/UK/EU same-day tasks, furniture assembly, mounting; taskers set their own rates; service fee added on top | https://www.taskrabbit.com |
+| Thumbtack | US quote marketplace: customer describes the job, pros send quotes, pay-per-lead model for pros | https://www.thumbtack.com |
+| Angi | US, leads marketplace + Angi Services; heavy lead-gen fee criticism in their own 1-star reviews | https://www.angi.com |
+| Handy | US, fixed-price booking for cleaning and repairs; part of Angi | https://www.handy.com |
+| Mr. Handyman | US franchise, fixed pricing by job type, warranty on work | https://www.mrhandyman.com (via allbetterapp.com comparison, snippet 2026-11-12) |
+| Airtasker | AU/UK marketplace, taskers browse posted tasks and quote; escrow-ish payment protection | https://airtasker.com |
+| Noon home services | UAE/KSA booking via the noon app powered by Urban Company | https://home.noon.com |
+| Homeserviceapp (الحلول المتكاملة للبيت) | Cairo Facebook page, 12,461 followers, cleaning and repair wording | https://www.facebook.com/homeserviceapplication/ |
+| Seyanti | Google Play app (com.incode.homeservices_app), Egypt home services | https://play.google.com/store/apps/details?id=com.incode.homeservices_app&hl=en-US |
+| Taskday (taskday.app) | Now a to-do/task-management app, not home services; the r51 note's reference is stale | https://taskday.app |
+| Handyman.com.eg | Named in the r51 note; no fetch succeeded 2026-11-12, status unknown, "(unsourced, verify)" | https://www.handyman.com.eg |
+
+---
+
+## 2. What the Egyptian market actually looks like
+
+Read from the pages opened on 2026-11-12, not from an aggregator.
+
+1. **At least six live Egyptian apps compete today.** FilKhedma (app-first, 1-month guarantee), Khidhma (fixed-price web booking, app coming soon), Mu'een (6th October, 25+ categories, app on both stores), YalaFix (membership EGP 299/month), Taskty (Play Store), SAADK (App Store). Mahlola and Fixawy are present but thin or stale.
+2. **Fixed prices vs. quotes.** Khidhma shows fixed prices online; Mu'een and FilKhedma flow through the app after a request. Nobody shows a transparent, agreed, binding price for an open-ended repair before a worker is dispatched, with photos and a location. That is the gap.
+3. **Guarantees are the differentiator.** FilKhedma's 1-month maintenance guarantee and YalaFix's satisfaction guarantee are the two trust instruments in use. Nobody publishes a per-job guarantee tied to a completed booking reference with a dispute flow behind it.
+4. **Web-first Egyptian competitors have an app gap.** Khidhma's app is "coming soon" on 2026-11-12; Mahlola has no app found. An installable PWA plus store apps from one codebase closes that in our favor for free.
+5. **Membership exists but is paywalled.** YalaFix charges EGP 299/month for priority and discounts. The fair free-tier rule (no core action behind a paywall) is a different position: homeowners never pay.
+6. **The aggregator model dominates the Gulf.** ServiceMarket (partners, not own workforce) and Urban Company (noon partnership) show the Gulf wants breadth and ratings. Egypt has no scaled equivalent of Urban Company's trained-network model; FilKhedma's "Heroes" is the closest local copy.
+7. **Arabic is badly served and Egyptian dialect copy is free differentiation.** Most Egyptian pages mix Arabic and English; nobody ships a fully RTL, Egyptian-speech product with proper bidi isolation (see OWNER_DEFAULTS items 15 and 16).
+8. **Safety for home entry is the unspoken issue.** A stranger enters the home for gas, electrical and plumbing work. Identity verification with a pass/fail flag, worker photo shown before arrival, share-my-visit with a trusted contact, and an emergency exit/report button are absent everywhere found.
+9. **Live tracking and in-app chat exist as claims (Mu'een "real time tracking", FilKhedma "follow your order") but not as demonstrable, specified flows** with worker identity, ETA, and arrival confirmation tied to the booking.
+10. **Nobody owns the quote-first, agreed-price, safety-first home services experience in Egypt.** Every competitor does one slice: fixed-price cleaning (Khidhma), membership (YalaFix), app catalog (FilKhedma), store presence (Taskty/SAADK), guarantees (FilKhedma/YalaFix). The end state we sell: describe the job with photos, get real quotes from nearby verified workers, agree a price, track the visit live, pay after it is done, rate the completed job.
+
+---
+
+## 3. Our edge, stated as five promises
+
+1. **Agreed price before work starts.** Photos and a short description go out as one request; nearby verified workers quote; the homeowner accepts one quote; the price is locked in the booking, never a surprise on arrival.
+2. **A stranger you can see.** Every worker passes identity and skill verification (pass/fail flag only, never document copies), the worker's name, photo and rating are shown before the visit, and the homeowner can share the visit with a trusted contact.
+3. **Live visit, from accepted to done.** En-route map, ETA, arrival confirmation with a 4-digit visit code, in-app chat, and a dispute button that freezes the agreed price until both sides settle.
+4. **Ratings tied to completed jobs only.** One rating per completed booking, no review without a completed job reference, no shill reviews, ever.
+5. **Free for homeowners, fair for workers.** Homeowners never pay to post, quote, book or rate. Workers pay a small per-job service fee or a flat monthly Pro plan; the owner of the product holds the wallet and pays out after completion.
+
+---
+
+## 4. Sourcing tasks still open (each under one hour)
+
+1. Open the FilKhedma iOS and Android store pages and record rating counts, review counts and last update date with links.
+2. Open khidhma.com on a phone and record the fixed-price list per service and city coverage with a link and a date.
+3. Open mueen-app.com and record the 10K+ requests / 500+ providers / 4.9 rating claims' evidence, or tag them "(unsourced, verify)".
+4. Open the YalaFix membership page and record the EGP 299/month plan details with a link and a date.
+5. Open the Taskty and SAADK store pages and record rating counts, review counts and download numbers with links.
+6. Confirm Fixawy's current status (store pages or domain) and either resurrect it as an active competitor or move it to the second ring with a dated note.
+7. Check whether any Egyptian competitor offers live GPS tracking of the worker and record what it shows, on a video capture dated 2026-11-12 or later.
+8. Read the Urban Company partner (worker) onboarding and commission page and record the take rate with a link, for our worker fee design.
+9. Open servicemarket.com AMC page and record the annual maintenance contract pricing shape with a link and a date.
+10. Find the official Egyptian Micro, Small and Medium Enterprises Development Agency (MSMEDA) or Chamber of Commerce pages for craftsman licensing wording to ground the worker-verification legal section.
