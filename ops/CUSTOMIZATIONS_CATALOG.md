@@ -3,6 +3,8 @@
 > **Status**: ACTIVE & OPTIMIZED across all workspaces (`D:\Projects`).
 > **Token Budget Health**: Fully compliant (< 65% of 20,000 cap, **0 excluded skills**, **0 excluded MCP tools**).
 > **Canonical Reference**: Read by all agents and future sessions at startup.
+>
+> **2026-11-12 (r47)**: the full machine-wide inventory now lives in [`SKILLS_INDEX.md`](SKILLS_INDEX.md) (384 unique skills, 1004 installed copies across Claude, Codex, Windsurf, Cursor, OpenCode, Kilo, Gemini, Antigravity, plugins, workspace) with per-skill digests in [`encyclopedia/`](encyclopedia/PROGRESS.md), MCP/plugin names per tool in [`encyclopedia/mcp-inventory.json`](encyclopedia/mcp-inventory.json), and the sync plan in [`encyclopedia/ORGANIZATION_PLAN.md`](encyclopedia/ORGANIZATION_PLAN.md). This catalog remains the curated narrative; the index is the complete list.
 
 ---
 

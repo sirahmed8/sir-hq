@@ -1,0 +1,526 @@
+{
+ "claude": {
+  "mcpServers": [],
+  "plugins": [
+   "42crunch-api-security-testing@claude-plugins-official",
+   "activecampaign@claude-plugins-official",
+   "adobe-for-creativity@claude-plugins-official",
+   "agent-sdk-dev@claude-plugins-official",
+   "agentforce-adlc@claude-plugins-official",
+   "ai-plugins@claude-plugins-official",
+   "aikido@claude-plugins-official",
+   "amd-skills@claude-plugins-official",
+   "apollo-skills@claude-plugins-official",
+   "appwrite@claude-plugins-official",
+   "astronomer-data-agents@claude-plugins-official",
+   "atomic-agents@claude-plugins-official",
+   "auth0@claude-plugins-official",
+   "browser-use@claude-plugins-official",
+   "canva@claude-plugins-official",
+   "chrome-devtools-mcp@claude-plugins-official",
+   "clangd-lsp@claude-plugins-official",
+   "claude-code-setup@claude-plugins-official",
+   "claude-md-management@claude-plugins-official",
+   "claude-security@claude-plugins-official",
+   "clay@claude-plugins-official",
+   "cloudflare@claude-plugins-official",
+   "cloudinary@claude-plugins-official",
+   "commit-commands@claude-plugins-official",
+   "data-engineering@claude-plugins-official",
+   "desktop-commander@claude-plugins-official",
+   "discord@claude-plugins-official",
+   "fakechat@claude-plugins-official",
+   "feature-dev@claude-plugins-official",
+   "figma@claude-plugins-official",
+   "firebase@claude-plugins-official",
+   "firecrawl@claude-plugins-official",
+   "firestore-native@claude-plugins-official",
+   "frontend-design@claude-plugins-official",
+   "google-cloud-storage@claude-plugins-official",
+   "hostinger@claude-plugins-official",
+   "huggingface-skills@claude-plugins-official",
+   "kotlin-lsp@claude-plugins-official",
+   "learning-output-style@claude-plugins-official",
+   "liquid-skills@claude-plugins-official",
+   "lovable@claude-plugins-official",
+   "mapbox@claude-plugins-official",
+   "mcp-server-dev@claude-plugins-official",
+   "modern-web-guidance@claude-plugins-official",
+   "notion@claude-plugins-official",
+   "nvidia-skills@claude-plugins-official",
+   "oracle-ai-data-platform-workbench-engineer-agent@claude-plugins-official",
+   "oracle-ai-data-platform-workbench-spark-connectors@claude-plugins-official",
+   "outputai@claude-plugins-official",
+   "paypal@claude-plugins-official",
+   "playground@claude-plugins-official",
+   "plugin-dev@claude-plugins-official",
+   "posthog@claude-plugins-official",
+   "prisma@claude-plugins-official",
+   "project-artifact@claude-plugins-official",
+   "railway@claude-plugins-official",
+   "redis-development@claude-plugins-official",
+   "remember@claude-plugins-official",
+   "resend@claude-plugins-official",
+   "save-to-spotify@claude-plugins-official",
+   "session-report@claude-plugins-official",
+   "setup-mcp-agent-analytics@claude-plugins-official",
+   "shopify-ai-toolkit@claude-plugins-official",
+   "sir-context@sir-mods",
+   "sir-guards@sir-mods",
+   "skill-creator@claude-plugins-official",
+   "streaming-skills-plugin@claude-plugins-official",
+   "stripe@claude-plugins-official",
+   "sumup@claude-plugins-official",
+   "supabase@claude-plugins-official",
+   "superdesign@claude-plugins-official",
+   "swift-lsp@claude-plugins-official",
+   "telegram@claude-plugins-official",
+   "togetherai-skills@claude-plugins-official",
+   "twilio-developer-kit@claude-plugins-official",
+   "typescript-lsp@claude-plugins-official",
+   "ui-theme-designer@claude-plugins-official",
+   "ui5-typescript-conversion@claude-plugins-official",
+   "ui5@claude-plugins-official",
+   "unity@claude-plugins-official",
+   "unreal-engine-skills-for-claude-code@claude-plugins-official",
+   "vercel@claude-plugins-official",
+   "windsor-ai@claude-plugins-official",
+   "zoom-plugin@claude-plugins-official"
+  ],
+  "mcpNote": "no mcpServers in ~/.claude.json (top-level or per-project); Claude MCP likely via plugins/CLI"
+ },
+ "opencode": {
+  "mcpServers": [
+   "nvidia-app"
+  ],
+  "rawKeys": [
+   "__parseError"
+  ],
+  "parseError": null
+ },
+ "kilo": {
+  "mcpServers": [
+   "nvidia-app"
+  ],
+  "rawKeys": [
+   "__parseError"
+  ],
+  "parseError": null
+ },
+ "geminiPluginsJson": {
+  "entries": [
+   {
+    "path": "~/.gemini/config/plugins"
+   }
+  ]
+ },
+ "gemini": {
+  "mcpServers": [
+   "MCP_DOCKER",
+   "chrome-devtools-mcp",
+   "dart-mcp-server",
+   "datacloud_bigquery_remote",
+   "datacloud_cloud-sql_remote",
+   "datacloud_knowledge_catalog_remote",
+   "datacloud_spanner_remote",
+   "firebase-mcp-server",
+   "github-mcp-server",
+   "gmp-code-assist",
+   "nvidia-app",
+   "sequential-thinking",
+   "sir-autonomy",
+   "ticktick"
+  ],
+  "plugins": [
+   {
+    "plugin": "advanced-engineering",
+    "name": "advanced-engineering",
+    "description": "Advanced senior engineering suite: Agent Supercharged OS, System Design Architect, Ponytail YAGNI Optimizer, OmniRoute Gateway, Direct Action Shield, and Skills",
+    "mcpServers": []
+   },
+   {
+    "plugin": "android-cli-plugin",
+    "name": "android-cli-plugin",
+    "description": "Core tools and knowledge required to develop for Android.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "atlassian-twg-cli",
+    "name": "atlassian-twg-cli",
+    "description": "Teamwork Graph CLI is Atlassian's agent-first interface to your entire work context: Jira issues, Confluence pages, Bitbucket PRs, along with your connected thi",
+    "mcpServers": []
+   },
+   {
+    "plugin": "auth0",
+    "name": "auth0",
+    "description": "Add Auth0 authentication to any app: login, MFA, SSO, Organizations, RBAC, custom domains, and branding. Debug auth errors and migrate from other providers.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "base44",
+    "name": "base44",
+    "description": "Build and deploy Base44 full-stack apps: CLI project management, JavaScript/TypeScript SDK development, and production troubleshooting skills.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "browse",
+    "name": "browse",
+    "description": "Give your agent a real browser: navigate, click, type, screenshot, and extract data from any site, locally or on Browserbase cloud browsers.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "canva",
+    "name": "canva",
+    "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "chrome-devtools-plugin",
+    "name": "chrome-devtools-plugin",
+    "description": "Reliable automation, in-depth debugging, and performance analysis in Chrome using Chrome DevTools and Puppeteer",
+    "mcpServers": []
+   },
+   {
+    "plugin": "context7",
+    "name": "context7",
+    "description": "Up-to-date documentation lookup. Pull version-specific documentation and code examples directly from source repositories into your LLM context.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "creator-studio",
+    "name": "creator-studio",
+    "description": "High-conversion viral social creator studio: Reels scripts, 10-slide viral carousels, caption fold hooks, profile audits, comment-to-DM triggers, and Remotion/F",
+    "mcpServers": []
+   },
+   {
+    "plugin": "figma",
+    "name": "figma",
+    "description": "Turn Figma designs into production code, map components with Code Connect, and create or edit Figma files in Antigravity.",
+    "mcpServers": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16",
+     "17",
+     "18",
+     "19",
+     "20",
+     "21",
+     "22",
+     "23",
+     "24",
+     "25",
+     "26",
+     "27",
+     "28",
+     "29",
+     "30",
+     "31",
+     "32",
+     "33",
+     "34",
+     "35",
+     "36"
+    ]
+   },
+   {
+    "plugin": "firebase",
+    "name": "firebase",
+    "description": "Prototype, build & run modern apps that users love with Firebase's backend, AI, and operational infrastructure.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "flutter",
+    "name": "flutter",
+    "description": "Official plugin for Dart and Flutter that installs Flutter/Dart Skills, Rules, Custom Agents, and Dart MCP server for building natively compiled, visually stunn",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gcalendar",
+    "name": "gcalendar",
+    "description": "Check availability, schedule events, and RSVP.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gdocs",
+    "name": "gdocs",
+    "description": "Read, draft, and edit docs.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gdrive",
+    "name": "gdrive",
+    "description": "Search, upload, download, and share files.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gemini-api",
+    "name": "gemini-api",
+    "description": "Build applications with the Gemini Interactions API and Live API, including text, image, video, and speech generation, managed agents, and real-time multimodal ",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gmail",
+    "name": "gmail",
+    "description": "Search, read, draft, and send emails in Gmail.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "google-antigravity-sdk",
+    "name": "google-antigravity-sdk",
+    "description": "Using the Google Antigravity Python SDK to build AI agents",
+    "mcpServers": []
+   },
+   {
+    "plugin": "google-developer-knowledge",
+    "name": "google-developer-knowledge",
+    "description": "Search and retrieve official documentation across Google Cloud, Gemini, Android, Firebase, Flutter, and Web. Requires Google Cloud credentials (ADC) or an API k",
+    "mcpServers": []
+   },
+   {
+    "plugin": "google_maps_platform",
+    "name": "google_maps_platform",
+    "description": "Integration skill and tools for Google Maps Platform APIs",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gsheets",
+    "name": "gsheets",
+    "description": "Read, write, and format spreadsheets.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "gslides",
+    "name": "gslides",
+    "description": "Read, edit, and export presentations.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "invideo",
+    "name": "invideo",
+    "description": "Connect your agent to invideo's AI-native video editor. It trims, grades and mixes on a real timeline while you watch every change land.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "linear",
+    "name": "linear",
+    "description": "The product development system for teams and agents. Manage issues, projects, and documents across your Linear workspace from Antigravity.",
+    "mcpServers": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16"
+    ]
+   },
+   {
+    "plugin": "mobbin",
+    "name": "mobbin",
+    "description": "Give your AI agent 600,000+ real app screens, and the skills to use them. Includes the Mobbin MCP and a skill that redesigns your screen from patterns real apps",
+    "mcpServers": []
+   },
+   {
+    "plugin": "modern-web-guidance-plugin",
+    "name": "modern-web-guidance-plugin",
+    "description": "Keep your coding agent up to date with the latest web best practices.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "multi-agent-orchestrator",
+    "name": "multi-agent-orchestrator",
+    "description": "Enterprise multi-agent organization and governance: Paperclip company org chart (CEO, Directors, Managers, Workers) across harnesses, and Claude Council Shark T",
+    "mcpServers": []
+   },
+   {
+    "plugin": "netlify",
+    "name": "netlify",
+    "description": "Build and deploy on Netlify: functions, edge functions, blobs, database, identity, forms, image CDN, caching, and AI Gateway, plus the Netlify MCP server.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "notion",
+    "name": "notion",
+    "description": "Connect Antigravity to your Notion workspace with the Notion MCP server, plus skills for research, documentation, meeting prep, specs, trackers, and project upd",
+    "mcpServers": []
+   },
+   {
+    "plugin": "postman",
+    "name": "postman",
+    "description": "Equip Antigravity with specialized Postman skills for the complete API lifecycle. Discover, design, test, document, mock, monitor, and improve APIs through agen",
+    "mcpServers": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11",
+     "12",
+     "13",
+     "14",
+     "15",
+     "16"
+    ]
+   },
+   {
+    "plugin": "qodo",
+    "name": "qodo",
+    "description": "Set up Qodo, explore code and repository history, review local changes, and resolve pull-request findings directly from Antigravity.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "reverse-engineering",
+    "name": "reverse-engineering",
+    "description": "Reverse engineering and binary deconstruction suite: Mimic API extractor (traffic-to-code SDK generator) and binary/APK decompiler for feature recreation.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "sir-autonomy",
+    "name": "sir-autonomy",
+    "description": "Zero-approval autonomous browser bridge and Windows computer use for Antigravity",
+    "mcpServers": [
+     "sir-autonomy"
+    ]
+   },
+   {
+    "plugin": "sir-ecosystem",
+    "name": "sir-ecosystem",
+    "description": "Unified orchestration plugin for Sir Ahmed's 23 enterprise workspaces, 10 Active Core Pillars, automated Meta social pipelines, and autonomous PC storage protec",
+    "mcpServers": []
+   },
+   {
+    "plugin": "sir-ecosystem-suite",
+    "name": "sir-ecosystem-suite",
+    "description": "Sir Ahmed Official AI Operator & Laptop Management Suite: multi-platform enterprise launchers, closed-source security enforcement, 3D AI brand iconography, Meta",
+    "mcpServers": []
+   },
+   {
+    "plugin": "stripe",
+    "name": "stripe",
+    "description": "Accept payments and grow your business. Stripe's official MCP server enables AI agents to manage customers, products, prices, payment links, invoices, subscript",
+    "mcpServers": []
+   },
+   {
+    "plugin": "supabase",
+    "name": "supabase",
+    "description": "Official Supabase plugin for Antigravity with Supabase skills and MCP access for project management, database work, auth, storage, and Postgres best practices.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "superpowers",
+    "name": "superpowers",
+    "description": "Make your coding agent a better engineer",
+    "mcpServers": []
+   },
+   {
+    "plugin": "unity",
+    "name": "unity",
+    "description": "Unity's official plugin for Antigravity, with curated skills for game development, monetization, and performance optimization.",
+    "mcpServers": []
+   },
+   {
+    "plugin": "vercel-plugin",
+    "name": "vercel-plugin",
+    "description": "Build and deploy web apps and AI agents on Vercel with skills for Next.js, AI SDK, and cloud services, plus the official Vercel MCP server.",
+    "mcpServers": []
+   }
+  ]
+ },
+ "antigravityMcp": {
+  "file": "C:/Users/a7med/.gemini/antigravity/mcp_config.json",
+  "keys": [
+   "chrome-devtools-mcp",
+   "dart-mcp-server",
+   "datacloud_bigquery_remote",
+   "datacloud_cloud-sql_remote",
+   "datacloud_knowledge_catalog_remote",
+   "datacloud_spanner_remote",
+   "firebase-mcp-server",
+   "github-mcp-server",
+   "gmp-code-assist",
+   "nvidia-app",
+   "sequential-thinking",
+   "ticktick",
+   "sir-autonomy"
+  ]
+ },
+ "devin": {
+  "mcpDescriptions": [],
+  "mcpNote": "descriptions.json empty ({}); Devin CLI skills are builtin (declarative-repo-setup, upload-secrets)"
+ },
+ "cline": {
+  "mcpSettings": {},
+  "mcpNote": "no cline_mcp_settings.json found under ~/.cline/data/settings"
+ },
+ "kimi": {
+  "mcpServers": [],
+  "sections": [
+   "thinking",
+   "services.moonshot_search",
+   "services.moonshot_search.oauth",
+   "services.moonshot_fetch",
+   "services.moonshot_fetch.oauth"
+  ],
+  "mcpNote": "config.toml has providers/models only, no mcp_servers tables"
+ },
+ "windsurf": {
+  "files": {},
+  "mcpNote": "no mcp_config.json found; settings in user_settings.pb (protobuf)"
+ },
+ "cursor": {
+  "files": {},
+  "mcpNote": "no mcp.json found; ~/.cursor contains only AGENTS.md and skills"
+ },
+ "goose": {
+  "note": "goose.exe installed via WinGet links; no ~/.config/goose or AppData config found"
+ },
+ "workspaceMcp": {
+  "D:/Projects/.mcp.json": [
+   "AgentsRoom-Chrome",
+   "AgentsRoom-MCP",
+   "AgentsRoom-Test-Runner",
+   "AgentsRoom-QA-Tester",
+   "AgentsRoom-Browser"
+  ],
+  "D:/Projects/.agents/mcp_config.json": [
+   "AgentsRoom-MCP",
+   "AgentsRoom-Test-Runner",
+   "AgentsRoom-QA-Tester",
+   "AgentsRoom-Chrome",
+   "everything-app",
+   "100hires",
+   "0bridge"
+  ],
+  "note": "AgentsRoom retired 2026-11-08; entries likely stale"
+ }
+}
