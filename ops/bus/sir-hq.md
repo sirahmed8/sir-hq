@@ -984,3 +984,4 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 2026-11-12 16:43 | r46-study | SIR Study: competitor matrix + FEATURE_GAPS written; shipped G1 read-progress, G2 study streak, G3 .ics calendar export; tests 16-18 added; pushed to main; local verify running (CI quota flag active)
 r49-skills-deep-4 DONE: 65/65 slice-4 deep digests written+verified, committed b3781e5 pushed to sir-hq main; report at ops/agy-runs/reports/r49-skills-deep-4.md
 2026-11-12 16:50 | devin-r49-slice3 | slice-3 deep digests 53/65 done+pushed; 12 remaining (gdocs,gdrive,gemini-*,gcp-*); resume: ops/encyclopedia/deep/PROGRESS-slice-3.md; report: ops/agy-runs/reports/r49-skills-deep-3.md
+r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSING vs slice-5.txt), pushed to sir-hq main; report at ops/agy-runs/reports/r49-skills-deep-5.md
