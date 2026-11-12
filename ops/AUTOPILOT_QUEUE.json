@@ -772,6 +772,13 @@
     "parallel_ok": true
   },
   {
+    "name": "r64-telegram-first",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
     "name": "r62-ahome-smart-sync",
     "folder": "D:/Projects/AHome",
     "title": "AHome: smart TickTick and linked-app sync with auto classification",
@@ -837,7 +844,7 @@
     "name": "r58-new-project-folders",
     "folder": "D:/Projects/_SIR",
     "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
-    "done": false
+    "done": true
   },
   {
     "name": "r61-plan-sir-business",
@@ -941,15 +948,9 @@
     "name": "r63-control-room-private",
     "folder": "D:/Projects/_SIR",
     "title": "Control Room mirror: password, Tailscale links, privacy audit",
-    "done": false,
-    "parallel_ok": true
-  },
-  {
-    "name": "r64-telegram-first",
-    "folder": "D:/Projects/_SIR",
-    "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
-    "done": false,
-    "parallel_ok": true
+    "done": true,
+    "parallel_ok": true,
+    "cancelled": "owner 2026-11-12: no public site; Control Room only on Tailscale"
   },
   {
     "name": "r65-ahome-apk-adb-updates",

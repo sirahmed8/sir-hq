@@ -115,7 +115,7 @@ def transcribe(path: Path) -> str:
             for name, value in (("model", "whisper-large-v3"), ("response_format", "json"), ("temperature", "0"),
                                 ("prompt", "كلام بالعربي المصري مع كلمات إنجليزي عن مشاريع برمجة ومنتجات SIR وتطبيقات")):
                 parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode("utf-8"))
-            parts.append((f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{path.name}"\r\n'
+            parts.append((f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{path.stem}.ogg"\r\n'
                           "Content-Type: application/octet-stream\r\n\r\n").encode("utf-8") + data + b"\r\n")
             parts.append(f"--{boundary}--\r\n".encode("utf-8"))
             req = urllib.request.Request(
