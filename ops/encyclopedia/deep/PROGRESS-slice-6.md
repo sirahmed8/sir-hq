@@ -6,6 +6,8 @@ Deep digests live in `ops/encyclopedia/deep/<skill-name>.md`.
 Status: COMPLETE — 59/59 deep digests written and verified against the slice
 list (every skill name in slice-6.txt has a matching deep/<name>.md).
 
+Also completed: **Missing-Slice-6** (r49 deep skills from `ops/encyclopedia/slices/missing-6.txt`): 11/11 deep digests written and verified (gcp-composer-troubleshooting, gcp-data-pipelines, gcp-dataflow, gcp-managed-airflow-migrations, gcp-pipeline-orchestration, gcp-pipeline-resource-provisioning, gdocs, gdrive, gemini-api-dev, gemini-live-api-dev, gemini-omni-flash-api).
+
 Done (all 59): sir-session-end, skill, skill-creator, skill-installer,
 skill-repair, skills, skills-discovery-engine, social-creator-studio,
 spanner-data, sprite-editor, sprite-segment-3x3grid, stock-analysis,
