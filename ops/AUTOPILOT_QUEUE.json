@@ -261,7 +261,7 @@
     "name": "r37-verify-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "r37 verify today's UI",
-    "done": false
+    "done": true
   },
   {
     "name": "r38-ahome-feedback2",
@@ -273,18 +273,24 @@
     "name": "r39-portfolio-copy",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "r39 Portfolio copy",
-    "done": false
+    "done": true
   },
   {
     "name": "r40-sir-ai-vision",
     "folder": "D:/Projects/SIR AI",
     "title": "r40 SIR AI vision plan",
-    "done": false
+    "done": true
   },
   {
     "name": "r41-disk-regenerable",
     "folder": "D:/Projects/_SIR",
     "title": "r41 disk regenerable",
+    "done": true
+  },
+  {
+    "name": "r42-verifier-scout",
+    "folder": "D:/Projects/_SIR",
+    "title": "r42 verifier and scouts",
     "done": false
   }
 ]
