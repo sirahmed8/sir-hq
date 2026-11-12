@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sug-or-html-simplex-tableau-svg-has--ed3bbf7f",
+    "text": "or.html SIMPLEX tableau SVG has inline min-width:580px inside a 212px-wide wrapper at 320px viewport, so ~63% of the diagram is hidden behind horizontal scroll and its labels are unreadable on phones.",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-12T04:00:01+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-the-two-search-inputs-pipeline-s-ff484c83",
+    "text": "The two search inputs (#pipeline-search, #jobs-search) still show hardcoded English placeholders and aria-labels in Arabic mode — live probe at 390px AR shows placeholder 'Filter applications...' and ",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-12T04:00:01+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-no-text-input-does-per-character-7ece94d0",
+    "text": "No text input does per-character bidi detection: every input/textarea inherits direction:rtl in Arabic mode with dir attribute null, so typing Latin company names or mixed notes keeps RTL caret/alignm",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-12T04:00:01+00:00",
+    "answered_at": null
+  }
+]

@@ -321,12 +321,18 @@
     "name": "r45-study-scout-fixes",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: scout findings",
-    "done": false
+    "done": true
   },
   {
     "name": "r45-jobs-scout-fixes",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: scout findings",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
     "done": false
   }
 ]

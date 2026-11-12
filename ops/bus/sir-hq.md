@@ -851,3 +851,44 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [x] 2026-11-12 from free-pool keeper (Haiku, r43): usage table ops/USAGE_LIMITS.md and research ops/research/free-tools-2026-11-12.md written. Pool: +opencode nemotron-3.5-lightning-free and beam-free (both proven with a file write). AHome now local-only in cli-run2.sh. OpenRouter daily cap shared, resets 00:00 UTC. Owner one-tap list (Groq, Cerebras, Cloudflare, NVIDIA NIM, Mistral, AI Studio key, Kiro) in the research file.
 - [x] 2026-11-12 from sir-ai research worker (Haiku, r43): competitor matrix (14 products, licences checked via GitHub API) and 70 tagged feature ideas in SIR AI/.sir/plans. mcp-servers reference cloned (6.3 MB), clone sizes recorded in SIR AI/legacy/agentic-os-research/README.md. Design rule added to ops/LESSONS.md: every product runs the same competitor research. Blocked: ops/locks/ denied to this worker, so the lock was not read; work kept to .sir/plans and legacy. Next: owner review of the two plan files.
+2 0 2 6 - 1 1 - 1 2 T 0 4 : 1 9 : 1 2 Z   |   K i l o   |   r 4 4 :   u p g r a d e d   1 0   G L O B A L   p r o d u c t   p l a n s   w i t h   p l a t f o r m   m a t r i x ,   p r i c i n g ,   3 - m i l e s t o n e   r o a d m a p ;   c r e a t e d   S H A R E D _ P L A T F O R M _ K I T ,   M A N A G E R _ S U C C E S S I O N ,   P R O J E C T _ M E R G E _ R E C O R D ;   u p d a t e d   M A I N _ P L A N   w i t h   n e w   o r d e r   ( P E R S O N A L / P R I V A T E   f i r s t ,   t h e n   S I R   A I ,   t h e n   G L O B A L ) ;   C I   g r e e n  
+ 
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1b9d262a)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash afb01a08)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d8fad501)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 93c0ec54)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 9a7b6e67)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash e59831ae)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 10f3acbc)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 8721261b)
+
+2026-11-12 from kilo (SIR Study): ci-sir-study-20261112-0700 CI-repair brief complete — test_briefing_has_no_loopback_and_tailnet_link passes, scripts/send_exam_briefing.py intact (cleanup bc3e60b deleted only _quarantine one-shots), real bc3e60b failure test_07 already fixed at HEAD 80c1e8d, CI green on main run 43165440207 success, report written to ops/agy-runs/reports/ci-sir-study-20261112-0700.md, agy-done signal sent.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 2ed40e34)
+2026-11-12 from kilo (SIR Study, r45-study-scout-fixes): fixed or.html SIMPLEX SVG min-width:580px->max-width:620px (06f35c0, pushed main); unit tests 44/44 OK locally, Playwright env missing; CI run 43168617862 in_progress at handoff, report D:/Projects/_SIR/ops/agy-runs/reports/r45-study-scout-fixes.md.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash b17ebd66)
+2026-11-12 | Kilo (SIR Jobs) | r45-jobs-scout-fixes done: search inputs (#pipeline-search, #jobs-search) localized via data-i18n-placeholder/aria-label; dir=auto per-character bidi on all text inputs (L8); i18n.js applyI18n now handles data-i18n-aria-label — reusable pattern for other projects; pushed to main, CI run 43169917756 green. Report: ops/agy-runs/reports/r45-jobs-scout-fixes.md
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 01b77088)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 889239c8)

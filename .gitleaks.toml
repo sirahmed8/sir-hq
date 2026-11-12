@@ -1,0 +1,12 @@
+[allowlist]
+description = "Test passwords and mock secrets in test files"
+paths = [
+    "scripts/test_backup_offsite_encrypted.py"
+]
+commits = [
+    "7a3a601fc2a9896b56d7a3e203ce40a8d34171b0"
+]
+regexes = [
+    "unit_test_mock_passphrase",
+    "test-encryption-key-12345"
+]
