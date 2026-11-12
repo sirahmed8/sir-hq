@@ -3,7 +3,7 @@
 Slice: `ops/encyclopedia/slices/slice-3.txt` (65 entries).
 Deep digests live in `ops/encyclopedia/deep/<skill-name>.md`.
 
-Done so far (46):
+Done so far (53):
 eve, excel-generator, executing-plans, extension_to_functions_codebase,
 federate-lakehouse-catalog, figma-code-connect, figma-code-workflows,
 figma-create-new-file, figma-design-to-code, figma-generate-design,
@@ -20,16 +20,19 @@ flutter-add-integration-test, flutter-add-widget-preview, flutter-add-widget-tes
 flutter-apply-architecture-best-practices, flutter-build-responsive-layout,
 flutter-fix-layout-issues, flutter-implement-json-serialization,
 flutter-setup-declarative-routing, flutter-setup-localization,
-flutter-use-http-package
+flutter-use-http-package,
+gcalendar, gcloud-auth-verification, gcp-spark, gcs-security-assessment,
+generate-deck, generate-editor-search-query, generative_ui
 
-Count check: that list is 46 names.
+Count check: that list is 53 names.
 
-Next: gcalendar (slice line 48) — then gcloud-auth-verification, the gcp-*
-block (gcp-composer-troubleshooting, gcp-data-pipelines, gcp-dataflow,
-gcp-managed-airflow-migrations, gcp-pipeline-orchestration,
-gcp-pipeline-resource-provisioning, gcp-spark), gcs-security-assessment,
-gdocs, gdrive, gemini-api-dev, gemini-live-api-dev, gemini-omni-flash-api,
-generate-deck, generate-editor-search-query, generative_ui (19 remaining).
+Next: gdocs (slice line ~58, 863-line SKILL.md at
+C:\Users\a7med\.codex\skills\gdocs\SKILL.md) — then gdrive (claude,
+258 lines), gemini-api-dev, gemini-live-api-dev, gemini-omni-flash-api
+(codex, ~450 lines each), gcp-composer-troubleshooting (251),
+gcp-data-pipelines (183), gcp-dataflow (400),
+gcp-managed-airflow-migrations (335), gcp-pipeline-orchestration (418),
+gcp-pipeline-resource-provisioning (171) — 12 remaining.
 
 Note for next worker: several SKILL.md files are large (figma-use 34KB,
 figma-generate-design 39KB, gdocs 42KB, figma-use-slides 22KB,
