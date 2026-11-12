@@ -1,0 +1,2 @@
+# Task board (ops/tasks, local only)
+inbox -> active -> review -> done, reports in ops/tasks/reports. Manager (Claude or the backup manager) drops task files in inbox with `python scripts/taskboard.py add ...` or by writing a file; the autopilot queues them; free tools claim, note, hand off, finish and review each other (WORKER_PREAMBLE rules 23 and 24). The manager reads ops/tasks/reports and adds the next tasks.

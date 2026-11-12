@@ -233,6 +233,11 @@ def step(state: dict) -> None:
     if state.pop("paused_for_game", None):
         log("game ended: resumed")
     ensure_listener()
+    try:
+        import taskboard
+        taskboard.sync()
+    except Exception as e:  # the board is a view: never let it stop the autopilot
+        log(f"taskboard sync failed: {e}")
     queue = load(QUEUE, [])
     open_tasks, folders = [], set()
     for t in queue:  # first MAX_PARALLEL unfinished tasks; one per project folder unless the task is marked parallel_ok

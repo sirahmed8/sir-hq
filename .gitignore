@@ -81,3 +81,4 @@ ops/scout-evidence/
 ops/usage.log
 ops/agy-runs/*.out
 .aider*
+ops/tasks/
