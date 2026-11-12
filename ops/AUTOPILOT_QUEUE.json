@@ -487,7 +487,7 @@
     "name": "r46-laptop-manager-fix1",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "Fix failures from r46-laptop-manager verification",
-    "done": false
+    "done": true
   },
   {
     "name": "r49b-skills-deep-1",
@@ -547,7 +547,7 @@
     "name": "audit-sir-study-20261112-1401-fix1",
     "folder": "D:/Projects/SIR Study",
     "title": "Fix failures from audit-sir-study-20261112-1401 verification",
-    "done": false
+    "done": true
   },
   {
     "name": "r52-plan-sir-ai",
@@ -650,7 +650,7 @@
     "name": "r45-jobs-scout-fixes-fix1",
     "folder": "D:/Projects/SIR Jobs",
     "title": "Fix failures from r45-jobs-scout-fixes verification",
-    "done": false
+    "done": true
   },
   {
     "name": "ci-sir-study-20261112-0700-fix1",
@@ -683,7 +683,7 @@
     "name": "r54-plan-sir-price-finder",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Price Finder: premium plan, competitors, first 10 tasks",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -706,5 +706,11 @@
     "title": "SIR Business: 25+ sectors, each with its own specialised plan",
     "done": false,
     "parallel_ok": true
+  },
+  {
+    "name": "r58-new-project-folders",
+    "folder": "D:/Projects/_SIR",
+    "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
+    "done": false
   }
 ]
