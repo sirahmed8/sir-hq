@@ -95,7 +95,7 @@ All platforms share the same Firebase project and auth.
 | **M1 Core slice** | Local engine health endpoint, project create/open, transcript from a sample clip, Remotion 5s caption clip render, tests for each | `uv run pytest` green; health returns 200; MP4 file exists and ffprobe prints duration 5s; Arabic caption frame golden-image diff passes |
 | **M2 Parity with the old project** | Captions, reframing, export; scheduler for Instagram/TikTok/Facebook/Reddit via official APIs; calendar with 24-hour veto window; license table and exporter check | feature checklist from legacy ticked; media library shows license table; unapproved publish refused (test); cap test passes; audit lines append-only |
 | **M3 Security, legal, billing, owner page** | Deny-by-default rules + emulator tests, forged-token 403, billing fallback, legal pages, `/owner` analytics, credential store, Python version pin | Forged token 403 in CI; scheduler refuses unapproved draft (test); open `/owner` -> server-verified token required -> shows renders, posts, cost; pricing shows "Subscriptions launching soon" + lead capture creates one Firestore doc; no key in repo (gitleaks); both Firebase and Vercel URLs curl 200 |
-| **M4 AI** | Clip finder and caption writer with eval clips; hashtag and title helper; support assistant; thermal sentinel; batch worker | `npm run eval:caption` WER recorded; `npm run eval:script-safety` refuses false claims; support assistant refuses ungrounded answers on 10 prompts |
+| **M4 AI** | Clip finder and caption writer with eval clips; prompt-to-clip; AI B-roll (Agent Opus style); hashtag and title helper; support assistant; thermal sentinel; batch worker | `npm run eval:caption` WER recorded; `npm run eval:script-safety` refuses false claims; support assistant refuses ungrounded answers on 10 prompts |
 | **M5 Quality sweep** | 5 states on every screen, 4 locales complete (no missing keys), 4 themes, a11y audit, Lighthouse budgets, e2e for critical journeys, screenshots at 390 and 1280 in LTR and RTL; PWA approvals | Lighthouse mobile 90+ JSON saved; Playwright e2e green; screenshots archived in `.sir/evidence/`; installer smoke test on clean profile passes |
 | **M6 Release and retirement** | Rebuilt signed installer (owner certificate), update channel, platform API approvals, retire v1 folder, move `legacy/` to old projects | installer smoke test on clean VM passes; owner signs installer; scheduler live for one brand account in drafts-then-approved mode; checkpoint records both live URLs; `legacy/` moved and recorded |
 
@@ -116,3 +116,56 @@ Written and queue-ready in `ops/briefs/sir-content-creation-studio-tasks.md` (T1
 ## 11. Only the owner can do
 
 Sign in to platform developer consoles (Meta, Google/YouTube, TikTok, Reddit, X) and approve app reviews; buy domain and code-signing certificate; create payment accounts and paste keys into `.env` (never git); approve each connected brand account; rotate the legacy Firebase admin keys and personal state found in `legacy/`; lawyer review before paid launch; Search Console/Bing sign-in; Apple Developer account when iOS store submission is wanted.
+## 12. Research findings 2026-11-12 (r61)
+
+Real fetches (no search-engine scraping). Full notes: `ops/research/sir-content-creation-studio-2026-11-12.md`; competitor updates: `ops/competitors/sir-content-creation-studio.md` section 11.
+
+- Remotion licence (fetched 2026-11-12): free for individuals and companies of up to 3 people with unlimited commercial use; a Company License is required above 3 people, with a minimum of $100/mo for Remotion for Automators (batch and automated products such as video editors). v1 ships on the free license; a Pro tier that resells render capacity carries a $100/mo minimum cost line.
+- TikTok Content Posting API (fetched 2026-11-12): unaudited clients are restricted to private viewing mode; an audit is required to lift restrictions. Our drafts-only mode already covers this; the audit task must be explicit and owner-driven.
+- X (Twitter) API v2 write access may require a paid tier (Basic $100/mo). Verify before promising X publishing; default to drafts and manual post for X in v1.
+- Opus Clip 4.0 (fetched 2026-11-12): added prompt-to-clip, AI B-roll (Agent Opus) and an MCP connector on Pro. Add prompt-to-clip and AI B-roll to M4 scope; consider a read-only MCP status surface in M6.
+- CapCut pricing (checked 2026-11-12): Pro 599.99 EGP/mo, Ultra 3949.99 EGP/mo, Teams 300 EGP/mo per seat (2 seats). Region-dependent; verify in Egypt before quoting.
+- Free/local tooling: Piper TTS (offline Arabic), faster-whisper/whisper.cpp (word timestamps), FFmpeg h264_nvenc with CPU fallback, Pexels/Pixabay free stock APIs with attribution. Stock music only with a recorded commercial license; exporter blocks unlicensed audio.
+
+## 13. Screens (v1)
+
+Projects, Import, Transcript editor, Timeline, Captions, Templates, Export queue, Scheduler (ByteVibeHQ calendar), Settings, Profile, Pricing, Help, Owner dashboard, Library (stock B-roll and SFX), Brand kit, Analytics. Every screen implements the 5 states: idle, skeleton matching final geometry, empty with one CTA, error with Retry, populated (virtualized at 1,000+ items). Arabic RTL first, English second, light/dark/system/high-contrast.
+
+## 14. Data model (Firestore)
+
+Collections: users, projects, assets, transcripts, captions, templates, renderJobs, scheduledPosts, accounts (official API tokens stored server-side, encrypted), licenses (per asset), auditLog (append-only), brandKits, calendars. Deny-by-default rules, per-user claims, emulator-tested. Personal state (profile, uid, pro flag, studio.db, audio files) is never tracked in git; purged at M6.
+
+## 15. API list (local engine + web)
+
+Local FastAPI on 127.0.0.1: /health, /api/status, /api/projects, /api/transcript, /api/render, /api/render/progress, /api/assets, /api/licenses, /api/credentials (OS store round-trip). Web (Next.js): /api/auth/session, /api/drafts, /api/approve, /api/schedule, /api/publish/dry-run, /api/owner (server-verified owner token), /api/health. All auth via server-verified Firebase ID token (JWKS); owner gating by OWNER_EMAILS/OWNER_UIDS.
+
+## 16. AI features
+
+Script drafter (hook variations, retention body, CTA), thumbnail and title suggestions, caption translator (Arabic/English), local TTS first with provider fallback via ai-proxy, Whisper word-level timestamps, hashtag helper, support assistant grounded in docs/help. Fallback chain: Gemini flash-lite -> flash -> any Gemini -> OpenRouter free -> other free -> local. Per-project keys, AI_ENABLED kill switch, $3.00/day cost cap, free users 5 per rolling 24h with badge, owner unmetered. Evals: caption WER on 20 Arabic clips; script safety refuses false claims in health/finance prompts.
+
+## 17. Security and privacy
+
+Owner/admin from server-verified Firebase ID token (JWKS) plus OWNER_EMAILS/OWNER_UIDS; email path needs email_verified; fail closed when unset. Every webhook: HMAC over raw body with timestamp in signed payload, timing-safe compare, idempotent activation. No AI key, token or secret in any client bundle or git; AI only through server proxy with per-user quota. Sessions in HttpOnly + Secure + SameSite=Strict cookies, never localStorage. Rate limits on login/register/reset. Input validated with zod at every boundary. Firestore rules deny by default, per-user/per-tenant claims, tested in emulator. CSP with nonces, no unsafe-eval. gitleaks in CI and pre-commit; dependency audit; licence audit (no GPL/AGPL in proprietary code). Social tokens only server-side; encrypted in OS credential store on desktop. No X website scripting (official APIs only). Egypt PDPL 151/2020 and IP law 82/2002 compliance; cookie banner with equal Reject; account and data deletion flow.
+
+## 18. Monetisation
+
+Free: full local editing, no watermark on free export, local TTS, Whisper captions, manual timeline, 3 free cloud renders per month with watermarked corner badge if cloud is used. Pro (test price, verify with 10 creator interviews): 290 EGP/month or 2,900 EGP/year (~$6 / $60 placeholder pending FX check) - unlimited 1080p renders, kinetic subtitles, auto-publishing, cloud render queue, scheduler, brand kit, 100GB storage. Paymob (Cards, Vodafone Cash, Meeza) and Fawry. Fallback: until payment keys exist, CTA reads "Subscriptions launching soon" with email capture. Cost line: Remotion Company License minimum $100/mo if reselling render capacity above 3 people. Competitor anchors: CapCut Pro 599.99 EGP/mo, Opus Clip Pro $29/mo.
+
+## 19. Launch and marketing (12 weeks)
+
+Weeks -2 to 0: creator waitlist and landing page. Weeks 1 to 4: YouTube Shorts case study series (ByteVibeHQ flagship). Weeks 5 to 8: podcaster partnership outreach. Weeks 9 to 12: regional creator affiliate program. Arabic and English quickstart guide. Owner analytics page at /owner with real metrics only.
+
+## 20. Risks and open questions (r61, with recommended answers)
+
+- R1 Platform API approvals take time. Recommended: keep drafts-only mode until approved; owner-driven audit for TikTok.
+- R2 GPU, disk and time limits on Ahmed's laptop. Recommended: render budgets, queue with cleanup, thermal sentinel at 82C.
+- R3 Music and stock-media licensing. Recommended: only assets with a recorded licence; exporter refuses an asset with no licence row.
+- R4 Remotion licence for commercial resale. Recommended: ship v1 on the free license (up to 3 people); budget $100/mo Company License before selling Pro render capacity.
+- R5 Competitor and pricing claims. Recommended: every claim carries a link or is tagged (unsourced, verify); verify CapCut Egypt pricing before quoting.
+- R6 Personal state tracked in legacy git. Recommended: untrack and purge history at M6 (owner action only if a rewrite is needed).
+- R7 Unsigned installer. Recommended: stay unsigned until earnings allow a certificate (no budget).
+- R8 X publishing cost. Recommended: default to drafts and manual post for X in v1; enable API publishing only when the owner pays for the tier.
+- R9 Opus Clip 4.0 feature gap (prompt-to-clip, AI B-roll). Recommended: add prompt-to-clip and AI B-roll to M4 scope.
+- Q1 Should we support Arabic dialects beyond Egyptian in v1? Recommended: Egyptian Arabic first; other dialects in M5+ with eval clips.
+- Q2 Cloud render queue on free tier? Recommended: 3 free cloud renders per month with watermark; unlimited local renders.
+- Q3 Multi-tenant teams in v1? Recommended: single user + brand accounts in v1; teams in M6+.

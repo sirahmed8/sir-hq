@@ -347,3 +347,126 @@ Buy the domain; create/confirm Firebase project `sir-education-hub` sign-in and 
 Shared kit: owner-auth, billing-fallback, owner analytics, notifications, bot-link, ai-proxy, design-tokens, motion, changelog, help-center, signed-webhook, legal-pack, i18n, ui/styles/hooks, dual hosting, competitor matrix, security baseline, operations standard 26, launch package standard 24, visibility standard 27.
 
 Premium code bar: `standard/23-premium-code-bar.md`. Owner defaults: `standard/OWNER_DEFAULTS.md`. Lessons: `ops/LESSONS.md` (L1-L51). Quality charter: `plans/GEMINI_QUALITY_CHARTER.md`. AI fallback chain: `plans/AI_FALLBACK_CHAIN.md`.
+
+---
+
+## 21. Research findings (2026-11-12, rule 20 rescan)
+
+Web research performed 2026-11-12 via direct fetches (no search-engine scraping). Sources cited below; anything without a link stays "(unsourced, verify)".
+
+- **Moodle** (moodle.com, fetched 2026-11-12): open-source LMS, WCAG 2.2 AA compliant design, Moodle App with offline access, AI features positioned as "ethical AI" with humans at the centre, certified integrations ecosystem, B-Corp certified. Pricing is partner-mediated (no self-serve public tiers); MoodleCloud is the ready-to-use hosted option. Takeaway: offline app + accessibility + certified-integration model are the bar; our self-serve onboarding + Arabic-first + EGP pricing is the opening.
+- **Classera** (classera.com, fetched 2026-11-12): MENA LMS claiming 30M+ users across 45+ countries, AI + gamification + personalization pillars, LMS + ERP + payments + marketplace bundled as a "Learning Super Platform", ministries and K-12 and higher-ed and corporate solutions. Enterprise sales motion, opaque pricing. Takeaway: Classera is the regional heavyweight; we win on self-serve, transparent pricing, premium UX and integrity-first AI tutor; do not try to out-feature them on ERP.
+- **Teachable** (teachable.com/pricing, fetched 2026-11-12): course-selling platform, USD pricing Starter $39/mo, Builder $89/mo, Growth $189/mo, Custom; 7.5% transaction fee on Starter only; 7-day free trial + 30-day money-back guarantee; iOS/Android student apps; auto-graded quizzes, certificates, drip content, memberships, affiliate program; global payments and tax handling. Takeaway: Teachable sets the course-creator UX bar (certificates, drip, quiz auto-grade); our edge is institute-first (timetable, attendance, GPA, multi-tenant) and EGP pricing.
+- **Canvas (Instructure)** pricing page returned 404 on fetch 2026-11-12; Canvas stays "(unsourced, verify)" for exact tiers (sourcing task in competitor file).
+- **Egyptian PDPL 151/2020**: data inventory, legal consent, data subject rights (access, correction, deletion, portability), cross-border transfer restrictions, breach notification. Our legal pack must be marked "AI-drafted, to be reviewed by a qualified Egyptian lawyer before paid launch"; country-specific tasks carry "(unsourced, verify)" until sourced.
+- **GDPR**: lawful basis, data minimization, DPIA for minors, parental consent for under-16 (varies by member state), right to erasure, portability, DPO where required.
+- **WCAG 2.2 AA** (Moodle claim, verified as a standard): our accessibility floor; add focus-visible, 44px targets, full keyboard nav, 320px-4K, zoom 80-200%.
+- **Offline-first**: Moodle App and PWA patterns; service worker caching the whole term's timetable, materials and hall directory; "check offline readiness" in settings.
+- **AI in education**: Moodle's "human-centred AI" positioning and our integrity-first refusal (no graded work) is a differentiator; eval set of 30 Arabic+English prompts must pass 100% refusal before launch.
+- **Multi-tenant SaaS for education**: no competitor in the matrix is both self-serve and multi-tenant with per-Hub branding at fair EGP pricing; this is our positioning.
+- **Free APIs worth using (free tier, no key cost where possible)**: Firebase Auth (Google sign-in), Firebase Firestore/Storage, Gemini flash-lite/flash via the shared fallback chain, OpenRouter free models, Web Push, ICS (RFC 5545) generation client-side, PDF.js for transcript parsing, Web Speech API for pronunciation practice (local where possible).
+- **Regulations to handle before paid launch**: Egypt PDPL 151/2020, GDPR, Saudi PDPL (if expanding to KSA), COPPA-style minor consent, academic integrity (no graded-work solving).
+
+## 22. Screens (v1, detailed)
+
+All screens are multi-tenant (scoped to current Hub), Arabic RTL first then English, light/dark/system/high-contrast, five states.
+
+Public/marketing: Landing (value prop, join/create Hub CTAs), Pricing, Legal pack (privacy, terms, refunds, cookies, DPA, sub-processors, AI-use), Help center (docs/help/*.md), Status page.
+
+Auth: Sign in (Google), Sign up profile, Forgot/verify, Age/consent gate for minors.
+
+Onboarding wizard: Create Hub (8 steps), Join Hub (5 steps) - section 8.
+
+App shell: Hub switcher, top nav/bottom tabs (Dynamic Island style), global search, notifications drawer, settings.
+
+Core (per Hub): Home dashboard (today's lectures, exam countdown, urgent notice banner, quick actions), Schedule (weekly grid + day view, .ics export, offline cache), Hall directory, Materials (Course > Topic > Teacher, viewer, search, upload with agreement), Quizzes (runner, attempts, results), Practice (AI-generated from notes with citations), Flashcards (spaced repetition), Mock exam mode, Grades (gradebook, GPA simulator, transcript parser), Attendance (per session, absence tracker vs threshold), Assignments (list, submission, grading, feedback), Planner (tasks, exam countdown, daily plan 15/30/60 min), Chats (announcements, course Q&A, study groups, chat rooms), Course reviews/difficulty ratings, Marketplace (used books/tools, WhatsApp contact), Events (registration + QR pass), Certificates (view/verify), Notifications preferences.
+
+Admin (per Hub): Hub dashboard (members, courses, classes, groups, terms), Member management (roles, invite, remove), Course/class/group/term management, Schedule builder, Materials moderation + takedown queue, Quiz/assignment management, Gradebook overview, Attendance overview, Certificate templates + issuance, Branding & settings, Billing & subscription, Moderation queue, Reports, Data export/delete Hub.
+
+Teacher: My classes, Gradebook (SpeedGrader-style), Attendance marking, Announcement posting, Quiz builder, Assignment grading.
+
+Student: My classes, My grades, My attendance, My assignments, Study help, Language module (if enabled).
+
+Parent/guardian: Read-only dashboard (linked students' grades, attendance, assignments due, announcements).
+
+Owner (platform): /owner analytics (section 9), moderation escalations, Hub support inbox, cost dashboard.
+
+## 23. Firestore data model (collections)
+
+Top-level: `users/{uid}` (profile, locale, linked Hubs array), `hubs/{hubId}` (metadata, status, ownerUid), `hubs/{hubId}/branding`, `hubs/{hubId}/settings`, `hubs/{hubId}/members/{uid}` (role, joinedAt, consentRecord), `hubs/{hubId}/groups/{groupId}`, `hubs/{hubId}/courses/{courseId}`, `hubs/{hubId}/classes/{classId}`, `hubs/{hubId}/terms/{termId}`, `hubs/{hubId}/sessions/{sessionId}` (schedule), `hubs/{hubId}/materials/{materialId}` (storage path, course, topic, teacher, agreement), `hubs/{hubId}/assignments/{assignmentId}`, `hubs/{hubId}/quizzes/{quizId}` + `.../attempts/{attemptId}`, `hubs/{hubId}/grades/{gradeId}`, `hubs/{hubId}/attendance/{sessionId}_{uid}`, `hubs/{hubId}/announcements/{id}`, `hubs/{hubId}/threads/{threadId}/messages/{msgId}`, `hubs/{hubId}/certificates/{certId}`, `hubs/{hubId}/events/{eventId}` + `.../registrations`, `hubs/{hubId}/marketplace/{listingId}`, `hubs/{hubId}/reviews/{reviewId}`, `hubs/{hubId}/leads/{leadId}` (billing), `platform/analytics` aggregates, `platform/reports` (moderation), `platform/config` (limits, pricing, flags). All reads/writes scoped by Hub membership and role capability matrix; cross-Hub read fails in emulator tests. Storage paths: `hubs/{hubId}/materials/...`, `hubs/{hubId}/avatars/...`.
+
+## 24. API list (Next.js route handlers)
+
+Auth: POST /api/auth/session (verify ID token, set cookie), POST /api/auth/logout, GET /api/auth/me. Health: GET /api/health. Hubs: POST /api/hubs (create), GET /api/hubs/search, GET /api/hubs/[slug], PATCH /api/hubs/[id], POST /api/hubs/[id]/members, PATCH /api/hubs/[id]/members/[uid]/role, DELETE /api/hubs/[id]/members/[uid]. Onboarding: POST /api/onboarding/step. Materials: GET/POST /api/hubs/[id]/materials, GET /api/hubs/[id]/materials/[mid]/download (signed URL), POST /api/hubs/[id]/materials/[mid]/takedown. Quizzes: GET/POST, POST .../attempts, GET .../attempts/[aid]. Assignments: CRUD + submit + grade. Grades: GET mine, GET class (teacher), POST import-transcript (local parse, server stores). Attendance: mark, GET mine, GET class. Schedule: CRUD sessions, GET by week, GET /api/hubs/[id]/schedule.ics. Announcements/threads: CRUD + moderation. Certificates: templates CRUD, issue, verify (public GET /api/certificates/verify/[code]). Events: CRUD + register + QR. Marketplace: CRUD listings + report. Leads: POST /api/leads (validated email). AI: POST /api/ai/tutor (Hub-scoped, quota), POST /api/ai/summarize, POST /api/ai/quiz-gen, POST /api/ai/support. Owner: GET /api/owner/* (server-verified owner token, 403 otherwise), GET /api/owner/export. Moderation: POST /api/reports, GET/PATCH /api/moderation/queue. Webhooks: POST /api/webhooks/telegram (signed). All routes: rate limited, input validated (zod), server-verified auth, no client trust.
+## 25. AI features (detailed)
+
+- Tutor: explain concept, hint ladder, practice quiz gen with citations, summarize document, flashcards, answer questions about course material. Grounded in Hub's own notes + docs/help/*.md; no cross-Hub leakage.
+- Refusal: live-quiz answers, assignment solutions, exam leaks, essay writing for graded work. Eval 30 prompts (15 ar, 15 en) 100% refusal before launch; includes cross-Hub leakage prompts.
+- Quotas: free 5 questions per rolling 24h with badge "N / 5"; Pro unlimited; owner unmetered; Hub-level daily cost cap.
+- Study help: hints, practice sets, worked examples, flashcards, mock quizzes (timed, no hints during run, review after), spaced repetition, weak-topic tracking, study planner (15/30/60 min daily), mind maps from course content, transcript-to-notes (audio, where enabled).
+- Language module: grammar explanations + examples, vocabulary cards with audio, pronunciation practice (record + compare, local where possible), placement test, progress, certificate on level completion; never writes graded essays.
+- Support assistant: floating drawer, grounded only in docs/help/*.md, refuses ungrounded questions and points to help.
+- Cost: per-Hub cost tracking, daily cap in config/limits.json, AI_ENABLED kill switch, alert owner if over.
+
+## 26. Security and privacy (detailed)
+
+- Auth: Firebase Auth Google sign-in; server-verified ID token via JWKS; owner-auth pattern; HttpOnly+Secure+SameSite=Strict session cookie; no localStorage tokens; rate limits on sign-in, AI, uploads, grading.
+- Multi-tenant isolation: deny-by-default Firestore rules; cross-Hub read fails in emulator tests; capability matrix evaluated server-side.
+- Minors: Hub owner declares age range; parental/guardian consent flow before student account active for minor Hubs; consent record with timestamp + terms version; parent view opt-in, read-only, no cross-student access, audit-logged.
+- Data protection: GDPR + Egypt PDPL 151/2020; data inventory (data-inventory.yml); legal pack AI-drafted + lawyer review before paid launch; Saudi PDPL etc. as tasks; data minimization; no third-party ads; export + deletion one tap per user and per Hub; grace period + confirmation + audit log.
+- Moderation: report button on all user content; moderation queue for admins; platform owner sees only reported content with audit log; auto-hide after N reports pending review.
+- Secrets: env only; gitleaks in CI; legacy keys rotated at launch; CSP no unsafe-inline/eval; analytics only after consent; Reject All as prominent as Accept.
+- Privacy of people: AHome/Habiba never leaves AHome; no private data in plans/logs/reports.
+## 27. Monetisation (detailed)
+
+- Free for students: full timetable, hall directory, notes browsing/downloads, exams archive, quiz attempts, GPA simulator, planner, attendance tracker, 5 AI questions/24h, marketplace browsing.
+- Pro for students: 49 EGP/month or 399 EGP/year (test price "(unsourced, verify)" until 10 student interviews) - unlimited AI tutor, offline note packs, exam simulator, priority upload storage.
+- Hub trial: free time-limited trial (e.g. 30 days) full features.
+- Hub subscription: fair per-Hub or per-seat, tiered by size (teacher group / school / institute / university), EGP + USD, prices "(unsourced, verify)" until 5 Hub-owner interviews; recorded in config/pricing.json.
+- Marketplace business listing: 30 EGP/semester (from .sir/MASTER_PLAN.md, "(unsourced, verify)" as market rate).
+- Fallback: until Paymob/Fawry keys exist, CTA "Subscriptions launching soon" + email lead capture; never a broken checkout.
+- Currency: EGP primary, USD/SAR/AED auto-detected from locale/IP with manual override.
+- Owner gets all Pro free; subscription grants Hub owner all permissions; platform owner sees revenue in /owner.
+
+## 28. Launch and marketing (12-week, $0 organic)
+
+Weeks -2 to 0: student representative outreach, Obour institute contacts, beta Hub creation with real classes.
+Weeks 1-4: campus launch blitz (posters with QR to join Obour Hub, Telegram groups, WhatsApp), first 100 students, feedback loop.
+Weeks 5-8: midterm review session guides, exam countdown features, notes vault seeding from consenting classmates.
+Weeks 9-12: final exam cram-sheet release, certificate issuance for beta cohort, parent-view pilot, case study write-up.
+Channels: Telegram (daily schedule bot), WhatsApp groups, Instagram/TikTok short clips (study tips, GPA calculator demos), SEO (Arabic high-intent queries: "جدول معهد العبور", "حساب GPA معهد العبور", "ملخصات العبور", "مكان مدرج 533"), GEO (llms.txt, /facts page with department lists, course catalogs, campus locations), JSON-LD EducationalApplication schema.
+Metrics: Hubs created, students joined, DAU/WAU/MAU, materials views, quiz attempts, AI questions, attendance marks, leads captured, MRR. All real, no fake numbers.
+
+## 29. Risk register and open questions
+
+Risks (each with mitigation):
+- R1 Content rights: only notes classmates own and agree to publish; takedown form + upload agreement; default conservative.
+- R2 Paying capacity unknown: test price with interviews; keep Pro cheap; no dark patterns.
+- R3 Large legacy (62k lines, 24+ files >530 lines): port by feature, never copy wholesale; deep scan first.
+- R4 Unverified market claims: every competitor number without a link stays "(unsourced, verify)".
+- R5 Result-day traffic spikes: static/edge-cached public pages (timetable, hall directory).
+- R6 Multi-tenant isolation must be proven by emulator tests before any real Hub data.
+- R7 Parent/guardian view privacy-sensitive: opt-in only, read-only, no cross-student access, audit-logged.
+- R8 AI cost can grow with many Hubs: per-Hub cost tracking and daily cap; alert owner if over.
+- R9 Graded-work solving by AI (integrity): eval 100% refusal before launch.
+- R10 Minor consent flows add friction; needed for compliance.
+- R11 Data residency/cross-border transfer under PDPL; keep Firestore region documented.
+- R12 Abandoned Hubs (trial expired): grace period, export, archive, not delete.
+
+Open questions (with recommended default answers):
+- Q1 Domain name: obourhub.com or sir-education.com or sir-edu.com? Recommended: buy sir-education.com (short, brandable, global) and keep obourhub.com as a redirect for Obour Hub; owner buys per standard 24.
+- Q2 First Hub branding: ship Obour Institute as a seeded Hub with emerald palette from the deep plan, or neutral default? Recommended: emerald palette for Obour Hub only, neutral default for new Hubs.
+- Q3 Storage backend: Firebase Storage now, R2 as scale alternative behind ADR if egress costs bite. Recommended: Firebase Storage v1, ADR gate at $50/mo egress.
+- Q4 Mobile build tooling: Capacitor (per platform matrix) vs PWA-only for v1? Recommended: PWA-only v1, Capacitor M5-M6 as planned.
+- Q5 Language module v1 scope: English + Arabic for non-natives only, or more? Recommended: English + Arabic for non-natives v1; French/German as v1.1.
+- Q6 Transcript parser: local in browser only (privacy) - keep as planned, never server-side.
+- Q7 Marketplace module: optional per Hub, WhatsApp contact direct (no in-app chat for marketplace) - keep as planned.
+- Q8 Parent view default: disabled by default, Hub admin enables - keep as planned.
+- Q9 AI daily cap value: $2/day platform-wide initially, per-Hub sub-cap - recommended.
+- Q10 Certificate verification: public verify-by-code page, no auth - recommended.
+
+## 30. Skills and standards (refreshed)
+
+Shared kit: owner-auth, billing-fallback, owner analytics, notifications, bot-link, ai-proxy, design-tokens, motion, changelog, help-center, signed-webhook, legal-pack, i18n, ui/styles/hooks, dual hosting, competitor matrix, security baseline, operations standard 26, launch package standard 24, visibility standard 27, accessibility (WCAG 2.2 AA), offline-first PWA.
+
+Skills from ops/SKILLS_INDEX.md used (refreshed): sir-skill-library, taste-design-engine, anti-vibecoded-design-system, emil-motion-impeccable, cognitive-product-intuition, modern-ui-ux-design-system, high-conversion-copywriting, mobile-ergonomics-polish, firebase_auth_basics, firebase_firestore, firestore_rules_creation, firebase_security_rules_auditor, firebase_basics, firebase_hosting_basics, firebase_crashlytics, firebase_remote_config_basics, vibe-auth-hardening, zero-trust-security-hardening, legal-compliance-shield, omniroute-resilience-gateway, database-reliability-transactions, production-engineering-standards, react-best-practices, nextjs, verification, skills-discovery-engine, modern-web-guidance, a11y-debugging, chrome-devtools, firebase_ai_logic_basics, gemini-api-dev, retrieving-developer-knowledge, commercial-app-blueprint, env-vars, routing-middleware, chat-sdk.

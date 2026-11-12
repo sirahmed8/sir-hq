@@ -831,7 +831,7 @@
     "name": "r61-plan-sir-cars",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Cars: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -845,7 +845,7 @@
     "name": "r61-plan-sir-controller",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Controller: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {

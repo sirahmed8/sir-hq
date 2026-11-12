@@ -6,7 +6,7 @@ SIR Hagoozat takes the whole booking family: football pitch booking and every ot
 
 - The decision for every booking idea is done in this round and written in section 3.4 below: every idea is marked "module of SIR Hagoozat" or "separate product", with the reason in one line.
 
-**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Supersedes the r44 text of this file, which the git history keeps. Extended the same day by round r53c: the two sides side by side (3.5), the payments readiness ladder (5.5.1), the calendar, notifications and reviews rules (5.8), and the final decision for every unplanned idea, which now lives in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md`. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
+**Version 1.0.0.** Audited and rewritten 2026-11-12 (round r52, HQ). Extended the same day by rounds r53c and r61: r61 added the second research pass (Yalla Hagz's 2026 rebuild, Kourtiva's published AED pricing, Courty and Tahgzly, sourced Paymob/Maps/WhatsApp rates, PDPL Executive Regulations), the parity rows for Kickoffs, Team Fillups, Squads, waitlist, weather voucher, WhatsApp updates and the owner AI assistant, the Firestore data model (5.5.2), the API surface (5.9), the PDPL and payment-rail gates (5.10), the open-questions table (11.1), the launch and marketing phases (12), and the task list grew to 50 in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`. Supersedes the r44 text of this file, which the git history keeps. Extended the same day by round r53c: the two sides side by side (3.5), the payments readiness ladder (5.5.1), the calendar, notifications and reviews rules (5.8), and the final decision for every unplanned idea, which now lives in `D:/Projects/_SIR/plans/BACKLOG_IDEAS_DECISIONS.md`. The canonical competitor study is `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md` (opened sources dated 2026-11-12). The first ten build tasks for the free agents are in `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`.
 
 **Truth rule for this plan.** Nothing here is called working unless a reviewer saw it today. The product has never been built: `D:\Projects\SIR Hagoozat` holds the kit files, three legacy apps and nothing that runs. Verified today: the private GitHub repo `sirahmed8/sir-hagoozat` exists, default branch `main`, last update 2026-11-09 (checked with `gh repo view`). Not verified: the Firebase project for this product does not exist yet (no `.firebaserc` in the product folder, and the Firebase CLI was not on the PATH in the round that wrote this plan).
 
@@ -75,6 +75,14 @@ Full table with sources, dates and the second ring of competitors: `D:/Projects/
 | Arabic Egyptian first, English second | The clearest local gap | Kourtiva is formal, the rest are English-first |
 | Support assistant grounded in the venue rules | Cuts owner support time | SHARED_PLATFORM_KIT help-center |
 | Data export and one-tap account deletion | Legal and trust baseline | Yalla Hagz has a deletion page, we need both |
+| Solo Kickoff: a host books a pitch and the app balances and invites solo players | Yalla Hagz made this table stakes in 2026; it converts browsers who have no squad | Parity row added 2026-11-12 |
+| Team Fillup: post the open spots on a booking you already hold, players request to join with profile, position and level shown | Yalla Hagz Team Fillups; Kourtiva open matches | Parity row added 2026-11-12 |
+| Squad (crew) with one-tap RSVP for the weekly match | Yalla Hagz Squads; Hareefa one-tap rebook | Parity row added 2026-11-12 |
+| Waitlist with auto-promotion when a slot frees | Category trend 2026; nobody in Egypt does it visibly | Our gap |
+| Weather or closure reschedule voucher | Pitch closures in rain are common in Cairo winter | Legacy idea HZ-115, now planned |
+| Per-court ratings and reviews written by players who played there | Yalla Hagz shows court ratings; we add the proof rule | Section 5.8 already requires proof |
+| WhatsApp booking updates as opt-in utility templates | Every Egyptian player lives in WhatsApp; Meta utility rate for Egypt is about US$0.0036 per message (sourced 2026-11-12) | Cheaper than SMS, opt-in only |
+| Owner AI assistant that answers from the venue's own numbers | Thril and venue software trend 2026; must stay read-only plus draft actions | Section 5.4 scoped |
 
 ### 3.2 The owner's own ideas, carried forward from legacy and TickTick
 
@@ -262,6 +270,33 @@ Money is the last thing that goes live and the first thing that must never be wr
 
 Rules: no real charge before step 5. Every amount is computed on the server and never in the client. A deposit is refunded in full when the venue cancels. The refund path is proven with the test card before a real card exists. The fee schedule of each gateway is read on the official page on the day it is used, and until then it is "(unsourced, verify)" and it never appears on a pricing page.
 
+#### 5.5.2 Data model (Firestore collections)
+
+One collection per aggregate, ids are Firestore document ids, every document carries `createdAt`, `updatedAt` and `schemaVersion`. Money is stored as integer piastres plus a currency code, never floats. Timestamps are server timestamps; slot times additionally store the venue IANA timezone.
+
+| Collection | Key fields | Access rule |
+|---|---|---|
+| `users` | phone (private until booking), displayName, locale, skillLevel, positions, createdAt | self read/write of profile fields; stats computed, not stored raw |
+| `venues` | ownerId, name, address, geo, phone, houseRules, cancellationPolicy, commissionPlan, status | owner writes; public reads only published fields |
+| `pitches` | venueId, name, sport, surface, size, amenities[], photoUrls[], pricePeriods[] {days, startMin, endMin, pricePiastres}, status | public read when published; owner writes |
+| `slots` | pitchId, startsAt, endsAt, status {open, held, booked, blocked}, holdExpiresAt, pricePiastres, waitlistCount | public read; writes only through booking transactions |
+| `bookings` | slotId, venueId, organiserId, memberIds[], status {held, confirmed, played, cancelled, no_show}, depositPiastres, idempotencyKey, qrRef | members and venue owner read; organiser manages |
+| `bookingMembers` | bookingId, userId, sharePiastres, paidPiastres, position, level, status | self + organiser + venue owner read |
+| `deposits` | bookingId, userId, amountPiastres, gateway, status {pending, submitted, verified, rejected, refunded}, receiptPath (private) | self + venue owner; receipt via signed URL only |
+| `openMatches` | bookingId or standalone, spotsNeeded, positionsNeeded, levelRange, expiresAt, status | public read when open; join requests are transactions |
+| `squads` | ownerId, name, memberIds[], weeklySlotTemplate | members read/write own squad |
+| `waitlist` | slotId, userId, position, notifiedAt, status | self + slot owner reads |
+| `matches` | bookingId, score, scorers[], playedAt, status | participants read; organiser writes result |
+| `ratings` | targetType {venue, pitch, player}, targetId, bookingId, score, text, repliedBy | public read aggregates; one per booking enforced |
+| `tournaments` | venueId, format {knockout, league, round_robin}, teams[], status, bracketState | participants read; organiser writes |
+| `ledger` | venueId, kind {cash, online, refund, fee}, amountPiastres, bookingId?, offlineId?, syncedAt | venue owner only; offlineId dedupes sync |
+| `notifications` | userId, kind, channel, payloadRef, sentAt, status | self read; system writes |
+| `subscriptions` | userId or venueId, plan, status, gatewaySubscriptionId, currentPeriodEnd | self + owner admin |
+| `leads` | email, source, createdAt | write-only public; owner reads |
+| `aiUsage` | userId, feature, provider, tokensIn, tokensOut, costMicroUsd, dayBucket | self summary; owner aggregate |
+
+Indexes needed on day one: `slots(pitchId, startsAt)`, `slots(status, startsAt)`, `bookings(venueId, startsAt)`, `bookings(memberIds array-contains, status)`, `openMatches(status, expiresAt)`, `ledger(venueId, createdAt)`, `waitlist(slotId, status)`. Every query that filters on a second field gets a compound index, and the emulator test suite asserts the index list matches the queries in code.
+
 ### 5.6 Hosting and delivery
 
 - **Firebase Hosting** is primary. **Vercel** is the second host, the same repository imported with the Vercel CLI, the same build, the same environment variables on both. Both addresses are curl-checked and written into the project checkpoint.
@@ -294,7 +329,7 @@ Firestore rules deny by default. Server-side checks on every mutation. zod valid
 | The deposit verdict | Push and email | the player and the owner | when the owner verifies or rejects the receipt |
 | The owner's day digest | Email or Telegram, at a round time | the owner | once a day, and only when it has something in it |
 
-Rules: quiet hours come from the venue's own rules, one message per event, no marketing messages in any tier, the same message in Arabic and English, a visible stop in every message, and a message that is never sent for a booking that no longer exists.
+Rules: quiet hours come from the venue's own rules, one message per event, no marketing messages in any tier, the same message in Arabic and English, a visible stop in every message, and a message that is never sent for a booking that no longer exists. WhatsApp is an opt-in channel: each player enables it per booking type, messages go out as Meta utility templates (booking confirmation, reminder, deposit verdict), the per-message cost is logged against the AI and ops cost budget, and push plus email remain the free default so no user is charged for a message they did not ask for.
 
 **Reviews.** A review is a claim about a real event, so it needs a real event behind it.
 
@@ -305,6 +340,50 @@ Rules: quiet hours come from the venue's own rules, one message per event, no ma
 - The venue can reply once per review. A review is never deleted silently: a removed review says why, and the history stays visible to the owner of the venue.
 - No average rating is shown for an entity with fewer than three reviews, because two reviews are not a reputation. It shows "new on SIR" instead.
 - AI never writes a review, never edits one and never answers with one.
+
+### 5.9 API surface (v1)
+
+One typed REST surface under `/api/v1`, the same one the Expo app, the PWA and the future owner integrations call. Every route validates input with zod, authenticates with the Firebase ID token, and is rate-limited. Server-only routes (webhooks, cron, AI proxy) live on the functions side and never ship in the static bundle.
+
+| Route | Method | Purpose | Auth |
+|---|---|---|---|
+| `/api/v1/pitches` | GET | List pitches with filters (area, sport, price, availability window) | public, rate-limited |
+| `/api/v1/pitches/:id` | GET | Pitch detail with photos, amenities, price periods, house rules | public |
+| `/api/v1/pitches/:id/slots` | GET | Live slot availability for a date range | public |
+| `/api/v1/pitches/:id/slots/:slotId/hold` | POST | Take the 15-minute hold before checkout | user |
+| `/api/v1/bookings` | POST | Create a booking (idempotency key required) | user |
+| `/api/v1/bookings/:id` | GET, PATCH | Booking detail, cancel inside the published window | owner of booking |
+| `/api/v1/bookings/:id/split` | POST | Per-player share requests inside an open match | booking member |
+| `/api/v1/bookings/:id/qr` | GET | Signed offline QR pass payload | booking member |
+| `/api/v1/open-matches` | GET, POST | List and create Team Fillup / open match posts | user |
+| `/api/v1/open-matches/:id/join` | POST | Request to join with position and level | user |
+| `/api/v1/squads` | GET, POST, PATCH | Crew management and weekly RSVP | user |
+| `/api/v1/waitlist` | POST, DELETE | Join or leave a slot waitlist | user |
+| `/api/v1/deposits` | POST | Register a deposit intent and receipt upload URL | booking member |
+| `/api/v1/deposits/:id/receipt` | POST | Upload the private receipt (signed URL flow) | booking member |
+| `/api/v1/payments/webhook/:gateway` | POST | Paymob, Fawry, InstaPay callbacks, HMAC verified | gateway signature |
+| `/api/v1/me` | GET, PATCH, DELETE | Profile, passport stats, data export, account deletion | user |
+| `/api/v1/me/bookings` | GET | Own bookings and passes | user |
+| `/api/v1/venues/:id/console` | GET | Owner day view: bookings, money due, empty slots | pitch owner |
+| `/api/v1/venues/:id/slots` | POST, PATCH | Publish, price and block slots | pitch owner |
+| `/api/v1/venues/:id/deposits` | GET, POST | Deposit verification queue | pitch owner |
+| `/api/v1/venues/:id/ledger` | GET, POST | Cash register entries, offline sync endpoint | pitch owner |
+| `/api/v1/tournaments` | GET, POST | Tournament list and creation | user / owner |
+| `/api/v1/tournaments/:id/bracket` | GET | Bracket and standings | public |
+| `/api/v1/tournaments/:id/results` | POST | Enter a result, advance the bracket | organiser |
+| `/api/v1/notifications/prefs` | GET, PATCH | Per-kind, per-channel switches | user |
+| `/api/v1/owner/analytics` | GET | Aggregate owner metrics | owner only |
+| `/api/v1/leads` | POST | Pricing-page email capture | public, rate-limited |
+| `/api/v1/ai/*` | POST | Position coach, balance explanation, support assistant (proxied, metered) | user, quota |
+| `/api/health` | GET | Liveness and dependency status | public |
+
+Rules for the surface: no route returns another tenant's data (enforced in rules and re-checked in handlers), money amounts are computed server-side only, every mutating route is idempotent or explicitly rejects a replay, and the OpenAPI description plus `llms.txt` ship with the site so search and AI answer engines can read the product.
+
+### 5.10 Legal baseline, Egypt PDPL and launch gates
+
+- Firestore rules deny by default. Server-side checks on every mutation. zod validation at every boundary. No secrets in git, gitleaks in CI. A CSP without `unsafe-inline` and without `unsafe-eval`. Analytics load only after consent, with Reject All as prominent as Accept. One-tap data export and one-tap deletion. Rate limits on auth, booking, uploads, AI and webhooks. No fake data in any path a user can see.
+- **Egypt PDPL 151/2020 (updated 2026-11-12):** the Executive Regulations took effect 2025-11-01 with a grace period ending 2026-10-31. Before real Egyptian user data is collected the product needs: a licence from the Personal Data Protection Centre (including the cross-border transfer position, because Firestore stores data outside Egypt), an appointed data-protection contact, consent records for every marketing message, a breach-notification runbook with the law's timelines, and financial data treated as sensitive (deposit and payment records get the strictest handling and shortest retention that still serves the ledger). The legal pack must state all of this; the lawyer review covers it before M6.
+- **Payment rails:** Paymob publishes 2.75% + 3 EGP per transaction with weekly settlement (sourced 2026-11-12); Fawry is contract-quoted ("(unsourced, verify)"). On a small deposit the fixed 3 EGP plus 14% VAT on the fee is material, so the pricing page shows the net math and the plan never silently absorbs gateway costs.
 
 ---
 
@@ -520,6 +599,10 @@ Picked from `D:/Projects/_SIR/ops/SKILLS_INDEX.md` and the digests in `D:/Projec
 ## 11. Risks and the defaults we take
 
 - **Two-sided cold start.** Default: one area with 3 to 5 real pitches and real owners before any advertising or search push. No marketing before the sourcing tasks in the competitor file are done.
+- **Yalla Hagz moved faster than planned.** Their 2026 rebuild added Kickoffs, Team Fillups, Squads, wallet and rewards, and they hold the App Store Sports chart in Egypt. Default: our differentiators narrow to what they structurally lack — Egyptian dialect, per-player split payment at join time, owner analytics and cash register, offline-first, and proven reviews — and the plan adds the parity rows (Kickoffs, Fillups, Squads) so we do not lose on table stakes.
+- **Kourtiva published owner pricing.** AED 75 to 369 per month (about EGP 1,000 to 4,800 at the plan's test rate, "(unsourced, verify)" for the conversion) is far above our 450 EGP Venue Pro test price, but they are UAE-facing with a demo-request sales motion. Default: keep the EGP price, win on self-serve sign-up and Egyptian payment rails, and never claim we are cheaper until the exchange rate is verified on the day.
+- **Gateway fees eat small deposits.** Paymob's published 2.75% + 3 EGP plus 14% VAT on the fee means a 100 EGP deposit loses about 7% to the gateway. Default: deposits are priced to cover the gateway cost or the venue absorbs it as a published plan benefit; the math is shown before launch, never hidden.
+- **PDPL enforcement is live.** Executive Regulations effective 2025-11-01, grace until 2026-10-31, licences required for cross-border transfers and marketing. Default: treat licensing and the data-protection officer as M6 launch gates; do not collect real Egyptian personal data in production before the lawyer signs off.
 - **Receipt fraud on manual payment.** Default: manual verification queue, no auto-approval, a phone number visible to the owner only after a booking.
 - **Port volume.** Three apps, 3,014 files. Default: port by feature behind the parity matrix, never copy files across.
 - **The real market already has good products.** Yalla Hagz, Hareefa and Kourtiva are live. Default: win on Egyptian Arabic, the split bill, the open match, offline and the owner numbers, not on features we cannot verify.
@@ -527,9 +610,38 @@ Picked from `D:/Projects/_SIR/ops/SKILLS_INDEX.md` and the digests in `D:/Projec
 - **Gateway and tax numbers.** Default: every one of them is "(unsourced, verify)" until read on the official page on the day it is used.
 - **Static export killing the server.** Default: no secret ever in a route handler that a static host would drop; the server features run on the functions side from M1.
 
+### 11.1 Open questions, and the answer we take
+
+| Question | Recommended answer |
+|---|---|
+| Do we charge players anything in v1? | No. Player Free covers the whole core loop; Player Pro at the 59 EGP test price unlocks convenience features only after the venue side proves revenue. A player paywall before venues exist starves the marketplace. |
+| Commission or subscription for venues? | Subscription only, per the fairness rules. Kourtiva sells subscriptions; Yalla Hagz takes commission. We take subscription so the owner never pays twice on the same booking. |
+| WhatsApp or Telegram for the owner digest? | Telegram for the owner (free, already used by HQ tooling), WhatsApp utility templates for players who opt in (about US$0.0036 per message, sourced 2026-11-12). |
+| PWA-only or native from day one? | PWA in M1-M3, Expo in M4. The PWA must be good enough that the native app is an upgrade, not a rescue. |
+| One sport or multi-sport at launch? | Football 5-a-side first, padel and padbol as the same slot engine in M5. The slot model already carries `sport`; the UI does not pretend to be multi-sport before the venues exist. |
+| Egyptian-only or international at launch? | Egypt first (Arabic dialect, EGP, Paymob/Fawry/InstaPay), English always present. The global claim stays honest: the product works anywhere a venue lists it, but marketing spends only where venues are. |
+| PDPL licence before or after launch? | Before collecting real Egyptian personal data at scale. Development and emulator data are unaffected; the M6 gate requires the licence path answered by the lawyer. |
+| Do we build the position coach before or after the booking core? | After. It is an M5 AI feature riding on real match data; shipping it early produces suggestions with no data behind them. |
+
 ---
 
-## 12. Only the owner can do
+## 12. Launch and marketing
+
+The launch is a supply-side beachhead, not a billboard campaign. Order matters: venues first, players second, paid anything last.
+
+**Phase L0 (before any public page):** 3 to 5 real pitches in one area (New Cairo or Maadi, decided by where the owner can physically visit), each with a written agreement, real photos, real prices and a named owner contact. The pitch pages go live only when the data is real.
+
+**Phase L1 (quiet launch):** the site and the PWA go live on both hosts, Arabic first. The owner personally onboards the first venues (the owner-actions list in section 13 covers the accounts). No ads, no influencer spend. The first players arrive through the venues' own WhatsApp groups and the "book without calls" pitch to owners.
+
+**Phase L2 (first community):** one area, one weekly recurring match per venue, the Squad feature doing the retention work. Owner testimonials with numbers (utilisation, no-shows) become the sales material for the next five venues.
+
+**Phase L3 (paid and broader):** only after M6 gates pass (lawyer, PDPL path, real charge proven). Channels in order: venue-owner outreach (the buyer), player WhatsApp community seeding in the covered areas, Arabic SEO on the queries in the DEEP plan section 5.4 ("حجز ملاعب كرة قدم القاهرة" and the slang variants), `llms.txt` and structured `SportsApplication` JSON-LD for AI answer engines, and the 12-week calendar sketched in `plans/sir-hagoozat-DEEP.md` section 5.4.
+
+**Marketing rules:** no fake players, fake pitches, fake ratings or invented counters anywhere a user can see (the "50K players" claims of competitors are exactly what we refuse to copy). Every published number is real and dated. Arabic copy is Egyptian dialect for players; MSA only in legal pages. No marketing messages to users who did not opt in (PDPL consent records). No ad spend until the owner approves a cap; the default cap is 0.
+
+---
+
+## 13. Only the owner can do
 
 Buy the domain and point it at both hosts. Create and fund the Paymob and Fawry business accounts and paste the keys into the project's ignored env file. Sign in once on the Google OAuth screen so the branding is right. Talk to three real pitch owners, or approve the outreach text. Lawyer and accountant. Buy the code-signing certificate later. Create the Play Console and Apple developer accounts when the reinvestment ladder allows.
 
@@ -537,7 +649,7 @@ Everything else is an agent's job.
 
 ---
 
-## 13. Sources and files
+## 14. Sources and files
 
 - Canonical competitor study with dated links: `D:/Projects/_SIR/ops/competitors/sir-hagoozat.md`
 - The ten build briefs: `D:/Projects/_SIR/ops/briefs/sir-hagoozat-tasks.md`
