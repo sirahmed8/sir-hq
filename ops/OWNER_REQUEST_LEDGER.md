@@ -137,3 +137,5 @@ One line per distinct request or standing rule. Status is what files show today,
 | 11-12 | خلص اخر المهام الي بعتهالك ف التيلي هنا وخلي عندك context window لشات تيليجرام عشان تبقى فاهم الشات عادي | DONE | reply-739920726; backup manager reviewed recent chat context |
 - 2026-11-12 21:15 voice: transcriber misses English words; asked about Telegram bot profile photo quality task -> queued r66-bot-profile-photo
 - 2026-11-12 21:18 voice: wants clean organized Telegram message format, no symbols inside words; verify transcription is not hallucinating -> fixed whisper prompt bias + added reply cleaner in backup_manager.py
+
+| 11-12 | Voice: transcription sometimes hangs, keep developing it; keep workers finishing tasks and queue new ones so they never run dry | DONE | backup_manager.py transcribe hard cap + interim message; queued r67-build-sir-portfolio and r67-voice-pipeline-verify |

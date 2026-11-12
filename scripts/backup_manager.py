@@ -114,8 +114,9 @@ def download(file_id: str, dest: Path) -> Path:
     return dest
 
 
-def transcribe(path: Path) -> str:
-    """Arabic (Egyptian) and English speech to text. Groq whisper first, Cloudflare whisper second."""
+def _transcribe_inner(path: Path) -> str:
+    """Groq whisper first, Cloudflare whisper second. Short timeouts so a stalled
+    call cannot hold the owner for minutes (owner complaint 2026-11-12)."""
     data = path.read_bytes()
     if KEYS.get("GROQ_API_KEY"):
         try:
@@ -131,7 +132,7 @@ def transcribe(path: Path) -> str:
                 "https://api.groq.com/openai/v1/audio/transcriptions", data=b"".join(parts),
                 headers={"Authorization": f"Bearer {KEYS['GROQ_API_KEY']}", "Content-Type": f"multipart/form-data; boundary={boundary}",
                          "User-Agent": "sir-hq/1.0"})
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=75) as r:
                 text = json.loads(r.read().decode("utf-8")).get("text", "").strip()
             if text:
                 return text
@@ -145,11 +146,32 @@ def transcribe(path: Path) -> str:
             req = urllib.request.Request(
                 f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/run/@cf/openai/whisper-large-v3-turbo", data=body,
                 headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=180) as r:
+            with urllib.request.urlopen(req, timeout=120) as r:
                 return json.loads(r.read().decode("utf-8"))["result"].get("text", "").strip()
         except Exception as e:  # noqa: BLE001
             log(f"cloudflare whisper failed: {e}")
     return ""
+
+
+def transcribe(path: Path) -> str:
+    """Hard-capped wrapper: even if a provider socket stalls, the owner waits
+    at most TRANSCRIBE_BUDGET seconds before the fallback message is sent."""
+    TRANSCRIBE_BUDGET = 210
+    box: dict = {}
+
+    def work():
+        try:
+            box["text"] = _transcribe_inner(path)
+        except Exception as e:  # noqa: BLE001
+            log(f"transcribe crashed: {e}")
+
+    t = threading.Thread(target=work, daemon=True)
+    t.start()
+    t.join(TRANSCRIBE_BUDGET)
+    if t.is_alive():
+        log("transcribe timed out, giving up on this voice")
+        return ""
+    return box.get("text", "")
 
 
 def describe_image(path: Path) -> str:
@@ -262,6 +284,7 @@ def main() -> int:
         note = ""
         if kind == "voice":
             f = download(payload["file_id"], MEDIA / f"voice-{pid}.ogg")
+            send("[بسمع الفويس]")
             heard = transcribe(f)
             if not heard:
                 send("[المدير الاحتياطي] مقدرتش أسمع الفويس كويس. ابعته تاني أو اكتبها.")

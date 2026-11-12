@@ -899,7 +899,7 @@
     "name": "r61-plan-sir-life",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Life: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -958,5 +958,24 @@
     "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
     "done": false,
     "parallel_ok": false
+  },
+  {
+    "name": "r66-bot-profile-photo",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram bot: high-quality profile photo",
+    "done": false
+  },
+  {
+    "name": "r67-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: continue building from checkpoint",
+    "done": false
+  },
+  {
+    "name": "r67-voice-pipeline-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify Telegram voice pipeline after hang fix",
+    "done": false,
+    "parallel_ok": true
   }
 ]

@@ -233,3 +233,6 @@ Owner asked to close out last Telegram requests and keep full Telegram chat cont
 
 ## HQ note (2026-11-12 21:25) [backup manager]
 Owner complained Telegram replies look messy (symbols breaking words) and voice transcript hallucinates "SIR products and translation apps". Fixed: whisper prompt hint neutralized in scripts/backup_manager.py, added clean() strip of markdown symbols before send, persona formatting rules added. Verified transcribe() on voice-739920732.oga.
+
+## HQ note (2026-11-12 21:35) [backup manager]
+- Ahmed: voice transcription sometimes hangs; wants workers kept busy with queued follow-up tasks. Fixed transcribe() in scripts/backup_manager.py (210s hard cap thread, Groq 75s, CF 120s, interim listening message). Queued r67-build-sir-portfolio (D:/Projects/SIR Portfolio) and r67-voice-pipeline-verify (_SIR, parallel_ok).
