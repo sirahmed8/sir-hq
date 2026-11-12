@@ -712,5 +712,101 @@
     "folder": "D:/Projects/_SIR",
     "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
     "done": false
+  },
+  {
+    "name": "r60-build-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-business",
+    "folder": "D:/Projects/SIR Business",
+    "title": "SIR Business: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-cars",
+    "folder": "D:/Projects/SIR Cars",
+    "title": "SIR Cars: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-content-creation-studio",
+    "folder": "D:/Projects/SIR Content Creation Studio",
+    "title": "SIR Content Creation Studio: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-controller",
+    "folder": "D:/Projects/SIR Controller",
+    "title": "SIR Controller: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-education-hub",
+    "folder": "D:/Projects/SIR Education Hub",
+    "title": "SIR Education Hub: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-hagoozat",
+    "folder": "D:/Projects/SIR Hagoozat",
+    "title": "SIR Hagoozat: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-handyman",
+    "folder": "D:/Projects/SIR Handyman",
+    "title": "SIR Handyman: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-life",
+    "folder": "D:/Projects/SIR Life",
+    "title": "SIR Life: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-modpack",
+    "folder": "D:/Projects/SIR ModPack",
+    "title": "SIR ModPack: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-mods-gta-v",
+    "folder": "D:/Projects/SIR Mods for GTA V",
+    "title": "SIR Mods for GTA V: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-movies",
+    "folder": "D:/Projects/SIR Movies",
+    "title": "SIR Movies: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: rescan, then build from the first task",
+    "done": false
   }
 ]
