@@ -19,7 +19,7 @@ GAME = Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json")
 CLAUDE = Path.home() / ".local" / "bin" / "claude.exe"
 NO_WINDOW = 0x08000000
 OFFSETS = {"fajr": ("Fajr", 3), "health_asr": ("Asr", 10), "isha_summary": ("Isha", 15), "health_isha": ("Isha", 75)}
-MODEL = {"fajr": "sonnet", "isha_summary": "sonnet", "health_asr": "haiku", "health_isha": "haiku"}
+MODEL = {"fajr": "haiku", "isha_summary": "haiku", "health_asr": "haiku", "health_isha": "haiku"}
 
 
 def log(msg: str) -> None:
