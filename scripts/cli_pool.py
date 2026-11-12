@@ -42,17 +42,12 @@ POOL = [
     "agy|gemini-3.8-flash-high",
     "agy|gpt-oss-120b-medium",
     "agy|claude-sonnet-4-6",
-    "qwen|qwen3:8b",
-    "goose|qwen3:8b",
-    "qwen|qwen3:4b",
-    "goose|qwen3:4b",
-    "crush|ollama/qwen3:8b",
-    "crush|ollama/qwen3:4b",
     "cline|reflection/beam-free",
     "gemini|default",
-    "aider|ollama/qwen3:8b",
+    "aider|gemini/gemini-flash-lite-latest",
+    "aider|gemini/gemini-flash-latest",
 ]
-LOCAL_TOOLS = {"qwen", "goose", "crush", "aider"}
+LOCAL_TOOLS = {"qwen", "goose", "crush"}
 LIMIT = re.compile(r"usage limit|rate limit|too many requests|quota|out of credits|hit your usage limit|\b429\b", re.I)
 OPENROUTER_DAY = re.compile(r"free-models-per-day", re.I)
 REFUSED = re.compile(r"rejected a tool call that requires confirmation", re.I)

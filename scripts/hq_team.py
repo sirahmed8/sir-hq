@@ -174,6 +174,13 @@ def run_agent(pick: str, prompt: str, cwd, tag: str, timeout: int = 1800) -> tup
 
     env = os.environ.copy()
     tool, model = pick.split("|", 1)
+    if tool == "aider":
+        try:
+            for line in open("D:/Projects/_SIR/_local/api-keys.env", encoding="utf-8"):
+                if line.startswith("GOOGLE_AI_STUDIO_KEY="):
+                    env["GEMINI_API_KEY"] = line.split("=", 1)[1].strip()
+        except OSError:
+            pass
     if tool == "qwen":
         env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama",
                     "OPENAI_MODEL": model})
