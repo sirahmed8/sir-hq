@@ -775,14 +775,14 @@
     "name": "r69-review-backlog",
     "folder": "D:/Projects/_SIR",
     "title": "Verify the finished tasks waiting in review",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
     "name": "r67-c-drive-space",
     "folder": "D:/Projects/_SIR",
     "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -832,7 +832,7 @@
     "name": "r60-build-sir-laptop-manager",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "SIR Laptop Manager: rescan, then build from the first task",
-    "done": false
+    "done": true
   },
   {
     "name": "r60-build-sir-portfolio",
@@ -1003,6 +1003,41 @@
     "name": "r68-sir-ai-bot-answers",
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: improvement cycle (new lens, 10 improvements, report)",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: improvement cycle (new lens, 10 improvements, report)",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: improvement cycle (new lens, 10 improvements, report)",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: improvement cycle (new lens, 10 improvements, report)",
+    "done": false,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: improvement cycle (new lens, 10 improvements, report)",
     "done": false,
     "parallel_ok": false
   }

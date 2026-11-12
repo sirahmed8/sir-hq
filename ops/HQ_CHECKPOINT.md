@@ -249,3 +249,6 @@ Sweep: autopilot alive, 7 active, board inbox 4 review 7. C: hit 0 free: removed
 
 ## HQ note (2026-11-12 23:35) [claude]
 Sweep: autopilot alive, 5 active, review backlog 11 (r69 reviewer round queued first), C: 3.4 GB free, SIR Laptop Manager last commit 3 h old (runner alive, check next hour). WhatsApp digest could not run: WhatsApp Web needs a QR scan by the owner.
+
+## HQ note (2026-11-13 00:35) [claude]
+Sweep: autopilot alive, queue was thin (5 open) so r70 improvement cycles queued for Study, Jobs, Laptop Manager, Portfolio, AI. C: 3.0 GB free (r67 report pending). Review backlog 5 (r69 reviewing). No new owner messages.
