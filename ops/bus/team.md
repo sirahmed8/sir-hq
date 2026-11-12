@@ -71,3 +71,5 @@
 11-12 22:55 autopilot START r65-ahome-apk-adb-updates (runner pid 35900)
 11-12 23:20 autopilot START r69-review-backlog (runner pid 31552)
 2026-11-12 23:30 devin DONE r67-c-drive-space: C: 0.24->5.30 GB free; cause=22 parallel CLI agents (RAM exhausted, pagefile grew) + worker caches on C:; caches moved to D: via user env vars, ms-playwright moved, MAX_PARALLEL 22->12, watchdog warns once <2GB and cleans temp+npm+pip+uv+pnpm; report ops/agy-runs/reports/r67-c-drive-space.md
+2026-11-12 23:40 kilo START r69-review-backlog: verified 11 tasks in ops/tasks/review (oldest first), wrote 11 verification files to ops/verifications/, summary report ops/agy-runs/reports/r69-review-backlog.md
+2026-11-12 23:50 kilo DONE r69-review-backlog: 9 PASS, 1 PARTIAL PASS (5-r58-new-project-folders missing TickTick parents), 0 FAIL; commits pushed to main
