@@ -27,7 +27,8 @@ Format: `## <timestamp> | <project> | <severity>` then Finding, Evidence, Propos
 **Project:** SIR Study
 **Severity:** medium
 **Category:** bug
-**Status:** pending
+**Status:** approved
+**HQ Note:** queued 2026-11-12 as r45 scout fixes
 **Id:** sug-or-html-simplex-tableau-svg-has--ed3bbf7f
 
 ---
@@ -39,7 +40,8 @@ Format: `## <timestamp> | <project> | <severity>` then Finding, Evidence, Propos
 **Project:** SIR Jobs
 **Severity:** medium
 **Category:** bug
-**Status:** pending
+**Status:** approved
+**HQ Note:** queued 2026-11-12 as r45 scout fixes
 **Id:** sug-the-two-search-inputs-pipeline-s-ff484c83
 
 ---
@@ -51,7 +53,8 @@ Format: `## <timestamp> | <project> | <severity>` then Finding, Evidence, Propos
 **Project:** SIR Jobs
 **Severity:** medium
 **Category:** bug
-**Status:** pending
+**Status:** approved
+**HQ Note:** queued 2026-11-12 as r45 scout fixes
 **Id:** sug-no-text-input-does-per-character-7ece94d0
 
 ---

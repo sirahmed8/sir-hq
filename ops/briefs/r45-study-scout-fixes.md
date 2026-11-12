@@ -1,0 +1,4 @@
+Read D:/Projects/AGENTS.md, ops/WORKER_PREAMBLE.md, standard/OWNER_DEFAULTS.md, ops/LESSONS.md first. Fix each finding at the root, verify on screen at 320/390/768/1280 in Arabic and English, commit and push straight to main, CI must be seen green, checkpoint, one line to D:/Projects/_SIR/ops/bus/sir-hq.md.
+
+Finding: or.html SIMPLEX tableau SVG has inline min-width:580px inside a 212px-wide wrapper at 320px viewport, so ~63% of the diagram is hidden behind horizontal scroll and its labels are unreadable on phones.
+Evidence: guides/or.html:2795-2796 (<div style="width:100%;overflow-x:auto"> wrapping <svg viewBox="0 0 620 220" style="width:100%;min-width:580px">); probe output 'or 320 ltr div clientW=212 scrollW=580' in D:/Projects/_SIR/ops/scout-evidence/scout-mobile-refined.json; screenshot refined-or-320-rtl.png

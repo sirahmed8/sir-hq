@@ -1,0 +1,7 @@
+Read D:/Projects/AGENTS.md, ops/WORKER_PREAMBLE.md, standard/OWNER_DEFAULTS.md, ops/LESSONS.md first. Fix each finding at the root, verify on screen at 320/390/768/1280 in Arabic and English, commit and push straight to main, CI must be seen green, checkpoint, one line to D:/Projects/_SIR/ops/bus/sir-hq.md.
+
+Finding: The two search inputs (#pipeline-search, #jobs-search) still show hardcoded English placeholders and aria-labels in Arabic mode — live probe at 390px AR shows placeholder 'Filter applications...' and 'Filter by skill (React, Python, AI)...' with dirCss rtl, while the palette input correctly localizes to 'اكتب أمراً أو ابحث...'
+Evidence: src/public/index.html:156 and :225 lack data-i18n-placeholder/data-i18n-aria-label (contrast :698 which has it); no matching keys in src/public/i18n/{en,ar}.json; D:/Projects/_SIR/ops/scout-evidence/scout-ar-390-openings-search.png + INPUT-STATE probe output (dirCss:'rtl', placeholder English)
+
+Finding: No text input does per-character bidi detection: every input/textarea inherits direction:rtl in Arabic mode with dir attribute null, so typing Latin company names or mixed notes keeps RTL caret/alignment — violates shared lesson L8 (live per-char direction, dir=auto or equivalent)
+Evidence: INPUT-STATE probe: pipelineSearch/jobsSearch/palette all {dir:null, dirCss:'rtl'}; inputs at src/public/index.html:156,225,698 and textarea src/public/js/views/proposals.js:137 have no dir attr; grep finds no input-direction code in src/public/js (only output-side bdiHtml in i18n.js:64)

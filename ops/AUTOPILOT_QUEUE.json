@@ -303,7 +303,7 @@
     "name": "r43-study-mobile-card-tables",
     "folder": "D:/Projects/SIR Study",
     "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
-    "done": false
+    "done": true
   },
   {
     "name": "r44-portfolio-plans-upgrade",
@@ -315,6 +315,18 @@
     "name": "ci-sir-study-20261112-0700",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: red CI after cleanup commit",
+    "done": true
+  },
+  {
+    "name": "r45-study-scout-fixes",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: scout findings",
+    "done": false
+  },
+  {
+    "name": "r45-jobs-scout-fixes",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: scout findings",
     "done": false
   }
 ]
