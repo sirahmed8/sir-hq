@@ -22,11 +22,56 @@ PREFIXES = {
     "حاج": "الحاج", "الحاج": "الحاج", "حاجه": "الحاجة", "الحاجه": "الحاجة", "الحاجة": "الحاجة",
 }
 ARABIC_FIX = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ة": "ه", "ى": "ي"})
-stats = {"contacts": 0, "changed": 0, "prefix_moved": 0, "repeats_removed": 0, "split_full_name": 0}
+stats = {"spellings_unified": 0, "contacts": 0, "changed": 0, "prefix_moved": 0, "repeats_removed": 0, "split_full_name": 0}
 
 
 def key(word: str) -> str:
     return word.strip(" .،,-_").lower().translate(ARABIC_FIX)
+
+
+ARABIC_CANON = {  # one spelling per name (owner, 2026-11-12); keys are compared after key()
+    "عبدالله": "عبد الله", "عبد الله": "عبد الله", "عبد اللة": "عبد الله", "عبداللة": "عبد الله", "عبد اللَه": "عبد الله",
+    "عبدالرحمن": "عبد الرحمن", "عبدالرحمان": "عبد الرحمن", "عبد الرحمان": "عبد الرحمن",
+    "معاذ": "معاذ", "معاد": "معاذ", "كريم": "كريم", "كريـم": "كريم", "يوسف": "يوسف", "يوسـف": "يوسف",
+}
+LATIN_CANON = {  # transliteration variants and franco spellings -> one form
+    "abdullah": "Abdullah", "abdallah": "Abdullah", "abdulla": "Abdullah", "abdalla": "Abdullah", "abdelah": "Abdullah", "3bdallah": "Abdullah", "3bdullah": "Abdullah",
+    "mohamed": "Mohamed", "mohammed": "Mohamed", "muhammad": "Mohamed", "mohamad": "Mohamed", "mo7amed": "Mohamed", "mo7med": "Mohamed", "mohmed": "Mohamed",
+    "ahmed": "Ahmed", "ahmad": "Ahmed", "a7med": "Ahmed", "ahmmed": "Ahmed",
+    "karim": "Karim", "kareem": "Karim", "kerim": "Karim",
+    "moaz": "Moaz", "muaz": "Moaz", "mo3az": "Moaz", "moaaz": "Moaz", "muath": "Moaz",
+    "omar": "Omar", "umar": "Omar", "3omar": "Omar",
+    "youssef": "Youssef", "yousef": "Youssef", "yusuf": "Youssef", "youssif": "Youssef", "yosef": "Youssef",
+    "mostafa": "Mostafa", "mustafa": "Mostafa", "moustafa": "Mostafa", "mostfa": "Mostafa",
+    "mahmoud": "Mahmoud", "mahmod": "Mahmoud", "mahmood": "Mahmoud",
+    "ibrahim": "Ibrahim", "ebrahim": "Ibrahim", "abraham": "Ibrahim",
+    "hossam": "Hossam", "hosam": "Hossam", "hussam": "Hossam", "hussein": "Hussein", "hosain": "Hussein", "hossein": "Hussein",
+    "sherif": "Sherif", "shereef": "Sherif", "sharif": "Sherif",
+}
+ABD_SPLIT = re.compile(r"^(عبد)(ال\w+)$")  # عبدالمجيد -> عبد المجيد
+
+
+def canon_word(word: str) -> str:
+    k = key(word)
+    if k in ARABIC_CANON:
+        return ARABIC_CANON[k]
+    m = ABD_SPLIT.match(word.strip())
+    if m and key(m.group(2)) not in ("الله",):
+        return f"{m.group(1)} {m.group(2)}"
+    if k in LATIN_CANON:
+        stats["spellings_unified"] += 1
+        return LATIN_CANON[k]
+    return word
+
+
+def canon_name(words):
+    out = []
+    for w in words:
+        c = canon_word(w)
+        if c != w:
+            stats["spellings_unified"] += 0 if w.isascii() else 1
+        out.append(c)
+    return out
 
 
 COMPOUND = {"عبد", "ابو", "أبو", "ام", "أم", "بن", "ابن", "بنت", "ذو", "abd", "abdel", "abdul", "abu", "umm", "bin", "ibn", "bint"}
@@ -63,7 +108,7 @@ def clean_name(prefix: str, first: str, middle: str, last: str, suffix: str):
             stats["repeats_removed"] += 1
             continue
         deduped.append(w)
-    deduped = join_compounds(deduped)
+    deduped = join_compounds(canon_name(deduped))
     if len(deduped) >= 2 and not middle.strip() and not last.strip():
         stats["split_full_name"] += 1
     if not deduped:
@@ -76,7 +121,7 @@ def clean_name(prefix: str, first: str, middle: str, last: str, suffix: str):
     return (*result, tuple(x.strip() for x in original) != result)
 
 
-def clean_google(src: Path) -> int:
+def clean_google(src: Path, suffix: str = "_clean") -> int:
     with src.open(encoding="utf-8-sig", newline="") as fh:
         rows = list(csv.DictReader(fh))
         fields = list(rows[0].keys()) if rows else []
@@ -90,7 +135,7 @@ def clean_google(src: Path) -> int:
         if changed:
             stats["changed"] += 1
             row[cols["prefix"]], row[cols["first"]], row[cols["middle"]], row[cols["last"]], row[cols["suffix"]] = p, f, m, l, s
-    out = src.with_name(src.stem + "_clean.csv")
+    out = src.with_name(src.stem + suffix + ".csv")
     with out.open("w", encoding="utf-8-sig", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=fields)
         w.writeheader()
@@ -99,7 +144,7 @@ def clean_google(src: Path) -> int:
     return len(rows)
 
 
-def clean_vcf(src: Path) -> int:
+def clean_vcf(src: Path, suffix: str = "_clean") -> int:
     text = src.read_text(encoding="utf-8-sig", errors="replace")
     text = re.sub(r"\r?\n[ \t]", "", text)  # unfold
     cards = re.split(r"(?=BEGIN:VCARD)", text)
@@ -125,18 +170,18 @@ def clean_vcf(src: Path) -> int:
                     if re.match(r"FN[;:]", ln):
                         lines[i] = f"FN:{fn}"
         out_cards.append("\r\n".join(lines))
-    out = src.with_name(src.stem + "_clean.vcf")
+    out = src.with_name(src.stem + suffix + ".vcf")
     out.write_text("\r\n".join(out_cards) + "\r\n", encoding="utf-8")
     print(f"apple: {count} contacts -> {out.name}")
     return count
 
 
 def main(argv: list) -> int:
-    g, a = (argv + ["-", "-"])[:2]
+    g, a, suffix = (argv + ["-", "-", "_clean"])[:3]
     if g != "-":
-        clean_google(Path(g))
+        clean_google(Path(g), suffix)
     if a != "-":
-        clean_vcf(Path(a))
+        clean_vcf(Path(a), suffix)
     print("counts:", stats)
     return 0
 
