@@ -45,7 +45,7 @@ for round in $(seq 1 40); do
     crush) timeout 3300 crush run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     cline) timeout 3300 cline -P cline --thinking high -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     gemini) timeout 3300 gemini -p "$msg" --yolo --skip-trust >> "$LOG" 2>&1 ;;
-    aider) ( . D:/Projects/_SIR/scripts/aider-env.sh; aider_env "$model"; timeout 3300 aider --model "$model" --yes-always --no-auto-commits --no-show-model-warnings --message "$msg" ) >> "$LOG" 2>&1 ;;
+    aider) ( . D:/Projects/_SIR/scripts/aider-env.sh; aider_env "$model"; BROWSER=true timeout 3300 aider --model "$model" --yes-always --no-detect-urls --no-browser --no-auto-commits --no-show-model-warnings --message "$msg" ) >> "$LOG" 2>&1 ;;
     kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;
   esac
   code=$?
