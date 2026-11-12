@@ -357,7 +357,7 @@
     "name": "ci-ahome-20261112-1401",
     "folder": "D:/Projects/AHome",
     "title": "AHome: إصلاح الفحص الآلي الأحمر",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-laptop-manager-20261112-1401",
@@ -381,7 +381,7 @@
     "name": "r46-portfolio",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: competitors and feature gaps",
-    "done": false
+    "done": true
   },
   {
     "name": "r46-study",
@@ -393,6 +393,24 @@
     "name": "r46-laptop-manager",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "SIR Laptop Manager: competitors and feature gaps",
+    "done": false
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901 verification",
+    "done": false
+  },
+  {
+    "name": "r47-skills-encyclopedia",
+    "folder": "D:/Projects/_SIR",
+    "title": "HQ: skills encyclopedia and organization",
+    "done": false
+  },
+  {
+    "name": "r48-video-digest",
+    "folder": "D:/Projects/_SIR",
+    "title": "HQ: video digest skill",
     "done": false
   }
 ]
