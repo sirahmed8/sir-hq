@@ -164,3 +164,12 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 ## HQ note (2026-11-12 02:20) [watch] CI green on all 7, heartbeat 4 min, done: r36, r39, r41 (claims, unverified); running: audit-ahome, r37 (since 01:18), r40; r38 next. C: 8.0 GB free. No new owner replies. Sonnet agents not resumed (owner order).
 ## HQ note (2026-11-12 02:36) Owner batch 3: r38 extended (tab bar vanish bug, island overlap, Profile tab, calm page spacing, games redesign + 3D); r42 queued: free-agent VERIFIER, per-project SCOUTS, ops/SUGGESTIONS.md, ops/LESSONS.md, usage windows. Reports must use plain words (no heartbeat/pid).
 ## HQ note (2026-11-12 03:19) [watch] CI green (AHome run in progress, committing 5 min ago); done by workers: r37, r40, r41 (claims); running: audit-ahome, r42; r38 waits for AHome folder. Kilo cooling 39 min, other free models fine. C: 6.4 GB. No owner replies.
+
+## HQ note (2026-11-12 05:30) [hourly watch]
+- All 7 projects CI green: AHome (core + secrets passed, web job running), SIR Jobs, SIR Study, SIR Laptop Manager, SIR AI, SIR Portfolio, _SIR. Autopilot heartbeat 2 min.
+- Active workers: audit-ahome-20261112-0111 (AHome, pid 41804), r15-laptop-fix1 (SIR Laptop Manager, pid 22952). r38-ahome-feedback2 queued waiting for AHome folder. r42-verifier-scout done.
+- Model pool: 28 available, 0 cooling. Kilo cooling 39 min. Devin (swe-2-flash-medium) and qwen/goose/crush via Ollama operational. OpenCode models at usage limits. Codex quota until 2026-11-27.
+- Owner message at 02:50: "complete all tasks and rounds, every agent finishes its tasks". No other new replies.
+- Disk: C: 6.4 GB free, D: ample. No cleanup needed.
+- Next step: wait for AHome web CI to complete; verify audit-ahome and r15-laptop-fix1 reports when they finish; then queue r38 on AHome; continue free CLI queue per autopilot.
+## HQ note (2026-11-12 06:03) Laptop was off, autopilot back 04:04. Free tools are NOT all out: only Kilo and OpenCode big-pickle failed fast, Devin, Gemini, Kimi, Cline, Aider, Qwen, local models available. The Telegram limits message was a false alarm from one backoff: fixed hq_autopilot.py to say it only when the whole pool is empty, restarted autopilot. Haiku agents launched (owner order): sir-ai-researcher (competitors, Teamily, agentic OS), free-tools-scout (usage limits table, new free tools). Queued r44 (all product plans upgrade). Running: audit-ahome, r43 Study; r38 waits for AHome folder.

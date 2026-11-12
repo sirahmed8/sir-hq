@@ -291,6 +291,24 @@
     "name": "r42-verifier-scout",
     "folder": "D:/Projects/_SIR",
     "title": "r42 verifier and scouts",
+    "done": true
+  },
+  {
+    "name": "r15-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r15-laptop verification",
+    "done": true
+  },
+  {
+    "name": "r43-study-mobile-card-tables",
+    "folder": "D:/Projects/SIR Study",
+    "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
+    "done": false
+  },
+  {
+    "name": "r44-portfolio-plans-upgrade",
+    "folder": "D:/Projects/_SIR",
+    "title": "r44 plans upgrade all products",
     "done": false
   }
 ]

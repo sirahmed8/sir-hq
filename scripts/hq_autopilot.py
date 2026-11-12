@@ -15,6 +15,7 @@ To add work: python scripts/queue-add.py <name> <brief.md> <folder> "<title>" (b
 import json
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -165,7 +166,11 @@ def limits_hit(task: dict, rs: dict) -> bool:
     if not outp.exists() or time.time() - rs.get("started", 0) > 4 * 3600:
         return False
     tail = outp.read_text(encoding="utf-8", errors="ignore")[-4000:]
-    return len(LIMIT_WORDS.findall(tail)) >= 2
+    if len(LIMIT_WORDS.findall(tail)) < 2:
+        return False
+    # one tool out of limit is not "all free tools are out": only claim it when the shared pool has nothing left
+    pool = subprocess.run([sys.executable, str(ROOT / "scripts/cli_pool.py"), "pick"], capture_output=True, text=True).stdout.strip()
+    return pool.startswith("WAIT")
 
 
 def handle(task: dict, queue: list, state: dict) -> None:
