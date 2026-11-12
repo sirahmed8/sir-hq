@@ -9,7 +9,7 @@ Each sprint day was a security remediation task for one legacy product.
 | Sprint Day | Legacy Product | Merged Into (Current SIR Product) | Status |
 |---|---|---|---|
 | Rotate secrets, Day 1 | Laptop manager, Tele Gateway, GTA V, ModPack | SIR Laptop Manager, SIR AI, SIR Mods for GTA V, SIR ModPack | Keys rotated per project; legacy keys archived |
-| Day 2 shared kit | Platform (concept) | SIR Platform (Wave 7) | Extracted from finished products; not built first |
+| Day 2 shared kit | Platform (concept) | Shared standards kit, `SHARED_PLATFORM_KIT.md` (SIR Platform cancelled 2026-11-12) | Standards every product follows; not a product |
 | Day 3 Hagoozat/merged-sites | Merged sites (Hagoozat Elite) | SIR Hagoozat (Wave 5) | `legacy/` has 11Players, EGFootball5, Merged sites |
 | Day 4 SIR Controller | SIR Controller | SIR Controller (Wave 8) | `legacy/` has SIR Optimizer absorbed |
 | Day 5 SIR CCS | Content Creation Studio v1 | SIR Content Creation Studio (Wave 4) | `legacy/` preserved |
@@ -17,7 +17,7 @@ Each sprint day was a security remediation task for one legacy product.
 | Day 7 EGFootball5 | EGFootball5 | SIR Hagoozat (Wave 5) | Absorbed into Hagoozat Elite |
 | Day 8 SIR Optimizer | SIR Optimizer | SIR Controller (Wave 8) | Absorbed into Controller `legacy/` |
 | Day 9-10 11Players | 11Players | SIR Hagoozat (Wave 5) | Absorbed |
-| Day 9-10 Obour Hub | Obour Academic Hub | SIR Obour Hub (Wave 5) | `legacy/` preserved |
+| Day 9-10 Obour Hub | Obour Academic Hub | SIR Education Hub (Wave 5, renamed 2026-11-12) | `legacy/` preserved |
 | Day 9-10 Negm | Negm Furniture | SIR Negm Furniture (Wave 3, plans only) | Client handoff pack prepared |
 | Day 9-10 GTA V mods | SIR Mods for GTA V | SIR Mods for GTA V (Wave 6) | `legacy/` preserved, HIGH LEGAL RISK |
 | Day 13-14 Restaurant | SIR Restaurant | SIR Business (Wave 5) | Mode of shared core |
@@ -35,8 +35,8 @@ Each sprint day was a security remediation task for one legacy product.
 | Idea Numbers | Original Concept | Became Module In | Current Home |
 |---|---|---|---|
 | 1,2,3,4,5,9,10,11,13,17,18,22 | Prayer routine, adhkar, habits, meds, water, diet, gym, expenses, personal dev, skills | SIR Life (Part B) | `SIR Life` Wave 6, Part B not started |
-| 6,7,8 | Web-to-app wrappers (Hagoozat, Obour, player cards) | Platform wrappers (Capacitor/Expo) | SIR Platform Wave 7, M6+ |
-| 24,25,27 | Study help, language learning, teaching platform | Obour Hub modules (hints, practice) | SIR Obour Hub Wave 5 |
+| 6,7,8 | Web-to-app wrappers (Hagoozat, Obour, player cards) | Standard for every product: wrappers for web, Android and iOS (Capacitor/Expo) | Shared standards kit, M6+ |
+| 24,25,27 | Study help, language learning, teaching platform | Education Hub modules (hints, practice) | SIR Education Hub Wave 5 |
 | 12,19,20 | HR attendance, auto-reorder, B2B ordering | SIR Business shared core | SIR Business Wave 5 |
 | 30 | Position coach | Hagoozat module | SIR Hagoozat Wave 5 |
 | 15,16 | Price and game-deal finder | Concept (needs lawful data) | Backlog, not planned |
@@ -49,7 +49,7 @@ Each sprint day was a security remediation task for one legacy product.
 
 | Original Project / Idea | Current SIR Product | Wave | Folder | Status |
 |---|---|---|---|---|
-| Obour Academic Hub | SIR Obour Hub | 5 | `D:\Projects\SIR Obour Hub` | Planning |
+| Obour Academic Hub | SIR Education Hub (renamed from SIR Obour Hub) | 5 | `D:\Projects\SIR Education Hub` | Planning |
 | Hagoozat Elite + 11Players + EGFootball5 | SIR Hagoozat | 5 | `D:\Projects\SIR Hagoozat` | Planning |
 | SIR Restaurant / Market / Pharmacy / Library | SIR Business | 5 | `D:\Projects\SIR Business` | Planning |
 | Content Creation Studio v1 | SIR Content Creation Studio | 4 | `D:\Projects\SIR Content Creation Studio` | Planning |
@@ -63,7 +63,7 @@ Each sprint day was a security remediation task for one legacy product.
 | AHome | AHome | 1 | `D:\Projects\AHome` | Building (private) |
 | SIR Study | SIR Study | 2 | `D:\Projects\SIR Study` | Building |
 | SIR Jobs | SIR Jobs | 2 | `D:\Projects\SIR Jobs` | Building |
-| SIR Platform | SIR Platform | 7 | `D:\Projects\SIR Platform` | Planning |
+| SIR Platform | cancelled 2026-11-12 (shared standards, not a product) | - | `D:\Projects\old projects\SIR Platform` | Cancelled |
 | SIR Portfolio | SIR Portfolio | 7 | `D:\Projects\SIR Portfolio` | Planning |
 
 ---
@@ -72,8 +72,8 @@ Each sprint day was a security remediation task for one legacy product.
 
 1. **Price/Game Deal Finder** (ideas 15,16) — needs lawful data sources, no API found
 2. **Cars / Accessibility Map / Handyman / Movies** (ideas 23,26,28,29) — concept backlog only
-3. **Download Buttons pattern** — extracted to shared Platform UI kit, not yet built
-4. **Platform Wrappers** (ideas 6,7,8) — Capacitor/Expo decision at M6 of each product
+3. **Download Buttons pattern** — extracted to the shared standards kit, not yet built
+4. **Platform Wrappers** (ideas 6,7,8) — Capacitor/Expo decision at M6 of each product (every product ships on all platforms)
 5. **SIR Controller macOS/Linux builds** — explicitly skipped for v1
 6. **SIR Business macOS/Linux Electron builds** — skipped for v1 (no customers asked)
 7. **SIR Life Wear OS / watchOS** — listed for M6+, not in v1
@@ -98,7 +98,7 @@ Each sprint day was a security remediation task for one legacy product.
 - **24 sprint tasks** → folded into **10 SIR products** (some products absorbed multiple tasks)
 - **30 program ideas** → **9 became modules** in existing products, **4 dropped**, **4 concept backlog**, **3 became Platform wrappers**
 - **No new products created** from the merge; all mapped to the 16 portfolio products
-- **SIR Platform** created as extraction target (Wave 7), not a merge source
+- **SIR Platform** was planned as an extraction target (Wave 7); cancelled 2026-11-12. Its standards live in `SHARED_PLATFORM_KIT.md`.
 - **SIR Portfolio** created as showcase (Wave 7), not a merge source
 - **AHome** kept entirely separate (private, no SIR prefix)
 - **SIR Negm Furniture** kept as client project (plans only)
