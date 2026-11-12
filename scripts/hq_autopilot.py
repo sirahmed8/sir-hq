@@ -113,8 +113,8 @@ def minutes_since_activity(folder: str) -> float:
         newest = 0.0
         for line in dirty.splitlines()[:80]:
             rel = line[3:].strip().strip('"')
-            if rel.startswith("ops/"):  # HQ runtime files (logs, state) change all the time and are not work
-                continue
+            if rel.startswith("ops/") or rel.startswith("assets/brand/") or rel.endswith((".ico", "desktop.ini")):
+                continue  # HQ runtime files and icon regeneration (r58) change all the time and are not work
             p = Path(folder) / rel
             if p.exists():
                 newest = max(newest, p.stat().st_mtime)
