@@ -1,49 +1,31 @@
 # pc-storage-guardian
 
-- Tool: `gemini-plugin` (plugin: `sir-ecosystem`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\sir-ecosystem\skills\pc-storage-guardian\SKILL.md`
-- SKILL.md size: 3111 chars
+Tools: claude, codex, cursor, gemini-plugin, kilo, opencode, windsurf (kilo copy used; identical across tools).
+Source: C:\Users\a7med\.config\kilo\skills\pc-storage-guardian\SKILL.md (76 lines, read in full)
 
-## What it does
+## Summary
+A Windows workstation hygiene skill: disk telemetry thresholds (C: critical <12 GB free, healthy >25 GB), a whitelist of safe prune targets (npm/pip caches, %TEMP% files older than 24h, Windows Temp, crash dumps, pytest/eslint caches), non-destructive execution rules (skip locked files, batch operations for SSD wear, never defrag NVMe), and a dry-run-first workflow pointing at `D:\Projects\Laptop manager\tools\pc_cleaner.py`.
 
-Storage capacity telemetry.
+## When to use / not use
+Use when a Windows dev machine's system drive is filling up or caches need periodic pruning. Not a backup tool, not for deleting user files/repos/.env — the whitelist is explicit and anything outside it is off-limits.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: PowerShell access on the owner's machine. Output: reclaimed disk space via cache/temp purges. Needs: the `pc_cleaner.py` tool at the hardcoded path, `npm`/`pip` CLIs for their cache commands, PowerShell for telemetry.
 
-- - Batch pruning operations to scheduled intervals (e.g., 6-hour cron cycle or manual triggers).
+## Key rules
+1. Measure first: `Get-PSDrive C, D` free/used GB before and after; dry-run the cleaner before real purge.
+2. Only approved targets: npm `_cacache`, %TEMP% (>24h old), C:\Windows\Temp remnants, CrashDumps .dmp files, pip cache, project `.pytest_cache`/`__pycache__`/`.eslintcache`.
+3. Never delete user files, desktop files, git repos, or .env configs; wrap every unlink in try/except and skip locked files.
+4. SSD preservation: batch prunes on intervals (e.g. 6h cron or manual), no micro-deletions, never defragment NVMe (TRIM is native).
+5. Sequence: dry-run → real purge → npm cache clean → verify with Get-PSDrive.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Hardcodes user-specific paths (`C:\Users\a7med`, `D:\Projects\Laptop manager`) — portable only on Ahmed's machine; other users need path edits.
+- %TEMP% deletion can break apps mid-write; the 24h age rule and lock-skipping mitigate but don't eliminate risk.
+- References an external script that must exist; if `pc_cleaner.py` is missing the skill degrades to manual commands.
 
-- PC Storage Guardian & Telemetry Engine
-- 1. Storage Capacity Telemetry & Alerting
-- 2. Safe Temporary & Cache Pruning Targets
-- Approved Pruning Targets
-- 3. Safe Exception Handling & Locking Rules
-- 4. Execution Workflow
-- 1. Run PC Cleaner in dry-run mode to inspect reclaimable space
-- 2. Run real non-destructive purge
-- 3. Clean npm global cache
-- 4. Verify post-cleanup disk capacity
-- (none)
+## Category and tags
+ops — windows, disk-cleanup, storage, ssd, maintenance, powershell.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - At this threshold, Windows pagefile thrashing, hibernation file sizing, and Antigravity workspace contexts risk sudden failure.
-- - Policy: Delete files older than 24 hours. Gracefully skip files locked by running processes.
-- - Policy: Delete stale OS patch remnants and installer logs.
-- - Policy: Delete `.dmp` files from previous application terminations.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **In-Use File Handling**: Always wrap file unlinks and folder deletions in `try...except` blocks. If an application (e.g. browser, editor, Discord) has an open handle on a file, gracefully skip it without halting the cleaner.
-2. - Avoid aggressive micro-deletions every few seconds.
-3. - Never defragment NVMe solid-state storage (TRIM is handled natively by Windows).
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Identical across tools; owner-machine-specific tooling baked into a "skill".

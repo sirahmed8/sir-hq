@@ -1,39 +1,28 @@
-# custom-metrics
+# custom-metrics (Vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\custom-metrics\SKILL.md`
-- SKILL.md size: 4662 chars
+## Summary
+Skill for emitting and querying Vercel Custom Metrics: call `metric(name, value, tags?)` from `@vercel/functions` inside a Function at the point an outcome is known, deploy and invoke it, then discover schema and query via `vc metrics` (sum/avg/percentiles, `--group-by` tags, `--since`). Includes modeling rules — stable dotted names with unit suffixes, bounded tag cardinality, no PII in tags — and a decision table for which signal to use (metrics vs Web Analytics events vs OTel spans vs logs).
 
-## What it does
+## When to use / when NOT
+Use for numeric business/application measurements you want to aggregate and trend (orders.created, durations, queue sizes). Do NOT use for user-interaction events (Web Analytics), traces (OTel), or per-request diagnostics (logs). Requires Observability Plus on the team.
 
-Emit and query Vercel Custom Metrics.
+## Inputs, outputs, tools
+- Inputs: metric name, numeric value, optional string tags; `vc metrics schema|query` commands.
+- Outputs: aggregated metric series in Vercel Observability.
+- Tools: `@vercel/functions` `metric()` (sync, no-op off-runtime), Vercel CLI `vc metrics` / `vercel metrics`, project/team scope flags.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Emit at the point the outcome is known; `metric()` is synchronous — never await it.
+2. Stable dotted names with unit suffix (`orders.duration_ms`); variable data goes in tags, never in the name.
+3. Tag cardinality must be bounded — outcome/plan/provider yes; user IDs, request IDs, emails, raw URLs never.
+4. Match aggregation to emission: count events → emit 1 → `sum`/`persecond`; durations → emit value → `avg`/`p95`/`max`.
+5. Verify via a deployed Function invocation — local runs are no-ops; check `vc metrics schema <name>` after deploy + ingestion delay.
 
-- Vercel Custom Metrics
-- Emit a metric
-- Model metrics for useful queries
-- Discover and query the metric
-- Use the right signal
-- (none)
+## Risks / things needing the owner
+Custom Metrics querying needs Observability Plus (paid tier) — confirm availability. High-cardinality tags can blow up cost; the skill's rules exist to prevent that. `vercel.` prefix is reserved.
 
-## Tools / MCPs it needs
+## Category / tags
+cloud · vercel, metrics, observability, instrumentation
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `tags` are optional string attributes. After ingestion, discovered tag keys appear as dimensions for filtering and grouping.
-2. - `metric()` is synchronous and returns `void`; do not `await` it.
-3. - Do not use the reserved `vercel.` prefix for application-defined names.
-4. - Keep variable data in tags instead of metric names. Use `checkout.completed` with `{ plan: 'pro' }`, not `checkout.completed.pro`.
-5. - Keep tag cardinality bounded. Good tags are `outcome`, `plan`, `provider`, or a normalized route. Do not attach user IDs, request IDs, email addresses, raw URLs, or other unique or sensitive values.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\custom-metrics\SKILL.md`. Only gemini-plugin holds it.

@@ -1,51 +1,28 @@
 # flutter-add-integration-test
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\flutter-add-integration-test\SKILL.md`
-- SKILL.md size: 7342 chars
+## Summary
+End-to-end guide for adding Flutter integration tests: add `integration_test`+`flutter_test` dev deps, inject `enableFlutterDriverExtension()` before `runApp()`, tag widgets with `ValueKey`s, optionally explore the live app via the Dart/Flutter MCP server (`launch_app` on `lib/main_test.dart`, `get_widget_tree`, `tap`, `enter_text`, `scroll`, `waitFor`, `scrollIntoView` for lazily-mounted slivers), then author `integration_test/*_test.dart` files with `IntegrationTestWidgetsFlutterBinding`, `pumpWidget`, `pumpAndSettle`, `find.byKey`/`scrollUntilVisible` assertions, plus a `test_driver/` host script calling `integrationDriver()`. Runs via `flutter drive` on Chrome (`chromedriver --port=4444 -d chrome`), headless web (`-d web-server`), Android locally, or Firebase Test Lab via debug+androidTest APKs. Includes a perf-profiling driver variant using `traceAction`/`TimelineSummary`.
 
-## What it does
+## When to use / when NOT
+Use when adding integration/E2E testing or converting explored MCP actions into permanent tests. Do NOT use for unit/widget tests (other flutter skills) — this is full-app driving, slow and device-bound.
 
-Configures Flutter Driver for app interaction and converts MCP actions into permanent integration tests. Use when adding integration testing to a project, exploring UI components via MCP, or automating user flows with the integration_test package.
+## Inputs, outputs, tools
+- Inputs: pubspec.yaml, app entry point, target widgets, MCP tool session.
+- Outputs: integration_test/*.dart tests, test_driver/*.dart hosts, APKs for Test Lab, timeline summaries for perf tests.
+- Tools: flutter pub/drive/build, chromedriver, gradlew assembleAndroidTest, Firebase Test Lab console, Dart/Flutter MCP (`launch_app`, `get_widget_tree`, `tap`, `enter_text`, `scroll`, `scrollIntoView`, `waitFor`, `get_health`).
 
-## When to use (from skill text)
+## 5 most important rules
+1. `IntegrationTestWidgetsFlutterBinding.ensureInitialized()` must be first in test main(); app loaded via `pumpWidget`, then `pumpAndSettle()` after every interaction.
+2. Target widgets by `ValueKey` (e.g. `ValueKey('login_button')`), never by position or text alone; add keys to app code as part of setup.
+3. `flutter drive` requires a host script `test_driver/integration_test.dart` with `integrationDriver()`; perf tests need a custom driver with `responseDataCallback` writing `scrolling_timeline`.
+4. Widgets not found are usually lazily mounted in SliverList/ListView — `scroll`/`scrollIntoView` before interacting; `PumpAndSettleTimedOutException` means an infinite animation.
+5. Legacy `flutter_driver` tests keep `driver.waitFor/tap/scroll` APIs — conditional, don't mix paradigms in one file.
 
-- - **Wait**: Always execute `waitFor` or verify state with `get_health` when navigating or triggering animations.
-- - Trigger frames and wait for animations to complete using `await tester.pumpAndSettle();` after interactions like `tester.tap()`.
-- // Trigger a frame and wait for animations.
+## Risks / owner needs
+Integration tests need a real device/emulator or Chrome+chromedriver; Firebase Test Lab path requires manual console upload. Adding `enableFlutterDriverExtension()` to main.dart ships test hooks in release builds — gate it or use a separate `main_test.dart` entry point.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: mobile. Tags: flutter, integration-testing, e2e, flutter-driver, widget-keys, firebase-test-lab, mcp.
 
-- Implementing Flutter Integration Tests
-- Contents
-- Project Setup and Dependencies
-- Interactive Exploration via MCP
-- Test Authoring Guidelines
-- Execution and Profiling
-- Workflow: End-to-End Integration Testing
-- Examples
-- Standard Integration Test (`integration_test/app_test.dart`)
-- Host Driver Script (`test_driver/integration_test.dart`)
-- Performance Profiling Driver Script (`test_driver/perf_driver.dart`)
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP server, MCP tools
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Add required development dependencies to `pubspec.yaml`:
-2. - Call `enableFlutterDriverExtension();` before `runApp()`.
-3. - **Wait**: Always execute `waitFor` or verify state with `get_health` when navigating or triggering animations.
-4. - **Troubleshoot Unmounted Widgets**: If a widget is not found in the tree, it may be lazily loaded in a `SliverList` or `ListView`. Execute `scroll` or `scrollIntoView` to force the widget to mount before interacting with it.
-5. - Trigger frames and wait for animations to complete using `await tester.pumpAndSettle();` after interactions like `tester.tap()`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin flutter copy; no competing revisions.

@@ -1,41 +1,31 @@
 # sir-ahmed-career-autopilot
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\sir-ahmed-career-autopilot\SKILL.md`
-- SKILL.md size: 3186 chars
+Tools: claude (also codex/cursor/opencode/windsurf; claude chosen). Source: C:\Users\a7med\.claude\skills\sir-ahmed-career-autopilot\SKILL.md (44 lines, read in full)
 
-## What it does
+## Summary
+Owner-specific career automation for Ahmed Alaa: encodes his real identity (Vibe Coder/AI Operator positioning, Syrian national in Cairo, Egyptian-document KYC rule for US platforms), target role categories, the D:\Jobs master workspace with ATS CVs and application tracker, a weekly Saturday 9AM Cairo cron cadence via career_engine.py, and bilingual reporting rules (Egyptian colloquial Arabic reports, zero-fluff English outreach).
 
-Use when running job applications, multi-board job scraping, ATS-ready CV generation, or recruiter outreach for Sir Ahmed.
+## When to use / not use
+Use for job discovery, ATS CV tailoring, auto-apply workflows, and recruiter outreach FOR SIR AHMED specifically. Not a general job-search skill — it contains his personal data and positioning; useless or wrong for anyone else, and should never be generalized into templates containing his PII.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: job boards/targets per the 5 role categories. Output: ATS-ready CVs (HTML+MD), applications_tracker.json, DAILY_JOB_REPORT.md weekly Arabic report, outreach messages. Needs: D:\Jobs workspace, career_engine.py, Playwright-class scraping, cron scheduling.
 
-- - **Nationality & Residence**: Syrian national residing in Greater Cairo, Egypt (`Africa/Cairo`). *Note for US KYC/Persona Verifications (e.g., Outlier.ai, Alignerr)*: Never submit a Syrian-issued passport (`SY`) to automated Persona flows as US OFAC filters trigger `id_disallowed_country_detection`
+## Key rules
+1. Identity ground truth is fixed: name, contacts, profiles, "Vibe Coder & AI Operator" positioning — never inflate into "writes systems code manually" claims; the working approach is directing AI tools.
+2. KYC rule: for US verification flows (Outlier, Alignerr) NEVER submit Syrian passport — select Egypt (EG) with Egyptian residence permit/driver's license, because OFAC filters trigger id_disallowed_country_detection.
+3. Cadence is fixed: weekly Saturday 9:00 AM Africa/Cairo via CRON_TZ; single consolidated workspace D:\Jobs with named tracker/report files.
+4. Reports in authentic Egyptian colloquial Arabic with strict orthography (إلّي، ڤ، masculine pronouns); outreach in high-signal English citing shipped products (obourinstitutes.web.app, egfootball5.vercel.app, github).
+5. Five target categories only: AI data annotation/eval, vibe coding/AI operator, no-code delivery, entry-level support/QA, freelance (Upwork/Mostaql).
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Contains real PII (full name, emails, phone, national ID-adjacent KYC guidance) — the file itself is sensitive; it lives in a private skills dir, must never leak into public repos or prompts to external services.
+- Auto-apply carries platform-ToS and misrepresentation risk; the skill doesn't include anti-ban safeguards.
+- Identity claims (2nd-year CS student, "vibe coder") must stay truthful in outreach — fabrication would burn the profiles it cites.
+- Depends on D:\Jobs existing with the engine script — machine-specific paths.
 
-- Sir Ahmed Career Autopilot & Autonomous Job Application Skill (Vibe Coder Edition)
-- 1. Candidate Ground Truth & Real Working Identity
-- 2. Master Workspace & Autonomous Weekly Cadence
-- 3. Communication Guidelines
-- (none)
+## Category and tags
+jobs, automation, business — career, job-search, ats, owner-specific, autopilot.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Real Working Identity**: **Vibe Coder & AI Operator (Rapid Web & AI Product Builder)**
-- - **Outreach Language**: High-signal, zero-fluff English pitch highlighting rapid delivery speed and shipped AI products (`obourinstitutes.web.app`, `egfootball5.vercel.app`, `github.com/sirahmed8`).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Name**: Ahmed Alaa El-Din Ahmed Ali Arabi Nahil (Sir Ahmed)
-2. - **Languages**: Native Arabic (Syrian/Levantine, Egyptian, and Modern Standard Arabic) + Professional English.
-3. - **Real Working Identity**: **Vibe Coder & AI Operator (Rapid Web & AI Product Builder)**
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single claude revision; owner-personal skill — treat contents as private data.

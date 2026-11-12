@@ -1,38 +1,28 @@
 # excel-generator
 
-- Tool: `codex`
-- Category: data
-- Source: `C:\Users\a7med\.codex\skills\excel-generator\SKILL.md`
-- SKILL.md size: 2829 chars
+## Summary
+A Python/openpyxl playbook for generating executive-grade .xlsx workbooks: navy/slate headers with white bold text, zebra striping, alignment rules per data type, native dynamic formulas (XLOOKUP, SUMIFS, COUNTIFS, AVERAGEIFS) instead of hardcoded values, and accounting-style total rows with thin-top/double-bottom borders. Identical content ships in codex, cursor, kilo, opencode and windsurf copies.
 
-## What it does
+## When to use / when NOT
+Use when a task needs a real, styled Excel deliverable (reports, models, trackers) generated programmatically. Do NOT use for reading/analyzing existing spreadsheets (that is data work, not generation), for CSV-only needs, or when the user just wants formulas explained without a file.
 
-Autonomous generation of production-ready, beautifully styled Microsoft Excel (.xlsx) workbooks with openpyxl, native formulas (SUMIFS, XLOOKUP, INDEX/MATCH), styled headers, data validation, conditional formatting, and embedded charts.
+## Inputs, outputs, tools
+- Inputs: the data model (headers, rows, which columns are text/numbers/dates/status), target filename.
+- Outputs: a saved `.xlsx` via `openpyxl` (Workbook/Worksheet, styles, column auto-width).
+- Tools: Python 3 with `openpyxl`; no MCP or external service.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never emit raw unstyled grids — every workbook follows corporate executive styling.
+2. Header row: `#0F172A`/`#1E293B` fill, white bold 11pt Segoe UI/Calibri/Aptos, height ~28.
+3. Zebra striping: odd rows `#F8FAFC`, even white; alignment by type — text left, numbers right, dates/status/IDs center.
+4. Always write live formulas (XLOOKUP over VLOOKUP, SUMIFS family for rollups), never precomputed constants.
+5. Total rows get bold text, a thin top border and a double bottom accounting line; auto-size columns with `get_column_letter`.
 
-- Excel Workbook Generator & Automation Engine (Manus-Grade)
-- 1. Visual Design & Typography Rules for Spreadsheets
-- 2. Dynamic Formulas & Models
-- 3. Python `openpyxl` Implementation Blueprint
-- Headers
-- Auto-adjust column widths
-- (none)
+## Risks / owner needs
+None beyond a Python env with openpyxl. Number-format strings and fonts are Windows-friendly defaults; verify output opens correctly in Excel before delivery.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: data. Tags: excel, xlsx, openpyxl, python, reporting, automation.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Deep Navy or Slate background (`#0F172A` or `#1E293B`).
-2. - Pure White text (`#FFFFFF`), Bold, 11pt, Font: `Aptos`, `Segoe UI`, or `Calibri`.
-3. - Subtle vertical padding (`row_dimensions[1].height = 28`).
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Byte-identical across codex, cursor, kilo, opencode and windsurf (kilo digest states identical to codex). Any copy is equivalent; kilo used as source.

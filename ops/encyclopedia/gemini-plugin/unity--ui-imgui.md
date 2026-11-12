@@ -1,53 +1,28 @@
-# ui-imgui
+# ui-imgui (gemini-plugin: unity)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui-imgui\SKILL.md`
-- SKILL.md size: 6440 chars
+## Summary
+ui-imgui generates and modifies Unity IMGUI code — the legacy immediate-mode GUI used for EditorWindows, custom Inspectors (`Editor`/`PropertyDrawer`) and runtime `OnGUI` debug overlays. It is explicitly scoped to LEGACY code: the skill opens by telling the agent to recommend UI Toolkit (CreateGUI) instead for any NEW editor window/inspector unless the user explicitly asks for IMGUI or the project is IMGUI-exclusive. Content covers the three script shapes (EditorWindow with MenuItem+ShowWindow+OnGUI, CustomEditor with OnInspectorGUI+SerializedProperty caching, PropertyDrawer with OnGUI+GetPropertyHeight), hard rules (never allocate GUIStyle inside OnGUI, always use SerializedProperty/ApplyModifiedProperties for undo, EditorGUILayout for editor vs GUILayout for runtime, matched Begin/End pairs, Editor folder is mandatory or the build fails), layout patterns (BeginHorizontal/Vertical, scroll views, foldouts, disabled groups) and naming/folder conventions. References: templates.md and gui-elements.md.
 
-## What it does
+## When to use / when NOT
+Use when maintaining existing OnGUI/OnInspectorGUI code, when the user explicitly requests IMGUI, or when the project exclusively uses IMGUI for editor tools. Do NOT use for new editor UI (use ui-uitk), for runtime game UI (use ui-uitk or ui-ugui), or for any request that doesn't mention IMGUI — clarify which UI system first.
 
-Generates and modifies Unity IMGUI editor code such as EditorWindows, custom Inspectors, PropertyDrawers, and OnGUI scripts. Use for IMGUI or OnGUI or maintaining existing IMGUI code.
+## Inputs, outputs, tools
+- Inputs: the requested editor tool/debug overlay or existing IMGUI file to modify.
+- Outputs: `.cs` files under an `Editor/` folder (EditorWindow/Editor/PropertyDrawer/MonoBehaviour debug overlay), or targeted edits to existing OnGUI code.
+- Tools: none beyond file writes; references/templates.md and gui-elements.md carry the boilerplate. Verification happens inside the Unity Editor.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Default-deny for new work: push UI Toolkit for new editor windows/inspectors unless IMGUI is explicitly requested or the project is IMGUI-only.
+2. Scripts using `UnityEditor` MUST live in an `Editor` folder or the build fails.
+3. Never create GUIStyle inside OnGUI (per-frame allocation); cache styles.
+4. Use SerializedObject/SerializedProperty with ApplyModifiedProperties for undo/redo; Undo.RecordObject for direct changes.
+5. Match every Begin* with its End*; use EditorGUILayout in editor code and GUILayout in runtime OnGUI.
 
-- ## When to Use This Skill
-- **IMPORTANT:** This skill is for **legacy IMGUI code only**. Use this skill when:
-- **Do NOT use this skill for:**
+## Risks / things needing the owner
+Legacy tech debt: IMGUI editor tools look dated and don't scale; writing new ones is discouraged by the skill itself. Naming conventions must match the project (search existing editor scripts first). Requires Unity Editor to verify. Nothing needs the owner.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · unity, imgui, editor-tools, legacy, csharp
 
-- When to Use This Skill
-- Scope
-- Conventions
-- Workflow
-- Script Structure
-- EditorWindow
-- Custom Editor
-- PropertyDrawer
-- Key Rules
-- Layout Basics
-- Common Patterns
-- Best Practices
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Requests that don't explicitly mention IMGUI or OnGUI
-2. - **Cache GUIStyle objects** — never create new GUIStyle in OnGUI (causes memory allocation every frame)
-3. - **Call ApplyModifiedProperties()** — after any serialized object changes
-4. - **Begin/End pairs** — always match BeginHorizontal with EndHorizontal, etc.
-5. - **Editor folder required** — scripts fail to build if not in Editor folder
-
-## Files inside the skill
-
-- `references/gui-elements.md` — "IMGUI Elements and Layout"
-- `references/templates.md` — "IMGUI Templates"
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui-imgui\` with references/. No divergent copies.

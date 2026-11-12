@@ -1,69 +1,28 @@
 # figma-generate-library
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-generate-library\SKILL.md`
-- SKILL.md size: 24428 chars
+## Summary
+The design-system builder skill: create or update Figma libraries (tokens/foundations, single components, full libraries, or reconciliations) that faithfully match a codebase's UI. It is scope-driven — four explicit scopes each with a definition-of-done — and enforces a disciplined state ledger (`/tmp/design-system-state-{RUN_ID}.json`), sequential-only `use_figma` calls, token architecture tiers, and an evidence-based validation cadence. Eight helper scripts cover inspection, variable collections, semantic tokens, variant components, binding, docs pages, validation and cleanup.
 
-## What it does
+## When to use / when NOT
+Use for reusable library primitives/foundations — tokens, variables, styles, components, variant matrices, documentation pages, Code Connect — anything meant for publication or reuse. NOT for one-off screens/views (use figma-generate-design) or mapping files alone (figma-code-connect). A narrow request must NOT be silently promoted to a full-library project.
 
-Build and update Figma design system.
+## Inputs, outputs, tools
+- Inputs: requested scope + inventory, codebase tokens/components (source of truth), target fileKey, existing Figma conventions.
+- Outputs: variable collections/modes/scopes/code-syntax, text/effect styles, component sets with properties/bindings, doc pages, Code Connect mappings (full-library scope), state ledger file.
+- Tools: `use_figma` (with mandatory figma-use companion), `get_libraries`, `search_design_system`, figma.variables/style APIs, helper scripts in scripts/ (inspectFileStructure, createVariableCollection, createSemanticTokens, createComponentWithVariants, bindVariablesToComponent, createDocumentationPage, validateCreation, cleanupOrphans); 8 reference docs.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Lock scope and acceptance checks BEFORE first mutation; communicate proportionally and stop when the scope's definition-of-done passes — no speculative extra work.
+2. Foundations before dependents; inspect existing conventions first; every variable gets explicit scopes (never ALL_SCOPES) and WEB code syntax wrapped as `var(--name)`; semantic layer aliases primitives, never duplicates raw values.
+3. Components: bind visual properties to variables by default, INSTANCE_SWAP for icons (never variant-per-icon), cap variant matrices at ~30 (split beyond), position variants after combineAsVariants (they stack at 0,0), deterministic naming, idempotent name+ledger-ID existence checks — never duplicate.
+4. Execution discipline: `use_figma` calls are strictly sequential (never parallel), page context resets each call (setCurrentPageAsync once per call, split multi-page work), never hallucinate node IDs (read from state ledger), never parallelize, return ALL created IDs every call, and write the state ledger to disk since conversation truncates.
+5. Reuse decision: local existing → subscribed library → unsubscribed UI kit → create new; wrap when visual match but API incompatible; ask the user on genuine code-vs-Figma or close-match forks — never silently default, never build on rejected work.
 
-- Design System Builder — Figma MCP Skill
-- 1. Scope and Completion Contract
-- Definition of done
-- Scope changes
-- 2. Scoped Workflow
-- Tokens / foundations
-- Single component or family
-- Full library / design system
-- Reconciliation / update
-- 3. Critical Rules
-- 4. State Management (Required for Long Workflows)
-- 5. Library Discovery and search_design_system — Reuse Decision Matrix
-- 6. Decision Forks
-- 7. Naming Conventions
-- 8. Token Architecture
-- 9. Anti-Patterns
-- 10. Reference Docs
-- 11. Scripts
-- (none)
+## Risks / owner needs
+Mutates a real Figma file (possibly a published library others consume); wrong scope or naming pollutes the system. Code Connect and full QA are Org-plan territory. Requires Figma MCP auth.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: design. Tags: figma, design-system, tokens, components, library, mcp, variants.
 
-- MCP mentions: MCP Skill, MCP resource
-
-## Risks / cautions found in text
-
-- 1. **Discovery:** lock the token and component inventory and print the gap analysis.
-- 11. **No destructive cleanup** — cleanup scripts identify nodes by name convention or returned IDs, not by guessing.
-- - Token binding model is compatible (uses same or aliasable variables)
-- - Token model incompatible (hardcoded values, different variable schema)
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - The final deliverable covers the locked inventory and is materially faithful to the applicable source of truth, including requested variant/state coverage, required assets, and in-scope review examples.
-2. - For component tasks, keep main components and construction assets outside the final review frame, and show the requested states as instances in one compact frame. Before stopping, inspect that frame at normal scale and repair clipped, truncated, low-contrast, empty, misplaced, or detached content.
-3. - Required variable scopes, aliases, code syntax, component properties, variants, and bindings are verified.
-4. - Replace placeholders when the source provides the required asset; remove temporary instances, test frames, captures, abandoned artifacts, and unrelated stray nodes.
-5. 1. Inspect and reuse compatible local or library variables, text styles, and effect styles. Create only the missing foundations required by the component. For source-defined, library-standard, or repeated component roles, create or reuse a shared text or effect style and apply it to every matching c
-
-## Files inside the skill
-
-- `references/code-connect-setup.md` — "Code Connect Setup Reference"
-- `references/component-creation.md` — "Component Creation Reference"
-- `references/discovery-phase.md` — "Discovery Phase Reference"
-- `references/documentation-creation.md` — "Documentation Creation Reference"
-- `references/error-recovery.md` — "Error Recovery Reference"
-- `references/naming-conventions.md` — "Naming Conventions Reference"
-- `references/token-creation.md` — "Token Creation Reference"
-- `scripts/bindVariablesToComponent.js`
-- `scripts/cleanupOrphans.js`
-- `scripts/createComponentWithVariants.js`
-- `scripts/createDocumentationPage.js`
-- `scripts/createSemanticTokens.js`
-- `scripts/createVariableCollection.js`
-- `scripts/inspectFileStructure.js`
-- `scripts/validateCreation.js`
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

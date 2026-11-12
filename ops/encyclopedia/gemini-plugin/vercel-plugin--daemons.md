@@ -1,57 +1,28 @@
-# daemons
+# daemons (Vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\daemons\SKILL.md`
-- SKILL.md size: 13594 chars
+## Summary
+Skill for Vercel Daemons (public beta): long-running container-image processes declared under top-level `daemons` in vercel.json — fixed instance counts per region, built from a Dockerfile, rolled out on production deploys, restarted on crash, logs to project Logs, Fluid compute. They pull work (queues, workflows, external APIs) and CANNOT receive inbound traffic. Covers config schema, lifecycle/scaling (including dashboard/CLI overrides that beat vercel.json), graceful SIGTERM shutdown, and consuming Vercel Queues poll mode via `PollingQueueClient`.
 
-## What it does
+## When to use / when NOT
+Use only when something must stay running to pull work: always-on queue consumers, Celery/Sidekiq/BullMQ workers, self-hosted runners. For request-driven work prefer Functions or Queues push; for durable steps use Workflows; for schedules use Cron; for untrusted code use Sandbox. Say "public beta" when recommending.
 
-Configure and deploy long.
+## Inputs, outputs, tools
+- Inputs: worker source dir with Dockerfile, `vercel.json` `daemons` block (`root`, `entrypoint`, `instances` per region 0–100, optional `command`, `resources` memory tiers, `terminationGracePeriodSeconds`).
+- Outputs: running daemon instances, logs, queue consumption.
+- Tools: Vercel deploy/`vercel daemons scale`, `@vercel/queue` `PollingQueueClient`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Daemons sit at top level of vercel.json, never inside `services`; service fields (framework, runtime, bindings) fail validation.
+2. Production only during beta — previews don't start daemons; test the image locally.
+3. Names: lowercase, `_`/`__`/`-` joined, ≤64 chars; `a-b` vs `a--b` collide in the image repo and fail the build; use `instances` not deprecated `replicas`.
+4. SIGTERM handling is mandatory: stop taking work, finish in-flight job, exit within the grace period (default 30s, max 3600); jobs must be idempotent since instances stop anytime.
+5. Scaling overrides (dashboard/CLI) persist across deploys and override `instances` — check for overrides before assuming vercel.json changes apply; no autoscaling.
 
-- | Run code on a schedule | Cron Jobs (`⤳ skill: vercel-functions`) | Time-based trigger |
+## Risks / things needing the owner
+Beta product — availability/limits may change. Rollout runs old+new versions simultaneously, so both must tolerate the same queue/schema. Costs scale with instance counts; owner approves production deploys.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, daemons, workers, queues, beta
 
-- Vercel Daemons
-- What It Is
-- When to Use Daemons
-- Quick Start
-- worker/Dockerfile
-- Configuration Reference
-- Lifecycle and Scaling
-- Graceful Shutdown
-- worker/worker.py
-- Consuming Vercel Queues From a Daemon
-- Environment Variables and OIDC
-- Local Development
-- Logs and Observability
-- Build Output API
-- Limits
-- Common Pitfalls
-- References
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Production only during the beta.** Daemons run only for the production deployment. Preview deployments do not start daemons; test changes by running the image locally.
-- - **Rollout**: when a deployment becomes production (deploy, promote, Instant Rollback, or a completed rolling release), Vercel starts the new instances and sends `SIGTERM` to the previous deployment's instances. For a short time both versions run at once, so both must be able to consume the same qu
-- - **Image, command, and environment variables** belong to the deployment. Change them with a new production deployment.
-- - **Scaling with `vercel.json`**: change `instances` and deploy to production. The map replaces the previous one; regions removed from it stop.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Production only during the beta.** Daemons run only for the production deployment. Preview deployments do not start daemons; test changes by running the image locally.
-2. - **Rollout**: when a deployment becomes production (deploy, promote, Instant Rollback, or a completed rolling release), Vercel starts the new instances and sends `SIGTERM` to the previous deployment's instances. For a short time both versions run at once, so both must be able to consume the same qu
-3. 2. **Testing on a preview**: daemons never start for preview deployments during the beta. Deploy to production or run the image locally.
-4. 5. **No SIGTERM handling**: the process is killed 30 seconds after `SIGTERM` (the default) unless `terminationGracePeriodSeconds` is raised. Make jobs idempotent and acknowledge only after completion.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\daemons\SKILL.md`. Only gemini-plugin holds it.

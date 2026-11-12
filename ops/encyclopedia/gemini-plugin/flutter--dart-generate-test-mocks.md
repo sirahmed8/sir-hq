@@ -1,45 +1,28 @@
-# dart-generate-test-mocks
+# dart-generate-test-mocks (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-generate-test-mocks\SKILL.md`
-- SKILL.md size: 6339 chars
+## Summary
+Guide for mock-based unit testing in Dart: design for DI (inject `http.Client` etc. via constructors, URLs as `Uri`), declare `@GenerateNiceMocks([MockSpec<Dependency>()])` in the test file (NiceMocks preferred over GenerateMocks to avoid unstubbed-call exceptions), generate via `dart run build_runner build`, then stub with `when().thenReturn` for sync and **`thenAnswer((_) async => ...)` for Futures/Streams — never thenReturn on async**, and verify with `verify()`/argument matchers.
 
-## What it does
+## When to use / when NOT
+Use when unit-testing classes dependent on external services (APIs, databases, http clients). Do NOT use for widget tests that can use fakes, or for integration tests hitting real services.
 
-Define and generate mock objects for external dependencies using `package:mockito` and `build_runner`. Use when unit testing classes that depend on complex external services like APIs or databases.
+## Inputs, outputs, tools
+- Inputs: the class under test and its injected dependencies; pubspec dev deps (`test`, `mockito`, `build_runner`).
+- Outputs: generated `*.mocks.dart`, passing mocked test suites.
+- Tools: `package:mockito` + `build_runner`, `package:test`; `dart pub add dev:test dev:mockito dev:build_runner`; examples/ dir.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Always `@GenerateNiceMocks`, never `@GenerateMocks` — unstubbed calls on strict mocks throw.
+2. CRITICAL: `thenAnswer` for any Future/Stream-returning method; `thenReturn` on async throws ArgumentError.
+3. Inject dependencies through constructors; represent URLs as `Uri.parse` objects.
+4. Import http with a prefix (`as http`) to avoid namespace collisions.
+5. After build_runner, check `.mocks.dart` import matches the file name exactly; fix loop = run → review errors → fix → repeat.
 
-- Testing and Mocking Dart Applications
-- Contents
-- Structuring Code for Testability
-- Managing Dependencies
-- Generating Mocks
-- Implementing Unit Tests
-- Workflow: Creating and Running Mocked Tests
-- Task Progress
-- Feedback Loop: Test Failures
-- Examples
-- High-Fidelity Mocking and Testing Example
-- (none)
+## Risks / things needing the owner
+Over-mocking tests implementation details; mocks drift from real API changes. Generated files must be regenerated after interface changes.
 
-## Tools / MCPs it needs
+## Category / tags
+build · dart, flutter, testing, mockito, unit-tests
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Import HTTP libraries with a prefix to avoid namespace collisions: `import 'package:http/http.dart' as http;`.
-2. - Always use the `@GenerateNiceMocks` annotation (preferable to `@GenerateMocks` to avoid missing stub exceptions).
-3. - **Stubbing:** Configure mock behavior before interacting with the system under test.
-4. - **CRITICAL:** Always use `thenAnswer((_) async => value)` for methods returning a `Future` or `Stream`. Never use `thenReturn` for asynchronous returns.
-5. - [ ] 7. Stub required behaviors using `when()`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-generate-test-mocks\SKILL.md`. Only gemini-plugin holds it.

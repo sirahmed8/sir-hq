@@ -1,56 +1,28 @@
-# firebase_basics
+# firebase-basics
 
-- Tool: `codex`
-- Category: data
-- Source: `C:\Users\a7med\.codex\skills\firebase_basics\SKILL.md`
-- SKILL.md size: 6876 chars
+## Summary
+The entry-point skill for all Firebase work: verify the environment (Node 16+, `npx -y firebase-tools@latest`), ensure login (`login`, `--no-localhost` for headless), establish the active project (must pause and ask: existing project ID vs create new — project IDs are 6-30 chars, lowercase, globally unique), and set up the full Firebase skill suite per agent environment via references/setup/*.md. It also encodes usage principles: always npx-prefixed CLI, `developerknowledge_search_documents` MCP before general search, Firebase MCP server tools over raw API calls, and CLI-based app config download (`apps:sdkconfig`) instead of console downloads.
 
-## What it does
+## When to use / when NOT
+Use as the prerequisite for ANY Firebase task (auth, firestore, hosting, functions, crashlytics). Do NOT skip its environment-setup reference even when firebase-basics is the only Firebase skill loaded — it routes to per-agent setup docs. Not for implementing a specific service feature (those have their own skills).
 
-Foundational Firebase CLI setup, CLI login, project creation, switching (firebase use), and app config file downloads.
+## Inputs, outputs, tools
+- Inputs: user's choice of existing vs new Firebase project, agent environment (Gemini CLI, Antigravity, Android Studio, Claude Code, Cursor, Copilot, other).
+- Outputs: logged-in CLI, active project (`firebase use <id>`), downloaded `google-services.json`/`GoogleService-Info.plist` via `apps:sdkconfig ANDROID|IOS <APP_ID>`.
+- Tools: `npx -y firebase-tools@latest` (NEVER naked `firebase`), `projects:create`, `projects:list`, `apps:list`, `use`, `apps:sdkconfig`, `init`, Firebase MCP server, developerknowledge MCP.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. ALWAYS use `npx -y firebase-tools@latest` — never the bare `firebase` command.
+2. MUST pause and ask whether to use an existing project ID or create a new one before configuring anything; confirm the active project with the user.
+3. If firebase-basics is the only Firebase skill available, you MUST read references/local-env-setup.md and the per-agent setup doc to install the full skill suite — do not skip.
+4. Prefer Firebase MCP server tools and `developerknowledge_search_documents` (include "Firebase" in queries) over manual API calls and general web search.
+5. Download app config files via CLI (`apps:sdkconfig`) — never send users to the console for google-services files.
 
-- Prerequisites
-- Firebase Usage Principles
-- References
-- Common Issues
-- (none)
+## Risks / owner needs
+Login requires interactive auth (owner action if needed). Project creation is a real GCP action — project IDs are globally unique and permanent-ish. SIR rule: every product gets its OWN Firebase project named after the product.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: cloud. Tags: firebase, cli, setup, prerequisites, gcp, mcp.
 
-- MCP mentions: MCP server, MCP tool, MCP Server
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **CRITICAL**: Before configuring any extensions or agent environments
-2. - **DO NOT SKIP** this step: if 'firebase-basics' is the only Firebase skill
-3. 1. **Active Project:** Most Firebase tasks require an active project context.
-4. 1. **Use npx for CLI commands:** To ensure you always use the latest version of
-5. 1. **Use Firebase MCP Server tools instead of direct API calls:** Whenever you
-
-## Files inside the skill
-
-- `references/android_setup.md` — "🛠️ Firebase Android Setup Guide"
-- `references/firebase-cli-guide.md` — "Exploring Commands"
-- `references/firebase-service-init.md` — "Initialization"
-- `references/flutter_setup.md` — "Flutter & Firebase Setup Guide"
-- `references/ios_setup.md` — "Firebase iOS Setup Guide"
-- `references/local-env-setup.md` — "Firebase Local Environment Setup"
-- `references/refresh/android_studio.md` — "Refresh Android Studio Local Environment"
-- `references/refresh/antigravity.md` — "Refresh Antigravity Local Environment"
-- `references/refresh/claude.md` — "Refresh Claude Code Local Environment"
-- `references/refresh/gemini-cli.md` — "Refresh Gemini CLI Local Environment"
-- `references/refresh/other-agents.md` — "Refresh Other Local Environment"
-- `references/setup/android_studio.md` — "Android Studio Setup"
-- `references/setup/antigravity.md` — "Antigravity Setup"
-- `references/setup/claude_code.md` — "Claude Code Setup"
-- `references/setup/cursor.md` — "Cursor Setup"
-- `references/setup/gemini_cli.md` — "Gemini CLI Setup"
-- `references/setup/github_copilot.md` — "GitHub Copilot Setup"
-- `references/setup/other_agents.md` — "Other Agents Setup"
-- `references/web_setup.md` — "Firebase Web Setup Guide"
+## Revisions
+Identical across claude/codex/cursor/gemini-plugin/kilo/opencode/windsurf; claude copy used.

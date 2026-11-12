@@ -1,37 +1,28 @@
 # gcloud-auth-verification
 
-- Tool: `gemini`
-- Category: security
-- Source: `C:\Users\a7med\.gemini\skills\gcloud-auth-verification\SKILL.md`
-- SKILL.md size: 1982 chars
+## Summary
+Tiny but critical triage skill for Google Cloud auth failures. Catalogs the exact error signatures: gcloud/bq CLI errors ("You do not currently have an active account selected", "No credentialed accounts", "Configuration error: No account is currently active") and library/notebook errors (`google.auth.exceptions.DefaultCredentialsError: Could not automatically determine credentials`, and 403 Access Denied that may actually be IAM). Required first step is independent verification via `gcloud auth list` — never ask the user to log in before checking. Key distinction: if an account IS listed but calls return 403, the problem is IAM permissions on that account, not missing auth — investigate roles, don't re-login. If truly no credentials, STOP and hand the user the exact commands (`gcloud auth login` for CLI, `gcloud auth application-default login` for ADC used by bq CLI and Python libraries/notebooks). Credentials must be established by the user — never attempt code workarounds.
 
-## What it does
+## When to use / when NOT
+Use whenever gcloud, bq, dataform, or Google client libraries throw auth-looking errors. Not for diagnosing 403s when auth is verified (that's an IAM problem — other skills/skills' IAM guidance apply).
 
-Guidelines for identifying and resolving missing Google Cloud authentication and Application Default Credentials (ADC). Use this skill if `gcloud`, `bq`, `dataform`, or Python libraries return authentication errors.
+## Inputs, outputs, tools
+- Inputs: error message text, `gcloud auth list` output.
+- Outputs: diagnosis (missing creds vs IAM vs auth OK), exact user commands.
+- Tools: `gcloud auth list`, `gcloud auth login`, `gcloud auth application-default login`.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. ALWAYS run `gcloud auth list` yourself before asking the user to authenticate — verification first, never assume.
+2. An active account + 403 = IAM permission gap, not an auth problem; investigate roles instead of re-login loops.
+3. Two separate credentials exist: gcloud CLI auth AND Application Default Credentials — ADC is required for bq CLI and most Python libs; user may need both commands.
+4. Never fix credentials via code or alternative tooling — auth is a user action (browser login/consent).
+5. After user confirms login, re-run `gcloud auth list` to verify before resuming the original task.
 
-- Handling Authentication Issues
-- Common Error Messages
-- Verification Step
-- Corrective Action
-- Post-Login Verification
-- (none)
+## Risks / owner needs
+Login is inherently an owner action (browser OAuth, possibly 2FA) — this skill's whole point is producing the exact minimal command set for OWNER_ACTIONS.md rather than stalling.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: cloud. Tags: gcloud, authentication, adc, iam, troubleshooting, google-cloud.
 
-- none declared
-
-## Risks / cautions found in text
-
-- -   `No credentialed accounts.`
-- 2.  **To set up Application Default Credentials (ADC)** (required for BQ CLI AND
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   `ERROR: (bq) You do not currently have an active account selected.`
-2. 2.  **To set up Application Default Credentials (ADC)** (required for BQ CLI AND
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini skill copy; no competing revisions.

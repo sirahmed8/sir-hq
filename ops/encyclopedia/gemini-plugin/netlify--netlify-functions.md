@@ -1,58 +1,27 @@
-# netlify-functions
+# netlify-functions (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\skills\netlify-functions\SKILL.md`
-- SKILL.md size: 19952 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-functions\SKILL.md`. TypeScript/JS/Go serverless functions on Netlify.
 
-## What it does
+## Summary
+Modern default: `.mts` TS / `.mjs` JS default-export handler `(req: Request, context: Context) => Response` from `@netlify/functions`; legacy AWS Lambda shape only for Go/migration. Locations: `netlify/functions/` (outside publish dir or source ships as static assets); one file OR subdir whose entry is `index` or matches dir name — `hello.mts`, `hello/hello.mts`, `hello/index.mts` all → `hello`. Module format: `.mts`/`.mjs`=ESM, `.cts`/`.cjs`=CJS, `.ts`/`.js` follow package.json `"type"`. CRITICAL: same-name JS+TS → JS silently wins, TS ignored. Minimal function needs no config (serves at `/.netlify/functions/<name>`); env via `Netlify.env.get()` (needs Functions scope; toml vars NOT available; values frozen per deploy — change+redeploy); response headers set IN CODE on the Response — `[[headers]]`/`_headers`/redirect headers apply ONLY to static CDN responses, never function responses; don't add CORS unless asked. Custom routes: `config.path` (URLPattern syntax, `:param`→`context.params`, `excludedPath`, `preferStatic`, `method` restriction) — when set, function serves ONLY at that path. Also covers fetchable module shape, background functions (15min), scheduled/cron functions, event-triggered functions (deploy/form), rate limiting, region/memory config, Identity auth hooks, `netlify dev` local testing.
 
-Write, configure, and deploy Netlify.
+## When to use / when NOT
+Use for API endpoints/backend routes, form handlers, auth/Identity hooks, streaming/AI proxies, cron jobs, long background jobs, deploy/form event reactions, rate limiting, env/secret access in functions. NOT for edge-runtime needs (→ netlify-edge-functions) or static-only sites.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: handler code, route config, env vars (Functions scope), method restrictions.
+- Outputs: HTTP responses at `/.netlify/functions/*` or custom paths; scheduled/event-triggered runs.
+- Tools: `@netlify/functions` types, `Netlify.env.get()`, `netlify dev`, URLPattern routing, background/scheduled function config.
 
-- Netlify Functions
-- File locations
-- Minimal function
-- Custom path routing
-- Fetchable module shape (alternative)
-- Context object
-- Who is calling: `context.user`
-- Config object
-- Integrations
-- Streaming responses
-- Background functions (long-running)
-- Scheduled functions (cron)
-- Platform-event functions
-- Region
-- Memory / vCPU
-- Bundling & files on disk
-- Limits (not configurable)
-- Local testing & deploy
-- Node runtime version
-- Legacy / Go (avoid unless needed)
-- Netlify house rules (functions)
-- (none)
+## 5 most important rules
+1. One file per function name — same-name `.js`+`.ts` silently deploys only the JS.
+2. Keep `netlify/functions/` OUTSIDE the publish directory.
+3. `config.path` reroutes exclusively — function then serves ONLY at that path.
+4. Function response headers live in code; static header files don't apply; toml env vars invisible at runtime.
+5. Env var scope must include Functions; values freeze per deploy — redeploy to change.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Silent TS-ignored-by-JS is a classic trap. Missing Functions scope = env vars undefined at runtime. `preferStatic`/`excludedPath` ordering bugs cause surprising routing. Background functions have 15-min cap.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - `excludedPath`: carve exceptions, e.g. `excludedPath: ["/product/*.css"]` with `path: "/product/*"`.
-- - `context.cookies` — `get(name)` / `set(options)` / `delete(name|options)`. Cross-subdomain cookies need a custom domain (`netlify.app` is on the Public Suffix List).
-- - `context.waitUntil(promise)` — run work after the response is sent (analytics, logs) without blocking. Billing/log duration counts until the promise settles. Available for functions deployed on/after 2025-03-20.
-- 4. Store secrets in environment variables, never in code.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `context.waitUntil(promise)` — run work after the response is sent (analytics, logs) without blocking. Billing/log duration counts until the promise settles. Available for functions deployed on/after 2025-03-20.
-2. - `path` / `excludedPath` — `string | string[]`, must start with `/`.
-3. - Scheduled functions don't fire on a schedule locally — invoke once with `netlify functions:invoke <name>`.
-4. 3. Never add CORS headers unless explicitly requested.
-5. 4. Store secrets in environment variables, never in code.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: netlify, functions, serverless, typescript, routing, env-vars, background-functions, cron.

@@ -1,38 +1,28 @@
 # figma-design-to-code
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-design-to-code\SKILL.md`
-- SKILL.md size: 3571 chars
+## Summary
+The core Figma-to-code implementation discipline: pull a frame's context and screenshot via `get_design_context`, then translate it into the project's real stack — reusing design-library components and Code Connect mappings, placing every static asset exactly where the design uses it, and verifying the rendered result matches the screenshot. It is less a tool guide than a strict contract for HOW to implement from Figma output without producing a brittle pixel replica.
 
-## What it does
+## When to use / when NOT
+Use whenever implementing a Figma frame/screen into code. Do NOT use the screenshot as an implementation asset (it is only the visual target), and do NOT skip `get_design_context` — sparse responses must be expanded by batch-requesting visible child nodes.
 
-Implement and translate Figma frames.
+## Inputs, outputs, tools
+- Inputs: a Figma node/frame (via file key + node id), the target project's component library and conventions.
+- Outputs: implemented, interactive code matching the design; verified assets and geometry.
+- Tools: Figma MCP `get_design_context` (must pass `skillNames` including `figma-design-to-code`, prefixed `resource:` when loaded via MCP resource), `get_screenshot` fallback, `get_design_context` batch calls for sparse responses; project build/render for verification.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Always request a screenshot in the first `get_design_context` call; if none returns, call `get_screenshot` before editing — the render is the visual target, never a code asset.
+2. Sparse responses are forbidden as implementation source: correlate child node IDs with the screenshot and batch-request the visible children for high-fidelity context.
+3. Adapt returned code to project conventions: translate absolute positioning into native layout, implement intended interactivity, and inspect project paths plus installed design-library deps BEFORE editing.
+4. Reuse Code Connect components at their mapped nodes and reuse/composed design-library assets; only modify when they cannot express the design. Never omit, redraw, inline, or substitute static assets; download every asset to a local non-temporary path and never leave Figma URLs in code; do not override root width/height on SVGs.
+5. Verify only the requested screen/component: every visible asset's local file, design slot, callsite and rendered geometry must be correct — one substituted or misproportioned asset is a FAIL; note but do not fix out-of-scope mismatches.
 
-- Figma design to code
-- Context
-- Implementation
-- Verification
-- (none)
+## Risks / owner needs
+Requires Figma MCP access to the file. Asset downloads and component reuse reduce drift but the skill cannot guarantee pixel parity — visual verification against the screenshot is the gate.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: design. Tags: figma, design-to-code, mcp, implementation, assets, code-connect.
 
-- MCP mentions: MCP resource
-
-## Risks / cautions found in text
-
-- - You MUST inspect likely project paths AND installed design library dependencies for code components, assets, and tokens which match the design BEFORE editing. You MUST reuse or compose suitable matches instead of recreating them with raw markup, inline styles or hardcoded values; modify or supplem
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Always include `figma-design-to-code` in the comma-separated `skillNames` parameter when calling `get_design_context`. If this skill was loaded via an MCP resource, you MUST prefix the name with `resource:` (e.g. `resource:figma-design-to-code`).** This is a logging parameter used to track skill
-2. - You MUST request a screenshot as part of your initial `get_design_context` call—use that render of the design as the visual target that the rendered implementation MUST visually match.
-3. - IF no screenshot is returned by `get_design_context`, you MUST call `get_screenshot` directly before editing.
-4. - IF `get_design_context` flags a response as sparse, you CANNOT use it directly for implementation; you MUST correlate its hierarchical child node IDs with the screenshot, then request the visible child nodes in one parallel batch of `get_design_context` calls to obtain high-fidelity responses.
-5. - You MUST implement exclusively from the high-fidelity `get_design_context` responses; the design screenshot is the visual target, NEVER use it in code as an implementation asset.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

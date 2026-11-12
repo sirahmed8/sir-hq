@@ -1,49 +1,31 @@
 # notebook-guidance
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\notebook-guidance\SKILL.md`
-- SKILL.md size: 15080 chars
+Tools: gemini (Google-published, Apache-2.0, version v5).
+Source: C:\Users\a7med\.gemini\skills\notebook-guidance\SKILL.md (326 lines, read in full; no scripts/references folder)
 
-## What it does
+## Summary
+Google's guidance skill for Jupyter notebook work, especially BigQuery analysis. It decides when a notebook is warranted (insights, charts, stateful exploration — not single-number lookups), enforces a cell-by-cell generate→execute→validate loop when an execute tool exists, and lays down strict BigQuery rules: use `%%bqsql` BigFrames magics instead of the Python client, stay in BigFrames/BQML rather than pandas/scikit-learn, and finish with a structured markdown summary.
 
-|- This skill guides the use of Jupyter notebooks for data analysis, exploration, and visualization, particularly with BigQuery. It outlines best practices for notebook execution and validation (supporting both cell-by-cell execution and full notebook generation depending on tool availability), library installation, and structuring notebooks for clarity. It also covers specific rules for data cleaning, plotting, and integrating with BigQuery SQL and machine learning workflows. Relevant when any of the following conditions are true: 1. The user request involves a data analysis, data exploration, data visualization, or data insights task that requires multiple steps, queries, or visualizations to answer. 2. The user explicitly requests a notebook (.ipynb). 3. You are creating, editing, or executing cells in a Jupyter notebook. 4. You need to query BigQuery from within a notebook. DO NOT use the Python BigQuery client library; instead, you MUST use the `%%bqsql` magics explained in this skill.
+## When to use / not use
+Use for multi-step data analysis, exploration, visualization, or explicit .ipynb requests, particularly against BigQuery. Skip it for simple fact lookups (row counts, schema previews) — a plain query answer is cheaper.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: an analysis question plus (for BigQuery) a `project.dataset.table` ID found via asset discovery. Output: an executed, clean notebook with visualizations and a summary cell. Needs: a live kernel (local Python with `bigframes>=2.38` + `ipykernel`, or remote Spark/Colab), the `execute_cell` tool for the incremental flow, and optionally `managing-python-dependencies` and `ml-best-practices` companion skills.
 
-- Notebook Guidance
-- When to Use a Notebook
-- Notebook Best Practices
-- Kernel & Environment Management
-- Kernel Types
-- No Active Kernel / Setup Check
-- Proper Library Installation
-- Data Analysis & Visualization Rules
-- Notebook Layout
-- Plotting Rules
-- Data Cleaning Rules
-- Specialized Notebook Guidance
-- 1. BigQuery in Notebooks
-- Initialize BigFrames and load %%bqsql magics
-- 2. Machine Learning in Notebooks
-- (none)
+## Key rules
+1. Behavior branches on tool availability: with `execute_cell`, one cell at a time and inspect output before continuing; without it, generate the whole notebook and ask the user to run it.
+2. Hard stop on any kernel error — never scaffold more cells until a kernel is confirmed active.
+3. BigQuery access is `%%bqsql <df_name>` magics only; never `google.cloud.bigquery` or `read_gbq`; never mix Python into a magic cell; always name the output dataframe.
+4. Keep cells small (one transformation or plot each), clean failed attempts before presenting, and end with a markdown summary containing only Q&A / Key Findings / Insights sections.
+5. Plotting: distinct colors per feature, sized figures without overlapping legends, inline figures; line charts only for continuous data; PCA to 2D before cluster scatter plots.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Requires a working Python kernel and BigQuery access; in environments without them the skill degrades to "generate and ask the user to run".
+- Its anti-pandas stance is opinionated — fine for BigQuery scale, wasteful for small local CSVs.
+- References `@skill:` companions (discovering-gcp-data-assets, ml-best-practices) that may not exist outside Google's agent environment.
 
-- none declared
+## Category and tags
+study, data, build — jupyter, bigquery, bigframes, data-analysis, visualization, python.
 
-## Risks / cautions found in text
-
-- 2.  You MUST NOT drop columns unless absolutely necessary. Dropping columns is
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   📝 **Simple Fact/Status**: The request only requires a single number (e.g.,
-2. 3.  **CLEAN FINAL STATE**: The final notebook MUST NOT have failed cells. If a
-3. 5.  **GENERATE VISUALIZATIONS**: Always accompany data insights with
-4. *   **Check first (REQUIRED)**: Before writing any `%pip install` cell, run
-5. *   MUST NOT add Python code to the summary.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single Google revision (v5); only one copy on the machine.

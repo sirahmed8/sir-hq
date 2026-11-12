@@ -1,36 +1,28 @@
 # direct-action-shield
 
-- Tool: `codex`
-- Category: media
-- Source: `C:\Users\a7med\.codex\skills\direct-action-shield\SKILL.md`
-- SKILL.md size: 1511 chars
+## Summary
+A response-style protocol that bans conversational filler (greetings, apologies, recaps, "let me know") and enforces a fixed reply anatomy: numbered actions taken, surgical diffs/code with clickable file links, verification proof (build/test output), and one immediate next step. Includes a small mermaid flow: Inspect → Execute → Verify → Output.
 
-## What it does
+## When to use / when NOT
+Use in any agent session where terse, execution-first replies are wanted — it is essentially the operating rule already used across SIR worker preambles. Do NOT use for teaching/explaining contexts where the user asked for narrative, or for owner-facing messages that have their own mandated format (WORKER_PREAMBLE rule 12).
 
-Suppresses conversational AI filler and enchants immediate, numbered, surgical action steps.
+## Inputs, outputs, tools
+- Inputs: the user's request.
+- Outputs: structured replies — numbered actions, minimal diffs, verification output, next step.
+- Tools: none; pure communication discipline.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. No preamble greetings or "happy to help" openers.
+2. No apologies-as-preamble — fix the mistake directly.
+3. Number what was done; show only relevant code, link full files.
+4. Always attach verification proof (test/build/runtime output).
+5. End with one actionable next step, not an open-ended offer.
 
-- Direct Action Shield (Zero Chit-Chat & Immediate Execution)
-- 1. Banned Conversational Fluff
-- 2. Direct Action Execution Protocol
-- Response Anatomy:
-- (none)
+## Risks / things needing the owner
+Over-application can read as curt to non-technical stakeholders; owner-facing Telegram messages follow a different mandated format and must not be squeezed into this anatomy.
 
-## Tools / MCPs it needs
+## Category / tags
+ai · communication, style, agent-behavior
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Preamble greetings: *"Sure thing! I would be happy to help you with that!"*
-2. - Obvious recaps: *"In this step, I will examine the file you asked for..."*
-3. - Apologies: *"I apologize for that mistake, let me try again..."* (Just fix it directly).
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it plus gemini-plugin; bodies byte-identical, only `description` differs. Claude copy preferred for trigger-style description.

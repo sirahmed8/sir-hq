@@ -1,36 +1,29 @@
 # open-seo-auditor
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\open-seo-auditor\SKILL.md`
-- SKILL.md size: 2527 chars
+Tools: claude, codex, cursor, kilo, opencode, windsurf (kilo copy used; identical across tools).
+Source: C:\Users\a7med\.config\kilo\skills\open-seo-auditor\SKILL.md (40 lines, read in full)
 
-## What it does
+## Summary
+An SEO + GEO (Generative Engine Optimization) checklist skill inspired by every-app/open-seo. It defines standards for being found by AI answer engines (definition blocks LLMs can quote, JSON-LD entity graphs, FAQPage schema, information-dense citations) plus a technical SEO audit protocol (robots.txt, sitemap, canonicals, heading hierarchy, OG/Twitter metadata) and a mobile/CWV checklist.
 
-Autonomous SEO and GEO: keyword optimization, JSON-LD schemas, and AI search engine visibility.
+## When to use / not use
+Use when auditing or improving a public website's search and AI-answer visibility. Not for paid-ads, social, or non-web products; it is a checklist, not a rank-tracking tool.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a website/codebase to audit. Output: findings against the GEO standards, technical SEO protocol, and mobile checklist. Needs: code access (meta tags, robots.txt, sitemap generation) — no external APIs required, though real ranking data would need a search tool it doesn't provide.
 
-- OpenSEO & Generative Engine Optimization (GEO) Engine
-- 1. Generative Engine Optimization (GEO)
-- GEO Architecture Standards:
-- 2. Technical SEO Audit Protocol
-- 3. Mobile Performance & Usability Checklist
-- (none)
+## Key rules
+1. GEO: declarative definition blocks at the top of informational pages, entity-linked JSON-LD (Organization, Product, SoftwareApplication, Author), empirical data over fluffy prose, FAQPage schema.
+2. Technical: robots.txt allows public routes and blocks /api//admin; programmatic sitemap.xml with accurate lastmod; self-referencing canonicals; exactly one h1 per page with unskipped nesting.
+3. Social graph: complete Open Graph set plus Twitter summary_large_image (1200x630).
+4. Mobile: overflow-x clip, 44x44px touch targets, CWV targets (LCP<2.5s, CLS<0.1, INP<200ms).
 
-## Tools / MCPs it needs
+## Risks / owner items
+- GEO "standards" are inferred best practices, not guaranteed ranking factors; presenting them as guaranteed AI-search visibility would overclaim.
+- Checklist has no measurement tooling — CWV/SEO claims need real field data (CrUX/PageSpeed) to verify.
 
-- none declared
+## Category and tags
+web, business, research — seo, geo, ai-search, json-ld, technical-seo, audit.
 
-## Risks / cautions found in text
-
-- 2. **Entity-Linked Knowledge Graphs**: Embed rich JSON-LD structured data linking `Organization`, `WebSite`, `Product`, `SoftwareApplication`, and `Author`.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 3. **Information Density & Citations**: Use empirical metrics, clear data tables, and verifiable references instead of fluffy promotional prose.
-2. - **Canonical Hygiene**: Every page must contain a self-referencing `<link rel="canonical" href="https://domain.com/path" />`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Identical across tools; 40-line distilled checklist derived from the open-seo project.

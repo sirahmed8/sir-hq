@@ -1,60 +1,27 @@
-# marketplace
+# marketplace (vercel-plugin family)
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\marketplace\SKILL.md`
-- SKILL.md size: 18068 chars
+Source read: `C:\Users\a7med\.codex\skills\marketplace\SKILL.md` (18 KB; codex revision; cursor/kilo/opencode/windsurf/gemini-plugin listed).
 
-## What it does
+## Summary
+Vercel Marketplace integration guide covering both consuming and building sides. Consuming: preflight `test -f .vercel/project.json` / `vercel link` (provisioning is project-scoped); discover via `vercel integration discover [--category]`, `guide <name> [--framework]` (agent-friendly structured setup steps), `add <name>` (auto-connects + auto env-sync), `list`/`ls`, `balance <name>`, `remove`, `open` for dashboard fallback. Auto-provisioned env vars are injected into all environments — Neon yields POSTGRES_* vars, Upstash KV_REST_API_*, etc. — with a documented 1-3 minute provisioning window where DB connections 500 (wait and retry, do NOT debug; `vercel env pull` after). Unified billing: single Vercel invoice, usage-based, team-level. Building: `npx create-vercel-integration`, `vercel-integration.json` manifest (slug, scopes, resourceTypes), webhook handlers for `integration.installed`/`uninstalled` verified via `verifyVercelSignature` from `@vercel/integration-utils`.
 
-Guidance for Vercel Marketplace integrations, auto-provisioned env vars, and vercel integration CLI.
+## When to use / when NOT
+Use when installing/managing Vercel Marketplace integrations (DBs, auth, monitoring, CMS) or building a sellable integration. Not for plain env-var management or non-Vercel platforms.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: linked Vercel project, integration name/category, framework for guide steps.
+- Outputs: installed integration, auto-provisioned env vars, unified billing line items; or a scaffolded integration app.
+- Tools: `vercel integration` / `vercel mf`-adjacent CLI, `vercel link`, `vercel env ls/pull`, Marketplace dashboard, `create-vercel-integration`, `@vercel/integration-utils`.
 
-- # Trigger a deployment and check logs flow through
+## 5 most important rules
+1. Verify the repo is linked (`.vercel/project.json`) before any `integration add`.
+2. Default discovery flow is `vercel integration guide <name> --framework <fw>` — it returns structured env vars, SDKs, snippets.
+3. After install, expect 1-3 min provisioning delay; DB 500s during that window are normal — wait, don't debug, then `vercel env pull`.
+4. Never hand-edit `.env` for integration vars — they're auto-injected into Dev/Preview/Prod; verify with `vercel env ls`.
+5. Building side: verify webhook signatures (`verifyVercelSignature`) and declare scopes/resourceTypes in the manifest; `add`/billing changes may require interactive confirmation (no `--yes` past free limits).
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Marketplace installs create real billable resources on the owner's Vercel team — check `integration balance` and confirm spend. Removing an integration can delete provisioned resources; webhook handlers must be idempotent.
 
-- Vercel Marketplace
-- Consuming Integrations
-- Linked Project Preflight
-- Check whether this directory is linked to a Vercel project
-- Link if needed
-- Discovering Integrations
-- Search the Marketplace catalog from CLI
-- Filter by category
-- List integrations already installed on this project
-- Getting Setup Guidance
-- Get agent-friendly setup guide for a specific integration
-- Include framework-specific steps when available
-- Examples
-- Installing an Integration
-- Install from CLI
-- Examples
-- Auto-Provisioned Environment Variables
-- View environment variables added by integrations
-- Example: after installing Neon, these are auto-provisioned:
-- POSTGRES_URL          — connection string
-- POSTGRES_URL_NON_POOLING — direct connection
-- POSTGRES_USER         — database user
-- POSTGRES_PASSWORD     — database password
-- POSTGRES_DATABASE     — database name
-- POSTGRES_HOST         — database host
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Team-level billing**: Charges roll up to the Vercel team account
-- - **No separate accounts**: No need to manage billing with each provider individually
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Integration manifest** — declares capabilities, required scopes, and UI surfaces
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: vercel, marketplace, integrations, env-vars, billing, webhooks, provisioning.

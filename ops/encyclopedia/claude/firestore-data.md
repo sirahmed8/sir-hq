@@ -1,51 +1,28 @@
 # firestore-data
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\firestore-data\SKILL.md`
-- SKILL.md size: 8310 chars
+## Summary
+A script-based Firestore data-operations skill (Google-published, Apache-2.0): six Node.js scripts under scripts/ for direct document/collection work — add_documents, delete_documents (bulk), get_documents (bulk by path), list_collections (root or subcollections under a parent doc), query_collection (typed filters + orderBy + limit + analyzeQuery explain metrics), update_document (full or updateMask partial, mask fields absent from data get deleted). All paths are RELATIVE collection/document paths, never absolute project/database paths. Scripts auto-load .env files.
 
-## What it does
+## When to use / when NOT
+Use for CRUD and structured queries against Firestore when you have concrete paths or filter clauses — including exploring collection hierarchies via list_collections. Do NOT use for rules/index/config management (other firebase skills) or when you only need a count — prefer narrow queries with limit.
 
-Handles NoSQL document operations and collection hierarchy exploration. Use for CRUD tasks and data retrieval. Provides flexible document manipulation and structured querying.
+## Inputs, outputs, tools
+- Inputs: relative collectionPath/documentPath(s), Firestore native-JSON typed documentData (stringValue/integerValue/doubleValue/booleanValue/timestampValue RFC3339/geoPointValue/arrayValue/mapValue/nullValue/bytesValue base64/referenceValue), filters array ({field, op, value} with ops incl. array-contains, in, not-in), orderBy JSON, limit (default 100), updateMask array, returnData flag.
+- Outputs: operation results; document data only when returnData=true (default false to save agent context).
+- Tools: `node <skill_dir>/scripts/<script>.js '<json-params>'` (bash or PowerShell quoting), env auto-loaded from .env files.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Every field value MUST be wrapped in its Firestore type indicator — raw JSON scalars are invalid; integers may be passed as strings; binary is base64 bytesValue; timestamps are RFC3339 strings.
+2. Paths are RELATIVE ('users/userId/posts'), never 'projects/{pid}/databases/{db}/documents/...' absolute form.
+3. update_document: use updateMask for precision — mask fields missing from documentData are DELETED; full updates omit the mask.
+4. returnData defaults false — set true only when you must verify exact written data (context economy).
+5. query_collection: filters need explicit op+value, orderBy is a JSON {field,direction}, analyzeQuery=true returns explain metrics for performance debugging; security rules must permit the operation.
 
-- Use this if you know the exact path of a collection and the filtering clause you would like for the document.
+## Risks / owner needs
+Destructive ops (delete_documents bulk, field deletion via mask) are irreversible — confirm scope first. Writes depend on Firestore security rules allowing them; wrong project env vars silently target the wrong database — verify .env project before bulk ops.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: data. Tags: firestore, nosql, crud, documents, query, google-cloud, scripts.
 
-- Usage
-- Scripts
-- add_documents
-- delete_documents
-- get_documents
-- list_collections
-- query_collection
-- update_document
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 3. Delete fields using update mask: To delete fields, include them in the updateMask but omit them from documentData
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Always use typed values in the documentData: Every field must be wrapped with its appropriate type indicator (e.g., {"stringValue": "text"})
-2. 4. Validate data before sending: Ensure your data matches Firestore's native JSON format
-3. 6. Base64 encode binary data: Binary data must be base64 encoded in the bytesValue field
-4. 1. Use update masks for precision: When you only need to update specific fields, use the updateMask parameter to avoid unintended changes
-5. 2. Always use typed values in the documentData: Every field must be wrapped with its appropriate type indicator (e.g., {"stringValue": "text"})
-
-## Files inside the skill
-
-- `scripts/add_documents.js`
-- `scripts/delete_documents.js`
-- `scripts/get_documents.js`
-- `scripts/list_collections.js`
-- `scripts/query_collection.js`
-- `scripts/update_document.js`
+## Revisions
+Only claude + gemini copies listed; claude copy used (gemini copy unchecked for diffs — flag if HQ wants a byte-diff audit).

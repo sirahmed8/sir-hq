@@ -1,66 +1,28 @@
-# vercel-firewall
+# vercel-firewall (gemini-plugin: vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-firewall\SKILL.md`
-- SKILL.md size: 20556 chars
+## Summary
+vercel-firewall is expert guidance for Vercel's multi-layer WAF/DDoS platform via the `vercel firewall` CLI: platform-wide automatic DDoS mitigation (free, all plans, L3/L4/L7, unbilled for blocked traffic), custom rules (deny/challenge/log/bypass/rate_limit/redirect matching on ~20 field types incl. ja4_digest, geo, headers), IP blocks, system bypass (Pro/Enterprise, exempts trusted IPs from system mitigations), Attack Mode (emergency challenge-everyone), system mitigations pause/resume, and traffic inspection (`traffic list/inspect`, `alerts`, `persistent-actions`, `bot-management`). Key mechanics: `rules` and `ip-blocks` changes are staged DRAFTS needing `vercel firewall publish --yes`; system-bypass/attack-mode/mitigations apply immediately. vercel.json `routes`+`mitigate` supports only challenge/deny declaratively.
 
-## What it does
+## When to use / when NOT
+Use for configuring/blocking/tuning Vercel firewall rules, rate limits, IP blocks, attack response, or reviewing firewall traffic. Do NOT use for application-level auth (that's vercel-connect/auth skills) or for rules needing fields the CLI lacks (use Rate Limiting SDK for custom buckets/sliding windows).
 
-Configure DDoS protection.
+## Inputs, outputs, tools
+- Inputs: rule intent (condition JSON + action), IPs/CIDRs, time windows for traffic queries.
+- Outputs: staged draft changes + `diff` review; published live rules; JSON traffic reports.
+- Tools: `vercel firewall` CLI subcommands (overview, rules, ip-blocks, system-bypass, attack-mode, system-mitigations, traffic, alerts, status), dashboard traffic URL `/<team>/<project>/firewall/traffic?filter=<ruleId>`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. STAGED ROLLOUT is mandatory: log everywhere → user reviews dashboard filtered by rule ID → deny in preview only (add `environment=preview` condition) → deny in production. Never skip stages; JA4/UA rules over-match real users badly.
+2. Drafts vs immediate: rules/ip-blocks need `publish`; system-bypass/attack-mode/mitigations are immediate. Always `diff` + `inspect` before handing publish to the user — agents must NOT publish themselves.
+3. NEVER run agent-blocked commands: `--ai`/wizard rule creation (TTY-only — use --condition/--json), `attack-mode enable`, `system-mitigations pause` — surface them for the user to run.
+4. Rate limits: start `log` action at 5-10x expected rate; counters are PER REGION (~Nx effective); scope by method since GET/POST need different limits.
+5. Keep bypasses narrow (shared-secret header AND IP/CIDR); `edit --condition` REPLACES all conditions; persistent deny durations survive rule removal.
 
-- The firewall sits in front of every request. A misconfigured rule can block real users, kill SEO crawlers, or break checkout. Treat changes like a production database migration: stage, review, and let the user pull the trigger.
+## Risks / things needing the owner
+A loose deny can take down the whole site or SEO crawlers; misconfigured JA4/UA blocks hit entire browser cohorts. Publishing, attack-mode, and mitigation-pausing are explicitly user-triggered — the skill forbids agents from doing them. `vercel login`/linking needs owner auth. High blast radius = high care.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+security · vercel, waf, ddos, rate-limiting, firewall
 
-- Vercel Firewall
-- Core Knowledge
-- Overview
-- Custom rules
-- View
-- Create — four modes
-- AI — TTY only, BLOCKED FOR AGENTS/SCRIPTS
-- Interactive wizard — TTY only, BLOCKED FOR AGENTS/SCRIPTS
-- Flags — works in scripts and agents
-- JSON — works in scripts and agents
-- Multiple conditions (AND) and OR groups
-- AND — multiple --condition flags in the same group
-- OR — use --or to start a new group
-- Edit and manage
-- Condition format
-- Operators
-- Condition types
-- Actions
-- Rate limit example
-- IP blocks
-- System bypass
-- Attack mode
-- System mitigations
-- Publishing
-- Querying firewall traffic from the CLI
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Vercel does not bill for traffic blocked by DDoS mitigations or WAF.** Usage is only incurred for requests served before mitigation kicked in or not classified as an attack. You do not pay for requests or bandwidth for denies, challenges, or rate-limits from WAF custom rules or managed rules.
-- - **Request shape**: `path`, `raw_path` (pre-rewrite), `target_path` (post-rewrite), `route` (e.g., `/blog/[slug]`), `server_action`, `method`, `host`, `protocol`, `scheme`, `environment` (preview|production), `region`
-- - `--rate-limit-algo` — `fixed_window` (default), `token_bucket` (Enterprise only)
-- 3. **Block in preview first.** Edit the rule to `deny` (or `challenge`) and add an `environment = preview` condition so production stays in log mode. This lets the user hit a preview deployment and confirm the block fires correctly without exposing real users:
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Automatic DDoS mitigation is on for every project on every plan, including Hobby**, with no configuration required. It covers L3/L4/L7 attacks.
-2. - **Vercel does not bill for traffic blocked by DDoS mitigations or WAF.** Usage is only incurred for requests served before mitigation kicked in or not classified as an attack. You do not pay for requests or bandwidth for denies, challenges, or rate-limits from WAF custom rules or managed rules.
-3. - **Headers / cookies / queries** — require `key`: `header`, `cookie`, `query`
-4. - `log` — log without blocking (use to tune before enforcing)
-5. - `--since` must fall inside your plan's retention, or the query requires Observability Plus. Shortening the window with `--until` does not help if `--since` is already too far back.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision read: `C:\Users\a7med\.gemini\config\plugins\cel-plugin\skills\vercel-firewall\SKILL.md` — actual path `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-firewall\SKILL.md` (310 lines). Gemini-plugin only.

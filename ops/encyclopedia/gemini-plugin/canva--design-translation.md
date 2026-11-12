@@ -1,40 +1,28 @@
-# design-translation
+# design-translation (canva-translate-design)
 
-- Tool: `gemini-plugin` (plugin: `canva`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\design-translation\SKILL.md`
-- SKILL.md size: 2844 chars
+## Summary
+Canva plugin skill that translates all text in a design into another language as a NEW copy: resolve the design (direct ID — never search by ID — URL parse, or search-designs by name), duplicate via `Canva:resize-design` (same dims, original untouched), open `start-editing-transaction`, translate each text element preserving formatting/proper nouns, batch all `replace_text` ops in one `perform-editing-operations`, update the title, show preview, get explicit approval, then `commit-editing-transaction`.
 
-## What it does
+## When to use / when NOT
+Use for "translate my design to X" / localization requests. Do NOT modify the original — always work on a copy. Not for redesigning layouts or non-Canva files.
 
-Translate all text in a Canva design to another language, creating a translated copy. Faster than manually copying and editing each text box in Canva's editor. Use when users say "translate my design to [language]", "make a Spanish/French/etc version", or "localize my Canva design".
+## Inputs, outputs, tools
+- Inputs: design ID/URL/name + target language.
+- Outputs: a translated copy design + link.
+- Tools (MCP): Canva:search-designs, resize-design, start-editing-transaction, perform-editing-operations, commit-editing-transaction.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never modify the original — always duplicate first via resize-design.
+2. Design IDs go straight through; search-designs is for titles only.
+3. Batch ALL text replacements into a single perform-editing-operations call.
+4. Preserve line breaks/emphasis; keep brand names/proper nouns/technical terms.
+5. Explicit user approval before commit; warn that longer translations may break layout.
 
-- Canva Translate
-- Workflow
-- 1. Locate the Design
-- 2. Create a Translated Copy
-- 3. Start Editing Transaction
-- 4. Translate Text
-- 5. Apply Translations
-- 6. Commit Changes
-- Example Interaction
-- Important Notes
-- (none)
+## Risks / things needing the owner
+Machine translation quality needs human review; layout overflow is likely with longer target languages. Skill sits under canva `inactive-skills/` — may be disabled.
 
-## Tools / MCPs it needs
+## Category / tags
+design · canva, translation, localization, mcp
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Always create a copy—never modify the original design
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\design-translation\SKILL.md`. Only gemini-plugin holds it, currently inactive.

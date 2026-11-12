@@ -1,49 +1,30 @@
 # optimize-text-mesh-pro
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-text-mesh-pro\SKILL.md`
-- SKILL.md size: 9575 chars
+Tools: gemini-plugin (unity plugin). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-text-mesh-pro\SKILL.md (172 lines, read in full)
 
-## What it does
+## Summary
+A symptom-triage guide for TextMeshPro optimization in Unity: memory/atlas bloat, visual quality, CPU spikes, build size, and CJK/Latin alignment issues. Core pattern is a static main font with dynamic fallbacks, consistent padding ratios, and disabling runtime costs (AutoSize, worldspace UGUI) once layout locks.
 
-Optimizes TextMeshPro rendering, memory, and font setup, including font asset stacks, fallback atlases, SDF quality, and worldspace text. Use when the user asks about TMP fonts, CJK or multilingual text, or text performance.
+## When to use / not use
+Use for TMP font, multilingual/CJK text, atlas memory, or text performance questions in Unity. Triage first: if the user hasn't named a symptom, ask which category (memory, quality, CPU, build size, localization) before advising.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a Unity project using TMP plus a described symptom. Output: targeted recommendations (font stack changes, import settings, component swaps). Needs Unity Editor access for applying changes; TMP 3.2.0-pre.3+ for the Dynamic OS atlas option.
 
-- Optimize TextMeshPro
-- Triage — identify the symptom first
-- Core Rules
-- Font Stack & Dynamic Fallbacks
-- Padding & Sampling Ratios
-- Font Asset Scale
-- Sprite Assets
-- AutoSize
-- Atlas Render Mode: SDF16
-- Font Normalization
-- Material Presets
-- Dynamic OS Atlas Population (TMP 3.2.0-pre.3)
-- Memory Profiler: Include Font Data
-- Worldspace vs Canvas Text
-- Common Pitfalls
-- References
-- (none)
+## Key rules
+1. Main font = static asset with glyphs baked; dynamic fallbacks via Fallback list at 512-1024 atlas; NEVER ship a dynamic fallback without `Clear Dynamic Data On Build` (editor-baked glyphs ship otherwise).
+2. Keep padding-to-sampling-point-size ratio consistent across all fonts in the chain (10% safe default); Latin sampling 70-90, CJK 36-50; Font Asset Scale must be 1.
+3. Disable AutoSize once layout locks; use `TextMeshPro` (not UGUI) for worldspace text; parent volatile text to its own Canvas to bound rebuild cost.
+4. Material presets beat duplicated font assets for style variants; SDF16 render mode for point sizes ≥72; sprite source textures must be Default type, not Sprite.
+5. For multilingual mobile builds, evaluate `Atlas Population Mode = Dynamic OS` (uses system fonts: NotoSans Android, PingFang iOS) to cut build size and memory.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Importing TMP Examples & Extras can infinite-loop on some project layouts (close/reopen Unity fixes).
+- iOS uses different CJK font families per language — check fallback chains when shipping Chinese+Japanese+Korean.
+- Editor Memory Profiler overstates font cost unless `Include Font Data` is deselected on .ttf/.ttc imports.
 
-- none declared
+## Category and tags
+build, mobile — unity, textmeshpro, fonts, localization, optimization, game-dev.
 
-## Risks / cautions found in text
-
-- - **Keep Padding-to-Sampling-Point-Size ratio consistent across primary + fallback fonts.** Mismatch produces inconsistent glyph weight on the same line.
-- - A primary font with one ratio and a fallback with a different ratio produces **inconsistent stroke widths** on the same line.
-- - **CJK scripts**: 36-50 (CJK glyphs are visually denser; smaller sampling sizes still produce clean SDF and save atlas memory).
-- 5. On the TMP Text component, pick the preset from the **Material Preset dropdown**.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - One giant dynamic font asset for all languages instead of static main + dynamic fallback - the dynamic atlas balloons.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; practical TMP-specific rule set with measured defaults.

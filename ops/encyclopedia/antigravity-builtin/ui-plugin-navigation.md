@@ -1,37 +1,28 @@
-# ui-plugin-navigation
+# ui-plugin-navigation (gemini antigravity builtin)
 
-- Tool: `antigravity-builtin`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\antigravity\builtin\skills\ui-plugin-navigation\SKILL.md`
-- SKILL.md size: 3801 chars
+## Summary
+A small Antigravity/Gemini-CLI builtin skill for surfacing clickable "pills" in chat that open UI plugin panels in the side pane. UI plugins and UI extensions are the same thing: sidecar-backed web panels rendering in the auxiliary pane. The skill has two trigger situations: (1) contextual relevance — read enabled UI plugins' description/display_name and offer a pill when a panel would genuinely help the current task; (2) right after the user enables a new UI plugin pane, include a pill so they can open it immediately. Mechanics: find sidecars under `~/.gemini/config/sidecars/<id>/`, `~/.gemini/<app>/builtin/sidecars/`, or plugin `sidecars/` dirs (plugin sidecars are namespaced `<plugin>/<folder>`); check `sidecar.json` for `has_web_ui: true` and a `ui_config.views` entry with `entrypoint: SIDECAR_UI_ENTRYPOINT_AUX_PANE`; take `path` as view-path and title/display_name for the label; emit `[Label](sidecar://<sidecar-id>/<view-path>)` markdown. The pill toggles the pane — only for enabled AND running plugins.
 
-## What it does
+## When to use / when NOT
+This is ambient behavior, not a user-invoked tool: surface a pill when a running UI plugin's panel matches the task, or after a new pane is enabled. Do NOT force pills when nothing matches, repeat dismissed pills, emit multiple links to the same view, or link plugins that aren't enabled/running.
 
-Discover UI plugin panels relevant to the current task and surface a one-click pill in chat to open (toggle) them in the side pane. Use when a running UI plugin's panel would help with what the user is doing, or right after the user enables a new UI plugin pane and a shortcut to open it is handy.
+## Inputs, outputs, tools
+- Inputs: filesystem scan of sidecar.json files under the Gemini config/plugin dirs.
+- Outputs: one markdown link per relevant panel in the chat reply.
+- Tools: read-only file inspection; no scripts or MCPs.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Relevance is judged from the plugin's own description/display_name — never guesswork.
+2. Only AUX_PANE views of enabled, running plugins get pills; the pill toggles the pane.
+3. Plugin sidecar ids are namespaced `<plugin>/<folder>`; plain sidecars use the folder name.
+4. One pill per pane; don't repeat what the user already opened or dismissed.
+5. `has_web_ui` must be true AND a view must use the AUX_PANE entrypoint — a sidecar without both has no panel to link.
 
-- UI Plugin Navigation
-- When to surface a pill
-- Step 1: Find UI plugin panes and their views
-- Step 2: Emit the pill link
-- Constraints & Tips
-- (none)
+## Risks / things needing the owner
+Minimal risk: worst case is a useless or dead link if the sidecar stopped between scan and click. No owner actions.
 
-## Tools / MCPs it needs
+## Category / tags
+ops · antigravity, gemini, ui-plugins, sidecar, navigation
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2.  **After a new UI plugin pane is enabled.** When the user has just created
-2. *   **The pill toggles the aux pane.** Clicking opens the plugin's panel. DO NOT
-3. *   **One pill per pane.** Don't emit multiple links to the same view.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\antigravity\builtin\skills\ui-plugin-navigation\SKILL.md`. No divergent copies.

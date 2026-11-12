@@ -1,49 +1,28 @@
 # customization-architect
 
-- Tool: `codex`
-- Category: ops
-- Source: `C:\Users\a7med\.codex\skills\customization-architect\SKILL.md`
-- SKILL.md size: 4652 chars
+## Summary
+Meta-skill for engineering and auditing AI-assistant customizations (skills, rules, instruction files) across Antigravity/Gemini, Cursor, Codex/Copilot and Claude Code. It defines a token-efficiency philosophy (density over verbosity, selective plugin activation), a 5-vector audit rubric (token efficiency, real persistence, UI aesthetics, security, defensive execution), the canonical SKILL.md anatomy, per-platform rules file mapping, a rules synchronizer, and a token-budget recovery protocol.
 
-## What it does
+## When to use / when NOT
+Use when writing, auditing, or syncing skills/rules/AGENTS.md/CLAUDE.md/.cursorrules across tools, or when customization budget runs low. Do NOT use for product code itself — it governs the agent-config layer. Related: skill-creator (builds skills), skill-repair (fixes installs).
 
-Master engine for auditing, token-optimizing, and cross-platform synchronizing AI customizations.
+## Inputs, outputs, tools
+- Inputs: skill/rule files, `~/.gemini/config/config.json`, `mcp_config.json`, project rule files.
+- Outputs: audited/enhanced SKILL.md files, synced per-platform rule files, plugin/MCP pruning recommendations.
+- Tools: filesystem edits across `~/.gemini/config/skills/`, `.cursor/rules/*.mdc`, `AGENTS.md`, `CLAUDE.md`; no external APIs.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Every customization must earn its tokens — strip fluff, use imperative bullets and code contracts.
+2. Never load domain-specific plugins globally; reserve global skills for cross-cutting standards.
+3. SKILL.md needs kebab-case name, trigger-explicit description, non-negotiable guardrails, and real code examples (no TODO stubs).
+4. Audit against the 5 vectors: persistence must be real (Postgres/SQLite/Drift), security server-side, UI off AI clichés.
+5. Under <15% customization budget: disable irrelevant plugins in config.json, consolidate overlapping skills, prune unused MCP schemas.
 
-- description: <Actionable, third-person description with exact trigger conditions>
-- 2. **Deterministic Trigger Map**: Explicitly state when the skill MUST and MUST NOT be activated.
+## Risks / things needing the owner
+Editing global configs affects every project — changes to `~/.gemini/config` and manifest files should be confirmed. Wrong platform mapping (e.g. putting Claude-only syntax in AGENTS.md) silently degrades other tools.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+ai · skills, rules, config, token-optimization, cross-platform
 
-- Customization Architect: 100x Customization, Skill & Rule Engineering
-- 1. The Token-Smart Customization Philosophy
-- 2. File-by-File Audit & Enhancement Rubric
-- 3. Core Protocols for Skill Engineering
-- Standard Skill Directory Anatomy
-- Writing the Perfect `SKILL.md`
-- 4. Cross-Platform Rules Synchronizer
-- For Cursor (`.cursorrules`):
-- For OpenAI Codex / GitHub Copilot (`AGENTS.md`):
-- For Claude Code (`CLAUDE.md`):
-- 5. Token Budget Recovery Protocol
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP Schemas, MCP servers
-
-## Risks / cautions found in text
-
-- - Reserve global skills for cross-cutting standards: Architecture, Security, UI/UX, Production Engineering, and Customization.
-- 4. **Concrete Implementation Examples**: Real production code rather than abstract pseudo-code.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Never load heavyweight, domain-specific plugins globally (e.g. data science / BigQuery ETL plugins when working on frontend or native desktop).
-2. 2. **Deterministic Trigger Map**: Explicitly state when the skill MUST and MUST NOT be activated.
-3. 3. **Non-Negotiable Guardrails**: Clear, bold rules prohibiting known antipatterns.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it; bodies byte-identical, only `description` differs. Claude copy preferred for trigger-style description.

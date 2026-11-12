@@ -1,53 +1,28 @@
 # cloud-sql-postgres-monitor
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-monitor\SKILL.md`
-- SKILL.md size: 27690 chars
+## Summary
+Google-published performance-troubleshooting skill for Cloud SQL PostgreSQL. Identical script set to cloud-sql-postgres-health (verified byte-for-byte): PromQL query-level and system-level Cloud Monitoring metrics, EXPLAIN plans, active queries, database stats, lock inspection, pg_stat_statements query stats, and long-running transaction detection.
 
-## What it does
+## When to use / when NOT
+Framed for "performance bottlenecks, query plans, resource-heavy processes, PromQL metrics" — use it for "why is Postgres slow" investigations. Because the scripts are the same as the health skill, either works; pick by name semantics. Do NOT use for provisioning, backups, or schema exploration.
 
-Use these skills when you need to troubleshoot performance bottlenecks, analyze query execution plans, identify resource-heavy processes, and monitor system-level PromQL metrics.
+## Inputs, outputs, tools
+- Inputs: PromQL `query` + projectId/instanceId; `min_duration`, `exclude_application_names`, `limit`, `database_name` filters for inspectors.
+- Outputs: time-series metrics, active query details with wait events, lock aggregates, per-query timing/I/O stats, long-transaction report, JSON EXPLAIN.
+- Tools: `scripts/{get_query_metrics,get_system_metrics,get_query_plan,list_active_queries,list_database_stats,list_locks,list_query_stats,long_running_transactions}.js`; Node + JSON; auto-loads .env.
 
-## When to use (from skill text)
+## 5 most important rules
+1. get_query_plan is estimate-only (no ANALYZE, no execution) — safe on production, but say "estimated" when reporting.
+2. list_query_stats requires pg_stat_statements; if missing, say so instead of reporting zeros.
+3. PromQL: aggregate per-query metrics by query_hash, skip querystring unless asked, never use latency metrics, default 5m windows.
+4. `resource_id` = `project_id:instance_id`; labels include user, client_addr, io_type/lock_type where relevant.
+5. `project` is pre-configured; do not ask for it.
 
-- which the metrics timeseries data needs to be fetched. To use this tool, you
+## Risks / things needing the owner
+Read-only diagnostics; PromQL consumes monitoring quota. Terminating queries or changing config is out of scope — escalate. Requires GCP credentials.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, cloud-sql, postgres, monitoring, performance, promql
 
-- Usage
-- Scripts
-- get_query_metrics
-- get_query_plan
-- get_system_metrics
-- list_active_queries
-- list_database_stats
-- list_locks
-- list_query_stats
-- long_running_transactions
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1.  Interval: Use a default interval of `5m` for `_over_time` aggregation
-2. 8.  Percentile with groupby on resource_id, database: `quantile by
-3. 1.  `cloudsql.googleapis.com/database/postgresql/insights/aggregate/latencies`:
-
-## Files inside the skill
-
-- `scripts/get_query_metrics.js`
-- `scripts/get_query_plan.js`
-- `scripts/get_system_metrics.js`
-- `scripts/list_active_queries.js`
-- `scripts/list_database_stats.js`
-- `scripts/list_locks.js`
-- `scripts/list_query_stats.js`
-- `scripts/long_running_transactions.js`
+## Revisions
+Body and all 8 scripts are byte-identical to cloud-sql-postgres-health — only the name/description differ (monitor = performance framing). If the two ever diverge, prefer whichever carries the fix; today they are interchangeable. Single copy on gemini.

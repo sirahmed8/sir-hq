@@ -1,67 +1,31 @@
 # shadcn
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\shadcn\SKILL.md`
-- SKILL.md size: 18620 chars
+Tools: claude (also codex/cursor/opencode/windsurf; claude chosen). Source: C:\Users\a7med\.claude\skills\shadcn\SKILL.md (554 lines, read in full)
 
-## What it does
+## Summary
+Complete shadcn/ui operating manual: CLI commands (init/add/search/view/docs/build/migrate), the "copy source into your repo" model (Radix UI or Base UI primitives + Tailwind), components.json configuration, CSS-variable theming with oklch tokens, dark mode, custom registries, Vercel-stack design direction, composition recipes, and hard-won gotchas (Geist font circular var, Avatar sizing, unified radix-ui package).
 
-Expert guidance for shadcn/ui: CLI component installation, Radix UI composition, theming, and Tailwind CSS patterns.
+## When to use / not use
+Use when installing shadcn/ui components via CLI or composing Radix/Base UI primitives with Tailwind theming in any supported framework (Next.js, Vite, React Router, Astro, Laravel/Inertia, TanStack Start). NOT for non-React stacks or projects wanting a dependency-installed component library — shadcn copies source, you own it.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: a project to init or components to add. Output: components.json, ui/ component source files, themed globals.css, cn() util. Needs: Node/npx, Tailwind CSS, chosen base (radix default — REQUIRED for AI Elements compatibility), optional registry URLs/tokens.
 
-- ### Initialize (non-interactive — ALWAYS use this)
-- # Non-interactive init with defaults — USE THIS
+## Key rules
+1. ALWAYS `init -d` (defaults) for non-interactive use — `-y` alone still prompts for library selection; `--base radix` mandatory if AI Elements may be used (Base UI breaks its types).
+2. Components are SOURCE in your repo — customize by editing files/cva variants directly; sizing is Tailwind classes not variant props (Avatar has no size prop).
+3. Theme via CSS variables in @theme inline with oklch values; radius tokens use multiplicative calc (--radius-lg = var(--radius), xs = *0.5) in CLI v4.
+4. Post-init font fix is mandatory: literal font names in @theme inline ("Geist", "Geist Fallback"...) because @theme inline resolves at parse time and can't see runtime-injected vars; font variable classNames go on <html> not <body>.
+5. Design direction: new-york style, dark mode default for dashboards/AI/internal tools, Geist Sans/Mono, zinc/neutral/slate base + one accent, token surfaces only (bg-background/bg-card), one density per page, Lucide h-4/h-5 icons; AlertDialog for destructive confirms, never Dialog; no nested cards/gradients/glassmorphism.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- CLI v4 removed flags: --style, --base-color, --src-dir, --no-base-style, --css-variables error out; registry:build/mcp deprecated (use registry:base/font).
+- Unified `radix-ui` package (Feb 2026) replaced individual @radix-ui/react-* — migrate via `npx shadcn@latest migrate radix` then remove old deps.
+- Presets (--preset) reconfigure EVERYTHING including components — switching presets is destructive to customizations.
+- Custom registries can carry auth headers via ${REGISTRY_TOKEN} env — secret hygiene on private registries.
 
-- shadcn/ui
-- Key Concept
-- CLI Commands
-- Initialize (non-interactive — ALWAYS use this)
-- Non-interactive init with defaults — USE THIS
-- Non-interactive with a preset (recommended for consistent design systems)
-- Non-interactive with explicit base library choice
-- Scaffold a full project template (CLI v4)
-- Add Components
-- Add specific components
-- Add all available components
-- Add from a custom registry
-- Add from AI Elements registry
-- Search & List
-- Build (Custom Registry)
-- View, Info & Docs (CLI v4)
-- View a registry item's source before installing
-- Show project diagnostics — config, installed components, dependencies
-- Get docs, code, and examples for any component (agent-friendly output)
-- Migrate
-- Migrate components outside the default ui directory
-- shadcn/skills (CLI v4)
-- Unified Radix UI Package (February 2026)
-- Base UI Support (January 2026)
-- Configuration (components.json)
-- (none)
+## Category and tags
+web, design, build — shadcn, radix, tailwind, ui-components, design-system, react.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - Prefer style: `new-york` for product, dashboard, AI, and admin surfaces.
-- - Default to dark mode for dashboards, AI apps, internal tools, settings, and developer-facing products. Use light mode only when the product is clearly content-first or editorial.
-- - Build core surfaces from tokens: `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `ring-ring`. Avoid ad-hoc hex values.
-- - Entity detail: header + status `Badge` + main `Card` + side `Card` + `AlertDialog` for destructive
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `-d, --defaults` — **Use default configuration, skip all interactive prompts** (REQUIRED for CI/agent use)
-2. 2. Installs required dependencies (Radix UI, tailwind-merge, class-variance-authority)
-3. - Build core surfaces from tokens: `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `ring-ring`. Avoid ad-hoc hex values.
-4. - Repeated `div rounded-xl border p-6` instead of `Tabs` / `Table` / `Sheet` / `Dialog`
-5. - Using `Dialog` for destructive confirmation instead of `AlertDialog`
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single claude revision but current through Feb 2026 (unified radix-ui, Base UI, presets, RTL migrate).

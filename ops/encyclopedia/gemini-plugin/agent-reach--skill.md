@@ -1,45 +1,28 @@
 # skill
 
-- Tool: `gemini-plugin` (plugin: `agent-reach`)
-- Category: media
-- Source: `C:\Users\a7med\.gemini\config\plugins\agent-reach\agent_reach\skill\SKILL.md`
-- SKILL.md size: 3885 chars
+## Summary
+The `skill` entry under the agent-reach plugin is the user-facing surface of Agent Reach, a CLI that reads content from many social and web platforms in one command (`agent-reach`). It is read-only by design: search posts, read articles, pull comments, fetch video subtitles, look up stock quotes and job listings, and never write, like, comment or DM on any platform. The CLI returns one-line JSON (`ok: true` → `items[]` with `title/url/author/published_at/text/raw`; `ok: false` → `error.code` + `error.hint`). Public content is tried first with the agent's own search/read tools; the Reach CLI is the fallback when those are missing, incomplete, or when the user explicitly asks for a channel action.
 
-## What it does
+## When to use / when NOT
+Use when the user links or mentions Xiaohongshu, Bilibili, Twitter/X, Reddit, YouTube, GitHub, V2EX, Xueqiu (stock quotes), LinkedIn/Boss直聘 (jobs), Instagram, Facebook, or Xiaoyuzhou podcasts, or asks to install/manage Agent Reach. Do NOT use for posting, commenting, liking, DMing or any write action. Do NOT use to log in on the user's behalf or to ask for passwords/Cookies. Do NOT retry a failed platform by switching accounts or backends.
 
-> 只读读取各平台内容：搜索、读帖、看评论、取字幕、查行情和职位。 Use when 用户提到或贴出链接：小红书/xiaohongshu、B站/bilibili、Twitter/X、Reddit、 YouTube（字幕、转录）、GitHub、V2EX、雪球/股票行情、LinkedIn/Boss直聘 职位、 Instagram、Facebook、小宇宙播客；或说"帮我搜/看看/读一下这个链接"而自带网页搜索/读取不可用、失败或拿不到正文； 或要安装、加上/去掉某个平台、登录/退出、看状态、更新、卸载 Agent Reach。 不做：发帖、评论、点赞、私信等任何写操作；不替用户登录、不索要密码。 公开内容优先用 Agent 自带工具，Reach 补缺口。
+## Inputs, outputs, tools
+- Inputs: a platform name or URL, plus optional actions (`search`, `read`) and flags (`--limit`, `--backend public-web|<后端>`).
+- Outputs: JSON items or an error envelope with a code table (`NEED_SETUP`, `NEED_LOGIN`, `UPSTREAM_BROKEN`, `TIMEOUT`, `RATE_LIMITED`, `PLATFORM_BLOCKED`, `BUSY`, `NOT_FOUND`, `BAD_INPUT`).
+- Tools: the `agent-reach` CLI (`channels`, `add`, `remove`, `login`, `logout`, `doctor`, `check`, `update`, `uninstall`, `skill link`). Needs a dedicated browser (CloakBrowser, falling back to Chrome) for login-gated channels; parallel caps are 2 per platform, 4 total.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Always try the agent's own search/read tools first; only fall back to Reach when they are missing or incomplete.
+2. On `NEED_LOGIN`, stop and let the user log in themselves — never type credentials.
+3. On `PLATFORM_BLOCKED`, `RATE_LIMITED`, `NEED_LOGIN` or `BUSY`, stop the attempt; do not switch accounts, backends or browsers to work around it.
+4. Never claim to have understood images or video from Xiaohongshu `read` — it returns text description only.
+5. Never guess a salary number when `salary_encoded=true` on Boss直聘; read the job detail for readable pay.
 
-- Agent Reach
-- 选路
-- 结果与错误
-- 登录与专用浏览器
-- 平台注意
-- 渠道
-- 安装完成时
-- 用户要管理 Agent Reach 时
-- 有新版本时
-- 红线
-- (none)
+## Risks / things needing the owner
+Login, API keys (`NEED_SETUP`), and platform verification blocks (`PLATFORM_BLOCKED`) need the owner. Adding a channel with `agent-reach add` may install dependencies; upgrades need explicit user consent.
 
-## Tools / MCPs it needs
+## Category / tags
+media · read-only, multi-platform, CLI, social, research
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - 公开内容先用你自带的搜索/读取工具（可加 `site:域名`）。正文、评论、字幕分别核对是否已拿到；够了就直接回答，不装渠道、不登录。
-2. - 自带工具不可用、结果缺了用户要的部分、或用户要的是渠道声明的站内动作时，再用 Reach。不确定有哪些动作和参数先跑 `agent-reach channels`。
-3. - 渠道已经加上（默认渠道或 `add` 过）时，搜索/阅读直接走该站工具；还没加的渠道，搜索/阅读先试免登录公开网页，结果里 `backend: public-web` 标明来源。`--backend public-web` 只查公开网页；`--backend <后端>` 指定站内工具。
-
-## Files inside the skill
-
-- `references/capabilities.md` — "能力边界 / Capability scope"
-- `references/maintenance.md` — "维护"
-- `references/sessions.md` — "会话与专用浏览器"
-- `SKILL_en.md` — "Agent Reach"
+## Revisions
+Only one revision, in the agent-reach plugin (`C:\Users\a7med\.gemini\config\plugins\agent-reach\agent_reach\skill\SKILL.md`). No divergent copies on other tools.

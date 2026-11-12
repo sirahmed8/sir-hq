@@ -1,107 +1,30 @@
 # react-best-practices
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\react-best-practices\SKILL.md`
-- SKILL.md size: 6438 chars
+Tools: claude (also codex/cursor/opencode/windsurf copies; claude chosen). Source: C:\Users\a7med\.claude\skills\react-best-practices\SKILL.md (140 lines) + rules/ directory (64 rule files) + AGENTS.md
 
-## What it does
+## Summary
+Vercel's official React/Next.js performance rulebook: 64 rules across 8 impact-ordered categories — eliminating waterfalls (CRITICAL), bundle size (CRITICAL), server-side perf (HIGH), client fetching, re-render optimization, rendering, JS micro-perf, advanced patterns. Each rule has a dedicated file with wrong/right examples.
 
-Use when reviewing or writing React or TSX components for hooks, component structure, performance, accessibility, and TypeScript patterns.
+## When to use / not use
+Reference when writing new React components/Next.js pages, implementing data fetching, reviewing for perf issues, or refactoring. Not for non-React frameworks or backend-only work; rule files are the detail layer, SKILL.md is the index.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: React/TSX code to write or review. Output: code following the categorized rules. Needs: the rules/*.md files for specifics; targets React + Next.js App Router patterns (RSC, SWR, next/dynamic, Suspense).
 
-- Vercel React Best Practices
-- When to Apply
-- Rule Categories by Priority
-- Quick Reference
-- 1. Eliminating Waterfalls (CRITICAL)
-- 2. Bundle Size Optimization (CRITICAL)
-- 3. Server-Side Performance (HIGH)
-- 4. Client-Side Data Fetching (MEDIUM-HIGH)
-- 5. Re-render Optimization (MEDIUM)
-- 6. Rendering Performance (MEDIUM)
-- 7. JavaScript Performance (LOW-MEDIUM)
-- 8. Advanced Patterns (LOW)
-- How to Use
-- Full Compiled Document
-- (none)
+## Key rules (top-impact subset)
+1. Kill waterfalls first: parallelize independent awaits (Promise.all), defer awaits into branches, use Suspense boundaries — the two CRITICAL categories are waterfalls and bundle size.
+2. Bundle discipline: no barrel imports, dynamic-import heavy components, defer third-party/analytics until after hydration.
+3. Server-side: React.cache() per-request dedup, hoist static I/O to module level, minimize RSC→client serialization, use after() for non-blocking work.
+4. Re-render hygiene: derive state during render not effects, functional setState, primitive effect deps, split hooks by dependency, startTransition for non-urgent updates.
+5. JS micro-perf last: Set/Map lookups, combine filter/map passes, hoist RegExp, early exits — LOW priority, apply after structural wins.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- 64 rules is a review checklist, not a mandate to apply all — impact ordering exists precisely to prioritize.
+- Some rules are Next.js-specific (server-*, RSC props); pure client React only uses subsets.
+- Rules assume modern React (Activity, useDeferredValue, toSorted) — check project's React version before applying advanced-* rules.
 
-- none declared
+## Category and tags
+web, build — react, nextjs, performance, best-practices, vercel.
 
-## Risks / cautions found in text
-
-- - `rendering-hydration-suppress-warning` - Suppress expected mismatches
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `bundle-barrel-imports` - Import directly, avoid barrel files
-2. - `bundle-defer-third-party` - Load analytics/logging after hydration
-3. - `server-dedup-props` - Avoid duplicate serialization in RSC props
-4. - `server-after-nonblocking` - Use after() for non-blocking operations
-5. - `rerender-defer-reads` - Don't subscribe to state only used in callbacks
-
-## Files inside the skill
-
-- `AGENTS.md` — "React Best Practices"
-- `overlay.yaml`
-- `rules/advanced-event-handler-refs.md` — "t"
-- `rules/advanced-init-once.md` — "t"
-- `rules/advanced-use-latest.md` — "t"
-- `rules/async-api-routes.md` — "t"
-- `rules/async-defer-await.md` — "t"
-- `rules/async-dependencies.md` — "t"
-- `rules/async-parallel.md` — "t"
-- `rules/async-suspense-boundaries.md` — "t"
-- `rules/bundle-barrel-imports.md` — "t"
-- `rules/bundle-conditional.md` — "t"
-- `rules/bundle-defer-third-party.md` — "t"
-- `rules/bundle-dynamic-imports.md` — "t"
-- `rules/bundle-preload.md` — "t"
-- `rules/client-event-listeners.md` — "t"
-- `rules/client-localstorage-schema.md` — "t"
-- `rules/client-passive-event-listeners.md` — "t"
-- `rules/client-swr-dedup.md` — "t"
-- `rules/js-batch-dom-css.md` — "t"
-- `rules/js-cache-function-results.md` — "t"
-- `rules/js-cache-property-access.md` — "t"
-- `rules/js-cache-storage.md` — "t"
-- `rules/js-combine-iterations.md` — "t"
-- `rules/js-early-exit.md` — "t"
-- `rules/js-flatmap-filter.md` — "t"
-- `rules/js-hoist-regexp.md` — "t"
-- `rules/js-index-maps.md` — "t"
-- `rules/js-length-check-first.md` — "t"
-- `rules/js-min-max-loop.md` — "t"
-- `rules/js-set-map-lookups.md` — "t"
-- `rules/js-tosorted-immutable.md` — "t"
-- `rules/rendering-activity.md` — "t"
-- `rules/rendering-animate-svg-wrapper.md` — "t"
-- `rules/rendering-conditional-render.md` — "t"
-- `rules/rendering-content-visibility.md` — "t"
-- `rules/rendering-hoist-jsx.md` — "t"
-- `rules/rendering-hydration-no-flicker.md` — "t"
-- `rules/rendering-hydration-suppress-warning.md` — "t"
-- `rules/rendering-resource-hints.md` — "t"
-- `rules/rendering-script-defer-async.md` — "t"
-- `rules/rendering-svg-precision.md` — "t"
-- `rules/rendering-usetransition-loading.md` — "t"
-- `rules/rerender-defer-reads.md` — "t"
-- `rules/rerender-dependencies.md` — "t"
-- `rules/rerender-derived-state-no-effect.md` — "t"
-- `rules/rerender-derived-state.md` — "t"
-- `rules/rerender-functional-setstate.md` — "t"
-- `rules/rerender-lazy-state-init.md` — "t"
-- `rules/rerender-memo-with-default-value.md` — "t"
-- `rules/rerender-memo.md` — "t"
-- `rules/rerender-move-effect-to-event.md` — "t"
-- `rules/rerender-no-inline-components.md` — "t"
-- `rules/rerender-simple-expression-in-memo.md` — "t"
-- `rules/rerender-split-combined-hooks.md` — "t"
-- `rules/rerender-transitions.md` — "t"
-- `rules/rerender-use-deferred-value.md` — "t"
-- `rules/rerender-use-ref-transient-values.md` — "t"
-- `rules/server-after-nonblocking.md` — "t"
-- `rules/server-auth-actions.md` — "t"
+## Revision note
+Identical index across tools; authoritative revision is this compiled rule set with per-rule detail files.

@@ -1,59 +1,31 @@
 # next-cache-components
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\next-cache-components\SKILL.md`
-- SKILL.md size: 9372 chars
+Tools: codex, cursor, kilo, opencode, windsurf (codex copy used; content identical across tools).
+Source: C:\Users\a7med\.codex\skills\next-cache-components\SKILL.md
 
-## What it does
+## Summary
+Guide to Next.js 16 Cache Components: enabling `cacheComponents: true` in next.config, then composing a route from three tiers of content — auto-prerendered static, `'use cache'` cached async work (with `cacheLife` profiles and `cacheTag`/`updateTag`/`revalidateTag` invalidation), and dynamic runtime data wrapped in Suspense. It replaces the old experimental PPR flag and supersedes `unstable_cache`, `force-static`, and `revalidate` exports.
 
-Next.js 16 Cache Components guidance: PPR, 'use cache', cacheLife, cacheTag, and invalidation.
+## When to use / not use
+Use when building or reviewing Next.js 16 App Router pages that mix static shells, cacheable data, and per-request dynamic content (PPR). Do not use for Pages Router, Next.js 15 or older (the API does not exist), Edge runtime routes, or fully static exports — Cache Components require a Node.js server.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: a Next.js 16 project; the skill supplies config snippets and code patterns. Output: a route file mixing `'use cache'` functions, Suspense boundaries, and cache tags. Needs: `next/cache` (`cacheLife`, `cacheTag`, `updateTag`, `revalidateTag`), `next/server` (`connection`), React `Suspense`, a database or fetch source. No external MCPs.
 
-- Use when you need the cache refreshed within the same request:
+## Key rules
+1. Enable once with `cacheComponents: true`; never use `experimental.ppr`.
+2. Three tiers: sync JSX prerenders, `'use cache'` caches async work, Suspense-wrapped runtime reads stream fresh data.
+3. `'use cache'` can sit at file, component, or function level; `cacheLife()` picks a built-in profile (`'minutes'`…`'max'`) or inline `{stale, revalidate, expire}`.
+4. `cookies()`, `headers()`, `searchParams` are forbidden inside `use cache`; extract them outside and pass values as arguments (they join the cache key). Escape hatch: `'use cache: private'`.
+5. Invalidate deliberately: `updateTag` for same-request freshness in server actions, `revalidateTag` for background SWR.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- `Math.random()`/`Date.now()` inside `use cache` freeze at build time; use `await connection()` to force request-time execution.
+- Migration table provided (`unstable_cache` → `'use cache'`, `revalidate` → `cacheLife`) — upgrading a codebase needs this applied everywhere or stale cache bugs appear.
+- `'use cache: private'` relaxes the runtime-API ban; use only for compliance cases.
 
-- Cache Components (Next.js 16+)
-- Enable Cache Components
-- Three Content Types
-- 1. Static (Auto-Prerendered)
-- 2. Cached (`use cache`)
-- 3. Dynamic (Suspense)
-- `use cache` Directive
-- File Level
-- Component Level
-- Function Level
-- Cache Profiles
-- Built-in Profiles
-- `cacheLife()` - Custom Lifetime
-- Inline Configuration
-- Cache Invalidation
-- `cacheTag()` - Tag Cached Content
-- `updateTag()` - Immediate Invalidation
-- `revalidateTag()` - Background Revalidation
-- Runtime Data Constraint
-- Solution: Pass as Arguments
-- Exception: `use cache: private`
-- Cache Key Generation
-- Complete Example
-- Migration from Previous Versions
-- Migrating `unstable_cache` to `use cache`
-- (none)
+## Category and tags
+build, web — nextjs, caching, ppr, performance, app-router.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Edge runtime not supported** - requires Node.js
-
-## Files inside the skill
-
-- `overlay.yaml`
+## Revision note
+Only one revision found (identical across five tools); codex copy read in full.

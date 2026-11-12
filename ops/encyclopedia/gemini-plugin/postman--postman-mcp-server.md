@@ -1,42 +1,30 @@
 # postman-mcp-server
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\postman-mcp-server\SKILL.md`
-- SKILL.md size: 4179 chars
+Tools: gemini-plugin (postman plugin). Source: C:\Users\a7med\.gemini\config\plugins\postman\skills\postman-mcp-server\SKILL.md (65 lines) + references/{setup,search,sync,mock,test,docs,security,learn,mcp-limitations}.md
 
-## What it does
+## Summary
+Operating discipline for working through Postman's MCP server: treat exposed tools as the actual surface (not assumed names), search-then-fetch to locate entities, match mutation scope (request-level updates vs whole-collection replacement), preserve spec↔collection source-of-truth direction, and separate editing from publication. Includes a per-task reference router.
 
-Use when working through Postman MCP tools to inspect or change workspace resources, choose a targeted operation, or handle MCP limitations. Supports hosted workflows when the CLI is unavailable and distinguishes tool completion from a usable result. Use for requests such as "use Postman MCP to inspect this collection".
+## When to use / not use
+Use when the task must go through Postman MCP tools — inspecting/changing workspace collections, specs, examples, environments — especially when the local CLI workflow (api-engineer) isn't available. Not for repo edits/Git review where local tools are preferred.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a Postman workspace task plus the connected MCP tool surface. Output: verified resource changes with honest reporting of what the surface could/couldn't do. Needs: Postman MCP connection; `getEnabledTools` to inspect the active toolset; per-task reference docs.
 
-- Postman MCP Server
-- Verification
-- (none)
+## Key rules
+1. Tool availability varies by mode — a name in a reference is not proof it's exposed; call `getEnabledTools` (or host discovery) before diagnosing a missing operation; report limitations instead of assuming.
+2. Search previews are insufficient evidence — fetch collection/spec/workspace detail to establish IDs, ownership, content before mutating.
+3. Match mutation scope: request-level updates preserve unrelated content; whole-collection replacement needs the complete current object.
+4. Sync direction matters: spec→collection generates the interface, collection→spec carries changes back; async acceptance needs a completed task result before claiming sync.
+5. Publication is separate from editing — docs/mocks aren't public merely because they exist; apply audience/authorization before publishing or changing shared resources.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- "Tool success alone does not establish" run completion, sync completion, or reachable URLs — verification must check the actual resource state.
+- Each exposed tool definition costs context; prefer the smallest toolset covering the task.
+- Workspace is a container/access boundary, not a reason to duplicate resources per task.
 
-- MCP mentions: MCP Server, MCP exposes, MCP endpoint
+## Category and tags
+build, data — postman, mcp, api, collections, workspace, governance.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Select tools from the connected server's actual surface. Tool availability
-2. 2. Search to locate an entity, then fetch enough detail to work on it.
-3. 3. Match the mutation to the intended scope. Request-level updates preserve
-
-## Files inside the skill
-
-- `references/docs.md` — "API Documentation"
-- `references/learn.md` — "Learn Postman"
-- `references/mcp-limitations.md` — "Known MCP Limitations"
-- `references/mock.md` — "Create Mock Servers"
-- `references/search.md` — "Discover APIs"
-- `references/security.md` — "API Security Audit"
-- `references/setup.md` — "First-Run Configuration"
-- `references/sync.md` — "Sync Collections"
-- `references/test.md` — "Run Collection Tests"
+## Revision note
+Single plugin revision; meta-skill about using the MCP correctly rather than doing API work itself.

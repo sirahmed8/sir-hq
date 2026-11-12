@@ -1,53 +1,27 @@
-# netlify-image-cdn
+# netlify-image-cdn (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\codex\skills\netlify-image-cdn\SKILL.md`
-- SKILL.md size: 9868 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-image-cdn\SKILL.md`. On-demand image transforms via `/.netlify/images`.
 
-## What it does
+## Summary
+Single documented surface: `GET /.netlify/images?url=<source>[&w=][&h=][&fit=][&position=][&fm=][&q=]` — `url` required (relative path or remote URL), rest optional. Params: `w`/`h` px integers; `fit` = `contain` (default, keeps ratio, one dim may undershoot)/`cover` (fills exactly, crops — REQUIRES both w and h, `position` picks anchor)/`fill` (stretches); `fm` = `avif|jpg|png|webp|gif|blurhash` (default content-negotiated: webp if Accept allows, else avif, else original — a source-only request still converts format); `q` = 1-100 quality, lossy formats only (avif/jpg/gif/webp), default 75. Remote sources MUST be allowlisted in netlify.toml `[images] remote_images` (regex array) or requests fail; percent-encode remote URLs (`encodeURIComponent`) since `?`/`&` break params. Also covers: image redirects, cache headers on transformed responses, framework image handling (Angular/Astro/Gatsby/Next/Nuxt), user-uploaded pipelines, debugging 404s on `/.netlify/images`.
 
-Transforms images on demand via Netlify Image CDN's /.netlify/images endpoint with query parameters for resizing/cropping/format/quality. Use when adding image optimization or responsive images, converting formats (WebP/AVIF/PNG), generating thumbnails or blur placeholders, serving remote/third-party images through the CDN, allowlisting remote domains in netlify.toml, setting up image redirects or cache headers, building user-uploaded image pipelines, or debugging a 404 on /.netlify/images. Also covers framework image handling for Angular/Astro/Gatsby/Next.js/Nuxt.
+## When to use / when NOT
+Use for responsive images, format conversion (WebP/AVIF), thumbnails, blur placeholders, remote/third-party image proxying, upload pipelines, or 404 debugging. NOT for local-only processing or non-Netlify hosting.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: source image URL/path, transform params, remote-domain allowlist.
+- Outputs: transformed image responses (resized/cropped/reformatted/quality-adjusted).
+- Tools: `/.netlify/images` endpoint, `[images] remote_images` in netlify.toml, framework image components.
 
-- Netlify Image CDN
-- resize a deployed image to 50px wide
-- Query parameters
-- Common transformations
-- resize + crop to a 50px square, retaining the left side
-- convert JPEG to PNG (response carries content-type: image/png)
-- convert JPEG to AVIF at medium quality
-- fit behavior
-- Format notes
-- Remote source images
-- remote_images regex escaping
-- Response codes
-- Reusing parameters across images
-- Caching headers
-- Blur placeholders (fm=blurhash)
-- Local development
-- User-uploaded image pipelines
-- Framework image handling
-- Additional constraints
-- Netlify house rules (image-cdn)
-- (none)
+## 5 most important rules
+1. `url` is required; `fit=cover` requires BOTH `w` and `h`.
+2. Remote sources need `[images] remote_images` allowlist — unlisted = failure.
+3. `encodeURIComponent` remote URLs — `?`/`&` in source URLs break params.
+4. Omitted `fm` content-negotiates (webp→avif→original) — even bare `url` requests transcode.
+5. `q` only affects lossy formats; `blurhash` is a valid `fm` for placeholders.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Allowlist is a security boundary (open proxy risk if `.*` too broad). Transform misses 404 — check allowlist first. Animated gif/webp supported but watch size. CDN caching applies to transformed responses.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - Credential-bearing headers (`Authorization`, `Cookie`) are **NOT forwarded** when fetching a remote source. For authenticated sources, use URLs that carry their own authorization (e.g. S3 presigned URLs) and make sure your `remote_images` patterns match those full URLs.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **`cover`:** fills exactly, cropping excess. **Requires BOTH `w` and `h`** — omitting either is invalid. Use `position` to choose what's retained.
-2. - Remote sources must be **publicly accessible**.
-3. 2. Percent-encode remote source URLs before placing them in the `url`
-4. 4. A local 404 on `/.netlify/images` almost always means a framework dev
-
-## Files inside the skill
-
-- `references/user-uploads.md` — "User-Uploaded Images Pipeline"
+## Category and tags
+Category: cloud. Tags: netlify, image-cdn, optimization, responsive-images, avif, webp, allowlist.

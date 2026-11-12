@@ -1,44 +1,30 @@
 # notion-create-my-team-handbook
 
-- Tool: `gemini-plugin` (plugin: `notion`)
-- Category: data
-- Source: `C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-create-my-team-handbook\SKILL.md`
-- SKILL.md size: 7211 chars
+Tools: gemini-plugin (Notion plugin). Source: C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-create-my-team-handbook\SKILL.md (+ reference/design.md, reference/handbook-layout.md, examples/studio-handbook.md)
 
-## What it does
+## Summary
+Turns scattered team processes, documents, and requests into a usable Notion handbook: an approachable home routing employees to procedures, a guidance library with named stewards and review states, and an optional request desk database for tracking individual requests linked to procedures.
 
-Create a team handbook in Notion from scattered processes, team documents, requests, and chat context. Make procedures easy to find, show who maintains them, and track related requests.
+## When to use / not use
+Use to establish or reorganize a team handbook / onboarding system. Not for routine edits to existing records, and not when authoritative policy lives elsewhere — link it rather than copying competing versions.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: team name, recurring work, audience, existing procedures/requests. Output: Notion home page + guidance records + optional request-desk database with relations and views. Needs Notion MCP tools and the two reference files.
 
-- Use this skill to establish or reorganize that system; routine record edits
+## Key rules
+1. Build around the primary job (find procedures / onboard / handle requests); separate reusable procedures from individual executions.
+2. Guidance records carry title, purpose/area, confirmed steward, and review state; dates only when evidence supports them — copying a page is not a policy review.
+3. Each procedure states when to use it, inputs, ordered steps, expected result, exceptions/escalation; unresolved steps stay marked open; proposed guidance stays distinct from approved policy.
+4. Requests get title, status, coordinator, due date when agreed, and a native relation to the procedure; open/unassigned/undated work must stay discoverable.
+5. Keep confidential HR/finance/customer data in its authorized destination — filtered views are not access control. Walk the result as both employee and operator before calling it done.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Explicit warning: filtered views do not restrict access; sensitive material must live in its proper secured location.
+- Does not authorize invitations, notifications, or permission changes.
+- Repeat requests must match existing work before creating to avoid duplicates.
 
-- Create my team handbook
-- Gather the working context
-- Build the handbook and request desk
-- Design the handbook and request views
-- Create and verify in Notion
-- Avoid redundant tool calls
-- Show the saved result
-- (none)
+## Category and tags
+ops, study — notion, handbook, onboarding, procedures, team-knowledge, mcp.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Write when to use each procedure, required inputs, ordered steps, expected
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `examples/studio-handbook.md` — "Turn studio notes into a team handbook"
-- `reference/design.md` — "Design the team handbook"
-- `reference/handbook-layout.md` — "Build a maintained handbook and request desk"
+## Revision note
+Single plugin revision; shares the Notion plugin's common skeleton (context → build → verify → panel).

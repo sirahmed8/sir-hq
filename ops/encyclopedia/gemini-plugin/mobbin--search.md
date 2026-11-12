@@ -1,44 +1,31 @@
-# search
+# search (mobbin-search)
 
-- Tool: `gemini-plugin` (plugin: `mobbin`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\mobbin\skills\search\SKILL.md`
-- SKILL.md size: 8166 chars
+Tools: gemini-plugin (mobbin). Source: C:\Users\a7med\.gemini\config\plugins\mobbin\skills\search\SKILL.md (92 lines, read in full)
 
-## What it does
+## Summary
+The query-craft manual for Mobbin's three search tools: `search_screens` (app screens/components, ios|web platform), `search_sections` (marketing site sections, no platform), `search_flows` (user journeys). Teaches meaning-based natural-language queries, the 3-constraint limit, mode selection (standard vs deep), pagination via exclude_screen_ids/page, and failure recovery — invoked by calling skills like redesign-screen.
 
-Gets better results from every Mobbin search.
+## When to use / not use
+Use whenever calling any Mobbin search tool — it defines HOW to query well. NOT a standalone research tool; it serves calling skills (redesign-screen etc.) and says so itself. Read best-practices skill first per its own instruction.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a search intent (screen/section/flow target). Output: ranked Mobbin results with app_name/site_name/image_url/webp previews. Needs: Mobbin MCP tools; `platform` ios|web only (no Android — search ios and disclose); calling skill's query rules override these defaults.
 
-- Searching Mobbin
-- How search works
-- Choosing the tool
-- Writing the query
-- Choosing the mode
-- A second pull
-- When a search falls short
-- (none)
+## Key rules
+1. Meaning over keywords: plain phrases beat keyword lists; type+domain are free, each state/step/visual-trait is ONE constraint, max three — extras stay in your head, never a second query.
+2. Constraints come ONLY from the request/problem — never add expected parts (avatars, plan cards) that narrow to your guess; never put the problem or a fix in the query.
+3. Tool choice: screen/component → search_screens+platform; marketing section → search_sections; journey or step-in-context → search_flows. One target per query, one call per screen type.
+4. mode: no constraints → standard; 1-3 constraints → deep (drops weak matches, may return fewer than limit — short pull ≠ empty database).
+5. Second pull = same query + exclude_screen_ids (screens) or next page (sections/flows); weak results → reword, don't raise limit. Webp previews that won't open → retry image_format=jpg; a screen you couldn't see is not a reference.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- iOS/web only — Android targets silently search iOS and MUST be disclosed as such.
+- Language filter is implicit in query phrasing — name a language only when needed.
+- Tool refusal is terminal for that call (don't retry/reword); input errors are fixable.
+- Named-product misses: try exact spelling → next page → other platform → then proceed without it, never describe the missing product from memory.
 
-- none declared
+## Category and tags
+design, research — mobbin, search, ux-research, query-craft.
 
-## Risks / cautions found in text
-
-- - **The query also sets a language filter** on screens and flows when it names one ("Japanese banking app"). Name a language only when the task needs it.
-- - **When results are weak, change the query.** Drop or reword a constraint, or use the user's own words. Don't add parts they didn't ask for. Raising `limit` or resending the query as it was brings back the same matches. To get more results for a query that works, see [A second pull](#a-second-pull)
-- - `search_sections` and `search_flows`: the next `page`, dropping results already seen. When `has_next_page` is false, there is no next page, so change the query instead.
-- 1. If the query spelled the name differently from the product, search again with the product's own spelling.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Name an app only when the task needs it.** Adding an app name to the query filters results to that app. But not every result is from that app, so check `app_name` and `site_name` before citing.
-2. - **When results are weak, change the query.** Drop or reword a constraint, or use the user's own words. Don't add parts they didn't ask for. Raising `limit` or resending the query as it was brings back the same matches. To get more results for a query that works, see [A second pull](#a-second-pull)
-3. - **Every constraint comes from the request or the problem.** Never add parts you expect the target to have, such as an avatar on a profile or plan cards on a paywall. They narrow the results to screens that match your guess.
-4. - **Search at the target's level.** A screen target searches the whole screen ("expense tracker home with no transactions"), never one card of it. A component target searches the screen it lives on.
-5. - **Say each thing once.** "Empty state", "no transactions yet" and "before any are added" are one state. Keep the shortest.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; the shared search discipline layer for all Mobbin skills.

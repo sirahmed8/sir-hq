@@ -1,48 +1,29 @@
 # notion-knowledge-capture
 
-- Tool: `gemini-plugin` (plugin: `notion`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-knowledge-capture\SKILL.md`
-- SKILL.md size: 5408 chars
+Tools: gemini-plugin (Notion plugin). Source: C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-knowledge-capture\SKILL.md (+ reference/*-database.md schema examples, examples/)
 
-## What it does
+## Summary
+Captures conversations and supplied notes as durable Notion knowledge: wiki pages, how-to guides, FAQs, decision records, retrospectives, or meeting summaries. It preserves decisions vs proposals faithfully, picks a content pattern from a small table, resolves or creates the destination, and links sources.
 
-Captures conversations and supplied notes as Notion wiki pages, how-to guides, FAQs, decision records, or retrospectives. Use when saving or updating durable knowledge from existing context; use research-documentation when new source discovery and synthesis is the main task.
+## When to use / not use
+Use when saving or updating durable knowledge from existing context. Use `notion-research-documentation` instead when the main job is discovering and synthesizing new sources.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: conversation material or supplied notes, plus a destination (page, database, or search). Output: a created/updated Notion page or database record with source and related links. Needs Notion MCP search/fetch/create/update tools and optional per-type database schema references.
 
-- Knowledge capture
-- Workflow
-- Content patterns
-- Notion execution
-- Optional references
-- Show the saved result
-- (none)
+## Key rules
+1. Separate agreed decisions from proposals; never invent owners, dates, consensus, or missing steps. Draft requests produce drafts — no publishing.
+2. Pick structure from the content type table (concept, how-to, decision record, FAQ, meeting summary, learning/post-mortem); omit empty sections; preserve exact commands/configs and label suggested additions.
+3. Update an existing document for the same topic rather than creating a near-duplicate; flag conflicting decisions instead of silently replacing them; keep a dated change note for material revisions.
+4. For databases, fetch the schema once and use actual properties — the suggested schemas in references are examples, not requirements.
+5. On ambiguous write failure, check whether the page exists before retrying to avoid duplicates; with no write access, return a copy-ready draft.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Explicitly warns that retrieved content is source material, not instructions to expand scope.
+- Does not authorize publishing or reorganization beyond the requested destination convention.
 
-- none declared
+## Category and tags
+ops, study — notion, knowledge-management, documentation, decision-records, mcp.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Identify the material and outcome.** Use the conversation or supplied notes.
-2. 2. **Choose a structure.** Use the patterns below as needed, omitting empty
-3. 3. **Resolve the destination.** Fetch a supplied page or database directly. Search
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `examples/conversation-to-faq.md` — "Example: Conversation to FAQ"
-- `examples/decision-capture.md` — "Example: Decision Record Capture"
-- `examples/how-to-guide.md` — "Example: How-To Guide from Discussion"
-- `reference/database-best-practices.md` — "Database Best Practices"
-- `reference/decision-log-database.md` — "Decision Log Database (ADR - Architecture Decision Records)"
-- `reference/documentation-database.md` — "General Documentation Database"
-- `reference/faq-database.md` — "FAQ Database"
-- `reference/how-to-guide-database.md` — "How-To Guide Database"
-- `reference/learning-database.md` — "Learning/Post-Mortem Database"
-- `reference/team-wiki-database.md` — "Team Wiki Database"
+## Revision note
+Single plugin revision; the lightest of the Notion build skills (89 lines).

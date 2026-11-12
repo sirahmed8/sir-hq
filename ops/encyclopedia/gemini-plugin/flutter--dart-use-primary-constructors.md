@@ -1,61 +1,28 @@
-# dart-use-primary-constructors
+# dart-use-primary-constructors (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-primary-constructors\SKILL.md`
-- SKILL.md size: 11362 chars
+## Summary
+Guide for Dart's Primary Constructors feature (class-header parameter lists that declare fields, initializing params, and regular params in one shot, plus `;` empty bodies, in-body `this :` initializer lists, concise constructor syntax, `const` placement before the type name, extension-type requirement). Version-gated: default in Dart 3.13+, experimental flag needed on 3.12, unsupported ≤3.11.
 
-## What it does
+## When to use / when NOT
+Use when writing or migrating to the new constructor syntax, or debugging primary-constructor code. First check the project's Dart version — on ≤3.12 enable `--enable-experiment=primary-constructors` or the analysis_options experiment; on ≤3.11 it's unavailable.
 
-> Help users write syntactically and semantically correct primary constructors in Dart, and migrate/use the new constructor syntax, empty-body semicolon syntax, in-body initializer list syntax, and abbreviated concise constructor syntax.
+## Inputs, outputs, tools
+- Inputs: class declarations to write/refactor; project Dart SDK version.
+- Outputs: primary-constructor class syntax.
+- Tools: none — language feature reference.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Check Dart version FIRST — the feature doesn't exist before 3.12 and is opt-in on 3.12.
+2. `var`/`final` params are declaring params (create fields); `this.`/`super.` are initializing; bare params are regular (init scope only, via `this :` list).
+3. `const` goes before the class name: `class const Point(final int x, final int y);`.
+4. Extension types MUST use primary constructors.
+5. Empty bodies use `;` — no `{}` needed.
 
-- Use this skill when helping users write, refactor, or debug code using Dart's **Primary Constructors** feature.
-- - The representation variable cannot use the `var` modifier (using `var` triggers the `representation_field_modifier` error).
+## Risks / things needing the owner
+Bleeding-edge syntax — teams on stable SDKs can't adopt it; mixing old/new constructor styles in one codebase hurts readability. Verify SDK version before suggesting.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, language-features, constructors, migration
 
-- Dart Primary Constructors & New Constructor Syntax Skill
-- Dart Version Requirements
-- 1. Overview
-- Key Benefits
-- 2. Syntax Reference
-- 2.1 Basic Class Header Syntax
-- 2.2 Declaring, Initializing, and Plain Parameters
-- 2.3 Constant Primary Constructors
-- 2.4 Extension Types
-- 2.5 Empty Body Semicolon Shorthand (`;`)
-- 2.6 The In-Body Part of a Primary Constructor (`this ...`)
-- 2.7 Abbreviated Concise Constructor Syntax
-- 3. Semantics & Scoping Rules
-- 3.1 Primary Initializer Scope
-- 3.2 Late Instance Variables Restriction
-- 3.3 Shadowing
-- 3.4 Generative Constructor Restrictions
-- 3.5 Parameter Mutation Errors
-- 3.6 Double Initialization Errors
-- 4. Diagnostics & Troubleshooting
-- 5. Step-by-Step Refactoring Workflows
-- Workflow 5.1: Migrating a Class to a Primary Constructor
-- Workflow 5.2: Applying Abbreviated (Concise) In-Body Constructors
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Dart 3.12**: The feature is available but experimental. Users must explicitly enable the experiment flag `primary-constructors` via `--enable-experiment=primary-constructors` or in `analysis_options.yaml`:
-2. 3. **Regular Parameters**: Declared without modifiers (e.g., `int y`). They do not become fields and are only available during initialization (e.g., in field initializers or the `this :` initializer list in the class body).
-3. - Since `late` variables can be evaluated after construction has completed, their initializers cannot safely access constructor parameters.
-4. - All other generative constructors declared in the body **must** redirect (directly or indirectly) to the primary constructor.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-primary-constructors\SKILL.md`. Only gemini-plugin holds it.

@@ -1,51 +1,28 @@
-# create-2d-physics
+# create-2d-physics (Unity)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\create-2d-physics\SKILL.md`
-- SKILL.md size: 10595 chars
+## Summary
+Skill for creating and fixing Unity 2D physics across BOTH systems — the new 2D Physics Core (`Unity.U2D.Physics`, Physics Pose/Area/Constraint/Simulation components, Unity 6000.7+ with `com.unity.2d.physics`) and legacy Rigidbody2D/Collider2D — which share no code and never interact. Its core discipline: identify the system FIRST (components are the reliable signal; a probe checks loaded assemblies), fetch version-correct docs instead of trusting memory, establish a baseline, and verify runtime behaviour with temporary Debug.Logs in Play mode.
 
-## What it does
+## When to use / when NOT
+Use for any 2D physics task even when the system isn't named; stop and say so if the user means 3D. Do NOT use for 3D physics or for general Unity scripting.
 
-Creates and fixes Unity 2D physics in both systems, 2D Physics Core and the legacy Rigidbody 2D system. Use when the user asks about any 2D physics task, even if neither system is named. Not for 3D physics.
+## Inputs, outputs, tools
+- Inputs: the physics task; project signals (scene components, scripts, wording).
+- Outputs: physics code/components in the correct system, verified in Play mode.
+- Tools: `unity` CLI (`unity command --format json`, `script eval`), unity-cli/unity-pipeline skills, WebFetch/WebSearch for docs; references `references/2d-physics-core.md`, `legacy-2d-physics.md`; versioned docs via xrefmap.yml caching.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Step 0 is mandatory: determine Core vs Legacy before writing any physics code — wrong-system code compiles and does nothing.
+2. Components beat wording; if still ambiguous, run the assembly probe or STOP and offer all three routes — never choose for the user.
+3. `script eval` takes a statement block: no `using`, fully qualified types (`UnityEngine.Rigidbody2D`, `UnityEngine.Object` not bare `Object`).
+4. Never reflect over types to discover APIs — fetch the member page; version docs by Unity version / package version from manifest or packages-lock.
+5. Final step: zero console errors → read back component/script values → temporary Debug.Logs → Play mode check → remove logs. No screenshots.
 
-- - For components you added or configured in the scene, use `script eval` to check each one exists on its GameObject and its properties hold the values you set, such as a Collider 2D's `isTrigger` or the members listed on a Core component's type page.
-- 3. Add temporary `Debug.Log` lines that print the behaviour you changed, such as a body's position or velocity, or a contact or trigger callback firing.
+## Risks / things needing the owner
+Runtime physics changes need Play-mode verification; leftover Debug.Logs must be removed. Requires the Unity Editor/CLI installed and project open.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+mobile · unity, 2d-physics, gamedev, verification
 
-- Create and fix Unity 2D physics
-- Important
-- Passing C# to `script eval`
-- Step 0: Which physics system
-- Full topic map
-- API reference
-- Worked examples
-- Final step
-- Final report
-- (none)
-
-## Tools / MCPs it needs
-
-- allowed-tools: WebFetch, WebSearch
-- allowed-tools (frontmatter): `WebFetch, WebSearch`
-
-## Risks / cautions found in text
-
-- - **docs.unity.com**: The product version, eg `7000.0`
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Before making changes, establish a baseline of the current behavior so you can tell whether a later result is actually caused by your change.
-2. - Do only what's asked. Don't change unrelated assets or files.
-3. - Avoid long explanations.
-4. - Verify runtime behaviour with temporary `Debug.Log` lines, then remove them, because the user didn't ask for logging and leftover lines clutter their script and console. Don't build settle-detection or permanent logging they didn't ask for. See [Final step](#final-step).
-5. - Never reflect over types to discover an API — fetch the member page instead. The system probe is the one exception.
-
-## Files inside the skill
-
-- `references/2d-physics-core.md` — "2D Physics Core"
-- `references/legacy-2d-physics.md` — "Legacy 2D physics"
-- `SECURITY.md` — "Security notes: create-2d-physics"
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\unity\skills\create-2d-physics\SKILL.md` (v0.3.0) + 2 reference docs. Only gemini-plugin holds it.

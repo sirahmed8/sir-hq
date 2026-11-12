@@ -1,45 +1,28 @@
-# swarm_narrator
+# swarm_narrator (antigravity-builtin)
 
-- Tool: `antigravity-builtin`
-- Category: build
-- Source: `C:\Users\a7med\.gemini\antigravity\builtin\skills\swarm_narrator\SKILL.md`
-- SKILL.md size: 11275 chars
+## Summary
+swarm_narrator is the Antigravity built-in skill for the swarm's narrator worker — the member that keeps the user's live Overview page current. It is the inverse of swarm_monitor: where the monitor watches for stalls, the narrator watches the board and maintains the facts behind `view.json` (headline, phase, attention items, workstreams, milestones, risks, feedback acknowledgements) plus an optional custom `view.html` page and a `prefs.md` of user preferences. It never posts to the board, never messages workers, and never does task work; its only outputs are its own files under `SWARM_DIR` (`.system_generated/swarm/`). Strict schema rules apply: stable kebab-case ids, every item cites at least one board `#seq` or member, closed enums for state/kind/severity, navigation-only actions, under 64 KB.
 
-## What it does
+## When to use / when NOT
+Use ONLY as the designated narrator worker inside a native swarm. Do NOT load it as a coordinator or worker, do not use it to post results or answer the user, and do not write view.html unless the user explicitly asked for a custom page.
 
->- ONLY for the native-swarm worker whose brief says it is the narrator. It watches the board and keeps the facts behind the user's Overview (view.json) current. Coordinators and other workers: do not load this.
+## Inputs, outputs, tools
+- Inputs: the swarm board via `read_board` (paged, `since:LAST`, 200-message pages) and `swarm_wait{mentions_only:false}` for wake events; `SWARM_DIR` path and prefs/default files from its brief.
+- Outputs: `SWARM_DIR/view.json` (rewritten atomically via .tmp+mv when facts change), optionally `view.html` (sandboxed iframe page, <48 KB, data-driven via `narrator.onData`), and `prefs.md` (+ `default_prefs.md`/`default_view.html` for `(default)` feedback).
+- Tools: swarm board tools only for input; filesystem writes for output. No builds, no code edits, no posting.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never do the work and never post to the board; output is files only.
+2. Every view.json item must cite ≥1 `#seq` or member — if you cannot cite it, leave it out; never infer "done", cite the post.
+3. Attention items ranked decision > failure > review > stuck > quota/error > fyi; every non-fyi attention item and every workstream id goes in exactly one thread; keep ids stable.
+4. Feedback counts ONLY from coordinator posts starting `@narrator user feedback:` (or `(default)`); acknowledge via `feedback_ack`, and `(default)` feedback also updates the default files after checking they hold no swarm facts.
+5. Write atomically (.tmp then mv); keep view.json under 64 KB and copy plain and short; after compaction, re-read prefs.md and view.json then resume from `as_of_seq`.
 
-- You are the swarm's narrator
-- Never do the work
-- Your files
-- Start
-- Loop
-- What to show (view.json)
-- Goal and threads (the Overview is built from these)
-- Progress reel (UI changes only)
-- Short copy (the Overview tab reads this first)
-- Custom page (view.html)
-- Feedback
-- After compaction
-- (none)
+## Risks / things needing the owner
+view.html runs sandboxed (no network/storage/fetch), so pages must be fully data-driven through `narrator.onData` — static "facts" in markup are a defect. Wrong or uncited claims erode trust in the Overview; the citation rule is the guard. No owner action needed.
 
-## Tools / MCPs it needs
+## Category / tags
+ops · swarm, multi-agent, ui, antigravity, orchestration, reporting
 
-- none declared
-
-## Risks / cautions found in text
-
-- -   `milestones` and `risks`: short, with refs.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Never post to the board. Never message, brief, or answer workers. Never
-2. 4.  Go to 1. Don't publish when nothing changed.
-3. -   `attention`: only what the user can act on or must know, ranked decision >
-4. -   Feedback is about what the Overview shows and how. It can never change
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\antigravity\builtin\skills\swarm_narrator\SKILL.md`. No divergent copies.

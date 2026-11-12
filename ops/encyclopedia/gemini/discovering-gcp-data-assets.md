@@ -1,56 +1,28 @@
-# discovering-gcp-data-assets
+# discovering-gcp-data-assets (Gemini skill, Google)
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\discovering-gcp-data-assets\SKILL.md`
-- SKILL.md size: 9919 chars
+## Summary
+Discovery skill for finding and inspecting GCP data assets (BigQuery datasets/tables/views, BigLake, Spanner, GCS): prefer assets already in conversation; for `bigquery-public-data` skip Dataplex and inspect via `bq`/MCP directly; for everything else run Dataplex search (`gcloud dataplex entries search` or search_entries MCP) — semantic mode for natural language, keyword mode for technical strings — to get full `projects/...` entry names required by Lookup Context, then fetch schema/metadata/governance.
 
-## What it does
+## When to use / when NOT
+Use when finding/exploring/inspecting GCP data assets, when you have a keyword but not a resource ID, or instead of `bq ls`. Referenced by dbt-bigquery and dataform-bigquery for missing asset IDs. Do NOT use for non-GCP assets or when the asset was already identified earlier in the conversation.
 
-| Finds and inspects data assets within Google Cloud. Relevant when any of the following conditions are true: 1. The user request involves finding, exploring, or inspecting data assets in Google Cloud, such as: - BigQuery datasets, tables, or views - BigLake catalog or tables - Spanner instances, databases or tables - etc. 2. You need to retrieve the schema, metadata, or governance policies for a GCP data asset. 3. You have a keyword or topic (e.g., "sales data") but lack the specific table or resource ID. 4. You are attempting to find data using `bq ls`, as this skill offers a superior approach. Don't use when: - Assets are outside Google Cloud
+## Inputs, outputs, tools
+- Inputs: natural-language intent or technical keywords, optional known project/dataset.
+- Outputs: full Dataplex entry names → schema/metadata/policy via Lookup Context.
+- Tools: `gcloud dataplex entries search` (--semantic-search for NL, keyword syntax otherwise), Dataplex Lookup Context, `bq` CLI / BigQuery MCP for public datasets; requires dataplex API + `dataplex.entries.get`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Dataplex Lookup Context is mandatory for all GCP assets — even when IDs are known — because Step 4 needs the full entry name.
+2. `--project` is always required for search but only attributes the call; it does NOT restrict scope — use `parent:` filters to scope.
+3. Search syntax differs by mode: semantic uses UPPERCASE AND/OR + plural `labels.`; keyword is case-insensitive with singular `label.`, `|`=OR `,`=AND, `:`=token vs `=`=exact (required for system/type/location).
+4. Keyword search: convert plurals to singular; semantic handles variants automatically.
+5. `bigquery-public-data` tables bypass Dataplex — inspect directly with bq/MCP.
 
-- Use this when the user describes the **meaning** or **intent** of the data
-- Use this for exact keyword matches or technical strings (e.g., `name:order_v2`).
+## Risks / things needing the owner
+Requires Dataplex API enabled and IAM permissions in the attributed project. Search results may expose dataset names/descriptions — fine for discovery, but don't paste sensitive schema contents into external places.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+data · gcp, dataplex, bigquery, discovery, metadata
 
-- Instructions
-- Step 1: Prioritize Assets from the Conversation
-- Step 2: Handle Public Datasets or Proceed to Search
-- Step 3: Execute Discovery Search
-- A. Semantic Search (Natural Language Intent)
-- B. Keyword Search (Technical Strings)
-- Step 4: Lookup Context
-- Command Execution
-- Troubleshooting
-- Context Lookup Fails or "Resource not found"
-- Search Returns No Results
-- Context Lookup Fails with "NOT_FOUND" (despite correct format)
-- Breaking the Research Loop
-- Search Fails with "--project: Must be specified."
-- Search Fails with "PERMISSION_DENIED"
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP tools, MCP tool
-
-## Risks / cautions found in text
-
-- -   **Exact vs. Token Match**:
-- -   Use `:` for token/substring matches (e.g., `name:sales`).
-- -   **`name:x`**: Substring/token match on resource ID.
-- -   **`displayname:x`**: Substring/token match on display name.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   **Semantic Search**: Logical operators (`AND`, `OR`) MUST be
-2. -   Use `=` for exact matches. REQUIRED for `system`, `type`, and
-3. -   **Singular Keywords**: When performing keyword search, ALWAYS convert
-4. -   **`createtime[>|<|=]x`**: Match assets created after/before date
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\discovering-gcp-data-assets\SKILL.md` (v4, Apache-2.0, google). Only gemini tool holds it.

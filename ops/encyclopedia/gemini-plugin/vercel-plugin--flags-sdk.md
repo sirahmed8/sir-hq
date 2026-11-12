@@ -1,67 +1,28 @@
 # flags-sdk
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\flags-sdk\SKILL.md`
-- SKILL.md size: 22705 chars
+## Summary
+Implementation guide for the Flags SDK (`flags` npm package, renamed from `@vercel/flags`) — feature flags as callable functions for Next.js and SvelteKit, evaluated server-side with any provider via the adapter pattern (Vercel Flags first-party via `@flags-sdk/vercel`, plus Statsig/LaunchDarkly/PostHog/etc.). Covers full project setup (install → `vercel link` → `vercel env pull` → Toolbar → flags.ts → Flags Explorer route), creating flags (`vercel flags create --kind` then declare with vercelAdapter), adding dashboard-created flags (`vercel flags inspect` → map kind/variants to type param/defaultValue/options/identify), evaluate() bulk evaluation (~10x faster via bulkDecide), dedupe'd identify for targeting, the precompute pattern for static pages (middleware encodes flag state into URL rewrite), FLAGS_SECRET handling, and encryption helpers for Flags Explorer.
 
-## What it does
+## When to use / when NOT
+Use for implementing/configuring flags IN CODE inside a Next.js or SvelteKit app. Planning flags, dashboard management, archiving/deleting variants, and non-Vercel frameworks belong to the `vercel-flags` skill / `@vercel/flags-core` — do NOT run archive/rm flows here. Inside an app repo, treat ambiguous requests as the full setup flow; never leave CLI steps as "next steps" for the user.
 
-Implement feature flags in Next.js and.
+## Inputs, outputs, tools
+- Inputs: flag key/kind/description, dashboard flag definitions (via `vercel flags inspect`), targeting entities/attributes.
+- Outputs: flags.ts declarations, Flags Explorer route, .env.local OIDC token, precompute middleware wiring.
+- Tools: `flags`, `@flags-sdk/vercel`, `@vercel/toolbar` packages; `vercel link`, `vercel env pull`, `vercel flags create|inspect|<cmd>` CLI; `createFlagsDiscoveryEndpoint`, `getProviderData`, `evaluate`, `dedupe`, `precompute`, `encryptFlagValues` APIs; references nextjs/sveltekit/providers/api.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Flags are code: `flag({key, adapter: vercelAdapter})` declarations, no string keys at call sites; `flags` 4.2.0+ takes the adapter by reference (called form still works for <4.2.0).
+2. Server-side evaluation only; use `evaluate([flagA, flagB])` for batches (never sequential awaits or bare Promise.all) and `dedupe` on shared identify functions (not in Pages Router).
+3. Kind is immutable after `vercel flags create`; map inspect output: boolean→flag<boolean>, string→flag<string>, number→flag<number>, json→flag<T>; set defaultValue to what production serves today; entity/attribute names in identify must match dashboard targeting config.
+4. Precompute keeps pages static: middleware `precompute(flagGroup)` → rewrite to `/${code}/path` → page reads `await myFlag(code, flagGroup)`; FLAGS_SECRET is per-environment — preserve existing, generate only where absent (32 random bytes base64, via stdin not chat/logs).
+5. Secrets discipline: never print/commit FLAGS_SECRET or OIDC tokens; SDK keys (FLAGS) only for non-Vercel apps/custom envs/cross-project flags; verify `vercel project inspect` before relinking — a .vercel dir alone doesn't prove the link.
 
-- Use this flow when the flag was created in the dashboard or by someone else, for example when the prompt says the flag "has already been created" or asks you to run `vercel flags inspect`. Do not run `vercel flags create` for an existing key.
+## Risks / owner needs
+Requires Vercel-linked project + authenticated CLI; first flag activation creates FLAGS_SECRET per env. Dashboard-side flag changes (enable/split/rollout/archive) are NOT this skill's job. Flags Explorer exposes flag definitions — keep confidential values encrypted.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: web. Tags: feature-flags, vercel, nextjs, sveltekit, experimentation, rollout.
 
-- Set up and use the Flags SDK
-- Core concepts
-- Flags as code
-- Server-side evaluation
-- Adapter pattern
-- Set up the SDK
-- Before you start
-- Steps
-- Pull environment variables
-- Create a flag
-- Before you start
-- Steps
-- Add a flag that already exists on Vercel
-- Vercel Flags adapter
-- Declaring flags
-- Basic flag
-- Flag with evaluation context
-- Flag with another adapter
-- Key parameters
-- Dedupe
-- Bulk evaluation
-- Flags Explorer setup
-- Next.js (App Router)
-- With external provider data
-- SvelteKit
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2. **Link the project to Vercel** (required for `vercel env pull` and local OIDC token refresh):
-- - local evaluation fails with an authentication error; the SDK refreshes an expired token through the linked project, re-pulling is the fallback
-- - `defaultValue`: the value to serve when the flag is archived or evaluation fails (usually what production serves today)
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. **Link the project to Vercel** (required for `vercel env pull` and local OIDC token refresh):
-2. 5. **Ensure `flags.ts` exists**: If missing, create `flags.ts` (or `lib/flags.ts` / `src/flags.ts` to match the project) with `export {}` so TypeScript treats it as a module. Flags Explorer imports this file — create it before the discovery route.
-3. 6. **Set up Flags Explorer** (if not already present): Create `app/.well-known/vercel/flags/route.ts` — see [Flags Explorer setup](#flags-explorer-setup). Do this only after `flags.ts` exists. Point the import at the real flags file path (the snippet assumes root `flags.ts`).
-
-## Files inside the skill
-
-- `overlay.yaml`
-- `references/api.md` — "API Reference"
-- `references/nextjs.md` — "Next.js Integration"
-- `references/providers.md` — "Provider Adapters"
-- `references/sveltekit.md` — "SvelteKit Integration"
+## Revisions
+Single gemini-plugin vercel-plugin copy; no competing revisions.

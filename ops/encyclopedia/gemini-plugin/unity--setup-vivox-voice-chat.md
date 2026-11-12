@@ -1,50 +1,31 @@
 # setup-vivox-voice-chat
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\setup-vivox-voice-chat\SKILL.md`
-- SKILL.md size: 8784 chars
+Tools: gemini-plugin (unity). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\setup-vivox-voice-chat\SKILL.md (118 lines) + references/{init-and-login,voice-channels,text-chat,events-and-participants,troubleshooting}.md
 
-## What it does
+## Summary
+Unity Vivox v16+ voice/text chat integration: single static entry `VivoxService.Instance` (v4 Client/ILoginSession patterns are gone). Strict init order UGS Core → Authentication sign-in → Vivox init → LoginAsync; three channel join methods (group/echo/positional) completing via ChannelJoined event not await; channel + directed text messaging; mandatory event subscription lifecycle.
 
-Adds and configures in-game voice and text chat with Unity Vivox. Use when the user asks about voice chat, microphone permissions, mute controls, proximity voice, team and lobby channels, or direct messages.
+## When to use / not use
+Use for in-game voice chat, mic permissions, mute controls, proximity/positional voice, team/lobby channels, or direct messages in a Unity project with com.unity.services.vivox >=16.4.0. NOT for Vivox v4 codebases (different API entirely) or non-Unity platforms.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: Unity project + Vivox package + UGS Core/Authentication companions. Output: working voice/text chat code. Needs: `Unity.Services.Vivox` namespace, event subscriptions, Android RECORD_AUDIO runtime permission / iOS NSMicrophoneUsageDescription, docs map at docs.unity.com/en-us/vivox-unity/llms.txt as authority.
 
-- 4. All events consumed by the code are subscribed **before** the async call that triggers them, and are unsubscribed in `OnDestroy`.
+## Key rules
+1. Init order is non-negotiable: UnityServices.InitializeAsync → SignInAnonymouslyAsync → VivoxService.InitializeAsync → LoginAsync; double-init throws 5041 — guard on scene reload.
+2. Joins complete via EVENTS, not await: subscribe ChannelJoined BEFORE calling Join*ChannelAsync; same for LoggedIn before LoginAsync.
+3. Naming asymmetry trap: send is `SendDirectTextMessageAsync` but receive event is `DirectedMessageReceived` — the skill explicitly flags this hallucination.
+4. ALWAYS unsubscribe in OnDestroy/OnDisable — VivoxService.Instance is a persistent singleton; leaked handlers double-fire and NRE on scene reload.
+5. Limits and security: max 10 non-positional channels/user, 200 participants/channel (20502 error beyond); UGS auth mints tokens automatically — never embed HMAC keys/APP_ID secrets in client; VAT server-minting only for non-UGS identity or privileged channel ops.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Per-participant events live on VivoxParticipant instances from ParticipantAddedToChannel, NOT on VivoxService.Instance — wrong subscription target = silent failure.
+- Without Unity Authentication, identity degrades to per-session GUID (display names work, cross-session identity lost).
+- Chat history retention 7 days default; edit/delete/history APIs in references.
+- llms.txt authoritative when reachable; offline fallback = skill refs + installed package source.
 
-- Unity Vivox — Voice & Text Chat
-- Documentation Map
-- Detailed References
-- Initialization Order (Do Not Skip Steps)
-- Joining Channels
-- Text Messaging
-- Required Event Subscriptions
-- Access Tokens (Brief)
-- Validation
-- (none)
+## Category and tags
+build, cloud, mobile — unity, vivox, voice-chat, game-services, realtime.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Init, sign-in, and access tokens:** [references/init-and-login.md](references/init-and-login.md)
-- - If Unity Authentication (`AuthenticationService`) is not used, the player identity falls back to a per-session GUID — display names still work but you lose cross-session identity. See [references/init-and-login.md](references/init-and-login.md) for the Vivox Access Token (VAT) alternative.
-- 8. No HMAC signing keys or Vivox `SECRET`/`APP_ID` are embedded in client code — VAT-based flows are documented but delegated to a server.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 4. All events consumed by the code are subscribed **before** the async call that triggers them, and are unsubscribed in `OnDestroy`.
-2. 7. Android builds request `RECORD_AUDIO` at runtime before joining an audio channel; iOS builds have `NSMicrophoneUsageDescription` in the plist.
-
-## Files inside the skill
-
-- `references/events-and-participants.md` — "Events, Participants, and Lifecycle"
-- `references/init-and-login.md` — "Initialization and Login"
-- `references/text-chat.md` — "Text Chat"
-- `references/troubleshooting.md` — "Troubleshooting and Platform Notes"
-- `references/voice-channels.md` — "Voice Channels"
+## Revision note
+Single plugin revision; unusually hallucination-aware (explicit wrong-name warnings, validation checklist).

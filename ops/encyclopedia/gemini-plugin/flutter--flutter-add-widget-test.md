@@ -1,46 +1,28 @@
 # flutter-add-widget-test
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\flutter-add-widget-test\SKILL.md`
-- SKILL.md size: 6381 chars
+## Summary
+Guide for component-level Flutter widget tests with `WidgetTester`: dev-depend on `flutter_test`, place `*_test.dart` files under `test/`, then follow the pumpWidget → Finder → expect → interact → pump/pumpAndSettle → re-assert loop. Documents the core trio (WidgetTester auto-provided by `testWidgets()`, Finder via `find.text`/`byType`/`byKey`, Matchers like `findsOneWidget`/`findsNothing`/`findsNWidgets`/`matchesGoldenFile`), conditional guidance for static renders vs state changes vs animations/transitions vs text input vs lazy long lists (`scrollUntilVisible`), and a full TodoList worked example covering enterText, tap, drag-dismiss, pumpAndSettle.
 
-## What it does
+## When to use / when NOT
+Use to validate that a specific widget renders correct data and responds to taps/scrolls/text input — fast, no device needed. Do NOT use for full-app flows (use flutter-add-integration-test) or pure logic (use dart-add-unit-test).
 
-Implement a component-level test using `WidgetTester` to verify UI rendering and user interactions (tapping, scrolling, entering text). Use when validating that a specific widget displays correct data and responds to events as expected.
+## Inputs, outputs, tools
+- Inputs: widget under test, flutter_test dependency, test file in test/.
+- Outputs: `test/*_test.dart` files passing under `flutter test`.
+- Tools: `testWidgets`, `WidgetTester` (pumpWidget, pump, pumpAndSettle, tap, drag, enterText, scrollUntilVisible), `find.*` finders, `expect` matchers incl. golden files.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Wrap widgets needing inherited data in MaterialApp or Directionality inside pumpWidget — bare widgets crash without Directionality.
+2. `pump()` rebuilds a single frame after state changes; `pumpAndSettle()` is required after animations/transitions or drags until no frames are scheduled — picking the wrong one is the #1 flaky-test cause.
+3. Locate by stable finders (byKey > byType > byText); text finders break on copy changes, type finders break on refactors.
+4. Lazy lists: call `scrollUntilVisible(itemFinder, delta, scrollable: listFinder)` before interacting — off-screen items don't exist in the tree.
+5. Always end with the feedback loop: run `flutter test <file>`, read failing matchers, fix widget or assertion, re-run until green.
 
-- 2. Call `await tester.pump()` to trigger a single frame rebuild.
-- 1. Trigger the action (e.g., `await tester.drag(finder, Offset(500, 0))`).
+## Risks / owner needs
+Golden-file tests (`matchesGoldenFile`) are font/platform-sensitive — regenerating goldens on a different OS produces false diffs; keep goldens platform-pinned. Widget tests mock nothing by default: real async work inside widgets needs `tester.runAsync` or fake_async awareness.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: mobile. Tags: flutter, widget-testing, flutter-test, tdd, dart.
 
-- Writing Flutter Widget Tests
-- Contents
-- Setup & Configuration
-- Core Components
-- Workflow: Implementing a Widget Test
-- Task Progress
-- Interaction & State Management
-- Examples
-- High-Fidelity Widget Test Implementation
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - [ ] **Step 2: Build the widget.** Call `await tester.pumpWidget(MyWidget())` to render the UI. Wrap the widget in a `MaterialApp` or `Directionality` widget if it requires inherited directional or theme data.
-2. - [ ] **Step 7: Verify updated state.** Use `expect()` to validate the UI after the interaction.
-3. *   **If testing items in a dynamic or long list:** Call `await tester.scrollUntilVisible(itemFinder, 500.0, scrollable: listFinder)` to ensure the target widget is rendered before interacting with it.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin flutter copy; no competing revisions.

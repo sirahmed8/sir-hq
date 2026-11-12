@@ -1,36 +1,28 @@
-# figma-code-workflows
+# figma-code-workflows (import a project into Figma)
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-code-workflows\SKILL.md`
-- SKILL.md size: 4149 chars
+## Summary
+An Figma MCP workflow that imports a local running app or static HTML project into Figma — either as editable Design layers or as a runnable Code Layer / standalone Code (Make) output. It is essentially a routing skill: first resolve WHAT output the user wants (and never guess — ask "editable design layers or a code layer?" and end the turn), then pick the tool (`generate_figma_design`, `html_to_figma`, or `send_code_to_figma`) and follow each response's `nextStep` instructions exactly through preparation, validation, upload and import completion.
 
-## What it does
+## When to use / when NOT
+Use only for an explicitly requested Figma output or a given Figma file link as destination; generic "make a code project" requests do NOT trigger it. Static HTML or a running app are the inputs. Do NOT use it to decide output intent yourself — ambiguity must be resolved by asking the user once.
 
-Import local HTML.
+## Inputs, outputs, tools
+- Inputs: local project (running app or self-contained static HTML), optional destination file URL/link, user's plan choice for new files.
+- Outputs: a Figma Design file with layers, or a Code Layer / standalone Code import; final file/layer link plus honest report of import and preview outcomes.
+- Tools: Figma MCP tools `whoami` (checks `code_layers_enabled`), `create_new_file`, `send_code_to_figma`, plus `generate_figma_design` / `html_to_figma` for the editable-layers path (handled by sibling skills).
 
-## When to use (from skill text)
+## 5 most important rules
+1. Output intent is mandatory: if unclear, ask "Editable design layers or a code layer?" and STOP — a Design link chooses destination, not output.
+2. Check `whoami.code_layers_enabled` before choosing a runnable destination; fall back to standalone Code/Make or explain the limit.
+3. Screen-count heuristic only when no explicit choice: fewer than 10 screens (or unknown) → Code Layer in a Design file; 10+ → standalone; never ask the user to count.
+4. Follow each tool response's `nextStep` verbatim, pass continuation arguments unchanged, and never invent recovery steps; report pending imports as pending.
+5. Keep the user updated at each stage (preparing/validating, uploading, completing) and finish only with the returned link and confirmed outcomes.
 
-- Only use this workflow for an explicitly requested Figma output (standalone Code/Make, runnable Code Layer, or editable Design layers), or a Figma file key/link given as its destination. Generic “make a code project” or “create a code component” requests, and Figma Code/Make names alone, do not spec
+## Risks / owner needs
+Requires an authenticated Figma MCP connection and a plan that permits file creation; code-layer availability depends on account flags. Uploads project source to Figma — confirm no secrets in the bundle before sending.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: design. Tags: figma, mcp, import, code-layer, design-to-code, workflow.
 
-- Import a project into Figma
-- 1. Choose the output and destination
-- 2. Follow the import response
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

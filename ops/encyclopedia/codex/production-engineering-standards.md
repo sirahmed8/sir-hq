@@ -1,36 +1,31 @@
 # production-engineering-standards
 
-- Tool: `codex`
-- Category: ops
-- Source: `C:\Users\a7med\.codex\skills\production-engineering-standards\SKILL.md`
-- SKILL.md size: 1995 chars
+Tools: claude, codex, cursor, kilo, opencode, windsurf (kilo copy used; identical across tools).
+Source: C:\Users\a7med\.config\kilo\skills\production-engineering-standards\SKILL.md (30 lines) + references/{zero_mock_persistence_engines, runtime_schema_validation, defensive_zero_bug_engineering}.md (~254 lines total)
 
-## What it does
+## Summary
+An engineering-constitution skill mandating production-grade output: zero mock/in-memory persistence (real SQLite+Drizzle, Dexie, Prisma/Postgres, Supabase, Firestore, or validated localStorage), runtime schema validation at every boundary (Zod/Pydantic v2), defensive utilities (abortable fetch, debounce, optimistic UI with rollback, error boundaries), strictly modular multi-file architecture, and mandatory walkthrough.md/README/ARCHITECTURE documentation.
 
-Production-grade engineering standards: zero-mock persistence, atomic transactions, schema validation, and testing.
+## When to use / not use
+Use when building features that must work against real persistence and survive production — the anti-"vibe code" standard. Not for prototypes, throwaway scripts, or when mocks are explicitly acceptable; it conflicts with rapid scaffolding.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a feature/build task. Output: modular code with real persistence adapters, boundary validation, defensive hooks, and documentation files. Needs: references/ guides for adapter implementations and schemas; whichever DB/storage the project actually uses.
 
-- Production Engineering Standards & Zero-Bug Protocols
-- Core Pillars & Detailed References
-- Mandatory Documentation & Anti-Monolith Rules
-- (none)
+## Key rules
+1. Zero hardcoded mock arrays — every data layer must be a real persistent implementation chosen from the reference list.
+2. Validate at ALL boundaries: API inputs, DB results, IPC payloads, localStorage — with Zod or Pydantic v2 schemas.
+3. Never monolithic single-file apps: decompose into Presentation / Domain-State / Data / Core layers.
+4. Mandatory docs: walkthrough.md (chronological changes + verification) and README/ARCHITECTURE.md (setup, env vars, structure) on every major task.
+5. Defensive utilities from the reference: abortable async, debouncing, optimistic updates with automatic rollback, global error boundaries.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- "Mandatory documentation" can produce boilerplate walkthroughs if applied mechanically — quality bar is in the content, not file existence.
+- Choosing among 6 persistence engines per project needs judgment; the skill lists options, doesn't pick.
+- Strict modularity may fight small utilities — scope says "full applications or complex screens", so tiny scripts are exempt by its own wording.
 
-- none declared
+## Category and tags
+build, security — production, architecture, persistence, validation, zero-mock, standards.
 
-## Risks / cautions found in text
-
-- - Production hooks for abortable async requests (`useAbortableFetch`), debouncing, optimistic UI updates with automatic rollback, and Global Error Boundaries.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Strictly Modular Multi-File Architecture**: Never build monolithic single-file scripts for full applications or complex screens. Always decompose into Presentation, Domain/State, Data, and Core layers.
-2. - **Mandatory Documentation Protocol**: Never complete a major task, feature, or refactor without creating or updating:
-
-## Files inside the skill
-
-- `references/defensive_zero_bug_engineering.md` — "Defensive Zero-Bug Engineering & Utilities"
-- `references/runtime_schema_validation.md` — "Runtime Schema Validation & Data Contracts"
-- `references/zero_mock_persistence_engines.md` — "Zero-Mock Persistence Engines & Data Layers"
+## Revision note
+Identical across tools; index file pointing to three reference guides (read structure confirmed, ~250 lines total).

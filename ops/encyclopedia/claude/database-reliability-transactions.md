@@ -1,40 +1,28 @@
 # database-reliability-transactions
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\database-reliability-transactions\SKILL.md`
-- SKILL.md size: 2614 chars
+## Summary
+Doctrine skill for durable data layers: atomic multi-table transactions with automatic rollback, client idempotency keys (UUID v4) with cached-response replay, submit-button debouncing, index discipline (FKs, filter/sort columns, no N+1), keyset/cursor pagination over OFFSET, and safe file uploads (server-side MIME magic-byte checks, direct-to-cloud signed-URL uploads, WebP/AVIF compression).
 
-## What it does
+## When to use / when NOT
+Use when implementing any feature with mutations, payments/orders, uploads, or large lists. Do NOT use for read-only pages or as a DB engine tutorial — it states rules, not driver specifics.
 
-Use when a feature needs atomic transactions with rollback, idempotency keys on mutations, query indexing, or keyset pagination.
+## Inputs, outputs, tools
+- Inputs: the feature's data model and mutation paths.
+- Outputs: transactional code patterns, idempotency plumbing, indexes, pagination, upload pipeline.
+- Tools: none — ORM/DB-agnostic guidance (examples in TypeScript/Drizzle-style syntax).
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Any multi-record mutation runs inside one atomic transaction — partial failure must roll back everything.
+2. Every financial/critical mutation accepts an Idempotency-Key; replay returns the cached response, never re-processes.
+3. Disable submit buttons immediately on click to kill double-submits.
+4. Index FKs, status filters, and sort timestamps; paginate with keyset (`WHERE id > :last`) not OFFSET.
+5. Verify upload MIME by magic bytes server-side; push files straight to object storage via signed URLs; compress images to WebP/AVIF.
 
-- Database Reliability, Transactions & Idempotency Protocol
-- 1. Atomic Database Transactions & Rollbacks
-- 2. Idempotency & Duplicate Mutation Prevention
-- 3. Query Indexing & Pagination
-- 4. Safe Cloud File Uploads
-- (none)
+## Risks / things needing the owner
+Idempotency stores (Redis/DB table) and signed-URL buckets need infra the owner provisions. Choosing wrong index trade-offs on huge tables should be measured, not guessed.
 
-## Tools / MCPs it needs
+## Category / tags
+build · database, transactions, idempotency, pagination, uploads
 
-- none declared
-
-## Risks / cautions found in text
-
-- - Whenever an operation touches multiple tables or records (e.g., checkout + inventory decrement + payment record + audit log), wrap the entire sequence in an atomic transaction:
-- - Debounce all submit and payment CTAs on the client to prevent double-clicks.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - If any step throws an error, the entire operation must automatically roll back without leaving orphaned rows or inconsistent state.
-2. - Every financial transaction, order submission, or critical mutation must accept a unique client-generated `Idempotency-Key` header (UUID v4).
-3. - Check the database or Redis cache for existing idempotency records before executing. If found, return the cached successful response without re-processing.
-4. - Always index foreign keys (`user_id`, `organization_id`), status columns used in filters (`status = 'ACTIVE'`), and created timestamps used in sorting.
-5. - Avoid N+1 queries by using eager loading, joins, or dataloader batch fetching.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it; bodies byte-identical, only `description` differs. Claude copy preferred for trigger-style description.

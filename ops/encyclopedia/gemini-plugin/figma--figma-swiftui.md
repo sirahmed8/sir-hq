@@ -1,40 +1,28 @@
 # figma-swiftui
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-swiftui\SKILL.md`
-- SKILL.md size: 3438 chars
+## Summary
+A router skill for bidirectional translation between Figma designs and SwiftUI code. It holds only the direction table and shared doctrine; actual procedures live in references/design-to-code.md and references/code-to-design.md. Design→code uses `get_design_context` with `clientLanguages: "swift"`/`clientFrameworks: "swiftui"`; code→design uses `use_figma` (plus figma-use, figma-generate-design, figma-generate-library as needed).
 
-## What it does
+## When to use / when NOT
+Use when translating a Figma frame into SwiftUI for an iOS project, or pushing SwiftUI views/screens/tokens into Figma. If the request is ambiguous (both a Figma URL and .swift files present, no clear verb), ask which direction before loading a reference.
 
-Bi-directional translation between SwiftUI.
+## Inputs, outputs, tools
+- Inputs: Figma file/frame URL (fileKey + nodeId, `-`→`:`) or SwiftUI source; target iOS project or Figma file.
+- Outputs: SwiftUI code matching the design, or Figma nodes/variables built from code.
+- Tools: Figma MCP `get_design_context`, `use_figma`, `figma.util.getSfSymbolCharacter`; sibling skills figma-use, figma-generate-design, figma-generate-library.
 
-## When to use (from skill text)
+## 5 most important rules
+1. The React+Tailwind in `get_design_context` output is a structural approximation, never literal source — do not transliterate absolute positioning or blend-mode stacks into SwiftUI or Figma; the screenshot is truth in both directions.
+2. iOS HIG semantic colors are tokens: `var(--backgrounds/primary)` etc. map to `Color(.systemBackground)`/`.secondary`/`Color(.separator)` and Figma semantic variables — keep the mapping, drop literal RGBA.
+3. SF Symbols round-trip by NAME only, never codepoints: use the `<SFSymbol>` names verbatim design→code, and `figma.util.getSfSymbolCharacter(name)` code→design.
+4. Recognize system patterns, not node names: nav stack chrome = NavigationStack, bottom icon+label row = TabView, repeated same-height rows = List.
+5. Branch URLs use `branchKey` as the fileKey argument; ambiguous direction = ask before loading references.
 
-- | Direction | Trigger | Reference |
+## Risks / owner needs
+Requires Figma MCP access and (for code→design) a writable Figma file/plan. iOS semantics mean generated SwiftUI still needs Xcode-side compilation checks.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: mobile. Tags: swiftui, ios, figma, design-to-code, code-to-design, sf-symbols.
 
-- Figma ↔ SwiftUI
-- Pick the direction
-- Shared context (applies to both directions)
-- References
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 3. **iOS HIG semantic colors are tokens, not hex.** `var(--backgrounds/primary, …)`, `var(--labels/secondary, …)`, `var(--separators/non-opaque, …)` etc. map to `Color(.systemBackground)`, `Color.secondary`, `Color(.separator)` in SwiftUI, and to variables in a semantic collection in Figma. Keep the
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. **The React+Tailwind in `get_design_context` output is a structural reference, not a literal source.** It approximates the visual. Never transliterate `position: absolute` / pixel frames / `mix-blend-mode` stacks into SwiftUI or into Figma — the screenshot is the source of truth in both direction
-2. 6. **For code → design, `use_figma` is the API.** Always load [`figma-use`](../figma-use/SKILL.md) before any `use_figma` call. If the task involves building a full screen, also load [`figma-generate-design`](../figma-generate-design/SKILL.md); if it involves building components or a design system, 
-
-## Files inside the skill
-
-- `references/code-to-design.md` — "SwiftUI → Figma (code → design)"
-- `references/design-to-code.md` — "Figma → SwiftUI (design → code)"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

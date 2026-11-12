@@ -1,59 +1,28 @@
-# dbt-bigquery
+# dbt-bigquery (Gemini skill, Google)
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\dbt-bigquery\SKILL.md`
-- SKILL.md size: 11739 chars
+## Summary
+Expert workflow for dbt-on-BigQuery ELT: verify env (dbt/bq CLIs, Python env via managing-python-dependencies for dbt-bigquery install, gcloud project), locate `dbt_project.yml` (compile to map the DAG as truth), gather schema+samples via bq for sources AND destinations (use discovering-gcp-data-assets for missing IDs, confirm with user), ALWAYS apply data-autocleaning protocol + bigquery optimization protocol with mandatory "Automatic Cleaning Summary"/"Optimization Summary" sections (or strong evidence why not), ensure profiles.yml exists, implement, validate via `dbt compile`/`dbt run` (dry-run/build), iterate.
 
-## What it does
+## When to use / when NOT
+Use for creating, modifying, or troubleshooting dbt models/pipelines, optimizing SQL in a dbt project, or project setup. For Dataform use dataform-bigquery; for ad-hoc SQL use bigquery.
 
-Expert guidance for creating, modifying, and optimizing dbt pipelines for BigQuery. Use this skill whenever user asks for generating or modifying a dbt model or project. Activate this skill when the user - Creates, modifies, or troubleshoots **dbt models or pipelines** - Needs to **optimize SQL** within a dbt project - Is **setting up a new dbt project** or configuring existing one
+## Inputs, outputs, tools
+- Inputs: dbt project, source/target table specs, user request.
+- Outputs: model/config changes, compiled DAG, cleaning+optimization summaries.
+- Tools: `dbt` CLI (compile/run/test), `bq` CLI, gcloud config; sibling skills data-autocleaning, bigquery, discovering-gcp-data-assets, managing-python-dependencies.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. `dbt compile` output is the source of truth for existing assets.
+2. Data cleaning + SQL optimization are mandatory even unrequested — document with the two summary sections or strong counter-evidence.
+3. Verify `profiles.yml` exists in the project working directory before running.
+4. Fetch schema AND sample data from both sources and destinations before writing models.
+5. Ambiguous/missing asset IDs → discovering-gcp-data-assets, and ASK the user when multiple candidates exist.
 
-- dbt Expert Skill for BigQuery
-- Role & Persona
-- Task Execution Workflow
-- Step 0: Environment Verification
-- 1. Understand the Current State
-- 2. Gather Information
-- 3. Apply Automatic Data Cleaning and SQL Optimizations
-- 4. Implement Changes
-- 5. Validate & Compile
-- 6. Iterate
-- Environment & Setup
-- CLI Availability & Setup
-- Execution Constraints
-- Troubleshooting dbt
-- SQL Optimization Rules
-- Always Rewrite (Mandatory)
-- Propose with Confirmation (Conditional)
-- Coding Standards
-- Project & Profiles Config
-- Model Configuration
-- References & Sources
-- BigLake Iceberg Support (4-Part Naming)
-- Concatenating Catalog and Namespace Into Schema
-- Folder Structure
-- Schema & Metadata
-- (none)
+## Risks / things needing the owner
+`dbt run`/`dbt build` materialize real BigQuery tables (cost + data mutation) — confirm before executing against prod datasets. Python env setup for dbt-bigquery installs packages.
 
-## Tools / MCPs it needs
+## Category / tags
+data · dbt, bigquery, elt, sql, gcp
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Prioritize **technical accuracy** over agreement — investigate before
-2. -   Modify dbt files to satisfy the user's request. > [!IMPORTANT] Always
-3. -   **NEVER** execute `dbt run` without explicit user confirmation. Just compile
-4. -   **Output Validation**: After generating code, ALWAYS attempt to validate and
-5. -   **Do not execute `dbt run` without explicit user confirmation.**
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\dbt-bigquery\SKILL.md` (v3, Apache-2.0, google). Only gemini tool holds it.

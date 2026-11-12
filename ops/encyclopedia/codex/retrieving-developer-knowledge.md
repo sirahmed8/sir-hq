@@ -1,46 +1,30 @@
 # retrieving-developer-knowledge
 
-- Tool: `codex`
-- Category: data
-- Source: `C:\Users\a7med\.codex\skills\retrieving-developer-knowledge\SKILL.md`
-- SKILL.md size: 7719 chars
+Tools: codex (also claude/cursor/opencode/windsurf; codex chosen). Source: C:\Users\a7med\.codex\skills\retrieving-developer-knowledge\SKILL.md (101 lines) + references/{mcp-usage,api-fallback,supported-domains}.md
 
-## What it does
+## Summary
+Fetches OFFICIAL Google developer docs (Cloud, Gemini/ai.google.dev, ADK, TensorFlow, Android, Chrome, Web, Flutter, Go, Firebase) via the Developer Knowledge MCP (`answer_query`, `search_documents`, `get_documents`) or REST fallback at developerknowledge.googleapis.com/v1 — preferring existing gcloud credentials, then DEVELOPERKNOWLEDGE_API_KEY. Output is a complete executable solution, never recalled docs presented as retrieved.
 
-Search and retrieve official Google developer documentation across Google Cloud, Gemini, Android, Chrome, Web, Flutter, and Firebase.
+## When to use / not use
+Use for any technical question about Google platforms where doc accuracy matters (CLI flags, IAM permissions, configs). NOT for non-Google topics, general programming, or when offline; also not a substitute for reading the project's own code.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a technical query. Output: grounded documentation + complete self-contained solution (commands with all flags, YAML/JSON, code) with placeholders like PROJECT_ID. Needs: MCP tools if present, else curl + gcloud auth or API key; references/ for details.
 
-- Google Developer Knowledge
-- Workflow
-- Tool Selection & Usage
-- 1. Developer Knowledge MCP Tools (Preferred)
-- 2. REST API Fallback
-- Synthesis & Output Guidelines
-- References
-- (none)
+## Key rules
+1. MCP first, REST fallback — but a DECLARED server may not be CONNECTED; absent tools are normal, use REST.
+2. Verify the lookup SUCCEEDED: PERMISSION_DENIED/401/403/empty results = failed lookup even if the tool reported no error; never answer as though it worked.
+3. On HTTP 429 quota exhaustion of answer_query/:answerQuery, switch to search endpoint (search_documents or documents:searchDocumentChunks) with 2-5 focused keywords — don't fall back to memory.
+4. Credential order for REST: gcloud user token → gcloud application-default token → DEVELOPERKNOWLEDGE_API_KEY; a 401/403 on one credential means try the next, not failure.
+5. Output the FULL executable solution in the reply with standard placeholders — official doc conventions override memorized defaults.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Quota-limited generative endpoint; heavy use hits 429 — search endpoint is the fallback path.
+- Requires gcloud auth or an API key the owner must provision (quickstart link provided); no credential = must say so rather than answer ungrounded.
+- Answer quality depends on query phrasing; keyword search needs focused terms, not sentences.
 
-- MCP mentions: MCP server, MCP tools, MCP handshake, MCP Tools, MCP Usage
+## Category and tags
+research, cloud, ai — google, documentation, gcp, gemini, firebase, grounded-answers.
 
-## Risks / cautions found in text
-
-- 2. **Confirm the lookup succeeded before using it**: A response that arrives is not automatically an answer. `PERMISSION_DENIED`, `UNAUTHENTICATED`, HTTP 401 or 403, an empty result set, or any error payload is a FAILED lookup even when the tool itself reported no error. On a failed lookup, do not a
-- - **`answer_query(query="...")`**: Use for conceptual guides, architectural comparisons, product choice overviews, and multi-step workflows. This tool has limited quota. If you get a 429 out of quota error, use `search_documents` instead.
-- - **`search_documents(query="...")`**: Use for granular CLI flags, exact syntax, parameter names, and IAM permissions (`service.resource.verb`). Use 2–5 focused keywords (e.g., `cloud run filestore nfs mount gcloud`) rather than full conversational sentences.
-- 2. **Exact Parameter Formatting**: Format CLI flags, composite keys (e.g. `location=IP:PATH`), and IAM permission strings according to official Google specifications.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Direct Retrieval**: When answering a technical question, execute a single documentation lookup directly within your current conversation context (do not delegate retrieval to subagents):
-2. - **A declared server is not always a connected server.** Some clients cannot complete the MCP handshake with this server and expose no `answer_query`, `search_documents` or `get_documents` tool at all, even though the plugin declares one. Treat their absence as normal and use the REST fallback belo
-3. 2. **Confirm the lookup succeeded before using it**: A response that arrives is not automatically an answer. `PERMISSION_DENIED`, `UNAUTHENTICATED`, HTTP 401 or 403, an empty result set, or any error payload is a FAILED lookup even when the tool itself reported no error. On a failed lookup, do not a
-4. 3. **Immediate & Complete Solution Output**: Immediately upon receiving the documentation response, output the complete, self-contained, and executable technical solution (commands with all required flags and placeholders, YAML/JSON configurations, or code snippets) directly in your response text.
-5. 3. **Complete Solutions in Final Response**: Always output the full, self-contained, executable technical solution (commands, configurations, or code snippets) with clear standard placeholders (e.g. `PROJECT_ID`, `SERVICE_NAME`, `REGION`) directly in your final message, even if previously referenced
-
-## Files inside the skill
-
-- `references/api-fallback.md` — "Developer Knowledge REST API Fallback Guide"
-- `references/mcp-usage.md` — "MCP Tool Usage & API Details"
-- `references/supported-domains.md` — "Supported Developer Domains"
+## Revision note
+Single codex revision (v1.0.1); the doc-grounding counterpart used across the ecosystem.

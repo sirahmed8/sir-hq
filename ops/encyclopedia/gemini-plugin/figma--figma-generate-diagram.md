@@ -1,56 +1,28 @@
 # figma-generate-diagram
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-generate-diagram\SKILL.md`
-- SKILL.md size: 9563 chars
+## Summary
+Router + constraint skill for the `generate_diagram` MCP tool, which turns Mermaid.js syntax into an editable FigJam diagram. It must be loaded before EVERY call. It routes the request to one of five supported types (architecture flowchart, flowchart, sequence, ER, state, Gantt), hard-rejects unsupported types (pie, mindmap, class, timeline, C4, etc.) instead of calling and failing, lists universal Mermaid constraints, demands real context before authoring (source code, docs, existing files, other MCPs, or the user), and offers a hybrid workflow (generate_diagram + use_figma FigJam extensions) for annotations/colors Mermaid cannot express.
 
-## What it does
+## When to use / when NOT
+Use for any diagram request that maps to Mermaid-supported types. Do NOT call for unsupported diagram types — tell the user directly. Also push users to manual Figma editing when they ask to change fonts, move individual shapes, or node-by-node edits on an existing diagram (regenerate instead, usually faster).
 
-Generate diagrams.
+## Inputs, outputs, tools
+- Inputs: diagram intent + real source context; optional `name`, `userIntent`, `useArchitectureLayoutCode` (architecture only), `fileKey` to reuse an existing FigJam file.
+- Outputs: a FigJam file/link (tool creates its own file — never call create_new_file first) and optionally use_figma extensions.
+- Tools: `generate_diagram`; `use_figma` + `get_figjam`/`get_design_context` for hybrid work; per-type reference docs (architecture, flowchart, sequence, erd, state, gantt, workflow).
 
-## When to use (from skill text)
+## 5 most important rules
+1. Load this skill before every generate_diagram call — skipping it causes rendering failures and low-quality output.
+2. Unsupported types are refused upfront; after 2 failed iterations on the same diagram, stop regenerating and ask what is wrong or suggest manual editing.
+3. Universal Mermaid bans: no emojis (tool rejects), no `\n` escapes or HTML in labels, no reserved IDs (`end`, `subgraph`, `graph`), camelCase node IDs, quote special characters.
+4. Sequence `Note over` and Gantt `classDef` styling are silently stripped — use the hybrid workflow or build with use_figma instead; FigJam extensions must never call `figma.createPage()`.
+5. Reuse `fileKey` when iterating or adding related diagrams (each keyless call creates a new draft file); ask once whether to regenerate over or keep side-by-side. Garbage in = garbage out: never invent edges/entities — missing info beats hallucinated info.
 
-- - **The user themselves** — when the description is thin or ambiguous (unclear direction of flow, unclear scope, unclear which entities matter), ask one or two focused questions before generating. Examples: "What are the 3–5 main steps?", "Who owns each step?", "What triggers the next step?". One go
+## Risks / owner needs
+Requires authenticated Figma MCP. Quality depends entirely on context gathered; hallucinated topology is the main failure mode the skill guards against.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: design. Tags: figma, figjam, mermaid, diagrams, mcp, documentation.
 
-- generate-diagram
-- Step 1: Is `generate_diagram` the right tool?
-- Supported diagram types
-- Unsupported — don't call the tool
-- When to push the user to edit in Figma
-- Step 2: Pick the diagram type
-- Step 3: Universal constraints (apply to every diagram type)
-- Step 4: Garbage in, garbage out
-- Step 5: Will the diagram need more than Mermaid can express?
-- Step 6: Calling the tool
-- Step 7: After generation
-- Reuse the same file when iterating or adding related diagrams
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP servers
-
-## Risks / cautions found in text
-
-- 2. If you want to replace the previous diagram rather than adding next to it, use the `use_figma` tool (see the `figma-use-figjam` skill) to delete the old diagram's nodes first, then call `generate_diagram` with the same `fileKey`. Or leave the old diagram and place the new one beside it — readers 
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Edit a diagram node-by-node after generation
-2. 2. **No `\n`** in labels. Use newlines only when absolutely required and only via actual line breaks (not the escape sequence).
-3. 4. **Reserved words** — don't use `end`, `subgraph`, `graph` as node IDs.
-4. 6. **Special characters in labels** must be wrapped in quotes: `A["Process (main)"]`, `-->|"O(1) lookup"|`.
-5. 7. **Sequence diagrams** — Mermaid `Note over X` / `Note left of X` / `Note right of X` are silently stripped by the renderer; don't put them in the source. If the user wants annotations on a sequence diagram, generate the base diagram first and add stickies/text via the hybrid workflow ([references
-
-## Files inside the skill
-
-- `references/architecture.md` — "Architecture Diagrams"
-- `references/erd.md` — "Entity-Relationship Diagrams"
-- `references/flowchart.md` — "Flowcharts (non-architecture)"
-- `references/gantt.md` — "Gantt Charts"
-- `references/sequence.md` — "Sequence Diagrams"
-- `references/state.md` — "State Diagrams"
-- `references/workflow.md` — "Hybrid Diagram Workflow"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

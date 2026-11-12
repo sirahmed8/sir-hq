@@ -1,45 +1,28 @@
-# dart-use-doc-examples
+# dart-use-doc-examples (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: study
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-doc-examples\SKILL.md`
-- SKILL.md size: 5344 chars
+## Summary
+Guide for Dartdoc `{@example}` directive: extract multi-line code examples into real `.dart` files (so they're analyzed/linted/executed) and inject them into doc comments — `{@example /path/file.dart[#region] [lang=..] [indent=strip|keep]}` — with `#region`/`#endregion` to show only a snippet and trailing `#hide` to drop compiler-needed-but-doc-noise lines.
 
-## What it does
+## When to use / when NOT
+Use when writing API docs that need multi-line code samples. Do NOT use for one-line snippets (inline backticks are fine) or non-Dart files unless lang override fits.
 
-How to inject external code examples into Dartdoc using the {@example} directive, and how to filter those files using #hide, #region, and #endregion tags.
+## Inputs, outputs, tools
+- Inputs: doc comments + example `.dart` files under the package.
+- Outputs: generated dartdoc with fenced, analyzable code blocks.
+- Tools: `dart doc` to verify; examples/ dir in the skill.
 
-## When to use (from skill text)
+## 5 most important rules
+1. External file + `{@example}` over inline markdown for anything multi-line.
+2. Leading `/` in path = package root; otherwise relative to the current file.
+3. Wrap showable snippets in `#region name`/`#endregion name`; reference with `#name`.
+4. `#hide` trailing comment drops a line from docs while keeping it in compiled code (e.g. mock server startup).
+5. `indent=strip` (default) removes shared indentation; set `lang` explicitly for non-Dart blocks.
 
-- *   **Package-Root Paths (`/`)**: Paths starting with a leading slash automatically resolve directly to the root of the Dart package. Use this when the destination file is deep.
+## Risks / things needing the owner
+Example files are real code — they must compile; broken examples fail analyze/doc. Keep license headers consistent.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, documentation, dartdoc
 
-- Using Examples in Dartdoc
-- Contents
-- 1. The `{@example}` Directive
-- 2. Using Regions
-- 3. Hiding Setup Code
-- 4. Marker Filtering Rules
-- 5. Placement and Path Resolution
-- 6. Verification
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2.  (Optional) Run `dart doc` to verify that dartdoc successfully parsed the directive without throwing a "Failed to read file" or "missing region" warning.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Region Required:** The markers are only processed and stripped when you target a specific region suffix (e.g., `{@example file.dart#region_name}`). If you inject an entire file without a region suffix, the file is embedded exactly as it appears in the source, including any marker text like `//
-2. *   **Boundary Enforcement:** Using `..` segments to traverse upward is perfectly acceptable, but dartdoc natively stops directory traversal at the package root (it will never escape the package).
-3. *   **No Network URLs:** Absolute URIs (e.g., starting with `https://`) are strictly not supported. The example file *must* sit natively somewhere in the local filesystem.
-4. *   **Separators & Encoding:** Because dartdoc resolves the path as a URI, you must always use forward slashes (`/`) as folder separators (even on Windows). You can natively include URI-encoded characters (like `%20` for spaces) as permitted by URI reference rules.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-doc-examples\SKILL.md`. Only gemini-plugin holds it.

@@ -1,58 +1,27 @@
-# netlify-mcp-servers
+# netlify-mcp-servers (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\codex\skills\netlify-mcp-servers\SKILL.md`
-- SKILL.md size: 16920 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-mcp-servers\SKILL.md`. Build/deploy/secure MCP servers on Netlify Functions.
 
-## What it does
+## Summary
+Disambiguation first: "Netlify MCP" can mean Netlify's OWN hosted MCP server (lets agents operate the Netlify platform — you don't write it, point clients at Netlify's docs; see netlify-agent-runner) vs building YOUR OWN MCP endpoint exposing your app's tools to agents — this skill covers the latter. An MCP server on Netlify = ONE Netlify Function speaking MCP over HTTP. Two shapes: standalone repo (wraps third-party API) or added to existing app (tools call the SAME service/data layer as UI/REST routes — no duplicated logic). Decide auth up front: single-user → shared secret; multi-user → per-user API keys via Netlify Identity (start with secret, layer later). Stack: official MCP SDK + `WebStandardStreamableHTTPServerTransport` — web-standard Request/Response primitives, no Node bridge needed (older guides' `fetch-to-node`+`StreamableHTTPServerTransport` is unnecessary on Netlify); `@modelcontextprotocol/sdk` + `zod`. Server pattern: `buildServer()` creates `McpServer`, `server.tool(name, desc, zod-schema, handler)`; default export checks bearer auth → rejects non-POST (405 — GET opens SSE stream that never closes → 502 on serverless) → transport handles JSON-RPC/version handshake. HTTP 406 = client's Accept header lacks both `application/json` and `text/event-stream` (MCP-spec requirement — fix client, not server). Covers auth (references/authentication.md), read/write tool safety, file uploads, client connections.
 
-Build, deploy, and secure Model Context Protocol (MCP) servers on Netlify. Use whenever the task involves creating an MCP server, exposing an app or API to AI agents as MCP tools, letting Claude / Cursor / Claude Code call a custom remote server, or adding MCP tools to an existing Netlify site. Covers the MCP SDK + Streamable HTTP transport on a Netlify Function, authentication (single shared secret vs per-user API keys with Netlify Identity), read/write safety, file uploads, and connecting clients. Use even when the user just says "MCP", "tool server for an agent", or "let an AI use my API".
+## When to use / when NOT
+Use when exposing app tools/data to AI agents (Claude Desktop/Code, Cursor) via MCP, wrapping third-party APIs as tools, or adding MCP to an existing Netlify site. NOT for operating Netlify itself via MCP (that's Netlify's hosted server) or non-HTTP transports.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: tools to expose (name/desc/zod schema/handler), auth choice (shared secret vs Identity keys).
+- Outputs: MCP endpoint at a function path serving JSON-RPC over Streamable HTTP.
+- Tools: `@modelcontextprotocol/sdk` (`McpServer`, `WebStandardStreamableHTTPServerTransport`), `zod`, Netlify Functions, `@netlify/identity` for per-user keys.
 
-- **"Netlify MCP" means two different things — make sure you're building the right one.** Netlify publishes its *own* hosted MCP server that lets an AI client operate the **Netlify platform** on your behalf — create projects, trigger deploys, manage env vars and infrastructure through your Netlify acc
+## 5 most important rules
+1. Web-standard transport only — no Node req/res bridge on Netlify.
+2. POST-only: reject GET (SSE never closes → 502 on serverless); 406 = client Accept header problem.
+3. Decide auth first: shared secret for single-user, Identity-backed keys for multi-user.
+4. Tools should reuse the app's existing service layer — don't duplicate logic.
+5. Stateless JSON mode — don't hold SSE sessions in a serverless function.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Auth is the whole security story — a public MCP endpoint exposes your tools to anyone. Write tools need explicit safety review. Stateless transport limits some MCP features (no persistent SSE). Version drift in SDK transport behavior.
 
-- Netlify MCP Servers
-- Before you build
-- Stack
-- The server function
-- Browser-based clients and CORS
-- Defining tools
-- Authentication
-- Safety and permissions
-- Rate limiting
-- File uploads
-- State doesn't survive between requests
-- Connecting a client
-- Local dev and deploy
-- Cross-cutting rules
-- Related skills and references
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP Servers, MCP server, MCP protocol, MCP endpoint, MCP SDK, MCP clients, MCP client, MCP support
-
-## Risks / cautions found in text
-
-- - **Who calls this server?** Just you (a personal/single-user server) → use a **single shared secret**. Multiple people, each acting as themselves → use **per-user API keys** backed by Netlify Identity. See [authentication](references/authentication.md).
-- - **Expose the least that does the job.** Separate reads from writes, and think hard before exposing destructive tools. A common, sound choice is to **omit delete tools entirely** and keep destructive actions in a human-operated UI.
-- - **Guard irreversible or public actions** by putting explicit instructions in the tool's description — e.g. "show the user the exact text and get confirmation before posting." This is a soft, model-level guard, so back it with a real kill switch: a token you can revoke instantly.
-- - **Keep the client's credential separate from your backend's.** The client authenticates to your server (bearer/API key); your server authenticates to the database or third-party API with its *own* secret. Never pass your backend god-key out to the client.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Expose the least that does the job.** Separate reads from writes, and think hard before exposing destructive tools. A common, sound choice is to **omit delete tools entirely** and keep destructive actions in a human-operated UI.
-2. - **Guard irreversible or public actions** by putting explicit instructions in the tool's description — e.g. "show the user the exact text and get confirmation before posting." This is a soft, model-level guard, so back it with a real kill switch: a token you can revoke instantly.
-3. - **Keep the client's credential separate from your backend's.** The client authenticates to your server (bearer/API key); your server authenticates to the database or third-party API with its *own* secret. Never pass your backend god-key out to the client.
-4. - **Identity caveat:** Netlify Identity does **not** work under `netlify dev`, so per-user-key auth must be tested on a deploy preview. See the **netlify-identity** skill.
-5. - **Secrets:** set tokens/keys as env vars (`netlify env:set MCP_BEARER_TOKEN <value> --secret`) — never in code.
-
-## Files inside the skill
-
-- `references/authentication.md` — "MCP Server Authentication"
-- `references/connecting-clients.md` — "Connecting Clients"
-- `references/file-uploads.md` — "File Uploads via MCP"
+## Category and tags
+Category: cloud. Tags: netlify, mcp, ai-agents, streamable-http, tools, authentication, serverless.

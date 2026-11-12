@@ -1,50 +1,28 @@
-# ui
+# ui (gemini-plugin: unity router)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui\SKILL.md`
-- SKILL.md size: 6717 chars
+## Summary
+`ui` is the Unity plugin's ROUTER skill, not a framework skill itself. Its job: decide which of Unity's three UI systems a request belongs to and hand off to the right specialist skill (`ui-uitk`, `ui-ugui`, `ui-imgui`), or answer comparative/educational questions directly without routing. Routing is three-stepped: (1) explicit signals — `.uxml`/`.uss` files or "UI Toolkit/UITK/UIElements/CreateGUI" → ui-uitk; Canvas/RectTransform/uGUI → ui-ugui; OnGUI/OnInspectorGUI/IMGUI → ui-imgui; a Figma URL gets a honest "automated Figma import is not available here" plus an offer to build from description/screenshot; (2) project detection when ambiguous — search for uxml/uss files, UIDocument components, CreateGUI editor scripts, Canvas/RectTransform usage, OnGUI editor scripts; (3) defaults — existing projects follow whatever is in use, new runtime UI defaults to uGUI, new editor UI defaults to UI Toolkit, mobile/performance/pre-Unity-6 leans uGUI.
 
-## What it does
+## When to use / when NOT
+Use BEFORE writing any Unity UI code when the framework isn't named, and for UI comparison questions. Do NOT use it to actually write UI (it delegates), and do NOT route educational questions ("UITK vs uGUI?") — answer those directly.
 
-Routes Unity UI requests to the right framework skill (UI Toolkit, uGUI, or IMGUI) and answers UI comparison questions. Use for menus, HUDs, panels, or editor UI when the request doesn't name a framework. Consult before writing any UI code.
+## Inputs, outputs, tools
+- Inputs: the user's UI request, project file search results.
+- Outputs: a routing decision plus handoff to the correct sub-skill; or a direct conceptual answer.
+- Tools: file/content search across the Unity project (uxml, uss, UIDocument, Canvas, OnGUI patterns). No scripts.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Explicit file/keyword signals beat everything; detect project patterns before asking.
+2. Figma import does not exist outside Unity AI Assistant — never promise it; offer description/screenshot-based rebuild instead.
+3. Mixed projects are normal: route runtime UI to the runtime system in use; new EDITOR UI prefers UI Toolkit (CreateGUI), IMGUI only for legacy/exclusive-IMGUI projects.
+4. Scope discipline applies to all sub-skills: a question gets an answer, a targeted edit changes only what was asked, "proper buttons" means styled buttons not scripts.
+5. When still unclear on a new project, ask the user which framework — briefly explaining UITK is modern/CSS-like and uGUI is Canvas-based/mature.
 
-- - Only use when project has existing IMGUI editor code or user explicitly requests IMGUI
+## Risks / things needing the owner
+Low risk; it is a decision layer. The main trap is misrouting (sending uGUI work to UITK or vice versa), which the detection step exists to prevent. Asking the user for framework preference is one of the few legitimate questions this skill allows.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · unity, ui, routing, uxml, ugui, imgui
 
-- When to Route vs Answer Directly
-- Routing Logic
-- Request Types
-- Available Sub-Skills
-- UI Toolkit — `ui-uitk`
-- uGUI — `ui-ugui`
-- IMGUI — `ui-imgui`
-- Figma design import — not available here
-- Common Guidelines (All UI Systems)
-- Scope Discipline
-- Conventions
-- Workflow
-- Handling Mixed Projects
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Only use `ui-imgui` if project exclusively uses IMGUI or user explicitly requests it
-2. - Only use when project has existing IMGUI editor code or user explicitly requests IMGUI
-3. - Don't proactively add scripts unless explicitly asked
-4. - Only use IMGUI if the project's existing editor tools use IMGUI exclusively, or user explicitly requests IMGUI
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui\SKILL.md`. No divergent copies.

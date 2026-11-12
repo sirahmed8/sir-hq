@@ -1,53 +1,31 @@
 # routing-middleware
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\routing-middleware\SKILL.md`
-- SKILL.md size: 9375 chars
+Tools: codex (also claude/cursor/opencode/windsurf; codex chosen). Source: C:\Users\a7med\.codex\skills\routing-middleware\SKILL.md (222 lines, read in full)
 
-## What it does
+## Summary
+Vercel Routing Middleware expert guide: platform-level `middleware.ts` request interception running before cache on any framework (Edge/Node/Bun runtimes), helpers from `@vercel/functions` (next/rewrite/geolocation/ipAddress/waitUntil), matcher scoping, plus the three CDN routing mechanisms (Bulk Redirects, Project-Level Routes, deployment config) and programmatic `vercel.ts` config.
 
-Vercel Routing Middleware guidance.
+## When to use / not use
+Use for request interception before cache: geo-personalization, A/B rewrites, header injection, lightweight defense-in-depth checks. NOT for auth as sole protection, heavy logic/DB work, or Next.js 16 network-boundary proxying (that's `proxy.ts`); Edge Functions are for standalone compute, not interception.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: HTTP requests matching config.matcher. Output: next()/rewrite()/redirect()/Response with modified headers. Needs: `@vercel/functions` package (non-Next.js), Edge Config for A/B, `vercel link` context; limits: 14KB URL, 4MB body, 64 headers/16KB.
 
-- **Project-level routes** (added March 2026) let you update routing rules — response headers, rewrites to external APIs — without triggering a new deployment. They run after bulk redirects and before deployment config routes. Available on all plans.
+## Key rules
+1. Disambiguate the THREE middlewares: Vercel Routing Middleware (`middleware.ts`, any framework) vs Next.js 16 Proxy (`proxy.ts`, Node-only, renamed due to CVE-2025-29927 middleware-auth-bypass) vs Edge Functions — picking wrong file/runtime breaks silently.
+2. Always scope with `config.matcher` — default runs on EVERY route and burns compute; regex-exclude static assets.
+3. Middleware runs BEFORE cache — it's the right layer for geo/AB/header logic that must precede cached responses.
+4. Request limits are hard: 14KB URL, 4MB body, 64 headers — exceeding them fails the request.
+5. For operational routing changes without redeploy, use Project-Level Routes (Dashboard/API/CLI/SDK); reserve deployment config for deploy-coupled rules; only one of vercel.json OR vercel.ts per project.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Auth in middleware is explicitly defense-in-depth only — sole-auth architectures are vulnerable (CVE-2025-29927 history).
+- Bun runtime is public beta (~28% latency claim); Node.js runtime via `runtime:'nodejs'` + `bunVersion` in vercel.json.
+- Project-Level Routes (March 2026 feature) evaluation order matters: Bulk Redirects → Project routes → deployment config.
+- Deprecated `middleware.ts` in Next.js 16 logs warnings; migration codemod exists.
 
-- Vercel Routing Middleware
-- What It Is
-- CRITICAL: Middleware Disambiguation
-- Bun Runtime
-- Basic Example
-- Helper Methods (`@vercel/functions`)
-- Matcher Configuration
-- Common Patterns
-- IP-Based Header Injection
-- A/B Testing via Global Config
-- Background Processing
-- Request Limits
-- Three CDN Routing Mechanisms
-- Project-Level Routes — Configuration Methods
-- Programmatic Configuration with `vercel.ts`
-- When to Use
-- When NOT to Use
-- References
-- (none)
+## Category and tags
+web, cloud — vercel, middleware, edge, routing, cdn, nextjs.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Preferred platform configuration**: Set `proxy.entrypoint` in `vercel.json`. The entrypoint can use any supported filename or directory and runs on Node.js. Frameworks that build their own routing middleware (Next.js, Astro) do not use the `proxy` property; use the framework's file convention in
-2. - Geo-personalization of static pages (runs before cache)
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single codex revision; unusually current (covers Next.js 16 proxy rename and 2026 project-level routes).

@@ -1,62 +1,31 @@
 # offload-to-sandbox
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\offload-to-sandbox\SKILL.md`
-- SKILL.md size: 18213 chars
+Tools: gemini-plugin (Vercel plugin). Source: C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\offload-to-sandbox\SKILL.md (284 lines, read in full)
 
-## What it does
+## Summary
+Operational playbook for offloading heavy work (full test suites, long Linux builds, parallel agent tasks) to Vercel Sandbox microVMs via the `vercel sandbox` CLI. Covers base-snapshot preparation, one-sandbox-per-task naming/tagging, non-persistent lifetime management, pushing git-tracked source without reinstalling node_modules, remote exec pitfalls, result retrieval, sharding, and a ready-made `sbx` wrapper script.
 
-Offload resource-heavy builds, test suites.
+## When to use / not use
+Use for resource-heavy builds, sharded test suites, many parallel tasks, or disk-filling work that should stay off the local machine. Keep editing, git, small focused tests, typecheck/lint, orchestration, and anything needing local credentials or hardware local.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a Vercel account with `vercel` CLI auth (`VERCEL_TOKEN` for CI), a project scope, and a base snapshot ID. Output: remote test/build results copied back as compact files. Needs the `vercel sandbox` CLI; optionally pairs with the `vercel-sandbox` skill for the SDK/untrusted code.
 
-- Offloading work to a Vercel Sandbox
-- When to offload, and what to keep local
-- Plan limits
-- Prepare a base snapshot once
-- 1. Create a builder sandbox from the default image (Ubuntu, Node.js, Python, common tools).
-- 2. Install the pinned toolchain and build the baseline tree once.
-- 3. Snapshot it (this stops the sandbox). The ID is printed on stderr, not stdout.
-- 4. The builder is no longer needed. Removing it keeps the snapshot.
-- Create one sandbox per task
-- Lifetime and cleanup
-- Move code in without reinstalling dependencies
-- Run commands
-- Get results back
-- Shard and parallelize
-- Separate pre-existing failures from new ones
-- Authentication and scope
-- Wrap it in one small script
-- sbx: offload work to Vercel Sandboxes through `vercel sandbox`.
-- sbx create <name>                         new task sandbox from the base snapshot
-- sbx push <name> <local-dir> <remote-dir>  sync git-tracked and untracked files, keep node_modules
-- sbx exec <name> <script>                  run a shell script remotely, exit with its status
-- sbx get <name> <remote-file> <local-file>
-- sbx put <name> <local-file> <remote-file>
-- sbx rm <name>...                          permanently remove sandboxes
-- sbx clean                                 remove every sandbox tagged with your owner tag
-- (none)
+## Key rules
+1. Build a base snapshot once (toolchain + built baseline + helper scripts) and start every task from it; snapshots bill until deleted (`--expiration 0` = never expires).
+2. Always `--non-persistent`, name per owner+purpose, tag with `owner=`/`app=`, size within plan limits (Hobby: 4 vCPU/45m; Pro: 8 vCPU/3h examples), and `remove` (not `stop`) when done.
+3. `vercel sandbox exec` exits 0 even when the remote command fails — end remote commands with `echo "exit=$?"` or use the `sbx` wrapper which propagates status.
+4. Push source as a git-files tarball preserving node_modules; never push `.git` or build macOS binaries into the Linux VM; pass remote shell commands as one single-quoted `sh -c` string.
+5. Separate pre-existing/baseline failures from new ones by rerunning failures on the untouched tree in the same sandbox; run the full suite only on the final candidate.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Billed by Active CPU + memory + snapshot storage; Hobby includes only 5h Active CPU/month — heavy offloading needs Pro. Quotas can pause creation mid-run; keep scripts idempotent and write results to disk.
+- Non-persistent sandboxes lose the whole filesystem at session timeout — copy results out before it expires.
+- Long jobs must run detached (`nohup` + status file) and be polled; the session timeout still applies.
+- Exit 137 usually means OOM kill — size up or lower parallelism, don't retry blindly.
 
-- none declared
+## Category and tags
+build, cloud, ops — vercel, sandbox, ci-cd, remote-build, cost, mcp-plugin.
 
-## Risks / cautions found in text
-
-- - Anything needing local credentials or hardware the sandbox doesn't have.
-- - **`vercel sandbox remove <name>` when a task is done.** `vercel sandbox stop` only ends the current session: the sandbox keeps its name, and a persistent sandbox keeps billing for its snapshot. Vercel removes sandboxes that can't resume after 14 days of inactivity, so a stopped non-persistent sand
-- - Removing a sandbox does not delete snapshots, so the base snapshot survives task cleanup. `--delete-orphan-snapshots` on `remove` also deletes the sandbox's own snapshots that no other sandbox uses. Don't pass it when removing the builder that made your base snapshot.
-- - A tracked file you deleted but didn't stage makes `tar` fail. Stage the deletion (`git rm`) first.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Name by owner and purpose** (`exp-parser`, `exp-parser-2`) so parallel agents never collide. Names are unique per project and stay taken until the sandbox is removed. Never use another agent's sandbox.
-2. - **`vercel sandbox remove <name>` when a task is done.** `vercel sandbox stop` only ends the current session: the sandbox keeps its name, and a persistent sandbox keeps billing for its snapshot. Vercel removes sandboxes that can't resume after 14 days of inactivity, so a stopped non-persistent sand
-3. - Removing a sandbox does not delete snapshots, so the base snapshot survives task cleanup. `--delete-orphan-snapshots` on `remove` also deletes the sandbox's own snapshots that no other sandbox uses. Don't pass it when removing the builder that made your base snapshot.
-4. - Push after every change; it takes seconds. Then run an idempotent prepare step that installs or rebuilds only what changed (for example, install dependencies only when the lockfile changed).
-5. - Build platform-specific artifacts inside the sandbox. Don't copy macOS binaries into a Linux VM.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; unusually operational and honest about CLI quirks (verified exit-code bug, billing model).

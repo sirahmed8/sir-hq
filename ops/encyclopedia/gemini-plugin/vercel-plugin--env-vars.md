@@ -1,66 +1,28 @@
-# env-vars
+# env-vars (Vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\env-vars\SKILL.md`
-- SKILL.md size: 11221 chars
+## Summary
+Vercel environment-variable management guide: the `.env` file hierarchy and Next.js load order (.env → .env.[environment] → .env.local → .env.[environment].local, later wins; `.local` files gitignored and skipped in test), critical rules (never commit secrets to tracked env files, `NEXT_PUBLIC_` exposes to browser bundle, everything else server-only), the `vercel env` CLI (pull/add/rm/ls with --environment/--sensitive/--yes), a fresh-clone bootstrap flow (link → pull → diff against .env.example), and `vercel env run` for one-off runs without writing files.
 
-## What it does
+## When to use / when NOT
+Use when working with .env files, `vercel env` commands, OIDC tokens, or environment-specific config on Vercel/Next.js. Do NOT use for non-Vercel platforms or for deciding WHICH secrets an app needs (that's app design).
 
-Vercel environment variable expert guidance.
+## Inputs, outputs, tools
+- Inputs: env var names/values, target environment (development/preview/production), project link.
+- Outputs: `.env.local` files, Vercel-side env vars, verified key presence.
+- Tools: `vercel env pull|add|rm|ls|run`, `vercel link`, `.env.example` diff loop.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Secrets live in `.local` variants or Vercel env vars — NEVER in git-tracked `.env`/`.env.production`.
+2. `NEXT_PUBLIC_` prefix = shipped to the browser bundle — secrets must never carry it.
+3. `vercel env pull` writes to `.env.local` (gitignored); use `--environment=` to target preview/prod; `--yes` avoids prompts in scripts.
+4. Bootstrap order: `vercel link` first (so pulls hit the right project), then pull, then verify every `.env.example` key exists.
+5. `vercel env add --sensitive` for values that must not appear in logs; `vercel env run -- <cmd>` injects envs without persisting a file.
 
-- Use this sequence when setting up a project from scratch:
+## Risks / things needing the owner
+Env vars often contain production secrets — pulling them onto a machine is a security event; confirm the machine/context is appropriate. Deleting env vars (`env rm`) can break deployments.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, env-vars, secrets, configuration, security
 
-- Vercel Environment Variables
-- .env File Hierarchy
-- Load Order (Next.js)
-- Critical Rules
-- vercel env CLI
-- Pull Environment Variables
-- Pull all env vars for the current environment into .env.local
-- Pull for a specific environment
-- Overwrite existing file without prompting
-- Pull to a custom file
-- Add Environment Variables
-- Interactive — prompts for value, environments, and type
-- Non-interactive: read the value from a file so it never lands in shell
-- history or process arguments (echo "value" | ... and --value do both)
-- Add to production and preview in one command
-- Set the type explicitly
-- Add development in its own command; development-only adds default to Config
-- Update an existing value
-- List Environment Variables
-- List all environment variables
-- Filter by environment
-- Remove Environment Variables
-- Remove from specific environment
-- Remove from all environments
-- Bootstrap Flow (Fresh Clone / New Machine)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2. `.env.[environment]` (development, production, or test)
-- - **Never commit secrets** to `.env`, `.env.development`, or `.env.production` — use `.local` variants or Vercel environment variables
-- - `.env.local` is always gitignored by Next.js — this is where `vercel env pull` writes secrets
-- - Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser bundle — never put secrets in `NEXT_PUBLIC_` vars
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Never commit secrets** to `.env`, `.env.development`, or `.env.production` — use `.local` variants or Vercel environment variables
-2. - `.env.local` is always gitignored by Next.js — this is where `vercel env pull` writes secrets
-3. - Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser bundle — never put secrets in `NEXT_PUBLIC_` vars
-4. - **Public prefixes are always Config**: variables such as `NEXT_PUBLIC_*` or `VITE_*` are exposed to browsers, so the CLI refuses `--type secret` for them. Keep a private value under a name without the prefix.
-5. - **Team policy**: **Separate Production Secret Values** requires a Production Secret to differ from the Preview, Development, and custom environment values of the same key. Under it, create separate Production and non-Production values instead of adding one value to all targets. It replaces the dep
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Five tools hold it (codex, cursor, gemini-plugin, kilo, opencode, windsurf — no claude); codex copy chosen, all ~8617 bytes identical.

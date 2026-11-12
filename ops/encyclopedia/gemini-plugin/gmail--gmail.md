@@ -1,62 +1,27 @@
-# gmail
+# gmail (gemini-plugin)
 
-- Tool: `gemini-plugin` (plugin: `gmail`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\gmail\skills\gmail\SKILL.md`
-- SKILL.md size: 11761 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\gmail\skills\gmail\SKILL.md` plus `scripts/gmail`, `scripts/gmail.cmd` (Go CLI wrappers; scripts dir contains only the CLI binaries).
 
-## What it does
+## Summary
+Gmail over a Go CLI that talks to the Gmail REST API, split into a strict `readonly` namespace (search, read, threads, drafts, labels, history, settings, attachment download) and a `mutate` namespace (send, reply, forward, drafts CRUD, labels, trash, batch-modify). It handles Gmail Web UI "Sapinto" IDs, emoji reactions, vacation responder, forwarding/send-as settings, and has explicit safety rails: `--max N` is the only result-limit flag, no shell grep/awk filtering, and all send-class commands are hard-blocked when `AGY_UNATTENDED` is set (use `create-draft` instead).
 
->- Read, search, send, and manage Gmail messages, drafts, labels, and emoji reactions using a Go CLI. Use when reading emails, searching inbox, sending messages, reacting to messages with emoji, managing drafts, forwarding, checking vacation responder, managing labels, downloading attachments, or decoding `mail.google.com` Web UI URLs. Don't use for Google Chat messages or Calendar invites.
+## When to use / when NOT
+Use for reading/searching email, managing drafts and labels, sending/replying/forwarding with explicit user authorization, emoji reactions, attachments, and decoding `mail.google.com` URLs. Do NOT use for Google Chat or Calendar invites. Never use for unattended autonomous sending.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: Gmail search operators (`is:unread`, `from:`, `after:YYYY/MM/DD`, `has:attachment`, ...), message/thread/draft IDs, recipients, `--md`/`--html`/`--body-file` bodies, `--file` attachments.
+- Outputs: plain-text reads by default (HTML boilerplate stripped), `--json` for machine output.
+- Tools: the bundled `gmail` CLI (downloaded by `scripts/gmail --version` on first run, registered on agent PATH); auth either via Antigravity sign-in card or `gmail auth login` background flow.
 
-- gmail
-- Setup
-- Windows (PowerShell)
-- Authentication
-- Quick Start
-- 1. Search messages or threads (use --max N; NEVER use --max_results, --limit, or -n)
-- 2. List drafts as JSON or create a draft (safe in unattended AGY_UNATTENDED mode)
-- Common & Global Flags
-- Command Namespacing & Safety Rules
-- Recipes
-- 1. Search, Read & Resilient Querying
-- 2. Send, Reply & Format Emails (Markdown vs. HTML)
-- Send plain text, Markdown (--md), or HTML (--html)
-- Send with attachment (--file works with --md, --html, and --body-file)
-- Reply and forward
-- 3. Emoji Reactions (`list-reactions`, `react`, `delete-reaction`)
-- 1. List validated emoji reactions on a message (as JSON) or thread
-- 2. React to a message with a single Unicode emoji (alias: create-reaction)
-- 3. Remove an active reaction by message + emoji or reaction ID (alias: unreact)
-- 4. Drafts
-- 5. Labels, Organization & Batch Operations
-- 6. Settings, History & Attachments
-- Vacation responder (optional --timezone for timestamp display)
-- Forwarding, Send-As, History & Attachments
-- Handling Web UI (Sapinto) IDs
-- (none)
+## 5 most important rules
+1. Run `scripts/gmail --version` once before anything; afterwards always call bare `gmail`, never the script path.
+2. `readonly` vs `mutate` namespaces are strict; every send-class command needs explicit user authorization (recipient, subject, body confirmed first).
+3. `AGY_UNATTENDED` hard-blocks all outbound sends; the only safe path is `mutate create-draft`.
+4. Markdown bodies require `--md`; tables require `--html` with inline CSS (pipe tables render unstyled in Gmail).
+5. Never pipe output to grep/awk — filter inside the Gmail query; use `--max N` (never `--max_results`/`--limit`/`-n`); avoid `--json` on `readonly read` because it dumps raw base64 payloads.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Sends email AS the user — highest-risk skill in this batch. `delete-draft` bypasses Trash and can remove an already-sent message inside the Undo Send window; re-check Sent first. Auth may require the owner to complete a browser sign-in.
 
-- none declared
-
-## Risks / cautions found in text
-
-- -   A 403 that names a missing permission or scope is not a sign-in problem.
-- -   **`--page-token <TOKEN>`** (or `--page_token <TOKEN>`) — Pagination token
-- -   **Explicit User Authorization Required for High-Risk Mutations**:
-- -   **Deleting Drafts** (`mutate delete-draft`): Permanent (bypasses Trash).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   **Explicit User Authorization Required for High-Risk Mutations**:
-2. -   **Trashing Messages** (`mutate trash`): Never use unless the user
-3. -   **No Shell Filtering (`grep`/`awk`)**: NEVER pipe Gmail CLI output to
-4. -   **Avoid `--json` on `readonly read`**: Default `readonly read` strips HTML
-
-## Files inside the skill
-
-- `scripts/gmail`
-- `scripts/gmail.cmd`
+## Category and tags
+Category: automation. Tags: gmail, email, cli, google, readonly-vs-mutate, unattended-mode.

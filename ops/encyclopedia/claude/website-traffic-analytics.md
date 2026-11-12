@@ -1,38 +1,28 @@
-# website-traffic-analytics
+# website-traffic-analytics (claude revision)
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\website-traffic-analytics\SKILL.md`
-- SKILL.md size: 2886 chars
+## Summary
+website-traffic-analytics is a compact analytics-audit framework for web properties across GA4/Plausible/PostHog/Cloudflare. Three sections: (1) metric taxonomy — unique visitors, engagement rate formula (engaged session = >10s OR conversion OR >=2 pageviews), bounce-rate diagnosis (>65% on informational pages signals weak intent match, LCP>2.5s, or CLS>0.1), and acquisition channel breakdown (direct/organic/referral/social/paid); (2) a funnel-leak mermaid (landing → >15s engagement → pricing/feature exploration → checkout click → conversion) with a per-step drop-off diagnostic table (hero fails 5-second test → trust badges missing → pricing confusion/Hick's Law → form friction); (3) SEO diagnostics — brand vs non-brand ratio (healthy >=40% non-brand), top-pages intent alignment, Core Web Vitals correlation with rank drops.
 
-## What it does
+## When to use / when NOT
+Use when auditing site traffic, visitor telemetry, bounce rate, SEO acquisition or conversion funnels. It's a diagnostic framework, not an API integration skill — it doesn't pull GA4 data itself; pair with analytics MCPs/tools for actual numbers. Do NOT use for implementing analytics tracking code (that's a different task).
 
-Use when auditing site traffic, visitor telemetry, bounce rate, SEO acquisition, or conversion funnels with GA4, Plausible, PostHog, or Cloudflare analytics.
+## Inputs, outputs, tools
+- Inputs: analytics data from whichever provider the site uses, funnel definitions.
+- Outputs: metric calculations, funnel drop-off diagnosis, SEO health assessment.
+- Tools: none built in — works over data from GA4/Plausible/PostHog/Cloudflare provided by the user or MCPs.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Bounce rate >65% on informational pages = intent-match/LCP/CLS problem, not a "bad metric".
+2. Engaged session has a precise definition (>10s, conversion, or >=2 pageviews) — use it, not raw sessions.
+3. Diagnose funnel leaks step-by-step with the named causes per transition (stranger test, trust signals, Hick's Law, form friction).
+4. Healthy organic acquisition keeps >=40% non-brand queries — brand-heavy means SEO dependency risk.
+5. Correlate CWV (LCP/INP/CLS) with rank and bounce data before recommending content fixes.
 
-- Website Traffic Analytics & Telemetry Engine (Manus-Grade)
-- 1. Key Metric Taxonomy & Formulas
-- 2. Funnel Analysis & Conversion Leakage
-- 2.1 Audit Checklist for High Drop-offs
-- 3. SEO Traffic Diagnostics
-- (none)
+## Risks / things needing the owner
+No side effects — analysis only. Risk is misdiagnosis if applied without real analytics data; the skill supplies the framework, the user/MCP supplies numbers. No owner actions.
 
-## Tools / MCPs it needs
+## Category / tags
+data · analytics, seo, conversion, funnel, ga4
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Referral**: Inbound links from third-party blogs, articles, and product directories.
-- - **Drop-off at Step 1 $\to$ 2**: Hero section fails the 5-second stranger test; value proposition is vague; page load exceeds 3 seconds.
-- - **Drop-off at Step 2 $\to$ 3**: Lack of trust badges, absent social proof, missing interactive demo.
-- - **Drop-off at Step 3 $\to$ 4**: Unclear pricing tiers, hidden fees, complex choice paradox (Hick's Law violation).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Drop-off at Step 4 $\to$ 5**: Unnecessary form fields, forced password creation before checkout, lack of preferred payment methods.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single source read: `C:\Users\a7med\.claude\skills\website-traffic-analytics\SKILL.md` (57 lines). Slice lists six tools; claude revision preferred.

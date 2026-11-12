@@ -1,50 +1,27 @@
-# get-design-feedback
+# get-design-feedback (canva plugin)
 
-- Tool: `gemini-plugin` (plugin: `canva`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\canva\skills\get-design-feedback\SKILL.md`
-- SKILL.md size: 4682 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\canva\skills\get-design-feedback\SKILL.md` (only revision; gemini-plugin only).
 
-## What it does
+## Summary
+A read-only design critic for Canva. It resolves a design (short link, URL, or raw `D...` ID), pulls the rendered thumbnail plus text content (and optionally a read-only editing transaction for element geometry), then returns prioritised feedback across visual hierarchy, layout/spacing, copy, consistency, readability/contrast, accessibility, and fitness for the stated channel. Output is structured per page with High/Med/Low severities and concrete fixes, ending with an offer to hand off to `canva-edit-design` or `canva-implement-feedback`.
 
-Read a Canva design and return structured, actionable design feedback — visual hierarchy, copy/messaging, layout & spacing, consistency, readability, and accessibility. Read-only; makes no changes to the design. Use when the user asks to "review my design", "give me feedback on this", "critique my deck/poster/flyer", "how can I improve this design", or "what's wrong with this slide".
+## When to use / when NOT
+Use when the user asks to review, critique, or get feedback on a Canva design ("review my design", "what's wrong with this slide"). Do NOT use to actually change the design (that is `canva-edit-design`/`canva-implement-feedback`), and do not use for non-Canva images.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: a Canva short link, full URL, or design ID; optionally the user's stated purpose/channel.
+- Outputs: markdown feedback report grouped by page with severities and fixes.
+- Tools: Canva MCP tools `get-design`, `get-design-thumbnail`, `get-design-pages`, `get-design-content`, `resolve-shortlink`, and optionally `start-editing-transaction`/`cancel-editing-transaction` (never commit).
 
-- - **Element positions, sizes, and text** are reliably available from a **read-only** editing transaction: `Canva:start-editing-transaction`, inspect the returned `richtexts`/`fills`, then `Canva:cancel-editing-transaction` (never commit — you are not changing anything). Use this for layout/spacing/a
+## 5 most important rules
+1. Strictly read-only: any editing transaction opened for inspection must be cancelled, never committed.
+2. The thumbnail is the primary source for color, contrast, and typography judgement; `get-design-content` returns text only.
+3. Colors and fonts are NOT reliably exposed by the API; never report a specific hex/font as fact unless the payload contained it.
+4. Every critique point must be grounded in something actually observed; no generic advice.
+5. Prioritise: lead with the few highest-impact items, pair every problem with a specific located fix.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Low risk. Requires Canva MCP connection and an authenticated Canva account. Transaction inspection depends on API behaviour that the skill itself documents as unreliable for styles.
 
-- Get Design Feedback
-- What you can actually read (and the gap to know about)
-- Workflow
-- Step 1: Resolve the design
-- Step 2: Read the design
-- Step 3: Evaluate across dimensions
-- Step 4: Return structured feedback
-- Feedback — "<design title>" (N pages)
-- Top priorities
-- Page-by-page
-- What's working
-- Step 5: Offer to act
-- Rules
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **`Canva:get-design-thumbnail`** gives you the rendered image — this is how you "see" layout, hierarchy, balance, color, and contrast. Always pull this; visual critique depends on it.
-2. - **Element positions, sizes, and text** are reliably available from a **read-only** editing transaction: `Canva:start-editing-transaction`, inspect the returned `richtexts`/`fills`, then `Canva:cancel-editing-transaction` (never commit — you are not changing anything). Use this for layout/spacing/a
-3. - Never edit or commit anything — this skill is strictly read-only. If you open a transaction to inspect, always `cancel-editing-transaction`.
-4. - Be candid but constructive; always pair a problem with a specific fix.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: design. Tags: canva, mcp, design-review, feedback, read-only, accessibility.

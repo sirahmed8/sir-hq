@@ -1,46 +1,27 @@
-# ml-best-practices
+# ml-best-practices (gemini)
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\ml-best-practices\SKILL.md`
-- SKILL.md size: 9805 chars
+Source read: `C:\Users\a7med\.gemini\skills\ml-best-practices\SKILL.md` (9.8 KB; gemini CLI skills; gemini listed). CRITICAL-usage skill for ML/data-analysis tasks.
 
-## What it does
+## Summary
+Notebook-first ML methodology for clustering, time-series forecasting, EDA/anomaly detection, classification, regression, and model comparison. Universal doctrine: "read a story about the data" — every code cell is followed by a markdown analysis cell, and the notebook ends with a summary that comprehensively answers the prompt; adapt the matching example plan when one fits. Per-task pipelines: clustering (schema understanding → feature histograms/scatterplots → timestamp dates → prefer existing pre-encoded features → keep data over dropping → ordinal/one-hot encoders → standardize → silhouette-score sweep → PCA 2D scatter by cluster and by discrete feature → text description of clusters); forecasting (chronological split ONLY, seasonality, stationarity tests, two models, validation metrics, retrain on test+validation); classification/regression (schema sanity rows, missing-target rows, leakage check in regression, encoders, multiple models, over/underfit response, confusion matrices, actual-vs-predicted plots); comparison (align metrics to business cost of FP/FN). SQL/BigQuery tasks defer syntax to the `bigquery` skill while this dictates analysis steps.
 
-| CRITICAL RULE: You MUST use this skill whenever the task involves any machine learning tasks or data analysis. Use this skill if the user's prompt or requirements mention any of the following: * Clustering * Classification * Regression * Time series forecasting * Statistical testing * Model comparison * ML * Data analysis SQL/BigQuery ML HANDOFF: If the user requires a SQL solution, use this skill to dictate the ANALYSIS STEPS (e.g., markdown analysis cells, visualization logic), but defer to `bigquery` for all SQL syntax.
+## When to use / when NOT
+Use for ANY ML or data-analysis task, especially notebook deliverables. Not for pure SQL writing (bigquery skill) or non-ML data wrangling.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: dataset + analysis question; BigQuery context when applicable.
+- Outputs: notebook with code+markdown pairs ending in a comprehensive-answer summary cell.
+- Tools: pandas/sklearn-style workflow (encoders, standardization, PCA, silhouette), matplotlib visuals, chronological splits; BigQuery ML handoff for SQL.
 
-- ML Best Practices
-- Clustering:
-- Time Series Forecasting:
-- Exploratory Data Analysis / Anomaly Detection:
-- Classification:
-- Regression:
-- Comparing ML Models:
-- No match:
-- Essential ML Practices
-- (none)
+## 5 most important rules
+1. Every code cell MUST be followed by a markdown analysis cell; end with a summary answering the prompt.
+2. Time series: chronological split only — never random.
+3. Prefer keeping data and existing pre-encoded features; ordinal→ordinal encoder, nominal→one-hot, restrict high-cardinality categoricals in regression.
+4. Standardize numerical features; sweep parameters (e.g., cluster count via silhouette).
+5. Match metrics to business cost (FP vs FN) when comparing models; address overfitting with regularization, underfitting with features.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Notebook outputs must not fabricate results — analysis cells must reflect real computed output. Group leakage is called out only for regression; apply the same skepticism elsewhere.
 
-- none declared
-
-## Risks / cautions found in text
-
-- -   Prefer to keep data instead of dropping it when possible.
-- -   Drop rows that don't match the schema or don't have the target value (if it
-- -   Handle missing data. Prefer to keep data instead of dropping it when
-- -   Handle missing data. Prefer to keep data instead of dropping it when
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Before applying encoders, check if the dataset already contains pre-encoded
-2. -   Prefer to keep data instead of dropping it when possible.
-3. -   Always perform a chronological split on the data to create training,
-4. -   Identify rows that don't make sense. How many are there and what do they
-5. -   Drop rows that don't match the schema or don't have the target value (if it
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: data. Tags: machine-learning, notebook, clustering, forecasting, classification, regression, bigquery, eda.

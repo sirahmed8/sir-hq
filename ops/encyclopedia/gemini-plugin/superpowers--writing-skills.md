@@ -1,73 +1,28 @@
-# writing-skills
+# writing-skills (gemini-plugin: superpowers)
 
-- Tool: `gemini-plugin` (plugin: `superpowers`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\superpowers\skills\writing-skills\SKILL.md`
-- SKILL.md size: 16698 chars
+## Summary
+writing-skills applies TDD to skill authoring itself: writing a SKILL.md IS test-driven development applied to process documentation. The cycle maps test cases to pressure scenarios run with subagents — RED is watching an agent violate the rule WITHOUT the skill and documenting its rationalizations verbatim, GREEN is writing minimal skill text that addresses exactly those failures, REFACTOR is closing newly discovered loopholes and re-verifying. It classifies skills (technique, pattern, reference, discipline-enforcing) with different test approaches for each, gives SKILL.md authoring rules (description starts "Use when..." and says only WHEN, never summarizes the workflow; flat namespace; heavy reference in separate files; one excellent code example not five languages), and adds advanced guidance: match the guidance FORM to the failure type (prohibition+red-flags for discipline failures vs positive recipe/contract for output-shape problems — prohibitions measurably backfire on shaping problems), micro-test wording with 5+ reps against a no-guidance control before full pressure scenarios, and a mandatory per-skill deployment checklist. References include anthropic-best-practices, discovery, flowcharts, bulletproofing, and testing-skills-with-subagents.
 
-## What it does
+## When to use / when NOT
+Use when creating a new skill, editing an existing one, or verifying a skill works before deployment. Do NOT use for one-off prompts, project-specific conventions (those go in AGENTS.md/instructions), or mechanical constraints enforceable by regex/validation (automate those instead of documenting). Requires test-driven-development as background.
 
-Use when creating new skills, editing existing skills, or verifying skills work before deployment
+## Inputs, outputs, tools
+- Inputs: the capability/process to document, baseline pressure scenarios, and subagents to run them.
+- Outputs: a tested SKILL.md (+ optional supporting files) deployed to the runtime skills directory (`~/.claude/skills/`, `~/.agents/skills/` cross-runtime alias, etc.).
+- Tools: subagent dispatch for pressure testing, micro-test API calls, graphviz for flowcharts (render-graphs.js), git for committing the skill.
 
-## When to use (from skill text)
+## 5 most important rules
+1. NO SKILL WITHOUT A FAILING TEST FIRST — run baseline scenarios before writing; edits to existing skills need testing too.
+2. The description field says only WHEN to use the skill ("Use when..." + triggers/symptoms), never a workflow summary — summaries get followed instead of the skill.
+3. Match form to failure: discipline failures need prohibition + rationalization table + red flags; output-shape failures need a positive recipe stating what the output IS; omitted elements need structural REQUIRED fields; condition-dependent behavior needs conditional rules on observable predicates.
+4. No nuance clauses or exemption clauses — "don't X unless it matters" reopens negotiation; express exceptions as their own conditionals.
+5. Micro-test wording before full scenarios: fresh-context samples, always include a no-guidance control, 5+ reps per variant, read every flagged match manually, treat variance across reps as a binding failure.
 
-- A skill's `description` says only when to use it: triggering conditions and
-- symptoms, starting with "Use when...". It never summarizes the skill's
-- - Which pressures triggered violations?
+## Risks / things needing the owner
+Skill testing costs real subagent runs; the checklist is mandatory per skill and forbids batch-creating untested skills. Over-testing trivial reference skills wastes effort — the skill itself says pure reference skills can skip wording micro-tests. Deployment includes optional PR contribution back upstream. Nothing needs the owner.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+ops · skill-authoring, tdd, documentation, superpowers, agent-tooling
 
-- Writing Skills
-- Overview
-- What is a Skill?
-- TDD Mapping for Skills
-- When to Create a Skill
-- Skill Types
-- Technique
-- Pattern
-- Reference
-- Directory Structure
-- Writing SKILL.md
-- Flowcharts
-- Code Examples
-- File Organization
-- Self-Contained Skill
-- Skill with Reusable Tool
-- Skill with Heavy Reference
-- The Iron Law (Same as TDD)
-- Testing All Skill Types
-- Discipline-Enforcing Skills (rules/requirements)
-- Technique Skills (how-to guides)
-- Pattern Skills (mental models)
-- Reference Skills (documentation/APIs)
-- Common Rationalizations for Skipping Testing
-- Match the Form to the Failure
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - Delete means delete
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Don't keep untested changes as "reference"
-2. - Don't "adapt" while running tests
-3. - **No nuance clauses.** "Don't X unless it matters" reopens the negotiation — appending a single nuance clause to a winning recipe degraded it from consistent to noisy in the same wording tests. Express a real exception as its own conditional on an observable predicate.
-4. - **Exemption clauses don't scope.** "This limit doesn't apply to code blocks" still suppresses code blocks. If part of the output must be exempt, restructure so the rule can't reach it.
-5. 1. **One fresh-context sample per call** — a raw API call, or a single-shot subagent if you don't have API access. System prompt = the realistic context the guidance will live in (the full skill or prompt template, not the guidance in isolation); user message = a task that tempts the failure.
-
-## Files inside the skill
-
-- `references/anthropic-best-practices.md` — "Skill authoring best practices"
-- `references/bulletproofing.md` — "Bulletproofing Skills Against Rationalization"
-- `references/CLAUDE_MD_TESTING.md` — "Testing CLAUDE.md Skills Documentation"
-- `references/discovery.md` — "Writing SKILL.md for Discovery"
-- `references/flowcharts.md` — "Flowcharts in Skills"
-- `references/graphviz-conventions.dot`
-- `references/persuasion-principles.md` — "Persuasion Principles for Skill Design"
-- `references/testing-skills-with-subagents.md` — "Testing Skills With Subagents"
-- `render-graphs.js`
+## Revisions
+Only one revision exists: the gemini-plugin superpowers copy, the most complete version (SKILL.md, render-graphs.js, references/ with anthropic-best-practices, discovery, flowcharts, bulletproofing, testing-skills-with-subagents). No divergent copies.

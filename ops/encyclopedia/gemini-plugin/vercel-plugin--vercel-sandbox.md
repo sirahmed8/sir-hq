@@ -1,59 +1,28 @@
-# vercel-sandbox
+# vercel-sandbox (codex revision)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-sandbox\SKILL.md`
-- SKILL.md size: 21680 chars
+## Summary
+vercel-sandbox documents running agent-browser + headless Chromium inside ephemeral Vercel Sandbox Firecracker microVMs — for browser automation (screenshots, accessibility snapshots, multi-step form fills) from any Vercel-deployed framework. Core pattern: `Sandbox.create()` (snapshot source for fast start, else `runtime:"node24"` + 120s timeout), install Chromium system deps via dnf + `agent-browser` + `npx agent-browser install` when no snapshot, run `agent-browser` commands via `sandbox.runCommand`, always `sandbox.stop()` in finally. Sandbox SNAPSHOTS (saved VM images with deps pre-installed) cut startup from ~30s to sub-second — set `AGENT_BROWSER_SNAPSHOT_ID`; distinct from agent-browser's accessibility `snapshot` command. Auth: OIDC automatic on Vercel; locally `VERCEL_TOKEN`+`VERCEL_TEAM_ID`+`VERCEL_PROJECT_ID`. Combines with Cron Jobs for recurring browser tasks; framework-agnostic server-code placement table included.
 
-## What it does
+## When to use / when NOT
+Use for server-side browser automation that must run isolated/untrusted-code-safe on Vercel (AI-generated code execution, scraping, visual checks). Do NOT use for simple fetches (plain HTTP suffices), for persistent browsers (sandboxes are ephemeral per task), or client-side automation.
 
-Run untrusted code safely in ephemeral.
+## Inputs, outputs, tools
+- Inputs: target URL + automation steps; env vars for credentials/snapshot.
+- Outputs: screenshots (base64 via file read-back), accessibility snapshots, form-fill results.
+- Tools: `@vercel/sandbox` SDK, agent-browser CLI inside VM, `sandbox.snapshot()`, Vercel Cron.
 
-## When to use (from skill text)
+## 5 most important rules
+1. `try/finally { await sandbox.stop() }` — never leak VMs; timeout 120_000 default.
+2. Without `AGENT_BROWSER_SNAPSHOT_ID` every run pays ~30s dnf/npm install — create the snapshot once and set the env var for production.
+3. Credentials: prefer OIDC on Vercel; explicit VERCEL_TOKEN/TEAM_ID/PROJECT_ID only for local dev.
+4. agent-browser `--json` output gives paths/refs; screenshot returns a PATH — read it back with `base64 -w 0` inside the sandbox.
+5. Snapshot the VM (infra image) ≠ accessibility snapshot (page tree) — don't confuse the two concepts.
 
-- | `env` | – | Environment variables for every command. Per-command `env` overrides these. Use this to inject a credential into the VM. |
+## Risks / things needing the owner
+Sandbox usage bills per VM time; snapshot creation is a one-time infra step needing Vercel auth. Running untrusted code is the POINT of sandboxes but still scope commands carefully. VERCEL_TOKEN is a secret — never commit it. Cron-triggered browser tasks need CRON_SECRET verification like other crons.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, sandbox, browser-automation, microvm
 
-- Vercel Sandbox
-- Install
-- Minimal example
-- Authentication
-- Creating a sandbox
-- Running commands
-- Files
-- Installing system packages
-- Ports and preview URLs
-- Lifecycle and persistence
-- Snapshots
-- Images
-- Drives
-- Network policy and credential brokering
-- Running AI agents in a sandbox
-- Multi-agent isolation
-- CLI
-- Limits and cost
-- Best-practice checklist
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **On Vercel** (Functions, Cron, builds): the SDK authenticates automatically via the deployment's OIDC token. No config.
-- - **External / CI** (no OIDC available): set `VERCEL_TOKEN`, `VERCEL_TEAM_ID`, `VERCEL_PROJECT_ID` and pass them as `token`, `teamId`, `projectId` to `Sandbox.create()` (the SDK does not read them from the environment).
-- - **Isolation**: each sandbox is a separate Firecracker microVM, so a crash, fork bomb, or disk-fill is contained to that VM. There are no per-process CPU/PID quotas inside the VM beyond the vCPU and 64 GB disk limits — cap risk with a short `timeout` and `deny-all` for untrusted code.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - A detached server returns as soon as the process spawns, **not** when it's listening — so after starting it (in `onCreate` for the first boot and `onResume` for later ones) poll until the port answers before treating `domain(port)` as live (see [Ports](#ports-and-preview-urls)).
-2. - For one-off work, `stop()` in a `finally` (safe to call more than once). **Exception**: a long-lived sandbox serving an exposed port — don't stop it, or the URL goes dead; leave it running (it persists/resumes).
-3. - `apt-get update` before `apt-get install`; commands are non-root by default (`sudo: true` for root); `sudo`/`detached` are object-form only.
-4. - Exposed servers must bind `0.0.0.0`, not `127.0.0.1`.
-5. - Pin a custom image by digest for reproducible boots; `ENTRYPOINT`/`CMD` don't run.
-
-## Files inside the skill
-
-- `overlay.yaml`
+## Revisions
+Single source read: `C:\Users\a7med\.codex\skills\vercel-sandbox\SKILL.md` (281 lines). Six-tool skill; codex revision representative.

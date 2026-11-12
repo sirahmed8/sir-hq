@@ -1,53 +1,28 @@
 # cloud-sql-postgres-health
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-health\SKILL.md`
-- SKILL.md size: 27694 chars
+## Summary
+Google-published "database health audit" skill for Cloud SQL PostgreSQL. In practice its script set is identical to cloud-sql-postgres-monitor: PromQL query/system metrics via Cloud Monitoring, pg_stat_activity active queries, pg_locks, pg_stat_statements query stats, long-running transactions, database stats, and a non-executing EXPLAIN plan.
 
-## What it does
+## When to use / when NOT
+Use for a broad health check: slow queries, lock contention, bloated stats, connection pressure. The description advertises storage-bloat/invalid-index/autovacuum audits, but the shipped scripts cover activity, locks, query stats and PromQL metrics — verify coverage before promising those specific audits. Do NOT use for provisioning (admin), backups/upgrades (lifecycle), or schema listing (data).
 
-Use these skills when you need to audit database health, identify storage bloat, find invalid indexes, analyze table statistics, and manage maintenance configurations like autovacuum.
+## Inputs, outputs, tools
+- Inputs: PromQL `query` + projectId/instanceId; `min_duration`, `exclude_application_names`, `limit`, `database_name`, `include_templates`, `order_by` for the inspectors.
+- Outputs: time-series metrics, active query details (pid, waits, duration, SQL), lock lists, per-query timing/buffer stats (requires pg_stat_statements), long-transaction report, JSON EXPLAIN plan.
+- Tools: `scripts/{get_query_metrics,get_system_metrics,get_query_plan,list_active_queries,list_database_stats,list_locks,list_query_stats,long_running_transactions}.js`; Node + JSON params; auto-loads .env.
 
-## When to use (from skill text)
+## 5 most important rules
+1. get_query_plan returns the optimizer's estimated plan WITHOUT executing — safe for production, but estimates not actuals.
+2. list_query_stats needs the pg_stat_statements extension; report its absence rather than empty results.
+3. For per-query PromQL metrics aggregate by query_hash and do not fetch querystring unless the user asks; latency metrics are explicitly not to be used.
+4. `resource_id` label format is `project_id:instance_id` (effectively the instance id).
+5. `project` is pre-configured; never ask unless the user names another.
 
-- which the metrics timeseries data needs to be fetched. To use this tool, you
+## Risks / things needing the owner
+Read-only, but PromQL queries consume Cloud Monitoring quota. Destructive actions (killing queries, VACUUM/REINDEX) are not in scope — escalate to owner. Requires GCP + DB credentials.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, cloud-sql, postgres, monitoring, health, performance
 
-- Usage
-- Scripts
-- get_query_metrics
-- get_query_plan
-- get_system_metrics
-- list_active_queries
-- list_database_stats
-- list_locks
-- list_query_stats
-- long_running_transactions
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1.  Interval: Use a default interval of `5m` for `_over_time` aggregation
-2. 8.  Percentile with groupby on resource_id, database: `quantile by
-3. 1.  `cloudsql.googleapis.com/database/postgresql/insights/aggregate/latencies`:
-
-## Files inside the skill
-
-- `scripts/get_query_metrics.js`
-- `scripts/get_query_plan.js`
-- `scripts/get_system_metrics.js`
-- `scripts/list_active_queries.js`
-- `scripts/list_database_stats.js`
-- `scripts/list_locks.js`
-- `scripts/list_query_stats.js`
-- `scripts/long_running_transactions.js`
+## Revisions
+SKILL.md body is byte-identical to cloud-sql-postgres-monitor except name/description frontmatter, and all 8 scripts are byte-identical — only the advertised intent differs. Single revision on gemini: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-health\SKILL.md` (Apache-2.0, publisher google).

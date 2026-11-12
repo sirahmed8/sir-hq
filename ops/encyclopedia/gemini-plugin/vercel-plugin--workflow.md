@@ -1,67 +1,28 @@
-# workflow
+# workflow (codex revision — Vercel Workflow DevKit)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\workflow\SKILL.md`
-- SKILL.md size: 35138 chars
+## Summary
+workflow is comprehensive guidance for Vercel's Workflow DevKit — durable, crash-safe orchestration via `"use workflow"` (durable function, runs in a sandboxed VM) and `"use step"` (full Node.js, auto-retry, persisted results) directives. CRITICAL first rule: your knowledge is outdated — ALWAYS search bundled docs in `node_modules/workflow/docs/` (and @workflow/ai, @workflow/core, @workflow/next docs) before writing code. Core patterns: put ALL logic in steps (full Node access, AI SDK works) and keep workflow functions orchestration-only; sandbox limitations table (no fetch/setTimeout/Node modules in workflow context — use `import {fetch} from "workflow"` + `globalThis.fetch = fetch`, `sleep("5s")`); `start()` from API routes but NEVER directly in workflow context (wrap in a step); Hooks (`createHook` deterministic token + `resumeHook` from routes; `createWebhook` random token only; hooks are AsyncIterable for multi-event); serialization rules (plain data only, no functions/class instances); streaming via `getWritable()` (callable in both contexts but I/O only in steps; namespaced streams for logs vs results); errors (`FatalError` no-retry vs `RetryableError` with retryAfter); DurableAgent for AI agents in workflows (handles fetch itself, tool executes needing Node go in steps); debugging (`npx workflow health/web/inspect runs|run|cancel`, `--backend vercel --project --team`); testing via `@workflow/vitest` plugin (waitForHook/waitForSleep/wakeUp/resumeWebhook, vi.mock doesn't work in integration tests).
 
-## What it does
+## When to use / when NOT
+Use for durable multi-step jobs, long-running processes, pause/resume on external events, AI agent orchestration, webhook ingestion — anything needing crash-safe retries beyond function maxDuration. Do NOT use for simple request/response (plain functions suffice), don't call start() inside workflow context, and don't trust memory — read the bundled docs first.
 
-Vercel Workflow SDK expert guidance.
+## Inputs, outputs, tools
+- Inputs: workflow design (steps, hooks, streams, retries).
+- Outputs: workflow/step functions, API routes calling start/resume, tests.
+- Tools: `workflow` + `workflow/api` packages, `@workflow/ai` DurableAgent, `@workflow/vitest`, `npx workflow` CLI (health/web/inspect/cancel), framework integrations (next/vite/astro/nitro).
 
-## When to use (from skill text)
+## 5 most important rules
+1. READ `node_modules/workflow/docs/**/*.mdx` FIRST — the skill's own knowledge is declared outdated; docs match the installed version.
+2. Steps = full Node.js + auto-retry + persisted results; workflows = sandboxed orchestration only. Logic goes in steps.
+3. `start()` cannot run in workflow context — wrap in a step; it returns immediately (fire-and-forget), await via run.returnValue.
+4. Only serializable data crosses workflow/step boundaries; FatalError stops retries, RetryableError retries (use retryAfter for 429s).
+5. getWritable streams need step functions for actual I/O; namespaced streams separate verbose logs from replay-worthy results; only import APIs you use (unused imports → 500s).
 
-- - `start()`: Trigger a workflow
-- | Error Type | Use When | Behavior |
+## Risks / things needing the owner
+Durable runs bill as function duration + workflow orchestration; long sleeps/hooks hold runs open. Hook tokens are security boundaries — deterministic tokens must be unguessable. Testing needs the vitest plugin config; vi.mock silently fails in integration tests. Deploy target config (--backend/--project/--team) needed for Vercel inspection. No other owner actions.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, workflows, durable-execution, orchestration, ai-agents
 
-- *Critical*: Always use correct `workflow` documentation
-- Official resources
-- Quick reference
-- Prefer step functions to avoid sandbox errors
-- Workflow sandbox limitations
-- WorkflowAgent: AI agents in Workflow 5
-- Starting workflows & child workflows
-- Run size & concurrency: know when to split
-- Hooks: pause & resume with external events
-- Single event
-- Multiple events (iterable hooks)
-- Resuming from API routes
-- Error handling
-- Serialization
-- Custom class serialization
-- Validating serde compliance
-- Streaming
-- Namespaced streams
-- Debugging
-- Check workflow endpoints are reachable
-- Visual dashboard for runs
-- CLI inspection (use --json for machine-readable output, --help for full usage)
-- For Vercel-deployed projects, specify backend and project
-- Open Vercel dashboard in browser for a specific run
-- Cancel a running workflow
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Build-time warnings** -- The builder automatically warns when serde classes have Node.js built-in imports remaining in the workflow bundle.
-- - **Vercel:** `https://vercel.com/<team-slug>/<project-slug>/workflows/runs/<run_id>?environment=<production|preview>`
-- - `waitForHook(run, { token? })` / `waitForSleep(run)`: Wait for workflow to reach a pause point
-- - `resumeHook(token, data)` / `resumeWebhook(token, request)`: Resume paused workflows
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Define serde methods INSIDE the class body** as static methods with computed property syntax (`static [WORKFLOW_SERIALIZE](...)`). The SWC plugin detects them by scanning the class. Do NOT assign them externally (e.g., `(MyClass as any)[WORKFLOW_SERIALIZE] = ...`) -- the compiler will not detec
-2. 2. **Serde methods must return only devalue-compatible types** (plain objects, arrays, primitives, Date, Map, Set, Uint8Array, etc.). No functions, no class instances, no Node.js-specific objects.
-3. 4. **Do NOT manually register classes.** The SWC plugin automatically generates registration code (an IIFE that sets `classId` and adds the class to the global registry). Manual calls to `registerSerializationClass()` are unnecessary and error-prone.
-4. 5. **Do NOT use dynamic imports to work around sandbox restrictions.** If a class method needs Node.js APIs, the correct solution is `"use step"`, not `/* @vite-ignore */ import(...)`.
-5. - `getWorkflowRef(name)` / `listWorkflowRefs()`: Look a workflow up in the test build's manifest when the test cannot import the function (never hand-write `workflow//...` ids)
-
-## Files inside the skill
-
-- `overlay.yaml`
+## Revisions
+Single source read: `C:\Users\a7med\.codex\skills\workflow\SKILL.md` (553 lines). Six-tool skill; codex revision representative.

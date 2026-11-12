@@ -1,48 +1,28 @@
 # gcp-spark
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\gcp-spark\SKILL.md`
-- SKILL.md size: 3892 chars
+## Summary
+Spark-on-GCP development skill (v2): writes and executes Spark code on Dataproc clusters and Serverless, reading/writing BigLake Iceberg catalogs, BigQuery and Spanner, and debugging failures. Mandatory Task Execution Workflow: (1) ALWAYS discover schemas first via the `discovering-gcp-data-assets` skill or references/schema_direct_inspection.md — include schema in reasoning BEFORE writing code, never guess column names; (2) generate code as Python NOTEBOOKS (.ipynb) by default (.py only if explicitly requested), consulting read_write_data.md, ml-best-practices/ml_tasks.md for ML, and spark_optimizations.md for optimizations; (3) verify DataFrame schema matches destination (df.printSchema() + destination schema check) before writes; (4) compile before executing — `jupyter nbconvert --to script` then `python3 -m py_compile`; (5) execute .py scripts via gcloud dataproc commands in references/gcloud_dataproc.md (notebooks excluded). Ships a Common Mistakes checklist and the Dataproc service-account IAM requirements.
 
-## What it does
+## When to use / when NOT
+Use for Spark ETL pipelines, ML training/inference with Spark, and Dataproc cluster/job/batch/session management on GCP. NOT for generic Python, or simple SQL answerable directly in BigQuery.
 
-| Develops and executes Spark code on Dataproc Clusters and Serverless. Reads and writes data using BigLake Iceberg catalogs, BigQuery and Spanner. Debugs execution failures. Use when: - Writing Spark ETL pipelines on GCP. - Training or running inference with ML models with spark on GCP. - Managing Spark clusters, jobs, batches, and interactive sessions. Don't use when: - Writing generic Python scripts that don't use Spark. - Performing simple SQL queries that can be done directly in BigQuery.
+## Inputs, outputs, tools
+- Inputs: data asset references (BigQuery/Spanner/Iceberg/GCS), schemas discovered via discovering-gcp-data-assets.
+- Outputs: .ipynb notebooks (default) or .py scripts, compiled+executed on Dataproc.
+- Tools: pyspark, Dataproc (clusters/jobs/batches/sessions), BigLake Iceberg, BigQuery, Spanner, jupyter nbconvert, gcloud, references (read_write_data, spark_optimizations, ml_tasks, gcloud_dataproc, schema_direct_inspection).
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Schema discovery is step zero and non-negotiable — never guess column names; schemas go into reasoning before codegen.
+2. Output format is .ipynb notebooks unless the user explicitly asks for .py — compile path differs (nbconvert→py_compile→dataproc submit only for .py).
+3. Always verify df.printSchema() against the destination Iceberg table schema before writing.
+4. Common-mistakes gate: all pyspark.sql.functions imports present; `vector_to_array` comes from `pyspark.ml.functions` NOT pyspark.sql.functions; CSV reads need header+inferSchema; avoid toPandas() (OOM risk, only for viz in Spark 3.5).
+5. IAM: Dataproc SA needs roles/dataproc.worker, biglake.admin, bigquery.jobUser, storage.objectUser, spanner.databaseUser as applicable.
 
-- Spark on Dataproc
-- Task Execution Workflow
-- Common Mistakes Checklist
-- IAM Requirements
-- Spark resource management
-- (none)
+## Risks / owner needs
+Cluster/job execution incurs real GCP cost — resource sizing and cluster lifecycle are owner-visible. IAM roles listed are broad; scope to least privilege where possible.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: data. Tags: spark, dataproc, gcp, etl, iceberg, bigquery, pyspark, notebooks.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1.  **Understand schemas**: **ALWAYS** use `@skill:discovering-gcp-data-assets`
-2. *   **Output Format**: **ALWAYS** generate code in **Python Notebooks
-3. *   **Read and Write data**: **ALWAYS** Refer to
-4. *   **Spark Optimizations**: **ALWAYS** refer to
-5. 3.  **Verify schema before write**: **ALWAYS** verify that the dataframe and
-
-## Files inside the skill
-
-- `references/gcloud_dataproc.md` — "Dataproc and Spark Integration"
-- `references/ml_tasks.md` — "ML on Dataproc"
-- `references/read_write_data.md` — "Definitive Guide to reading and writing tables using spark code"
-- `references/schema_direct_inspection.md` — "Direct Inspection of table schema"
-- `references/spark_optimizations.md` — "Spark Optimizations"
-- `resources/gcloud_dataproc.md` — "Dataproc and Spark Integration"
-- `resources/ml_tasks.md` — "ML on Dataproc"
-- `resources/read_write_data.md` — "Definitive Guide to reading and writing tables using spark code"
-- `resources/schema_direct_inspection.md` — "Direct Inspection of table schema"
-- `resources/spark_optimizations.md` — "Spark Optimizations"
+## Revisions
+Single gemini skill copy (v2); no competing revisions.

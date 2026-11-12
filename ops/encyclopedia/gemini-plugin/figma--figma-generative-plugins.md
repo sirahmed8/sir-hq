@@ -1,41 +1,28 @@
 # figma-generative-plugins
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-generative-plugins\SKILL.md`
-- SKILL.md size: 4711 chars
+## Summary
+Workflow for creating and updating account-library "generative plugins" in Figma via MCP tools (`create_generative_plugin`, `get_generative_plugin`, `update_generative_plugin`). A plugin is `code.ts` (plugin logic with `figma.showUI(__html__)`) plus `ui.html` (controls); the create call only produces a square-drawing scaffold that MUST then be replaced with the real authored files. Deep authoring rules (PropsKit controls, fonts, relaunch, bounded work, geometry, API gotchas) live in references/authoring.md.
 
-## What it does
+## When to use / when NOT
+Use before every `create_generative_plugin` or `update_generative_plugin` call. Plugins run in the Figma Design editor and must have functional UI even with no configurable inputs. Do NOT use for one-off canvas edits (that is `use_figma` / figma-use), and never embed secrets — plugin source is readable by anyone with access.
 
-Create, author, and extend reusable.
+## Inputs, outputs, tools
+- Inputs: requested workflow and controls, planKey (user-supplied or via `whoami`), plugin id for updates.
+- Outputs: a plugin with name/description/version; completion requires a "try in new file" URL `figma.com/file/new?try-tool-resource-content-id=<id>&try-tool-resource-type=gen_tool&type=design&mode=design` plus an offer to open it in an existing file.
+- Tools: Figma MCP `whoami`, `create_generative_plugin`, `get_generative_plugin`, `list_generative_plugins`, `update_generative_plugin` (replaces `code.ts`/`ui.html` only — cannot touch `manifest.json` or add files); reference doc references/authoring.md.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never stop after `create_generative_plugin` — the scaffold is not the deliverable; read every returned source URI, then replace with complete authored files.
+2. `update_generative_plugin` takes complete file replacements (not diffs); unspecified files are preserved, and `manifest.json` can never be replaced.
+3. Every plugin needs a clear primary action and validation/status feedback; avoid destructive canvas changes unless that is the explicit purpose.
+4. On a build error, make the smallest correction from compiler output and retry once, then surface the error — do not rewrite blindly.
+5. A non-error update result is success (version may be omitted); report name, id, version and the try-in-Figma link, then ask about opening in an existing file.
 
-- Create and update generative Figma plugins
-- Preflight
-- Create workflow
-- Update workflow
-- Authoring rules
-- Completion
-- (none)
+## Risks / owner needs
+Needs a Figma plan seat for plugin creation; source is visible to file collaborators so no secrets/tokens/OAuth in code — for authenticated integrations stop and propose static data or a public endpoint instead.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: design. Tags: figma, mcp, plugins, generative, ui-authoring.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - Never embed API keys, OAuth tokens, signed URLs, or other secrets. Plugin source is readable by people who can access it. For authenticated integrations, stop and offer a static dataset, a public no-auth endpoint, or a different architecture.
-- - Avoid destructive canvas changes unless they are the explicit purpose of the plugin and the UI makes that clear.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Every plugin must provide functional UI for its core workflow. A plugin with no configurable inputs still needs a clear primary action and useful status or validation feedback.
-2. - Never embed API keys, OAuth tokens, signed URLs, or other secrets. Plugin source is readable by people who can access it. For authenticated integrations, stop and offer a static dataset, a public no-auth endpoint, or a different architecture.
-3. 1. Resolve the requested workflow and its useful controls. Ask a concise question only if required inputs or behavior are genuinely ambiguous.
-4. 2. Read every source URI returned by the get tool before editing. Treat those files as the current source of truth.
-5. - Before writing replacement files, read [Plugin source authoring](references/authoring.md). It covers the file replacement contract, UI/message lifecycle, PropsKit controls, dynamic-page compatibility, fonts, relaunch behavior, bounded work, geometry, and Plugin API gotchas.
-
-## Files inside the skill
-
-- `references/authoring.md` — "Plugin source authoring"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

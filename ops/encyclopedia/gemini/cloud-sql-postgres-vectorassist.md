@@ -1,46 +1,28 @@
 # cloud-sql-postgres-vectorassist
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-vectorassist\SKILL.md`
-- SKILL.md size: 27416 chars
+## Summary
+Google-published skill for standing up pgvector workloads on Cloud SQL PostgreSQL through intent capture: `define_spec` turns a description of the vector-search workload (table, columns, dimensionality, embedding model, prefilter columns, expected vector count) into an ordered set of SQL recommendations; `modify_spec` revises a spec; `apply_spec` executes the recommendations in sequence; `generate_query` produces optimized similarity-search SQL (top_k, filters, target recall, iterative index search); `execute_sql` runs statements.
 
-## What it does
+## When to use / when NOT
+Use for "set up vector search on this table", "generate the embedding/index SQL", "write the similarity query". Do NOT use for generic schema work (postgres-data) or performance monitoring. It presumes the pgvector extension and an embedding pipeline exist or will be created by the spec.
 
-Use these skills to set up and optimize production-ready vector workloads by simply expressing your intent and performance requirements.
+## Inputs, outputs, tools
+- Inputs: spec params — `table_name` (required for define), `schema_name`, `vector_column_name`, `text_column_name`, `vector_index_type`, `embeddings_available`, `num_vectors`, `dimensionality`, `embedding_model`, `prefilter_column_names`; for queries: `search_text`/`search_vector`, `top_k`, `filter_expressions`, `target_recall`, `iterative_index_search`; `spec_id` links the steps.
+- Outputs: ordered SQL recommendation sets, generated search queries, execution results.
+- Tools: `scripts/{define_spec,modify_spec,apply_spec,generate_query,execute_sql}.js`; Node + JSON; auto-loads .env.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Follow the pipeline order: define_spec → review recommendations → modify_spec if needed → apply_spec → generate_query → execute_sql.
+2. apply_spec runs real DDL/DML in sequence against the database — only after the user has reviewed the generated recommendations.
+3. Unspecified optional spec params fall back to internal workload-optimized defaults — state assumptions when reporting the spec.
+4. `spec_id` is the thread connecting all steps; keep it consistent.
+5. `project` is pre-configured; never ask unless the user names another.
 
-- once successful. Use this tool when the user has reviewed the generated
-- workload. Use this tool at the very beginning of the vector setup process when a
-- Use this tool to execute a single SQL statement.
+## Risks / things needing the owner
+apply_spec provisions indexes/tables that cost storage and can lock tables; embedding choices (model, dimensionality) are hard to reverse. execute_sql is write-capable. Requires pgvector-capable instance + credentials.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, cloud-sql, postgres, vector-search, pgvector, ai
 
-- Usage
-- Scripts
-- apply_spec
-- define_spec
-- execute_sql
-- generate_query
-- modify_spec
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- `scripts/apply_spec.js`
-- `scripts/define_spec.js`
-- `scripts/execute_sql.js`
-- `scripts/generate_query.js`
-- `scripts/modify_spec.js`
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-vectorassist\SKILL.md` (Apache-2.0, publisher google). Only the gemini tool holds it.

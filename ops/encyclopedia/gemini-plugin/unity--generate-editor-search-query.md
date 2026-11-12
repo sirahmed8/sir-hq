@@ -1,48 +1,28 @@
-# generate-editor-search-query
+# generate-editor-search-query (Unity plugin)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\generate-editor-search-query\SKILL.md`
-- SKILL.md size: 6977 chars
+## Summary
+Unity plugin skill that translates natural-language "find/search/locate/list/filter" requests into Unity Search query syntax and opens the Editor's Search window with it. Scope is strictly read-only asset/scene-object search (materials, textures, prefabs, scenes, scripts, shaders, Lights, Rigidbodies, Canvas/UI, named GameObjects, path/label/type/filename/keyword/ref searches). Default behavior: build ONE concise query, show it to the user, and open Search via an Editor-side C# snippet unless the user asked for query text only; if opening fails, hand over the query to paste manually. Query rules: simplest possible query, `t:` type filters, `dir:` folders, `l:` labels, `ref=`/`{t:...}` expressions for reference searches, never invent unsupported filters — open the closest safe query and state the limitation. Has a SECURITY.md documenting the accepted risk of running C# in the user's Editor via `unity command script eval`.
 
-## What it does
+## When to use / when NOT
+Use for "find assets/objects in the Unity project" requests. NOT for general explanations, architecture walkthroughs, repo text search, build logs, package installs, or any modification — results are never acted on without separate confirmation.
 
-Generates Unity Search queries and opens the Search window to find assets or scene objects. Use when the user asks to find, filter, or list assets, GameObjects, components, or references in the Editor, not on disk.
+## Inputs, outputs, tools
+- Inputs: natural-language search request, optional asset/scene names or paths from context.
+- Outputs: a Unity Search query string shown to user + Search window opened in Editor.
+- Tools: Unity Search query syntax, `unity command script eval` (requires unity-cli skill prerequisites: CLI installed, Editor connected, com.unity.pipeline package), references/query-patterns.md and open-search-window.md.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Read-only forever: the C# snippet ONLY opens the Search window — never select/rename/delete/move/import/edit/save anything; modifying results needs a separate confirmed workflow.
+2. `script eval` compiles a statement block, not a file: NO `using` directives (CS0210), all types fully qualified (bare SearchService → CS0246, bare Object → CS0104).
+3. Base64-encode the query (UTF-8) before embedding in C# — base64 alphabet contains no quotes, so query text can never break out of the string or shell quoting; decode inside the snippet.
+4. Ambiguity handling: "this/selected/current" without a name/path → ask; don't invent targets. Search-opening opt-outs ("query only", "do not open") must be honored; never claim Search opened if the command failed.
+5. Dependencies: needs the unity-cli skill's prerequisites (CLI + connected Editor + com.unity.pipeline); if `script eval` is absent, output query text only and say the window can't be opened.
 
-- If the user asks for a general explanation, project overview, folder-structure summary, architecture walkthrough, gameplay-system summary, or "how do I" programming answer, do not use this skill unless the prompt explicitly asks for Unity Search, a Search query, or opening the Search window.
+## Risks / owner needs
+Runs C# inside the user's open Editor — accepted risk documented in SECURITY.md (local machine, user's own session, capability-gated, no remote code). Requires Unity Editor running with Pipeline package; on headless/CI there's no Editor to drive.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: build. Tags: unity, editor, search, csharp, game-dev, read-only, query-generation.
 
-- Default Behavior
-- Scope
-- References
-- Passing C# to `script eval`
-- Query Generation Rules
-- Opening Unity Search
-- Response Format
-- Validation Checklist
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 3. Show the query in the response before or while opening Search.
-2. - **Types must be fully qualified.** A bare `SearchService` does not resolve (`CS0246`), and a
-3. - For requests that mix Search with repair work, generate and open the query first; do not modify results unless the user explicitly confirms a separate follow-up action.
-4. - Do not invent unsupported filters for uncertain requests. If a request cannot be expressed reliably with Unity Search syntax, open the closest safe query and state the limitation.
-5. 5. Never claim Search opened if the command failed.
-
-## Files inside the skill
-
-- `references/open-search-window.md` — "Open Unity Search Window"
-- `references/query-patterns.md` — "Unity Search Query Patterns"
-- `SECURITY.md` — "Security notes: generate-editor-search-query"
+## Revisions
+Single gemini-plugin unity copy; no competing revisions.

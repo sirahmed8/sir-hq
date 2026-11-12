@@ -1,42 +1,28 @@
 # commercial-app-blueprint
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\commercial-app-blueprint\SKILL.md`
-- SKILL.md size: 4169 chars
+## Summary
+A conversion-architecture checklist for commercial web products: machine-readable discovery (`/llms.txt`, sitemap, robots, canonical, service silo pages), trust assets (above-fold CTA, sticky mobile CTA bar, guarantees, real social proof, thank-you route, LocalBusiness schema), and 12 mandatory interactive utilities (dark mode, Cmd+K palette, scroll-to-top, reading progress, copy buttons, skip link, password toggle, print CSS, tooltips, UTM persistence, FAQ accordion with JSON-LD, floating contact widget).
 
-## What it does
+## When to use / when NOT
+Use when building or auditing the public/commercial layer of a product site — landing pages, marketing pages, docs-adjacent pages. Do NOT use for in-app authenticated UX, backend work, or as a substitute for real content (it bans fake proof explicitly).
 
-Use when designing the commercial layer of a web or app product: llms.txt, case studies, sticky CTAs, and trust signals.
+## Inputs, outputs, tools
+- Inputs: the site/pages being built or audited.
+- Outputs: implemented discovery files, conversion sections, and utility components.
+- Tools: none external — guidance for HTML/JS/CSS implementation; mentions Radix tooltip and localStorage as examples.
 
-## When to use (from skill text)
+## 5 most important rules
+1. `/llms.txt` at root in clean Markdown for LLM crawlers; keep sitemap/robots/canonical correct.
+2. One primary CTA above the fold; sticky mobile CTA appears only after the hero.
+3. Social proof must be real — no fabricated names, headshots, or metrics; before/after needs verifiable numbers.
+4. Every commercial site gets the 12 utilities — notably UTM capture persisted across route changes into form submissions, and FAQPage/LocalBusiness JSON-LD.
+5. Print stylesheet and skip-to-content are non-negotiable accessibility/commercial basics.
 
-- - Automated replenishment triggers
+## Risks / things needing the owner
+It mandates business assets the owner must supply (real testimonials, guarantee terms, response-time promises, physical address for LocalBusiness). Adding trackers or schema claims (e.g. LocalBusiness) without real data would be fake — keep to what exists.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+web · marketing, conversion, seo, llms-txt, ux-utilities
 
-- Commercial Web & App Architecture Blueprint
-- 1. Commercial Discovery & Machine Readability (`llms.txt`)
-- 2. Trust, Credibility & Conversion Blueprints
-- 3. Essential Interactive UX Utilities
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 7. **Password Visibility Toggle**: Interactive eye icon toggle (`Show/Hide`) on password fields.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Sticky Mobile CTA Bar**: A persistent action bar docked at the bottom of the viewport on mobile devices that fades in after passing the hero section.
-2. - Before-and-After transformation gallery with verifiable comparative metrics.
-3. - Real customer quotes (never fake AI headshots or fabricated names).
-4. 3. **Scroll-to-Top Button**: Smooth floating return button appearing only after scrolling 400px down.
-5. 5. **Copy-to-Clipboard**: Code blocks and sensitive values must include a one-click copy button with an animated checkmark state.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it; bodies byte-identical, only `description` differs. Claude copy preferred for its trigger-style description.

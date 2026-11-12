@@ -1,49 +1,31 @@
 # queues
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\queues\SKILL.md`
-- SKILL.md size: 6701 chars
+Tools: gemini-plugin (vercel-plugin). Source: C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\queues\SKILL.md (146 lines, read in full)
 
-## What it does
+## Summary
+Expert guide to Vercel Queues (public beta): durable append-only topics with at-least-once delivery, independent consumer groups, 24h default retention (up to 7 days), push (function-invoked) or poll (own workers) modes, `@vercel/queue` SDK with `send`/`handleCallback`, idempotency keys, and retry/acknowledge policies for poison messages.
 
-Buffer asynchronous traffic and background.
+## When to use / not use
+Use for fire-and-forget background jobs, fan-out, buffering, or agent events on Vercel. NOT for multi-step logic needing sleep/hooks/human approval (use Workflows), cron triggers (use cron), or when you need exactly-once semantics (delivery is at-least-once). Queues is the primitive Workflows is built on.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: messages (JSON by default; BufferTransport/StreamTransport for binary/large) published via `send(topic, payload, options)`. Output: consumed messages in push handlers (`handleCallback`) or poll workers. Needs: `@vercel/queue` npm package (or `vercel-queue` Python), `vercel link` + `vercel env pull` for local dev, `experimentalTriggers` entry in vercel.json per consumer.
 
-- | Scheduled invocation on a cron | Cron Jobs (`⤳ skill: vercel-functions`) | Time-based trigger, not message-based |
-- "experimentalTriggers": [{ "type": "queue/v2beta", "topic": "orders" }]
-- | `retry` | trigger `retryAfterSeconds` (60s) | `(error, metadata) => { afterSeconds } \| { acknowledge: true } \| undefined` |
+## Key rules
+1. Register EVERY consumer topic in vercel.json/vercel.ts `experimentalTriggers` (`queue/v2beta`) — a `handleCallback` route without it never receives messages.
+2. Handlers MUST be idempotent — at-least-once delivery means duplicates; key side effects on `metadata.messageId` or `idempotencyKey`.
+3. Always define a poison-message policy: `retry` callback acknowledging after deliveryCount threshold, or `maxDeliveries` cap — otherwise failing messages retry until expiry.
+4. Send options matter: `idempotencyKey` (dedup within min(retention,24h)), `delaySeconds`, `retentionSeconds` (60s–7d), `region`.
+5. Choose the right primitive: Queues for buffering/fan-out, Workflows for durable multi-step, cron for schedules — don't chain topics by hand for workflow logic.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Public beta: API surface (`queue/v2beta` trigger type) may change.
+- Local dev fails without `vercel link`/`env pull` (OIDC token error).
+- Poison messages without a cap burn retries and cost; retention max 7 days bounds replay.
+- Python SDK exists but Celery/Dramatiq integrations are documented separately.
 
-- Vercel Queues
-- What It Is
-- Choose Queues or Workflows
-- Quickstart (Next.js App Router)
-- Send Options
-- Consumer Options and Retries
-- Other Runtimes and Frameworks
-- Errors
-- Common Pitfalls
-- References
-- (none)
+## Category and tags
+cloud, build, automation — vercel, queues, messaging, background-jobs, serverless, beta.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 5. **Local dev without credentials**: run `vercel link` and `vercel env pull` first; otherwise `send()` throws `Failed to get OIDC token for local development`.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Delivery**: at-least-once; handlers must be idempotent
-2. - **Poll mode**: pull messages from your own workers in any environment when push delivery to a Vercel Function does not fit. On Vercel, run an always-on poll-mode consumer as a daemon (`⤳ skill: daemons`).
-3. 1. **Missing trigger**: a `handleCallback` route with no `experimentalTriggers` entry never receives messages. Register every consumer in `vercel.json`/`vercel.ts`.
-4. 4. **Using Queues for multi-step logic**: if you need sleep, hooks, or approvals between steps, use Workflows instead of chaining topics by hand.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; concise SDK reference with explicit pitfall list.

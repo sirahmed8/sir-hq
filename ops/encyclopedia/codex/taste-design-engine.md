@@ -1,41 +1,28 @@
-# taste-design-engine
+# taste-design-engine (claude/codex/kilo/cursor/windsurf/opencode copies)
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\taste-design-engine\SKILL.md`
-- SKILL.md size: 4184 chars
+## Summary
+taste-design-engine is a SIR-authored design-quality skill with four parts: (1) the "Taste Doctrine", a banned-vs-enforced table of AI-slop patterns (purple-blue gradients, pill-everything, emoji headers, floating AI badges, three identical icon cards, plastic stock photos) against premium alternatives (monochrome canvas with brand accents, purposeful radii, typographic hierarchy, asymmetric layouts); (2) design tokens and geometry — the 60-30-10 color rule, type scale (Geist/Inter/Plus Jakarta + Geist Mono/JetBrains Mono), `text-wrap: balance/pretty`, Emil Kowalski spring motion (`active:scale-[0.98]`, stiffness 400/damping 30, 30-50ms staggers), fluid `clamp()` type and 1-2px optical alignment; (3) a self-audit checklist (WCAG contrast 4.5:1/3:1, 4px/8px spacing grid, one dominant CTA per viewport, 5-state completeness); (4) an image-to-code workflow (analyze spatial grid, extract tokens, recreate with native primitives) and a live browser verification protocol via Chrome DevTools MCP or Playwright (screenshot + console check).
 
-## What it does
+## When to use / when NOT
+Use when a UI needs premium visual polish, when auditing a UI against AI-slop patterns, or when replicating a mockup/screenshot into code. Do NOT use it for backend work, for establishing brand-new design systems from scratch (that is modern-ui-ux-design-system), or as a substitute for the premium-code-bar law — it operationalizes part of it.
 
-Premium design taste, self-auditing, image-to-code replication, and agency-grade visual polish.
+## Inputs, outputs, tools
+- Inputs: an existing UI to audit/polish, or a reference image/mockup to replicate.
+- Outputs: audited/polished UI code, token extractions, and browser-verified screenshots.
+- Tools: Chrome DevTools MCP (`new_page`, `navigate_page`, `take_screenshot`, `list_console_messages`) or Playwright CLI; Tailwind/React conventions assumed.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. The banned list is absolute: no neon gradients, no `rounded-full` on standard controls, no emoji headers, no "AI-powered" badges, no identical icon-card rows, no plastic stock imagery.
+2. Radii are purposeful: 8-10px controls, 14-16px cards; spacing sticks to the 4/8px grid.
+3. Every interactive element gets tactile `active:scale-[0.98]` and sub-200ms spring motion, never linear transitions.
+4. Self-audit before declaring done: contrast, spacing grid, single dominant CTA, all 5 states.
+5. Never assume the design works without looking: screenshot it and check the console for zero errors.
 
-- Taste Design Engine & Visual Verification Suite
-- 1. The "Taste" Doctrine: Premium vs. AI Slop
-- 2. Design System Tokens & Geometry (Awesome Design)
-- 3. Web Design Guidelines Self-Auditor
-- 4. Image-to-Code Workflow
-- 5. Live Browser Verification Protocol
-- (none)
+## Risks / things needing the owner
+Verification requires a running dev server and a browser tool; leaked browser processes are a known SIR incident (audio read aloud), so browser rules apply (headless, muted, closed in finally). The skill pushes a specific aesthetic (Geist/Inter, monochrome+accent) that may not fit every brand; the owner picks the brand direction. Nothing else needs the owner.
 
-## Tools / MCPs it needs
+## Category / tags
+design · ui-polish, anti-ai-slop, design-tokens, motion, verification
 
-- none declared
-
-## Risks / cautions found in text
-
-- - `10%`: Primary high-intent action token (`bg-primary`, `text-primary-foreground`).
-- - Motion tokens: Sub-200ms spring physics (`stiffness: 400, damping: 30`) over mechanical linear transitions.
-- 2. **Extract Design Tokens**: Sample primary background, card surface, border color, typography size, and radii.
-- 4. **Preserve Polish**: Replicate padding, subtle drop shadows, and hover transitions.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Color Distribution (60-30-10 Rule)**:
-2. - `60%`: Canvas foundation (`bg-background`).
-3. - `30%`: Structural cards, sidebars, borders (`bg-card`, `border-border`).
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six copies exist (claude, codex, kilo, cursor, windsurf, opencode); the claude copy (used here) is representative — copies differ only in frontmatter description wording. Content identical.

@@ -1,60 +1,28 @@
-# dart-setup-ffi-assets
+# dart-setup-ffi-assets (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-setup-ffi-assets\SKILL.md`
-- SKILL.md size: 18899 chars
+## Summary
+Guide for packaging C/C++ code as Dart Code Assets via the Native Assets hook system: `hook/build.dart` compiles local sources with `package:native_toolchain_c` (CBuilder/CLibrary — never raw gcc/clang shell-outs) or downloads prebuilt binaries; `hook/link.dart` applies linker tree-shaking via `record_use` mappings; deps are `code_assets`, `hooks`, `native_toolchain_c`, `record_use`, dev `ffigen`; hooks run automatically during `dart test`/`run`/`build`.
 
-## What it does
+## When to use / when NOT
+Use when a package needs to compile/bundle native C/C++ for Dart/Flutter, implement build.dart/link.dart hooks, or integrate prebuilt native libs. Pairs with dart-use-ffigen for the Dart-side bindings. Do NOT use for pure-Dart packages or manual FFI without native assets.
 
-Guides agents in compiling and packaging C/C++ source code into dynamic or static libraries (Code Assets) using Dart's Native Assets hook system (via hook/build.dart and hook/link.dart utilizing package:hooks and package:native_toolchain_c). Use when a user asks to: 'setup native assets', 'compile C/C++ source code', 'bundle dynamic libraries', 'build native C code', 'link native assets', 'implement build.dart or link.dart hooks', or 'integrate C/C++ interop in Dart/Flutter'. Helps agents avoid manual toolchain orchestration and configures secure hash-validated binary downloads or advanced linker tree-shaking with package:record_use mapping.
+## Inputs, outputs, tools
+- Inputs: C sources or prebuilt libs, `lib/src/c_library.dart` spec shared by both hooks.
+- Outputs: compiled code assets + tree-shaken runtime binary.
+- Tools: `package:hooks` (build/link callbacks), `package:native_toolchain_c` (toolchain detection: MSVC/Xcode/GCC), `package:code_assets` (CodeAsset/DynamicLoadingBundled), `package:record_use`; deps fetched from pub.dev.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Hooks live strictly in `hook/` (`build.dart`, optional `link.dart`); all path resolution platform-independent via `Platform.script.resolve()`/Uri — no hardcoded paths or shell scripts.
+2. Never invoke gcc/clang/msvc directly — use native_toolchain_c's programmatic API.
+3. Every source file needs the package license/copyright header.
+4. Tree-shaking requires a `record_use_mapping` `.g.dart` under `lib/src/third_party/` mapping Dart methods to C symbols (generate via ffigen).
+5. Prebuilt downloads MUST be hash-verified (MD5/SHA-256 lookup tables) with an offline fallback (local_build flag).
 
-- Compiling C Code into Code Assets with Native Assets Hooks
-- Contents
-- Introduction
-- Constraints
-- Native Interop Packages
-- Step-by-Step Workflow
-- Step 1: Add Dependencies
-- Step 2: Define C Specifications
-- Step 3: Implement Build and Link Hook Scripts
-- Step 4: Run the Hook Cycle
-- Choosing an Integration Approach
-- Method 1: Local Compilation with Linker Tree-Shaking (Recommended)
-- Prerequisite Host Compiler Toolchains
-- C Source and Bindings Setup
-- Defining the C Library Build Spec
-- Implementing `hook/build.dart`
-- Implementing `hook/link.dart`
-- Method 2: Downloading Precompiled Dynamic Libraries
-- Why Download Precompiled Binaries?
-- Implementing Precompiled Dynamic Downloads
-- Verification Checklist
-- 1. Local Execution Sandbox
-- 2. Verify Target Outputs
-- 3. Verify Tree-Shaking Stripping
-- 4. Verify Offline Compliance (User Defines)
-- (none)
+## Risks / things needing the owner
+Two integration methods trade off: local compile+tree-shake (needs host toolchain, smallest binary, fully offline) vs prebuilt downloads (zero toolchain, bigger, needs network+integrity checks). Wrong hashes or missing fallbacks break users.
 
-## Tools / MCPs it needs
+## Category / tags
+build · dart, ffi, native-assets, compilation, packaging
 
-- none declared
-
-## Risks / cautions found in text
-
-- 1. Compile a production bundle of the CLI/app:
-- - Verify that no library was built/placed in the production bundle (the `.dylib`/`.so`/`.dll` file is not generated, saving bundle size).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Hook Locations**: Compiling and packaging hooks must reside strictly inside the `hook/` directory at the package's root:
-2. *   **Compile Toolchain Standard**: Use the programmatic APIs from `package:native_toolchain_c` (e.g. `CBuilder` and `CLibrary`) to run compile toolchains. Never invoke raw `gcc`, `clang`, or `msvc` via shell commands.
-3. *   **Preamble & License Headers**: Every handcrafted and generated source file (including bindings, helpers, and hooks) must strictly contain the target package's copyright and licensing header.
-4. *   **Tree Shaking Mapping**: If utilizing compiler tree-shaking, you must map the target Dart method names (e.g. `Method.name`) back to their raw native C symbol names using a record use mapping generated by FFIgen. The mapping file must reside under `lib/src/third_party/` and strictly use the `.g.
-5. *   **Cryptographic Verification**: Downloaded prebuilt binaries must be checked against preconfigured lookup tables containing MD5 or SHA-256 hashes to guarantee binary integrity and prevent tampering.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-setup-ffi-assets\SKILL.md`. Only gemini-plugin holds it.

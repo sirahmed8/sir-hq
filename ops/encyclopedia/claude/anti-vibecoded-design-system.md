@@ -1,37 +1,30 @@
 # anti-vibecoded-design-system
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\anti-vibecoded-design-system\SKILL.md`
-- SKILL.md size: 2672 chars
+Source read: `C:\Users\a7med\.claude\skills\anti-vibecoded-design-system\SKILL.md` (2.7 KB; claude revision; not found in codex/kilo/cursor/windsurf/opencode).
 
-## What it does
+## Summary
+A design quality gate that eliminates low-effort AI aesthetic tropes ("vibe-coded" look) and enforces a bespoke, high-contrast, tactile visual standard. Defines a blacklist of 7 prohibited clichés (purple-blue gradients, gradient headlines, emoji headers, universal pill buttons, 3-icon-box layouts, fake testimonials/metrics, "Made with AI" tags, intrusive micro-gimmicks) and enforces 4 positive standards: 60-30-10 color rule, tactile physics (spring transitions, active scale), true high-contrast dark mode, typographic discipline (Geist/Inter/PJSans + mono, balanced headings, pretty body wrap).
 
-Use when a UI looks generic or AI-generated and needs a bespoke, high-contrast, tactile design that avoids purple gradients and pill-button clichés.
+## When to use / when NOT
+Use for ANY UI work: new screens, redesigns, component libraries, design system audits. Do NOT skip for "quick" UI tasks — the clichés appear fastest there. Not for backend/API/db tasks.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: a UI task, design spec, or existing code to audit.
+- Outputs: compliant UI code (Tailwind/React/HTML/CSS), design tokens, or a marked-up audit with fixes.
+- Tools: plain file read/write; references Tailwind v4 tokens, CSS custom properties, spring physics (cubic-bezier(0.16,1,0.3,1)).
 
-- Anti-"Vibe-Coded" Design System & Aesthetic Standard
-- 1. Prohibited Aesthetic Clichés (The Blacklist)
-- 2. Enforced Visual Standards
-- (none)
+## 5 most important rules
+1. **Zero tolerance for the blacklist**: No purple-blue gradients, gradient headlines, emoji in headings, universal `rounded-full` buttons, 3-icon-box rows, fake social proof, AI badges, or scroll-hijacking gimmicks.
+2. **60-30-10 color rule**: 60% neutral canvas (`bg-background`), 30% structural contrast (`bg-card`, `border-border`), 10% single high-intent accent (`bg-primary`/`text-primary`).
+3. **Tactile physics mandatory**: Micro-interactions use `active:scale-[0.98]` and spring transitions under 200ms (`cubic-bezier(0.16,1,0.3,1)`).
+4. **True high-contrast dark mode**: WCAG AA/AAA pass; no muddy grey-on-dark-grey.
+5. **Typography discipline**: High-signal sans (Geist Sans, Inter, Plus Jakarta Sans) + mono for code/metrics; `text-wrap: balance` headings, `text-wrap: pretty` body.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+None operational. The risk is shipping vibe-coded UI that looks like every other AI prototype. Owner should enforce this on every visible screen.
 
-- none declared
+## Category / tags
+design · anti-cliché, design-system, tailwind, dark-mode, typography, motion, wcag, tactile-ui
 
-## Risks / cautions found in text
-
-- - **NO Gradient Hero Headlines**: Headings must be clean, legible solid type (`text-foreground` or high-contrast token).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **NO Purple-to-Blue Neon Gradients**: Avoid default AI pastel blobs, vibrant cyan/magenta glows, and rainbow border meshes.
-2. - **NO Gradient Hero Headlines**: Headings must be clean, legible solid type (`text-foreground` or high-contrast token).
-3. - **NO Emoji Headers**: Never place emojis inside headings or feature badges (`🚀 Supercharge`, `✨ Magic Features`).
-4. - **NO Universal Pill-Shaped Buttons**: Avoid `rounded-full` on standard controls, inputs, and form buttons. Use purposeful geometric hierarchy:
-5. - **NO "Three Identical Icon Boxes in a Row"**: Avoid three generic cards with left colored borders and Lucide icons on every surface.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Only the claude copy exists (2.7 KB). Not in the 112-set. This is the canonical version.

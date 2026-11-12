@@ -1,49 +1,27 @@
-# implement-feedback
+# implement-feedback (canva plugin)
 
-- Tool: `gemini-plugin` (plugin: `canva`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\canva\skills\implement-feedback\SKILL.md`
-- SKILL.md size: 7126 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\canva\skills\implement-feedback\SKILL.md` (7 KB; canva plugin, only revision).
 
-## What it does
+## Summary
+Workflow that turns a Canva design's review comments into applied edits. It resolves the design, reads every comment thread (`list-comments` + `list-replies` per thread) and current page content, triages each thread into Actionable / Requires-manual-action / Resolved, shows the user ONE consolidated plan for approval, then executes all API-supported changes in a single `perform-editing-operations` batch inside one editing transaction and commits without asking again. It closes the loop by replying to each thread and ends with a manual-changes checklist for anything the API cannot do.
 
-Implement reviewer feedback on a Canva design. Reads all comment threads, synthesises what reviewers want, makes the clear-cut changes directly, and flags anything that needs a human decision. Use when the user asks to "implement feedback on my deck", "address comments on a design", "apply review feedback", "fix the comments on my presentation", or "implement the feedback".
+## When to use / when NOT
+Use when a deck/design has reviewer comments and the user asks to implement, address, or apply the feedback. Do NOT use for open-ended design creation (canva-edit-design) or pure critique (canva-design-feedback/get-design-feedback).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: design ID/link, reviewer comment threads.
+- Outputs: committed design edits + per-thread replies + a manual-action checklist.
+- Tools: Canva MCP — `resolve-shortlink`, `list-comments`, `list-replies`, `get-design-content`, `start-editing-transaction`, `perform-editing-operations` (ops: replace_text, find_and_replace_text, formatting, update_fill/insert_fill, delete_element, position/resize, update_title), `commit-editing-transaction`, `reply-to-comment`.
 
-- Feedback to Finished
-- Canva Editing API — What You Can and Cannot Do
-- What the API CAN do (via `perform-editing-operations`)
-- What the API CANNOT do
-- Triage rule
-- Workflow
-- Step 1: Resolve the Design
-- Step 2: Read All Feedback
-- Step 3: Triage the Feedback
-- Step 4: Get User Approval — ONE time only
-- Step 5: Apply and Commit the Changes
-- Step 7: Present Remaining Manual Changes
-- Changes to make manually in Canva
-- Step 8: Resolve Comment Threads
-- Rules
-- (none)
+## 5 most important rules
+1. Know the API ceiling first: can change text content/formatting, media fills, layout, title — CANNOT change font family, add text elements, backgrounds, pages, animations, opacity, grouping, or shapes.
+2. Triage generously: interpret ambiguous comments with best judgement; escalate only on genuine contradictions or unfindable references.
+3. Exactly ONE approval gate — after the user approves the plan, execute and commit without re-asking ("shall I commit?" is banned).
+4. Batch all operations into one `perform-editing-operations` call per transaction.
+5. Reply to every thread afterwards (what changed, or closest alternative + what remains manual).
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Commits real edits to a live Canva design — the single approval step is the only safety gate; misread reviewer intent lands in the file. Manual-limitation replies still notify reviewers, so wording matters.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Media**: replace images/videos (`update_fill`), insert new images/videos (`insert_fill`), delete elements (`delete_element`)
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - If the user provides a **design ID** directly (typically starts with `D`, e.g. `DABcd1234ef`), use it as `design_id`; **do not** use `Canva:search-designs` for a raw ID
-2. - **Requires manual action** — the reviewer wants something the API cannot do (font family change, new text element, background change, page reorder, etc.). Note these briefly in the summary — full details go in the manual changes checklist (Step 7).
-3. - Call `Canva:commit-editing-transaction` to save — do NOT ask "shall I commit?" or "ready to save?"
-4. - After committing, call `Canva:reply-to-comment` on each actionable thread to note what was changed
-5. - For "Requires manual action" threads, reply noting what was done as the closest alternative and what still needs manual attention
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: design. Tags: canva, mcp, review-feedback, comments, batch-edit, approval-gate.

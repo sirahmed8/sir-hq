@@ -1,40 +1,27 @@
-# knowledge-update
+# knowledge-update (codex family)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\knowledge-update\SKILL.md`
-- SKILL.md size: 10377 chars
+Source read: `C:\Users\a7med\.codex\skills\knowledge-update\SKILL.md` (4 KB; codex revision; cursor/kilo/opencode/windsurf/gemini-plugin listed).
 
-## What it does
+## Summary
+A session-start knowledge-correction document (dated 2026-02-27) for the Vercel platform, meant to override stale LLM training data. Corrections: Edge Functions discouraged (use Fluid Compute / Vercel Functions); middleware is full Node.js not edge-only; Python 3.13/3.14 supported; Vercel Postgres/KV discontinued (use Marketplace DBs); Vercel is a full compute platform (Express, FastAPI, NestJS, Hono zero-config); Fluid Compute reuses instances cutting cold starts, with graceful shutdown and request cancellation; ISR works on SvelteKit/Nuxt/Astro; Routing Middleware is framework-agnostic; Node 24 LTS default (18 deprecated); 300s default function timeout; Active CPU pricing; Blob supports public+private; Bun and Rust runtimes; `vercel.ts` (with `@vercel/config`) replaces vercel.json. New products: AI Gateway (GA Aug 2025, prefer `"provider/model"` strings), Queues (public beta), Sandbox (GA Jan 2026), Rolling Releases, Sign in with Vercel, Vercel Agent, for Platforms, MCP server, BotID.
 
-Corrects outdated LLM knowledge about the.
+## When to use / when NOT
+Use implicitly at session start when doing ANY Vercel work — it is injected context, not an invoked procedure. Do NOT treat it as current forever: it is dated 2026-02-27 and Vercel ships constantly; verify against live docs for anything time-sensitive.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: none (passive knowledge override).
+- Outputs: corrected platform assumptions in generated Vercel code/config.
+- Tools: none; references `vercel.ts` config example with `@vercel/config/v1`.
 
-- Vercel Knowledge Updates (2026-10-08)
-- Common outdated knowledge in LLMs
-- New products LLMs may not know about
-- Current agent SDKs
-- Next.js
-- Integrations on Vercel
-- (none)
+## 5 most important rules
+1. Trust this document over prior knowledge when they conflict.
+2. Do not recommend Edge Functions — use Fluid Compute/Vercel Functions.
+3. Do not use Vercel Postgres/KV — they are no longer offered; use Marketplace databases.
+4. Prefer `vercel.ts` + `@vercel/config` over `vercel.json` for new config.
+5. For AI SDK calls on Vercel, default to `"provider/model"` strings through AI Gateway, not provider-specific packages, unless the user asks for direct wiring.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Static snapshot — pricing, beta status, and defaults drift; re-verify before billing-sensitive or production decisions. Contains a concrete `vercel.ts` example worth copying for rewrites/redirects/headers/crons.
 
-- MCP mentions: MCP server
-
-## Risks / cautions found in text
-
-- - **Streaming and SSE are NOT Edge-exclusive.** Streaming responses (`ReadableStream`, Server-Sent Events / `text/event-stream`, AI token streaming) work on the default Node.js runtime with zero config. You do **not** need `runtime = 'edge'` to stream — a common LLM misconception. Stay on Node.js (F
-- - **Routing Middleware is a framework-agnostic Vercel product**, not the same as Next.js middleware.
-- - **Edge Config is now Global Config** (July 2026). Same store, new name. `@vercel/global-config` replaces `@vercel/edge-config` as a drop-in (reads `GLOBAL_CONFIG`, falls back to `EDGE_CONFIG`); the CLI command is `vercel global-config`. The legacy package still works but cannot read newly connecte
-- - **Vercel Daemons**: long-running background workers (queue consumers, Celery/Sidekiq/BullMQ workers, job runners) built from a Dockerfile and declared under the `daemons` key in `vercel.json`. No inbound traffic; production deployments only. Public beta on all plans.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **AI SDK 7** requires Node.js 22 or later and ESM. Verify APIs against the installed package docs under `node_modules/ai/docs/` instead of relying on remembered v6 patterns.
-2. - **Official Next.js skills cover workflows, not reference knowledge**: `next-dev-loop`, `next-cache-components-adoption`, `next-cache-components-optimizer`, and the Partial Prefetching skills. Install with `npx skills add vercel/next.js --skill <name>`; propose them before installing.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: vercel, knowledge-update, platform-drift, fluid-compute, ai-gateway, vercel-ts.

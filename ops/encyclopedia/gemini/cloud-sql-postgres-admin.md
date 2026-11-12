@@ -1,46 +1,28 @@
 # cloud-sql-postgres-admin
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-admin\SKILL.md`
-- SKILL.md size: 13049 chars
+## Summary
+Google-published skill for administering Cloud SQL for PostgreSQL instances: provisioning instances (default POSTGRES_17), creating databases and users (password or IAM), cloning (full or PITR), listing instances/databases, and polling operations. Same Node-script JSON-param wrapper as the other cloud-sql-* skills.
 
-## What it does
+## When to use / when NOT
+Use for Postgres instance/database/user provisioning and clones. Do NOT use for SQL/schema exploration (cloud-sql-postgres-data), monitoring (cloud-sql-postgres-monitor/-health), backups/restores (cloud-sql-postgres-lifecycle), or MySQL work.
 
-Use these skills when you need to provision new Cloud SQL instances, create databases and users, clone existing environments, and monitor the progress of long-running operations.
+## Inputs, outputs, tools
+- Inputs: `name`, `rootPassword`, `databaseVersion` (default POSTGRES_17), `editionPreset` (Development/Production) for create_instance; `instance`, `name`, `iamUser` for create_user; `sourceInstanceName`/`destinationInstanceName`/`pointInTime` for clone; `project` pre-configured.
+- Outputs: GCP instance/user/database objects and operation IDs.
+- Tools: `scripts/clone_instance.js`, `create_database.js`, `create_instance.js`, `create_user.js`, `get_instance.js`, `list_databases.js`, `list_instances.js`, `wait_for_operation.js`; Node + JSON; auto-loads .env.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never ask for the GCP project ID — pre-configured; override only on explicit user request.
+2. Poll `wait_for_operation` (multiplier 4) until DONE after every mutating call.
+3. `editionPreset` controls machine type/availability defaults — confirm Production vs Development.
+4. `rootPassword` required for instance creation; IAM users get no password.
+5. Do not ask about env vars unless execution fails on missing env.
 
-- Usage
-- Scripts
-- clone_instance
-- create_database
-- create_instance
-- create_user
-- get_instance
-- list_databases
-- list_instances
-- wait_for_operation
-- (none)
+## Risks / things needing the owner
+Creates billable GCP resources and handles root credentials — owner confirms sizing/edition. Cloning duplicates storage cost. Requires GCP credentials in env.
 
-## Tools / MCPs it needs
+## Category / tags
+cloud · gcp, cloud-sql, postgres, provisioning, admin
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- `scripts/clone_instance.js`
-- `scripts/create_database.js`
-- `scripts/create_instance.js`
-- `scripts/create_user.js`
-- `scripts/get_instance.js`
-- `scripts/list_databases.js`
-- `scripts/list_instances.js`
-- `scripts/wait_for_operation.js`
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\cloud-sql-postgres-admin\SKILL.md` (Apache-2.0, publisher google). Only the gemini tool holds it.

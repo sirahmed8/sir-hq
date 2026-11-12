@@ -1,39 +1,27 @@
 # modern-ui-ux-design-system
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\modern-ui-ux-design-system\SKILL.md`
-- SKILL.md size: 2132 chars
+Source read: `C:\Users\a7med\.claude\skills\modern-ui-ux-design-system\SKILL.md` (2.1 KB; claude revision; codex/cursor/kilo/opencode/windsurf listed; `references/` has 4 deep guides).
 
-## What it does
+## Summary
+UI/UX design-system doctrine with four reference pillars: (1) psychological laws & cognitive ergonomics (Hick's, Fitts's, Miller's, Gestalt — with formulas for decision/movement time and visual hierarchy rules); (2) fluid spring animations & tokens (spring easing curves, curvature hierarchy `--radius: 0.75rem`, CSS `@starting-style` entry transitions, Tailwind v4 + OKLCH); (3) color theory & theming (60-30-10 distribution, OKLCH perceptual lightness, WCAG AAA contrast, zero-FOUC theme switching); (4) complete 5-state UI patterns (idle, shimmer skeleton, empty+CTA, error boundary+retry, partial/overflow — drop-in implementations). Quick rules: curvature hierarchy (cards 16px, controls 8-10px, pills full; inner radius = outer − padding), tactile `active:scale-[0.98]` spring press, high-signal sans (Geist/Inter/Plus Jakarta Sans) + monospace for metrics, `text-wrap: balance/pretty`.
 
-Use when designing or implementing a UI/UX design system with tokens, micro-interactions, and visual hierarchy.
+## When to use / when NOT
+Use when designing or implementing a design system, theme, or polishing UI states/motion. Not for backend work or for projects with an established different token system (match the codebase first).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: UI surfaces needing tokens, states, motion, or theming.
+- Outputs: token values, CSS/Tailwind snippets, 5-state component patterns, theme-switch code.
+- Tools: Tailwind CSS v4, OKLCH colors, CSS `@starting-style`, spring easings; references hold templates.
 
-- Modern UI/UX Design System & Ergonomics Guide
-- Core Pillars & Detailed References
-- Quick Design System Rules
-- (none)
+## 5 most important rules
+1. Curvature hierarchy: outer radius − padding = inner radius; controls 8-10px, cards 12-16px.
+2. Every data view implements all 5 states (idle/loading-skeleton/empty+CTA/error+retry/populated-overflow).
+3. Colors in OKLCH for perceptual consistency; 60-30-10 distribution; WCAG AAA contrast; zero-FOUC theme switching.
+4. Motion is spring physics on transform/opacity only — `active:scale-[0.98]` tactile press.
+5. Typography: signal sans + monospace metrics; `text-wrap: balance` headings, `pretty` body.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Pairs with anti-vibecoded-design-system and emil-motion-impeccable (overlapping coverage — check for contradictions before mixing). Reference files must be read for actual token values; SKILL.md alone is summary-level.
 
-- none declared
-
-## Risks / cautions found in text
-
-- 2. [Fluid Spring Animations & Design Tokens (Tailwind CSS v4 + OKLCH)](./references/fluid_spring_animations_and_tokens.md)
-- - Drop-in implementations for Initial, Shimmer Skeleton, Empty State with CTA, Error Boundary with retry, and Partial/Overflow edge cases.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. [Psychological Laws & Cognitive Ergonomics (Hick's, Fitts's, Miller's, Gestalt)](./references/psychological_laws_and_ergonomics.md)
-2. - Detailed HCI laws, mathematical formulas for decision time and movement time, and practical visual hierarchy rules.
-3. 2. [Fluid Spring Animations & Design Tokens (Tailwind CSS v4 + OKLCH)](./references/fluid_spring_animations_and_tokens.md)
-
-## Files inside the skill
-
-- `references/5_state_ui_patterns.md` — "Complete 5-State UI Implementation Guide"
-- `references/color_theory_and_theming.md` — "Color Theory, OKLCH Dynamics & Flawless Light/Dark Theming"
-- `references/fluid_spring_animations_and_tokens.md` — "Fluid Spring Animations, Design Tokens & OKLCH Theming"
-- `references/psychological_laws_and_ergonomics.md` — "Psychological & Ergonomic Laws in Modern UI/UX"
+## Category and tags
+Category: design. Tags: design-system, tokens, okLCH, spring-motion, 5-states, accessibility, tailwind.

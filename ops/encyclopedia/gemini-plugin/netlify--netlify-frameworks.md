@@ -1,62 +1,27 @@
-# netlify-frameworks
+# netlify-frameworks (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\skills\netlify-frameworks\SKILL.md`
-- SKILL.md size: 14376 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-frameworks\SKILL.md`. Deploy/configure web frameworks on Netlify — build settings, SSR/edge adapters, local emulation, env vars. Routes deep work to per-framework references (astro, nextjs, nuxt, sveltekit, tanstack, vite).
 
-## What it does
+## Summary
+Env vars: injected at BUILD time — any change requires REDEPLOY; never use client prefixes (`VITE_`, `NEXT_PUBLIC_`, `PUBLIC_`, `NUXT_PUBLIC_`, `REACT_APP_`, `GATSBY_`, `VUE_APP_`) for secrets (inlined into browser bundle). Scopes: build-time needs Builds scope; SSR/DSG runtime needs Functions AND Builds; netlify.toml is build-only — runtime vars via UI/CLI/API. Netlify build vars can't be toml env values — inline before command: `command = "REACT_APP_CONTEXT=$CONTEXT npm run build"`. SPA footgun: `/* /index.html 200` rewrite is required for pushState SPAs but MUST be REMOVED when adopting an SSR adapter — leftover catch-all silently serves static index.html for SSR pages/API routes (user redirects beat adapter routes). Local dev WITHOUT Netlify CLI: Vite-based frameworks emulate Netlify primitives (functions, edge functions, blobs, DB, Cache API, Image CDN, redirects/headers, env, AI Gateway) — Astro 5.12+ built-in, `@netlify/nuxt`, `@netlify/vite-plugin` (React Router/SolidStart/TanStack/Vite); still need `netlify dev` for Gatsby generated functions, Angular SSR (`netlify serve`), non-Vite frameworks. `netlify dev` gotcha: custom `command`+`targetPort` needs `framework = "#custom"` or detector silently ignores your command. Build table: per-framework command/publish (Next SSR `.next` vs static `out`+`NETLIFY_NEXT_PLUGIN_SKIP`, Nuxt3 `dist`, Gatsby `public`, Hydrogen `dist/client`, React Router `build/client`, etc.).
 
-Deploy and configure web frameworks on.
+## When to use / when NOT
+Use when setting up/fixing framework deploys, SSR/edge adapters, middleware on Netlify context, SPA catch-alls, build command/publish dir, env-var-not-updating bugs, framework build failures. NOT for framework-agnostic config (→ netlify-config) or env var management generally (→ env-vars skill).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: framework choice, SSR vs static, env vars, local-dev preference.
+- Outputs: correct build/publish settings, adapter wiring, redirect rules, dev-server config.
+- Tools: per-framework Netlify plugins/adapters, `@netlify/vite-plugin`, `netlify dev`, references/*.md per framework.
 
-- Env vars: modern rules (read first)
-- SPA redirects and the SSR catch-all footgun
-- Local dev with platform emulation (no Netlify CLI)
-- Build settings by framework
-- SSR / adapter setup
-- Astro
-- Next.js (13.5+ only)
-- SvelteKit
-- React Router (7+)
-- Remix
-- Nuxt
-- SolidStart
-- TanStack Start
-- Gatsby
-- Angular
-- Express
-- Hydrogen
-- Static-site gotchas
-- Hugo
-- Eleventy
-- Vite meta-framework support matrix
-- Deploy via CLI (Express, Nuxt, React, Vite)
-- Netlify house rules (frameworks)
-- (none)
+## 5 most important rules
+1. Env changes need a redeploy; client prefixes expose secrets — never for secrets.
+2. SSR needs Functions+Builds scopes; toml vars are build-time only.
+3. Remove SPA `/*→index.html` catch-all BEFORE SSR adapter or it shadows SSR routes.
+4. Vite-plugin frameworks emulate Netlify locally without the CLI; others need `netlify dev`.
+5. `framework="#custom"` required when `[dev]` has custom command+targetPort.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Secret leakage via client-prefixed vars is the big one. Silent SSR shadowing by stale SPA redirects wastes hours. Build/publish mismatches are the most common deploy failure.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Edge functions don't work locally with `netlify dev` for SvelteKit.
-2. - SSR on Edge Functions requires a different Nitro deployment preset (not auto-detected).
-3. - **5.11.0 or earlier (Essential Gatsby plugin):** auto-installs `@netlify/plugin-gatsby`; also manually install `gatsby-plugin-netlify` (required for SSR, Gatsby redirects, asset caching). Generates `__api`, `__ssr`, `__dsg`, `__ipx`. Skip via `NETLIFY_SKIP_GATSBY_FUNCTIONS` (all) / `NETLIFY_SKIP_A
-4. - Gatsby 5 requires Node 18.
-5. - Large sites: set `GATSBY_EXCLUDE_DATASTORE_FROM_BUNDLE` to load datastore from CDN (avoids max function deploy size; slower first SSR/DSG load).
-
-## Files inside the skill
-
-- `references/astro.md` — "Astro on Netlify"
-- `references/nextjs.md` — "Next.js on Netlify"
-- `references/nuxt.md` — "Nuxt on Netlify"
-- `references/sveltekit.md` — "SvelteKit on Netlify"
-- `references/tanstack.md` — "TanStack Start on Netlify"
-- `references/vite.md` — "Vite + React on Netlify"
+## Category and tags
+Category: cloud. Tags: netlify, frameworks, ssr, env-vars, vite-plugin, spa-redirects, build-settings.

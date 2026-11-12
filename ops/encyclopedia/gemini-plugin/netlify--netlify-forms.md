@@ -1,49 +1,27 @@
-# netlify-forms
+# netlify-forms (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\skills\netlify-forms\SKILL.md`
-- SKILL.md size: 11566 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-forms\SKILL.md`. Serverless form handling — deploy-time HTML detection, no backend code.
 
-## What it does
+## Summary
+Forms are detected by PARSING FINAL BUILT HTML at deploy — no runtime API. Mark `<form>` with `data-netlify="true"` (or bare `netlify`); `name` must be unique per site; Netlify strips the attribute and injects hidden `form-name` input; an `<input name="email">` sets notification Reply-to. Prerequisite: enable form detection once in UI (Forms > Enable form detection) — effective next deploy. JS-rendered/SSR/framework forms (Next.js, Nuxt, SvelteKit, Astro, Gatsby) are NEVER auto-detected — require TWO pieces: (1) static skeleton `public/__forms.html` with hidden `data-netlify` copy of each form + hidden `form-name` + every field with EXACT matching names, and (2) rendered form carrying matching hidden `form-name` input. SSR POST footgun: `fetch("/")` hits the SSR catch-all and never reaches form processing — POST to `/__forms.html` (the skeleton itself). Astro `prerender=false`/`output:"server"` routes are never scanned — use skeleton or prerendered page. Next.js Runtime v5: extract definitions to skeleton, submit via AJAX. AJAX pattern: `fetch("/__forms.html", {method:POST, urlencoded body})`. Also covers spam filtering (honeypot/reCAPTCHA), custom thank-you pages, notifications/ChatGPT automations on submission events, reading submissions via API, and debugging silently-failing forms.
 
-Serverless form handling on Netlify.
+## When to use / when NOT
+Use for contact/lead/newsletter/file-upload forms on Netlify sites, AJAX submission, thank-you pages, spam protection, framework forms, submission notifications, or debugging missing submissions. NOT for fully custom backends (though submissions are also API-readable).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: HTML form markup, field names, skeleton file for JS-rendered forms.
+- Outputs: detected forms in Netlify UI, stored submissions, notification emails.
+- Tools: `data-netlify` attribute, `public/__forms.html` skeleton, Netlify Forms UI/API, honeypot/reCAPTCHA.
 
-- Netlify Forms
-- Static HTML form
-- JS-rendered / SSR / framework forms (Next.js, Nuxt, SvelteKit, Astro, Gatsby)
-- AJAX submission
-- File uploads
-- Custom success page
-- Spam prevention
-- Email notifications & subject line
-- Reading submissions via the API
-- Submission summary (field order matters)
-- Debugging missing submissions
-- Constraints
-- Netlify house rules (forms)
-- (none)
+## 5 most important rules
+1. Detection = built-HTML parse at deploy — enable detection in UI once first.
+2. JS/SSR/framework forms need BOTH the static skeleton AND matching `form-name` hidden input with EXACT field names.
+3. SSR must POST to `/__forms.html`, never `/` (catch-all swallows it).
+4. `name` must be unique per site; include `<input name="email">` for Reply-to.
+5. Missing skeleton or mismatched field names = submissions silently fail — the #1 debugging target.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Silent failure is the dominant failure mode (no skeleton, name mismatch, detection not enabled). Form spam needs honeypot/reCAPTCHA config. File-upload forms have size/type limits per plan.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - `SITE_RECAPTCHA_SECRET` — secret (scope: Runtime)
-- - **Page through results using the `Link` header** — code that reads only the first response silently drops the rest.
-- - For PII, export and delete data regularly.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `name` sets the form name in the UI and **must be unique per site**.
-2. - **Body MUST be URL-encoded. JSON is NOT supported.**
-3. - If the rendered form has no hidden `form-name` input, you MUST include a `form-name` field in the POST body.
-4. - The honeypot field name and `g-recaptcha-response` (if used) must be in the body — automatic with `FormData()`.
-5. - **First suspect: Akismet false positive.** A missing legitimate submission is usually spam-flagged — check the **Spam** list (or API `?state=spam`) and mark it verified. Do NOT build a custom recovery function or disable spam filtering as a first resort.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: netlify, forms, spam, ssr, nextjs, static-skeleton, notifications.

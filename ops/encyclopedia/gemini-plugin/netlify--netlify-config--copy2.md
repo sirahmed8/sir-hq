@@ -1,55 +1,27 @@
-# netlify-config
+# netlify-config (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\codex\skills\netlify-config\SKILL.md`
-- SKILL.md size: 16143 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-config\SKILL.md`. Build/routing config via netlify.toml, _redirects, _headers.
 
-## What it does
+## Summary
+Three config files: `netlify.toml` (build, contexts, plugins, functions, redirects, headers, dev — takes precedence over UI), `_redirects` and `_headers` (plain-text, saved to the PUBLISH directory). Paths in toml are absolute from base dir. Modern-vs-legacy: `node_bundler = "esbuild"` (zisi legacy; TS always esbuild); `status = 302` (307 unsupported); `NETLIFY_IMAGE_CDN` not deprecated `GATSBY_CLOUD_IMAGE_CDN`; `key = "$VAR"` env injection NOT supported in TOML (except signed proxy redirects) — use build-command sed or build plugin. `[build]` runs in Bash; context keys apply to `[build]` and `[[plugins]]` but NOT `[[redirects]]`/`[[headers]]` (always global). Precedence least→most: UI < toml < any-context < `[context.<name>]` < `[context.branchname]`. Redirects: `_redirects` processed first then toml, first-match-top-down wins (specific before general); edge functions run before redirects; SPA fallback `/* /index.html 200`. `_redirects` syntax: `from to [status] [conditions]` with splats `:splat`, placeholders `:param`, query `param=:id`, force `!`, conditions `Country=`, `Language=`, `Role=`, `Cookie=`. `[[redirects]]` keywords: from/to/status(301 default)/force/query/conditions/headers/signed. Gotchas cover monorepo base dirs, secrets handling, functions bundling, dev server.
 
-Configure Netlify builds and routing via netlify.toml, _redirects, and _headers. Use when setting a build command or publish directory, adding redirects or rewrites or proxies, adding an SPA fallback rewrite, setting custom response headers or basic auth, managing environment variables and secrets, scoping vars per deploy context, marking a var as secret, disabling secret scanning, configuring functions bundling, ignoring builds, or wiring up a monorepo or JavaScript SPA on Netlify.
+## When to use / when NOT
+Use for build command/publish dir, redirects/rewrites/proxies, SPA fallback, response headers/basic-auth, env vars/secrets, per-context vars, functions bundling, build ignores, monorepos/JS SPAs. NOT for deploy lifecycle (→ netlify-deploy) or caching headers specifically (→ netlify-caching).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: framework/build setup, routing rules, env vars, branch/deploy-context needs.
+- Outputs: `netlify.toml`, `_redirects`, `_headers` files at repo root (or package dir for monorepos).
+- Tools: Netlify build system, edge functions (run before redirects), build plugins.
 
-- Netlify configuration
-- Modern vs legacy syntax to reach for
-- `netlify.toml` build + contexts
-- Redirects and rewrites
-- Proxies
-- Custom headers
-- Functions
-- Environment variables
-- Injecting env values into headers/redirects
-- Useful read-only build vars
-- Secrets Controller
-- Sensitive variable policy (public repos only)
-- Ignore builds
-- Monorepos
-- JavaScript SPAs
-- Netlify Dev `[dev]`
-- Plugins & extensions
-- Netlify house rules (config)
-- (none)
+## 5 most important rules
+1. toml beats UI on conflicts; `_redirects`/`_headers` live in the PUBLISH dir, not repo root.
+2. First matching redirect wins — order specific before general; edge functions precede redirects.
+3. `[[redirects]]`/`[[headers]]` are global-only (no per-context); `[build]`/`[[plugins]]` are context-aware.
+4. No `$VAR` injection in TOML; no `307` status; esbuild bundler; `NETLIFY_IMAGE_CDN`.
+5. `[skip ci]`/`[skip netlify]` in commit message or PR title controls deploy skipping.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Secrets in toml env vars aren't deploy-env available and toml is committed — keep sensitive values out. Shadow (`200!`) redirects can mask real 404s. Monorepo base-dir mistakes break paths.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - Secret values are **write-only** — no readable version after set; the flag can't be removed to reveal it.
-- - Secrets need explicit contexts + scopes; **cannot** carry the `post processing` scope.
-- - `SECRETS_SCAN_ENABLED=false` — disables **all** scanning (loses all secret protection).
-- - `SECRETS_SCAN_SMART_DETECTION_ENABLED=false` — disables smart detection only.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Functions bundler: use `node_bundler = "esbuild"`. `zisi` is the legacy JS default; TypeScript always uses `esbuild`.
-2. - Headers apply only to files from Netlify's store — **NOT** to proxied content or function/edge (SSR) responses; those must set their own headers.
-3. - Secret values are **write-only** — no readable version after set; the flag can't be removed to reveal it.
-4. - Only code on Netlify (edge/serverless/build) reads unmasked values; off-Netlify sees masked. The `dev`-context value is exempt (unmasked from UI/CLI/API); `netlify build` never emits raw values.
-5. - **Require approval** (default) — untrusted deploys wait for a member's approval.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: netlify, toml, redirects, headers, build-config, spa-fallback, monorepo, env-vars.

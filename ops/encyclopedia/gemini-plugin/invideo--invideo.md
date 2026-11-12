@@ -1,56 +1,27 @@
-# invideo
+# invideo (hub skill)
 
-- Tool: `gemini-plugin` (plugin: `invideo`)
-- Category: media
-- Source: `C:\Users\a7med\.gemini\config\plugins\invideo\skills\invideo\SKILL.md`
-- SKILL.md size: 7063 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\invideo\skills\invideo\SKILL.md` (7 KB; gemini-plugin hub for the whole invideo suite; `references/` holds per-type playbooks and `check-your-video.md`, `cost-rule.md`, `collaborate.md`).
 
-## What it does
+## Summary
+The root skill for invideo, an AI-native professional video editor (multitrack timeline, keyframes, masks, grades, shaders, mixer, leading gen models) driven by CLI, MCP (`https://mcp.invideo.io/mcp`), or web connectors. It covers connection (CLI preferred wherever a shell exists; `invideo auth login` browser flow, `INVIDEO_NO_BROWSER=1` for headless), the work loop (understand ask → open/read existing timeline → build via `edit change` → check/look/listen → show person → export), collaboration model (agents register a name, work on branches, main is what the person approved), the "be ambitious" editing doctrine (senior-editor polish: sound design, one unifying grade, match cuts, speed ramps, layered tracks, motion design with one easing language), a routing table of per-job reference playbooks (launch, ads, commercial, product, review-cut, interview, shorts, personal, invitations, intro/logo, text-animation, short-film, explainer, captions, export), and cost rules (editor edits free, generation costs credits — price, say, cap, report).
 
-Use for any video job: make, edit, trim, stitch, caption or grade clips; ads, launches, product and personal videos, invitations, intros, explainers, films, shorts. Unlike an ffmpeg script, each edit lands on a timeline the person can see and change. Read first: connecting, the work loop, cost.
+## When to use / when NOT
+Use for ANY video job routed through invideo: make, edit, trim, stitch, caption, grade. It is the mandatory first read for the sibling skills (invideo-media, invideo-generate, invideo-timeline, invideo-pipeline, *-to-invideo bridges). Do NOT use for simple local ffmpeg-style cuts where no timeline collaboration is needed, and do not use before auth is confirmed.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: the person's brief (orientation, length, audience, existing assets/project), project URLs, registered agent name.
+- Outputs: timeline edits (ops applied all-or-none), branch revisions, exports (video file or project file), share links.
+- Tools: `invideo` CLI (`auth`, `agent register`, `edit show/change/export`, `media`, `library`, `asset`, `gen`), MCP tools (`get_help`, `get_timeline`, `edit_timeline`, `timeline_catalog`, `find_models`, `dry_run`, `report_bug`/`request_feature`), docs at docs.invideo.io (llms.txt index, `.md` page suffix).
 
-- invideo
-- How to connect
-- How it works
-- Be ambitious
-- Work loop
-- Cost and rules
-- Read before you start
-- (none)
+## 5 most important rules
+1. Read `get_help`/command help first; every command takes a URL and returns next URLs — relay them to the person.
+2. Register an agent name and pass it on every call; work on a branch unless asked to edit main; checkpoint before big changes.
+3. Check, look AND listen at every changed moment (`references/check-your-video.md`) before showing the person.
+4. Generation costs credits: dry-run price it, state the cost, cap with `--max-credits`, report spend.
+5. Read the per-type playbook that fits the job BEFORE planning or generating — agents who do "far better work".
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Real credit spend on generation — the cost rule is mandatory. Requires invideo account auth (owner sign-in once). Agents share live projects with the person; careless main-branch edits are visible immediately.
 
-- MCP mentions: MCP tools, MCP server
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - An edit is a list of operations, applied all or none. Look up an operation's fields (`timeline_catalog`) before its first use. Work on a branch unless the person asks you to edit main. Checkpoint before a big change; main is what the person approved.
-2. 1. **Understand the ask.** Before a new video, ask the person what you need: vertical or horizontal, length, who it's for, what they already have.
-
-## Files inside the skill
-
-- `references/ad-platform-specs.md` — "Ad platform specs"
-- `references/check-your-video.md` — "Check your video"
-- `references/cost-rule.md` — "Cost"
-- `references/export-share.md` — "Export and share"
-- `references/occasion-slideshow.md` — "Occasion slideshow"
-- `references/types/ads.md` — "Performance ads"
-- `references/types/captions.md` — "Captions"
-- `references/types/commercial.md` — "Commercials and promos"
-- `references/types/explainer.md` — "Explainers and courses"
-- `references/types/interview-cut.md` — "Interviews, podcasts and talking heads"
-- `references/types/intro-logo.md` — "Intros, logos and overlays"
-- `references/types/invitations.md` — "Video invitations"
-- `references/types/launch-video.md` — "Launch and product videos"
-- `references/types/personal-video.md` — "Birthdays, weddings, travel and slideshows"
-- `references/types/product-video.md` — "Product videos for stores"
-- `references/types/review-cut.md` — "Footage into a reviewable cut"
-- `references/types/short-film.md` — "Short films and music videos"
-- `references/types/shorts.md` — "Shorts and reels"
-- `references/types/text-animation.md` — "Text animation and lyric videos"
+## Category and tags
+Category: media. Tags: invideo, video-editing, timeline, mcp, cli, credits, multi-agent.

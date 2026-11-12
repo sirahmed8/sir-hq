@@ -1,56 +1,28 @@
-# dart-write-documentation
+# dart-write-documentation (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-write-documentation\SKILL.md`
-- SKILL.md size: 6727 chars
+## Summary
+Effective-Dart documentation rules for `///` doc comments: public APIs only, proper sentences, first paragraph = one-sentence summary (blank `///` line after, never a bare newline), noun phrases for properties, "Whether" for booleans, third-person verbs for methods, NO Javadoc tags (@param/@return woven into prose instead), docs before annotations, inherit via dartdoc (don't duplicate @override), document getter only in get/set pairs, `[identifier]` links (no parens on methods, `.new` for default ctor, `@docImport` for out-of-scope), backticks for keywords/literals, labeled code fences, verify with `dart analyze` + `dart doc`.
 
-## What it does
+## When to use / when NOT
+Use when writing or updating Dart API documentation. Do NOT document private `_` members unless asked.
 
-Rules and formatting guidelines for writing Dart /// API documentation and doc comments. Use when documenting Dart code, writing doc comments for any Dart declaration (libraries, classes, methods, variables, etc.), or when instructed to follow the Effective Dart documentation guidelines.
+## Inputs, outputs, tools
+- Inputs: Dart declarations needing docs.
+- Outputs: dartdoc-compliant `///` comments.
+- Tools: `dart analyze` (comment_references warnings), `dart doc`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. `///` only, proper sentences; first paragraph is the extracted summary — separate it with a `///` blank line (a real newline kills the block).
+2. Banned: `@param`, `@return`, `@throws`, `@see` — parameters/exceptions go in prose.
+3. `[Square brackets]` link in-scope identifiers; backticks for `null`/`true`/keywords; no parens in method links.
+4. Don't re-document @override members or both getter+setter — dartdoc inherits/warns.
+5. Label every code fence (```dart, ```sh); verify resolution via dart analyze.
 
-- 1. Run `dart analyze` to ensure all bracketed references resolve properly without triggering `comment_references` warnings.
-- /// To use this, you must pass a [Client].
-- /// To use this, you must pass a [Client].
+## Risks / things needing the owner
+Broken `[...]` references fail analyze — docs aren't free. Public API docs become the package's published face.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, documentation, style-guide, dartdoc
 
-- Writing Dart API Documentation
-- Contents
-- 1. Scope and Structure
-- 2. Tone and Openers
-- 3. Strict Anti-Patterns (Banned)
-- 4. Technical Placement & Resolution
-- 5. Linking and Markdown
-- 6. Verification
-- Examples
-- 1. Banned Tags vs. Prose
-- 2. The Annotation Placement Trap
-- 3. Openers and Tone
-- 4. Constructor Linking
-- 5. Out-of-Scope Links (@docImport)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- *   [3. Strict Anti-Patterns (Banned)](#3-strict-anti-patterns-banned)
-- *   **Getter/Setter Pairs:** If a property has both a getter and a setter, place the documentation only on the getter. Tooling will emit a warning if both are documented.
-- 1. Run `dart analyze` to ensure all bracketed references resolve properly without triggering `comment_references` warnings.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Target Public APIs:** Focus your documentation efforts on public declarations. Do not document private members (those starting with an underscore `_`) unless explicitly instructed, as they do not appear in generated API reference sites.
-2. *   **Always use `///`:** Use `///` consecutive line comments for all API documentation. Never use `/** ... */` block comments.
-3. *   **The First Paragraph:** The first paragraph of a doc comment must be a single, concise sentence that summarizes the element. End it with a period. Dartdoc extracts this verbatim for list views.
-4. *   **Separation:** Always separate the first sentence summary from the rest of the documentation with a blank line containing `///`. Never output a completely empty newline (e.g., a `\n` without `///`), as this terminates the doc comment block.
-5. *   **Avoid redundancy:** Do not restate the signature or the element name. Do not say "This class is a..." or "The foo method does...".
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-write-documentation\SKILL.md`. Only gemini-plugin holds it.

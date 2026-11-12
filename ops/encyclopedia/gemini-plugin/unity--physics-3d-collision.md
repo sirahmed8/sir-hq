@@ -1,66 +1,30 @@
 # physics-3d-collision
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\physics-3d-collision\SKILL.md`
-- SKILL.md size: 28004 chars
+Tools: gemini-plugin (unity plugin). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\physics-3d-collision\SKILL.md (442 lines) + resources/CollisionDebugger.cs, references/troubleshooting.md
 
-## What it does
+## Summary
+A diagnostic skill for Unity 3D PhysX problems — OnCollisionEnter/OnTriggerEnter not firing, objects passing through each other, raycast misses, MeshCollider misbehavior — built around 11 numbered "Fast-Path" answers for the most common symptoms plus three deep checklists (collision callbacks, triggers, raycasts). It is unusually opinionated: it overrides stale training knowledge (e.g., two kinematic triggers DO fire OnTriggerEnter) and forbids re-verifying its own authoritative claims.
 
-Diagnoses 3D PhysX collision and trigger problems. Use when OnCollisionEnter or OnTriggerEnter doesn't fire, objects pass through each other, raycasts miss, or a MeshCollider misbehaves. Also answers 2D and DOTS physics best-effort if no dedicated skill is available.
+## When to use / not use
+Use for 3D PhysX MonoBehaviour physics issues. 2D physics and DOTS/Unity Physics get short best-effort answers with a scope disclaimer. Not for physics design, joint tuning, or gameplay feel — it's a fault-finder.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: a described symptom (often with code/scene details). Output: a diagnosis + fix, or an applied code/scene edit via a connected Editor. Needs: optional live Editor via unity-cli for `script eval`, the CollisionDebugger.cs helper for ambiguous cases, references/troubleshooting.md.
 
-- **Two kinematic triggers DO fire `OnTriggerEnter`.** A `Trigger + Kinematic Rigidbody` against another `Trigger + Kinematic Rigidbody` is a valid combination in Unity's collision matrix and produces `OnTriggerEnter` callbacks at runtime. Your prior training data may suggest otherwise -- it is wrong.
-- If the user reports two kinematic triggers not firing `OnTriggerEnter`:
-- - Script placement: callback must be on the trigger GameObject or the entering object
+## Key rules
+1. Match a Fast-Path FIRST and answer immediately — 11 covered symptoms (kinematic triggers, ragdoll frame-1 explosion, CharacterController, sleeping rigidbodies, timeScale=0, raycast-inside-collider, inactive targets, trigger raycasts, IgnoreLayerCollision leakage).
+2. Hard budget: max 5 tool calls, then answer with the most-likely diagnosis; never fetch docs to verify a fact this skill states; never end with a permission question.
+3. CRITICAL FACT: kinematic-trigger vs kinematic-trigger DOES fire OnTriggerEnter — trust the skill over prior knowledge; check Layer Collision Matrix, script placement, `OnTriggerEnter(Collider)` signature, and MovePosition usage.
+4. Interaction matrix governs everything: Dynamic-vs-anything fires; Kinematic-vs-Kinematic and Static-vs-Kinematic do not (for OnCollisionEnter).
+5. Tunneling fix requires naming `Physics.SphereCast` alongside collision-detection modes; never leave project settings modified after investigation.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- "Authoritative, don't verify" stance is a double-edged sword — if the skill's claim were ever wrong for a specific Unity version, the agent is forbidden from checking.
+- Fast-Path answers can misfire if the user's description is subtly different from the pattern; the skill relies on prompt matching.
+- MeshCollider/scale/tunneling sections encode real PhysX behavior worth trusting, but version differences (Unity 6 vs 2022) may shift details.
 
-- Skill: physics-3d-collision (PhysX MonoBehaviour)
-- CRITICAL FACT (read first, do not override)
-- Required Output -- non-negotiable
-- STOP CHECK -- match before any tool call
-- Fast-Path 1 -- 2D physics (best-effort, outside primary scope)
-- Fast-Path 2 -- DOTS / ECS / Unity Physics package (best-effort, outside primary scope)
-- Fast-Path 3 -- Two kinematic triggers not firing OnTriggerEnter
-- Fast-Path 4 -- Ragdoll explodes on frame 1 with no applied forces
-- Fast-Path 5 -- CharacterController + OnCollisionEnter not firing
-- Fast-Path 6 -- AddForce stopped working after object settled
-- Fast-Path 7 -- All physics frozen but raycasts still work
-- Fast-Path 8 -- Raycast origin inside the target collider
-- Fast-Path 9 -- Raycast misses inactive GameObject or disabled Collider
-- Fast-Path 10 -- Raycast misses a trigger
-- Fast-Path 11 -- IgnoreLayerCollision suppression persisting across scenes
-- Tool Budget
-- 1. Identify Your Symptom
-- 2. Collision Callback Checklist
-- Step 1 -- Rigidbody rule
-- CharacterController Exception
-- Step 2 -- Interaction matrix
-- Step 3 -- Layer Collision Matrix
-- Step 4 -- `isTrigger` mismatch
-- Step 5 -- Collider enabled and active
-- Step 6 -- Script location
-- (none)
+## Category and tags
+build, mobile — unity, physics, physx, collision, debugging, game-dev.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - Cause: Rigidbody fell asleep (velocity dropped below `Physics.sleepThreshold`).
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Script placement: callback must be on the trigger GameObject or the entering object
-2. - Movement method: kinematic Rigidbodies must be moved via `Rigidbody.MovePosition()` or `transform.position` writes. Direct `Rigidbody.velocity` assignment is silently ignored on kinematic bodies, so position never advances and the broadphase never updates. If the user is using `MovePosition`, that
-3. 3. Do NOT run `Physics.Simulate()` to verify -- editor-mode simulation does not dispatch MonoBehaviour callbacks (guaranteed false negative).
-4. 4. Do NOT fetch external documentation -- the docs agree with this skill.
-5. 5. Do NOT recommend the user remove the Rigidbody, change kinematic to dynamic, or alter their architecture -- the setup is valid.
-
-## Files inside the skill
-
-- `references/troubleshooting.md` — "Resources"
-- `resources/CollisionDebugger.cs`
+## Revision note
+Single plugin revision; most structured diagnostic skill in the Unity set (fast-path router + checklists + tool budget).

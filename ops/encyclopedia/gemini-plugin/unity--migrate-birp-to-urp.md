@@ -1,74 +1,27 @@
-# migrate-birp-to-urp
+# migrate-birp-to-urp (unity plugin)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\migrate-birp-to-urp\SKILL.md`
-- SKILL.md size: 52394 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\migrate-birp-to-urp\SKILL.md` (52 KB; unity plugin; `SECURITY.md` + `references/` incl. implementation-patterns.md with an Execution Regression Checklist). Planned BIRP→URP migration workflow.
 
-## What it does
+## Summary
+Phased Built-in Render Pipeline → URP migration with a strict honesty contract. Mandatory: read `references/implementation-patterns.md` before the first `script eval` that edits settings/materials/scenes. Flow: classify request (standard 3D URP / URP 2D / material-only / planning / troubleshooting) → inspect risks (opaque+particle/VFX materials, custom shaders, PPv2, cameras, baked lighting/lightmaps/reflection probes, Quality levels, representative scenes) → STOP before any pipeline-mutating work until rollback point confirmed (branch/backup/disposable copy) → execute in phases, each ending `Phase complete|partial|Blocked`: P0 inspect+plan, P1 URP setup+supported material conversion, P2 post-processing/camera migration (persistent URP VolumeProfiles, disable PPv2 for validation, SSR=unsupported), P3 lighting/lightmaps/probes, P4 save/reload/re-query validation. Generic-upgrade contract: discover features yourself, never ask the user to enumerate them; continue within a phase without "would you like me to continue?"; interrupted phases resume from saved state. Success gate is saved-state verification, not tool logs: Graphics+Quality→URP asset with valid default renderer, no "Default Renderer is missing", materials keep source maps/colors (no all-white `_BaseColor`), PPv2→persisted Volume with non-null components + scene Volume reference, lighting/probe state re-serialized correctly, representative scene captured, Console clean. "Complete" wording allowed ONLY when every gate passes; unsupported items (SSR, GrabPass, Surface Shaders, OnRenderImage, replacement/package shaders) must be named precisely as manual.
 
-Plans, executes, and troubleshoots migration from the Built-in Render Pipeline to URP. Use when asked to convert a project, scene, material, or shader to URP, or to fix visuals broken by the change.
+## When to use / when NOT
+Use for converting a Unity project/scene/material/shader from Built-in RP to URP, or fixing visuals broken by the change. Not for HDRP targets, projects already on URP (troubleshooting path D covers partial states), or blind asset edits without a live Editor.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: Unity project state, user permission level (audit-only vs modify), rollback confirmation, target (URP vs URP 2D).
+- Outputs: URP assets assigned, converted materials, Volume profiles, lighting/probe refresh, phase-status reports.
+- Tools: `unity command script eval` via the unity-cli skill (needs `com.unity.pipeline` package = Editor 6000.3+; older Editors fail with misleading CS0246 on `IPreprocessBuildWithContext`/`BuildCallbackContext`), UnityEditor APIs.
 
-- 5. Do not rely on the user writing a detailed checklist prompt to get correct behavior. The detailed checklist is for benchmarking or stress testing; normal user prompts should still trigger this phased contract.
-- 2. The URP asset has a valid default renderer in saved state, and current Console output does not contain unresolved render-pipeline errors such as "Default Renderer is missing". If a renderer error appears after assignment, re-query the saved renderer list/default index, clear stale Console output 
-- timeout, which matters here: installing URP triggers a package refresh and domain reload that will
+## 5 most important rules
+1. STOP before pipeline-mutating work (URP install, Graphics/Quality assignment, converters, material/scene edits) until a rollback point is confirmed — but keep auditing/planning freely.
+2. Run `implementation-patterns.md` first; lower confidence and don't claim completion if it can't load.
+3. Phase boundaries are honest: `Phase complete/partial/Blocked`; never force all phases into one turn or over-claim "fully migrated".
+4. Success = saved-state re-query (URP asset+renderer, material fidelity vs pre-conversion snapshot, Volume persistence, lighting settings GUIDs, Console clean) — tool logs alone prove nothing.
+5. Custom shaders/GrabPass/Surface Shaders/OnRenderImage/replacement shaders are scoped manual follow-ups, never automatic converter work; name unsupported PPv2 effects (SSR) precisely.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Real project mutation: magenta materials, broken lighting, lost post-processing are the classic failure modes — hence the rollback gate. Editor <6000.3 can't run the Pipeline package (migration targets are often old Editors — check first). Long lighting bakes cause phase interruptions; resume, don't restart.
 
-- Mandatory Execution Reference
-- Critical Default
-- Generic Upgrade Contract
-- Generic Migration Success Gate
-- Execution path: running C# in the Editor
-- Passing C# to `script eval`
-- Two execution modes — pick by the snippet's shape
-- Detecting the active render pipeline
-- 0. Pre-Flight: Pipeline Detection and Reference Loading
-- 1. Assess Current Migration State
-- 2. Gather Requirements
-- Information to Gather
-- 3. Safety Gate
-- 4. Choose the Migration Path
-- Path A: Standard 3D Built-in to URP
-- Path B: Built-in 2D to URP 2D
-- Path C: Targeted Material-Only Conversion
-- Path D: Troubleshooting an Existing Migration
-- 5. URP Setup Workflow
-- 6. Conversion Workflow
-- 7. Shader and Material Triage
-- 8. Post-Processing, Cameras, and Rendering-Effect Triage
-- 9. Quality, Lighting, and Visual Parity Review
-- 10. Validation
-- 11. Troubleshooting Decision Tree
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 3. Inspect migration risks before recommending changes: opaque materials, particle/VFX materials, custom shaders, post-processing, camera effects, baked lighting/lightmaps/reflection probes, Quality levels, and representative scenes.
-- - Phase 0: Inspect and plan. Detect pipeline state, representative scenes, rollback safety, PPv2, material/shader risks, Quality levels, lighting/lightmap/probe state, and custom render code.
-- 6. A generic migration request gives permission to inspect and plan, but it does not prove rollback safety. If no rollback point is confirmed, stop before package install or URP assignment and ask for confirmation. Do not leave the project in a magenta partial state just to reach the backup question
-- 8. At the end of a phase, give a concise next-phase prompt or say what phase should run next. Ask for confirmation before the next phase only when it introduces a new costly or risky operation, such as a long lighting bake, deletion/cleanup of legacy assets, or a custom shader rewrite.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 3. Inspect migration risks before recommending changes: opaque materials, particle/VFX materials, custom shaders, post-processing, camera effects, baked lighting/lightmaps/reflection probes, Quality levels, and representative scenes.
-2. 4. Stop before any pipeline-mutating work until the user confirms a rollback point such as a branch, backup, archive, or disposable copy. Pipeline-mutating work includes installing URP, assigning a URP asset in Graphics/Quality settings, running converters, and editing materials or scenes.
-3. 7. Validate representative scenes, Console output, camera rendering, lighting/baked GI state, materials, post-processing persistence, and quality-level assignments before declaring full migration success.
-4. 1. Do not ask the user to enumerate known Built-in features before inspection. Discover them.
-5. 5. Do not rely on the user writing a detailed checklist prompt to get correct behavior. The detailed checklist is for benchmarking or stress testing; normal user prompts should still trigger this phased contract.
-
-## Files inside the skill
-
-- `references/capturing-the-editor.md` — "Capturing the Editor for visual checks"
-- `references/complex-shader-situations.md` — "Complex Shader Situations"
-- `references/custom-shader-triage.md` — "Custom Shader Triage"
-- `references/implementation-patterns.md` — "Built-in to URP Implementation Patterns"
-- `references/migration-workflow.md` — "Built-in to URP Migration Workflow"
-- `references/quality-settings-map.md` — "Quality Settings Map"
-- `SECURITY.md` — "Security notes: migrate-birp-to-urp"
+## Category and tags
+Category: mobile. Tags: unity, urp, render-pipeline, migration, post-processing, lighting, validation.

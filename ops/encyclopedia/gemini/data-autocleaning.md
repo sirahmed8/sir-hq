@@ -1,51 +1,28 @@
-# data-autocleaning
+# data-autocleaning (Gemini skill, Google)
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\data-autocleaning\SKILL.md`
-- SKILL.md size: 12118 chars
+## Summary
+Mandatory pre-flight data-quality protocol for ANY task whose source is BigQuery or GCS — even trivial "move/copy table" asks. It requires Dataplex profiling (never ad-hoc BigQuery profiling) via `scripts/dataplex_scanner.py`: check eligibility, get explicit user approval for the scan command (approval covers all executions for the task), run concurrent scans with dynamic sampling for >1M-row tables, wait for results before finalizing transformations, then use the profile (null rates, distinct values, distributions) to drive cleansing and schema-mapping decisions. GCS sources need an external table created first; scan location must be a real region (us-central1), not multi-region.
 
-## What it does
+## When to use / when NOT
+MUST be used for any BigQuery/GCS-sourced operation — copying, moving, appending, ingesting, extracting — applied to the source node. Referenced by dbt-bigquery as a required sub-protocol. Do NOT skip for "simple" moves; do NOT substitute BigQuery-native profiling for Dataplex.
 
-Automated data quality and transformation capabilities for Dataform/dbt/BigQuery pipelines. Processes data sourced from BigQuery or Cloud Storage (GCS), applying best practices for data ingestion, movement, schema mapping, and comprehensive data cleaning.
+## Inputs, outputs, tools
+- Inputs: BigQuery tables / GCS sources, `--tables`, `--location` (region), `--output-dir`.
+- Outputs: JSON profile results driving cleaning/transformation decisions; feeds implementation_plan.md.
+- Tools: `scripts/dataplex_scanner.py` (dataplex scans, dynamic sampling, concurrent polling), Dataplex API, BigQuery external tables for GCS.
 
-## When to use (from skill text)
+## 5 most important rules
+1. NEVER skip Dataplex profiling — Steps 1 and 3 are mandatory for every BQ/GCS task.
+2. Get explicit user approval for the scanner command BEFORE running (present command + summary + value); approval covers the whole task.
+3. Do not finalize transformations until the profile is available (unless user denied the scan).
+4. GCS sources require an external table before scanning; location must be a specific region.
+5. Dynamic sampling (>1M rows) and concurrent multi-table scans are handled by the script — pass all tables in one `--tables` call.
 
-- > You **MUST** use this skill for **ANY** task where the source is BigQuery or
+## Risks / things needing the owner
+Dataplex scans cost money and need IAM permissions; user approval gate is explicit. Profile data may contain sample values — don't leak sensitive cell data into reports.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+data · bigquery, dataplex, data-quality, etl, gcp
 
-- Data Autocleaning Skill
-- When to Use
-- Task Execution Workflow
-- Step 1: Preliminary Checks (Before Implementation Planning)
-- Step 1.5: Implementation Plan Requirements
-- Profiling Evidence
-- Step 2: Generate Transformations
-- Step 3: Quality Review & Profiling
-- Step 3.5: Quality Review Evidence Requirements
-- Quality Review Profiling Evidence
-- Step 4: Documentation
-- Definition of Done
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- -   **Garbage Values**: Drop or convert to `NULL` only for malformed data (e.g.,
-- -   **Schema Alignment**: Populate missing fields with `NULL` and drop fields
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   **Never skip** Dataplex profiling (Steps 1 and 3). Always use Dataplex —
-2. 1.  **Check Eligibility** — You MUST confirm the source is a BigQuery table or
-3. -   **GCS sources**: For GCS sources, you MUST create an external table
-4. -   **Wait for results**: You **MUST NOT** proceed until the Dataplex
-5. 4.  **[!IMPORTANT]** The location MUST be a specific Google Cloud region
-
-## Files inside the skill
-
-- `scripts/dataplex_scanner.py`
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\data-autocleaning\SKILL.md` + `scripts/dataplex_scanner.py`. Only gemini tool holds it.

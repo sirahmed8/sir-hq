@@ -1,63 +1,27 @@
-# netlify-edge-functions
+# netlify-edge-functions (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\codex\skills\netlify-edge-functions\SKILL.md`
-- SKILL.md size: 17571 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-edge-functions\SKILL.md`. Deno-based edge handlers in `netlify/edge-functions`.
 
-## What it does
+## Summary
+Edge Functions are Deno TypeScript/JS handlers running at the network edge in front of static files and serverless functions. Form: one file = default-export handler `(request, context)` + `config` export with `path`/`pattern`/`excludedPath` (or `[[edge_functions]]` in toml). `Request`/`Response` are global; import `Context`/`Config` types from `@netlify/edge-functions`; env vars via `Netlify.env.get()` (`process.env` only for Next.js middleware). Return semantics: `Response` = send + end chain; `URL` = same-site rewrite (200, address bar unchanged); `undefined`/`return;` = skip, chain continues. Footguns: no route = silent no-op; `path:"/*"` hits EVERY request incl. assets (narrow or use excludedPath); caching needs BOTH `cache:"manual"` in config AND cache headers on the Response; cached functions SHADOW static files (a cached `/*` serves `/cat.png` instead of the file); returning a Response ends the redirect chain; same-site `fetch()`/URL rewrites start a NEW request chain (matching edge functions re-run — use `context.next()` for static/SSR at same path); request body readable once (pass `new Request(req,{body})` to `context.next()`); same-named `.ts`+`.js` → JS deploys, TS ignored; 50ms CPU per request incl. waitUntil; NOT executed on Split Testing sites; custom headers/basic-auth don't apply; unsupported on HIPAA hosting; `netlify.app` is on Public Suffix List (cross-subdomain cookies need custom domain). Avoid: deno.json import maps (use `[functions] deno_import_map`), toml env vars (invisible), `Netlify.env.set/delete` as persistence (per-invocation only), same-site fetch for current path.
 
-Write, route, cache, and debug Netlify Edge Functions, the Deno-based TypeScript or JavaScript handlers in netlify/edge-functions that run at the network edge in front of static files and serverless functions. Activate this skill whenever someone wants to add auth middleware or a login gate, redirect or rewrite visitors by country or cookie, localize or personalize a page with geolocation, run A/B testing, transform or inject HTML into a response, stream server-side rendering at the edge, or cache an edge response. Also use it when an edge function silently does nothing, runs in the wrong order, ignores its Cache-Control headers, or cannot read an environment variable.
+## When to use / when NOT
+Use for auth middleware/login gates, geo/cookie redirects, localization, A/B testing, HTML transforms, edge SSR, edge caching. NOT for HIPAA sites, Split Testing sites, or anything needing >50ms CPU.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: route config, request/geo/cookie context, env vars via `Netlify.env`.
+- Outputs: Response/URL-rewrite/pass-through; edge-cached responses.
+- Tools: `@netlify/edge-functions` types, `context.geo`/`context.next()`/`context.cookies`, `Netlify.env`, `netlify/edge-functions/` dir or `[build] edge_functions`.
 
-- ## Use this form
+## 5 most important rules
+1. Every function needs an explicit route — no route = silent no-op.
+2. Caching = `cache:"manual"` + response cache headers, BOTH required; cached `/*` shadows static files.
+3. `context.next()` for same-path static/SSR; same-site fetch/URL rewrite re-runs the whole chain.
+4. Env via `Netlify.env.get()` only; toml vars invisible; `Netlify.env.set` isn't persistence.
+5. Request body is single-read — reconstruct Request when passing to `context.next()`.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+50ms CPU cap kills heavy work silently into waitUntil; ordering bugs (edge before redirects, Response ends chain) cause confusing routing; basic-auth/custom headers bypass is a security consideration for gated content.
 
-- Netlify Edge Functions
-- Use this form
-- ⚠️ Footguns
-- Files
-- Return values
-- Endpoint
-- Redirect / rewrite
-- Middleware (modify origin response)
-- Conditional requests
-- Read body, then continue
-- Netlify user gate (private / team-login-protected projects)
-- Post-response work
-- Streaming SSR (`.tsx`)
-- `Context`
-- Declarations
-- Inline `config`
-- `netlify.toml`
-- Order
-- Response caching
-- Error handling (`onError`)
-- Environment variables
-- Local dev / deploy / logs
-- Limits
-- Netlify house rules (edge-functions)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - `Netlify.env.set()` or `Netlify.env.delete()` as persistence. They affect only the current invocation.
-- - **Don't cache** routing or personalization middleware, such as cookie-based product ordering.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - A file with no `config.path` or `pattern` and no `[[edge_functions]]` entry. It deploys but never runs.
-2. - **Cached functions shadow static files.** A cached function on `/*` serves `/cat.png` instead of the file.
-3. - **Returning a `Response` ends the chain.** Redirect rules for that path never run.
-4. - **The request body can be read once.** After `await req.json()`, pass `new Request(req, { body })` to `context.next()`.
-5. - **Custom Headers and basic-auth headers do not apply** to edge functions.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: cloud. Tags: netlify, edge-functions, deno, middleware, geo-targeting, caching, low-latency.

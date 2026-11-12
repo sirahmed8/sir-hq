@@ -1,48 +1,31 @@
 # sir-ecosystem-orchestrator
 
-- Tool: `claude`
-- Category: automation
-- Source: `C:\Users\a7med\.claude\skills\sir-ecosystem-orchestrator\SKILL.md`
-- SKILL.md size: 8502 chars
+Tools: claude (also codex/cursor/opencode/windsurf; claude chosen). Source: C:\Users\a7med\.claude\skills\sir-ecosystem-orchestrator\SKILL.md (124 lines, read in full)
 
-## What it does
+## Summary
+Master orchestration skill for Ahmed's whole workspace: the 10 non-negotiable Core Pillars (workflow protocol, token-smart engineering, anti-monolith architecture, skill/MCP routing, UX/HCI standards, zero-fake-data persistence, zero-trust security, legal/SEO compliance, QA/observability, continuation protocol), a registry of 23 repositories with stacks, and PowerShell verification commands for ecosystem health.
 
-Use when coordinating Sir Ahmed's workspaces and repositories, or running a health check across the whole ecosystem.
+## When to use / not use
+Use when coordinating work ACROSS Ahmed's repositories or running an ecosystem-wide health audit. Not for single-repo tasks (project AGENTS.md governs those) — this is the meta-layer that routes to specialized skills and enforces shared standards.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: cross-workspace tasks or health-check requests. Output: coordinated multi-repo work following the 10 pillars + verification results. Needs: access to D:\Projects\* repos, the pillar standards, referenced skills (taste-design-engine, production-engineering-standards, owasp-vulnerability-shield, etc.), Chrome DevTools MCP for visual verification.
 
-- - Global Error Boundaries, graceful toast notifications, and retry triggers.
+## Key rules
+1. The 10 pillars are non-negotiable: analyze→plan→approve→execute→verify→document; token-smart surgical edits (never whole-file overwrites); 4-tier architecture (Presentation/Domain/Data/Core); automatic routing to specialized skills.
+2. Repo registry is the map: 23 workspaces from SIR Library/Pharmacy flagships to SysPulse/PowerSync utilities, each with declared stack — check it before assuming a repo's tech.
+3. Health verification is scripted: git status across all repos, Vitest for flagship apps, production builds, pc_cleaner dry-run.
+4. Design/UX pillar encodes HCI laws (Doherty <400ms, Fitts 44px, Hick-Hyman, Miller) + 5-state completeness + 60-30-10 oklch palette — the shared bar every product must meet.
+5. Continuation protocol: living continuation_checkpoint.md with exact step/last action/next action for model-agnostic recovery.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Registry drift: the 23-repo table hardcodes paths/stacks that age — verify against reality before relying (e.g., SIR AI's actual stack differs from the table's "Python, aiohttp" description of its early state).
+- Pillar #4 mandates proactive skill routing — in harnesses without those skills installed, the routing silently degrades.
+- "Seek alignment before modifying code" conflicts with fully-autonomous worker modes; interpret as plan-then-execute within granted authority.
+- Verification commands assume Windows PowerShell + npm/pnpm layouts per repo — paths may have moved.
 
-- SIR Ecosystem Orchestrator & Jarvis OS
-- 1. The 10 Active Core Pillars
-- 2. Comprehensive Workspace Registry (23 Repositories)
-- 3. Ecosystem Health Verification Commands
-- 1. Audit Git status across all repositories
-- 2. Run Vitest suites for flagship web applications
-- 3. Verify clean production builds
-- 4. Storage and system telemetry health check
-- (none)
+## Category and tags
+ops, build, ai — orchestration, multi-repo, standards, health-check, owner-specific.
 
-## Tools / MCPs it needs
-
-- MCP mentions: MCP Activation, MCP for
-
-## Risks / cautions found in text
-
-- 2. **Token-Smart Engineering & Zero-Waste Protocol**:
-- - Proactively map and route to specialized skills (`taste-design-engine`, `production-engineering-standards`, `owasp-vulnerability-shield`, `meta-social-sidecar`, `pc-storage-guardian`).
-- 6. **Production Engineering, Database Resilience & Zero Fake Data**:
-- 8. **Legal Compliance, Privacy, SEO & Discoverability**:
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Always analyze first with live intelligence (`search_web`, `read_url_content`).
-2. - Create structured plans with verifiable checkpoints. Seek alignment before modifying code.
-3. - Surgical file modifications with `replace_file_content` — never overwrite entire files.
-4. - Strictly prohibit single-file monolithic applications.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single claude revision; the constitution-level skill tying the whole SIR ecosystem together.

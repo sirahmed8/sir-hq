@@ -1,42 +1,28 @@
-# vercel-services
+# vercel-services (gemini-plugin: vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-services\SKILL.md`
-- SKILL.md size: 9707 chars
+## Summary
+vercel-services configures Vercel's `services` model (Beta, all plans): multiple tightly-coupled components (frontend + backend) as independently-built services that ship as ONE deployment with skew protection, synced previews, atomic rollbacks, and private service-to-service bindings. Decision table first: use Services for coupled multi-component apps; one Next.js app with Route Handlers does NOT need it; independently-deployed services want separate monorepo projects; independently-deployed frontends rendering as one site want Microfrontends. Configuration: `services` map in vercel.json with per-service `root`/`entrypoint`/`framework`, top-level ordered `rewrites` as public ingress (a service with no top-level rewrite is private — reachable only via bindings), `bindings` for private service URLs injected as env vars (deployment-aware, skip Firewall/Protection/CDN, billed as Service Requests), `runtime:"container"` for Docker/OCI. Routing subtleties: rewrites evaluated in order, routing is FINAL (service 404 doesn't fall through), original path is preserved (strip prefixes with service-scoped rewrites), SPA deep-links need service-scoped catch-all to /index.html, host-matched rewrites for subdomains don't work on single-host previews (keep subpath rewrite + relative URLs). `vercel dev` injects local binding vars; `vercel dev -L` for local-only.
 
-## What it does
+## When to use / when NOT
+Use when one app genuinely needs multiple runtimes/frameworks deployed atomically. Do NOT split one framework into arbitrary processes, don't use for independent deploy cadences (separate projects), and don't confuse with `experimentalServices` (older model — read its reference before migrating; vercel.json accepts only one).
 
-Configure multi-service architectures.
+## Inputs, outputs, tools
+- Inputs: app architecture decision, vercel.json service/rewrites/bindings config.
+- Outputs: multi-service deployment config, binding env vars, routing rules.
+- Tools: vercel.json, `vercel dev`, `vercel` deploy, references/experimental-services.md.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Public exposure = top-level rewrites ONLY; bindings give network reachability, NOT app auth — add service-level authorization.
+2. Rewrite order matters and is final: specific rules before catch-all; no fallthrough on service 404.
+3. Service code sees the ORIGINAL path — strip `/api` prefixes via service-scoped rewrites or backend root_path.
+4. Binding vars exist at runtime only — never in builds or Routing Middleware; declare on the CALLER service.
+5. Go/Rust native runtimes can't consume bindings — use container services for those callers; Node/Python can.
 
-- Vercel Services
-- Choose the right structure
-- Define services and public ingress
-- Route requests correctly
-- Serve a service on a subdomain
-- Call services privately with bindings
-- Develop and deploy
-- Troubleshoot
-- Related skills
-- (none)
+## Risks / things needing the owner
+Beta feature — say so when recommending. Misordered rewrites or missing catch-alls cause silent 404s; subdomain setups break previews if subpath fallback is forgotten. Deploys ship ALL services together (that's the point but also the constraint). `vercel link`/deploy auth is owner territory.
 
-## Tools / MCPs it needs
+## Category / tags
+cloud · vercel, microservices, deployment, beta
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **A subdomain works in production but not in previews:** preview URLs have a single host, so host rules never match there. Keep a subpath rewrite to the same service and use the relative URL in the frontend.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Put service-local `headers`, `redirects`, `rewrites`, or `routes` inside a service only when they should run after public ingress selects that service.
-2. - Set `runtime: "container"` when a service must build from a Dockerfile or OCI image. Use `entrypoint` for a nonstandard Dockerfile and `command` to override the image command.
-3. - **A subdomain works in production but not in previews:** preview URLs have a single host, so host rules never match there. Keep a subpath rewrite to the same service and use the relative URL in the frontend.
-4. - **Framework detection is wrong:** set that service's `framework` or `entrypoint` explicitly instead of changing the whole project.
-
-## Files inside the skill
-
-- `references/experimental-services.md` — "Experimental Services"
+## Revisions
+Single revision read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-services\SKILL.md` (183 lines). Gemini-plugin only.

@@ -1,46 +1,28 @@
 # flutter-fix-layout-issues
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\flutter-fix-layout-issues\SKILL.md`
-- SKILL.md size: 5326 chars
+## Summary
+Diagnostic + fix playbook for Flutter constraint violations, built on the layout law "constraints go down, sizes go up, parent sets position". Catalogs error signatures and their causes: "Vertical viewport was given unbounded height" (scrollable inside unconstrained Column), "InputDecorator cannot have unbounded width" (TextField inside unconstrained Row), "RenderFlex overflowed" (child bigger than parent allocation, yellow/black stripes), "Incorrect use of ParentData widget" (Expanded outside Flex, Positioned outside Stack), and "RenderBox was not laid out" (cascading side-effect — ignore it, find the primary violation higher in the trace). Workflow: capture the debug-mode exception → identify primary error → apply the conditional fix → hot reload → visually verify stripes/error screen gone → repeat if new errors surface.
 
-## What it does
+## When to use / when NOT
+Use when hitting RenderFlex overflow, unbounded height/width, or ParentData errors. Not for designing adaptive layouts proactively (flutter-build-responsive-layout) or non-layout bugs.
 
-Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing "RenderFlex overflowed", "Vertical viewport was given unbounded height", or similar layout issues.
+## Inputs, outputs, tools
+- Inputs: debug console exception text, offending widget tree.
+- Outputs: minimal constraint fixes (Expanded/Flexible/SizedBox wrappers, ParentData reparenting).
+- Tools: debug-mode error messages, hot reload, Flutter inspector implied.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Fix the PRIMARY constraint violation; "RenderBox was not laid out" is always a cascade — scroll past it to the real error.
+2. Unbounded height on ListView/GridView inside Column → wrap in Expanded (remaining space) or SizedBox (absolute height).
+3. Unbounded width on TextField/TextFormField inside Row → wrap in Expanded or Flexible.
+4. RenderFlex overflow → constrain the child with Expanded (force fit) or Flexible (allow smaller).
+5. ParentData widgets must be direct children of their required ancestor: Expanded/Flexible only inside Row/Column/Flex, Positioned only inside Stack — otherwise restructure, don't wrap.
 
-- *   **"Vertical viewport was given unbounded height"**: Triggered when a scrollable widget (`ListView`, `GridView`) is placed inside an unconstrained vertical parent (`Column`). The parent provides infinite height, and the child attempts to expand infinitely.
-- *   **"An InputDecorator...cannot have an unbounded width"**: Triggered when a `TextField` or `TextFormField` is placed inside an unconstrained horizontal parent (`Row`). The text field attempts to determine its width based on infinite available space.
-- *   **"RenderFlex overflowed"**: Triggered when a child of a `Row` or `Column` requests a size larger than the parent's allocated constraints. Visually indicated by yellow and black warning stripes.
+## Risks / owner needs
+Minimal — local code fixes only. The real risk is fixing the symptom (e.g. hardcoded heights) instead of the constraint negotiation; Expanded/SizedBox choice should reflect intent.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: mobile. Tags: flutter, layout, debugging, constraints, overflow, renderflex.
 
-- Resolving Flutter Layout Errors
-- Contents
-- Constraint Violation Diagnostics
-- Layout Error Resolution Workflow
-- Task Progress
-- Examples
-- Fixing Unbounded Height (ListView in Column)
-- Fixing Unbounded Width (TextField in Row)
-- Fixing RenderFlex Overflow
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- *   **"RenderFlex overflowed"**: Triggered when a child of a `Row` or `Column` requests a size larger than the parent's allocated constraints. Visually indicated by yellow and black warning stripes.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **"Incorrect use of ParentData widget"**: Triggered when a `ParentDataWidget` is not a direct descendant of its required ancestor. (e.g., `Expanded` outside a `Flex`, `Positioned` outside a `Stack`).
-2. - **If "Incorrect use of ParentData widget"**: Move the `ParentDataWidget` to be a direct child of its required parent. Ensure `Expanded`/`Flexible` are direct children of `Row`/`Column`/`Flex`. Ensure `Positioned` is a direct child of `Stack`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin flutter copy; no competing revisions.

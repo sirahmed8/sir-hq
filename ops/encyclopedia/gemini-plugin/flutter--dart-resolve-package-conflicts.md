@@ -1,42 +1,28 @@
-# dart-resolve-package-conflicts
+# dart-resolve-package-conflicts (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-resolve-package-conflicts\SKILL.md`
-- SKILL.md size: 5267 chars
+## Summary
+Dependency-management workflow for Dart's strict single-version resolution: read `dart pub outdated` columns correctly (Current/Upgradable/Resolvable/Latest), prefer caret constraints, tighten dev_dependencies lower bounds, enforce lockfiles in CI with `--enforce-lockfile`, upgrade via `dart pub upgrade` (+`--tighten`) for compatible bumps or manual pubspec edits for major ones, and resolve conflicts by surgically deleting only the offending package's entry from pubspec.lock — NEVER the whole lockfile.
 
-## What it does
+## When to use / when NOT
+Use when `pub get` fails on version conflicts, a package is retracted, or doing periodic dependency audits/upgrades. Do NOT use for adding a brand-new dependency (dart pub add) or for Flutter-specific plugin issues.
 
-Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.
+## Inputs, outputs, tools
+- Inputs: pubspec.yaml constraints, pubspec.lock state, `dart pub outdated` output.
+- Outputs: resolved dependency graph, updated constraints/lockfile.
+- Tools: `dart pub outdated|get|upgrade|deps`, `dart analyze`, `dart test` for the feedback loop.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. NEVER delete all of pubspec.lock and re-get — that causes uncontrolled upgrades across the graph; delete only the conflicting package's block.
+2. Caret syntax (`^1.2.3`) for dependencies; pin dev_dependencies lower bounds to the version in use.
+3. `--enforce-lockfile` in CI so tested versions ship.
+4. Upgradable → `pub upgrade` (+`--tighten`); Resolvable (major) → edit pubspec.yaml constraint first, then upgrade.
+5. After any resolution change: `dart pub deps` to verify the graph, then analyze + test.
 
-- Managing Dart Dependencies
-- Contents
-- Core Concepts
-- Version Constraints
-- Workflow: Auditing Dependencies
-- Workflow: Upgrading Dependencies
-- Workflow: Resolving Version Conflicts
-- Examples
-- Tightening Constraints
-- Surgical Lockfile Removal
-- (none)
+## Risks / things needing the owner
+Major upgrades can break APIs — the analyze/test loop must pass before commit. Retracted versions need the surgical lockfile edit; pinning a yanked version breaks everyone.
 
-## Tools / MCPs it needs
+## Category / tags
+build · dart, flutter, dependencies, pub, versioning
 
-- none declared
-
-## Risks / cautions found in text
-
-- *   **Enforce Lockfiles in CI:** Use `dart pub get --enforce-lockfile` in CI/CD pipelines to ensure the exact versions tested locally are used in production.
-- - [ ] Delete ONLY that package's entry from the lockfile.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Use Caret Syntax:** Always use caret syntax (e.g., `^1.2.3`) for dependencies in `pubspec.yaml`. This allows `pub` to select newer, non-breaking versions (up to, but not including, the next major version) during resolution.
-2. - [ ] Review the **Resolvable** column to identify packages that require constraint modifications in `pubspec.yaml` to update.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-resolve-package-conflicts\SKILL.md`. Only gemini-plugin holds it.

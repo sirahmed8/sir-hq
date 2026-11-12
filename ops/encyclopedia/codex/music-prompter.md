@@ -1,37 +1,27 @@
 # music-prompter
 
-- Tool: `codex`
-- Category: media
-- Source: `C:\Users\a7med\.codex\skills\music-prompter\SKILL.md`
-- SKILL.md size: 3325 chars
+Source read: `C:\Users\a7med\.codex\skills\music-prompter\SKILL.md` (3.3 KB; codex revision; cursor/kilo/opencode/windsurf listed).
 
-## What it does
+## Summary
+Prompt-engineering playbook for AI music models (Suno v3.5/v4, Udio, ElevenLabs Music, MusicGen). Core formula: `[Genre & Era] + [Key Instruments] + [BPM & Time Signature] + [Vocal Profile] + [Mixing/Production Vibe]`, plus bracketed structural metatags in lyrics (`[Intro]`, `[Verse]`, `[Pre-Chorus]`, `[Chorus]`, `[Post-Chorus]`, `[Bridge]`, `[Solo]`, `[Drop]`, `[Outro]`) with energy/delivery notes per section. Gives a Suno formula (dense comma-separated style descriptors + metatagged lyrics with rhythm/cadence pairing) and a Udio formula (explicit genre lineages for vocal nuance). Safeguards: no vanity adjectives ("catchy", "amazing" — models lack semantic anchors; use `syncopated rhythm`, `pentatonic hook`, `minor 7th chords`), dynamic range management across sections, explicit vocal customization (gender/tone/delivery like `raspy baritone`, `autotuned hyperpop`).
 
-Professional music prompt engineering for Suno v3.5/v4, Udio, and ElevenLabs Music. Synthesizes genre tags, tempo (BPM), instrumentation, lyrical structure ([Verse], [Chorus], [Bridge], [Drop]), dynamic cues, and production styles.
+## When to use / when NOT
+Use when crafting prompts for Suno/Udio/ElevenLabs Music generation. Not for mixing/mastering existing tracks or for non-music audio (use sfx/voice tools).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: musical idea, emotion, genre, vocal/language needs, target platform.
+- Outputs: ready-to-paste style prompts + fully metatagged lyric sheets.
+- Tools: Suno, Udio, ElevenLabs Music, MusicGen (external services, owner accounts).
 
-- Music Prompter (Manus-Grade Generative Audio Engine)
-- 1. Core Music Architecture Matrix
-- 1.1 Structural Metatags
-- 2. Production Prompt Formulas
-- A. Suno v3.5 / v4 Formula
-- B. Udio Formula
-- 3. Best Practices & Quality Safeguards
-- (none)
+## 5 most important rules
+1. Structure every prompt as genre+instruments+BPM+vocal profile+production vibe — multi-tier, not a sentence.
+2. Use bracketed structural metatags with per-section energy/delivery direction.
+3. Replace vanity adjectives with technical descriptors (intervals, rhythm, mixing terms).
+4. Alternate high-density and stripped-back sections for dynamic range.
+5. Specify vocals concretely: gender, tone, delivery style.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Generated music may imitate copyrighted styles/artists — keep prompts original and respect platform content policies. Output quality varies by model; expect multiple generations. Service costs/quota belong to the owner's accounts.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - `[Drop]` - Heavy bass release, sub-bass 808, sidechained synths.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Avoid Generic Fillers**: Never write "catchy", "best song", "amazing melody". The AI model does not have semantic anchors for vanity adjectives. Use technical descriptors like `syncopated rhythm`, `pentatonic hook`, `minor 7th chords`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: media. Tags: music-generation, suno, udio, prompt-engineering, lyrics, metatags.

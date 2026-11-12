@@ -1,62 +1,27 @@
-# netlify-deploy
+# netlify-deploy (netlify plugin)
 
-- Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\netlify\skills\netlify-deploy\SKILL.md`
-- SKILL.md size: 14263 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-deploy\SKILL.md`. Create/configure/manage deploys from code.
 
-## What it does
+## Summary
+Deploy paths: Git CD (default — push triggers build), CLI (`netlify deploy`=manual draft no-build, `--prod`=production, `netlify create`, `--allow-anonymous` temp project claimable in 1hr, skew protection needs CLI ≥23.11.0), drag-and-drop, API (digest/ZIP one-offs), Deploy-to-Netlify button, build hooks (trusted — bypass deploy request policy), AI Agent Runners (auto Deploy Preview at `agent-<runID>--<site>.netlify.app`), Zapier/n8n. Deploys are versioned ATOMIC snapshots — only changed files upload, live site switches after all land. Manual deploys don't run build commands (drag-drop logged-in auto-detects framework is the exception). `netlify.toml` deploy contexts: `[context.production|deploy-preview|branch-deploy|preview-server|dev]` + custom branch contexts; plugins need `[[...plugins]]`; **env vars in netlify.toml are NOT available to the deploy environment** — set via UI/CLI/API; toml is committed so keep secrets out. Deploy Previews auto-build for PRs/MRs (base branch must be production or branch-deploy-enabled; URL `deploy-preview-<num>--<site>`; pending = Not Found). Branch deploys need enabling in UI (specific branches or All; `features/*` wildcard; URL `<branch>--<site>`; persist while branch exists; `[context.branch-deploy]`/`[context.<branch>]`). Branch deploy + open PR = both artifacts. Entry path via `@netlify /path` in PR description (can't change in Drawer after). Skip deploys: `[skip ci]`/`[skip netlify]` in PR title (preview) or commit message (branch/prod) — next unmarked commit deploys everything skipped. CRITICAL: add `.netlify` to `.gitignore` — linking writes `.netlify/state.json` which must not be committed.
 
-Create, configure, and manage Netlify.
+## When to use / when NOT
+Use for Git CD setup, `netlify deploy`/`--prod`, deploy contexts, Deploy Previews/branch deploys, deploy buttons, build hooks, failed/secrets-scanning deploy fixes, keeping staging out of Google, monorepo deploy config. NOT for routing rules (→ netlify-config) or caching (→ netlify-caching).
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: repo, production branch, deploy-context needs, skip-deploy intent.
+- Outputs: deploys (draft/prod/preview/branch), contexts in netlify.toml, `.gitignore` entry.
+- Tools: `netlify` CLI, netlify.toml contexts, Git integration, build hooks, Agent Runners, Deploy Navigator.
 
-- **Continuous deployment vs manual deploys:** Deploy with Git and the Netlify CLI support continuous deployment — a push auto-triggers a build. Drag and drop and the API create one-off manual deploys. Manual deploys (`netlify deploy`) do **not** run a build command; drag-and-drop while logged in is t
-- - **Build hooks** — unique URLs that trigger builds. (Deploys from build hooks are treated as trusted and bypass the deploy request policy.)
+## 5 most important rules
+1. `.netlify` MUST be gitignored — `state.json` is local linkage state.
+2. Manual `netlify deploy` skips builds; only Git CD and logged-in drag-drop build.
+3. toml env vars ≠ deploy-env vars — secrets go through UI/CLI/API, never committed toml.
+4. Deploys are atomic snapshots — a failed deploy never leaves a half-live site.
+5. `[skip ci]`/`[skip netlify]` placement matters (PR title vs commit message) and skipped changes batch into the next real deploy.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Build hooks bypass deploy-request policies (trusted). Skipped deploys accumulate — the next deploy ships them all. Anonymous deploys expire in 1 hour. Branch deploys persist and may expose staging publicly unless protected.
 
-- Netlify deploy
-- Modern CLI
-- Ways to create a deploy
-- netlify.toml deploy contexts
-- Deploy Previews & branch deploys
-- Locking, skipping, and manual production deploys
-- Managing deploys
-- Deploy to Netlify button
-- require/pre-fill env vars (hash, client-side only; values may be null)
-- monorepo base dir (whole repo cloned, builds from blog/)
-- clone only a subdirectory
-- deploy a specific branch (sets it as production branch)
-- install required SDK extensions before first deploy
-- Secrets scanning failures
-- Fixing a failed deploy — no rollbacks
-- Deploy permissions (private repos)
-- Constraints & gotchas
-- Netlify house rules (deploy)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Git CD** — connect a repo; Netlify builds and deploys on every push (OAuth2 or the Netlify GitHub App). This is the default path. Production deploys come from pushes to the production branch — often the repo's default branch (e.g. `main`), changeable under Branches and deploy contexts.
-- - **CLI** — `netlify create`, `netlify deploy`, `netlify deploy --prod`.
-- - **Drag and drop** — https://app.netlify.com/drop. Logged in: builds if needed. Not logged in: publishes files as-is.
-- - **Deploy Previews** auto-build for PRs/MRs (GitHub, GitLab, Bitbucket, Azure DevOps, Cursor Origin) and agent runs. The base branch must be a production branch or a branch-deploy-enabled branch. URL: `deploy-preview-<num>--<site>.netlify.app`. While the first deploy is pending the URL returns `Not
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Deploy Previews** auto-build for PRs/MRs (GitHub, GitLab, Bitbucket, Azure DevOps, Cursor Origin) and agent runs. The base branch must be a production branch or a branch-deploy-enabled branch. URL: `deploy-preview-<num>--<site>.netlify.app`. While the first deploy is pending the URL returns `Not
-2. - **⚠ Manual `netlify deploy --prod` on a Git-CD site:** the next push to the production branch silently replaces your hand-shipped deploy. Warn the user; lock the published deploy if it must stay live.
-3. - **Automatic deletion:** deploys are deleted after 30 days (90 days on paid plans); Enterprise can raise this up to 365 days. Never deleted: the published deploy, the most recent successful production deploy, and the most recent successful branch deploy per branch. Configure at Project configuratio
-4. 1. Agents do not roll back deploys: never call `restoreSiteDeploy` or
-5. 2. A failed deploy never publishes; on failure there is nothing to roll
-
-## Files inside the skill
-
-- `references/cli-commands.md` — "Netlify CLI Commands Reference"
-- `references/deployment-patterns.md` — "Netlify Deployment Patterns"
-- `references/netlify-toml.md` — "netlify.toml — Build Configuration for Deploys"
+## Category and tags
+Category: cloud. Tags: netlify, deploy, continuous-deployment, deploy-previews, branch-deploys, build-hooks, atomic-deploys.

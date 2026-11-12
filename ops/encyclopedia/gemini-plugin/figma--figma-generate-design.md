@@ -1,59 +1,28 @@
 # figma-generate-design
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-generate-design\SKILL.md`
-- SKILL.md size: 38721 chars
+## Summary
+The heavyweight "build a screen in Figma from the design system" skill: translate an app page/view/modal/sidebar into a Figma composition by REUSING the published design system (component instances, bound variables, text/effect styles) instead of drawing hardcoded primitives. Six steps: understand the deliverable (identify product font first), discover components/variables/styles (Code Connect first, then library search, then existing-screen inventory), create a wrapper frame, build sections inside it with instances + token bindings, validate with read-back evidence plus ONE composition screenshot, and handle image transfer from a parallel `generate_figma_design` capture.
 
-## What it does
+## When to use / when NOT
+Use for composed multi-section views (pages, modals, drawers, panels, dashboards, forms) destined for a Figma file that has (or can get) a published design system. NOT for reusable library primitives/tokens (use figma-generate-library) or Code Connect mapping files (use figma-code-connect). For raw/static HTML input or brand-new design-from-prompt with no rendered UI, `html_to_figma` is the exception path. For web apps with content images, the parallel `generate_figma_design` capture is MANDATORY.
 
-Translate application pages.
+## Inputs, outputs, tools
+- Inputs: target fileKey (create via figma-create-new-file if needed), source code or description of the screen, product font identified from source.
+- Outputs: wrapper frame with component instances bound to variables/styles; componentized repeated elements; validated screenshot.
+- Tools: `use_figma` (mandatory companion skill figma-use), `create_session`, `get_libraries`, `search_design_system` (component/variable/style entities), `importComponentSetByKeyAsync`, `importVariableByKeyAsync`, `importStyleByKeyAsync`, `setBoundVariable`/`setBoundVariableForPaint`, `setProperties`, `figma.createNodeFromSvg`, `generate_figma_design` (parallel capture), `generate_image`/`upload_assets` for placeholders; refs: componentization.md, discover-product-font.md, plus figma-use reference docs.
 
-## When to use (from skill text)
+## 5 most important rules
+1. HARD GATE: output must be editable text/components/icons/hierarchy — a screenshot or flattened UI raster anywhere in the deliverable (even as wrapper fill) is a failure; remove and rebuild semantically.
+2. Discovery order is fixed: Code Connect files (`*.figma.ts(x)`, `@FigmaConnect`, `FigmaConnect`) first → `get_libraries` scope → whole-view + existing-screen inventory → targeted gap searches only; one intent per query, never OR-packed strings; `getLocalVariableCollectionsAsync` sees only local vars — library variables need `search_design_system` with `entity:"variable"`.
+3. Never hardcode hex colors/pixel spacing when tokens exist — bind variables for fills/strokes/padding/radii, apply text/effect styles by id; always search before building.
+4. Build inside a pre-created wrapper frame (never reparent later — appendChild across calls silently orphans); batch independent imports in Promise.all; return node IDs + counts as structural evidence; componentize repeated elements on the first pass.
+5. Validation: read back descendant/type/image-fill inventory, take ONE full-view screenshot, fix targeted defects, take ONE post-fix shot; explicitly assert the font family (Inter-by-default is a silent failure); icons come from codebase SVG via `createNodeFromSvg` with viewBox+width/height (never rebuilt from rotated primitives, never currentColor left black).
 
-- Use this skill to create or update **screens, views, and multi-section UI containers** in Figma by **reusing the published design system** — components, variables, and styles — rather than drawing primitives with hardcoded values. This includes full pages, modals, dialogs, drawers, sidebars, panels,
-- - Use this skill when the deliverable is a **composed Figma view** (new or updated) — including a form, dashboard, list, table, card, header, panel, dialog, message preview, or other multi-section container — built from design system component instances. This applies even when the user calls the com
-- Because this skill works in retry-safe construction phases, errors are naturally scoped to the current phase. Content from previous successful calls remains intact.
+## Risks / owner needs
+Requires Figma MCP + a file with/for a published design system; Org features may gate libraries. `generate_figma_design`/`generate_image` consume Figma AI credits (must inform user). Long multi-phase scripts risk partial state — phases are designed retry-safe but page-context boundaries still split work.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: design. Tags: figma, design-system, screen-build, mcp, components, variables, tokens.
 
-- Build / Update Screens and Views from Design System
-- HTML-to-Figma Exceptions
-- Skill Boundaries
-- Prerequisites
-- Parallel Workflow with generate_figma_design (Web Apps Only)
-- Required Workflow
-- Step 1: Understand the Deliverable
-- Step 2: Collect Component Keys, Variables, and Styles
-- Step 3: Create the Wrapper Frame
-- Step 4: Customize Covered Sections and Build Missing Sections
-- Step 5: Validate the Full View and Transfer Images
-- Step 6: Updating an Existing View
-- Reference Docs
-- Error Recovery
-- Best Practices
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP resource, MCP server, MCP tool
-
-## Risks / cautions found in text
-
-- - If the primary deliverable is a **reusable library primitive or foundation** intended for variants, tokens, or publication, use [figma-generate-library](../figma-generate-library/SKILL.md) with [figma-use](../figma-use/SKILL.md) instead.
-- 3. **Once confirmed looking good:** Delete the `generate_figma_design` output — it was only used as a visual reference.
-- 4. **Identify the product's font family from the source. Do not default to Inter.** Find *which* typeface the product uses before writing any script. See [references/discover-product-font.md](references/discover-product-font.md) for where to look (CSS variables, component files) and how to resolve m
-- 5. **Check whether the view contains any images** (e.g., `<img>`, `<Image>`, background images, product photos, avatars, icons loaded from URLs). If it does and this is a web app, you **must** run the parallel `generate_figma_design` capture workflow — start it immediately alongside Step 2 so the ca
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Figma MCP server must be connected
-2. - The target Figma file must have a published design system with components (or access to a team library)
-3. - User must provide a target Figma file (URL or `fileKey`). If they don't have one yet, invoke `/figma-create-new-file` (or call `create_new_file`) first and reuse the returned file_key. Both `use_figma` and `generate_figma_design` require an existing `fileKey`.
-4. - Run `generate_figma_design` against the **same `fileKey`** to capture a pixel-perfect screenshot of the running web app into that file. `generate_figma_design` always requires `fileKey` — if the user does not yet have a Figma file, first invoke `/figma-create-new-file` (or call the `create_new_fil
-5. 3. **Once confirmed looking good:** Delete the `generate_figma_design` output — it was only used as a visual reference.
-
-## Files inside the skill
-
-- `references/componentization.md` — "Componentize repeated and reusable elements"
-- `references/discover-product-font.md` — "Discover and verify the product font"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

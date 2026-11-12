@@ -1,61 +1,31 @@
 # runtime-cache
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\runtime-cache\SKILL.md`
-- SKILL.md size: 7304 chars
+Tools: codex (also claude/cursor/opencode/windsurf; codex chosen). Source: C:\Users\a7med\.codex\skills\runtime-cache\SKILL.md (234 lines, read in full)
 
-## What it does
+## Summary
+Vercel Runtime Cache API guide: per-region ephemeral key-value store for Functions/Middleware/Builds via `@vercel/functions` `getCache()` — set/get/delete with TTL + tags, `expireTag` for tag invalidation, plus the separate CDN purge layer (`invalidateByTag` stale-while-revalidate vs `dangerouslyDeleteByTag`), Next.js 16 `'use cache: remote'` integration, CLI cache commands, and hard limits.
 
-Vercel Runtime Cache API guidance: ephemeral key-value cache with tag-based invalidation across regions.
+## When to use / not use
+Use for caching API responses/computed data across functions within a region, tag-based invalidation on content change, reducing DB load. NOT for framework page caching (use Cache Components), persistent storage (use a DB), CDN response caching (use Cache-Control headers), cross-region state, or per-user data.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: cache keys, values (<=2MB), TTL seconds, up to 64 tags per item. Output: cached values or undefined; invalidation via expireTag/invalidateByTag/vercel CLI. Needs: `@vercel/functions`, Vercel deployment; Next.js 16 users need `cacheComponents: true` for remote cache.
 
-- | `revalidateTag(tag, { expire: 0 })` | Route Handlers (webhooks) | Immediate expiration from external triggers |
-- Monitor hit rates, invalidation patterns, and storage usage in the Vercel Dashboard under **Observability → Runtime Cache**. The CDN dashboard (March 5, 2026) provides a unified view of global traffic distribution, cache performance metrics, a redesigned purging interface, and **project-level routin
+## Key rules
+1. THREE separate cache layers exist and tags do NOT cross them: `cache.expireTag` = Runtime Cache only; `invalidateByTag` = CDN+Runtime+Data (SWR); `dangerouslyDeleteByTag` = hard delete (stampede risk); ISR is isolated from ALL of them — manage both layers with the same tag via invalidateByTag.
+2. Regional + isolated: each region has its own cache, scoped per project AND per environment (preview vs production) — never assume cross-region or cross-env visibility.
+3. Ephemeral: fixed per-project storage, LRU eviction when full — it's a cache, not storage; persistent data needs a database.
+4. Next.js 16: `'use cache: remote'` stores in Runtime Cache; plain `'use cache'` is in-memory per-instance only. Single-arg `revalidateTag(tag)` is DEPRECATED — always pass a cacheLife profile; `updateTag` = Server Actions immediate, `revalidateTag(tag,'max')` = SWR.
+5. Limits are hard: 2MB items, 64 tags/item (Runtime) vs 128 (CDN), 256-byte tags, case-sensitive, no commas, 16 tags per bulk REST call.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- `dangerouslyDeleteByTag` causes cache stampedes (next request blocks on origin) — prefer invalidateByTag unless freshness is critical.
+- Data survives deploys but evicts under memory pressure — cold-cache storms possible after LRU pressure.
+- Tag propagation is ~300ms global — brief stale windows after expireTag.
+- Observability via Dashboard → Observability → Runtime Cache; CLI purge commands can nuke ALL cached data (`vercel cache purge`) — destructive, use --type scoping.
 
-- Vercel Runtime Cache API
-- What It Is
-- Key APIs
-- Basic Cache Operations
-- Cache Options
-- Full Example (Framework-Agnostic)
-- Tag Expiration from Server Action
-- CDN Cache Purging Functions
-- Next.js Integration
-- Next.js 16+ (`use cache: remote`)
-- Next.js 16 Invalidation APIs
-- Runtime Cache vs ISR Isolation
-- CLI Cache Commands
-- Purge all cached data
-- Invalidate by tag (stale-while-revalidate)
-- Hard delete by tag (blocks until revalidated)
-- Image invalidation
-- CDN Cache Tags
-- Limits
-- Observability
-- When to Use
-- When NOT to Use
-- References
-- (none)
+## Category and tags
+cloud, web, build — vercel, caching, runtime-cache, nextjs, invalidation.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Isolated**: Scoped per project AND per deployment environment (`preview` vs `production`)
-- - `invalidateByTag()` / `dangerouslyDeleteByTag()` — purges CDN + Runtime + Data caches
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Regional**: Each Vercel region has its own isolated cache
-2. - **Isolated**: Scoped per project AND per deployment environment (`preview` vs `production`)
-3. - **Persistent across deployments**: Cached data survives new deploys; invalidation via TTL or `expireTag`
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single codex revision; current through March 2026 CDN dashboard changes.

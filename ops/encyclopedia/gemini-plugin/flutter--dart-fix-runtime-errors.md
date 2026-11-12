@@ -1,52 +1,28 @@
-# dart-fix-runtime-errors
+# dart-fix-runtime-errors (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-fix-runtime-errors\SKILL.md`
-- SKILL.md size: 6257 chars
+## Summary
+Despite the name and frontmatter (which promise runtime stack traces + hot_reload via get_runtime_errors/LSP), the body is actually a static-analysis resolution guide: run `dart analyze --fatal-infos`, apply `dart fix --dry-run`/`--apply`, then manually resolve remaining errors by category — null-safety (?. ?? late required), type mismatches (explicit generics, strict-casts), invalid overrides (widen param or `covariant`) — with a verify loop. It also carries doctrine on sound typing, never catching `Error` subtypes, and `rethrow`.
 
-## What it does
+## When to use / when NOT
+Use when the analyzer reports errors you need to fix systematically. For genuine runtime crashes the description points to get_runtime_errors/hot_reload tooling, but the shipped content covers static errors — treat runtime debugging as only partially supported.
 
-Uses get_runtime_errors and lsp to fetch an active stack trace, locate the failing line, apply a fix, and verify resolution via hot_reload.
+## Inputs, outputs, tools
+- Inputs: analyzer diagnostics in the project.
+- Outputs: fixed code passing `dart analyze`.
+- Tools: `dart analyze`, `dart fix --dry-run/--apply`, `dart format`; analysis_options.yaml strictness flags.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Analyzer first with `--fatal-infos`; automated fixes via `dart fix` dry-run then apply.
+2. Never catch `Error` subtypes (TypeError, ArgumentError) — they're bugs; enable `avoid_catching_errors`.
+3. `rethrow` preserves stack traces; catch `Exception` for recoverable failures.
+4. Null-safety fixes: `?.`/`??` when null is possible, `late` only when init is provably deferred, `required` for non-null named params.
+5. Override fixes: widen parameter type or mark `covariant` — never silently tighten.
 
-- Use this sequential workflow to identify, fix, and verify static analysis errors in a Dart project. Copy the checklist to track your progress.
+## Risks / things needing the owner
+`dart fix --apply` rewrites code — review the dry-run diff first. strict-casts can surface many latent dynamic casts.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, flutter, static-analysis, debugging
 
-- Resolving Dart Static Analysis Errors
-- Contents
-- Core Concepts & Guidelines
-- Type System & Soundness
-- Null Safety
-- Error Handling
-- Workflows
-- Workflow: Static Analysis Resolution
-- Preview changes
-- Apply changes
-- Examples
-- Example: Fixing Dynamic List Assignments
-- Example: Fixing Method Overrides (Contravariance)
-- Example: Fixing Null Safety with `late`
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- *   **Wildcards:** Use the `_` wildcard variable (Dart 3.7+) for non-binding local variables or parameters to avoid unused variable warnings.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. *   **Method Overrides:** Maintain sound return types (covariant) and parameter types (contravariant). Never tighten a parameter type in a subclass unless explicitly marked with the `covariant` keyword.
-2. *   **Generics & Collections:** Add explicit type annotations to generic classes (e.g., `List<T>`, `Map<K, V>`). Never assign a `List<dynamic>` to a typed list (e.g., `List<Cat>`).
-3. *   **Downcasting:** Avoid implicit downcasts from `dynamic`. Use explicit casts (e.g., `as List<Cat>`) when necessary, but ensure the underlying runtime type matches to prevent `TypeError` exceptions.
-4. *   **Modifiers:** Apply `?` for nullable types, `!` for null assertions, and `required` for named parameters that cannot be null.
-5. *   **Late Initialization:** Use the `late` keyword for non-nullable variables guaranteed to be initialized before use. Apply this specifically to top-level or instance variables where Dart's control flow analysis cannot definitively prove initialization.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-fix-runtime-errors\SKILL.md`. Only gemini-plugin holds it. Note the description/body mismatch above.

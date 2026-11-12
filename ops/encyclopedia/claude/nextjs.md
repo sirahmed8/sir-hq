@@ -1,73 +1,31 @@
 # nextjs
 
-- Tool: `claude`
-- Category: automation
-- Source: `C:\Users\a7med\.claude\skills\nextjs\SKILL.md`
-- SKILL.md size: 3943 chars
+Tools: claude, codex, cursor, kilo, opencode, windsurf (claude copy used per preference rule; it has the fullest references set).
+Source: C:\Users\a7med\.claude\skills\nextjs\SKILL.md + references/ (21 topic files, ~79 KB)
 
-## What it does
+## Summary
+A rulebook-style skill for writing and reviewing Next.js App Router code. The SKILL.md is an index: each section points to a dedicated reference file covering file conventions, RSC boundaries, async APIs, runtime selection, directives, functions, error handling, data patterns, route handlers, metadata/OG, image/font optimization, bundling, scripts, hydration errors, Suspense boundaries, parallel/intercepting routes, self-hosting, and debug tricks.
 
-Use when writing or reviewing Next.js App Router code, including Server Components, Server Actions, layouts, routing, and deployment.
+## When to use / not use
+Use for any Next.js App Router implementation or review — the description explicitly triggers on Server Components, Server Actions, layouts, routing, deployment. Not for Pages Router apps, other frameworks, or infra work; it complements (does not replace) feature-specific skills like `next-cache-components` or `next-upgrade`.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: Next.js code or questions about it. Output: correct App Router patterns (v15+/v16 semantics: async params/searchParams/cookies/headers, middleware renamed to `proxy` in v16). Needs: reading the relevant `references/*.md` file on demand — the skill is designed to be navigated, not memorized.
 
-- Next.js Best Practices
-- File Conventions
-- RSC Boundaries
-- Async Patterns
-- Runtime Selection
-- Directives
-- Functions
-- Error Handling
-- Data Patterns
-- Route Handlers
-- Metadata & OG Images
-- Image Optimization
-- Font Optimization
-- Bundling
-- Scripts
-- Hydration Errors
-- Suspense Boundaries
-- Parallel & Intercepting Routes
-- Self-Hosting
-- Debug Tricks
-- (none)
+## Key rules (from the index)
+1. Always read the matching reference file before answering — the SKILL.md itself contains no code rules, only pointers.
+2. v15+ made `params`, `searchParams`, `cookies()`, `headers()` async — the async-patterns file covers migration.
+3. Keep RSC boundaries clean: no async client components, no non-serializable props.
+4. Default to Node.js runtime; Edge only when justified (runtime-selection.md).
+5. Prefer `next/image`, `next/font`, `next/script` over raw HTML equivalents; see bundling.md for server-incompatible packages.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- The skill is a large multi-file bundle; an agent that only reads SKILL.md gets pointers, not answers — must follow links.
+- References cover up to v16 conventions (middleware→proxy rename); verify against the project's actual Next version.
+- Some references are long (metadata.md 7 KB, self-hosting.md 8 KB); reading all 21 files costs significant context — read only the relevant one.
 
-- MCP mentions: MCP endpoint
+## Category and tags
+build, web — nextjs, app-router, react-server-components, best-practices, reference.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Server functions: `cookies`, `headers`, `draftMode`, `after`
-2. - Avoiding data waterfalls (`Promise.all`, Suspense, preload)
-3. - Always use `next/image` over `<img>`
-4. - Which hooks require Suspense boundaries
-
-## Files inside the skill
-
-- `overlay.yaml`
-- `references/app-router-files.md` — "Next.js App Router — File Convention Reference"
-- `references/async-patterns.md` — "Async Patterns"
-- `references/bundling.md` — "Bundling"
-- `references/data-patterns.md` — "Data Patterns"
-- `references/debug-tricks.md` — "Debug Tricks"
-- `references/directives.md` — "Directives"
-- `references/error-handling.md` — "Error Handling"
-- `references/file-conventions.md` — "File Conventions"
-- `references/font.md` — "Font Optimization"
-- `references/functions.md` — "Functions"
-- `references/hydration-error.md` — "Hydration Errors"
-- `references/image.md` — "Image Optimization"
-- `references/metadata.md` — "Metadata"
-- `references/parallel-routes.md` — "Parallel & Intercepting Routes"
-- `references/route-handlers.md` — "Route Handlers"
-- `references/rsc-boundaries.md` — "RSC Boundaries"
-- `references/runtime-selection.md` — "Runtime Selection"
-- `references/scripts.md` — "Scripts"
-- `references/self-hosting.md` — "Self-Hosting Next.js"
-- `references/suspense-boundaries.md` — "Suspense Boundaries"
+## Revision note
+claude copy chosen (has all 21 references). codex copy also exists with references; kilo/cursor/windsurf copies point to the same content family. claude revision is the most complete documented set.

@@ -1,52 +1,30 @@
 # plain-writing
 
-- Tool: `gemini-plugin` (plugin: `mobbin`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\mobbin\skills\plain-writing\SKILL.md`
-- SKILL.md size: 14401 chars
+Tools: gemini-plugin (mobbin plugin). Source: C:\Users\a7med\.gemini\config\plugins\mobbin\skills\plain-writing\SKILL.md (218 lines, read in full)
 
-## What it does
+## Summary
+A prose-quality pass that Mobbin skills run on their own output before returning it to the user — a detailed anti-AI-writing rulebook for design work: no em/en dashes, no invented facts, fixed section shapes for options answers, banned vocabulary lists, before/after examples, and explicit "what not to strip" exceptions. It rewrites words, never structure, facts, links, or code spans.
 
-Makes every report a Mobbin skill writes.
+## When to use / not use
+Applies automatically inside Mobbin skills (redesign-screen etc.) whenever they produce readable prose. Outside a Mobbin skill it explicitly does not apply — it is scoped to that plugin family's reports, options lists, briefs, and whys.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: draft prose produced by a calling Mobbin skill. Output: the same content rewritten plainly — returned alone, no draft/audit/note that a pass happened. Needs: nothing external; it is a self-edit checklist.
 
-- Use this when a Mobbin skill is about to write prose someone will read: the report under a before
-- Use this shape only when the reader asked for options ("give me the options", "which way should
+## Key rules
+1. Three outranking rules: zero em/en dashes in prose (mechanical scan), invent nothing, keep exactly what the caller asked for (sections, order, labels).
+2. Voice: senior designer leaving crit notes — name the concrete thing, allow abstractions only when tied to a screen part, opinions open with "My opinion is to", never say "the run/the skill", no manufactured warmth.
+3. Options answers get a fixed shape: bold name → one-sentence description → References line → optional Downside/Also/My-opinion → optional "Not confirmed:" line last; ~30 words per option.
+4. Large banned-tell list: made-up product reasons, name-dropping, vague authorities, AI vocabulary (delve, seamless, pivotal...), "-ing" tails, "serves as", synonym cycling, hedging, aphorisms, chatbot ceremony, scattered bold.
+5. Protect the real: precise design terms (auto layout, token, bottom sheet), secondhand text (on-screen copy keeps its exact form), one emphatic sentence, natural sentence-length variety.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Provenance: adapted from the `humanizer` skill / Wikipedia "Signs of AI writing" — the dash rule here has NO pasted-text exception, stricter than upstream.
+- Over-application risk: it's a rewrite pass, so a lazy application could flatten legitimate voice; the "what not to strip" section exists precisely to prevent that.
+- Only governs Mobbin plugin outputs — Ahmed's other products need equivalent rules elsewhere (his own CLAUDE.md covers similar ground).
 
-- Plain writing: write it the way one designer would
-- How this runs inside another skill
-- Voice
-- Answers with options
-- Length
-- Before and after
-- Tells the sections above don't cover
-- What not to strip
-- Process
-- Provenance
-- (none)
+## Category and tags
+design, ops — writing, anti-ai-slop, copy-editing, mobbin, style-guide.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2. **Invent nothing.** No fact, name, number, date, quote, product, screen or effect that the work
-- 3. **Keep what the caller asked for.** Do not merge sections, drop an item, add one, or reorder for
-- - **Made-up reasons for a product's design.** A screen shows what an app did, never why or what it
-- - **Name-dropping.** Name only apps whose screens the work looked at. "Used by Duolingo, Headspace,
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 3. **Keep what the caller asked for.** Do not merge sections, drop an item, add one, or reorder for
-2. - **Name the thing:** the button, the timer, the date tile. Name the apps, never "two of them" or
-3. - **Never say "the run", "the work" or "the skill" to the reader.** Those are this skill's own words
-4. - "Not confirmed:" for anything the work didn't confirm, stated as the open question, never as if
-5. - **No narrative.** Don't tell the story of the run ("The screens split...", "so each variation
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; the most detailed prose-style skill in the slice.

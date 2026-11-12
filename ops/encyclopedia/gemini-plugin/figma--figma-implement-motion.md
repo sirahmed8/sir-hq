@@ -1,60 +1,28 @@
 # figma-implement-motion
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-implement-motion\SKILL.md`
-- SKILL.md size: 23477 chars
+## Summary
+Skill for translating Figma animations into runnable code (motion.dev, CSS keyframes, or framework libraries like SwiftUI). It orchestrates two MCP tools by node id: `get_motion_context` is the authoritative source for the animated-node inventory, precomputed `codeSnippets` (CSS @keyframes + motion.dev), fallback `keyframeBindings`, `textAnimations` timing, and `timelineCohorts` for coordinated timelines; `get_design_context` supplies the structure (hierarchy, sizing, assets, Code Connect hints, motion placement markers). The job is merging motion values onto the right structural elements — exact `data-node-id` match wins, `fallbackNodeId` only for componentized children.
 
-## What it does
+## When to use / when NOT
+Use when the deliverable is motion CODE in the user's repo. Do NOT use for editing animations inside Figma (that is figma-use). Only covers what `get_motion_context` emits — interactive variant flows may still need hand-written state handling.
 
-Translate Figma motion.
+## Inputs, outputs, tools
+- Inputs: Figma URL (fileKey + nodeId), target codebase/stack, existing motion conventions.
+- Outputs: implemented animation code merged into the component's structure.
+- Tools: `get_motion_context` (recursive:true, ≤500 nodes), `get_design_context`; reference docs: examples-and-anti-examples, gotchas (+motion-lint-rules), svg-and-path-motion, framework-recommendations, unsupported-and-fallbacks, motion-lint-rules; asset downloads via curl; ffmpeg-style local tooling not required.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Use `codeSnippets` verbatim — never regenerate values from keyframeBindings (loses custom bezier/spring/overshoot fidelity); a missing field never means "no animation"; every returned node IS animated.
+2. Match by exact nodeId/`data-node-id` first, `fallbackNodeId` only when exact lookup fails — exact wins because per-instance root motion differs and fallback points at the shared component body; componentized children usually need the fallback.
+3. Preserve interleaved-transform nesting (`data-motion-wrapper-for` OUTER wrapper > static-transform div > INNER `data-node-id`): place transform tracks by `data-motion-keys`, re-apply `data-motion-transform-template`, and subtract the static base rotation to avoid double-rotation; keep layout translates off Motion-animated elements (split wrapper or encode in x/y).
+4. Respect the user's existing motion stack (Framer Motion/GSAP/etc. — adapt, don't force motion.dev); honor `prefers-reduced-motion`; validate ONE animation end-to-end before batching; never fabricate motion for nodes without data (leave a TODO comment instead).
+5. Download expiring asset URLs into the project and reference local files (never the temp URLs); for path-level SVG motion inline the SVG and animate the real `<path>`; factor repeated motion into one parameterized component/variants/constants — never paste the snippet per element.
 
-- - Use this skill when the deliverable is motion code in the user's repository.
+## Risks / owner needs
+Requires Figma MCP. Unsupported Figma motion (text/path/mask/variant transitions) has documented fallbacks incl. video/lottie — load unsupported-and-fallbacks before concluding data is missing. SwiftUI path is evolving — confirm with user when unsure.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: design. Tags: figma, motion, animation, code-generation, mcp, motion-dev, css-keyframes.
 
-- Implement Motion
-- Overview
-- Skill Boundaries
-- Prerequisites
-- Tool Choice
-- Required Workflow
-- Step 1: Confirm static design context is available
-- Step 2: Fetch authoritative motion data
-- Step 3: Merge static and motion context
-- Step 4: Apply the motion in code
-- Step 5: Validate
-- Critical Rules
-- Framework Recommendations
-- Examples
-- References
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP server
-
-## Risks / cautions found in text
-
-- - This skill currently covers **animations** as emitted by `get_motion_context` (snippets plus fallback keyframe tracks, including preset-authored motion resolved into those forms). Broader interactive variant flows may still need product-specific state handling in code.
-- - [references/examples-and-anti-examples.md](references/examples-and-anti-examples.md) — worked examples and failure patterns. Load when applying the merge workflow, handling interleaved transforms, or checking whether a generated implementation has rebuilt the DOM, swapped node positions, or droppe
-- - [references/motion-lint-rules.md](references/motion-lint-rules.md) — Linting rules: known export limitations (errors and warnings) that must be surfaced to the user. Load when generating motion code to check whether any active limitations apply.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Node ID parsed from the Figma URL the user provides. URL format: `https://figma.com/design/:fileKey/:fileName?node-id=1-2` — extract `fileKey` (the segment after `/design/`) and `nodeId` (the value of the `node-id` query parameter, e.g. `42-15`).
-2. - `codeSnippets` — pre-generated CSS `@keyframes` and motion.dev strings. **Use these directly.** Do not regenerate them from fallback track data.
-3. - `textAnimations` — Always implement these text-group animations. If `codeSnippets` are also present, apply both; the snippet does not replace `textAnimations`.
-4. - Use `derivedTimingInfo`: each group starts at `startMs + orderPosition * staggerStepMs` and plays for `groupDurationMs`. `startMs` already includes `delayMs`; do not add it again. `presetDurationMs` covers the full staggered sequence, not each group.
-5. - Compute `orderPosition` from `grouping` and `order`, not always the character index (`CENTER_OUT` starts symmetric pairs together). Convert milliseconds to seconds for Motion.dev, and fit the supplied easing into `groupDurationMs`, including springs.
-
-## Files inside the skill
-
-- `references/examples-and-anti-examples.md` — "Examples and Anti-Examples"
-- `references/framework-recommendations.md` — "Framework Recommendations"
-- `references/gotchas.md` — "Figma Motion Gotchas"
-- `references/motion-lint-rules.md` — "Motion lint rules"
-- `references/svg-and-path-motion.md` — "SVG and Path-Level Motion"
-- `references/unsupported-and-fallbacks.md` — "Unsupported Features and Fallbacks"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

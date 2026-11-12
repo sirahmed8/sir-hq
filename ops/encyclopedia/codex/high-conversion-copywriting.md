@@ -1,40 +1,27 @@
 # high-conversion-copywriting
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\high-conversion-copywriting\SKILL.md`
-- SKILL.md size: 3160 chars
+Source read: `C:\Users\a7med\.claude\skills\high-conversion-copywriting\SKILL.md` (claude revision; codex/cursor/kilo/opencode/windsurf listed).
 
-## What it does
+## Summary
+A direct-response copywriting doctrine ("ADS" framework) for product pages, landing pages, and CTAs. Eleven rules: sell the end state not mechanisms; pass the 5-second Stranger Test (what/who/problem/next step); cut then cut again; address the exact ICP; no em-dashes; kill hedges (maybe, perhaps, basically); angles not synonyms; one idea per headline/paragraph; never invent claims; numbers beat adjectives; front-load the point in the first 3 words. Ships a banned "AI lexicon" table with replacements (delve→explore, seamlessly→connect in 2 minutes, etc.) and component templates for hero value props and feature bullets (Feature/Benefit/Proof).
 
-Direct-response product copywriting: eliminates AI buzzwords, sells the end state, and crafts high-converting CTAs.
+## When to use / when NOT
+Use when writing or auditing marketing copy, landing pages, CTAs, or product descriptions that must convert. Do NOT use for technical docs, error messages, or internal copy where persuasion is not the goal; also not a substitute for legal review of claims.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: product facts, audience/ICP, the page's goal and CTA.
+- Outputs: rewritten headlines, hero sections, feature bullets, CTA lines — all claim-safe.
+- Tools: none; pure writing guidance.
 
-- High-Conversion Copywriting & Messaging Engine ("ADS" Framework)
-- 1. The Direct-Response Rules
-- 2. Banned "AI Lexicon" Blacklist
-- 3. High-Conversion Component Templates
-- Hero Section Value Proposition:
-- Feature Bullet Protocol:
-- (none)
+## 5 most important rules
+1. Stranger Test: a stranger grasps what it is, who it is for, the problem, and the next step within 5 seconds.
+2. Never invent claims — no fabricated customer counts, scores, or uptime; real metrics only.
+3. Numbers beat adjectives: "Syncs 50,000 records in 240ms" over "blazingly fast".
+4. Eradicate the banned AI lexicon and hedging words; one proposition per headline.
+5. Front-load: the critical benefit lands in the first 3 words of the headline.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Truthfulness rule aligns with workspace law (no fake numbers/reviews). Pair with legal-compliance-shield for claims that could be regulated (earnings, health, finance).
 
-- none declared
-
-## Risks / cautions found in text
-
-- - What the product is.
-- 3. **Cut Then Cut Again**: Ruthlessly remove filler words. If a sentence can be deleted without losing meaning, delete it.
-- 5. **No Em-Dashes**: Ban excessive em-dashes (`—`) used as a crutch for disjointed thoughts. Write complete, well-punctuated sentences.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. **Pass the Stranger Test**: A stranger landing on the page must understand within 5 seconds:
-2. 8. **One Idea Each**: Every headline and paragraph must communicate exactly one core proposition.
-3. 9. **Never Invent Claims**: Strict truthfulness. Never fabricate customer counts, test scores, or uptime guarantees. Real metrics build trust; fake metrics destroy it.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: business. Tags: copywriting, conversion, landing-page, cta, anti-ai-slop, truthfulness.

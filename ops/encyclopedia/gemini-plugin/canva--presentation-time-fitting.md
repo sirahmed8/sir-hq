@@ -1,47 +1,30 @@
-# presentation-time-fitting
+# presentation-time-fitting (canva-presentation-time-fitting)
 
-- Tool: `gemini-plugin` (plugin: `canva`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\presentation-time-fitting\SKILL.md`
-- SKILL.md size: 8444 chars
+Tools: gemini-plugin (canva plugin, inactive-skills folder). Source: C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\presentation-time-fitting\SKILL.md (94 lines, read in full)
 
-## What it does
+## Summary
+Fits an existing Canva presentation to a target speaking duration using presenter notes ONLY: resolve the design, clone it via resize-design (same dimensions, never touch the original), read per-slide text, split total time equally (or weighted on request) at ~150 wpm, generate speaker notes per slide, write them back through the Canva editing transaction, and commit. Visible slide text is read for context but never modified.
 
-Fit a Canva presentation to a target speaking duration by generating or rewriting presenter notes only (visible slide text is not edited). Use when users say "make this a 10-minute presentation", "split time evenly across slides", "generate speaker notes for a 15-minute talk", "fit my deck to [duration]", or "how long per slide for a 20-minute slot".
+## When to use / not use
+Use for "make this a 10-minute presentation", "generate speaker notes", "fit my deck to [duration]". Not for editing slide content itself — if the user wants to cut/pad slides, this skill declines and points to Canva editing.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a design link/URL/ID/name plus total speaking duration. Output: a cloned design with per-slide presenter notes and a time-allocation recap. Needs: Canva MCP tools (resolve-shortlink, search-designs, resize-design, get-design-content, get-design-pages, editing transaction trio).
 
-- Presentation Time-Fitting
-- Primary workflow (time-balanced presenter notes)
-- Step 1: Collect design and duration (before other Canva tool calls)
-- Step 2: Resolve the design
-- Step 3: Work on a copy (required)
-- Step 4: Read slide content
-- Step 5: Calculate time per slide
-- Step 6: Generate speaker notes (in this session)
-- Step 7: Write notes back to Canva
-- Step 8: Hand off
-- Scope: notes only
-- When `start-editing-transaction` fails or times out
-- Rules
-- (none)
+## Key rules
+1. Collect design + duration BEFORE any Canva tool call; ask and wait if either is missing.
+2. Always clone with resize-design at the same dimensions — the original is never modified.
+3. Time split: total ÷ slide count, ~150 wpm word budget per slide; show the user the allocation table; state weighting assumptions.
+4. Notes generation happens in-session (no external API); notes stay faithful to visible slide messages — no invented facts; visual-heavy slides get descriptive narration notes.
+5. Write ONLY via the notes operation type — never replace_text/find_and_replace; batch operations, commit the transaction.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Lives in `inactive-skills/` — the plugin considers it disabled; may need reactivation to use.
+- `start-editing-transaction` times out on large decks — retry once, open the transaction earlier, and keep a manual paste-notes fallback ready.
+- Can't add/remove slides — unrealistic time targets get flagged with suggestions, not silent stretching.
 
-- MCP mentions: MCP exposes, MCP gateway, MCP timeout
+## Category and tags
+media, business — canva, presentation, speaker-notes, mcp-plugin, inactive.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Gather everything you need **before** calling `Canva:resize-design`, `Canva:get-design-content` or other editing/content tools:
-2. - If either design or duration is missing, **ask and wait** before proceeding
-3. - If the user provides a **design ID** directly (typically starts with `D`, e.g. `DABcd1234ef`), use it as `design_id`; **do not** use `Canva:search-designs` for a raw ID
-4. - Use `Canva:resize-design` with the **same dimensions** as the source to clone the presentation; **do not** modify the original
-5. - **Generate the notes directly in this response**; no external API call is required. For **each slide**, using that slide’s **text from Step 4** plus the **per-slide time/word budget from Step 5**, compose **presenter notes** (this is the only content you may author or edit for timing):
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Single plugin revision; note the inactive-skills location — status may differ from active skills.

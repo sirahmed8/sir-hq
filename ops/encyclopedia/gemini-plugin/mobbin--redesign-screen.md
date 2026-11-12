@@ -1,66 +1,31 @@
 # redesign-screen
 
-- Tool: `gemini-plugin` (plugin: `mobbin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\mobbin\skills\redesign-screen\SKILL.md`
-- SKILL.md size: 19672 chars
+Tools: gemini-plugin (mobbin). Source: C:\Users\a7med\.gemini\config\plugins\mobbin\skills\redesign-screen\SKILL.md (202 lines) + references/{scoping-round,scope-and-preserve,variations,collections,taste,before-after-board,report,reference-board,answering-a-challenge}.md
 
-## What it does
+## Summary
+Redesigns an existing screen using REAL product screens (Mobbin) as structural evidence: scope the target and freeze what must survive, search/lock references grouped by direction, plan max-5 moves each backed by cited screens, apply inside the product's own design system, verify against a six-check job walk, and report with a before/after image. Explore mode builds one variation per direction instead.
 
-Redesign any screen from patterns real apps.
+## When to use / not use
+Use when someone has an existing screen (codebase, image, design file, live page) and wants a better version grounded in real-app precedent. NOT for greenfield design, copy changes alone, or when Mobbin tools aren't connected — the skill explicitly refuses to run on memory.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a source screen + optional user words/references/collections + mode flag (--explore/--targeted). Output: edits in the source's own form (code, design frame, PNG) + before/after render + evidence-cited report. Needs: Mobbin MCP (search_screens/search_sections/search_flows, list_collections/get_collection_contents), the job-walk method, plain-writing report style.
 
-- Redesign a screen from a reference
-- Workflow
-- Reference files
-- Ground rules
-- Inputs
-- Mode
-- Outputs
-- 1. Scope the target
-- 2. Freeze the baseline
-- 3. Search and lock references
-- 4. Plan the moves
-- 5. Apply
-- 6. Check the render against the job
-- 7. Render the before and after image
-- 8. Report
-- (none)
+## Key rules
+1. Evidence discipline: every claim cites the source, user's words, or a named Mobbin screen with mobbin_url; strength is stated (2+ products = precedent, 1 = example, 0 = labelled opinion). No "most apps", no remembered research, no claimed behavioral outcomes.
+2. Structure from references, look from the user's design: take the reference's decisions, never its colors/typeface/copy; build only from the product's own design system tokens.
+3. One direction taken whole — never mix two structural directions; max 5 moves, one per ticked problem, each with a roll call of screens showing that exact decision.
+4. Freeze the baseline BEFORE searching: domain, design system, copy/data, everything outside target, user-requested preserves; problem list capped at 5, overflow goes to a Deferred record.
+5. Verify by re-walking the render through the six job checks (path leads, info beside decisions, nothing missing, labels true, states complete, platform minimums) + 3 render checks, max 3 fix rounds; a failing move gets cut, not patched around.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Hard dependency on Mobbin connectivity and on reading every reference image — partial reads are explicitly forbidden.
+- "Take the side whole" concentrates risk: a wrong direction choice propagates through all moves.
+- Explore mode produces mockups only; applying a picked variation is a second pass.
+- Taste/tone rules assume Western product-design conventions; the skill is Mobbin-centric.
 
-- none declared
+## Category and tags
+design, web — mobbin, redesign, design-research, evidence-based, ux.
 
-## Risks / cautions found in text
-
-- - **No class of products you did not look at.** No "most apps", "best-in-class", "industry standard" or "the way high-converting paywalls do": name the products, each a screen you looked at.
-- - **No research, principle or heuristic from memory.** No "research shows", named law or name-dropped authority, since the skill has no corpus of studies.
-- 4. **Every label and value is true.** A control does what it says, and an icon without a label is one the platform or the product already teaches (close, share, back, a tab it repeats); an unlabelled icon the design system uses throughout is its style, not a fault. A value shown twice reads the same
-- 1. **The domain.** The product stays the same kind of product; a reference from another domain lends structure only.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Scope the target.** Write the job, walk the path, and settle target, problems and what must survive, all before the first search.
-2. 2. **Freeze the baseline.** Write down what must not change before changing anything.
-3. 3. **Search and lock references**, or read the collection the user pointed at. Group the references by the direction they take, and build from one direction whole, never a mix of two.
-4. 7. **Render the before and after image.**
-5. - **No Mobbin before step 3.** Until the search has run or the collection has been read, and its images are looked at, nothing is cited, so the scoping round uses only the source and the user's words.
-
-## Files inside the skill
-
-- `assets/board.html`
-- `assets/chrome/ios.css`
-- `assets/reference-board.html`
-- `assets/shell.html`
-- `assets/variations.html`
-- `references/answering-a-challenge.md` — "Answering a challenge after the render"
-- `references/before-after-board.md` — "The before and after board"
-- `references/collections.md` — "Redesigning from a collection"
-- `references/reference-board.md` — "The reference board"
-- `references/report.md` — "The report"
-- `references/scope-and-preserve.md` — "Scoping rules"
-- `references/scoping-round.md` — "Asking the scoping round"
-- `references/taste.md` — "Taste: how a judgement call is made"
-- `references/variations.md` — "Explore: up to three variations, one side each"
-- `scripts/embed-images.py`
+## Revision note
+Single plugin revision; the most procedurally rigorous skill in the slice (8 reference files, strict evidence taxonomy).

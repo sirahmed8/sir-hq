@@ -1,40 +1,28 @@
-# flows
+# flows (Postman Flows)
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\flows\SKILL.md`
-- SKILL.md size: 3977 chars
+## Summary
+Operational guide for running, deploying and debugging Postman Flows — API workflows saved as block graphs. Core doctrine: the artifact and execution path determine what a "pass" means. `postman flows run <path>` executes a local JSON graph; `postman flows trigger <flow-id>` calls the deployed webhook (auth + config included). Local View and Cloud View artifacts are isolated — local files are not assumed deployable, `workspace pull` does not fetch them, and the desktop app's Git-connected Local View produces them. Diagnosis must follow block-level run evidence (`flows get-run --run-id`, `--logs`), because an HTTP 200 trigger response only proves the Response block ran — other blocks may have failed.
 
-## What it does
+## When to use / when NOT
+Use when running, deploying, or debugging an existing Postman Flow ("why did this flow fail"). Not for authoring flow graphs from scratch (Postman app/other skills) or for plain single-request API testing.
 
-Use when running, deploying, or debugging an existing Postman Flow. Distinguishes local graph execution from a deployed webhook, reuses named input scenarios, and follows a run to the failing block rather than treating an HTTP response as whole-flow success. Use for requests such as "why did this flow fail".
+## Inputs, outputs, tools
+- Inputs: local flow JSON path OR hosted flow-id (resolve via `flows list --workspace <id>`; no local mapping in .postman/resources.yaml), named Start-block scenarios (`-s` payload/headers/query; `-i`/`-f` and explicit flags override), `--dry-run` for deployed side-effect flows.
+- Outputs: run results/reports (persist them in CI with the failure exit code), Run IDs, failing block + cause.
+- Tools: `postman flows run|trigger|update|get-run|list-runs|list`, `--workspace` (required even for connector blocks in local runs), reference/flow_cli_flags.md for reporters/dataset iteration/flag collisions; api-discovery skill for cross-workspace search.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Pick the right artifact first: local `run` vs deployed `trigger` produce different evidence — a passing local run says nothing about the deployed webhook callers hit; never assume local files are deployable.
+2. Reuse named Start-block scenarios for repeatable payloads; one-off inputs go on the invocation; secrets stay masked — use `trigger --dry-run` before side-effecting deployed runs.
+3. Deployment needs canvas config the CLI can't repair: Start block set to API-request trigger + a Response block; resolve path suffix and auth first; deploy/auth changes affect other callers — unrequested public exposure or auth removal needs consent.
+4. A deployed-but-disabled flow receives nothing — check enabled state (`flows update <id> --trigger on` to enable when intended); report URL, auth and enabled state separately from execution results.
+5. Diagnose from run evidence, not the trigger response: HTTP 200 ≠ whole-flow success; `flows get-run --run-id <id> --logs` names the failing block; `list-runs` widens time range before concluding absence; access denials across workspaces = credentials/entitlement, not empty results.
 
-- local JSON file; `postman flows trigger <flow-id>` calls the deployed
-- webhook, including trigger auth and configuration. Local View and Cloud
-- For deployed flows with side effects, `trigger --dry-run` lets you inspect
+## Risks / owner needs
+Deployed flows are callable endpoints — auth/exposure decisions are owner-visible; check local-run entitlement before building CI on it. Secrets must never appear in reports.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: automation. Tags: postman, flows, api-automation, webhooks, ci-cd, debugging.
 
-- Postman Flows
-- Verification
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Choose the artifact the user means. `postman flows run <path>` executes a
-2. 2. Resolve hosted IDs through `flows list --workspace <id>`; there is no
-3. 3. Reuse a Start-block scenario when the same payload should travel with the
-
-## Files inside the skill
-
-- `reference/flow_cli_flags.md` — "Flows CLI Flags"
+## Revisions
+Single gemini-plugin postman copy; no competing revisions.

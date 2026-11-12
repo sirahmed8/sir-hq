@@ -1,61 +1,28 @@
-# vercel-storage
+# vercel-storage (codex revision)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-storage\SKILL.md`
-- SKILL.md size: 15456 chars
+## Summary
+vercel-storage is the authoritative map of Vercel storage: FIRST-PARTY — Vercel Blob (`@vercel/blob`: put/get/list/del, public vs private access, client uploads to 5TB via handleUploadUrl token endpoint, ETag conditional get, Fast Data Transfer vs Blob Data Transfer routing) and Edge Config (`@vercel/edge-config`: <1ms edge reads for flags/A-B/routing config — reads only, never user data or writes). MARKETPLACE — and the critical fact that `@vercel/postgres` and `@vercel/kv` are SUNSET: use Neon Postgres (`@neondatabase/serverless`, needs Node 19+, lazy-init DB or top-level `neon()` crashes `next build`, NEVER wrap db in a JS Proxy — breaks NextAuth inspection and hangs auth silently, drizzle-kit/tsx don't auto-load .env.local so use dotenv-cli) and Upstash Redis (`@upstash/redis` + Ratelimit), plus Supabase, Prisma, MongoDB Atlas, Convex, Turso. Provisioning preference: Marketplace integration (`vercel integration add neon`) auto-injects env vars; manual fallback requires `vercel env pull .env.local`. Includes migration diffs (@vercel/postgres→Neon with `@neondatabase/vercel-postgres-compat` drop-in, @vercel/kv→Upstash) and a decision matrix.
 
-## What it does
+## When to use / when NOT
+Use when choosing/provisioning/wiring any Vercel storage or database. Do NOT use Edge Config for user data/writes; don't use private Blob access for publicly-served files (slow + egress costs); don't reach for @vercel/postgres or @vercel/kv — they no longer exist.
 
-Vercel storage expert guidance.
+## Inputs, outputs, tools
+- Inputs: storage need (files/config/SQL/KV/docs/reactive/edge-sqlite).
+- Outputs: package choice, provisioning commands, code snippets, env var handling.
+- Tools: `vercel integration add/list`, `vercel env pull`, provider SDKs, dotenv-cli for scripts.
 
-## When to use (from skill text)
+## 5 most important rules
+1. @vercel/postgres and @vercel/kv are DEAD — migrate to Neon/Upstash; compat package exists for postgres.
+2. Lazy-init the Neon client (`getDb()` pattern): top-level `neon()` throws at build time when DATABASE_URL isn't set yet.
+3. NEVER Proxy-wrap the DB client — silently hangs NextAuth/Auth.js adapter inspection.
+4. Provision via Marketplace first (auto env vars); manual provisioning means you sync env vars yourself then `vercel env pull`.
+5. Only Next.js auto-loads .env.local — drizzle-kit, tsx, seed scripts need `dotenv -e .env.local --` or sourced exports.
 
-- **Use when**: Media files, user uploads, documents, any large unstructured data.
-- **Use when**: Feature flags, A/B testing config, dynamic routing rules, maintenance mode toggles. Anything that must be read at the edge with near-zero latency.
+## Risks / things needing the owner
+Marketplace installs create real billed resources and inject secrets — owner-level billing/account decisions; Neon CLI fallback for Vercel-managed projects needs a Neon API key. Private blob misconfiguration leaks or breaks delivery. Env var sync mistakes cause build/runtime divergence.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, storage, database, marketplace, neon
 
-- Vercel Storage
-- Provider Choice for Bootstrap
-- Active First-Party Storage
-- Vercel Blob — File Storage
-- Vercel Global Config (formerly Edge Config)
-- Marketplace Storage (Partner-Provided)
-- IMPORTANT: @vercel/postgres and @vercel/kv are SUNSET
-- Neon Postgres (replaces @vercel/postgres)
-- Option 1: Source env vars before running
-- Option 2: Use dotenv-cli (recommended for scripts)
-- Upstash Redis (replaces @vercel/kv)
-- Supabase (Marketplace Native)
-- Prisma Postgres (Marketplace Native)
-- MongoDB Atlas
-- Convex
-- Turso (libSQL)
-- Storage Decision Matrix
-- Migration Guide
-- From @vercel/postgres → Neon
-- From @vercel/kv → Upstash Redis
-- Installing Marketplace Storage
-- Install a storage integration (auto-provisions env vars)
-- List installed integrations
-- Cross-References
-- Official Documentation
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2. Add the pooled string under a new name, for example `vercel env add DATABASE_URL_POOLED production`, once per connected environment. Don't overwrite the integration's variables.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. **Fallback**: Provider CLI/manual provisioning only when Marketplace is unavailable or you must use an existing external account.
-2. 2. Add the pooled string under a new name, for example `vercel env add DATABASE_URL_POOLED production`, once per connected environment. Don't overwrite the integration's variables.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single source read: `C:\Users\a7med\.codex\skills\vercel-storage\SKILL.md` (363 lines). Six-tool skill; codex revision representative.

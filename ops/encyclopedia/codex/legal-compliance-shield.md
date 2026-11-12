@@ -1,44 +1,27 @@
 # legal-compliance-shield
 
-- Tool: `codex`
-- Category: security
-- Source: `C:\Users\a7med\.codex\skills\legal-compliance-shield\SKILL.md`
-- SKILL.md size: 4613 chars
+Source read: `C:\Users\a7med\.claude\skills\legal-compliance-shield\SKILL.md` (4.7 KB; claude revision; codex/cursor/kilo/opencode/windsurf listed).
 
-## What it does
+## Summary
+The "Anti-Sue" legal architecture for production apps: four mandatory public routes. `/privacy` — exact-match data disclosure, published sub-processor directory, downloadable DPA for B2B, explicit "no AI training on customer data without opt-in" clause, GDPR Art.15-22 self-serve export/delete, COPPA/age disclaimers. `/terms` — liability cap at greater of $100 or 12-month fees, "AS IS" warranty disclaimer, truthful-claims guard (no SOC 2/ISO claims without audit, no impossible SLAs, no customer logos without written permission), AUP, binding arbitration + class-action waiver. `/refunds` — auto-renewal disclosure before checkout, 1-click cancellation matching signup click-count (FTC), digital-goods cooling-off waiver. `/cookies` — pre-consent tracker blocking (no GA/Meta/Hotjar/TikTok pixels before accept), equal-prominence Reject All, granular unticked-by-default toggles. Plus form/licensing/email hygiene: unchecked ToS checkbox, SPDX license audit (kill GPL/AGPL in proprietary code), commercial font/asset licensing, CAN-SPAM unsubscribe + physical address + <24h honoring, WCAG 2.1 AA.
 
-Ironclad legal compliance: privacy policies matching collection, liability caps, cookie reject, and DPAs.
+## When to use / when NOT
+Use when adding or reviewing legal pages, checkout flows, cookie banners, or auditing licenses/assets for a commercial product. Do NOT treat it as legal advice — it is a compliance checklist; jurisdiction-specific counsel may still be needed. Not for internal tools with no public users.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: the app's actual data collection, payment/subscription model, trackers in use, dependency list.
+- Outputs: the four routes' content requirements, consent/banner specs, audit checklist results.
+- Tools: none — guidance only; pairs with the project's router/pages.
 
-- Legal Compliance Shield & Agreements Engine ("Anti-Sue" Protocol)
-- 1. Mandatory Legal Pages Architecture
-- 1. `/privacy` — Privacy Policy (GDPR / CCPA / CalOPPA compliant)
-- 2. `/terms` — Terms of Service / Terms & Conditions
-- 3. `/refunds` — Refund & Cancellation Policy
-- 4. `/cookies` — Cookie Policy & Pre-Consent Blocking
-- 2. Forms, Consents, Licenses & Email Hygiene
-- (none)
+## 5 most important rules
+1. Privacy policy must match REAL data collection exactly — no aspirational claims.
+2. No trackers load before cookie consent; Reject All has equal visual weight to Accept All.
+3. Cancellation takes the same number of clicks as signup; auto-renewal disclosed pre-checkout.
+4. Never claim certifications (SOC 2, ISO) or uptime numbers that aren't audited/true; no customer logos without written permission.
+5. Audit dependency licenses (SPDX) and asset/font licenses; GPL/AGPL and unlicensed fonts must go.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Non-compliance is the owner's legal exposure — GDPR fines and ADA lawsuits are named risks. Pages must be customized to what the product actually does/collects; copying boilerplate creates false statements.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Data Minimization & Exact Match**: State explicitly only what the app genuinely collects (identity, tokens, telemetry).
-- - **Data Processing Agreement (DPA)**: Offer a downloadable, legally binding DPA for B2B/enterprise customers.
-- - **User Rights (GDPR Art. 15-22)**: Direct self-serve flows to export data (data portability) and permanently delete account data (GDPR Art. 17).
-- - **Children's Privacy (COPPA / GDPR-K)**: Strict age verification disclaimer (<13 or <16). Zero tracking of minors.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **AI Training Consent Shield**: Explicitly state: *"We do NOT train artificial intelligence or machine learning models on customer data without express affirmative opt-in consent."*
-2. - Never claim **SOC 2 Type II** or **ISO 27001** certification unless certified and audited by an accredited independent auditor.
-3. - Never promise unachievable uptime (e.g., 99.999% SLA) without defined maintenance windows, exclusions, and SLA credit remedies.
-4. - **Acceptable Use Policy (AUP)**: Prohibit abuse, scraping, reverse engineering, and unlawful activities.
-5. - **Auto-Renewal Disclosure**: Clearly disclose subscription billing frequency, auto-renewal terms, and upcoming charge dates **before** checkout.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: security. Tags: legal, privacy, gdpr, cookies, terms, refunds, licensing, compliance.

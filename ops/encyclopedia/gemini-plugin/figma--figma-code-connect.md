@@ -1,64 +1,28 @@
 # figma-code-connect
 
-- Tool: `gemini-plugin` (plugin: `figma`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\figma\skills\figma-code-connect\SKILL.md`
-- SKILL.md size: 26772 chars
+## Summary
+End-to-end procedure for creating Figma Code Connect template files (`.figma.ts`) that map published Figma components to real code components: parse the Figma URL, discover unmapped components via `get_code_connect_suggestions`, fetch property definitions via `get_context_for_code_connect`, locate the matching code component, then author a parserless template whose default export uses `` figma.code`...` `` with `getString`/`getBoolean`/`getEnum`/`getInstanceSwap`/`getSlot`/`findInstance` extraction and `executeTemplate()` for nested instances.
 
-## What it does
+## When to use / when NOT
+Use when given a Figma URL and asked to connect components to code. Prerequisites are strict: Figma MCP connected, components published to a team library, Organization/Enterprise plan, URL must contain `node-id`. Do NOT write `.figma.tsx` or use `figma.connect()` — that parser-based format is a different artifact and is rejected here; leave existing `.figma.tsx` files untouched and add `.figma.ts` alongside.
 
-Create and maintain Figma Code Connect.
+## Inputs, outputs, tools
+- Inputs: Figma URL (fileKey + nodeId, hyphens→colons), target codebase (`figma.config.json` paths/importPaths/include, tsconfig types), optionally a specified code component.
+- Outputs: `ComponentName.figma.ts` files beside existing Code Connect files, validated against a checklist.
+- Tools: Figma MCP `get_code_connect_suggestions`, `get_context_for_code_connect`; project file reads; references api.md and advanced-patterns.md.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Output is ALWAYS `.figma.ts` + `` figma.code`...` `` tagged template — never `.figma.tsx`/`figma.connect()`; the default export needs `example` and `id`, optional `imports`/`metadata`.
+2. Map Figma properties exhaustively: every VARIANT value must appear in `getEnum` (unmapped = silent undefined); combine multiple variants into exhaustive conditional branches when output differs; omit properties with no code-prop equivalent — never invent props.
+3. Never hardcode slot/children content: resolve INSTANCE_SWAP via `getInstanceSwap`, children via `findInstance`/`findConnectedInstance`/`findText`, always `executeTemplate()`; check `type === 'INSTANCE'` first (finders return truthy ErrorHandle on failure) and skip `hasCodeConnect()` guards.
+4. Interpolation wrapping matters: strings quoted, instance/section results in braces, slot sections interpolated as snippet sections, booleans via ternary; never string-concatenate ResultSection[] (`[object Object]`), never `.map().join()`.
+5. Prefer `getInstanceSwap` over `findInstance` when a property exists (survives icon swaps); `getSlot` only for SLOT-type properties; `traverseInstances: true` + `path` needed to reach inside nested instances — but only reach in when the parent code component takes the child as a prop.
 
-- | Method | Use when |
+## Risks / owner needs
+Plan-gated (Org/Enterprise only) and requires published components — unpublished selections stop the flow. Wrong mappings silently produce broken snippets; Step 6 self-review is the only gate.
 
-## Structure (headings inside SKILL.md)
+## Category and tags
+Category: design. Tags: figma, code-connect, design-to-code, typescript, mcp, component-mapping.
 
-- Code Connect
-- Overview
-- Prerequisites
-- Step 1: Parse the Figma URL
-- Step 2: Discover Unmapped Components
-- Step 3: Fetch Component Properties
-- Step 4: Identify the Code Component
-- Step 5: Create the Template File (.figma.ts)
-- File location
-- Template structure
-- Property mapping
-- Exhaustive variant handling
-- Interpolation in tagged templates
-- Finding descendant layers
-- Nested configurable instances
-- Nested component example
-- Conditional props
-- Step 6: Validate
-- Inline Quick Reference
-- `instance.*` Methods
-- InstanceHandle Methods
-- TextHandle Properties
-- SelectorOptions
-- Export Structure
-- Rules and Pitfalls
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP server, MCP tools, MCP client, MCP tool
-
-## Risks / cautions found in text
-
-- 1. **Never string-concatenate template results.** `executeTemplate().example` is a `ResultSection[]` object, not a string. Using `+` or `.join()` produces `[object Object]`. Always interpolate inside tagged templates: `` figma.code`${snippet1}${snippet2}` ``
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Figma MCP server must be connected** — verify that Figma MCP tools (e.g., `get_code_connect_suggestions`) are available before proceeding. If not, guide the user to enable the Figma MCP server and restart their MCP client.
-2. - **Components must be published** — Code Connect only works with components published to a Figma team library. If a component is not published, inform the user and stop.
-3. - **Organization or Enterprise plan required** — Code Connect is not available on Free or Professional plans.
-4. - **URL must include `node-id`** — the Figma URL must contain the `node-id` query parameter.
-5. - **TypeScript types** — for editor autocomplete and type checking in `.figma.ts` files `@figma/code-connect/figma-types` must be added to `types` in `tsconfig.json`:
-
-## Files inside the skill
-
-- `references/advanced-patterns.md` — "Code Connect Examples"
-- `references/api.md` — "Code Connect Template API Reference"
+## Revisions
+Single gemini-plugin figma copy; no competing revisions.

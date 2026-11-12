@@ -1,47 +1,28 @@
-# dart-collect-coverage
+# dart-collect-coverage (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-collect-coverage\SKILL.md`
-- SKILL.md size: 4893 chars
+## Summary
+Guide for collecting Dart/Flutter test coverage: add `coverage` as a dev_dependency, run `dart run coverage:test_with_coverage` to produce `coverage/lcov.info` (+ raw coverage.json), use `// coverage:ignore-line|start|end|file` directives for intentional exclusions, and — for granular control — a manual workflow driving the VM service (`--pause-isolates-on-exit --enable-vm-service`) with `coverage:collect_coverage` and optional `--function-coverage`/`--branch-coverage`.
 
-## What it does
+## When to use / when NOT
+Use when measuring or reporting test coverage, wiring coverage into CI, or chasing missing coverage on specific files. Do NOT use as a substitute for writing the tests themselves (dart-add-unit-test) or for non-Dart projects.
 
-Collect coverage using the coverage packge and create an LCOV report
+## Inputs, outputs, tools
+- Inputs: existing test suite; optional ignore directives in source.
+- Outputs: `coverage/coverage.json` and `coverage/lcov.info` LCOV report.
+- Tools: `coverage` package (`dart pub add dev:coverage` / `flutter pub add dev:coverage`), `dart run coverage:test_with_coverage`, manual `dart run --pause-isolates-on-exit ... test` + `coverage:collect_coverage`; in workspaces pass explicit test dirs.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. `coverage` goes in dev_dependencies only — never runtime deps.
+2. Prefer the bundled `test_with_coverage` script; use the manual VM-service flow only when you need function/branch coverage or custom control.
+3. Validate output: `coverage/` dir, `coverage.json`, `lcov.info` must exist.
+4. Missing coverage on a file means it isn't imported/executed by tests — or add `// coverage:ignore-file` if intentionally excluded.
+5. Enforce ignore directives with `--check-ignore` during formatting.
 
-- Implementing Dart and Flutter Test Coverage
-- Contents
-- Testing Fundamentals
-- Coverage Directives
-- Workflow: Configuring and Generating Coverage Reports
-- 1. Add Dependencies
-- 2. Collect Coverage and Generate LCOV
-- 3. Feedback Loop: Validate Output
-- Workflow: Advanced Manual Coverage Collection
-- 1. Run Tests with VM Service
-- 2. Collect Raw Coverage
-- 3. Format to LCOV
-- Examples
-- Example: `pubspec.yaml` Configuration
-- Example: Applying Ignore Directives
-- (none)
+## Risks / things needing the owner
+Coverage % can be gamed by ignore directives — review them in PRs. Branch/function coverage needs Dart VM 2.17+.
 
-## Tools / MCPs it needs
+## Category / tags
+build · dart, flutter, testing, coverage
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - [Testing Fundamentals](#testing-fundamentals)
-2. - [Coverage Directives](#coverage-directives)
-3. - [Workflow: Configuring and Generating Coverage Reports](#workflow-configuring-and-generating-coverage-reports)
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-collect-coverage\SKILL.md`. Only gemini-plugin holds it.

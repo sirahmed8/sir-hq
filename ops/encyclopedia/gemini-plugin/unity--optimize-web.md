@@ -1,67 +1,30 @@
 # optimize-web
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-web\SKILL.md`
-- SKILL.md size: 38668 chars
+Tools: gemini-plugin (unity plugin). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-web\SKILL.md (530 lines) + scripts/WebOptimizer.cs, scripts/toktx-examples.sh
 
-## What it does
+## Summary
+A rigorous audit-and-apply workflow for shrinking and speeding up Unity WebGL/WebGPU builds: Player Settings (Brotli compression, managed stripping High, Wasm 2023, exceptions, memory), server header requirements, shader/package stripping, KTX2/Basis textures, Addressables streaming, browser profiling, and iOS Safari memory limits. Nearly everything runs through a live Editor via `unity command script eval`, with a critical verify-from-disk discipline.
 
-Optimizes Unity WebGL and WebGPU builds for smaller downloads, faster loading, and smoother browser performance. Use when asked to shrink a web build, speed up its load, or fix stutter, memory or battery problems in the browser.
+## When to use / not use
+Use for "build too large", "download too slow", browser stutter, battery, memory, or Web-specific issues in a Unity project. Requires a reachable Editor with `script eval`; without one it falls back to docs-based recommendations and marks build/runtime checks unperformed.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: a Unity project (version read from ProjectVersion.txt) plus a stated optimization goal. Output: applied Player Settings, optional WebOptimizer.cs menu script, validated build with before/after sizes. Needs: unity-cli skill, `com.unity.pipeline`, docs lookup discipline (local Documentation folder or versioned docs.unity.com pages — never training knowledge).
 
-- | Compression | Use when | Notes |
-- ### Memory growth slow path triggered
+## Key rules
+1. Baseline first (Pre-Flight snippet reads all settings), create a restore point, do only what's asked.
+2. THE trap: applying a setting and reading it back in the same session proves nothing — Player Settings are in-memory until `AssetDatabase.SaveAssets()`. Verify `ProjectSettings.asset` on disk; `codeOptimization` lives in gitignored `Library/` and must be applied in CI.
+3. Release matrix: Brotli (HTTPS) / Gzip (HTTP), Decompression Fallback off if server sends Content-Encoding, Strip Engine Code on, Managed Stripping High, Disk Size+LTO, exceptions None, API .NET Standard 2.1, IL2CPP Optimize Size, targetFrameRate=-1, vSync=0.
+4. Don't hand-edit ProjectSettings.asset (serialized names differ, per-target values); `script eval` takes statement blocks — no usings, fully-qualified types; three API spellings are traps (GetManagedStrippingLevel etc.).
+5. KTX2/Basis only for runtime-loaded textures on unknown GPUs (ETC1S size / UASTC quality, encode offline with toktx, `--lower_left_maps_to_s0t0`); AudioEffects don't work on WebGL; iOS <18 caps WASM heap ~2GB, prefer high Initial Memory over growth.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Server misconfiguration silently negates compression — Decompression Fallback is a ~150KB fallback only.
+- Stripping shaders/packages can break referenced content; test after stripping, keep link.xml for reflection users.
+- Safari caps 60fps and has different GC/JIT — always verify in both Chrome and Safari; batch-mode `-quit` runs cannot reproduce the unsaved-settings bug.
 
-- Important
-- Performance Notes
-- Full topic map
-- API reference
-- Procedure
-- Running C# in the Editor
-- Passing C# to `script eval`
-- Reading the settings this skill audits
-- Applying the settings
-- Verify from disk, not from the objects you just wrote
-- 0. Pre-Flight
-- 1. Assess Current State
-- 2. Understand Request
-- 3. Web Build Optimization Workflow
-- IMPORTANT: One-click optimization script
-- Player Settings audit
-- Compression and server configuration
-- Exception handling
-- Remove unused resources
-- Quality settings for Web
-- Frame rate on Web
-- KTX / Basis Universal textures
-- Streaming on Web
-- Profiling Web builds
-- Web memory directives
-- (none)
+## Category and tags
+build, web, mobile — unity, webgl, wasm, optimization, performance, game-dev.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - Use `OnDemandRendering.renderFrameInterval` to drop to 5–10 fps on static/idle screens to save battery.
-- - WASM heap > 300 MB risks crashes on older iOS; target < 200 MB for broad compatibility.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Before making changes, establish a baseline of the current behavior so you can tell whether a later result is actually caused by your change.
-2. - Do only what's asked. Don't change unrelated assets or files.
-3. - Avoid long explanations.
-4. 4. Grep the yml file locally for a class or method instead of refetching per lookup. The file is large (about 6 MB), so don't read the whole file.
-5. - Links inside the pages start with `/engine/`. Add `https://docs.unity.com/en-us` before them.
-
-## Files inside the skill
-
-- `scripts/toktx-examples.sh`
-- `scripts/WebOptimizer.cs`
-- `SECURITY.md` — "Security notes: optimize-web"
+## Revision note
+Single plugin revision; the deepest and most operationally honest skill in the slice (documents its own observed failure modes).

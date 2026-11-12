@@ -1,72 +1,30 @@
 # qodo-review
 
-- Tool: `gemini-plugin` (plugin: `qodo`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\qodo\skills\qodo-review\SKILL.md`
-- SKILL.md size: 39080 chars
+Tools: gemini-plugin (qodo plugin). Source: C:\Users\a7med\.gemini\config\plugins\qodo\skills\qodo-review\SKILL.md (497 lines) + references/{review-turn-context,context-delivery,connected-progress,local-triage,finding-results,skill-updates}.md
 
-## What it does
+## Summary
+Runs Qodo's AI review on LOCAL uncommitted/unpushed changes via `qodo review` (diff + new files + session context to Qodo's servers; base must be on remote, nothing is pushed). Governs when to review (light `--fast --async` checkpoints during coding, auto for final pre-PR review, `--deep` only for justified high blast radius), how to collect async results, how to attach decision/note/recent-work context, and how to own dispositions on returned findings.
 
-Review local changes with Qodo during substantive coding milestones and before a PR or completed-work handoff. Use light background checkpoints while coding, collect and assess findings with session context, and run a final review before handing off. Also use for "review my local diff", "pre-PR review", or "run qodo review". Use qodo-review-resolver for findings already posted on a PR.
+## When to use / not use
+Use for local diff review during substantive coding and before PR/handoff; for findings already posted on a remote PR use `qodo-review-resolver` instead. Not for non-code chores.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: local git worktree + optional `.qodo/session-context.json` + `--ticket`/`--context-file`. Output: structured findings (`{findings, meta}`) with categories, action levels, coverage flags; agent then fixes/dismisses/investigates. Needs: authenticated `qodo` CLI >=2.0.0, remote base ref (merge-base SHA passed as `--base`), minutes-long runtime or async polling.
 
-- Use this skill for local changes, including unpushed work on an existing PR. Use `qodo-review-resolver` to work on findings from the PR's remote review; do not duplicate that review for an unchanged pushed snapshot.
+## Key rules
+1. Depth policy: `--fast` for checkpoints, auto (no flag) for final review, `--deep` only with a concrete blast-radius reason — never by diff size or timeout pressure; mutually exclusive flags.
+2. Commit task changes locally before each review (uncommitted edits included but HEAD SHA is the review anchor); max one active async checkpoint per task.
+3. Context is the reviewer's only window into intent: `decisions` (who chose what + why), `notes` (evidence/constraints/verification), `recent_work` (what changed since last review) — never strip context to beat the clock, never include secrets.
+4. Result discipline: zero findings ≠ clean if `coverage.complete`/`finding_state.complete` is false; assess `.introduced` AND `.still_open`; a superseded result can't certify newer work; results expire after 1h.
+5. Authority: report-only requests get assessment and stop; fix authority covers code edits only — stored dismissals need separate explicit authorization (`pr-review-dismiss` with reason).
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Closed preview: `closed_preview` error means org not enrolled — surface message+hint and STOP, never retry.
+- `--async` has no streaming progress and no human-in-the-loop; killed clients can cause server cancellation — use async or keep connected process alive.
+- Finding writes are forge-adjacent state in Qodo's DB; misapplied dismissals pollute future reviews.
 
-- Local Review
-- Description
-- Prerequisites
-- Choose when and how deeply to review
-- Checkpoints and final handoff
-- Prepare a PR handoff
-- Instructions
-- Choose the execution path
-- Handle a skill update notice
-- Execution
-- Runtime compatibility gate
-- Quick start
-- Choose execution for the selected review
-- Submit and collect with `--async`
-- This collection attempt returns failures to the host for classification under Recover a review.
-- On nonzero exit, preserve the operation ID and emitted error; apply bounded recovery there.
-- Preflight
-- What gets reviewed
-- Attach coding-session context
-- Present the review result
-- Act on the findings
-- Recover a review
-- If the run is gated: closed preview
-- Configuration
-- Error Handling
-- (none)
+## Category and tags
+ai, build, security — qodo, code-review, pre-pr, llm-review, quality-gate.
 
-## Tools / MCPs it needs
-
-- MCP mentions: MCP server, MCP tool, MCP review, MCP Tasks
-
-## Risks / cautions found in text
-
-- - The **tracked diff** vs the base, plus **new/untracked files** (secrets, binaries, oversized,
-- - **Never strip context to beat the clock.** Dropping `--context-file` doesn't make a run faster —
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Review a completed, testable slice when its feedback can guide the remaining work. Do not review
-2. - Before final review, collect the outstanding checkpoint and reconcile its findings. Review the
-3. - Windows CLI: read [shell guidance](references/windows-shells.md) before the first call; [launcher recovery](references/windows-launcher.md) only if invocation fails. Reuse the resolved invocation.
-4. - Capture the process exit status, reap the child and disarm its PID before parsing. On interruption,
-5. - **The result is kept for 1 hour** after the review finishes, then it is discarded. Collect it
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `references/connected-progress.md` — "Connected review progress example"
-- `references/context-delivery.md` — "Context receipt field reference"
-- `references/finding-results.md` — "Finding results and local run metadata"
-- `references/local-triage.md` — "Record local triage"
-- `references/review-turn-context.md` — "Session context examples"
-- `references/skill-updates.md` — "Manual enterprise skill updates"
-- `references/windows-launcher.md` — "Windows launcher recovery"
-- `references/windows-shells.md` — "Windows shells"
+## Revision note
+Single plugin revision (v1.10.15); the heaviest skill in the slice — essentially a full review-lifecycle runbook.

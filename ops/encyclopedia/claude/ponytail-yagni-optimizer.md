@@ -1,37 +1,29 @@
 # ponytail-yagni-optimizer
 
-- Tool: `claude`
-- Category: automation
-- Source: `C:\Users\a7med\.claude\skills\ponytail-yagni-optimizer\SKILL.md`
-- SKILL.md size: 2021 chars
+Tools: claude, codex, cursor, gemini-plugin, kilo, opencode, windsurf (kilo copy used; identical across tools).
+Source: C:\Users\a7med\.config\kilo\skills\ponytail-yagni-optimizer\SKILL.md (37 lines, read in full)
 
-## What it does
+## Summary
+A minimalist-engineering filter: before adding any dependency, abstraction, or helper, run the YAGNI question ladder — can the native platform do it (0 deps), can a 5-line helper do it, is the dependency audited and minimal — and prefer native primitives over libraries to cut bundle size and agent context spend.
 
-Use when code is bloated or over-engineered and should be cut back by preferring native platform features over new dependencies.
+## When to use / not use
+Use when reviewing code for bloat, choosing whether to add a package, or generating code that should stay lean. It is a judgment heuristic, not a linter — it won't catch bloat that already shipped.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a feature/utility requirement or existing code. Output: a decision (use native / write helper / install audited dep / reject) or slimmer generated code. Needs: nothing — pure reasoning guidance.
 
-- Ponytail YAGNI Optimizer (Senior Minimalist Engineering)
-- 1. The YAGNI Question Ladder
-- 2. Token-Saving & Anti-Bloat Substitutions
-- (none)
+## Key rules
+1. The ladder order is mandatory: native platform API → 5-line typed helper → audited minimal dependency → reject as YAGNI.
+2. Concrete substitutions: native `fetch`/`AbortController`/`FormData` over Axios; CSS `:has()`/container queries/`dialog`/View Transitions over JS modal/animation libs; `crypto.subtle`/`crypto.randomUUID()` over crypto-js; `Intl.DateTimeFormat`/date-fns over Moment.js.
+3. Surgical generation: 40 elegant lines beat 300 lines of boilerplate.
+4. "Audited" means checking the dependency's provenance/weight before installing — minimalism isn't license to grab random packages.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Over-application risk: "native first" can produce worse UX (e.g., hand-rolled modals vs accessible Radix) — the skill doesn't weigh accessibility/edge-case costs of dropping libraries, and ignores the maintenance burden of self-written helpers.
+- No enforcement mechanism; it's advice the agent may skip under time pressure.
 
-- none declared
+## Category and tags
+build, web — yagni, minimalism, dependencies, bundle-size, code-review.
 
-## Risks / cautions found in text
-
-- - CSS `:has()`, Container Queries, and `dialog` element replace heavy JS modal/dropdown managers.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Native Fetch instead of Axios**: Modern Node 18+ and browsers have `fetch`, `AbortController`, and `FormData` built-in.
-2. - **Modern CSS instead of Complex JS Libraries**:
-3. - **Native Web Crypto instead of `crypto-js`**: Use `crypto.subtle` for hashing, HMAC, and random UUID generation (`crypto.randomUUID()`).
-4. - **Standard Date handling instead of Moment.js**: Use native `Intl.DateTimeFormat` or lightweight `date-fns` functions instead of 70KB Moment.js bundles.
-5. - **Surgical Code Generation**: Never generate 300 lines of boilerplate when 40 lines of elegant, readable code fulfill the requirements.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revision note
+Identical across tools; 37-line decision heuristic.

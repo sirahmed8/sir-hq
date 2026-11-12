@@ -1,49 +1,28 @@
-# verification
+# verification (windsurf/codex skill)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\verification\SKILL.md`
-- SKILL.md size: 5112 chars
+## Summary
+verification is a verification-ORCHESTRATOR skill, not a checklist: infer the complete user story being built, then verify every boundary of the flow with real evidence. Step 1 anchors everything — read recent edits/git diff, identify routes/components/API endpoints/data sources, and state the story in one sentence ("user builds X flowing from UI entry → API route → data source → response rendering"). Step 2 builds an evidence baseline across four layers: browser (console, screenshots, network), dev-server terminal output, runtime logs (`vercel logs` if deployed), and environment (.env.local vs `vercel env ls` vs actual runtime). Step 3 walks the data flow boundary by boundary — UI trigger → client request → route handler → external deps (DB/third-party/Vercel services) → response → UI — checking named break patterns: missing await, wrong HTTP method, env var absent at runtime, server/client import mismatch, type mismatch, missing error boundary. Step 4 emits a structured report (story, per-boundary status table with evidence, issues with fixes, verified-working list).
 
-## What it does
+## When to use / when NOT
+Use when a dev server started, a feature "almost works", or the user asks to verify a flow end-to-end. Do NOT use for single-layer checks (that's other skills' job), cosmetic/style review, or verifying unrelated features — stay on the inferred story.
 
-Full-story verification.
+## Inputs, outputs, tools
+- Inputs: recent code changes, running dev server, deployed logs, env files.
+- Outputs: the structured Verification Report with per-boundary ✅/❌ + evidence.
+- Tools: browser checks/screenshots, terminal output, `vercel logs`, `.env*` inspection — no dedicated scripts.
 
-## When to use (from skill text)
+## 5 most important rules
+1. NEVER skip story inference — every check anchors to the one-sentence user story.
+2. Report contract per check: "Checking / Evidence (quote real output) / Next".
+3. Stop at the FIRST broken boundary — report it with evidence and a fix; don't continue past the break.
+4. Stop when two consecutive layers give no signal — flag the observability gap and recommend logging instead of looping.
+5. Never repeat a check more than twice; ignore cosmetic issues unless asked.
 
-- ## When This Triggers
-- Report what you find at each layer before proceeding. Use this reporting contract:
-- Trace the feature's data path from trigger to completion:
+## Risks / things needing the owner
+Low risk — read-only verification. Main failure mode is shallow checking (declaring success without evidence); the skill's entire design fights that. `vercel logs` needs CLI auth if deployed. No owner actions beyond existing auth.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+ops · verification, e2e, debugging, evidence
 
-- Full-Story Verification
-- When This Triggers
-- Step 1 — Infer the User Story
-- Step 2 — Establish Evidence Baseline
-- Step 3 — Walk the Data Flow
-- Step 4 — Report With Evidence
-- Verification Report: [Feature Name]
-- Flow Status
-- Issues Found
-- Verified Working
-- Stop Conditions
-- Suggest Verification After Implementation
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 4. **External dependencies** — If the route calls a database, third-party API, or Vercel service (Blob, Marketplace storage, AI SDK): verify the client is initialized, credentials are present, and the call shape matches the SDK docs
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - You find the **first broken boundary** — report it with evidence and a specific fix, do not continue past the break
-2. - Two consecutive layers return no useful signal (e.g., no logs, no errors, no output) — flag the observability gap and recommend adding logging before continuing
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single source read: `C:\Users\a7med\.codeium\windsurf\skills\verification\SKILL.md` (106 lines). Slice lists six tools; windsurf revision read as representative — codex/kilo copies carry the same orchestrator structure.

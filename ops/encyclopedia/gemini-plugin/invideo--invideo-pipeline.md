@@ -1,41 +1,27 @@
-# invideo-pipeline
+# invideo-pipeline (invideo plugin)
 
-- Tool: `gemini-plugin` (plugin: `invideo`)
-- Category: media
-- Source: `C:\Users\a7med\.gemini\config\plugins\invideo\skills\invideo-pipeline\SKILL.md`
-- SKILL.md size: 4075 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\invideo\skills\invideo-pipeline\SKILL.md` (4 KB; invideo plugin; `references/collaborate.md` exists).
 
-## What it does
+## Summary
+The scale/automation playbook for invideo: CSV-to-many-videos, scripted runs, CI, outreach at scale, course batches, bulk orders, and multi-agent collaboration on one project. Core doctrine: at scale you edit the SYSTEM that makes videos, not videos — the batch is only as good as its worst row. It prescribes cutting 3 very different rows by hand to isolate variables, locking story/pacing/music/type/color while data drives name/number/image/language/hook, designing fallbacks for missing/thin/edge data (rewritten lines, warmer shorter cuts, skip-when-wrong-is-worse), one voice per product line, variant-vs-lesson rules, pilot-then-batch checks, and stable per-row keys so reruns skip finished rows. Scripted runs use `--json`, per-step `--idempotency-key` (e.g. `row-42-voice`), `invideo status --wait`, and persistent sign-in for CI (`INVIDEO_NO_BROWSER=1`). Collaboration: register a role name, own one part, read inbox+timeline before every pass, write updates for the person.
 
-Use for scale and automation: a CSV to many videos, `--json`, idempotency keys, CI with device sign-in, outreach at scale, course batches, bulk orders, and several agents sharing one project.
+## When to use / when NOT
+Use for batches (CSV-driven), unattended/CI generation, outreach or course pipelines, bulk orders, or several agents sharing a project. Not for a single video (use `/invideo` directly).
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: full data sheet (not the sample row), template/project, row-key scheme, idempotency keys, CI runner with prior sign-in.
+- Outputs: N personalized videos/exports, deduplicated on rerun.
+- Tools: `invideo` CLI with `--json`, `--idempotency-key`, `status --wait`; docs pages ci-and-servers and csv-to-videos; `references/collaborate.md`.
 
-- Many videos at once
-- Start from a brief
-- What makes it work
-- Craft
-- Scripted runs
-- Several agents in one project
-- By type
-- (none)
+## 5 most important rules
+1. Read `/invideo` first; get the WHOLE sheet — the sample row is always the nicest.
+2. Cut 3 diverse rows by hand first; lock everything except the data variables; fix template/data, never one video by hand.
+3. Stress-test worst rows before batching (longest name, empty cells, ALL CAPS, other scripts, 0/1, wrong-aspect images, white-on-white logos).
+4. Every generation gets its own idempotency key (`row-N-step`); reruns must find earlier work, not redo it; stable row keys prevent duplicate deliveries.
+5. Pilot 5–10 extreme rows, get approval, then run the rest; a repeating defect STOPS the batch.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Batch generation multiplies credit spend — pilot gating and idempotency are the cost controls. CI sign-in persists credentials on the runner (`~/.config/invideo/credentials.json` or keychain) — a shared CI machine is a credential-exposure surface.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - The session lives on the machine that signed in (the keychain or keyring, else `~/.config/invideo/credentials.json`). For CI, use a persistent runner where someone signed in once with `INVIDEO_NO_BROWSER=1 invideo auth login`.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Fix the template or the data, never one video by hand.
-2. - **Worst rows.** Before the batch, run the hardest rows: longest name, empty cells, ALL CAPS, other scripts, zero and one, a portrait photo in a wide slot, a white logo on white. Each should look designed, not just unbroken.
-3. - **Text.** Leave room, then wrap, then shrink to a floor, then switch layout. Never truncate a name or split first from last. Hold time follows word count; the slack goes into a held background, never the beat that hits the music. Short labels grow most in translation.
-4. - **Fallbacks.** Missing data gets a rewritten line ("Welcome aboard"), not "Hi Friend". Thin-data viewers get a warmer, shorter cut about a beginning, never a sad number. When wrong is worse than missing, skip the row.
-5. - **Variation.** Variants are cousins, lessons are siblings. Vary the hook and first seconds hard, keep the brand thread; a caption swap is not a variant. Rotate two or three layouts so the set never looks machine-made. Your boredom is not the viewer's.
-
-## Files inside the skill
-
-- `references/collaborate.md` — "Several agents and a person in one project"
+## Category and tags
+Category: media. Tags: invideo, batch-video, csv, idempotency, ci, personalization, multi-agent.

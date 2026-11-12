@@ -1,51 +1,28 @@
 # finishing-a-development-branch
 
-- Tool: `gemini-plugin` (plugin: `superpowers`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\superpowers\skills\finishing-a-development-branch\SKILL.md`
-- SKILL.md size: 7729 chars
+## Summary
+The integration gate at the end of a superpowers development cycle: verify the full test suite is green, detect the git environment (normal repo vs named-branch worktree vs detached HEAD), confirm the base branch, present a fixed 3-option (or 2-option detached) menu to the human, execute their choice (local merge, push+PR, or keep as-is), then clean up the worktree with provenance rules — never `--force` over uncommitted files.
 
-## What it does
+## When to use / when NOT
+Use when implementation is complete and all tests pass, to decide how work lands. Do NOT use with a failing suite (fix first), and never treat the menu as optional — the integration decision belongs to the human partner. Discarding work happens ONLY on an explicit typed "discard" confirmation.
 
-Use when implementation is complete, all tests pass, and you need to decide how to integrate the work
+## Inputs, outputs, tools
+- Inputs: a finished branch/worktree, the project's test command, the confirmed base branch.
+- Outputs: merged/pushed/kept branch per user choice, cleaned worktree, deleted feature branch (option 1), PR URL (option 2).
+- Tools: git (rev-parse git-dir vs git-common-dir for environment detection, merge, pull, branch -d/-D, worktree remove/prune), the project test suite, forge CLI/PR URL for option 2.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Tests must pass on the tree being integrated — run the suite fresh; a green run earlier proves nothing about the merged result (re-test after merge too).
+2. Confirm the base branch before merging — merging into the wrong base is expensive to undo.
+3. Present the menu exactly as written and wait; "obviously they want it merged" is a rationalization, not a decision.
+4. Merge locally → verify tests on merged result → then remove worktree → then `git branch -d`; if tests fail post-merge, stop with everything in place (nothing pushed, fully recoverable).
+5. Worktree cleanup is provenance-based: only remove worktrees under `.worktrees/`/`worktrees/`; on removal refusal show the uncommitted file list and ask — never `--force` on own initiative; detached HEAD worktrees are externally managed, leave them.
 
-- Finishing a Development Branch
-- Overview
-- Step 1: Verify Tests
-- Step 2: Detect Environment
-- Capture now, while still inside the workspace — Step 5 changes directory
-- before cleanup (Step 6) needs this value
-- Step 3: Determine Base Branch
-- Step 4: Present Options
-- Step 5: Execute Choice
-- Option 1: Merge Locally
-- Get main repo root for CWD safety
-- Merge first — verify success before removing anything
-- Verify tests on merged result
-- Option 2: Push and Create PR
-- From a detached HEAD, name the new branch on the remote:
-- git push origin HEAD:refs/heads/<new-branch>
-- Option 3: Keep As-Is
-- If your human partner asks to discard the work
-- Step 6: Cleanup Workspace
-- Quick Reference
-- Common Rationalizations
-- (none)
+## Risks / owner needs
+Every irreversible step (merge, push, PR, branch delete, worktree force-remove, discard) is gated on explicit human choice; push rejection means investigate, never force-push without request. In the SIR workspace the no-PR law overrides option 2 in practice (commit straight to main), but the skill's gating logic still applies.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: build. Tags: git, workflow, superpowers, branch-integration, worktree, pr.
 
-- none declared
-
-## Risks / cautions found in text
-
-- 3. Delete them (unrecoverable)
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Commit them to <branch> before cleanup
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin superpowers copy; no competing revisions.

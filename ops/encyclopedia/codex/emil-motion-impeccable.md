@@ -1,43 +1,28 @@
 # emil-motion-impeccable
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\emil-motion-impeccable\SKILL.md`
-- SKILL.md size: 2440 chars
+## Summary
+Combines Emil Kowalski's spring-physics motion doctrine with the Impeccable 23-heuristic design system. Motion rules: ban linear `ease` transitions, use spring tokens (micro: stiffness 400/damping 30/mass 0.8 <180ms; layout morphing: 300/28/1.0 <300ms), `active:scale-[0.98]` press feedback, 30–50ms stagger on mount, shared-layout morphing between trigger and expanded card. Design rules: fluid `clamp()` typography, 1–2px optical icon alignment, strict 4/8px spacing tokens, heading/body line-height proportions, `text-wrap: balance/pretty`.
 
-## What it does
+## When to use / when NOT
+Use when adding animations, micro-interactions, drawers/modals, or doing visual polish passes. Do NOT use for information architecture or UX flow (cognitive-product-intuition) or for non-UI code.
 
-Agency-grade spring physics, fluid micro-interactions, layout morphing, and Impeccable spatial rhythm.
+## Inputs, outputs, tools
+- Inputs: the UI components/pages being polished.
+- Outputs: spring-based transitions, staggered mounts, layout morphs, typography/spacing fixes.
+- Tools: examples assume Framer Motion / Motion One / Tailwind; CSS `clamp()`, `text-wrap` are native.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Replace linear ease transitions with spring physics tuned to the interaction size.
+2. Press feedback `scale-[0.98]` on all tactile controls; responses under ~180ms for micro-interactions.
+3. Stagger mounted items 30–50ms; never pop everything at once.
+4. Spacing only from the 4/8px token scale — no arbitrary px.
+5. Fluid type via `clamp()`, `text-wrap: balance` on headings, `pretty` on paragraphs.
 
-- 4. **Layout Continuity**: An expanding card should morph smoothly from its trigger geometry using shared layout animations (`layoutId`).
+## Risks / things needing the owner
+Spring-heavy UIs can jank on low-end devices — keep animations transform/opacity-based. Reduced-motion preferences should be respected (skill doesn't mention it; implementer should add `prefers-reduced-motion`).
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+design · motion, springs, ui-polish, typography, micro-interactions
 
-- Emil Motion & Impeccable Design System
-- 1. Emil Kowalski Motion Physics Core
-- Motion Doctrine:
-- 2. Impeccable Design Heuristics (Layout, Fonts, Spacing)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 2. **Spring Tokens**:
-- 3. **Spacing Rhythm**: Strictly adhere to 4px/8px incremental tokens (`4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px`, `64px`). Never use arbitrary values like `17px` or `29px`.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Never Use Linear Transitions**: Standard `transition: all 0.3s ease` feels artificial. Use physics-based springs (e.g. Framer Motion, Motion One, or Tailwind CSS spring transitions).
-2. 3. **Staggered Orchestration**: When lists or grid items mount, stagger by 30–50ms per item (`staggerChildren: 0.04`). Never pop all elements simultaneously.
-3. 1. **Fluid Typography Clamp**: Never jump abruptly between mobile and desktop font sizes. Use `clamp(1rem, 0.85rem + 0.75vw, 1.5rem)`.
-4. 3. **Spacing Rhythm**: Strictly adhere to 4px/8px incremental tokens (`4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px`, `64px`). Never use arbitrary values like `17px` or `29px`.
-5. 5. **Headings Balance**: Apply `text-wrap: balance` to all headers; apply `text-wrap: pretty` to body copy to avoid orphan words.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it; bodies byte-identical, only `description` differs. Claude copy preferred for trigger-style description.

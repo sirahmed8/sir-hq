@@ -1,52 +1,28 @@
-# firebase_firestore
+# firebase-firestore
 
-- Tool: `codex`
-- Category: data
-- Source: `C:\Users\a7med\.codex\skills\firebase_firestore\SKILL.md`
-- SKILL.md size: 4072 chars
+## Summary
+Router/edition-detection skill for Cloud Firestore: FIRST identify the instance edition via `firestore:databases:list`/`get` (STANDARD vs ENTERPRISE/native mode), pick the matching reference tree (references/standard/ vs references/enterprise/), and only then provision, model data, write SDK code or indexes. Security rules authoring is delegated: to the `firestore-rules-author` subagent if available, else the firestore-rules-creation skill. New databases default to Enterprise edition with a user-chosen location.
 
-## What it does
+## When to use / when NOT
+Use for ANY Firestore setup, querying, data modeling, compound indexes, or client SDK work — but ALWAYS run edition detection first because guides differ per edition. Not for Realtime Database or SQL Connect.
 
-Set up, query, and configure Cloud Firestore databases, data models, compound indexes, and client SDKs across Web and Mobile.
+## Inputs, outputs, tools
+- Inputs: existing database (or request for new one + location via `firestore:locations`).
+- Outputs: selected edition → appropriate provisioning/data-model/security/SDK/indexes reference docs; optionally a new Enterprise database via `firestore:databases:create <id> --edition="enterprise" --location=<loc>`.
+- Tools: `npx -y firebase-tools@latest firestore:databases:list|get|create|locations`; per-edition references (provisioning, data_model, web/android/ios/flutter/python sdk_usage, indexes); firestore-rules-creation skill / firestore-rules-author subagent.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Edition detection is MANDATORY before dependencies, data models or rules — run databases:list/get first; guides under references/standard vs references/enterprise are not interchangeable.
+2. No instance found → default to Enterprise edition and ASK the user for location (suggest colocating with other resources).
+3. Ask the user which existing database to target before proceeding — never assume.
+4. For Enterprise edition, you MUST read at least one platform SDK reference before writing any app code (pipeline initialization patterns differ).
+5. Security rules: delegate to firestore-rules-author subagent when available, else follow firestore-rules-creation — never hand-wave rules.
 
-- Cloud Firestore Database and Operations
-- 1. Instance Selection and Edition Detection
-- A. Instance Found
-- B. No Instance Found (or New Requested)
-- 2. Specialized Guides
-- Standard Edition (`references/standard/`)
-- Enterprise Edition / Native Mode (`references/enterprise/`)
-- (none)
+## Risks / owner needs
+Database creation is a real billable resource; edition choice affects pricing/capabilities. Location is permanent — confirm with user. Rules mistakes = data exposure.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: cloud. Tags: firebase, firestore, database, nosql, security-rules, edition-detection.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. For each database found, inspect its edition and details:
-2. 1. Ask the user which database instance they wish to target or if they would
-3. 1. Once the target instance is established:
-
-## Files inside the skill
-
-- `references/enterprise/android_sdk_usage.md` — "Android SDK Usage (Enterprise Native Mode)"
-- `references/enterprise/data_model.md` — "Firestore Data Model Reference"
-- `references/enterprise/flutter_setup.md` — "Cloud Firestore in Flutter"
-- `references/enterprise/indexes.md` — "Firestore Indexes Reference"
-- `references/enterprise/ios_setup.md` — "Firestore Enterprise Native Mode on iOS"
-- `references/enterprise/provisioning.md` — "Provisioning Firestore Enterprise Native Mode"
-- `references/enterprise/python_sdk_usage.md` — "Python SDK Usage"
-- `references/enterprise/web_sdk_usage.md` — "Web SDK Usage (Enterprise Native Mode)"
-- `references/standard/android_sdk_usage.md` — "Cloud Firestore on Android (Kotlin)"
-- `references/standard/flutter_setup.md` — "Cloud Firestore in Flutter"
-- `references/standard/indexes.md` — "Firestore Indexes Reference"
-- `references/standard/ios_setup.md` — "Firebase Firestore iOS Setup Guide"
-- `references/standard/provisioning.md` — "Provisioning Cloud Firestore"
-- `references/standard/web_sdk_usage.md` — "Firestore Web SDK Usage Guide"
+## Revisions
+Identical across the 7 tools; claude copy used.

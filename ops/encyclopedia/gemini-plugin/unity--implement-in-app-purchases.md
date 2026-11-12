@@ -1,68 +1,27 @@
-# implement-in-app-purchases
+# implement-in-app-purchases (unity plugin)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: data
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\implement-in-app-purchases\SKILL.md`
-- SKILL.md size: 10642 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\implement-in-app-purchases\SKILL.md` (10.7 KB; unity plugin; `references/` has 13 files: pre-check, api-notes, platform-notes, codeless-catalog, migration-v4-to-v5, and per-path conversion guides for native Google Billing, native StoreKit, Essential Kit, UniPay, RevenueCat, Adapty, new-project, and IAP D2C/Stripe-Coda).
 
-## What it does
+## Summary
+Unity IAP v5 (`com.unity.purchasing`, namespaces `UnityEngine.Purchasing` + `.Security`) implementation guide. Initialization is its own path (`UnityIAPServices.StoreController()` → `store.Connect()`, no `UnityServices.InitializeAsync` needed). It mandates reading `references/pre-check.md` FIRST to scan the project for competing billing (third-party IAP, native Google BillingClient, StoreKit, RevenueCat, Adapty, Essential Kit, UniPay) and route to the right path. Covers the full lifecycle: subscribe ALL success+failure events before `Connect()`, `FetchProducts(List<ProductDefinition>)`, the mandatory two-step purchase (`PurchaseProduct` → `OnPurchasePending` → grant → `ConfirmPurchase(pendingOrder)` → `OnPurchaseConfirmed`), de-dup on restart, deferred purchases (`OnPurchaseDeferred` = Ask-to-Buy, never grant), `RestoreTransactions` (required on iOS), receipt validation (`CrossPlatformValidator`+GooglePlayTangle locally; Apple StoreKit2 is server-side via `jwsRepresentation`), entitlement checks (`CheckEntitlement`/`EntitlementStatus`), `IsSubscribed()==Result.True`, and a v4→v5 anti-hallucination table of wrong API names.
 
-Implements, configures, and debugs Unity In-App Purchases, including subscriptions, receipt validation, and direct-to-customer payments via Stripe or Coda. Use when asked about real-money purchases or microtransactions, or migrating from native store billing, RevenueCat, Adapty, Essential Kit, or UniPay.
+## When to use / when NOT
+Use for implementing, configuring, or debugging real-money purchases/subscriptions in a Unity project, including migrations from other billing systems and direct-to-customer (Stripe/Coda, v5.4+) flows. Not for Unity Gaming Services non-IAP features or non-Unity stores.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: target platform(s), product catalog (`IAPProductCatalog.json`/`ProductDefinition`), store credentials/tangle data, existing billing code to migrate.
+- Outputs: compiling C# purchase flows with correct event wiring and validation.
+- Tools: Unity IAP package v5, Services window (Receipt Validation Obfuscator for tangle), platform stores (Google Play, App Store).
 
-- `store.RestoreTransactions(callback)` re-delivers non-consumable and subscription purchases. Each restored purchase triggers `OnPurchasePending`.
-- Use when you don't have the `Order` and want to know the status of a specific product (replaces v4's `product.hasReceipt`). If you already have the `Order`, check its type instead: `PendingOrder` maps to `EntitledUntilConsumed` (consumables) or `EntitledButNotFinished` (non-consumables/subscriptions
+## 5 most important rules
+1. Read `pre-check.md` before ANY other reference or change — routing decides everything.
+2. Subscribe to BOTH success and failure events for every async call BEFORE `Connect()`; also `OnPurchaseDeferred` always.
+3. Two-step flow is mandatory: grant content on `OnPurchasePending`, then `ConfirmPurchase(pendingOrder)` — unconfirmed purchases redeliver on next launch; de-dupe grants yourself.
+4. v5 names are not interchangeable: `OnStoreDisconnected` (not OnStoreConnectionFailed), events not callbacks for Fetch*, `order.Info.Receipt` (not product.receipt), `IsSubscribed()==Result.True` not bool, `CartItem` has no subscription info (use `order.Info.PurchasedProductInfo`).
+5. Apple non-renewable subs can't be restored via `RestoreTransactions` — track server-side; consumables aren't re-fetched by `FetchPurchases` — track grants yourself.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Real-money transactions: receipt validation gaps = revenue theft; iOS restore button is App-Store-mandatory. Migration paths touch live billing — test sandbox purchases end-to-end. Store accounts/keys are owner territory.
 
-- Unity In-App Purchasing
-- Before You Start
-- Detailed References
-- Initialization Flow
-- Fetching Products
-- Two-Step Purchase Flow
-- Restore Transactions
-- Receipt Validation
-- Entitlement Checking
-- Fetch Existing Purchases
-- Subscription Info
-- Required Event Subscriptions
-- Failure Description Property Names
-- Validation
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Convert native Google BillingClient to Unity IAP 5:** See [references/path-convert-native-google-billing.md](references/path-convert-native-google-billing.md)
-- - **Convert Essential Kit billing to Unity IAP 5:** See [references/convert-essentialkit.md](references/convert-essentialkit.md)
-- - **Implement IAP D2C Capabilities (third-party payment provider — Stripe/Coda, requires v5.4+):** See [references/path-implement-iap-d2c.md](references/path-implement-iap-d2c.md)
-- 4. On `OnStoreConnected`, call `store.FetchProducts(List<ProductDefinition>)` to load the catalog
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Implement IAP D2C Capabilities (third-party payment provider — Stripe/Coda, requires v5.4+):** See [references/path-implement-iap-d2c.md](references/path-implement-iap-d2c.md)
-2. 2. Subscribe to **all** required events (see Required Event Subscriptions below) **before** calling `Connect()`
-3. 2. Confirm all API calls match the v5 signatures in [api-notes.md](references/api-notes.md) — do NOT use v4 legacy patterns (`IStoreListener`, `UnityPurchasing.Initialize`, `ConfigurationBuilder`).
-4. 3. Check the "Anti-Hallucination: Common v5 Mistakes" table in api-notes.md — do NOT use `OnStoreConnectionFailed` (use `OnStoreDisconnected`), do NOT pass callbacks to `FetchProducts`/`FetchPurchases` (use events), do NOT use `product.receipt` (use `order.Info.Receipt`).
-5. 4. Check that all required events are subscribed **before** calling `Connect()` (see Required Event Subscriptions table above).
-
-## Files inside the skill
-
-- `references/api-notes.md` — "Unity IAP API Notes"
-- `references/codeless-catalog.md` — "Editing `IAPProductCatalog.json`"
-- `references/convert-adapty.md` — "Adapty — Conversion Assessment and Guidance"
-- `references/convert-essentialkit.md` — "Convert Essential Kit Billing to Unity IAP 5"
-- `references/convert-revenuecat.md` — "RevenueCat — Conversion Assessment and Guidance"
-- `references/convert-unipay.md` — "UniPay IAP — Assessment and Guidance"
-- `references/migration-v4-to-v5.md` — "Unity IAP v4 to v5 Migration Guide"
-- `references/path-add-iap-to-new-project.md` — "Add Unity IAP 5 to a Project With No IAP"
-- `references/path-convert-native-google-billing.md` — "Convert Native Google Billing to Unity IAP 5"
-- `references/path-convert-native-storekit.md` — "Convert Native iOS StoreKit to Unity IAP 5"
-- `references/path-implement-iap-d2c.md` — "Implement Unity IAP D2C Capabilities (Third-Party Payment Provider)"
-- `references/platform-notes.md` — "Unity IAP Platform-Specific Notes"
-- `references/pre-check.md` — "Pre-Check: Project Scan and Path Routing"
+## Category and tags
+Category: mobile. Tags: unity, in-app-purchases, subscriptions, receipts, storekit, google-play, migration.

@@ -1,61 +1,28 @@
-# ui-uitk
+# ui-uitk (gemini-plugin: unity)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui-uitk\SKILL.md`
-- SKILL.md size: 10960 chars
+## Summary
+ui-uitk understands, edits and generates Unity UI Toolkit (UIElements) UXML/USS — the modern CSS-like UI system for runtime game UI (Unity 6+) and editor tools. It defines an understanding format (tree diagrams of elements), edit rules (change only what's asked, preserve formatting), a generation matrix (USS only / UXML only / screen = uxml+uss / "with code" adds .cs), naming conventions (camelCase `name`, kebab-case classes), a strict USS restriction table (no `border` shorthand, `gap`, `z-index`, `pointer-events`, gradients, attribute selectors, inline `style=""`, external `url()` — use `project://database/` paths), brevity rules, UXML requirements (namespace declaration, Style link, one root, no inline styles), event handling via Pointer Manipulators, asset/icon priority (reuse → generate SVG → image gen last), PanelSettings requirement, and TextCore (not TMP) types for C#. Eight reference files cover USS patterns, SVG icons, common issues, runtime binding, Painter2D, pointer manipulators, and custom elements.
 
-## What it does
+## When to use / when NOT
+Use for .uxml/.uss/UIDocument/PanelSettings/UIElements/CreateGUI requests and for NEW editor UI. Do NOT use for uGUI Canvas work (ui-ugui) or IMGUI (ui-imgui); route through the `ui` skill when the framework is unclear.
 
-Understands, edits, and generates Unity UI Toolkit UXML and USS with flex layouts. Use for requests involving UI Toolkit, UIElements, UIDocument, PanelSettings, custom elements, or UI runtime binding.
+## Inputs, outputs, tools
+- Inputs: UI request plus existing UXML/USS/project assets to match.
+- Outputs: complete `.uxml`/`.uss` files (and `.cs` only when logic requested), PanelSettings asset if missing.
+- Tools: file writes; references for deep topics. No external services.
 
-## When to use (from skill text)
+## 5 most important rules
+1. USS is a SUBSET of CSS — the banned-properties table is absolute; gradients need a custom VisualElement with Painter2D.
+2. NEVER write partial/draft UXML — Unity parses on import and a half file is a parse error; finish ALL files before asking the user to check the Console (each round-trip costs a reimport).
+3. No inline `style=""` in UXML and no external URLs; all styling lives in USS with `project://database/` asset paths.
+4. C# styling goes through USS classes (`AddToClassList()`), never `element.style.*` (higher specificity, unoverridable, memory cost); use TextCore types not TMP.
+5. PanelSettings is required for runtime UI to render; assign it to the UIDocument.
 
-- When explaining UI structure, use this format:
-- 2. Ask the user to focus the Unity Editor. That triggers a reimport of the changed
+## Risks / things needing the owner
+No external validation exists — Unity only reports UXML/USS errors in the Console after the user focuses the Editor, so the workflow depends on user round-trips; mistakes that parse but render wrong never appear in Console and need eyeballing (common-issues.md lists them). Draggable inventory/crafting systems need Pointer Manipulators — ask before assuming. Nothing else needs the owner.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · unity, ui-toolkit, uxml, uss, game-ui, editor-tools
 
-- References
-- Understanding
-- Editing
-- Validation
-- Generation
-- Conventions
-- USS Restrictions
-- USS Brevity
-- UXML
-- Events and Interactivity
-- Assets
-- Scene Setup
-- C# (Only When Requested)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - [references/pointermanipulator-guide.md](references/pointermanipulator-guide.md) — Patterns and guide to create and use Manipulators (only when requested or when manipulators are involved). This helps with setting up drag and drop features or simple event handling for a Visual Element.
-- - Be careful not to accidentally drop existing elements, styles, or references when making edits
-- - **Ensure text is readable by default:** When choosing colors, ensure text contrasts with its background — but respect intentional low-contrast uses (disabled states, placeholder text, decorative elements). When using design tokens, check that text and background variables provide adequate contrast
-- - If drag and drop is requested then write a pointer Manipulator and attach it to the relevant Visual Element in UXML or via C#.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - [references/common-issues.md](references/common-issues.md) — Common mistakes to avoid
-2. - Don't "improve" unrelated code
-3. - Don't add comments unless asked
-4. - **When editing USS**, focus on the properties and selectors relevant to the request — avoid unnecessary reorganization, but restructure if the change genuinely requires it
-5. 1. Write the complete file to its target path in the project. Do not write partial or
-
-## Files inside the skill
-
-- `references/common-issues.md` — "Common USS/UXML Issues"
-- `references/custom-elements.md` — "Custom VisualElements in UI Toolkit"
-- `references/painter2d.md` — "Custom Visuals with Painter2D"
-- `references/pointermanipulator-guide.md` — "UI Toolkit Manipulator Reference"
-- `references/svg-icons.md` — "SVG Icon Generation (Unity 6.3+)"
-- `references/ui-runtime-binding.md` — "Runtime Data Binding Reference"
-- `references/uss-guide.md` — "USS Patterns and Examples"
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\config\plugins\unity\skills\ui-uitk\` with eight reference docs. No divergent copies.

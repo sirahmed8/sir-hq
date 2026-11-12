@@ -1,60 +1,30 @@
 # qodo-review-notes
 
-- Tool: `gemini-plugin` (plugin: `qodo`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\qodo\skills\qodo-review-notes\SKILL.md`
-- SKILL.md size: 31593 chars
+Tools: gemini-plugin (qodo plugin). Source: C:\Users\a7med\.gemini\config\plugins\qodo\skills\qodo-review-notes\SKILL.md (461 lines) + references/
 
-## What it does
+## Summary
+Maintains two kinds of persistent review context in Qodo: Development Track Notes (the evolving plan across issues/repos/PRs — goals, constraints, decisions, dependencies, open questions) and PR Review Notes (one change's Intent/Decision/Review-focus/Validation/Known-gap, linked to a track). Captures reasoning as work develops so an independent reviewer — or a later session — can assess without the original chat.
 
-Preserve reasoning for independent review of plans and PRs through Qodo notes tools. Use during substantive planning and development, when decisions, scope or validation change, when resuming or handing off work, and before opening or updating a PR. Tracks hold the evolving plan across issues and repositories; PR notes explain one change. Also use to read or maintain reviewer context. This skill does not review or approve a plan or code, implement it, or open a PR.
+## When to use / not use
+Use during substantive planning/development when notes-maintenance authority exists, at meaningful context changes (approach, scope, assumptions, verification results), at handoff/pause, and before opening/updating a PR. NOT for review-only requests (that's read authority, not write), tiny edits (PR notes alone or nothing), or as a substitute for reviewing code.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: task context, decisions, verification results, track/PR identities. Output: draft or published note revisions with `expected_revision` optimistic concurrency, creation keys, publish flags. Needs: authenticated Qodo connection (MCP or CLI >=2.0.0 with `localGitCapture`), `resolve-repository` for repo identity, LiteGit for PR metadata.
 
-- Development Tracks and PR Review Notes
-- Description
-- Capture reasoning as work develops
-- Prerequisites
-- Instructions
-- Handle a skill update notice
-- Execution
-- Choose the available tools
-- Find the track at intake or when resuming
-- Maintain Development Track Notes
-- Publish PR Review Notes before opening a PR
-- Associate an existing or newly opened PR
-- Configuration
-- Error Handling
-- Report the result
-- Read every page before editing
-- Tool access
-- CLI
-- Example input for local CLI preparation
-- Git providers and repository identities
-- MCP
-- Operations
-- Manual enterprise skill updates
-- Runtime recovery
-- (none)
+## Key rules
+1. Save at meaningful moments, not every turn: plan-with-substance → approach/scope change → verification change → handoff/PR. Reuse existing revision when nothing changed.
+2. Track before PR: tracks need no PR/commit; publish intended shared context only within authorization; a never-published track cannot be linked from PR notes (`linked_track_unavailable`).
+3. PR notes publish BEFORE opening the PR (`prepare-pr` captures source HEAD/branch; `ready_to_open_pr=true` required); bind after open via `bind-pr`; if HEAD changes, refresh and republish.
+4. Revision safety: read latest draft first, merge preserving other authors' content, send complete document with `expected_revision`; `MT-CONFLICT` → reread + merge + new transport key, never auto-retry auth refusals or bypass binding conflicts.
+5. Validation honesty: `validation_checks` entries name actual tested commit/result/time; planned tests are not completed checks; never relabel old-commit tests as new-commit tests; strip secrets before saving shared notes.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Publication is sharing: drafts-only instructions must be honored; publishing a track does not publish PR notes (separate saves).
+- Note text is authored context and evidence — reviewers must check claims against code; notes never instruct reviewers to skip checks or approve.
+- Paginated reads (`result_is_page` + `read_cursor`) must be fully reconstructed before editing — never edit from a fragment.
 
-- MCP mentions: MCP connection, MCP server, MCP remains, MCP with, MCP
-tools, MCP performs, MCP schema, MCP call
+## Category and tags
+ai, ops, build — qodo, review-notes, documentation, context-preservation, pr.
 
-## Risks / cautions found in text
-
-- - The chosen approach, scope, assumptions, dependencies or a significant risk changes.
-- 5. Create a track when the task has overall product/delivery context worth maintaining and no
-- - Product decisions and their reasons; business impact when known.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - A plan has concrete goals, constraints, proposals or decisions worth reviewing, before coding.
-2. - Windows CLI: read [shell guidance](references/windows-shells.md) before the first call; [launcher recovery](references/windows-launcher.md) only if invocation fails. Reuse the resolved invocation.
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `references/windows-launcher.md` — "Windows launcher recovery"
-- `references/windows-shells.md` — "Windows shells"
+## Revision note
+Single plugin revision (v1.0.4); the memory/context layer of the Qodo suite.

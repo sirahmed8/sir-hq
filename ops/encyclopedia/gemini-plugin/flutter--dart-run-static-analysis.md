@@ -1,47 +1,28 @@
-# dart-run-static-analysis
+# dart-run-static-analysis (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-run-static-analysis\SKILL.md`
-- SKILL.md size: 5033 chars
+## Summary
+Guide for Dart static analysis and automated fixes: configure `analysis_options.yaml` (include lints package, strict-casts/inference/raw-types, don't mix list/map rule syntax, formatter page_width/trailing_commas, analyzer plugins as dev_deps), suppress diagnostics at the right level (exclude globs for generated files, `ignore_for_file`, `ignore:` line, `# ignore:` in pubspec, plugin-prefixed codes), run `dart analyze` (optionally `--fatal-infos`), then `dart fix --dry-run` → `--apply` → `dart format .` → re-analyze.
 
-## What it does
+## When to use / when NOT
+Use during development and before committing to catch type errors, lints, runtime risks. Do NOT use as the only quality gate (pair with tests) or for runtime debugging.
 
-Execute `dart analyze` to identify warnings and errors, and use `dart fix --apply` to automatically resolve mechanical lint issues. Use during development to ensure code quality and before committing changes.
+## Inputs, outputs, tools
+- Inputs: Dart/Flutter project with analysis_options.yaml.
+- Outputs: clean analyzer output, auto-fixed code.
+- Tools: `dart analyze`, `dart fix --dry-run/--apply`, `dart format`; optional analyze_files/dart_fix/dart_format MCP tools; examples/ dir.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Always include a base lint set (`lints/recommended` or `flutter_lints`); enable strict-casts/inference/raw-types.
+2. Never mix list and map syntax in the same `linter.rules` block.
+3. Suppress at the narrowest correct level — exclude `**/*.g.dart` via analyzer.exclude rather than ignoring everywhere.
+4. `dart fix` flow is dry-run → review → apply → format → re-analyze; enable the relevant lint rules or fixes won't be proposed.
+5. `--fatal-infos` when info-level issues must fail CI.
 
-- Use this workflow to identify type-related bugs, style violations, and potential runtime errors.
-- Use this workflow to resolve outdated API usages, apply quick fixes, and migrate code (e.g., Dart 3 migrations).
+## Risks / things needing the owner
+`dart fix --apply` mass-edits code — review dry-run first. Over-broad `ignore_for_file` hides real issues; keep suppressions justified.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, flutter, lint, static-analysis, code-quality
 
-- Analyzing and Fixing Dart Code
-- Contents
-- Analysis Configuration
-- Diagnostic Suppression
-- Workflow: Executing Static Analysis
-- Workflow: Applying Automated Fixes
-- Examples
-- Comprehensive `analysis_options.yaml`
-- Inline Diagnostic Suppression
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP tool
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Base Configuration:** Always include a standard rule set (e.g., `package:lints/recommended.yaml` or `package:flutter_lints/flutter.yaml`) using the `include:` directive.
-2. - **Linter Rules:** Explicitly enable or disable specific rules under the `linter: rules:` node. Use a key-value map (`rule_name: true/false`) when overriding included rules, or a list (`- rule_name`) when defining a fresh set. Do not mix list and map syntax in the same `rules` block.
-3. - [ ] 4. If info-level issues must be treated as failures, append the `--fatal-infos` flag.
-4. - [ ] 3. If additional fixes are required, verify that the corresponding linter rules are enabled in `analysis_options.yaml`.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-run-static-analysis\SKILL.md`. Only gemini-plugin holds it.

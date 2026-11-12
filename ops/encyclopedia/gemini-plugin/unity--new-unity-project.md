@@ -1,61 +1,27 @@
-# new-unity-project
+# new-unity-project (unity plugin)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\new-unity-project\SKILL.md`
-- SKILL.md size: 24508 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\new-unity-project\SKILL.md` (24.7 KB; unity plugin; `SECURITY.md` + `references/` incl. skill-setup.md; `allowed-tools: Bash, Write, Edit`). Guided flow from idea to running, version-controlled Unity project — "paved by default, guided on request".
 
-## What it does
+## Summary
+Owns the FLOW (mode, defaults, ordering, background installs, handoffs) and delegates mechanics to sibling skills: `unity-cli` (install/auth/license/create/source-control/open — its "Bootstrap a new project" workflow is the backbone), `unity-package-management`, `urp-postprocessing`, `ui`, `2d-pixel-perfect`, `craft-game-floors` (look/camera/lighting/feedback/audio/shell/live floor/done gate), and end-stage `implement-in-app-purchases`/`levelplay-unity-integration`/`build-live-game`. Mode: paved unless the user asks for interview — parse the prompt, fill gaps from the Defaults table (latest editor, URP template 3D/2D, Desktop-only platforms unless implied, no monetization at creation, local git + Unity .gitignore, anonymous player accounts, craft floors on), print exactly one assumptions manifest block before create launches (every assumption named and reversible), proceed asking only on pushback/unruled forks. Bare/minimal asks get `--bare` (skips floors, states the cost). Sign-in/license comes FIRST: `unity auth status` + `unity license status` JSON, one combined question offering free Unity Personal (with EULA notice), never hand the user commands — agent runs `unity auth login`/`license activate` only after yes; declining sign-in but having serial/floating still yields a local `--no-cloud` project. Steps: concept → platforms/monetization + parallel background installs → join/reconcile result vs manifest → source control → packages → player identity + craft floors → visual baseline → save & first commit → handoff note. Human gates (sign-in, license, publishing) are never auto-consumed.
 
-Guides creating a new Unity project, gathering concept, platforms, and monetization before setting up the project, source control, and packages. Use when the user asks to start a new game or prototype. Runs an opinionated paved path by default; full interview on request.
+## When to use / when NOT
+Use when the user asks to start a new Unity game/prototype from scratch. Not for working inside an existing project (use the domain skills directly) or for non-Unity engines.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: the game concept/prompt (platforms, monetization hints, 2D/3D), license preference.
+- Outputs: created+opened Unity project, git repo with .gitignore, baseline packages/visuals, first commit, CLAUDE.md handoff note, monetization handoff.
+- Tools: `unity` CLI (`auth`, `license`, project create/open), sibling skills listed above, Unity Editor.
 
-- it without this skill re-triggering.
+## 5 most important rules
+1. Check delegated skills are loaded BEFORE Step 1; missing `unity-package-management` stops the run at Step 2.
+2. Auth/license status checked first; ONE combined question; agent runs auth commands only after explicit yes; Personal EULA disclosed in the choice.
+3. Print the single assumptions manifest before create; reconcile the actual result against it at Step 3.
+4. Paved = proceed on defaults, ask only on pushback; guided = ask current-step questions only.
+5. Human gates (sign-in, license activation, publishing) always need the user's yes — never consume them silently; bare mode states its cost (no identity/saves/ranks).
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+Creates real Unity projects and may trigger license activation/EULA acceptance — the consent question is mandatory. `--no-cloud` projects lack cloud link/player accounts. Background installs run in parallel; Editor downloads are large.
 
-- New Unity Project
-- Mode: paved by default, guided on request
-- Sign-in and license (before your first question)
-- The Defaults table
-- The assumptions manifest
-- Before Step 1: check the delegated skills are loaded
-- The flow — and where the parallelism is
-- Step 1 — Concept
-- Step 2 — Platforms & monetization, then start installing
-- Start in the BACKGROUND. Module names per platform are in the unity-cli skill.
-- --bare only on the user's ask (see Mode).
-- Step 3 — Join: project ready, result reconciled
-- Step 4 — Source control
-- Step 5 — Packages
-- Step 6 — Player identity, then the craft floors
-- Step 7 — Visual baseline
-- Step 8 — Save & first commit
-- Step 9 — Hand off
-- Scope — what this skill does NOT do
-- Checklist
-- Common mistakes
-- (none)
-
-## Tools / MCPs it needs
-
-- allowed-tools: - Bash - Write - Edit
-- allowed-tools (frontmatter): `- Bash - Write - Edit`
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Never tell the user to sign in or activate a license themselves, and never hand them commands to
-2. - Declining stops the run before the create only when nothing can license the Editor. A user who
-3. 4. **UI stack.** HUD and menus use a uGUI Canvas + TextMeshPro or UI Toolkit — **never `OnGUI`**.
-4. - [ ] Delegated skills checked before Step 1 (incl. `craft-game-floors`): a missing one offered, or named
-5. - [ ] Mode decided once; in paved, the manifest printed before the create launches
-
-## Files inside the skill
-
-- `references/skill-setup.md` — "Skill setup — getting the delegated skills loaded"
-- `SECURITY.md` — "Security notes: new-unity-project"
+## Category and tags
+Category: mobile. Tags: unity, project-scaffolding, urp, license, paved-path, game-dev, onboarding.

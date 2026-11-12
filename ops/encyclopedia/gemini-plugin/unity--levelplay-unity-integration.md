@@ -1,68 +1,27 @@
-# levelplay-unity-integration
+# levelplay-unity-integration (unity plugin)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\levelplay-unity-integration\SKILL.md`
-- SKILL.md size: 38043 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\unity\skills\levelplay-unity-integration\SKILL.md` (38 KB workflow spine; `references/` has 12 files: banner/interstitial/rewarded-api, initialization-api, dependency-resolution, privacy-settings, ios-setup, ilrd-api, best-practices, testing-and-validation, troubleshooting, migration-sdk-9).
 
-## What it does
+## Summary
+Strictly sequential LevelPlay (Unity ad mediation, ex-IronSource) integration workflow for Unity projects, one checkpoint at a time. Step 0 routes new vs migration (5 scenarios A-E incl. SDK upgrade, init/ad-unit API migration, Maven Central `is.com` shutdown fix, Unity Ads migration) vs troubleshooting. Then: verify Unity project (Assets/+ProjectSettings/), ask optimization goal (revenue/UX/balanced → drives Step 8 strategy), install "Ads Mediation" UPM package (`com.unity.services.levelplay` — verify in BOTH `manifest.json` AND `packages-lock.json`, a hard gate: never write LevelPlay code until the lock file shows it, never hand-edit the lock file), resolve native deps via MDR/UEDM/EDM4U (critical — compiles in Editor, fails at Android/iOS build; switch build target first; AD_ID permission for API 33+), collect App Key + ad unit IDs from platform.ironsrc.com dashboard, optional AdMob keys, privacy/regulation settings BEFORE init if GDPR/CCPA/COPPA applies (SDK-version-dependent APIs), initialize (re-check lock file, confirm prerequisites, offer 4 code-organization options, ILRD wiring differs by SDK 9.5.0+ vs 9.4.x), recommend ad-unit strategy mapped to the Step-2 goal, implement only the chosen formats (Rewarded/Interstitial/Banner) with best-practices patterns (persistent GameObject, DestroyAd in OnDestroy, event unsubscription, placement caps), then mock-ad/Test-Suite validation.
 
-Integrates the LevelPlay ad mediation SDK via the Ads Mediation package. Use when the user asks about adding rewarded, interstitial, or banner ads, mediation or ad privacy setup, Android or iOS ad dependency build failures, or migrating from Unity Ads or IronSource APIs.
+## When to use / when NOT
+Use for ANY LevelPlay/Ads Mediation work in a Unity project: fresh install, SDK 9 migration, Unity Ads/IronSource migration, ad units, privacy compliance, build failures. Not for other mediation SDKs (skill forbids characterizing competitors) or non-Unity engines.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: Unity project, target platform(s), optimization goal, LevelPlay dashboard credentials (App Key, ad unit IDs), AdMob keys if used.
+- Outputs: installed+resolved SDK, initializer MonoBehaviour, per-format ad managers, privacy config, test validation.
+- Tools: Unity Package Manager, Network Manager (adapters), dependency resolvers (MDR/UEDM/EDM4U), LevelPlay dashboard, platform.ironsrc.com.
 
-- LevelPlay Unity package/SDK Integration
-- Integration Workflow
-- 0. New Integration or Migration?
-- 1. Verify Unity Environment
-- 2. Understand Business Goals
-- 3. Install LevelPlay SDK via UPM
-- 4. Resolve Native Dependencies (Critical)
-- 5. Get App Key and Ad Unit IDs
-- 6. Configure AdMob Keys (If Using AdMob Network)
-- 6.5. Privacy & Regulation Settings (If Required)
-- 7. Initialize LevelPlay SDK
-- 8. Recommend Ad Unit Strategy
-- 9. Implement Ad Units
-- 10. Testing and Validation
-- Adding More Ad Formats Later
-- Best Practices
-- Common Issues and Solutions
-- When to Read Detailed References
-- Examples
-- Core Rules (reminder)
-- (none)
+## 5 most important rules
+1. HARD GATE: `com.unity.services.levelplay` must appear in `Packages/packages-lock.json` before ANY LevelPlay code — check the file, not the Package Manager window or memory; never hand-write the lock entry.
+2. One step at a time: ask only current-step questions, wait at each checkpoint; re-confirm init before ad code and initialization log before ad units.
+3. Native dependency resolution is mandatory for device builds and must run for EACH target platform; switch active build target first.
+4. Privacy settings (GDPR/CCPA/COPPA, ATT on iOS) are configured BEFORE `LevelPlay.Init`, with SDK-version-correct APIs (9.5.0+ global consent boolean).
+5. ILRD: SDK 9.5.0+ wires per-ad-instance `OnAdImpressionDataReady` (global event deprecated); ≤9.4.x subscribes globally before Init. Mock ads don't fire ILRD — needs device build.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Real ad revenue and legal exposure: privacy/consent config is a legal matter (skill disclaims legal advice). Dashboard credentials are owner secrets. Generated C# is for the user to save, not inline-executed. iOS needs ATT/SKAdNetwork; Android needs AD_ID permission.
 
-- none declared
-
-## Risks / cautions found in text
-
-- 2. Select Unity Registry dropdown or Services tab
-- - Missing Step 5: They won't have credentials to initialize → Direct to Step 5
-- - **SDK 9.5.0+ (current):** add nothing to the initializer — ILRD is delivered per ad instance via `OnAdImpressionDataReady`, wired when each ad is created in Step 9. The global `LevelPlay.OnImpressionDataReady` event is **deprecated on 9.5.0+ and generates a compiler warning** — do not use it.
-- - **Revenue-focused** → **Revenue Strategy.** Rewarded (primary monetization, multiple high-value moments) → Interstitial (secondary; at transitions; frequency cap 3–5 min) → Banner (persistent during gameplay). Bid floors are an optional revenue lever configured in Step 9. Implementation priority: 
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 4. Confirm the package name matches exactly: the correct package is titled **Ads Mediation**. Do not install either of these packages:
-2. - **`Packages/packages-lock.json`** records what Unity actually *resolved*. The same id must appear
-3. - Package id absent from `packages-lock.json`: code will show `CS0246` namespace errors → Direct to Step 3. This one you established yourself; do not ask the user to overrule it.
-4. - Do not provide C# code until they confirm all steps are complete
-5. - **Option 1 (new script):** If ATT was set up in Step 6.5 (iOS), use the `LevelPlayInitializer.cs` from `references/ios-setup.md` Part 3 (the `IEnumerator Start()` coroutine variant) instead of the plain template.
-
-## Files inside the skill
-
-- `references/banner-api.md` — "Banner Ads API Reference"
-- `references/best-practices.md` — "LevelPlay Ad Unit Implementation Best Practices"
-- `references/dependency-resolution.md` — "LevelPlay Native Dependency Resolution"
-- `references/ilrd-api.md` — "Impression Level Revenue (ILR) Integration"
-- `references/initialization-api.md` — "LevelPlay SDK Initialization API"
-- `references/interstitial-api.md` — "Interstitial Ads API Reference"
-- `references/ios-setup.md` — "iOS-Specific Setup for LevelPlay"
-- `references/migration-sdk-9.md` — "LevelPlay SDK 9.x.x Migration Guide"
-- `references/privacy-settings.md` — "Privacy and Regulation Settings"
-- `references/rewarded-api.md` — "Rewarded Ads API Reference"
-- `references/testing-and-validation.md` — "LevelPlay Testing and Validation"
-- `references/troubleshooting.md` — "LevelPlay Common Issues and Solutions"
+## Category and tags
+Category: mobile. Tags: unity, levelplay, ads, mediation, monetization, privacy-gdpr, migration, build-troubleshooting.

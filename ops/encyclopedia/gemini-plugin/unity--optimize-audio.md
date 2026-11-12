@@ -1,61 +1,30 @@
 # optimize-audio
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: media
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-audio\SKILL.md`
-- SKILL.md size: 14602 chars
+Tools: gemini-plugin (unity plugin). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\optimize-audio\SKILL.md (199 lines) + resources/platform-settings.md, resources/audio-import-api.md
 
-## What it does
+## Summary
+A gated, measurement-first workflow for optimizing Unity audio: memory (import Load Types, Force To Mono, sample-rate overrides), DSP CPU (mixer group depth, effects on silent groups, buffer size), and playback quality (Vorbis/AAC settings, 3D stereo pitfalls). Every change runs through a live Editor via `unity command script eval`, is reported before/after, and verified in a device build — Editor stats are indicative only.
 
-Optimizes audio memory, CPU cost, and playback quality through import settings and mixer configuration. Use when asked to reduce audio memory or Audio Mixer CPU cost, change clip Load Types, sample rates or codecs, or force 3D audio to mono.
+## When to use / not use
+Use for Unity projects with audio memory bloat, DSP CPU spikes, slow loads, wrong 3D audio, or quality artifacts. Requires a reachable Editor with the Pipeline package and `script eval` — without it, the skill stops rather than hand-editing .meta files.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, dependencies
+Input: a Unity project with an open Editor connected to unity-cli. Output: audited AudioSources/importers/mixer with applied, verified setting changes. Needs: `unity-cli` skill, `com.unity.pipeline` package, `script eval` capability, and the two resources files for API recipes and platform matrices.
 
-- Critical Rules
-- 0. Set up the execution path
-- Passing C# to `script eval`
-- 1. Pre-Flight: Detect Audio System
-- 2. Assess Current State
-- 3. Understand Request
-- 4. Primary Diagnostic Workflow
-- 4A. Force To Mono and Spatial Settings
-- 4B. AudioMixer Audit
-- 4C. Compression Quality Tuning
-- 4D. Mobile Sample Rate Override
-- 4E. Load Type and Streaming
-- 5. Validation
-- 6. Troubleshooting
-- Stereo clip on a 3D AudioSource — only left channel audible
-- Decompress On Load clip causes memory spike
-- AudioMixer CPU spike — DSP thread hot
-- Vorbis quality artifacts on dialogue
-- AudioListener count is not exactly one
-- `Load In Background` causes first-play silence
-- 7. Completion
-- Detailed References
-- See Also
-- (none)
+## Key rules
+1. Never change before reporting findings; STOP at every WAIT checkpoint for user approval (assessment and mixer changes each gate).
+2. `script eval` takes a statement block: no `using` directives, fully-qualified type names only.
+3. Triage table routes symptoms: memory→import audit, CPU→mixer audit, 3D wrong→Force To Mono, artifacts→compression, mobile→sample rate, streaming→Load Type.
+4. Key technical facts: stereo clip + spatialBlend=1 plays only left channel; effects run DSP even on silent groups; reverb on Master/high groups is the most expensive; halving sample rate halves PCM memory; lossy MP3 sources can't recover quality.
+5. Validate by re-reading importer/source values after reimport, report before/after deltas, max 3 adjust-verify cycles.
 
-## Tools / MCPs it needs
+## Risks / owner items
+- Verify on device builds; Editor numbers mislead.
+- `Load In Background` causes first-play silence — mitigate with preload or PlayScheduled, or use CompressedInMemory for immediate playback.
+- Multiple AudioListeners = unpredictable spatialization; zero = silence.
 
-- none declared
+## Category and tags
+build, mobile — unity, audio, optimization, performance, game-dev.
 
-## Risks / cautions found in text
-
-- 3. **Detect AudioListener:** Use the scene-component query recipe in [resources/audio-import-api.md](resources/audio-import-api.md) for `UnityEngine.AudioListener` to confirm exactly one listener is present. Multiple listeners produce incorrect spatialization; zero listeners produce silence.
-- 4. **Report findings before making changes:** Summarize ALL detected sources, the listener count, and mixer depth to the user. Flag any immediate risks (e.g., stereo clip with `spatialBlend = 1`, Decompress On Load on a clip > 1 MB, reverb on the Master group).
-- - **Multiple listeners:** Unity uses the last enabled one, producing unpredictable spatialization. Use the scene-component query recipe for `UnityEngine.AudioListener` and disable all but the intended one.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Do not make changes before reporting findings to the user
-2. - Follow steps in strict order; never jump ahead
-3. - STOP at every `WAIT` checkpoint and await the user's response before continuing
-4. - Quality is more important than speed: measure before and after every change
-5. - Always verify results in a device build; Editor audio stats are indicative only
-
-## Files inside the skill
-
-- `resources/audio-import-api.md` — "Audio Import API Recipes"
-- `resources/platform-settings.md` — "Audio Platform Settings Reference"
-- `SECURITY.md` — "Security notes: optimize-audio"
+## Revision note
+Single plugin revision; unusually rigorous gating (WAIT checkpoints, measure-before-change) among the Unity skills.

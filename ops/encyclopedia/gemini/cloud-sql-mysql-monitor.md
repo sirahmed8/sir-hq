@@ -1,51 +1,28 @@
 # cloud-sql-mysql-monitor
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-mysql-monitor\SKILL.md`
-- SKILL.md size: 24466 chars
+## Summary
+Google-published observability skill for Cloud SQL for MySQL. Two families of scripts: live database inspection (active queries from processlist/innodb_trx, table stats, fragmentation, missing unique indexes, query plans) and Cloud Monitoring time-series queries via PromQL for per-query insights (dbinsights aggregate metrics like execution_time keyed by query_hash) and system metrics (CPU, memory, etc.).
 
-## What it does
+## When to use / when NOT
+Use for "why is the database slow", "show long-running queries", "which tables are fragmented/unused-indexed", "graph CPU over the last hour". Do NOT use for provisioning (admin) or backups (lifecycle); for raw ad-hoc SQL use cloud-sql-mysql-data.
 
-Use these skills when you need to troubleshoot slow queries, analyze system-level PromQL metrics, and identify structural performance issues like table fragmentation or missing unique indexes.
+## Inputs, outputs, tools
+- Inputs: PromQL `query` + projectId/instanceId for metrics scripts; `table_schema`, `table_name`, `min_duration_secs`, `limit`, `data_free_threshold_bytes`, `sort_by` for inspection scripts.
+- Outputs: JSON query details, schema stats, fragmentation percentages, PromQL time-series results.
+- Tools: `scripts/get_query_metrics.js`, `get_system_metrics.js`, `list_active_queries.js`, `list_table_stats.js`, `list_table_fragmentation.js`, `list_tables_missing_unique_indexes.js`, `get_query_plan.js`; Node + JSON params; auto-loads .env.
 
-## When to use (from skill text)
+## 5 most important rules
+1. get_query_metrics/get_system_metrics require a hand-built PromQL query — construct it from the documented metric names, labels (`instance_id`, `query_hash`, `database_id` = `project_id:instance_id`) and default 5m `_over_time` windows.
+2. list_active_queries merges processlist and innodb_trx to surface transaction wait time, state, rows locked/modified — start triage here.
+3. Fragmentation output identifies reclaimable space via OPTER TABLE suggestions — report percentage, don't run OPTIMIZE without asking.
+4. `project` is pre-configured; only override if the user names another project.
+5. Do not ask about env vars unless a script fails on missing env.
 
-- which the metrics timeseries data needs to be fetched. To use this skill, you
+## Risks / things needing the owner
+Read-only by design, but PromQL queries hit Cloud Monitoring billing/quotas; OPTIMIZE TABLE on large tables locks/rebuilds — needs owner sign-off. Requires GCP + Cloud SQL credentials.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, cloud-sql, mysql, monitoring, performance, promql
 
-- Usage
-- Scripts
-- get_query_metrics
-- get_query_plan
-- get_system_metrics
-- list_active_queries
-- list_table_fragmentation
-- list_table_stats
-- list_tables_missing_unique_indexes
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1.  Interval: Use a default interval of `5m` for `_over_time` aggregation
-2. 8.  Percentile with groupby on resource_id, database: `quantile by
-3. 1.  `dbinsights.googleapis.com/aggregate/latencies`: Cumulative query latency
-
-## Files inside the skill
-
-- `scripts/get_query_metrics.js`
-- `scripts/get_query_plan.js`
-- `scripts/get_system_metrics.js`
-- `scripts/list_active_queries.js`
-- `scripts/list_tables_missing_unique_indexes.js`
-- `scripts/list_table_fragmentation.js`
-- `scripts/list_table_stats.js`
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\cloud-sql-mysql-monitor\SKILL.md` (Apache-2.0, publisher google). Only the gemini tool holds it.

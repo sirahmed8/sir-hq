@@ -1,41 +1,28 @@
-# firebase_app_hosting_basics
+# firebase-app-hosting-basics
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\firebase_app_hosting_basics\SKILL.md`
-- SKILL.md size: 2367 chars
+## Summary
+Guide for deploying full-stack SSR frameworks (Next.js, Angular) to Firebase App Hosting — the git-push-to-deploy counterpart to classic Firebase Hosting. Covers choosing App Hosting vs Hosting (SSR/ISR/automated deploys vs static sites/CLI control), firebase.json `apphosting` block config, `apphosting.yaml` backend config, secrets via `apphosting:secrets`, CLI deploy, optional GitHub CI/CD backend connection, and local emulation.
 
-## What it does
+## When to use / when NOT
+Use for Next.js/Angular (or other supported full-stack frameworks) needing SSR, ISR, or zero-config git-push deploys. Do NOT use for static sites or SPAs without SSR (use firebase-hosting-basics instead). Requires the Blaze pay-as-you-go plan — direct the user to upgrade if not on it.
 
-Use when deploying a full-stack SSR app such as Next.js or Angular to Firebase App Hosting.
+## Inputs, outputs, tools
+- Inputs: a supported SSR framework project, Firebase project on Blaze plan, backendId, rootDir.
+- Outputs: deployed App Hosting backend serving the SSR app; optional GitHub-connected CI/CD.
+- Tools: `npx -y firebase-tools@latest deploy`, `apphosting:secrets` (set/grant secret access), `apphosting.yaml` config, Firebase Local Emulator Suite for testing; references configuration.md, cli_commands.md, emulation.md.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. App Hosting requires Blaze plan — verify/upgrade before anything else.
+2. Pick the right product: static site or SPA without SSR → Firebase Hosting; SSR/ISR/full-stack framework → App Hosting.
+3. Configure `firebase.json` with the `apphosting` block (backendId, rootDir, ignore list) and `apphosting.yaml` for backend settings before deploying.
+4. Use `apphosting:secrets` commands to set secrets and grant the backend access — never commit secret values.
+5. GitHub-connected automated deployment is optional and "not required" — recommended only for advanced users; plain `firebase deploy` works.
 
-- App Hosting Basics
-- Description
-- Hosting vs App Hosting
-- Deploying to App Hosting
-- Deploy from Source
-- Automated deployment via GitHub (CI/CD)
-- Emulation
-- (none)
+## Risks / owner needs
+Blaze billing is owner territory (no-budget rule: agents prepare, owner buys). Secrets handling and domain/custom-domain decisions need care. SSR apps cost more than static hosting.
 
-## Tools / MCPs it needs
+## Category and tags
+Category: cloud. Tags: firebase, app-hosting, ssr, nextjs, angular, deploy, ci-cd.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - You are deploying a static site (HTML/CSS/JS).
-2. - You are deploying a simple SPA (React, Vue, etc. without SSR).
-3. - You want full control over the build and deploy process via CLI.
-
-## Files inside the skill
-
-- `references/cli_commands.md` — "App Hosting CLI Commands"
-- `references/configuration.md` — "App Hosting Configuration (`apphosting.yaml`)"
-- `references/emulation.md` — "App Hosting Emulation"
+## Revisions
+Identical across the 7 tools; claude copy used.

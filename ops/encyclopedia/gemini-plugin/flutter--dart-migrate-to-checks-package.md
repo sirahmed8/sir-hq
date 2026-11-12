@@ -1,64 +1,28 @@
-# dart-migrate-to-checks-package
+# dart-migrate-to-checks-package (Flutter plugin)
 
-- Tool: `gemini-plugin` (plugin: `flutter`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-migrate-to-checks-package\SKILL.md`
-- SKILL.md size: 19324 chars
+## Summary
+Migration workflow from `package:matcher` expectations to the type-safe `package:checks` library: add dev dep, swap `package:test/test.dart` for `test/scaffolding.dart` + `checks/checks.dart` (keep `test/expect.dart` import for incremental migration), translate assertions via the matcher→checks mapping table, and exploit the compiler — remove the legacy import and un-migrated `expect` calls surface as errors.
 
-## What it does
+## When to use / when NOT
+Use when asked to migrate tests to package:checks for static type safety, autocomplete, and literate failure output. Do NOT use for new tests written directly in checks style (just write them) or non-test code.
 
-|- Replace the usage of `expect` and similar functions from `package:matcher` to `package:checks` equivalents.
+## Inputs, outputs, tools
+- Inputs: test files with `expect`/`expectLater`.
+- Outputs: migrated test files using `check()` syntax.
+- Tools: `dart pub add dev:checks`, `dart analyze`, `dart test`; grep discovery patterns in the skill.
 
-## When to use (from skill text)
+## 5 most important rules
+1. THE critical pitfall: legacy `expect(actual, equals(coll))` did DEEP equality on collections; checks `.equals()` is identity — collections MUST use `.deepEquals()`.
+2. Incremental path: keep `import 'package:test/expect.dart'` until fully migrated; removing it turns leftovers into compile errors (free checklist).
+3. Replace the test import trio: scaffolding + checks (+expect.dart only while migrating).
+4. Watch async: await check futures; `unawaited_futures` warnings flag missed awaits.
+5. Verify with `dart analyze` then `dart test` — checks failure output is verbose and precise, use it to tell real failures from mistranslations.
 
-- Use this skill when you need to migrate a Dart test suite from the legacy
-- - [When to Use This Skill](#when-to-use-this-skill)
-- - [How to Use This Skill (The Workflow)](#how-to-use-this-skill-the-workflow)
+## Risks / things needing the owner
+Silent behavior changes if deep-equality cases are mistranslated — the mapping table exists because line-for-line ports can false-pass. Run the full suite after migrating.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · dart, testing, migration, checks
 
-- Migrating Dart Tests to Package Checks
-- Contents
-- When to Use This Skill
-- How to Use This Skill (The Workflow)
-- 1. Dependency Setup
-- 2. Identify and Plan Target Files
-- 3. Migrating a File (Incremental or Full)
-- 4. Verification and Feedback Loops
-- Key Syntax Differences and Pitfalls
-- 1. Collection Equality Pitfall (`equals` vs `deepEquals`)
-- 2. The `reason` Parameter is now `because`
-- 3. Regular Expression Matching (`matches` vs `matchesPattern`)
-- 4. Property Extraction (`TypeMatcher.having` vs `.has`)
-- 5. Synchronous vs. Asynchronous `throws`
-- 6. RegExp / Pattern Equality
-- 7. Strict Nullable Boolean Safety (`bool?` fields)
-- 8. Map Key Containment (`containsKey` vs `contains`)
-- 9. Explicit Generic Parameters for Extension Types
-- 10. Dynamic Map / JSON Lookup Casting
-- Matcher-to-Checks Mapping Table
-- Matchers with No Direct Replacements
-- 1. Specific Error Matchers
-- 2. The `anything` Matcher
-- 3. Specific Numeric Toggles
-- 4. Numeric Ranges
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Remediation**: You **must** replace collection equality assertions with
-2. - **Remediation**: To match using a regular expression, you must explicitly
-3. - **Crucial Pitfall**: Trying to chain expectations directly after an awaited
-4. - **Remediation**: For fields declared as `bool?`, you must either refine the
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-migrate-to-checks-package\SKILL.md`. Only gemini-plugin holds it.

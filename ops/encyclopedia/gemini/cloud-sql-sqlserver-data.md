@@ -1,39 +1,28 @@
 # cloud-sql-sqlserver-data
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-data\SKILL.md`
-- SKILL.md size: 2446 chars
+## Summary
+Minimal Google-published skill for Cloud SQL SQL Server data access: exactly two scripts — `execute_sql` (run one statement) and `list_tables` (schema info for user tables). The smallest member of the cloud-sql family; no views/indexes/sequences/procedure listers unlike the Postgres counterpart.
 
-## What it does
+## When to use / when NOT
+Use only for "run this T-SQL" or "list tables". For anything richer (indexes, views, query plans, monitoring) this skill does not cover it — pair with cloud-sql-sqlserver-monitor for metrics or run queries via execute_sql directly.
 
-Use these skills when you need to explore the database schema, execute SQL queries to interact with your data, and monitor system-level performance metrics using PromQL queries.
+## Inputs, outputs, tools
+- Inputs: `sql` for execute_sql; table filters/output format for list_tables.
+- Outputs: query results and JSON table schema details.
+- Tools: `scripts/execute_sql.js`, `scripts/list_tables.js`; Node + JSON; auto-loads .env.
 
-## When to use (from skill text)
+## 5 most important rules
+1. execute_sql runs one real statement — destructive T-SQL needs explicit user confirmation.
+2. There is no query-plan or index-inspection script here; do not pretend coverage exists.
+3. `project` is pre-configured; never ask unless the user names another.
+4. Do not ask about env vars unless a script fails on missing env.
+5. Keep statements single — the tool executes one SQL statement per call.
 
-- Use this tool to execute SQL.
-- triggers, comment) as JSON for user-created tables (ordinary or partitioned).
+## Risks / things needing the owner
+Write-capable execute_sql against production credentials. Requires GCP/DB credentials in env.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, cloud-sql, sqlserver, sql, database
 
-- Usage
-- Scripts
-- execute_sql
-- list_tables
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- `scripts/execute_sql.js`
-- `scripts/list_tables.js`
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-data\SKILL.md` (Apache-2.0, publisher google). Only the gemini tool holds it.

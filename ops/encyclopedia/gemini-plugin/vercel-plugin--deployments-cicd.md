@@ -1,63 +1,28 @@
-# deployments-cicd
+# deployments-cicd (Vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\deployments-cicd\SKILL.md`
-- SKILL.md size: 10737 chars
+## Summary
+Vercel deployment/CI-CD expert guide: `vercel`/`vercel deploy` preview, `--prod` production, `vercel build` + `deploy --prebuilt` for custom pipelines, `vercel promote` (instant alias re-point, no rebuild) vs `rollback`, `inspect`/`ls`/`logs`; CI needs VERCEL_TOKEN + ORG_ID + PROJECT_ID secrets; ready-made GitHub Actions/GitLab CI/Bitbucket Pipelines YAML (pull → build --prod → deploy --prebuilt --prod), PR preview + comment pattern, promote-after-e2e pattern, global flags (--token/--yes/--scope/--cwd), OIDC federation clarification (runtime backend auth only, NOT CLI auth), strategy matrix, common build errors, deploy summary format.
 
-## What it does
+## When to use / when NOT
+Use when deploying, promoting, rolling back, inspecting Vercel deployments or writing CI workflows. Do NOT use for app code, env var management (env-vars skill), or non-Vercel hosts.
 
-Vercel deployment and CI/CD expert guidance.
+## Inputs, outputs, tools
+- Inputs: project dir, target env (preview/production), CI provider.
+- Outputs: deployment URLs, promoted/rolled-back production, CI pipeline configs.
+- Tools: Vercel CLI (vercel/vercel deploy/build/pull/promote/rollback/inspect/ls/logs/daemons scale), CI secrets VERCEL_TOKEN/VERCEL_ORG_ID/VERCEL_PROJECT_ID.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. CI pattern is always `vercel pull --environment=...` → `vercel build --prod` → `vercel deploy --prebuilt --prod`, all with `--token` and `--yes`.
+2. `promote` re-points the alias instantly without rebuild — prefer it over re-deploying a validated preview; use rollback for instant revert.
+3. `--prebuilt` separates build from deploy — enables CI build caching and test gates between them.
+4. OIDC federation authenticates runtime functions to AWS/GCP — it does NOT replace VERCEL_TOKEN for CLI deploys.
+5. Pin the CLI version in CI (`vercel@latest` can break); never commit tokens — secrets only.
 
-- Vercel Deployments & CI/CD
-- Deployment Commands
-- Preview Deployment
-- Deploy from project root (creates preview URL)
-- Equivalent explicit form
-- Production Deployment
-- Deploy directly to production
-- Force a new deployment (skip cache)
-- Build Locally, Deploy Build Output
-- Build locally (uses preview env vars by default)
-- Build with production env vars
-- Deploy only the build output (no remote build)
-- Promote & Rollback
-- Stage a production deployment without assigning domains
-- Promote it (instant, no rebuild)
-- Show pending rollback status (no argument does not roll back)
-- Rollback to a specific deployment
-- Inspect Deployments
-- View deployment details (build info, functions, metadata)
-- List recent deployments
-- View recent runtime logs for a deployment
-- CI/CD Integration
-- When to Add a CI Pipeline
-- Required Environment Variables
-- GitHub Actions
-- (none)
+## Risks / things needing the owner
+Deploys hit production — promote/rollback are real-world side effects needing confirmation. Tokens are owner-managed secrets. `--force` skips cache.
 
-## Tools / MCPs it needs
+## Category / tags
+cloud · vercel, ci-cd, deployment, devops
 
-- none declared
-
-## Risks / cautions found in text
-
-- 3. **Release only tested builds** — Deployment Checks (Git) or staged production builds (CLI)
-- 4. **Use OIDC federation for runtime backend access** — lets Vercel functions auth to AWS/GCP without static secrets (does not replace `VERCEL_TOKEN` for CLI)
-- - **Target**: production | preview
-- - **Success (preview)** → "Visit the preview URL to verify. When ready, run `/deploy prod` to promote to production."
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Always use `--prebuilt` in CI** — separates build from deploy, enables build caching and test gates
-2. 2. **Use `vercel pull` before build** — ensures correct env vars and project settings
-3. - **No monitoring configured** → "Set up drains or install an error tracking integration before the next production deploy. Run `/status` for a full observability diagnostic."
-
-## Files inside the skill
-
-- `references/cli-pipelines.md` — "CLI Pipelines"
-- `references/deployment-checks.md` — "Deployment Checks"
-- `references/live-status.md` — "Deployment Status"
-- `references/oidc-federation.md` — "OIDC Federation (Secure Backend Access)"
+## Revisions
+Five tools hold it (codex, cursor, gemini-plugin, kilo, opencode, windsurf — no claude); codex copy chosen, all ~10549 bytes identical.

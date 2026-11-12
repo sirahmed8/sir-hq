@@ -1,47 +1,29 @@
 # notion-organize-my-semester
 
-- Tool: `gemini-plugin` (plugin: `notion`)
-- Category: data
-- Source: `C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-organize-my-semester\SKILL.md`
-- SKILL.md size: 7951 chars
+Tools: gemini-plugin (Notion plugin). Source: C:\Users\a7med\.gemini\config\plugins\notion\skills\notion-organize-my-semester\SKILL.md (+ reference/design.md, reference/study-desk-layout.md, examples/fall-semester.md)
 
-## What it does
+## Summary
+Builds a Notion "study desk" for a course or semester: course navigation, a notes library (title, course, lecture date, source), and — only when there is real work — an assignments tracker with due dates and status, plus an undated queue so nothing hides. It preserves equations, citations, and source fidelity.
 
-Organize a semester in Notion from course notes, syllabi, assignments, and chat context. Use when getting organized for a course or semester to keep notes clear and upcoming work easy to find.
+## When to use / not use
+Use for organizing a semester or course from notes, syllabi, and assignments. Not for routine edits inside existing study pages, and not for teacher/student-org workflows, which get their own audience handling rather than a personal dashboard.
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: courses, term, supplied notes/syllabi/assignments, optional destination. Output: Notion home + notes library + optional assignments database with views. Needs Notion MCP tools and the design/study-desk-layout references.
 
-- conversation and sources. Use this for organizing a course or semester; keep
+## Key rules
+1. Scale to scope: a single course may need only a notes collection; a semester gets a home with navigation, library, and tracker.
+2. Notes sort newest-first by course groups; assignment views show upcoming incomplete work by due date AND a visible undated queue — a calendar alone hides undated work.
+3. Reconcile syllabus dates against explicit instructor updates; keep conflicts visible instead of silently picking a deadline.
+4. Never invent grades, progress percentages, study schedules, or completion states; generated study questions are labeled suggestions.
+5. Keep the next academic action above the full library; preserve citations and equations; extracurricular/personal tracking stays out unless requested.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- Deadline conflicts between syllabus and instructor updates must surface to the user, not be auto-resolved.
+- Same Notion safety rails as the family: no sharing changes, verify by read-back, disclose unverified visuals.
 
-- Organize my semester
-- Start from context
-- Organize courses and assignments
-- Lay out the study desk
-- Produce the designed result
-- Build and verify in Notion
-- Avoid redundant tool calls
-- Show the saved result
-- (none)
+## Category and tags
+study, ops — notion, semester, courses, notes, assignments, mcp.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Notes: title, course or subject, lecture date when known, and source. Use course
-2. - Assignments, when needed: title, course, due date, and status. Distinguish exams,
-3. - A note body can hold key ideas, detailed notes, and open questions. Preserve
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `examples/fall-semester.md` — "Organize three courses into a study desk"
-- `reference/design.md` — "Design a personal study space"
-- `reference/study-desk-layout.md` — "Build a semester study desk"
+## Revision note
+Single plugin revision; student-facing counterpart to the engineering wiki skill.

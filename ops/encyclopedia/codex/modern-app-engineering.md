@@ -1,38 +1,27 @@
 # modern-app-engineering
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\modern-app-engineering\SKILL.md`
-- SKILL.md size: 2088 chars
+Source read: `C:\Users\a7med\.claude\skills\modern-app-engineering\SKILL.md` (2.1 KB; claude revision; codex/cursor/kilo/opencode/windsurf listed; `references/` has 4 platform blueprints).
 
-## What it does
+## Summary
+Senior multi-platform architecture guide enforcing universal principles — strict anti-monolith (no 500+ line single files), four-layer separation (Presentation / Domain-State / Data / Core-DI), reactive state management (UI derived from state streams), dependency inversion on abstractions, and real local persistence (SQLite/Room/SwiftData/Drift/Realm) — then routing to platform-specific blueprint references: Windows desktop (Tauri v2, PySide6 MVVM, .NET 9 WinUI 3), Android (Kotlin + Compose + Room + Hilt clean architecture), iOS (Swift 6 + SwiftUI + SwiftData + @Observable), Flutter (feature-first clean architecture, Riverpod 2.x + Drift + GoRouter).
 
-Senior architecture guidelines for production desktop (WinUI/Tauri), mobile (Compose/SwiftUI), and cross-platform apps.
+## When to use / when NOT
+Use when starting or restructuring a native/cross-platform app project (desktop, mobile, Flutter). Not for web-only Next.js work (use nextjs/modern-web-guidance) or for small scripts where layering is overkill.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: target platform(s), app scope.
+- Outputs: layered project structure, boilerplate, dependency choices per platform.
+- Tools: Tauri v2, PySide6, WinUI 3/.NET 9, Kotlin/Compose/Room/Hilt, SwiftUI/SwiftData, Flutter/Riverpod/Drift/GoRouter — per references.
 
-- Senior Multi-Platform Application Engineering & Architecture Guide
-- Universal Senior Engineering Principles
-- Detailed Platform Architecture References
-- (none)
+## 5 most important rules
+1. Anti-monolith: decompose into Presentation / Domain-State / Data / Core layers; never one giant file.
+2. UI is strictly derived from reactive state streams.
+3. Depend on abstractions (interfaces/protocols), not concrete implementations.
+4. Always real persistence — no in-memory-only state for production apps.
+5. Read the platform blueprint reference before scaffolding; each has copy-paste-ready structure and deps.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Blueprints are starting points — adapting them blindly can produce over-layered code for simple apps (YAGNI tension with karpathy-skills). Version drift in referenced frameworks is possible.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Presentation Layer**: UI Views, Screens, Components, Theme tokens.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. **Strict Anti-Monolith Rule**: Never write an entire application or complex screen in a single monolithic file (such as a 500+ line single Python, JS, or C# script).
-2. 4. **Dependency Inversion**: High-level modules must depend on abstractions (interfaces/protocols), not concrete implementations.
-3. 5. **Real Persistence**: Always back applications with real persistence (SQLite, Room, SwiftData, Drift, Realm, or structured local storage).
-
-## Files inside the skill
-
-- `references/android_jetpack_compose_clean_arch.md` — "Android Clean Architecture Blueprint (Kotlin + Jetpack Compose)"
-- `references/flutter_feature_first_clean_arch.md` — "Flutter Feature-First Clean Architecture Blueprint"
-- `references/ios_swiftui_clean_arch.md` — "iOS Clean Architecture Blueprint (Swift + SwiftUI + SwiftData)"
-- `references/windows_desktop_blueprints.md` — "Windows & Desktop Production Architecture Blueprints"
+## Category and tags
+Category: build. Tags: architecture, clean-architecture, desktop, mobile, flutter, tauri, compose, swiftui.

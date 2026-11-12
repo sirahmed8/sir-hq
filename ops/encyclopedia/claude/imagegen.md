@@ -1,74 +1,27 @@
 # imagegen
 
-- Tool: `claude`
-- Category: design
-- Source: `C:\Users\a7med\.claude\skills\imagegen\SKILL.md`
-- SKILL.md size: 19476 chars
+Source read: `C:\Users\a7med\.claude\skills\imagegen\SKILL.md` (19.5 KB; claude revision — the only holder listed). Companion files: `scripts/image_gen.py` (CLI fallback), `references/{prompting,sample-prompts,cli,image-api,codex-network}.md`, `agents/`, `assets/`.
 
-## What it does
+## Summary
+Raster image generation/editing with two modes: the built-in `image_gen` tool (default, no API key; Codex saves under `$CODEX_HOME/generated_images/`) and a fallback CLI (`scripts/image_gen.py`, needs `OPENAI_API_KEY`, default model `gpt-image-2`) with `generate`/`edit`/`generate-batch` subcommands. It defines a generate-vs-edit decision tree (reference images = generate, edit target = edit), a use-case taxonomy (photorealistic, product-mockup, ui-mockup, infographic, ads, logo, illustration, edit slugs like text-localization/identity-preserve/background-extraction), a labeled prompt schema (Use case → Constraints → Avoid), prompt augmentation rules (normalize specifics, never invent characters/brands), save-path policy (project assets must be moved into the workspace, versioned filenames, never overwrite), transparent-background handling, and detailed `gpt-image-2` size/quality constraints for CLI mode.
 
-Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.
+## When to use / when NOT
+Use for bitmaps: photos, illustrations, textures, sprites, mockups, cutouts, infographics. Do NOT use for SVG/vector/icon-system work, simple shapes/diagrams better done in code, or when the user wants deterministic code-native output.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: prompt(s), optional reference/edit-target images (built-in needs them visible via `view_image` first), exact verbatim text, constraints/avoid lists.
+- Outputs: PNG/etc. files; final saved paths must be reported; project-bound assets moved into the workspace.
+- Tools: built-in `image_gen` + `view_image` (default); fallback `scripts/image_gen.py` + `OPENAI_API_KEY` + optional `pillow`; `n` is variants-of-one-prompt, distinct assets need distinct calls or `generate-batch`.
 
-- - **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for or confirms the CLI/API/model path. Requires `OPENAI_API_KEY`.
+## 5 most important rules
+1. Built-in `image_gen` is the default for everything including transparency; CLI fallback only on explicit user request (and it needs `OPENAI_API_KEY`).
+2. Never silently downgrade `gpt-image-2` to `gpt-image-1.5`; never modify `scripts/image_gen.py`.
+3. Label every input image's role (reference / edit target / style insert); for edits repeat invariants every iteration to prevent drift.
+4. Never leave a project-referenced asset only under `$CODEX_HOME/generated_images/` — move it into the workspace and report the path; don't overwrite, use `-v2` siblings.
+5. `gpt-image-2` constraints (CLI): no `background=transparent`, no `input_fidelity`, quality low/medium/high/auto, edges multiple of 16, ratio <= 3:1, 655,360–8,294,400 px.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+CLI mode spends the owner's OpenAI API quota — confirm before use. Generated images must not fabricate testimonials, logos, or likenesses of real people without consent. Verify text rendering in outputs (exact-text prompts often drift).
 
-- Image Generation Skill
-- Top-level modes and rules
-- When to use
-- When not to use
-- Decision tree
-- Workflow
-- Transparent image requests
-- Prompt augmentation
-- Specificity policy
-- Use-case taxonomy (exact slugs)
-- Shared prompt schema
-- Examples
-- Generation example (hero image)
-- Edit example (invariants)
-- Prompting best practices
-- Guidance by asset type
-- gpt-image-2 guidance for CLI fallback
-- Fallback CLI mode only
-- Temp and output conventions
-- Dependencies
-- Environment
-- Script-mode notes
-- Reference map
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - Generate a new image (concept art, product shot, cover, website hero)
-- - Produce many assets or variants for one task
-- - Creating simple shapes, diagrams, wireframes, or icons that are better produced directly in SVG, HTML/CSS, or canvas
-- - For edits, preserve invariants aggressively and save non-destructively by default.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Default built-in tool mode (preferred):** built-in `image_gen` tool for image generation, editing, and transparent-image requests. Does not require `OPENAI_API_KEY`.
-2. - **Fallback CLI mode:** `scripts/image_gen.py` CLI. Use when the user explicitly asks for or confirms the CLI/API/model path. Requires `OPENAI_API_KEY`.
-3. - Do not switch to CLI fallback for ordinary quality, size, or file-path control.
-4. - Never silently switch from built-in `image_gen` or CLI `gpt-image-2` to CLI `gpt-image-1.5`; ask the user first unless they explicitly requested `gpt-image-1.5`.
-5. - If the built-in tool fails or is unavailable, tell the user the CLI fallback exists and that it requires `OPENAI_API_KEY`. Proceed only if the user explicitly asks for that fallback.
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `assets/imagegen-small.svg`
-- `assets/imagegen.png`
-- `LICENSE.txt` — "A"
-- `references/cli.md` — "CLI reference (`scripts/image_gen.py`)"
-- `references/codex-network.md` — "Codex network approvals / sandbox notes"
-- `references/image-api.md` — "Image API quick reference"
-- `references/prompting.md` — "Prompting best practices"
-- `references/sample-prompts.md` — "Sample prompts (copy/paste)"
-- `scripts/image_gen.py`
-- `scripts/remove_chroma_key.py`
+## Category and tags
+Category: media. Tags: image-generation, gpt-image, prompt-engineering, assets, transparency, batch.

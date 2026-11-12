@@ -1,54 +1,28 @@
-# urp-postprocessing
+# urp-postprocessing (gemini-plugin: unity)
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: build
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\urp-postprocessing\SKILL.md`
-- SKILL.md size: 11268 chars
+## Summary
+urp-postprocessing sets up, configures and debugs URP's Volume-based post-processing (Bloom, Tonemapping, ColorAdjustments, DepthOfField, Vignette, etc.). Goal stated upfront: working visual result with zero console errors. Requires a live Editor reachable via unity-cli, specifically `script eval`. The workflow: mandatory pre-flight checks first (URP is active pipeline, HDR enabled for Tonemapping, camera `renderPostProcessing` true, Volume GameObject layer inside camera `volumeLayerMask`, Volume enabled with non-null profile and overrides with `overrideState=true`), then Volume setup (global `isGlobal=true` vs local trigger collider with priority/blendDistance/weight), effect configuration via `profile.Add<T>()`, and an ordered 8-step debugging checklist ending in Game view (not Scene view). Includes wrong→correct API mapping (PostProcessVolume→Volume, PostProcessLayer→UniversalAdditionalCameraData.renderPostProcessing, GetSetting→TryGet, AddSettings→Add, sharedProfile vs profile runtime cloning), recipe presets (Cinematic/Stylized/Horror/Clean-Mobile), and references/effect-reference.md (all VolumeComponent properties) + code-templates.md.
 
-## What it does
+## When to use / when NOT
+Use for any URP post-processing effect request or "post-processing not working" debug. Do NOT use for Built-in pipeline projects, for shader-level effects, or when no Editor/`script eval` is available — say so and stop rather than guessing.
 
-Sets up, configures, and debugs URP post-processing with the Volume framework. Use for bloom, tonemapping, color adjustments, depth of field, vignette, or other Volume overrides.
+## Inputs, outputs, tools
+- Inputs: effect list or bug description; live Editor via `unity command script eval`.
+- Outputs: VolumeProfile asset with overrides, scene Volume/camera changes, a confirmation report.
+- Tools: unity-cli + `script eval` C# snippets; two reference files.
 
-## When to use (from skill text)
+## 5 most important rules
+1. `script eval` takes a STATEMENT BLOCK: no `using` directives (CS0210), fully qualified types only, `return` gives the result back.
+2. `overrideState = true` on every VolumeParameter you set — the #1 scripting mistake; unset params are silently ignored.
+3. Pre-flight before effects: HDR on URP asset, camera renderPostProcessing, volumeLayerMask covers the Volume's layer (default is layer 0 only).
+4. `sharedProfile` edits persist to the asset; `profile` auto-clones for runtime-safe edits — pick deliberately.
+5. Verify in Game view; Scene view has its own post-processing toggle and lies about results.
 
-- **Local Volume (optional, but takes precedence)**: GameObject with trigger `Collider` + `Volume` component, `isGlobal = false`. Properties:
-- 5. `volume.isGlobal = true` (for global), or camera is inside the Volume's trigger `Collider` (for local)?
+## Risks / things needing the owner
+Missing `script eval` (Pipeline version dependent) is a hard stop reported to the user. Local volumes need trigger colliders and correct layer masks — easy to misconfigure silently. HDR off breaks Tonemapping and constrains Bloom threshold. Nothing needs the owner beyond a running Editor.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+build · unity, urp, post-processing, rendering, volumes
 
-- 0. Prerequisite: an Editor you can run C# in
-- Passing C# to `script eval`
-- 0. Pre-Flight Checks
-- Pre-Flight Check Snippet
-- 1. Volume Setup
-- 2. Post-Processing Effects
-- 3. Anti-Hallucination Rules
-- Required Usings
-- Wrong → Correct API Mapping
-- Key Facts
-- 4. Debugging Checklist
-- 5. Common Recipes
-- 6. Final Confirmation
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Types must be fully qualified.** A bare `AssetDatabase` or `Volume` does not resolve
-2. 2. **HDR is enabled on the URP Asset** — Required for Tonemapping. Bloom works best with HDR; in SDR it still works but `threshold` must be < 1.
-3. 3. **Camera has post-processing enabled** — `renderPostProcessing` must be `true` (defaults to `false`). Camera Stacking: only a `CameraRenderType.Base` camera (or the last `Overlay` in the stack) should enable post-processing. Also verify the Renderer's PostProcessData asset is not null — if it is,
-4. 4. **The Volume's GameObject layer is in the Camera's Volume Layer Mask** — `volumeLayerMask` defaults to layer 0 "Default" only. The Volume's `GameObject.layer` must be included, otherwise the camera ignores it.
-5. 5. **Volume exists with `enabled = true`, a valid Profile, and at least one override** — The `Volume` component must be enabled, have a non-null `profile` (or `sharedProfile`), and at least one `VolumeComponent` with `overrideState = true` on its properties.
-
-## Files inside the skill
-
-- `references/code-templates.md` — ""
-- `references/effect-reference.md` — ""
-- `SECURITY.md` — "Security notes: urp-postprocessing"
+## Revisions
+Only one revision exists: `C:\Users\a7med\.gemini\config\plugins\unity\skills\urp-postprocessing\` with references/. No divergent copies.

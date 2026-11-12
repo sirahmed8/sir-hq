@@ -1,51 +1,28 @@
-# xcode_project_setup
+# xcode_project_setup (windsurf/codex skill)
 
-- Tool: `codex`
-- Category: automation
-- Source: `C:\Users\a7med\.codex\skills\xcode_project_setup\SKILL.md`
-- SKILL.md size: 5949 chars
+## Summary
+xcode_project_setup safely modifies Xcode projects (.xcodeproj/.xcworkspace) to add Swift Package dependencies and link native modules — via a bundled Swift script `scripts/xcode_spm_setup`, never by hand-editing .pbxproj. Absolute rules ("a hefty fee will be applied"): NO Ruby/Rails/gems ever (xcodeproj gem banned); modern Xcode folder synchronization means new .swift/resource files on disk auto-join the project — never pbxproj-edit to add files; if scripting is unavoidable use Swift only (Node/TS as absolute last resort); verify `swift --version` first and stop/recommend `xcode-select --install` if missing; empty directory (no .xcodeproj) → ask the user to create the project in Xcode first and wait. Firebase-specific: always use the LATEST firebase-ios-sdk version from GitHub releases; the script auto-injects `-ObjC` into OTHER_LDFLAGS for Firebase (prevents fatal nil crashes from stripped Obj-C categories/+load) and auto-links `GoogleService-Info.plist` via `--plist`.
 
-## What it does
+## When to use / when NOT
+Use when adding SPM packages (Alamofire, Firebase, etc.) or config plists to an existing Xcode project. Do NOT use to create the .xcodeproj itself (user must do it in Xcode), to edit pbxproj text directly, or for non-Apple platforms.
 
-Modify Xcode projects (.pbxproj) safely to add Swift Packages and link native dependencies.
+## Inputs, outputs, tools
+- Inputs: .xcodeproj path, package repo URL, version requirement, product module names, optional plist path.
+- Outputs: SPM dependency + target Frameworks linkage + resource plist wiring (idempotent — skips existing).
+- Tools: `swift run --package-path <skill>/scripts/xcode_spm_setup xcode_spm_setup <proj> <repoURL> <version> [--plist path] <Product...>`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. NEVER use Ruby or hand-edit .pbxproj — folder sync handles file adds; the Swift script handles packages.
+2. `swift --version` gate first; no Swift toolchain → stop and ask user to install.
+3. Script does BOTH steps (add package repo + link products to target Frameworks) — no manual linking needed.
+4. Firebase needs `-ObjC` linker flag (script injects it) and latest SDK version from releases page.
+5. Idempotent: safe to re-run; skips already-linked files/packages.
 
-- Because this skill relies entirely on a native Swift script, you must verify the
+## Risks / things needing the owner
+Requires macOS + Xcode + Swift toolchain — verify before promising. `GoogleService-Info.plist` contains Firebase config (semi-sensitive, project-specific). Creating the initial .xcodeproj is a user action in Xcode GUI. Wrong version pinning breaks Firebase — check releases page. No secrets handling beyond plist placement.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+mobile · xcode, swift, spm, firebase, ios
 
-- Xcode Project Setup
-- ⛔️ CRITICAL RULES & ENVIRONMENT CHECKS
-- 1. The Anti-Ruby Mandate
-- 2. Modern Xcode Folder Synchronization
-- 3. Allowed Scripting Languages
-- 4. Toolchain Verification
-- 5. Mandatory Linker Flags for Static Frameworks (Firebase)
-- Empty Directory Workflow
-- Standard Xcode Workflow
-- **CRITICAL: Always Use Latest SDK Version**
-- Understanding the Script's Actions
-- Usage
-- Example 1: Generic Package (e.g., Alamofire)
-- Example 2: Firebase (Requires Plist)
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Run `swift --version` before proceeding.
-2. - If the Swift command is not found, you must stop and recommend the user
-
-## Files inside the skill
-
-- `scripts/xcode_spm_setup/Package.resolved`
-- `scripts/xcode_spm_setup/Package.swift`
-- `scripts/xcode_spm_setup/Sources/main.swift`
+## Revisions
+Single source read: `C:\Users\a7med\.codeium\windsurf\skills\xcode_project_setup\SKILL.md` (141 lines). Six-tool skill; windsurf revision representative.

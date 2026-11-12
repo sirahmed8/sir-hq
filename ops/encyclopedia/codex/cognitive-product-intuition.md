@@ -1,39 +1,28 @@
 # cognitive-product-intuition
 
-- Tool: `codex`
-- Category: design
-- Source: `C:\Users\a7med\.codex\skills\cognitive-product-intuition\SKILL.md`
-- SKILL.md size: 2949 chars
+## Summary
+A UX doctrine skill that stops agents from producing clone-like, high-friction interfaces. It defines two distinct mental models that must never share a layout — linear setup wizards (locked future steps, revisitable past steps, one dominant CTA) vs exploratory manager/inventory dashboards (search, filters, bulk actions, density) — plus a friction checklist (no premature success, destructive confirmations, no dead clicks, no dead ends, single primary CTA).
 
-## What it does
+## When to use / when NOT
+Use when reviewing or building wizards, onboarding flows, dashboards, or any UI that "feels off" or templated. Do NOT use as a visual-style guide (colors, spacing — that is emil-motion-impeccable / taste-design-engine) or for backend logic.
 
-Human intuition and product logic: eliminates UI clone syndrome, wizard causality flaws, and friction.
+## Inputs, outputs, tools
+- Inputs: the flow/screens under design or audit.
+- Outputs: corrected IA and interaction rules applied to the UI; a friction audit.
+- Tools: none — pure reasoning protocol applied while writing markup/components.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Never reuse one layout across different mental models; wizard ≠ dashboard.
+2. In linear steppers, future steps are strictly locked until prior steps validate; past steps may be revisited with invalidation warnings.
+3. Only the active step shows inputs and the primary validation button.
+4. No "Done!" while background work (downloads, writes, indexing) still runs.
+5. Exactly one primary CTA per viewport; every hover/pointer element must have a real handler; every error state needs Back/Retry/Cancel.
 
-- Cognitive Product Intuition & Anti-Clone Architecture Protocol
-- 1. Eradicate "Clone Syndrome" (Distinct Mental Models)
-- 2. The Causality & State Sequence Law (Linear Wizards)
-- 3. The "Human Friction" & Common-Sense Checklist
-- (none)
+## Risks / things needing the owner
+None operational — it shapes UI decisions. Over-applying "locked steppers" to legitimately non-linear flows would be a misuse; the skill itself warns the models differ.
 
-## Tools / MCPs it needs
+## Category / tags
+design · ux, mental-models, wizard, anti-patterns, review
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Previous Steps are Revisitable**: Users can click backward to review prior steps, with clear warnings if changing earlier inputs invalidates downstream progress.
-- - **Confirmation for Destructive Actions**: Purging files, deleting accounts, or resetting configurations must require an explicit confirmation modal with the destructive action styled in high-visibility danger red.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Future Steps are STRICTLY LOCKED**: Users must **never** be able to click on future steps before completing and validating earlier steps. Stepper numbers or progress bars are read-only visual milestones, NOT arbitrary navigation links.
-2. - **Zero Premature Success**: Never display "Done!" or "Completed!" while background disk writes, network downloads, or indexing workers are still active.
-3. - **Confirmation for Destructive Actions**: Purging files, deleting accounts, or resetting configurations must require an explicit confirmation modal with the destructive action styled in high-visibility danger red.
-4. - **No Misleading Clickables**: Any element with hover styling or a pointer cursor must have a real, functioning click handler.
-5. - **Zero Dead-End States**: If an error occurs during an operation, never trap the user. Always provide an explicit "Back", "Retry", or "Cancel" action.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Six tools hold it; bodies are byte-identical — only the `description` frontmatter differs. The claude copy is preferred: its trigger-style description ("Use when a UI or flow feels confusing...") matches how skills are selected, unlike the codex/cursor/kilo/opencode/windsurf one-line summaries.

@@ -1,41 +1,28 @@
-# zero-trust-security-hardening
+# zero-trust-security-hardening (claude revision)
 
-- Tool: `codex`
-- Category: security
-- Source: `C:\Users\a7med\.codex\skills\zero-trust-security-hardening\SKILL.md`
-- SKILL.md size: 3376 chars
+## Summary
+zero-trust-security-hardening ("Anti-Hack" Protocol) is a three-section production hardening standard broader than vibe-auth-hardening: (1) SECRET HYGIENE — zero keys/db URLs/service-role secrets in client bundles, git-filter-repo purge + immediate rotation if secrets were ever committed, boot-time Zod/Pydantic env validation crashing fast on missing secrets, productionBrowserSourceMaps disabled; (2) AUTH/SESSION/IDENTITY — HttpOnly+Secure+SameSite cookies (zero localStorage), server-side RBAC verified cryptographically per request, TOTP/email OTP + encrypted backup codes, database-level RLS with UUID tenant locking (`user_id = auth.uid()`), zxcvbn + HIBP k-Anonymity passwords, Argon2id/bcrypt cost>=12 hashing; (3) INJECTION/ENDPOINT DEFENSE — 100% parameterized queries (Drizzle/Prisma, zero string interpolation), DOMPurify sanitization + strict CSP blocking inline scripts, sliding-window rate limits on auth endpoints (5 fails/15min) + CAPTCHA/Turnstile, CORS whitelist (never `*` with credentials), full security headers (HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy).
 
-## What it does
+## When to use / when NOT
+Use as the security checklist when hardening an app's secrets, sessions, tenant isolation, queries or rate limiting — especially before production launch or after a vibe-coded build. Do NOT use as a substitute for a real pentest, and don't apply checklist items blindly — verify which apply to the stack (e.g., RLS is Postgres/Supabase-specific).
 
-Zero-trust security: RLS tenant isolation, parameterized queries, secure cookies, and rate limiting.
+## Inputs, outputs, tools
+- Inputs: the app's auth/session/data-access/endpoint code and config.
+- Outputs: hardened implementation per section — env validation, cookie/RLS/auth config, query sanitization, headers, rate limits.
+- Tools: Zod/Pydantic, git-filter-repo, speakeasy/otplib-style TOTP, Argon2id/bcrypt, zxcvbn, HIBP API, DOMPurify, Drizzle/Prisma, Turnstile, RLS policies.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Secrets in git history = purge with git-filter-repo AND rotate — deletion alone leaves them exposed.
+2. Zero secrets in client bundles + crash-fast env validation at boot + no prod source maps.
+3. Cookies HttpOnly/Secure/SameSite; roles verified server-side cryptographically EVERY request; RLS enforces `user_id = auth.uid()` at DB level.
+4. 100% parameterized queries — zero raw interpolation anywhere.
+5. Defense in depth on endpoints: rate limit + CAPTCHA on auth routes, CORS whitelist never `*`+credentials, full header set (HSTS/frame/nosniff/referrer).
 
-- Zero-Trust Security & Hardening Engine ("Anti-Hack" Protocol)
-- 1. Secret Hygiene & Environment Isolation
-- 2. Authentication, Session & Identity Hardening
-- 3. Injection Defense & Endpoint Protection
-- (none)
+## Risks / things needing the owner
+Secret rotation and git history rewrites affect live credentials — coordinate with owner. RLS policies can lock out legitimate access if user_id mapping is wrong — test with real sessions. Rate limits/CAPTCHA can block real users if thresholds mis-set. HSTS is hard to undo once deployed. These are production-affecting changes needing care.
 
-## Tools / MCPs it needs
+## Category / tags
+security · zero-trust, secrets, rls, injection, hardening
 
-- none declared
-
-## Risks / cautions found in text
-
-- - **Client Bundle Sanitization**: Zero API keys, database URLs, service role secrets, or private certificates in client bundles.
-- - **Git History Purge**: If secrets were ever committed to Git, use `git-filter-repo` to purge them completely and immediately rotate the keys.
-- - **Boot-Time Validation**: Validate all environment variables server-side at startup using strict Zod or Pydantic schemas; crash fast if any required secret is missing or malformed.
-- - **Disable Production Source Maps**: Set `productionBrowserSourceMaps: false` in framework configs to avoid leaking internal business logic and file structures.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Boot-Time Validation**: Validate all environment variables server-side at startup using strict Zod or Pydantic schemas; crash fast if any required secret is missing or malformed.
-2. - **Disable Production Source Maps**: Set `productionBrowserSourceMaps: false` in framework configs to avoid leaking internal business logic and file structures.
-3. - Never trust client-side role states (`user.isAdmin === true`).
-4. - **100% Parameterized Queries**: Every database query must use parameterized statements or ORM builders (Drizzle, Prisma). Zero raw string interpolation.
-5. - Sanitize all user-submitted rich text using DOMPurify before rendering.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single source read: `C:\Users\a7med\.claude\skills\zero-trust-security-hardening\SKILL.md` (52 lines). Six-tool skill; claude revision preferred.

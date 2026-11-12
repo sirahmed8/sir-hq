@@ -1,63 +1,28 @@
-# vercel-connect
+# vercel-connect (gemini-plugin: vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-connect\SKILL.md`
-- SKILL.md size: 18879 chars
+## Summary
+vercel-connect manages short-lived, scoped third-party credentials via Vercel Connect: apps authenticate with their project OIDC token (or a scoped Vercel access token in external CI) and request provider tokens (Slack, GitHub, Linear, 100+ services) WITHOUT storing provider API keys or refresh tokens in env vars. Connectors are team-owned with stable UIDs like `slack/acme-slack`; a project+environment must `vercel connect attach` before requesting tokens. Four subject types: `user` (on-behalf-of, needs stable server-side user id — never from request body), `app` (bot/installation), `jwt-bearer` (federated), `token` (exchange). SDK: `@vercel/connect` `getToken()` at use-time with built-in caching; eve-agent helpers (`connect()`, `connectSlackCredentials`, `connectGitHubCredentials`, `connectLinearCredentials`) wire tokens AND webhook verification (Vercel OIDC-signed forwards) so no SLACK_BOT_TOKEN/GITHUB_APP_PRIVATE_KEY env vars are needed; framework adapters for AI SDK/MCP, TanStack AI, Chat SDK, Better Auth, Auth.js; plain HTTP API `POST /v1/connect/token/<uid-url-encoded>` for other languages. CLI: `vercel connect list/create/attach/detach/token` with `--format=json`; creation/attach are distinct steps; browser auth flows need a human.
 
-## What it does
+## When to use / when NOT
+Use when an app needs provider API credentials without managing OAuth refresh tokens itself, MCP client auth, or eve agent channels. Do NOT use for signing users INTO your app (that's the betterauth/authjs adapters' different job — they don't return provider tokens), and do NOT store raw provider tokens in logs.
 
-Securely obtain and manage scoped credentials.
+## Inputs, outputs, tools
+- Inputs: connector UID, subject type/id, scopes/audience/resources; CLI commands; HTTP POST body.
+- Outputs: short-lived provider tokens; eve channel credential objects; connector metadata.
+- Tools: `vercel connect` CLI, `@vercel/connect` SDK (+ `/eve`, `/ai-sdk`, `/mcp`, `/chat`, `/betterauth`, `/authjs` subpaths), `@vercel/passport` identity, Vercel OIDC token, HTTP API.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Server-side only: getToken, Connect auth providers and MCP clients never run client-side; subject.id comes from the authenticated session, never request input.
+2. Full lifecycle: list → create (check `create <service> --help` for connection methods) → attach to project+environments → token. Creating does NOT authorize the project.
+3. Call getToken() immediately before provider use; let SDK cache; scope each request (installationId, scopes, audience, authorizationDetails).
+4. Multi-tenant: never guess installationId — resolve trusted mapping; separate connectors for prod vs non-prod provider isolation.
+5. Triggers are opt-in and separate; forwarded webhooks arrive as Vercel-OIDC-signed requests verified by the helpers, not raw provider secrets.
 
-- - Forward provider events to applications through Vercel Connect triggers
-- The CLI also supports `detach`, `update`, `remove`, and `open`. Run `vercel connect <command> --help` before using optional installation, scope, trigger, branch, or custom-environment flags.
-- Use this whenever the project is on eve + Vercel Connect. It is the one-liner for both outbound posts and inbound webhook auth.
+## Risks / things needing the owner
+Connector creation/authorization opens a browser OAuth flow — a human must finish it; `--yes` only permits auto-opening. Access tokens can only mint `app` or own-user subjects; user subjects for others need project OIDC. Token requests without attach fail. Nothing else needs the owner.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, oauth, credentials, mcp, agents
 
-- Vercel Connect Skill
-- Overview
-- When to Use Vercel Connect
-- Modes of tokens
-- CLI
-- Inspect connectors linked to the current project, or all team connectors
-- Inspect supported setup options, then create a connector
-- Link the connector to the current project and selected environments
-- Request a scoped provider token
-- JavaScript/TypeScript SDK (`@vercel/connect`)
-- HTTP API
-- Get a token via HTTP
-- Get token from Vercel Connect
-- Use the token
-- Framework adapters
-- Better Auth and Auth.js
-- Project links, installations, and environments
-- Triggers and observability
-- Recommended workflow
-- Sources of truth
-- (none)
-
-## Tools / MCPs it needs
-
-- MCP mentions: MCP clients, MCP server, MCP servers, MCP connection, MCP runtime, MCP client
-
-## Risks / cautions found in text
-
-- - Connect to any third-party system that requires OAuth tokens or API credentials
-- - Obtain scoped, short-lived provider credentials for authenticated API calls
-- - **`token`**: token exchange. Pass `{ token }` with an existing subject token; the SDK infers `type: "token"` in `@vercel/connect` 2.4.0+.
-- - `getTokenResponse()` for token metadata such as expiry and connector details.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Connect to any third-party system that requires OAuth tokens or API credentials
-2. - **`user`**: actions performed on behalf of a specific end user (e.g., post a Slack message as the user). Requires a user `id` and optional `issuer`.
-3. - **`app`**: actions performed as the app itself (e.g., post as a Slack bot or use a GitHub installation). It skips per-user consent but may still require a provider installation or supported app grant.
-4. - **`jwt-bearer`**: federated identity through the OAuth JWT-bearer grant. Pass `sub` (required), plus optional `iss`, `aud`, and `additionalClaims`.
-5. - `startAuthorization()` after `UserAuthorizationRequiredError` to begin user consent.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-connect\SKILL.md` (320 lines). Gemini-plugin only per slice.

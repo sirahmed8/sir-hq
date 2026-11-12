@@ -1,40 +1,27 @@
-# managing-python-dependencies
+# managing-python-dependencies (claude+gemini)
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\managing-python-dependencies\SKILL.md`
-- SKILL.md size: 2757 chars
+Source read: `C:\Users\a7med\.claude\skills\managing-python-dependencies\SKILL.md` (2.8 KB; claude and gemini listed; claude copy chosen).
 
-## What it does
+## Summary
+A guardrail rule for Python dependency management: before ANY `pip install`, detect the project's existing dependency manager in strict priority order — uv (`uv.lock` or `[tool.uv]` in pyproject.toml → `uv add`/`uv sync`), Poetry (`[tool.poetry]` → `poetry add`/`install`), Pipenv (`Pipfile` → `pipenv install`), Conda (`environment.yml` → `conda install`/`env create`), then venv+pip (`requirements.txt` only or nothing → `.venv/bin/pip`). Default when no manager exists: create `.venv`, always invoke `.venv/bin/pip`/`.venv/bin/python` by explicit path, and after installs run `.venv/bin/pip freeze > requirements.txt`. Triggers include pip installs, dependency changes, new projects, notebooks, code with third-party imports, and before running Python scripts.
 
-| Ensures proper Python dependency management, avoiding global `pip install` and adhering to project-specific tooling. Use this skill if any of the following are true: 1. Attempting to run `pip install {package_name}`. 2. Python packages or dependencies need to be added or modified. 3. Initiating a new Python project. 4. Creating a new notebook, even if just using BigQuery cells. 5. Generating Python code that includes `import` statements for third-party libraries. 6. Before executing Python scripts via the terminal to ensure the correct virtual environment is active.
+## When to use / when NOT
+Use whenever a Python package might be installed or a Python project/script is touched. Do NOT use to override an established project toolchain, and never for non-Python ecosystems.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: workspace files (lockfiles, pyproject, Pipfile, environment.yml, requirements.txt).
+- Outputs: packages installed via the correct manager; updated lockfile/requirements.txt.
+- Tools: uv, Poetry, Pipenv, Conda, or venv+pip — whichever the project already uses.
 
-- Python Dependency Management Rule
-- Dependency Manager Detection
-- Default: venv + pip
-- Initialize environment
-- Add dependencies
-- Preserve state
-- Prohibited
-- (none)
+## 5 most important rules
+1. Detect the dependency manager BEFORE installing anything; detection order is fixed (uv → Poetry → Pipenv → Conda → venv+pip).
+2. NEVER run global `pip install`.
+3. NEVER override an existing manager with a different one.
+4. Default is venv + pip + requirements.txt with explicit `.venv/bin/` paths.
+5. After installing, freeze state into `requirements.txt`; on setup, install from it.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Global installs pollute the machine and break reproducibility; wrong-manager installs create conflicting lockfiles. Low risk, high-frequency rule.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Always use `.venv/bin/pip` or `.venv/bin/python` (explicit path).
-2. -   After installing, run: `.venv/bin/pip freeze > requirements.txt`.
-3. -   **NEVER** run `pip install` globally
-4. -   **NEVER** override an existing dependency manager with a different one
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Category and tags
+Category: build. Tags: python, dependencies, uv, poetry, pipenv, conda, venv, reproducibility.
