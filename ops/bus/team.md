@@ -10,7 +10,8 @@
 19:45 opencode DONE r61-plan-sir-controller planning-only: plan+matrix+48 tasks refreshed (ViGEmBus retired, per-process timer rule); no build (rule 22)
 19:47 opencode START r60-build-sir-ai continuing from kilo checkpoint (rescan done, lock taken, starting Task 1 memory notes)
 19:49 devin START r61-plan-sir-hagoozat planning-only refresh of SIR Hagoozat plan (rule 20)
-19:55 opencode START r61-plan-sir-education-hub planning-only refresh of SIR Education Hub plan (rule 20)
+19:47 opencode START r61-plan-sir-education-hub planning-only refresh of SIR Education Hub plan (rule 20)
+23:40 opencode START r61-plan-sir-education-hub planning refresh
 19:45 opencode START r61-plan-sir-handyman planning-only refresh of SIR Handyman plan (rule 20)
 11-12 19:52 autopilot START r60-build-sir-portfolio (runner pid 40440)
 11-12 19:52 autopilot START r61-plan-sir-life (runner pid 29084)
@@ -29,3 +30,4 @@
 11-12 19:57 autopilot START r60-build-sir-jobs (runner pid 33700)
 11-12 19:57 autopilot START r60-build-sir-laptop-manager (runner pid 37840)
 19:57 devin START r61-plan-sir-mods-gta-v planning-only refresh (rule 20/22)
+19:58 devin DONE r61-plan-sir-hagoozat planning-only: plan+competitors refreshed (PDPL, Kourtiva AED pricing, Courty/Tahgzly, sourced Paymob/Maps/WhatsApp), tasks 10->50, REFRESH-LOG written; no build (rule 22)
