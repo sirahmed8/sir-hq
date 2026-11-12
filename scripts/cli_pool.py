@@ -44,6 +44,7 @@ POOL = [
     "agy|claude-sonnet-4-6",
     "cline|reflection/beam-free",
     "gemini|default",
+    "aider|groq/openai/gpt-oss-120b",
     "aider|gemini/gemini-flash-lite-latest",
     "aider|gemini/gemini-flash-latest",
 ]

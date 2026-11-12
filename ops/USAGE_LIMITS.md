@@ -33,3 +33,10 @@ Read from vendor docs (checked 2026-11-12), from runner logs under `ops/agy-runs
 - An OpenRouter daily-cap message puts every `openrouter/` entry on cooldown until 00:00 UTC, because they share one account cap.
 - Limit and setup checks read error lines only, so worker output that mentions "quota" or "unauthorized" no longer puts a model on cooldown.
 - AHome tasks use local models only (AGENTS.md law). Earlier AHome rounds (cli-r14-ahome, cli-r18-ahome-phone, cli-r21-ahome, cli-audit-ahome-*) ran through outside free models; flag for the owner.
+
+## Added 2026-11-12 (keys created by keys-haiku, values only in _local/api-keys.env)
+- Groq `groq/openai/gpt-oss-120b` through Aider: proven (file written). Free limits per Groq docs (about 1,000 requests per day on large models, 30 per minute; not re-verified).
+- Google AI Studio key through Aider (`gemini/gemini-flash-lite-latest`, `gemini/gemini-flash-latest`): key valid, one test hit a 503 from Google (high demand).
+- NVIDIA key is valid but the models tried returned 404 for this account (kimi-k2.6, nemotron-3-super) or no output (deepseek-v4.1-flash): not in the pool.
+- Hugging Face read token saved, no pool entry yet. Cloudflare token saved, no pool entry yet.
+- Blocked by the services, not by us: Mistral (free plan has no new-key button), SambaNova (onboarding asks for payment details), Cerebras (API access needs a payment method).
