@@ -16,7 +16,7 @@ import nowindow  # noqa: F401
 PREFIXES = {
     # owner titles (2026-11-12): spelled the way he writes them in his own contacts
     "capt": "Capt", "captain": "Capt", "cap": "Capt", "كابتن": "كابتن", "الكابتن": "كابتن",
-    "chief": "Chief", "chef": "Chef", "شيف": "شيف", "الشيف": "شيف",
+    "chief": "Chief", "chef": "Chief", "shef": "Chief", "شيف": "Chief", "الشيف": "Chief",
     "3mo": "3mo", "3amo": "3mo", "عمو": "عمو", "3m": "3m", "3am": "3m", "عم": "عم",
     "alshikh": "Alshikh", "alsheikh": "Alshikh", "elsheikh": "Alshikh", "elshikh": "Alshikh", "sheikh": "Alshikh", "الشيخ": "الشيخ",
     "khalo": "Khalo", "خالو": "خالو", "al3amid": "Al3amid", "العميد": "العميد", "hr": "Hr.", "coach": "Coach", "كوتش": "كوتش",
