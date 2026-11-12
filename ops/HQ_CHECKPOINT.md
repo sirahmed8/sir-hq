@@ -207,3 +207,6 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 
 ## HQ note (2026-11-12 18:30) [claude]
 Owner: independent small projects (Handyman, Cars, Movies, Price Finder, Game Deals, Access Map) queued as r54 plans; rescan rule added (preamble 20); Business 25+ sectors each specialised (r56); backup manager on Telegram built (ops/BACKUP_MANAGER.md).
+
+## HQ note (2026-11-12 18:50) [claude]
+Sweep: autopilot alive, 11 tasks running. Browser tabs flood traced to Aider auto-opening error URLs (SambaNova billing, Gemini rate limits): fixed with --no-detect-urls --no-browser, SambaNova model removed, tab rule 21 added, junk tabs closed. C: free only 0.2 GB (pagefile 25 GB, ProgramData National Instruments 5 GB, cache clear freed ~0.3 GB): needs owner decision on pagefile or NI data.
