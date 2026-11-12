@@ -1025,3 +1025,12 @@ r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSIN
 2026-11-12 from skills: r49b-skills-deep-2 complete - slice-1 deep-read finish, 65/65 digests written and verified
 - 2026-11-12 | r51-backlog-projects | HQ planning round closed: product direction written (Platform cancelled, Education Hub, Business sectors, Hagoozat bookings, unplanned ideas); per-idea plans created for Deals, Cars, Handyman, Movies, Accessibility Map; AGENTS.md portfolio map and PROJECT_MERGE_RECORD updated; task superseded by plans/PRODUCT_DIRECTION_2026-11-12.md; report ops/agy-runs/reports/r51-backlog-projects.md
 2026-11-12 | r52-plan-sir-study | premium plan rewritten (plans/sir-study.md), competitor matrix (ops/competitors/sir-study.md), 10 queued tasks (ops/briefs/sir-study-tasks.md); personal tool stays local/private, M2/T-103/T-107/T-023 honestly open
+
+## 2026-11-12 restructure (owner direction, restructure agent)
+- SIR Platform: cancelled as a project. Desktop folder moved to old projects\desktop-folders-removed; plan files moved to old projects\SIR Platform-plans-from-SIR; TickTick parent and M0-M6 completed.
+- Repo folder D:\Projects\SIR Platform is still LOCKED by a running worker (opencode started 17:42). Retry the move when it ends.
+- SIR Obour Hub renamed SIR Education Hub: project folder, Desktop folder, GitHub repo (sir-education-hub), remotes, plans, TickTick.
+- SIR Business and SIR Hagoozat: vision blocks added; old plans kept under Previous plan.
+- Generators and JSON registries: sir-platform entries removed; sync_docs portfolio template updated.
+- Dashboards (ops/dashboard.html, control-room artifact) still show old names until the next regeneration; PORTFOLIO.md was reset once by an unknown writer and re-applied (07a9cec).
+- Report: ops/reports/restructure-report.md. Pushed: _SIR 1ff921a, 07a9cec, 9898eba, 7968e5d; SIR Education Hub 633a157.
