@@ -144,6 +144,8 @@ def main() -> None:
         s = snap[name]
         if name == "AHome":
             continue  # private: only the Haiku run inside the AHome folder works on it, never the free-CLI queue
+        if (ROOT / "ops" / "ci-quota-exhausted.flag").exists():
+            continue  # GitHub Actions minutes are used up: red CI is not a code defect, workers test locally
         if s["ci"] == "failure" and not s["open_tasks"] and folder.lower() not in open_folders:
             task = f"ci-{name.lower().replace(' ', '-').strip('_')}-{stamp}"
             queue_task(task, folder, f"{name}: إصلاح الفحص الآلي الأحمر", CI_FIX.format(project=name, stamp=stamp, task=task))

@@ -1,0 +1,1 @@
+2026-11-12: GitHub Actions minutes used 100 percent (3000 per month, email 06:49Z). Jobs fail in 3 seconds with zero steps. Resets with the monthly billing cycle (expected 2026-12-01, inferred). Workers: run the full test suite locally and record it; do not loop on CI.
