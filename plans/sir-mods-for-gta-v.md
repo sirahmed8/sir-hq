@@ -1,5 +1,5 @@
 # PLAN: SIR Mods for GTA V (Wave 6, GLOBAL product, not started, HIGH LEGAL RISK)
-Audited 2026-11-10. Replaces `SIR Mods for GTA V (v1)` (in `legacy/`, kept until M6). Single-player only. Free base, optional supporter tier in EGP. Because of third-party code and game-publisher rules this plan has a hard gate: nothing is sold or distributed publicly until M0 licence and policy checks are green. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
+Audited 2026-11-12. Replaces `SIR Mods for GTA V (v1)` (in `legacy/`, kept until M6). Single-player only. Free base, optional supporter tier in EGP. Because of third-party code and game-publisher rules this plan has a hard gate: nothing is sold or distributed publicly until M0 licence and policy checks are green. **GLOBAL**: anyone in the world, accounts, subscriptions, every platform and OS including phone, watch, car, TV. Owner-only analytics page, dual hosting (Firebase + Vercel), subscription grants owner all permissions.
 
 ## 1. Purpose (plain words)
 An installer and a website for a set of GTA V single-player mods, plus an AI-driven city-life mod (NPC conversations). A player installs the mods in a few clicks and can undo it. For global users: any GTA V single-player modder anywhere can use the same installer and AI NPC mod.
@@ -16,6 +16,7 @@ An installer and a website for a set of GTA V single-player mods, plus an AI-dri
 
 ## 3. Current state
 Not started. `.sir/CHECKPOINT.md` is the HQ setup note (2026-10-30); 9 commits. PORTFOLIO.md: 2 of 18 tasks, "admin auth hardening and secret regeneration pending".
+
 Legacy facts (`ops/inventory/SIR-ModPack-and-GTA-V-mods.md`, 2026-10-29, nothing run): admin gate was forgeable (cookie set from client JavaScript; a stopgap was merged separately); `.env` files were tracked in three places; about 90 third-party DLLs (ScriptHookV by Alexander Blade, MinHook, dinput8 and about 87 script DLLs) were redistributed with no licence files; the README said 79 tests while the count was 28; EULA says not for GTA Online. Secrets in those `.env` files must be rotated (owner list).
 
 ## 4. Rules (each needs a test or command)
@@ -42,16 +43,17 @@ NPC dialog assistant (flagship), support assistant grounded in the guide. Chain 
 Installer telemetry only with consent (install success/failure, game version), crash report option, weekly Telegram line, mod update watcher, status JSON, emergency alerts (admin auth failure spikes, key leak).
 
 ## 9. Launch, legal and visibility
-Owner buys domain and code-signing certificate and creates payment accounts only after the M0 gate passes. Legal pack: privacy, terms/EULA (single-player, no warranty, user installs at own risk), DMCA/takedown form, third-party credits page, sub-processors; lawyer review mandatory before any paid launch.
-**Dual hosting**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout).
-Visibility: Arabic and English GTA V mod queries, install guides and YouTube tutorials, `llms.txt`, facts page.
+Owner buys domain and code-signing certificate and creates payment accounts only after the M0 gate passes. Legal pack: privacy, terms/EULA (single-player, no warranty, user installs at own risk), DMCA/takedown form, third-party credits page, sub-processors; lawyer review mandatory before any paid launch. **Dual hosting**: Firebase Hosting AND Vercel (import GitHub repo with Vercel CLI), same build, same env vars on both. Both addresses curl-checked (retry once on timeout). Visibility: Arabic and English GTA V mod queries, install guides and YouTube tutorials, `llms.txt`, facts page.
 
-## 10. Three-Milestone Roadmap (owner-visible checks)
+## 10. Six-Milestone Roadmap (owner-visible checks)
 | Milestone | Goal | Owner-Visible Exit Check |
 |---|---|---|
 | **M1: Gate & Core Slice** | `docs/THIRD_PARTY.csv` complete; official publisher policy read and summarized; secrets rotated list handed to OWNER_ACTIONS; installer installs and uninstalls on a temp folder with hash equality | 1. `docs/THIRD_PARTY.csv` → every binary has row with proof. 2. `docs/PUBLISHER_POLICY.md` has URL and read date. 3. Secrets rotation list in `docs/OWNER_STEPS.md` (names only). 4. Run installer on temp folder → install → uninstall → hashes equal to start. 5. Screenshot at 390/1280, LTR/RTL, light/dark. |
 | **M2: Security, Legal, Billing, Owner Page** | Portal catalog and admin with real data; NPC server runs locally; forged cookie test, key grep, rate limit test, legal pages, owner-only analytics page live | 1. Forged cookie → 401/403 on all admin routes (test). 2. Grep finds no key in client bundle. 3. Rate limit test passes. 4. Open `/owner` → server-verified token required → shows installs, NPC sessions. 5. Legal pages exist at `/legal/*`. 6. Pricing page shows "Launching soon" + email capture. 7. Dual hosting verified: curl both Firebase and Vercel URLs. |
-| **M3–M6: AI, Quality, Release** | NPC dialog eval recorded; clean-VM install test, screenshots, a11y, RTL; public release only if M0 gate stays green; legacy archived | 1. Run `npm run eval:npc` → 40 prompts pass safety/persona. 2. Clean VM install test passes. 3. Lighthouse mobile 90+ JSON saved. 4. Public release only if M0 gate green. 5. Legacy archived. |
+| **M3: AI, Quality, Screens** | NPC dialog eval recorded; clean-VM install test, screenshots, a11y, RTL; public release only if M0 gate stays green; legacy archived | 1. Run `npm run eval:npc` → 40 prompts pass safety/persona. 2. Clean VM install test passes. 3. Lighthouse mobile 90+ JSON saved. 4. Public release only if M0 gate green. 5. Legacy archived. |
+| **M4: Owner Enhancements** | Owner dashboard shows full metrics, billing fallback live, subscription grants all permissions | 1. Owner dashboard loads with real metrics from emulator. 2. Billing fallback page shows currency auto-detected and email capture. 3. Subscription grants owner all permissions in dashboard. |
+| **M5: Multi-Lingual & Accessibility** | Full Arabic RTL and English LWCAG 2.2 AA across all screens; five states on every view | 1. Every screen at 320/390/768/1280/1920 in Arabic RTL and English LTR. 2. WCAG 2.2 AA contrast verified by tool. 3. Five states (idle, loading, empty, error, populated) on every screen. |
+| **M6: Public Release & Legacy Archive** | Public release candidate; legacy archived; CI green; domain live | 1. Public release candidate built and domain `sirgtamods.com` live. 2. Legacy `legacy/` archived with read-only marker. 3. CI green on all gates. 4. Domain serves both Firebase and Vercel. |
 
 ## 11. Next 10 tasks (each under 2 hours)
 1. Inventory every binary in `legacy/` (name, size, SHA-256) into `docs/THIRD_PARTY.csv` with blank licence columns. Check: row count equals binary count.
@@ -79,8 +81,104 @@ Rotate leaked keys; buy domain and certificate; accept payment gateway terms; co
 |---|---|---|---|---|
 | Nexus Mods | Huge library, community | No curated pack, no installer, no AI NPC | Curated single-player pack, one-click installer, AI NPC mod | Mod management |
 | GTA5-Mods.com | Large selection | Manual install, no quality gate | Curated, verified, one-click, Arabic guide | Variety |
+| OpenIV | Full modding toolset, OpenIV .oiv support | No one-click installer, no AI, no portal | Integrated installer + AI NPC + web portal | .oiv package parsing |
+| FiveM | Framework for multiplayer mods, resource hub | Not for single-player, different rules | Focused on single-player only, no GTA Online conflict | Resource management ideas |
+| ModDB | Established mod database, community | No installer, no quality gate, mixed commercial/non-commercial | Curated single-player pack with verified mods | Mod discovery layout |
+| Steam Workshop (GTA V) | Built-in, auto-updates, discoverable | Heavily curated, limited to workshop format, not single-player focused | Curated single-player outside workshop | Workshop discovery UI |
+| GTA Forums Mod Section | Large community, long-standing | No quality gate, inconsistent formatting, no installer | Curated, verified, one-click experience | Forum integration |
+| Reddit (r/GTAMods) | Community discussion, feedback | No curation, no installer, no quality control | Curated pack with quality gate | Thread aggregation |
+| Personal Trainer (trainer mods) | Specific gameplay tweaks, trainer features | No installer, no curated pack, safety concerns | Safe-mode toggles, reversible installer | Individual tweak UI |
 
 *Every claim in competitor matrix must carry a source link or "(unsourced, verify)".*
 
 ## 15. Feature Parity Target (best-in-category)
 Match or exceed the best GTA V mod site for: curated single-player pack, one-click reversible installer, AI NPC conversations, Arabic guide, no paywall on mod files, publisher policy compliance, signed installer, owner analytics, WCAG 2.2 AA.
+
+## 16. Feature Detail (best-in-category plus owner ideas from TickTick and legacy)
+- **Curated single-player pack**: Hand-picked mods with licence proof, organised by category (graphics, handling, vehicles, gameplay)
+- **One-click reversible installer**: Detects game folder, backs up original files, installs to `mods\` folder, uninstall restores originals
+- **AI NPC conversations**: Server-driven NPC dialog assistant with safety filter, per-session cost cap, kill switch
+- **Arabic guide**: Full Arabic RTL support for installation guides and configuration
+- **No paywall on mod files**: All core mods free; optional curated audio/vehicle packs as one-time EGP fee
+- **Publisher policy compliance**: Single-player only, "not affiliated" notice, no Rockstar assets redistributed
+- **Signed installer**: Code-signing certificate for Windows installer (tauri/electron)
+- **Owner analytics**: Installs, uninstalls, NPC sessions, errors, all server-verified behind owner token
+- **WCAG 2.2 AA**: Full accessibility compliance across all screens
+- **From TickTick/legacy ideas**: Dynamic Island-style spring animations, per-chapter progress tracking, offline mode for mod configuration, bilingual (AR/EN) toggle, game mode integration with SIR Laptop Manager
+- **From legacy insights**: `.oiv` package parser, handling.meta tuner, vehicle sound switcher, texture memory allocator, clean uninstaller with orphan vacuum
+
+## 17. Platform Matrix
+| Platform | v1 Includes |
+|---|---|
+| **Windows (Desktop)** | Tauri/Electron installer, full mod management, handling editor, graphics presets, NPC AI server integration |
+| **Web Portal** | Landing, mods catalog, guide, supporters, legal, admin (owner-only), responsive 320px to 4K, Arabic RTL and English LTR |
+| **Linux** | ⏭️ skipped (game mod tools Windows-only) |
+| **macOS** | ⏭️ skipped (game mod tools Windows-only) |
+| **Android** | ⏭️ skipped (no touch-first mod installation model for GTA V) |
+| **iOS** | ⏭️ skipped (same as Android) |
+| **Wear OS** | ⏭️ skipped |
+| **watchOS** | ⏭️ skipped |
+| **TV** | ⏭️ skipped |
+| **Car OS** | ⏭️ skipped |
+
+## 18. Architecture on the Shared Kit
+- **Accounts**: Firebase Auth (Google sign-in), server-verified ID token, owner allow-list `OWNER_UIDS`, fail-closed, HttpOnly Secure SameSite=Strict session cookie, no localStorage tokens, rate limits on sign-in, 2FA offer for admin accounts (from `plans/SHARED_PLATFORM_KIT.md` section 1).
+- **Owner-Only Analytics Page**: Route `/owner`, gated by server-verified owner token from `owner-auth`, fail closed, shows real metrics only (installs, uninstalls, NPC sessions, errors, AI cost). No other user sees it; middleware returns 403 for non-owner (from `plans/SHARED_PLATFORM_KIT.md` section 3).
+- **AI with the fallback chain**: `ai-proxy` (from `plans/SHARED_PLATFORM_KIT.md` section 6): provider chain Gemini `flash-lite-latest` → `flash` → any Gemini → OpenRouter free → other free → local models (Ollama in `D:\Projects\AI_Models_HUB`). Per-project keys on product's own Firebase/GCP project and own OpenRouter key. Per-session cost cap, kill switch `AI_ENABLED` env var, daily cost cap in `config/limits.json`. Free quota 5 per day for support bot.
+- **Hosting**: Firebase Hosting (primary, custom domain `sirgtamods.com` once bought, else `pages.dev`) AND Vercel (import GitHub repo with Vercel CLI, same build, same env vars on both). Both addresses curl-checked (retry once on timeout) and written in checkpoint (from `plans/SHARED_PLATFORM_KIT.md` section 15).
+
+## 19. Premium Quality Bar (Apple-level motion, Arabic and English, five states, accessibility)
+- **Themes**: light, dark, system, high contrast (WCAG 2.2 AA) - design tokens only.
+- **Motion**: Spring physics only (transform and opacity, 120Hz safe). No layout-thrashing animations. Matching open/close for every sheet, panel, modal, drawer, overlay. Dynamic Island pattern: continuous morph, single instance, never covers composer or tab bar. Tab bar: active label centered in pill, swipe between tabs, sized to text, min 44px. Scroll into view: active tab scrolls into view on mount and tab change.
+- **Arabic and English**: Bidi first - per-character detection in inputs (Arabic types from right, Latin from left); mixed content uses `<bdi>` or `unicode-bidi: isolate`; never show "(RTL)"/"(LTR)" to users. RTL-first: logical CSS properties only (margin-inline-start, padding-inline-end, etc.). Auto-detect currency/region from visitor locale/IP with manual override on top.
+- **Five states** on every screen: idle, loading skeleton, empty with one action, error with retry, populated.
+- **Accessibility**: WCAG 2.2 AA contrast verified by tool. Minimum 44px touch targets. `escHtml()` for every interpolated text/attribute. `escapeJs()` only inside inline handler args. `safeHref()` allowing only http(s) for every external link.
+- **Click-target audit**: every interactive element must have a real, unobstructed hit area (min 44px). No absolutely-positioned element may sit on top of a button without intentional `pointer-events`.
+- **No literal "(RTL)"/"(LTR)" in copy**: language toggles show only "English" / "العربية". Auto-detect direction per character live.
+
+## 20. Free Tier and Fair Pricing Outline (EGP and USD)
+- **Free tier**: All core mods, installer, uninstall, NPC support bot (5 per day). No paywall on mod files.
+- **Supporter tier (EGP)**: Optional cosmetic supporter perks only until M0 policy check passes. Default is donations only.
+- **Curated audio/vehicle packs**: 49 EGP one-time pack fee (Paymob test checkout integrated with "Launching Soon" fallback).
+- **Currency**: EGP first, USD/SAR/AED toggle auto-detected from visitor locale/IP with manual override (never manual picker as only way).
+- **Pricing page**: "Launching soon" + email capture that writes a Lead document and rejects an invalid address.
+- **Owner permissions**: Subscription grants owner all permissions in owner dashboard.
+- **USD equivalent**: EGP 49 ≈ USD 3.00 at fixed rate (EGP 16.35 = USD 1), adjustable when payment gateway keys are live.
+
+## 21. Milestones M0 to M6 with Acceptance Tests
+| Milestone | Acceptance Tests |
+|---|---|
+| **M0: Licence & Policy Gate** | 1. `docs/THIRD_PARTY.csv` complete with proof row for every binary. 2. `docs/PUBLISHER_POLICY.md` has URL and read date. 3. Secrets rotation list in `docs/OWNER_STEPS.md` (names only). 4. Run installer on temp folder → install → uninstall → hashes equal to start. 5. Screenshot at 390/1280, LTR/RTL, light/dark. |
+| **M1: Core Slice** | 1. Installer installs and uninstalls on temp folder with hash equality. 2. Portal landing page loads with mods catalog. 3. NPC AI server responds to health check. 4. Arabic RTL and English LTR toggle works. 5. WCAG 2.2 AA contrast on all pages. |
+| **M2: Security + Legal + Billing** | 1. Forged cookie → 401/403 on all admin routes (test script). 2. Grep finds no key in client bundle (grep test). 3. Rate limit test passes (per IP and per account). 4. Open `/owner` → server-verified token required → shows installs, NPC sessions. 5. Legal pages exist at `/legal/*`. 6. Pricing page shows "Launching soon" + email capture. 7. Dual hosting verified: curl both Firebase and Vercel URLs. |
+| **M3: AI + Quality + Screens** | 1. Run `npm run eval:npc` → 40 prompts pass safety/persona. 2. Clean VM install test passes. 3. Lighthouse mobile 90+ JSON saved. 4. Public release only if M0 gate green. 5. Legacy archived. |
+| **M4: Owner Enhancements** | 1. Owner dashboard loads with real metrics from emulator. 2. Billing fallback page shows currency auto-detected and email capture. 3. Subscription grants owner all permissions in dashboard. 4. Owner list file has rotated keys, no key values committed. |
+| **M5: Multi-Lingual + Accessibility** | 1. Every screen at 320/390/768/1280/1920 in Arabic RTL and English LTR. 2. WCAG 2.2 AA contrast verified by tool. 3. Five states (idle, loading, empty, error, populated) on every screen. 4. Bidi detection per character live in all inputs. 5. No "(RTL)"/"(LTR)" in copy. |
+| **M6: Public Release & Legacy Archive** | 1. Public release candidate built and domain `sirgtamods.com` live. 2. Legacy `legacy/` archived with read-only marker. 3. CI green on all gates. 4. Domain serves both Firebase and Vercel. |
+
+## 22. First 10 Tasks for Free Agents (queue ready)
+1. **Inventory every binary in `legacy/`**: Scan the three legacy apps and write one honest matrix to `.sir/reports/parity.md`: every route, every API route and every component with no route, each with the source file that proves it, and a verdict of keep, port, drop or drop-with-reason, plus the target module of the new build (`booking`, `mods`, `installer`, `catalog`, `admin`, `ai`, `npc`, `profile`). Check: row count equals binary count. Report: what was found, the count of routes per app, the ten biggest files to split, and the list of features that must be dropped on purpose.
+
+2. **Research top-level dependencies**: For each top-level dependency (ScriptHookV, MinHook, dinput8 and about 87 script DLLs), research its distribution terms and fill `docs/THIRD_PARTY.csv` with source URLs. Check: no cell empty or marked "unknown, do not bundle". Report: CSV row count, any unknown cells and their DLL names, and the list of DLLs cleared for bundling.
+
+3. **Read the official publisher mod policy**: Read the official Take-Two/Rockstar policy page on single-player modding and write `docs/PUBLISHER_POLICY.md` with URL and read date. Check: file exists with quoted headings. Report: URL, read date, and key policy headings quoted.
+
+4. **CI check "no binary without CSV row"**: Add the gitleaks check to the GitHub Actions workflow and verify that an injected binary fails the check. Files: `scripts/check-binaries.mjs`, `.github/workflows/verify.yml`. Check: injected binary fails both the CSV row check and gitleaks. Report: verify command output, CI run URL, and the gitleaks findings.
+
+5. **Scaffold portal with server-verified admin**: Create the web portal scaffold in `apps/web` (Next.js 15+ App Router, React 19, TypeScript strict, Tailwind v4 with design tokens), `packages/core` (domain types and zod schemas for Mod, Manifest, Install, Backup, Supporter, Inquiry, NpcSession), `packages/data`, `packages/ui`, `packages/kit`, `apps/api`, `docs/`, `scripts/`, with layers depending inward only, files under 300 lines, absolute imports and no `any`. Add the `verify` script (typecheck, lint, tests, build, secret scan) and a GitHub Actions workflow that runs exactly that on `main`. Add a health route at `/api/health` returning real status values, never fake ones. Exit check: the verify command output is pasted into the report, the CI run URL is in it, and one screenshot of the shell exists in Arabic and in English at 390 px and 1280 px in `.sir/evidence/`. Report: the tree, the commands with their real output, and anything that could not be installed for free.
+
+6. **Installer core**: Detect game folder, copy with backup, uninstall. Files: `packages/installer-core/`. Check: temp-folder test, hashes equal after uninstall. Report: the installer code path, the test output with before/after hashes, and the backup restore verification.
+
+7. **Manifest generator with SHA-256**: Create a manifest generator with SHA-256 hash and a licence-column requirement. Check: missing licence fails. Report: the manifest generation code, the test that fails when licence is missing, and the hash format.
+
+8. **NPC server skeleton**: Create NPC server skeleton with provider interface and per-session cost cap. Check: cap test stops after N tokens. Report: the server code, the cost cap test output, and the kill switch behaviour.
+
+9. **Portal catalog page with five states**: Build the portal catalog page with five states (idle, loading skeleton, empty with one action, error with retry, populated) and honest claims lint. Check: screenshots at 390 px; lint rejects "undetectable". Report: the catalog page code, the five states implemented, the lint errors fixed, and the 390 px screenshots in Arabic and English.
+
+10. **Owner list file**: Rotate the keys that were in the tracked `.env` files (names only), `ADMIN_SECRET_KEY` at deploy. Check: list in `docs/OWNER_STEPS.md`, no key values. Report: the rotated key names, the `docs/OWNER_STEPS.md` update, and confirmation that no key values are in git.
+
+---
+
+**Queue order and dependencies.** T1, T2 and T3 can run in parallel (T1 is read-only, T2 owns the repo scaffold, T3 owns the Firebase project and auth). T4 needs T2. T5 needs T2 and T4. T6 needs T2. T7 needs T2 and T6. T8 needs T2 and T5. T9 needs T2 and T8. T10 needs T3 and T2. Each task writes to its own area of the repository so two agents never fight over one file: T1 writes `.sir/reports/parity.md`, T2 writes the scaffold, `packages/ui` skeleton and the workflow, T3 writes `packages/kit/owner-auth` and `.firebaserc`, T4 writes `scripts/check-binaries.mjs` and the workflow, T5 writes `packages/installer-core/`, T6 writes `packages/ui`, T7 writes `apps/web/app/(player)/catalog`, T8 writes `packages/installer-core` and its tests, T9 writes `apps/web/app/(player)/catalog` five states, T10 writes `packages/kit/owner-auth` and `docs/OWNER_STEPS.md`. Each task writes to its own area of the repository so two agents never fight over one file.
+
+**What is deliberately not in these ten:** the tournaments engine, the owner console with the cash register, the Windows installer, the AI features beyond the NPC support bot, the marketing work. They are M4, M5 and M6 in the plan and each one needs the ten above to be green first.
