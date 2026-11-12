@@ -1,30 +1,28 @@
 # agent-reach
 
-Source read: `agents/agent-reach.md` (workspace-owned skill; not tied to a specific skill store).
+Source read: `C:\Users\a7med\.agents\skills\agent-reach\SKILL.md` plus `references/capabilities.md`, `references/sessions.md`, and `references/maintenance.md`.
 
 ## Summary
-A read-only agent skill for retrieving content across multiple platforms: search, posts, comments, subtitles, stock prices, and job listings. It fetches data from Xiaohongshu, Bilibili, Twitter/X, Reddit, YouTube (captions/transcripts), GitHub, V2EX, Xueqiu/Stock quotes, LinkedIn/Boss直聘, Instagram, Facebook, and Xiamen podcasts. The skill does not perform any write operations (no posting, commenting, liking, or DMs), making it suitable for monitoring, research, and data aggregation tasks.
+Agent Reach is a read-only command-line skill for fetching public content across many platforms through one `agent-reach` CLI. It prefers the agent's own public search tools first, then uses Reach channels for search, reading, comments, subtitles, transcripts, market quotes, jobs, and platform-specific actions, returning JSON results with explicit error codes when setup, login, rate limits, blocks, or missing content prevent access.
 
 ## When to use / when NOT
-Use when you need to gather public content from multiple platforms quickly, such as market research, competitive analysis, or trend spotting. Do NOT use for any action that writes, publishes, or interacts socially — the skill is strictly read-only. Do NOT attempt to log in or bypass authentication; it only works with publicly available content.
+Use when the user shares a supported platform link or asks for public content that built-in search cannot fully retrieve, and when a declared channel action is needed. Do not use it for posting, commenting, liking, private messages, logging in on the user's behalf, password handling, private data, or guarantees of complete comment trees and media understanding.
 
 ## Inputs, outputs, tools
-- Inputs: a platform name or URL, optional query terms, date filters, or category tags.
-- Outputs: structured data containing post/text, author, engagement metrics (likes, views), timestamps, and platform-specific metadata. Returns null or an error if the platform is inaccessible or the content is restricted.
-- Tools: HTTP fetch, platform-specific APIs (Reddit JSON, Twitter API v2, YouTube Transcript API, etc.). MCP: none required (pure HTTP client).
+Inputs are a channel or link, an action and parameters, optional backend selection, and the current login or setup state. Outputs are JSON with `ok`, `items`, `raw`, `meta`, or `error.code` plus hints. Tools are the `agent-reach` CLI commands (`channels`, `read`, channel actions, `add`, `remove`, `login`, `logout`, `doctor`, `check`, `update`, `uninstall`, `browser`, `configure`, `skill link`), a dedicated CloakBrowser or Chrome profile, OpenCLI extension import, and optional keys for services such as Groq or OpenAI.
 
 ## 5 most important rules
-1. **Never attempt write operations** — this skill is read-only by design; any attempt to post, comment, or like will fail.
-2. **Respect platform rate limits** — make a single batch request per platform per turn to avoid being blocked.
-3. **Content is public only** — the skill will not fetch content behind login walls or paywalls; do not attempt to authenticate.
-4. **Output format is consistent across platforms** — all results include at minimum: title, source, URL, timestamp, and engagement counts.
-5. **Error handling is mandatory** — if a platform returns an error or is unavailable, the skill logs the failure and continues to the next platform in the batch.
+1. Announce that Agent Reach is being used, then prefer public built-in tools before installing or logging into channels.
+2. Run `agent-reach channels` when the available actions or parameters are unclear.
+3. Never perform write actions, log in for the user, ask for passwords, or output cookies and credentials.
+4. Handle error codes deliberately: setup gaps may use `add` or `configure`, login needs the user, while `RATE_LIMITED`, `PLATFORM_BLOCKED`, `BUSY`, and `UPSTREAM_BROKEN` mean stop rather than retry loops.
+5. Respect platform limits: Xiaohongshu read returns text descriptions only, Boss salary fields marked encoded must not be guessed, and subtitle tracks are not the same as transcript text.
 
 ## Risks / owner notes
-The skill's read-only guarantee depends on external platforms not changing their API terms or adding auth requirements. Owner should monitor for API deprecations, especially on Twitter/X and Reddit. The skill should not be used for sensitive data collection or personal information gathering.
+Reach depends on external platforms, browser sessions, rate limits, and optional paid or login-backed paths. The owner may need to install a channel, connect OpenCLI, provide a key, or complete a visible login. Updates should happen only after the user agrees, and maintenance actions should distinguish dependency, browser, login, page-load, and platform failures.
 
 ## Category / tags
-research · read-only, web-scraping, data-aggregation, monitoring, twitter, reddit, youtube, github
+research · read-only, agent-reach, social-platforms, youtube, github, web-scraping, browser-automation, subtitles
 
 ## Revisions
-The workspace-owned `agents/agent-reach.md` is the sole source; no codex, claude, or gemini-plugin copies exist. This is the canonical and only revision.
+Single workspace-owned source at `C:\Users\a7med\.agents\skills\agent-reach\SKILL.md`, version 1.6.0 in frontmatter. No codex, claude, kilo, cursor, opencode, or windsurf copy was present.

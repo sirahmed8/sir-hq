@@ -1,30 +1,28 @@
 # access-protected-vercel-deployment
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\access-protected-vercel-deployment\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/opencode).
+Source read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\access-protected-vercel-deployment\SKILL.md`.
 
 ## Summary
-A Vercel plugin skill that enforces access control on deployments, ensuring that only authorized users or environments can preview, promote, or modify production builds. It integrates with Vercel's identity system to restrict deployment actions based on team roles, OAuth scopes, or IP allowlists, and can mask or redact sensitive environment variables from logs and error reports.
+This Vercel plugin skill explains how to reach protected preview or production deployments without weakening Deployment Protection. For HTTP checks it prefers `vercel curl` / `vc curl`, which uses the caller's existing Vercel authentication; for browser automation it injects a short-lived `x-vercel-trusted-oidc-idp-token` header so tools such as agent-browser or Playwright can load protected pages.
 
 ## When to use / when NOT
-Use whenever a project has multiple contributors or integrates with external systems that should not modify production config. Do NOT disable for local development-only projects without team collaboration — the skill prevents accidental production changes. Do NOT rely on it as the sole security layer; complement with OAuth, IP allowlisting, and branch protection rules.
+Use when a linked Vercel project returns a Deployment Protection, SSO, login, or Trusted Sources error during verification, smoke tests, or browser automation. Do not use it to disable protection, bypass app-level authentication, or change Trusted Sources without understanding the access-control impact.
 
 ## Inputs, outputs, tools
-- Inputs: Vercel project configuration, deployment requests, user OAuth tokens, team membership data.
-- Outputs: approval/denial decision for each deployment action, updated project protections, masked log output.
-- Tools: Vercel API, OAuth 2.0 flow, GitHub/GitLab integration, Vercel CLI `access` commands. MCP: vercel-plugin connector.
+Inputs are the target deployment URL or path-only project target, the linked Vercel project context, and the caller's auth state. Outputs are authenticated HTTP responses or a browser session that can load the protected deployment, plus a diagnosis of whether the failure is Vercel protection or the app's own auth. Tools are the Vercel CLI (`vc curl`, `vc whoami`, `vc link`, `vc login`, `vc env run`, `vc env pull`), `VERCEL_OIDC_TOKEN`, and browser automation that supports origin-scoped headers.
 
 ## 5 most important rules
-1. **Require explicit approval for production deployments** by team leads or project owners.
-2. **Restrict preview deployments to authenticated team members only** via OAuth session validation.
-3. **Never expose environment variable values in build logs** — the skill redacts keys matching `SECRET_`, `TOKEN_`, `PASS_` patterns.
-4. **Enforce branch-specific rules**: feature branches can only deploy to preview environments; main branch can promote to production.
-5. **Log all access decisions** with user ID, timestamp, and reason for audit trails.
+1. Use the caller's existing Vercel authentication first; do not ask for a long-lived bypass secret as the first move.
+2. Use `vc curl` instead of raw `curl` for protected HTTP requests, and use full URLs when the exact deployment matters.
+3. For browsers, send `x-vercel-trusted-oidc-idp-token` as an origin-scoped header and never print, commit, or log the token.
+4. Do not confuse that header with `x-vercel-oidc-token`, which serves a different function inside Vercel Functions.
+5. Treat Trusted Sources changes as access-control changes; a local development token can reach same-project Preview by default, but protected Production may require an authorized `development` to `production` rule.
 
 ## Risks / owner notes
-Over-restricting deployment access can stall urgent fixes or hot patches. The owner should regularly review the allowlist and adjust rules when team structures change. Misconfigured IP allowlists can lock out legitimate users working from new locations.
+The OIDC token is a secret even though it is short-lived; it must stay out of source, screenshots, logs, and shell output. `TRUSTED_SOURCES_ENVIRONMENT_MISMATCH` means the token is valid but not allowed for that environment, while an application `401` or `403` after protection is bypassed belongs to app auth. The owner should approve any Trusted Sources or protection change.
 
 ## Category / tags
-deployment · security, vercel, ci-cd, access-control, oauth, infra
+cloud · vercel, deployment-protection, trusted-sources, oidc, curl, browser-automation, preview
 
 ## Revisions
-The gemini-plugin copy is the only revision available; it is newer and more comprehensive than any codex or kilo version. This is the canonical source for this skill.
+Single gemini-plugin Vercel revision. No codex, kilo, claude, cursor, opencode, or windsurf copy was present for this skill.

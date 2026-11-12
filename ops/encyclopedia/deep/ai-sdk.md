@@ -1,30 +1,28 @@
 # ai-sdk
 
-Source read: `C:\Users\a7med\.gemini\skills\ai-sdk\SKILL.md` (gemini-plugin revision; identical copies in codex/cursor/windsurf/opencode; not in claude).
+Source read: `C:\Users\a7med\.codex\skills\ai-sdk\SKILL.md` plus `references/ai-gateway.md`, `references/common-errors.md`, `references/devtools.md`, `references/type-safe-agents.md`, and `overlay.yaml`.
 
 ## Summary
-A software development kit skill that provides abstractions and helper functions for building AI-powered applications with the Google Gemini API. It handles request formatting, response parsing, streaming inference, function calling, structured output (JSON mode), multimodal input (image, video, audio), and token management. The SDK aims to reduce boilerplate and provide a consistent interface across different Gemini model versions (1.0, 1.5, 1.5 Flash, 1.5 Pro, 2.0).
+This skill is the working guide for Vercel's AI SDK in TypeScript projects. It insists that agents verify every API against the installed package because the SDK changes often, then covers model access through AI Gateway, agents and tools, structured output, streaming, type-safe `useChat` consumption, DevTools, and a catalog of renamed or removed APIs.
 
 ## When to use / when NOT
-Use when building new AI features with Gemini — the SDK handles the complex low-level details so you can focus on product logic. Do NOT use if you are prototyping with a different LLM provider (OpenAI, Anthropic) without first checking if an equivalent SDK exists; switching later will require significant refactoring. Do NOT skip the structured output validation — the SDK's JSON mode requires a well-defined schema to avoid malformed responses.
+Use when writing or reviewing code that imports `ai`, `@ai-sdk/*`, `useChat`, `streamText`, `generateText`, `ToolLoopAgent`, structured output, embeddings, or provider integrations. Do not use it to justify direct provider SDKs by default, and do not trust remembered model IDs or API names without checking the installed docs.
 
 ## Inputs, outputs, tools
-- Inputs: a natural language or structured prompt, optional generation config (temperature, top-p, max tokens), optional multimodal content (image, video, audio), optional function declarations.
-- Outputs: generated text or multimodal response, function call payload (if applicable), usage metadata (prompt tokens, completion tokens, cost), streamed chunks (if streaming).
-- Tools: google-genai (Python) or @google/genai (JavaScript/TypeScript), JSON Schema for structured output, optional vector database for retrieval-augmented generation. MCP: gemini-plugin connector for skill propagation and model routing.
+Inputs are the project stack, installed `ai` version, desired AI feature, model requirement, and provider or gateway choice. Outputs are current, type-checked code using `generateText`, `streamText`, `ToolLoopAgent`, `Output.*`, typed tool parts, and framework-specific chat wiring. Tools are the `ai` package, provider packages such as `@ai-sdk/openai` or `@ai-sdk/anthropic`, `@ai-sdk/react`, `@ai-sdk/gateway`, Zod schemas, Node.js 22+, the live model list endpoint, bundled `node_modules/ai/docs` and `src`, and optional `@ai-sdk/devtools`.
 
 ## 5 most important rules
-1. **Always define a JSON schema for structured output** — never rely on the model to output valid JSON without a schema; the SDK will retry and validate against the schema.
-2. **Use streaming for long-running generation** — if the response might be large or take time, enable streaming to show progress and reduce perceived latency.
-3. **Handle function calling with explicit parameter schemas** — the SDK does not infer parameter types; you must declare the full function signature.
-4. **Keep multimodal inputs under 20MB** — larger inputs will be rejected or greatly increase latency; resize or compress images before sending.
-5. **Cache repeated prompts with the same schema** — the SDK does not include caching by default; implement a Redis or in-memory cache to reduce API costs for identical queries.
+1. Install only `ai` first, then add provider or framework packages when the task actually needs them.
+2. Treat memory as unreliable: search `node_modules/ai/docs/` and `node_modules/ai/src/`, then ai-sdk.dev only when the bundled docs do not answer.
+3. Fetch current model IDs from the gateway model endpoint and choose the newest appropriate `provider/model` instead of hardcoding remembered names.
+4. Build agents with `ToolLoopAgent` and consume them with inferred `UIMessage` types, typed `tool-{name}` parts, `input`/`output`, and state checks before accessing results.
+5. Check `references/common-errors.md` before fixing type errors, then run the project type checker and specify only non-default options.
 
 ## Risks / owner notes
-The SDK's structured output is only as good as the schema provided; a poorly defined schema will cause validation failures and infinite retries. The owner should test the SDK with edge cases (empty inputs, very long inputs, special characters) before shipping. Token usage billing is per-request; uncached repeated calls can lead to unexpectedly high costs.
+The SDK's frequent changes make stale examples dangerous, especially for `useChat`, tool parts, structured output, and renamed parameters. DevTools is local-only and should not ship as a production dependency. The owner should keep the installed `ai` version current, verify provider credentials or gateway access, and confirm model IDs at implementation time.
 
 ## Category / tags
-development · sdk, gemini, ai, python, typescript, function-calling, multimodal, structured-output
+ai · ai-sdk, vercel, llm, streaming, tool-calling, agents, structured-output, typescript, usechat
 
 ## Revisions
-The gemini-plugin copy is the most recent (supports Gemini 2.0 and function calling). The codex/cursor/kilo copies are based on the older Gemini 1.5 API and lack the new function-calling and multimodal features. The gemini-plugin revision is the canonical source; upgrade the other copies when migrating to Gemini 2.0.
+The codex, kilo, cursor, and windsurf copies are identical and selected here because codex includes the reference pack with common errors, gateway, DevTools, and type-safe agent guidance. The gemini-plugin Vercel copy is slightly longer and emphasizes bundled docs plus version checks, but it lacks this encyclopedia entry's fuller reference set.

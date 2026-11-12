@@ -1,30 +1,28 @@
 # alloydb-omni-access-control
 
-Source read: `C:\Users\a7med\.gemini\skills\alloydb-omni-access-control\SKILL.md` (gemini revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\skills\alloydb-omni-access-control\SKILL.md` plus `scripts/database_overview.js`, `scripts/list_pg_settings.js`, and `scripts/list_roles.js`.
 
 ## Summary
-A database access control skill for Google Cloud AlloyDB Omni that manages user roles, permissions, and connection policies across on-premises, cloud, and Kubernetes-deployed AlloyDB clusters. It integrates with IAM, Google Cloud Identity, and Kubernetes RBAC to ensure that only authorized principals can read, write, or manage AlloyDB databases. The skill also handles SSL/TLS certificate rotation for database connectivity and audits access logs for anomalous patterns.
+This Google skill provides read-only AlloyDB Omni/PostgreSQL inspection helpers for database overview, `pg_settings`, and roles. Each Node script is a thin wrapper that invokes `@toolbox-sdk/server@1.1.0` with the `alloydb-omni` prebuilt configuration, loads environment variables from the usual `.env` locations, and returns database state without implementing user or grant management itself.
 
 ## When to use / when NOT
-Use when provisioning AlloyDB Omni clusters in hybrid or multi-cloud environments and you need to enforce least-privilege access for database users and applications. Do NOT deploy without first defining role mappings — AlloyDB Omni defaults to unrestricted access if no IAM policies are set. Do NOT manage database users solely through SQL GRANT/REVOKE statements for production environments; the skill provides a centralized IAM layer that is more auditable and enforceable.
+Use when an agent needs a quick server overview, filtered PostgreSQL settings, or a list of roles and role attributes for an AlloyDB Omni instance. Do not use it to create users, change grants, rotate credentials, or enforce IAM; those are separate administrative actions and may require different tooling and authorization.
 
 ## Inputs, outputs, tools
-- Inputs: cluster connection string, IAM principal emails, Kubernetes service account names, SSL certificate details, desired role assignments (read-only, read-write, admin).
-- Outputs: configured IAM policies, role bindings, SSL certificate thumbprints, access audit report, revocation list.
-- Tools: `gcloud` CLI, `kubectl` with AlloyDB add-on, Google Cloud Console IAM page, `psql` for initial connection testing. MCP: google-maps-platform (for geo-related access patterns), gemini-plugin connector.
+Inputs are JSON arguments passed to the script, such as `setting_name`, `role_name`, and `limit`, plus connection environment variables like `ALLOYDB_OMNI_HOST`, `ALLOYDB_OMNI_PORT`, `ALLOYDB_OMNI_PASSWORD`, and `ALLOYDB_OMNI_QUERY_PARAMS`. Outputs are the toolbox result for server version/replica status/uptime/connections, matching settings, or role details including privileges and memberships. Tools are Node.js, `npx`, `@toolbox-sdk/server`, and the AlloyDB Omni database endpoint.
 
 ## 5 most important rules
-1. **Always use IAM roles rather than SQL-level grants** for application connectivity — IAM is the source of truth for AlloyDB Omni access control.
-2. **Bind Kubernetes service accounts to AlloyDB users** via the AlloyDB CSI driver; never expose database passwords in pod specifications.
-3. **Rotate SSL/TLS certificates every 90 days** and invalidate old connection strings immediately — rotated certificates must be redeployed via the skill's certificate management workflow.
-4. **Audit access logs weekly** for failed connection attempts or privilege escalation attempts; the skill can generate a filtered report by IP, user, or time range.
-5. **Never grant ALL PRIVILEGES to a service account** — use custom IAM roles with only the minimum operations needed (select, insert, update, delete, backup).
+1. Run scripts as `node <skill_dir>/scripts/<script_name>.js '<json>'`, with PowerShell quoting adjusted for the shell.
+2. Do not ask for environment variables until execution fails because they are missing; the scripts attempt to load `.env` files automatically.
+3. Omit empty optional environment variables rather than passing blank connection fields.
+4. Use `setting_name` and `limit` to narrow `pg_settings`, and `role_name` plus `limit` to narrow role listings.
+5. Treat the scripts as inspection helpers; verify any security conclusion against the actual database before changing roles or settings.
 
 ## Risks / owner notes
-Misconfigured IAM policies can lead to data breaches if a compromised service account gains excessive database rights. The owner should enforce periodic IAM audits and use the principle of least privilege. Certificate rotation failures are a common operational issue; automate the rotation workflow to avoid manual gaps.
+The scripts need Node, network access for `npx`, and valid AlloyDB Omni credentials. Environment files may contain secrets and should not be printed or committed. Role and settings output can expose security-sensitive configuration, so the owner should control where results are stored and who can see them.
 
 ## Category / tags
-database · google-cloud, alloydb, access-control, iam, kubernetes, sql, security
+data · alloydb, postgres, access-control, pg-settings, roles, google-cloud, node, inspection
 
 ## Revisions
-The gemini revision is the only one available; codex, kilo, and cursor do not have AlloyDB skills. This is the canonical source.
+Single gemini skill revision with three Node scripts. No codex, claude, kilo, cursor, opencode, or windsurf copy was present.

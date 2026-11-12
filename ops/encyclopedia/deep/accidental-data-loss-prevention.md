@@ -1,30 +1,28 @@
 # accidental-data-loss-prevention
 
-Source read: `C:\Users\a7med\.claude\skills\accidental-data-loss-prevention\SKILL.md` (1.3 KB; claude revision; not found in codex/kilo/cursor/windsurf/opencode).
+Source read: `C:\Users\a7med\.claude\skills\accidental-data-loss-prevention\SKILL.md`.
 
 ## Summary
-A mandatory safety gate that stops any agent from executing commands causing irreversible data loss without explicit user consent. Covers SQL DROP/TRUNCATE/broad DELETE, cloud storage rm on production buckets, and infrastructure deletion (projects, Spanner, BigQuery, Dataproc, secrets, KMS keys). The rule is absolute: halt, explain impact and necessity, request explicit approval, wait for affirmative consent.
+This is a mandatory safety gate for irreversible operations. Before running SQL that drops or truncates data, broad deletes, production storage removals, or infrastructure deletion, the agent must stop, explain the impact and why the action is needed, request explicit affirmative consent, and wait for the user before proceeding.
 
 ## When to use / when NOT
-Use ALWAYS when any tool/command matches the destructive patterns listed. Do NOT bypass even if the task seems routine; the cost of a false positive (waiting for consent) is near zero, the cost of a false negative is catastrophic.
+Use whenever a command or tool could cause irreversible data loss, including `DROP`, `TRUNCATE`, broad `DELETE`, `gsutil rm` or `gcloud storage rm` against production data, `gcloud projects delete`, or deletion of Spanner, BigQuery, Dataproc, secrets, or KMS resources. Do not bypass it for routine-looking tasks; when in doubt, ask. It is not needed for reversible edits, but it also does not replace backups or careful change design.
 
 ## Inputs, outputs, tools
-- Inputs: the command or tool call the agent is about to run.
-- Outputs: either a consent request to the user, or (after consent) the command proceeds normally.
-- Tools: none; this is a behavioural guardrail applied before any shell/gcloud/gsql execution.
+Input is the exact command, tool call, or operation the agent is about to run. Output is either a consent request that names the impact, necessity, and requested approval, or normal execution after clear affirmative consent. There are no external tools or MCPs; it is a behavioral guardrail applied before shell, SQL, or cloud commands run.
 
 ## 5 most important rules
-1. **STOP AND VERIFY**: Never execute a destructive command without halting first.
-2. **Explain impact**: Clearly state what data/resources will be lost and why the action is proposed.
-3. **Request explicit consent**: Ask for a clear, affirmative "yes" from the user.
-4. **Wait for consent**: Do not proceed until the user explicitly approves.
-5. **Scope**: Applies to SQL DROP/TRUNCATE/broad DELETE, `gsutil rm`/`gcloud storage rm` on production, and `gcloud projects delete` or resource deletions (Spanner, BigQuery, Dataproc, secrets, KMS).
+1. Halt execution before any destructive command runs.
+2. Explain the concrete impact of the deletion or destruction.
+3. Explain why the agent believes the action is necessary.
+4. Request explicit approval and wait for a clear affirmative response.
+5. Treat uncertainty as a reason to ask; the skill covers SQL, cloud storage, and infrastructure deletion patterns.
 
 ## Risks / owner notes
-Low operational risk; the only cost is a brief pause for consent. The real risk is an agent ignoring this skill — if that happens, data loss is irreversible. Owner must be the final gate on any destructive infra action.
+The operational cost is a short pause for confirmation, while ignoring the gate can cause permanent production data or infrastructure loss. The owner remains the final approval point for destructive actions, and agents should still prefer narrower, reversible operations when they satisfy the task.
 
 ## Category / tags
-ops · safety, data-loss-prevention, guardrail, consent-gate, sql, cloud-infra
+security · safety, data-loss-prevention, consent, sql, cloud-infra, guardrail, destructive-commands
 
 ## Revisions
-Only the claude copy exists (1.3 KB). The skill is not present in the codex/kilo/cursor/windsurf/opencode 112-set. This is the canonical version.
+The claude and gemini copies are identical in size and content; the claude copy is selected by the source rule. No codex, kilo, cursor, opencode, or windsurf copy was present.

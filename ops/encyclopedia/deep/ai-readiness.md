@@ -1,30 +1,28 @@
 # ai-readiness
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\ai-readiness\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude skills dirs).
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\ai-readiness\SKILL.md`.
 
 ## Summary
-A skill that assesses whether a team or project is prepared to integrate AI capabilities into their product or workflow. It evaluates technical readiness (API access, development environment, data labeling), organizational readiness (team expertise, change management processes), and security readiness (data privacy, compliance, access controls). The output is a readiness score with specific gap analysis and recommendations for bridging identified gaps before AI integration begins.
+This Postman plugin skill scores how well an API contract can be discovered, called, and recovered from by AI agents. It runs Postman's readiness check against a real Postman collection or OpenAPI spec, reports a readiness score, bucket, confidence, and documentation coverage, then turns measured gaps into contract improvements that can be re-tested.
 
 ## When to use / when NOT
-Use at the start of any AI project to avoid investing in infrastructure or talent that the team cannot effectively utilize. Do NOT skip this assessment — projects that skip ai-readiness often fail to deliver ROI because the team lacks the necessary skills or access. Do NOT use as a one-time checklist; reassess when switching LLM providers, changing data sources, or onboarding new team members.
+Use when prioritizing API consumability for agents, checking whether contract improvements worked, or enforcing a team-agreed readiness threshold in CI. Skip it for typo fixes, one-off endpoint checks, or changes that do not affect the contract or agent usability; use api-testing when the question is whether the live API behaves correctly.
 
 ## Inputs, outputs, tools
-- Inputs: team size and expertise matrix, current API subscriptions, data availability and quality, compliance requirements (GDPR, HIPAA, etc.), preferred LLM provider.
-- Outputs: readiness score (0-100), gap analysis report (technical, organizational, security), prioritized remediation plan with timeline and budget estimates.
-- Tools: internal documentation scanner, API subscription checker, compliance checklist validator, survey/feedback tools. MCP: postman-mcp-server connector for test step management.
+Inputs are a Postman collection path or ID, or an OpenAPI spec path or ID, plus optional `--min-score` for a CI gate. Outputs are the readiness score, bucket from Limited to Excellent, confidence, documentation coverage signal, remaining gaps, and the threshold exit code when used. Tools are the Postman CLI commands `postman collection ai-readiness` and `postman spec ai-readiness`, the API artifact itself, and related skills for documentation, collection schema, testing, and CI integration.
 
 ## 5 most important rules
-1. **API access must be validated before the assessment** — ensure test credits or production keys are available for the chosen LLM provider.
-2. **Include at least one team member with LLM experience** in the assessment panel — otherwise the gap analysis will be inaccurate.
-3. **Document compliance constraints explicitly** — GDPR, CCPA, or industry-specific regulations can significantly impact AI deployment options.
-4. **Prioritize gaps by impact and effort** — focus on fixing high-impact/low-effort gaps first to show quick wins.
-5. **Re-assess after remediation** — the initial score is a baseline; re-measure after addressing the top 3 gaps to track progress.
+1. Score the artifact consumers actually use; do not generate a collection only to score a spec.
+2. Keep `confidence` separate from the score because low confidence means important signals could not be measured.
+3. Prioritize gaps that change caller behavior, such as unclear required inputs, missing auth instructions, or errors without recovery guidance.
+4. Establish actual behavior before adding descriptions or examples; invented certainty can raise the score while misleading agents.
+5. Re-run after edits to prove gaps closed, and use `--min-score` only as a separate CI readiness gate rather than a substitute for tests or lint.
 
 ## Risks / owner notes
-The skill's accuracy depends on honest self-reporting; teams may overestimate their expertise or underestimate compliance burdens. The owner should validate the assessment results with a short proof-of-concept using the intended LLM provider before committing to full integration.
+A readiness score measures contract consumability, not live correctness, so a high score can still hide broken behavior. Low confidence or documentation coverage means the result is incomplete. The owner should choose the CI threshold from a real baseline and keep contract quality, tests, and lint as separate signals.
 
 ## Category / tags
-assessment · ai-readiness, ai-integration, gap-analysis, compliance, team-expertise, project-planning
+ai · postman, openapi, api-contract, ai-readiness, agent-consumability, documentation, ci-gate
 
 ## Revisions
-The gemini-plugin copy is the only revision available; no codex, claude, or kilo versions exist. This is the canonical source for this skill.
+Single installed gemini-plugin Postman revision, modified 2026-11-12. No codex, claude, kilo, cursor, opencode, or windsurf copy was present.

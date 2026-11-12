@@ -1,30 +1,28 @@
 # alloydb-omni-container
 
-Source read: `C:\Users\a7med\.gemini\skills\alloydb-omni-container\SKILL.md` (gemini revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
+Source read: `C:\Users\a7med\.gemini\skills\alloydb-omni-container\SKILL.md`.
 
 ## Summary
-A skill for deploying and managing AlloyDB Omni instances as Kubernetes stateful sets or Docker containers. It handles the full lifecycle from cluster creation (on-premises, cloud, or hybrid) to configuration, scaling, monitoring, and teardown. The skill integrates with the AlloyDB CSI driver for persistent storage, promotes connection pooling via PgBouncer, and provides health checks and auto-recovery for database pods.
+This Google skill guides an agent through running AlloyDB Omni in a Docker or Podman container for local or offline development. It covers starting a named container with a persistent data directory and `POSTGRES_PASSWORD`, checking status and logs, stopping or optionally removing the container, and giving the user the interactive `psql` command to connect.
 
 ## When to use / when NOT
-Use when you need to run AlloyDB Omni in a containerized environment (Kubernetes or Docker Compose) and want automated lifecycle management. Do NOT use if you are running AlloyDB directly on bare metal without container orchestration — the skill's automation assumes a container runtime. Do NOT skip the storage configuration step; AlloyDB Omni requires persistent PVCs for data durability, and the skill will fail without a valid storage class.
+Use for local development, evaluation, or offline PostgreSQL-compatible workloads where the lightweight container model is acceptable. Do not use it for production workloads that need high availability, automated backups, or managed operations; the source explicitly says the container model lacks those high-end features.
 
 ## Inputs, outputs, tools
-- Inputs: Kubernetes cluster name or Docker host, AlloyDB version, storage class name, initial database name and user, resource limits (CPU, memory).
-- Outputs: deployed AlloyDB stateful set or container, PgBouncer connection pool configuration, health check results, logs tail, connection string for the deployed instance.
-- Tools: `kubectl`, `docker compose`, `gcloud` AlloyDB API, `kubectl get storageclass`, `pg_isready` for health checks. MCP: google-maps-platform (for workload placement), gemini-plugin connector.
+Inputs are the AlloyDB Omni image tag, container name, host data directory, `postgres` password, and whether the user prefers Docker or Podman. Outputs are a running detached container, status and log inspection, optional stop/remove actions, and connection instructions for `psql`. Tools are `docker` or `podman`, the `google/alloydbomni` image, a host volume at `/var/lib/postgresql/data`, port `5432`, and `psql` inside the container.
 
 ## 5 most important rules
-1. **Always specify a persistent volume claim** with a storage class that supports ReadWriteOnce or ReadWriteMany — AlloyDB Omni data cannot reside in ephemeral volumes.
-2. **Set PgBouncer connection pooling** with `max_connections` appropriate to your workload; the default of 100 may be too low for connection-heavy applications.
-3. **Configure liveness and readiness probes** using `pg_isready`; without probes, Kubernetes will not auto-recover a crashed AlloyDB instance.
-4. **Enable automatic backups** via the AlloyDB API; the skill can schedule daily snapshots and retain them for a configurable number of days.
-5. **Use label selectors for monitoring** — tag all AlloyDB pods with `app=alloydb,instance=<name>` so Prometheus can scrape metrics correctly.
+1. Ask for version, container name, data directory, password, and Docker versus Podman before running anything.
+2. Create the data directory with `mkdir -p` if needed and mount it to `/var/lib/postgresql/data` so data survives container replacement.
+3. Run detached with `--name`, `-e POSTGRES_PASSWORD`, `-v`, `-p 5432:5432`, and `--restart=always`.
+4. Check state with `ps -a -f name=<CONTAINER_NAME>` and inspect problems with `logs`; ask before removing a container.
+5. For connection, provide the interactive `docker exec -it <CONTAINER_NAME> psql -U postgres` or Podman equivalent for the user rather than trying to run an interactive shell yourself.
 
 ## Risks / owner notes
-Storage misconfiguration is the most common cause of data loss — if the PVC is deleted or the storage class is changed, AlloyDB data may be lost. The owner should test backup restore procedures quarterly. Resource overcommit (requesting more CPU/memory than the node can provide) will cause Kubernetes to evict the AlloyDB pod.
+The password appears in the run command and process environment, and port `5432` can conflict with an existing database. Container restart policy does not provide production HA or backups, and removing a container should be confirmed because the mounted data directory is what preserves data. The owner should choose credentials and storage location deliberately.
 
 ## Category / tags
-database · kubernetes, docker, container-orchestration, alloydb, postgres, deployment, observability
+data · alloydb, postgres, docker, podman, container, local-development, psql, google-cloud
 
 ## Revisions
-The gemini revision is the only one available; no codex, kilo, or cursor copies exist. This is the canonical source.
+Single gemini skill revision. No codex, claude, kilo, cursor, opencode, or windsurf copy was present.
