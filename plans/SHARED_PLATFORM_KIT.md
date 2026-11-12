@@ -183,7 +183,7 @@ One fix reaches all products. Each product builds these as internal `packages/*`
 ## Current Consumers (as of 2026-11-12)
 | Product | Wave | Tier | Adopted From |
 |---|---|---|---|
-| SIR Obour Hub | 5 | GLOBAL | (planning) |
+| SIR Education Hub | 5 | GLOBAL | (planning) |
 | SIR Hagoozat | 5 | GLOBAL | (planning) |
 | SIR Business | 5 | GLOBAL | (planning) |
 | SIR Content Creation Studio | 4 | GLOBAL | (planning) |
