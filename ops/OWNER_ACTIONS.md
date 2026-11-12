@@ -55,3 +55,6 @@ Everything is built and ready (Google, TickTick and Notion client ids and secret
 1. Open https://sir-ai-pi.vercel.app in Chrome (already signed into your Google account there), tap "Continue with Google", finish onboarding once.
 2. Go to Settings, Connections tab. For Google, TickTick and Notion, tap Connect, and on each provider's own consent screen tap Allow.
 That is it. Microsoft was skipped (no phone-free signup path was available), so To Do stays unconnected for now.
+
+## 2026-11-12T14:05:46+02:00 (AHome, haiku-r38)
+- GitHub Actions for sirahmed8/ahmed-and-habiba fail before any runner starts (3 jobs: web, secrets, core; 0 steps, runner empty), on commit 5325f29 and again on the rerun, 2026-11-12 12:01 UTC. The earlier run 43151834079 passed in 4m31s. The token cannot read billing (403). One tap: GitHub Settings > Billing and plans > Actions: check spending limit or minutes, then re-run the failed verify jobs. Nothing else is needed.

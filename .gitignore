@@ -79,3 +79,4 @@ ops/agy-runs/verifier-*.log
 ops/agy-runs/scout-*.log
 ops/scout-evidence/
 ops/usage.log
+ops/agy-runs/*.out

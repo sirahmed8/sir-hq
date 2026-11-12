@@ -1,0 +1,65 @@
+ci-integration	gemini-plugin	gemini-plugin/postman--ci-integration.md	`C:\Users\a7med\.gemini\config\plugins\postman\skills\ci-integration\SKILL.md`
+classroom-helper	gemini-plugin	gemini-plugin/canva--classroom-helper.md	`C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\classroom-helper\SKILL.md`
+claude-council	claude, codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/claude-council.md	`C:\Users\a7med\.config\kilo\skills\claude-council\SKILL.md`
+cli-install	gemini-plugin	gemini-plugin/postman--cli-install.md	`C:\Users\a7med\.gemini\config\plugins\postman\skills\cli-install\SKILL.md`
+cloud-sql-mysql-admin	gemini	gemini/cloud-sql-mysql-admin.md	`C:\Users\a7med\.gemini\skills\cloud-sql-mysql-admin\SKILL.md`
+cloud-sql-mysql-data	gemini	gemini/cloud-sql-mysql-data.md	`C:\Users\a7med\.gemini\skills\cloud-sql-mysql-data\SKILL.md`
+cloud-sql-mysql-lifecycle	gemini	gemini/cloud-sql-mysql-lifecycle.md	`C:\Users\a7med\.gemini\skills\cloud-sql-mysql-lifecycle\SKILL.md`
+cloud-sql-mysql-monitor	gemini	gemini/cloud-sql-mysql-monitor.md	`C:\Users\a7med\.gemini\skills\cloud-sql-mysql-monitor\SKILL.md`
+cloud-sql-postgres-admin	gemini	gemini/cloud-sql-postgres-admin.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-admin\SKILL.md`
+cloud-sql-postgres-data	gemini	gemini/cloud-sql-postgres-data.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-data\SKILL.md`
+cloud-sql-postgres-health	gemini	gemini/cloud-sql-postgres-health.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-health\SKILL.md`
+cloud-sql-postgres-lifecycle	gemini	gemini/cloud-sql-postgres-lifecycle.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-lifecycle\SKILL.md`
+cloud-sql-postgres-monitor	gemini	gemini/cloud-sql-postgres-monitor.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-monitor\SKILL.md`
+cloud-sql-postgres-replication	gemini	gemini/cloud-sql-postgres-replication.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-replication\SKILL.md`
+cloud-sql-postgres-vectorassist	gemini	gemini/cloud-sql-postgres-vectorassist.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-vectorassist\SKILL.md`
+cloud-sql-postgres-view-config	gemini	gemini/cloud-sql-postgres-view-config.md	`C:\Users\a7med\.gemini\skills\cloud-sql-postgres-view-config\SKILL.md`
+cloud-sql-sqlserver-admin	gemini	gemini/cloud-sql-sqlserver-admin.md	`C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-admin\SKILL.md`
+cloud-sql-sqlserver-data	gemini	gemini/cloud-sql-sqlserver-data.md	`C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-data\SKILL.md`
+cloud-sql-sqlserver-lifecycle	gemini	gemini/cloud-sql-sqlserver-lifecycle.md	`C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-lifecycle\SKILL.md`
+cloud-sql-sqlserver-monitor	gemini	gemini/cloud-sql-sqlserver-monitor.md	`C:\Users\a7med\.gemini\skills\cloud-sql-sqlserver-monitor\SKILL.md`
+cognitive-product-intuition	claude, codex, cursor, kilo, opencode, windsurf	kilo/cognitive-product-intuition.md	`C:\Users\a7med\.config\kilo\skills\cognitive-product-intuition\SKILL.md`
+collection-schema-v3	gemini-plugin	gemini-plugin/postman--collection-schema-v3.md	`C:\Users\a7med\.gemini\config\plugins\postman\skills\collection-schema-v3\SKILL.md`
+commercial-app-blueprint	claude, codex, cursor, kilo, opencode, windsurf	kilo/commercial-app-blueprint.md	`C:\Users\a7med\.config\kilo\skills\commercial-app-blueprint\SKILL.md`
+compose-preview	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/compose-preview.md	`C:\Users\a7med\.config\kilo\skills\compose-preview\SKILL.md`
+context7-mcp	gemini-plugin	gemini-plugin/context7--context7-mcp.md	`C:\Users\a7med\.gemini\config\plugins\context7\skills\context7-mcp\SKILL.md`
+cookie-debugging	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/cookie-debugging.md	`C:\Users\a7med\.config\kilo\skills\cookie-debugging\SKILL.md`
+craft-game-floors	gemini-plugin	gemini-plugin/unity--craft-game-floors.md	`C:\Users\a7med\.gemini\config\plugins\unity\skills\craft-game-floors\SKILL.md`
+create-2d-physics	gemini-plugin	gemini-plugin/unity--create-2d-physics.md	`C:\Users\a7med\.gemini\config\plugins\unity\skills\create-2d-physics\SKILL.md`
+create-a-backend	gemini-plugin	gemini-plugin/vercel-plugin--create-a-backend.md	`C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\create-a-backend\SKILL.md`
+create-tile-palette-or-rule-tiles	gemini-plugin	gemini-plugin/unity--create-tile-palette-or-rule-tiles.md	`C:\Users\a7med\.gemini\config\plugins\unity\skills\create-tile-palette-or-rule-tiles\SKILL.md`
+custom-metrics	gemini-plugin	gemini-plugin/vercel-plugin--custom-metrics.md	`C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\custom-metrics\SKILL.md`
+customization-architect	claude, codex, cursor, kilo, opencode, windsurf	kilo/customization-architect.md	`C:\Users\a7med\.config\kilo\skills\customization-architect\SKILL.md`
+daemons	gemini-plugin	gemini-plugin/vercel-plugin--daemons.md	`C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\daemons\SKILL.md`
+dart-add-unit-test	gemini-plugin	gemini-plugin/flutter--dart-add-unit-test.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-add-unit-test\SKILL.md`
+dart-build-cli-app	gemini-plugin	gemini-plugin/flutter--dart-build-cli-app.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-build-cli-app\SKILL.md`
+dart-collect-coverage	gemini-plugin	gemini-plugin/flutter--dart-collect-coverage.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-collect-coverage\SKILL.md`
+dart-fix-runtime-errors	gemini-plugin	gemini-plugin/flutter--dart-fix-runtime-errors.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-fix-runtime-errors\SKILL.md`
+dart-generate-test-mocks	gemini-plugin	gemini-plugin/flutter--dart-generate-test-mocks.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-generate-test-mocks\SKILL.md`
+dart-migrate-to-checks-package	gemini-plugin	gemini-plugin/flutter--dart-migrate-to-checks-package.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-migrate-to-checks-package\SKILL.md`
+dart-resolve-package-conflicts	gemini-plugin	gemini-plugin/flutter--dart-resolve-package-conflicts.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-resolve-package-conflicts\SKILL.md`
+dart-run-static-analysis	gemini-plugin	gemini-plugin/flutter--dart-run-static-analysis.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-run-static-analysis\SKILL.md`
+dart-setup-ffi-assets	gemini-plugin	gemini-plugin/flutter--dart-setup-ffi-assets.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-setup-ffi-assets\SKILL.md`
+dart-use-doc-examples	gemini-plugin	gemini-plugin/flutter--dart-use-doc-examples.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-doc-examples\SKILL.md`
+dart-use-ffigen	gemini-plugin	gemini-plugin/flutter--dart-use-ffigen.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-ffigen\SKILL.md`
+dart-use-path-package	gemini-plugin	gemini-plugin/flutter--dart-use-path-package.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-path-package\SKILL.md`
+dart-use-pattern-matching	gemini-plugin	gemini-plugin/flutter--dart-use-pattern-matching.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-pattern-matching\SKILL.md`
+dart-use-primary-constructors	gemini-plugin	gemini-plugin/flutter--dart-use-primary-constructors.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-use-primary-constructors\SKILL.md`
+dart-write-documentation	gemini-plugin	gemini-plugin/flutter--dart-write-documentation.md	`C:\Users\a7med\.gemini\config\plugins\flutter\skills\dart-write-documentation\SKILL.md`
+data-autocleaning	gemini	gemini/data-autocleaning.md	`C:\Users\a7med\.gemini\skills\data-autocleaning\SKILL.md`
+database-reliability-transactions	claude, codex, cursor, kilo, opencode, windsurf	kilo/database-reliability-transactions.md	`C:\Users\a7med\.config\kilo\skills\database-reliability-transactions\SKILL.md`
+dataform-bigquery	gemini	gemini/dataform-bigquery.md	`C:\Users\a7med\.gemini\skills\dataform-bigquery\SKILL.md`
+datasets	gemini-plugin	gemini-plugin/postman--datasets.md	`C:\Users\a7med\.gemini\config\plugins\postman\skills\datasets\SKILL.md`
+dbt-bigquery	gemini	gemini/dbt-bigquery.md	`C:\Users\a7med\.gemini\skills\dbt-bigquery\SKILL.md`
+debug-optimize-lcp	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/debug-optimize-lcp.md	`C:\Users\a7med\.config\kilo\skills\debug-optimize-lcp\SKILL.md`
+deployments-cicd	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/deployments-cicd.md	`C:\Users\a7med\.config\kilo\skills\deployments-cicd\SKILL.md`
+design-translation	gemini-plugin	gemini-plugin/canva--design-translation.md	`C:\Users\a7med\.gemini\config\plugins\canva\inactive-skills\design-translation\SKILL.md`
+device-hub	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/device-hub.md	`C:\Users\a7med\.config\kilo\skills\device-hub\SKILL.md`
+diagnosing-superpowers	gemini-plugin	gemini-plugin/superpowers--diagnosing-superpowers.md	`C:\Users\a7med\.gemini\config\plugins\superpowers\skills\diagnosing-superpowers\SKILL.md`
+direct-action-shield	claude, codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/direct-action-shield.md	`C:\Users\a7med\.config\kilo\skills\direct-action-shield\SKILL.md`
+discovering-gcp-data-assets	gemini	gemini/discovering-gcp-data-assets.md	`C:\Users\a7med\.gemini\skills\discovering-gcp-data-assets\SKILL.md`
+dispatching-parallel-agents	gemini-plugin	gemini-plugin/superpowers--dispatching-parallel-agents.md	`C:\Users\a7med\.gemini\config\plugins\superpowers\skills\dispatching-parallel-agents\SKILL.md`
+domains	gemini-plugin	gemini-plugin/vercel-plugin--domains.md	`C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\domains\SKILL.md`
+edit-design	gemini-plugin	gemini-plugin/canva--edit-design.md	`C:\Users\a7med\.gemini\config\plugins\canva\skills\edit-design\SKILL.md`
+emil-motion-impeccable	claude, codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/emil-motion-impeccable.md	`C:\Users\a7med\.config\kilo\skills\emil-motion-impeccable\SKILL.md`
+env-vars	codex, cursor, gemini-plugin, kilo, opencode, windsurf	kilo/env-vars.md	`C:\Users\a7med\.config\kilo\skills\env-vars\SKILL.md`

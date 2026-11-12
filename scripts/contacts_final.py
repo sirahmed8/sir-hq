@@ -1,9 +1,9 @@
-"""Build the final contact set (owner order 2026-11-12): Google and Apple contain the same people.
-Input (already name-cleaned): _local/contacts/google_v2.csv and apple_v2.vcf. Output (same folder, local only, counts printed, no names):
-  final_google.csv   Google rows + the contacts that exist only in Apple
-  final_apple.vcf    Apple cards + the contacts that exist only in Google
-  duplicates_review.csv   people sharing a phone number inside one source, for the owner to look at (names stay in this local file)
-A contact counts as 'the same' when it shares a normalized phone number (last 10 digits). Nothing is merged automatically.
+"""Build the final contact set (owner orders 2026-11-12): Google and Apple hold the same people, names are only Prefix + First Name
+(the first-name field holds the full name), no middle, last or company names are created, exact duplicates are dropped.
+Input (name-cleaned by contacts_clean.py with suffix _v3): _local/contacts/google_v3.csv and apple_v3.vcf.
+Output (same folder, local only, counts printed, no names):
+  final_google.csv, final_apple.vcf, duplicates_review.csv (people sharing a phone inside one source, names stay in this local file).
+Same person = shares a normalized phone number (last 10 digits). Nothing is merged except exact duplicates (same name and same phones).
 """
 import csv
 import re
@@ -14,6 +14,8 @@ import contacts_clean as cc
 
 D = Path("D:/Projects/_SIR/_local/contacts")
 CRLF = chr(13) + chr(10)
+RENAME_PHONE = "1119119255"  # owner: this Ahmed Gamal is 'Ahmed Jimmy'; the other Ahmed Gamal stays
+COLS = {"prefix": "Name Prefix", "first": "First Name", "middle": "Middle Name", "last": "Last Name", "suffix": "Name Suffix"}
 
 
 def norm(p: str) -> str:
@@ -27,10 +29,23 @@ def norm(p: str) -> str:
     return d[-10:] if len(d) >= 10 else d
 
 
+def full(prefix: str, first: str) -> str:
+    return " ".join(x for x in (prefix, first) if x)
+
+
+def name_key(prefix: str, first: str) -> str:
+    return " ".join(cc.key(w) for w in full(prefix, first).split())
+
+
+def renamed(first: str, keys: set) -> str:
+    if RENAME_PHONE in keys and cc.key(first) in ("ahmed gamal", "احمد جمال"):
+        return "Ahmed Jimmy"
+    return first
+
+
 def vcard_fields(card: str) -> dict:
-    lines = [ln for ln in card.strip().splitlines() if ln]
-    out = {"phones": [], "emails": [], "bday": "", "org": "", "n": ("", "", "", "", "")}
-    for ln in lines:
+    out = {"phones": [], "emails": [], "bday": "", "n": ("", "", "", "", "")}
+    for ln in [x for x in card.strip().splitlines() if x]:
         if re.match(r"N[;:]", ln):
             parts = (ln.partition(":")[2].split(";") + [""] * 5)[:5]
             out["n"] = (parts[3], parts[1], parts[2], parts[0], parts[4])  # prefix, given, middle, family, suffix
@@ -40,25 +55,38 @@ def vcard_fields(card: str) -> dict:
             out["emails"].append(ln.partition(":")[2].strip())
         elif ln.startswith("BDAY"):
             out["bday"] = ln.partition(":")[2].strip()
-        elif ln.startswith("ORG"):
-            out["org"] = ln.partition(":")[2].replace(";", " ").strip()
     return out
 
 
 def load_apple() -> list:
-    t = (D / "apple_v2.vcf").read_text(encoding="utf-8")
+    t = (D / "apple_v3.vcf").read_text(encoding="utf-8")
     t = re.sub(r"\r?\n[ ]", "", t)
     cards = ["BEGIN:VCARD" + c for c in t.split("BEGIN:VCARD") if "END:VCARD" in c]
-    return [{"raw": c.strip(), **vcard_fields(c)} for c in cards]
+    out = []
+    for c in cards:
+        f = vcard_fields(c)
+        f["raw"] = c.strip()
+        f["keys"] = {norm(p) for p in f["phones"] if norm(p)}
+        out.append(f)
+    return out
+
+
+def fix_vcard_name(raw: str, new_first: str, prefix: str) -> str:
+    lines = raw.splitlines()
+    for i, ln in enumerate(lines):
+        if re.match(r"N[;:]", ln):
+            head = ln.partition(":")[0]
+            lines[i] = f"{head}:;{new_first};;{prefix};"
+        elif re.match(r"FN[;:]", ln):
+            lines[i] = f"FN:{full(prefix, new_first)}"
+    return CRLF.join(cc.fold(x) for x in lines if x)
 
 
 def main() -> None:
     apple = load_apple()
-    with (D / "google_v2.csv").open(encoding="utf-8-sig", newline="") as fh:
+    with (D / "google_v3.csv").open(encoding="utf-8-sig", newline="") as fh:
         grows = list(csv.DictReader(fh))
         gfields = list(grows[0].keys())
-    for a in apple:
-        a["keys"] = {norm(p) for p in a["phones"] if norm(p)}
     for r in grows:
         r["_keys"] = set()
         for k, v in r.items():
@@ -66,19 +94,41 @@ def main() -> None:
                 for part in v.split(":::"):
                     if norm(part):
                         r["_keys"].add(norm(part))
+        r[COLS["first"]] = renamed(r.get(COLS["first"], ""), r["_keys"])
+    for a in apple:
+        pre, giv = a["n"][0], renamed(a["n"][1], a["keys"])
+        if giv != a["n"][1]:
+            a["raw"] = fix_vcard_name(a["raw"], giv, pre)
+            a["n"] = (pre, giv, "", "", "")
+
+    # exact duplicates (same name and same phones) are dropped inside each source
+    def dedupe(items, keyf):
+        seen, out, dropped = set(), [], 0
+        for it in items:
+            k = keyf(it)
+            if k in seen:
+                dropped += 1
+                continue
+            seen.add(k)
+            out.append(it)
+        return out, dropped
+
+    grows, gdrop = dedupe(grows, lambda r: (name_key(r.get(COLS["prefix"], ""), r.get(COLS["first"], "")), tuple(sorted(r["_keys"]))))
+    apple, adrop = dedupe(apple, lambda a: (name_key(a["n"][0], a["n"][1]), tuple(sorted(a["keys"]))))
+
     akeys = set().union(*[a["keys"] for a in apple])
     gkeys = set().union(*[r["_keys"] for r in grows])
+    gnames = {name_key(r.get(COLS["prefix"], ""), r.get(COLS["first"], "")) for r in grows}
+    anames = {name_key(a["n"][0], a["n"][1]) for a in apple}
     apple_only = [a for a in apple if a["keys"] and not (a["keys"] & gkeys)]
-    apple_nophone = [a for a in apple if not a["keys"]]
+    apple_nophone_new = [a for a in apple if not a["keys"] and name_key(a["n"][0], a["n"][1]) not in gnames]
     google_only = [r for r in grows if r["_keys"] and not (r["_keys"] & akeys)]
+    google_nophone_new = [r for r in grows if not r["_keys"] and name_key(r.get(COLS["prefix"], ""), r.get(COLS["first"], "")) not in anames]
 
-    # final_google.csv: Google rows plus Apple-only people and Apple cards without a phone (family and own card)
-    cols = {"prefix": "Name Prefix", "first": "First Name", "middle": "Middle Name", "last": "Last Name", "suffix": "Name Suffix"}
     extra = []
-    for a in apple_only + apple_nophone:
+    for a in apple_only + apple_nophone_new:
         row = {c: "" for c in gfields}
-        pre, giv, mid, fam, suf = a["n"]
-        row[cols["prefix"]], row[cols["first"]], row[cols["middle"]], row[cols["last"]], row[cols["suffix"]] = pre, giv, mid, fam, suf
+        row[COLS["prefix"]], row[COLS["first"]] = a["n"][0], a["n"][1]
         if "Phone 1 - Value" in row and a["phones"]:
             row["Phone 1 - Value"] = ":::".join(a["phones"])
         if "E-mail 1 - Value" in row and a["emails"]:
@@ -86,20 +136,16 @@ def main() -> None:
         if "Birthday" in row and a["bday"]:
             b = a["bday"].replace("-", "")
             row["Birthday"] = f"{b[:4]}-{b[4:6]}-{b[6:8]}" if len(b) == 8 else a["bday"]
-        if "Organization Name" in row:
-            row["Organization Name"] = a["org"]
         extra.append(row)
     with (D / "final_google.csv").open("w", encoding="utf-8-sig", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=gfields)
         w.writeheader()
         w.writerows([{k: r.get(k, "") for k in gfields} for r in grows] + extra)
 
-    # final_apple.vcf: Apple cards plus Google-only people as simple cards
     cards = [CRLF.join(cc.fold(ln) for ln in a["raw"].splitlines() if ln) for a in apple]
-    for r in google_only:
-        pre, giv, mid, fam, suf = (r.get(cols[k], "") for k in ("prefix", "first", "middle", "last", "suffix"))
-        fn = " ".join(x for x in (pre, giv, mid, fam, suf) if x)
-        lines = ["BEGIN:VCARD", "VERSION:3.0", f"N:{fam};{giv};{mid};{pre};{suf}", f"FN:{fn}"]
+    for r in google_only + google_nophone_new:
+        pre, giv = r.get(COLS["prefix"], ""), r.get(COLS["first"], "")
+        lines = ["BEGIN:VCARD", "VERSION:3.0", f"N:;{giv};;{pre};", f"FN:{full(pre, giv)}"]
         for k, v in r.items():
             if k and "Phone" in k and "Value" in k and v:
                 lines += [f"TEL;TYPE=CELL:{p.strip()}" for p in v.split(":::") if p.strip()]
@@ -108,16 +154,13 @@ def main() -> None:
         bd = (r.get("Birthday") or "").replace("-", "")
         if bd:
             lines.append(f"BDAY:{bd}")
-        if r.get("Organization Name"):
-            lines.append(f"ORG:{r['Organization Name']}")
         lines.append("END:VCARD")
         cards.append(CRLF.join(cc.fold(x) for x in lines))
     (D / "final_apple.vcf").write_bytes((CRLF.join(cards) + CRLF).encode("utf-8"))
 
-    # duplicates inside each source
     dup_rows = []
-    for source, items in (("apple", [(" ".join(x for x in (a["n"][0], a["n"][1], a["n"][2], a["n"][3]) if x), a["keys"]) for a in apple]),
-                          ("google", [(" ".join(x for x in (r.get(cols["prefix"], ""), r.get(cols["first"], ""), r.get(cols["middle"], ""), r.get(cols["last"], "")) if x), r["_keys"]) for r in grows])):
+    for source, items in (("apple", [(full(a["n"][0], a["n"][1]), a["keys"]) for a in apple]),
+                          ("google", [(full(r.get(COLS["prefix"], ""), r.get(COLS["first"], "")), r["_keys"]) for r in grows])):
         seen = {}
         for name, keys in items:
             for k in keys:
@@ -129,9 +172,9 @@ def main() -> None:
         w = csv.writer(fh)
         w.writerow(["source", "phone (last 10 digits)", "contacts sharing it"])
         w.writerows(dup_rows)
-    print(f"apple {len(apple)} cards ({len(apple_nophone)} without a phone), google {len(grows)} contacts")
-    print(f"apple-only with phone: {len(apple_only)}; google-only: {len(google_only)}")
-    print(f"final_google.csv: {len(grows) + len(extra)} contacts; final_apple.vcf: {len(cards)} cards; shared-phone groups for review: {len(dup_rows)}")
+    print(f"exact duplicates dropped: google {gdrop}, apple {adrop}")
+    print(f"apple-only with phone {len(apple_only)}, apple-only no phone {len(apple_nophone_new)}, google-only {len(google_only)}, google-only no phone {len(google_nophone_new)}")
+    print(f"final_google.csv: {len(grows) + len(extra)} contacts; final_apple.vcf: {len(cards)} cards; shared-phone groups left for review: {len(dup_rows)}")
 
 
 if __name__ == "__main__":

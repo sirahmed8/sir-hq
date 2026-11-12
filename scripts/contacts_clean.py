@@ -111,12 +111,12 @@ def clean_name(prefix: str, first: str, middle: str, last: str, suffix: str):
     deduped = join_compounds(canon_name(deduped))
     if len(deduped) >= 2 and not middle.strip() and not last.strip():
         stats["split_full_name"] += 1
-    if not deduped:
-        given, mid, fam = "", "", ""
-    elif len(deduped) == 1:
-        given, mid, fam = deduped[0], "", ""
-    else:
-        given, mid, fam = deduped[0], " ".join(deduped[1:-1]), deduped[-1]
+    # owner rule (2026-11-12): only Prefix and First Name; the first-name field holds the full name; no middle, last or company
+    if final_prefix:
+        ptoks = [key(x) for x in final_prefix.split()]
+        while len(deduped) > 1 and key(deduped[0]) in ptoks:
+            deduped = deduped[1:]
+    given, mid, fam = " ".join(deduped), "", ""
     result = (final_prefix, given, mid, fam, suffix.strip() if suffix else "")
     return (*result, tuple(x.strip() for x in original) != result)
 

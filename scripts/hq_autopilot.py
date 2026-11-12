@@ -31,7 +31,7 @@ BASH = r"C:\Program Files\Git\bin\bash.exe"
 NODE = "node"
 NO_WINDOW = 0x08000000  # CREATE_NO_WINDOW
 DETACHED = 0x00000008  # DETACHED_PROCESS
-STALL_MINUTES = 25
+STALL_MINUTES = 12
 LIMIT_WORDS = re.compile(r"usage limit|rate limit|quota (exceeded|reached)|out of credits|429", re.I)
 LOG_MAX_BYTES = 512 * 1024
 
@@ -130,7 +130,7 @@ def ensure_listener() -> None:
     log(f"telegram listener started pid {p.pid}")
 
 
-MAX_PARALLEL = 5  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
+MAX_PARALLEL = 6  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
 
 
 def rstate(state: dict, name: str) -> dict:
