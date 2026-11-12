@@ -1,22 +1,21 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
-- Backup manager live on Telegram (/takeover, /handback; scripts/backup_manager.py, ops/BACKUP_MANAGER.md); text path tested, voice and photo paths not yet tested live.
-- Queue: r53-hagoozat-and-ideas and r56-business-sector-depth running; r54 plans for 6 small projects done; r58-new-project-folders queued.
-- AHome r57 (22 owner items) runs on Haiku, log ops/agy-runs/ahome-r57.log, checklist AHome/.sir/R57_CHECKLIST.md (5 of 22 at last count, relaunched).
-- Aider no longer opens browser tabs (flags in scripts/cli-run2.sh), SambaNova model removed from the pool.
+- Owner rule (2026-11-12): free tools BUILD only on current projects (SIR Study, Jobs, AI, Laptop Manager, Portfolio; AHome by Haiku). All other projects are planning only (r61-plan-* rounds, writes only under _SIR). Coding found in SIR Cars and SIR Controller was removed.
+- Autopilot restarted 19:52 (it had run old code since 17:31): MAX_PARALLEL 22, icon files ignored in the activity gate. 34 runner processes at 19:58. Team board: ops/bus/team.md (WORKER_PREAMBLE rule 22).
+- AHome r57 on Haiku (log ops/agy-runs/ahome-r57.log, checklist AHome/.sir/R57_CHECKLIST.md, 6 of 22); backup manager on Telegram built (/takeover, /handback).
 
 ## Next step (exact)
-1. `python scripts/ai-status.py`; if r58 is done read ops/reports/new-project-folders-report.md and verify folders, repos, Desktop kits, TickTick parents.
-2. Relaunch the AHome Haiku run (same prompt as in ops/agy-runs/ahome-r57.log header) if it stopped before 22 of 22.
-3. After r53 and r56 finish: merge pass of the older r52 plans against plans/PRODUCT_DIRECTION_2026-11-12.md; test voice and photo through the Telegram backup manager.
+1. `python scripts/ai-status.py`; if a runner list is short while the queue has open tasks, restart the autopilot: stop the pythonw process running hq_autopilot.py, then `Start-ScheduledTask SIR_HQ_Autopilot`.
+2. Relaunch the AHome Haiku run when it ends before 22 of 22 (prompt: continue r57 from the first unticked item in AHome/.sir/R57_CHECKLIST.md).
+3. Verify r58 report (ops/reports/new-project-folders-report.md) and the r61 planning outputs (plans/<slug>-REFRESH-LOG.md); never let a free tool start coding in a non-current project.
 
 ## Open promises
-- Owner decision pending: C: space (pagefile 25 GB, National Instruments 5 GB is his course software, keep).
-- Every project rescans itself before work (WORKER_PREAMBLE rule 20).
+- C: space decision (pagefile 25 GB; National Instruments data is his course software, keep).
+- Voice and photo through the Telegram backup manager are untested live.
 
 ## Re-read after a reset
-plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER.md, ops/HQ_CHECKPOINT.md (tail), ops/OWNER_REQUEST_LEDGER.md
+plans/PRODUCT_DIRECTION_2026-11-12.md, ops/bus/team.md, ops/BACKUP_MANAGER.md, ops/HQ_CHECKPOINT.md (tail)
 
 ---
 

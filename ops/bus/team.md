@@ -25,3 +25,7 @@
 17:55 devin START r61-plan-sir-modpack planning-only refresh of SIR ModPack plan (rule 20)
 - 2026-11-12 r61-plan-sir-business DONE: planning refresh committed; 41-sector catalogue linked, competitor research added, tasks expanded to 48; report at ops/agy-runs/reports/r61-plan-sir-business.md
 11-12 17:56Z devin DONE r61-plan-sir-access-map planning-only: 48 tasks in sir-access-map-tasks.md, plan+competitor refresh with 2026-11-12 research, REFRESH-LOG written; build stays last per rule 22
+11-12 19:57 autopilot START ci-sir-study-20261112-0700-fix1 (runner pid 11324)
+11-12 19:57 autopilot START r60-build-sir-jobs (runner pid 33700)
+11-12 19:57 autopilot START r60-build-sir-laptop-manager (runner pid 37840)
+19:57 devin START r61-plan-sir-mods-gta-v planning-only refresh (rule 20/22)
