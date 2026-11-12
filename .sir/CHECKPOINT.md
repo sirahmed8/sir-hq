@@ -219,3 +219,9 @@
 - Next step: when the two Haiku agents report, read their files and verify the claims by command (`python scripts/ai-status.py`, `git log` in each repo); then read r44 outputs `plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`; check `ops/verifications/` and `ops/SUGGESTIONS.md` for r42 results.
 - Open promises: reconnect Claude in Chrome (WhatsApp digest, NotebookLM Data Bank.pdf); order of use Claude, free tools, Haiku, never Sonnet; plain-words reports; recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r44-portfolio-plans-upgrade.md`.
+
+## HQ note (2026-11-12 07:15)
+- Now: Claude in Chrome reconnected; WhatsApp digest done (nothing new for study; Lingua Gateway jobs are call-center, not Vibe Coder fit; Thursday news sent). AHome work is local-models-only after the privacy finding (runner fixed in commit 224c601; AHome tasks audit-ahome and r38 restart on their own). Both Haiku research agents finished (free-tools-scout: `ops/USAGE_LIMITS.md`, `ops/research/free-tools-2026-11-12.md`; sir-ai-researcher: SIR AI `.sir/plans/COMPETITOR_MATRIX.md`, `FEATURE_IDEAS.md`). Running: r43 Study, r44 plans.
+- Next step: `python scripts/ai-status.py`; read r44 outputs (`plans/PROJECT_MERGE_RECORD.md`, `SHARED_PLATFORM_KIT.md`, `MANAGER_SUCCESSION.md`) and `ops/verifications/`; NotebookLM `Data Bank.pdf` upload now possible through Claude in Chrome (file is 288 KB: use file_upload on the Add source dialog).
+- Open promises: privacy follow-up (AHome earlier rounds used outside models; tell the owner again if he asks, never read AHome files); owner one-tap sign-ins for Cline and Kimi are optional; order of use Claude, free tools, Haiku, never Sonnet; recreate session crons after restart.
+- Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/USAGE_LIMITS.md`, `ops/RUNNING_STATE.md`.
