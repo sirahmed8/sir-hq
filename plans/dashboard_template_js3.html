@@ -1,0 +1,243 @@
+    logTitle: "سجل المساعد التلقائي (الأحدث)",
+    logNone: "لا يوجد سجل للمساعد التلقائي.",
+    acctLedgerTitle: "سجل الحسابات (الاستخدام وإعادة التعيين)",
+    acctLedgerSub: "صفوف الاستخدام من ملف ops/ACCOUNT_LEDGER.md، أحدث الصفوف في الأسفل.",
+    acctColTime: "الوقت",
+    acctColAccount: "الحساب",
+    acctColModels: "النماذج",
+    acctColFive: "بقي 5 ساعات",
+    acctColWeekly: "بقي الأسبوعي",
+    acctColResets: "إعادة التعيين",
+    acctColNote: "الملاحظة",
+    acctLedgerNone: "لا توجد صفوف سجل حسابات متاحة.",
+  }
+};
+
+let currentLang = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("sir_lang") || "en";
+let wave = "all";
+let statusFilter = "all";
+let allExpanded = false;
+
+function renderTiles(lang) {
+  const isAr = lang === "ar";
+  const tm = D.truth_metrics || { verified: 0, rebuilding: 0, backlog: 0, frozen: 0, total: 0 };
+  const a = D.autopilot || {};
+  const ci = Array.isArray(D.ci) ? D.ci : [];
+  const ciRed = ci.some((c) => c.status === "failure");
+  const ciRunning = ci.some((c) => c.status === "in_progress" || c.status === "pending");
+  const ciOk = ci.length > 0 && !ciRed && !ciRunning;
+
+  const tile = (label, big, sub, cls, showBar, barPct) => `
+    <div class="tile ${cls || ""}">
+      <span class="label">${esc(label)}</span>
+      <span class="big num">${esc(big)}</span>
+      ${showBar ? `<div class="bar ${cls || ""}"><i style="width:${barPct}%"></i></div>` : ""}
+      <span class="sub">${esc(sub)}</span>
+    </div>
+  `;
+
+  const tiles = [];
+  if (String(tm.total ?? 0) !== "0") {
+    tiles.push(tile(isAr ? "تم التحقق اليوم" : "Verified Today", `${tm.verified ?? 0}/${tm.total ?? 0}`, isAr ? "تم فحصه واختباره بالكامل اليوم" : "End-to-end verified today", tm.verified === tm.total ? "ok" : "", true, pct(tm.verified ?? 0, tm.total ?? 0)));
+  }
+  tiles.push(tile(isAr ? "المحادثات النشطة" : "Active Workers", String(a.runner_count ?? 0), isAr ? "محادثات مشروعات يديرها المساعد" : "Project chats managed by the autopilot", (a.runner_count ?? 0) > 0 ? "ok" : "", false, 0));
+  tiles.push(tile(isAr ? "المعلق في الطابور" : "Pending Queue", String(a.pending_count ?? 0), isAr ? "مهام لم تنته بعد في الطابور" : "Tasks not finished in the queue", "", false, 0));
+  if (ci.length > 0) {
+    const failing = ci.filter((c) => c.status === "failure").length;
+    tiles.push(tile(isAr ? "حالة الفحص المستمر" : "CI State", ciRed ? (isAr ? "أحمر" : "RED") : ciRunning ? (isAr ? "قيد التشغيل" : "RUN") : (isAr ? "أخضر" : "PASS"), ciRed ? `${failing} ${isAr ? "مستودع فاشل" : "repo(s) failing"}` : isAr ? "كل المستودعات ناجحة" : "All repositories passing", ciRed ? "bad" : ciRunning ? "warn" : "ok", false, 0));
+  }
+
+  const visible = tiles.filter((t) => {
+    const m = /verified|Verified Today|تم التحقق/.test(t || "") ? String(tm.verified ?? 0) !== "0" || String(tm.total ?? 0) !== "0" : true;
+    return m;
+  });
+  $("#tiles").innerHTML = visible.join("");
+  $("#tiles").style.gridTemplateColumns = `repeat(${visible.length > 0 ? visible.length : 1}, 1fr)`;
+}
+
+function renderLedgers(lang) {
+  const isAr = lang === "ar";
+  const ledgers = D.request_ledgers || [];
+  if (!ledgers.length || !$("#ledgers-tiles")) return;
+  
+  $("#ledgers-tiles").innerHTML = ledgers.map((l) => {
+    const name = isAr ? l.name_ar : l.name_en;
+    const progress = pct(l.done, l.total);
+    const isComplete = l.done === l.total && l.total > 0;
+    return `
+      <div>
+        <span class="label">${esc(name)}</span>
+        <span class="big">${l.done}/${l.total}</span>
+        <div class="bar ${isComplete ? "ok" : ""}"><i style="width:${progress}%"></i></div>
+        <span class="sub">${isAr ? `${l.open} طلب مفتوح` : `${l.open} open request(s)`}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderActive(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const a = D.autopilot || {};
+  const workers = Array.isArray(a.workers) ? a.workers : [];
+  const activeBox = $("#active");
+  const parts = [];
+  const running = a.listener_pid != null;
+  parts.push(
+    `<li><span class="pill ${running ? "ok" : "warn"}">${esc(running ? t.stateListenerActive : t.stateListenerInactive)}</span><span class="sub">${esc(t.stateListener)} ${esc(a.listener_pid != null ? String(a.listener_pid) : "-")}</span></li>`,
+    `<li><span class="pill ${a.runner_count > 0 ? "ok" : "mute"}">${esc(t.stateRunners)}</span><span class="sub num">${esc(typeof a.runner_count === "number" ? a.runner_count : 0)}</span><span class="sub">${esc(t.stateRunnerSub)}</span></li>`,
+    `<li><span class="pill ${a.pending_count > 0 ? "warn" : "ok"}">${esc(t.stateQueue)}</span><span class="sub num">${esc(typeof a.pending_count === "number" ? a.pending_count : 0)}</span><span class="sub">${esc(t.stateQueueSub)}</span></li>`
+  );
+  if (workers.length) {
+    parts.push(workers.map((w) => {
+      const cooling = w.cooling ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "نموذج يبرد" : "model cooling down"}</span>` : "";
+      const mins = typeof w.minutes === "number"
+        ? (isAr ? `منذ ${w.minutes} د` : `${w.minutes}m ago`)
+        : "-";
+      return `
+        <li>
+          <span class="pill info">${esc(w.model || "-")}</span>
+          <span>
+            <b>${esc(w.task)}</b> <span class="sub num mono">${esc(w.folder || "-")}</span><br>
+            <span class="sub">${esc(w.commit || "-")} &middot; ${mins}${cooling}</span>
+          </span>
+        </li>
+      `;
+    }).join(""));
+  } else {
+    parts.push(`<li><span class="pill mute">${isAr ? "خامل" : "Idle"}</span><span class="sub">${t.idleText}</span></li>`);
+  }
+  activeBox.innerHTML = parts.join("");
+  const nextName = isAr ? (D.nextStart_ar || D.nextStart) : D.nextStart;
+  $("#nextstart").textContent = nextName ? t.nextStartPrefix + nextName : "";
+}
+
+function renderAttention(lang) {
+  const isAr = lang === "ar";
+  if (D.attention && D.attention.length) {
+    $("#attention").innerHTML = D.attention.map((a) => `
+      <li>
+        <span class="pill ${a.level}">${esc(isAr ? (a.tag_ar || a.tag_en) : a.tag_en)}</span>
+        <span>${esc(isAr ? (a.text_ar || a.text_en) : a.text_en)}${a.stale ? ` <span class="pill warn" style="font-size:9.5px;padding:1px 5px">${isAr ? "قديمة" : "stale"}</span>` : ""}</span>
+      </li>
+    `).join("");
+  } else {
+    $("#attention").innerHTML = `<li><span class="pill ok">${isAr ? "مستقر" : "Clear"}</span><span>${i18n[lang].clearText}</span></li>`;
+  }
+}
+
+function renderCI(lang) {
+  const isAr = lang === "ar";
+  if (!D.ci || !$("#ci-list")) return;
+  $("#ci-list").innerHTML = D.ci.map((c) => {
+    const isSuccess = c.status === "success";
+    const isFailure = c.status === "failure";
+    const pillClass = isSuccess ? "ok" : isFailure ? "bad" : "mute";
+    const pillText = isSuccess ? (isAr ? "ناجح" : "PASS") : isFailure ? (isAr ? "فشل" : "FAIL") : (isAr ? "لا يوجد" : "NONE");
+    const ageTxt = c.createdAt ? ` · ${relTime(c.createdAt, isAr)}` : "";
+    return `
+      <li>
+        <span class="pill ${pillClass}">${pillText}</span>
+        <span>
+          <b>${esc(c.name)}</b> <span class="sub num">${esc(c.repo)}${esc(ageTxt)}</span><br>
+          ${c.url ? `<a href="${esc(c.url)}" target="_blank" class="sub" style="color:var(--accent);text-decoration:none">${isAr ? "تقرير الفحص #" : "Run #"}${c.id} &rarr;</a>` : `<span class="sub">${isAr ? (c.repo && c.repo.includes("private") ? "مستودع خاص - لا توجد روابط خارجية" : "لا توجد تدفقات بعد") : (c.repo && c.repo.includes("private") ? "Private repo &bull; Local sovereign code" : "No workflow yet")}</span>`}
+        </span>
+      </li>
+    `;
+  }).join("");
+}
+
+function relTime(iso, isAr) {
+  if (!iso) return "";
+  const t = new Date(iso);
+  if (isNaN(t)) return "";
+  const mins = Math.max(0, Math.round((Date.now() - t.getTime()) / 60000));
+  if (mins < 1) return isAr ? "الآن" : "just now";
+  if (mins < 60) return isAr ? `منذ ${mins} د` : `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 48) return isAr ? `منذ ${hrs} س` : `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  return isAr ? `منذ ${days} يوم` : `${days}d ago`;
+}
+
+function renderRemote(lang) {
+  const isAr = lang === "ar";
+  if ($("#txt-daemon-status-pill")) {
+    const h = D.daemon_health || {};
+    const st = String(h.status || "");
+    const isHealthy = st === "healthy" || st === "running";
+    const isStale = st === "stale";
+    const isUnknown = st === "unknown" || st === "";
+    $("#txt-daemon-status-pill").className = `pill ${isHealthy ? "ok" : isStale ? "warn" : isUnknown ? "mute" : "bad"}`;
+    $("#txt-daemon-status-pill").textContent = isHealthy
+      ? (isAr ? "الخادم يعمل" : "Server Running")
+      : isStale
+        ? (isAr ? "التحديث متأخر" : "Refresh Stale")
+        : isUnknown
+          ? (isAr ? "الحالة غير معروفة" : "Status Unknown")
+          : (isAr ? "متوقف" : "Stopped");
+    if ($("#txt-daemon-mode-info")) {
+      const bits = [
+        isAr ? "منفصل" : "detached",
+        h.pid ? `pid ${h.pid}` : "",
+        h.port ? `:${h.port}` : "",
+        h.last_refresh_time ? (isAr ? `آخر تحديث ${relTime(h.last_refresh_time, true)}` : `refreshed ${relTime(h.last_refresh_time, false)}`) : "",
+      ].filter(Boolean);
+      $("#txt-daemon-mode-info").textContent = bits.join(" · ");
+    }
+  }
+  if (!D.remote_access || !$("#remote-list")) return;
+  $("#remote-list").innerHTML = D.remote_access.map((r) => {
+    const name = isAr ? (r.name_ar || r.name) : r.name;
+    const desc = isAr ? (r.desc_ar || r.desc_en) : r.desc_en;
+    return `
+      <li>
+        <span class="pill info">:${r.port}</span>
+        <span>
+          <b>${esc(name)}</b> - <span class="sub">${esc(desc)}</span><br>
+          <a href="${esc(r.url)}" target="_blank" style="color:var(--accent);font-family:var(--f-data);font-size:11.5px;text-decoration:none">${esc(r.url)} &rarr;</a>
+        </span>
+      </li>
+    `;
+  }).join("");
+}
+
+function renderVerifications(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const vers = D.verifications || [];
+  if (!$("#ver-rows")) return;
+  if (!vers.length) {
+    $("#ver-rows").innerHTML = `<div style="padding:16px;color:var(--muted);text-align:center">${isAr ? "لا توجد تدقيقات بعد" : "No verifications yet"}</div>`;
+    return;
+  }
+  $("#ver-rows").innerHTML = vers.map((v) => {
+    const overallPass = v.overall === "PASS";
+    const stClass = overallPass ? "verified" : "backlog";
+    const stLabel = overallPass ? (isAr ? "ناجح" : "PASS") : (isAr ? "فاشل" : "FAIL");
+    return `
+      <details class="row" id="v-${v.task}">
+        <summary aria-label="${esc(v.task)} verification">
+          <i class="dot" style="background:${overallPass ? 'var(--ok)' : 'var(--bad)'}" aria-hidden="true"></i>
+          <span class="summary-title">
+            <span class="name">${esc(v.task)}</span><br>
+            <span class="sub">${isAr ? "التدقيق الكلي" : "Overall"}: <b>${esc(v.overall)}</b> · ${v.pass} ${isAr ? "ناجح" : "PASS"} / ${v.fail} ${isAr ? "فاشل" : "FAIL"}</span>
+          </span>
+          <span class="stw"><span class="st ${stClass}">${stLabel}</span></span>
+        </summary>
+        <div class="detail">
+          <div class="panel">
+            <h3>${isAr ? "تفاصيل التدقيق" : "Verification Details"}</h3>
+            <p class="sub">${isAr ? "ملف التدقيق: ops/verifications/" : "Verification file: ops/verifications/"}${esc(v.task)}.md</p>
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+              <span class="pill ${overallPass ? 'ok' : 'bad'}">${isAr ? `${v.pass}/${v.total} بنود ناجحة` : `${v.pass}/${v.total} items passed`}</span>
+              ${v.fail > 0 ? `<span class="pill bad">${isAr ? `${v.fail} بنود فاشلة - مهمة تصحيح مطلوبة` : `${v.fail} items failed - fix task needed`}</span>` : ""}
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+  }).join("");
+}
+
+function renderSuggestions(lang) {

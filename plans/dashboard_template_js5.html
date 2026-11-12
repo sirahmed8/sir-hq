@@ -1,0 +1,243 @@
+      </details>
+    `;
+  }).join("");
+}
+
+function renderPlatforms(lang) {
+  const isAr = lang === "ar";
+  $("#plat").innerHTML = `
+    <thead>
+      <tr>
+        <th>${isAr ? "المشروع" : "Project"}</th>
+        ${D.platforms.map((pl) => `<th>${esc(pl.short)}</th>`).join("")}
+      </tr>
+    </thead>
+    <tbody>
+      ${P.filter((p) => p.matrix).map((p) => `
+        <tr>
+          <td>${esc(isAr ? (p.name_ar || p.name) : p.name)}</td>
+          ${D.platforms.map((pl) => `<td><i class="cell ${p.matrix[pl.key]}" title="${esc(pl.name)}: ${p.matrix[pl.key]}"></i></td>`).join("")}
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
+function renderAccounts(lang) {
+  const isAr = lang === "ar";
+  if (isAr) {
+    $("#accounts-cols").innerHTML = `
+      <div>
+        <div class="label">المجاني الآن</div>
+        <p>منصات النشر المجانية تكفي لإطلاق واجهة كل منتج فوراً.</p>
+      </div>
+      <div>
+        <div class="label">بوابات الدفع في مصر</div>
+        <p>منصة Stripe لا تدعم مصر حالياً. البدائل المعتمدة هي Paymob (كروت بنكية، محافظ إلكترونية، ميزة) وفوري، وكاشير كبديل. المستندات المطلوبة: بطاقة الرقم القومي، البطاقة الضريبية، وحساب بنكي مصري. حتى تفعيل المفاتيح، تعرض المنتجات عبارة 'قريباً'.</p>
+      </div>
+      <div>
+        <div class="label">لاحقاً، من الأرباح</div>
+        <p>شراء النطاقات عبر Cloudflare بسعر التكلفة، ومتجر Google Play (رسوم تدفع لمرة واحدة) وحساب Apple Developer (اشتراك سنوي). يجهز الوكلاء كافة صفحات الخصوصية وصور العرض والبيانات مسبقاً، وعليك فقط تأكيد الهوية والدفع.</p>
+      </div>
+    `;
+  } else {
+    $("#accounts-cols").innerHTML = `
+      <div>
+        <div class="label">Free now</div>
+        <p>Free publishing platforms are enough to launch every product interface immediately.</p>
+      </div>
+      <div>
+        <div class="label">Payments in Egypt</div>
+        <p>Stripe does not support Egypt. Use Paymob (cards, wallets, Meeza) and Fawry (cash points); Kashier is the alternative. Have ready: national ID, tax card, Egyptian bank account. Until keys exist every product shows Launching Soon.</p>
+      </div>
+      <div>
+        <div class="label">Later, from income</div>
+        <p>Domain at cost through Cloudflare, Google Play (one-time fee) and Apple Developer (yearly fee): verify prices when buying. Agents prepare listings, screenshots, privacy pages and a pre-filled answers sheet; you do sign-in, ID check and payment.</p>
+      </div>
+    `;
+  }
+}
+
+function formatAutopilotTime(value, lang) {
+  const n = Number(value);
+  if (!Number.isFinite(n) || n <= 0) return "-";
+  return new Date(n * 1000).toLocaleString(lang === "ar" ? "ar-EG" : "en-US", { dateStyle: "medium", timeStyle: "short" });
+}
+
+function renderAutopilot(lang) {
+  const t = i18n[lang] || i18n.en;
+  const a = D.autopilot || {};
+  const stateBox = $("#autopilot-state");
+  const queueBox = $("#autopilot-queue");
+  const logBox = $("#autopilot-log");
+  const pill = $("#autopilot-state-pill");
+  const running = a.listener_pid != null;
+
+  if (pill) {
+    pill.textContent = running ? t.autopilotPillRunning : t.autopilotPillStopped;
+    pill.className = `pill ${running ? "ok" : "warn"}`;
+  }
+
+  if (stateBox) {
+    const runnerCount = typeof a.runner_count === "number" ? a.runner_count : 0;
+    const pendingCount = typeof a.pending_count === "number" ? a.pending_count : 0;
+    stateBox.innerHTML = `
+      <div>
+        <span class="label">${esc(t.stateListener)}</span>
+        <span class="big num">${esc(a.listener_pid != null ? String(a.listener_pid) : "-")}</span>
+        <span class="sub">${esc(running ? t.stateListenerActive : t.stateListenerInactive)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateRunners)}</span>
+        <span class="big num">${runnerCount}</span>
+        <span class="sub">${esc(t.stateRunnerSub)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateLastTick)}</span>
+        <span class="big num" style="font-size:18px">${esc(formatAutopilotTime(a.last_tick, lang))}</span>
+        <span class="sub">${esc(t.autopilotSub)}</span>
+      </div>
+      <div>
+        <span class="label">${esc(t.stateQueue)}</span>
+        <span class="big num">${pendingCount}</span>
+        <span class="sub">${esc(t.stateQueueSub)}</span>
+      </div>
+    `;
+  }
+
+  if (queueBox) {
+    const queue = Array.isArray(a.queue) ? a.queue : [];
+    const rows = queue.length
+      ? queue.map((q) => {
+          const done = Boolean(q.done);
+          const label = q.private ? esc(t.queuePrivate) : esc(q.title || q.name || "-");
+          const name = q.private ? "private-task" : esc(q.name || "");
+          return `
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)">
+              <span class="pill ${done ? "ok" : "warn"}">${esc(done ? t.queueDone : t.queueNotDone)}</span>
+              <div style="min-width:0;flex:1 1 220px">
+                <div class="sub">${label}</div>
+                ${name ? `<div class="sub num mono">${name}</div>` : ""}
+              </div>
+            </div>
+          `;
+        }).join("")
+      : `<div class="sub">${esc(t.queueNone)}</div>`;
+    queueBox.innerHTML = `
+      <div class="label">${esc(t.queueTitle)}</div>
+      ${rows}
+    `;
+  }
+
+  if (logBox) {
+    const tail = Array.isArray(a.log_tail) ? a.log_tail : [];
+    logBox.innerHTML = tail.length
+      ? tail.map((ln) => `<div class="log-item">${esc(ln)}</div>`).join("")
+      : `<div class="log-item sub">${esc(t.logNone)}</div>`;
+  }
+}
+
+function renderAccountLedger(lang) {
+  const t = i18n[lang] || i18n.en;
+  const table = $("#acct-ledger-table");
+  const empty = $("#acct-ledger-empty");
+  const rows = Array.isArray(D.account_ledger) ? D.account_ledger : [];
+  if (!table) return;
+  if (!rows.length) {
+    if (empty) empty.textContent = t.acctLedgerNone;
+    table.innerHTML = "";
+    return;
+  }
+  if (empty) empty.textContent = "";
+  const cols = [t.acctColTime, t.acctColAccount, t.acctColModels, t.acctColFive, t.acctColWeekly, t.acctColResets, t.acctColNote];
+  table.innerHTML = `
+    <thead>
+      <tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr>
+    </thead>
+    <tbody>
+      ${rows.map((r) => `
+        <tr>
+          <td class="sub num mono">${esc(r.time)}</td>
+          <td class="sub">${esc(r.account)}</td>
+          <td class="sub">${esc(r.models)}</td>
+          <td class="sub num">${esc(r.five_h)}</td>
+          <td class="sub num">${esc(r.weekly)}</td>
+          <td class="sub num mono">${esc(r.five_reset)} / ${esc(r.weekly_reset)}</td>
+          <td class="sub">${esc(r.note)}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+}
+
+function renderWorkforce(lang) {
+  const isAr = lang === "ar";
+  const m = D.models || {
+    manager: { name: "Claude Sonnet 5.5", role_en: "Claude Sonnet 5.5 High (Manager & Reviewer)", role_ar: "كلود سونيت 5.5 هاي (المدير والمراجع)" },
+    workers: { name: "Gemini 3.8 Flash High", role_en: "Gemini 3.8 Flash High (Autonomous Workers)", role_ar: "جيميني 3.8 فلاش هاي (الوكلاء المنفذون المستقلون)" },
+    claude_family: [
+      { name: "Claude Fable 5.1", tier: "Fast / Light", tier_ar: "سريع / خفيف" },
+      { name: "Claude Sonnet 5.5", tier: "Main / Manager", tier_ar: "الرئيسي / المدير" },
+      { name: "Claude Opus 5.5", tier: "Deep Thinking", tier_ar: "تفكير عميق" },
+      { name: "Claude Haiku 5.5", tier: "Bulk / High Speed", tier_ar: "مهام مجمعة وسريعة" }
+    ],
+    antigravity_family: [
+      { name: "Gemini 3.8 Flash High", tier: "Primary Builder", tier_ar: "البناء الأساسي" },
+      { name: "Gemini 3.8 Pro", tier: "Complex Architecture", tier_ar: "المعمارية المعقدة" },
+      { name: "Gemini 3.8 Flash-Lite", tier: "Fast Scanning", tier_ar: "الفحص السريع" }
+    ],
+    fallbacks: [
+      { name: "OpenCode", role: "Free model fallback" },
+      { name: "Kilo", role: "Fast fallback" },
+      { name: "Local Ollama", role: "Private local execution" }
+    ]
+  };
+
+  const mgrTitle = isAr ? esc(m.manager.role_ar || m.manager.name) : esc(m.manager.role_en || m.manager.name);
+  const wrkTitle = isAr ? esc(m.workers.role_ar || m.workers.name) : esc(m.workers.role_en || m.workers.name);
+  const claudeFam = (m.claude_family || []).map(c => `${esc(c.name)} (${esc(isAr ? (c.tier_ar || c.tier) : c.tier)})`).join(" &middot; ");
+  const agyFam = (m.antigravity_family || []).map(g => `${esc(g.name)} (${esc(isAr ? (g.tier_ar || g.tier) : g.tier)})`).join(" &middot; ");
+  const fbList = (m.fallbacks || []).map(f => esc(f.name)).join(isAr ? "، " : ", ");
+
+  if (isAr) {
+    $("#workforce-cols").innerHTML = `
+      <div>
+        <div class="label">${mgrTitle}</div>
+        <p>نموذج ${esc(m.manager.name)} (تطبيق سطح المكتب) يدير كافة المراحل، ويرسل التكليفات الدقيقة في مجلد ops/briefs/، ويفحص التغييرات ونتائج الاختبارات قبل الاعتماد، ويرسل التقارير المعتمدة لهاتف أحمد عبر تليجرام. عائلة كلود: ${claudeFam}. الكاتب لا يراجع عمله بنفسه.</p>
+      </div>
+      <div>
+        <div class="label">${wrkTitle}</div>
+        <p>وكلاء أنتيجرافيتي (${esc(m.workers.name)}) ينفذون مهام المشاريع باستقلالية تامة ويرسلون إشارة الإنجاز عبر scripts/agy-done.py. عائلة النماذج: ${agyFam}. البدائل الجاهزة: ${fbList}. منصة AgentsRoom متوقفة وتمت إحالتها للتقاعد.</p>
+      </div>
+      <div>
+        <div class="label">الأدوات والخصوصية التامة</div>
+        <p>محرك SIR Autonomy (إضافة كروم + محرك سطح المكتب) يتحكم في المتصفحات والتطبيقات. بوت تليجرام (@PersonalAI_1Bot) يوصل التقارير للآيفون. بيانات منظومة AHome الخاصة لا تغادر الأجهزة المحلية إطلاقاً.</p>
+      </div>
+    `;
+  } else {
+    $("#workforce-cols").innerHTML = `
+      <div>
+        <div class="label">${mgrTitle}</div>
+        <p>${esc(m.manager.name)} (Claude desktop) orchestrates all waves, dispatches task briefs in <code>ops/briefs/</code>, inspects diffs and test suites before commit, and delivers verified packs to Ahmed's iPhone via Telegram. Approved Claude family: ${claudeFam}. The author never grades its own work.</p>
+      </div>
+      <div>
+        <div class="label">${wrkTitle}</div>
+        <p>Antigravity chats (${esc(m.workers.name)}) execute project tasks autonomously and signal back on completion via <code>scripts/agy-done.py</code>. Model family: ${agyFam}. Fallbacks: ${fbList}. AgentsRoom crashed (React #185) and is retired.</p>
+      </div>
+      <div>
+        <div class="label">Hands &amp; Private Telemetry</div>
+        <p>SIR Autonomy (zero-prompt Chrome extension + desktop engine) controls browsers and desktop apps. Telegram bot (@PersonalAI_1Bot) pushes verified deliveries. AHome private data strictly never leave local systems.</p>
+      </div>
+    `;
+  }
+}
+
+function renderActivity(lang) {
+  const isAr = lang === "ar";
+  const logs = D.log || [];
+  $("#log").innerHTML = logs.map((l) => {
+    const text = isAr ? (l.ar || l.en) : l.en;
+    return `<div class="log-item">${esc(text)}</div>`;
+  }).join("");
+}
+

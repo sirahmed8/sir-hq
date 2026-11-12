@@ -1,0 +1,243 @@
+  $("#txt-autopilot-sub").textContent = t.autopilotSub;
+  $("#txt-autopilot-log-title").textContent = t.logTitle;
+  $("#txt-acct-ledger-title").textContent = t.acctLedgerTitle;
+  $("#txt-acct-ledger-sub").textContent = t.acctLedgerSub;
+
+  renderTiles(lang);
+  renderHandover(lang);
+  renderLedgers(lang);
+  renderActive(lang);
+  renderAttention(lang);
+  renderCI(lang);
+  renderRemote(lang);
+  renderVerifications(lang);
+  renderSuggestions(lang);
+  renderLanes(lang);
+  renderFilterChips(lang);
+  renderRows(lang);
+  renderPlatforms(lang);
+  renderAccounts(lang);
+  renderAutopilot(lang);
+  renderAccountLedger(lang);
+  renderWorkforce(lang);
+  renderActivity(lang);
+}
+
+document.querySelectorAll("[data-lang-val]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    applyLang(btn.dataset.langVal);
+  });
+});
+
+// Event Delegation for Filters & Rows
+$("#fchips").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  wave = b.dataset.w;
+  document.querySelectorAll("#fchips .fb").forEach((c) => c.setAttribute("aria-pressed", c === b));
+  renderRows(currentLang);
+});
+
+$("#status-chips").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  statusFilter = b.dataset.st;
+  document.querySelectorAll("#status-chips .fb").forEach((c) => c.setAttribute("aria-pressed", c === b));
+  renderRows(currentLang);
+});
+
+$("#q").addEventListener("input", () => renderRows(currentLang));
+
+// Toggle expand / collapse all details
+$("#toggle-all-btn").addEventListener("click", () => {
+  allExpanded = !allExpanded;
+  document.querySelectorAll("details.row").forEach((d) => d.open = allExpanded);
+  const t = i18n[currentLang];
+  $("#toggle-all-btn").textContent = allExpanded ? t.toggleCollapse : t.toggleExpand;
+  $("#toggle-all-btn").setAttribute("aria-expanded", String(allExpanded));
+});
+
+// Copy path click handler (No Emojis)
+document.addEventListener("click", (e) => {
+  const badge = e.target.closest("[data-copy]");
+  if (!badge) return;
+  const path = badge.getAttribute("data-copy");
+  if (!path || path === "withheld") return;
+  navigator.clipboard.writeText(path).then(() => {
+    const orig = badge.textContent;
+    badge.textContent = `${path} • ${i18n[currentLang].copySuccess}`;
+    setTimeout(() => { badge.textContent = orig; }, 1500);
+  });
+});
+
+// Copy path keyboard accessibility (Enter or Space)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    const badge = e.target.closest && e.target.closest("[data-copy]");
+    if (badge) {
+      e.preventDefault();
+      badge.click();
+    }
+  }
+});
+
+// Lane chip click jumps to project
+$("#lanes").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-go]");
+  if (!b) return;
+  wave = "all";
+  statusFilter = "all";
+  renderFilterChips(currentLang);
+  renderRows(currentLang);
+  const d = document.getElementById("p-" + b.dataset.go);
+  if (d) {
+    d.open = true;
+    d.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+});
+
+// Keyboard shortcuts
+window.addEventListener("keydown", (e) => {
+  if (e.key === "/" && document.activeElement !== $("#q") && !["input", "textarea"].includes(document.activeElement.tagName.toLowerCase())) {
+    e.preventDefault();
+    $("#q").focus();
+    $("#q").select();
+  } else if (e.key === "Escape" && document.activeElement === $("#q")) {
+    $("#q").value = "";
+    $("#q").blur();
+    renderRows(currentLang);
+  }
+});
+
+function updateOnlineStatus() {
+  const isOnline = navigator.onLine;
+  const p = $("#offline-pill");
+  if (p) {
+    p.style.display = isOnline ? "none" : "inline-block";
+    p.textContent = currentLang === "ar" ? "غير متصل" : "Offline";
+  }
+}
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+
+// Toggle expand / collapse all master plans in Handover
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "handover-expand-all") {
+    allHandoverExpanded = !allHandoverExpanded;
+    document.querySelectorAll("details.handover-card").forEach((d) => d.open = allHandoverExpanded);
+    const t = i18n[currentLang] || i18n.en;
+    e.target.textContent = allHandoverExpanded ? t.collapseAllPlans : t.expandAllPlans;
+    e.target.setAttribute("aria-expanded", String(allHandoverExpanded));
+  }
+});
+
+// Responsive Sidebar Rail & Mobile Quick Bar Controller
+const sidebarLinks = document.querySelectorAll(".sidebar-link");
+const quickPills = document.querySelectorAll(".quick-pill[href]");
+
+function setActiveNavSection(targetId) {
+  sidebarLinks.forEach(link => {
+    const isTarget = link.getAttribute("href") === targetId;
+    link.classList.toggle("active", isTarget);
+    if (isTarget) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  quickPills.forEach(pill => {
+    const isTarget = pill.getAttribute("href") === targetId;
+    pill.classList.toggle("active", isTarget);
+    if (isTarget) pill.setAttribute("aria-current", "page");
+    else pill.removeAttribute("aria-current");
+  });
+}
+
+sidebarLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    const href = link.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      setActiveNavSection(href);
+      if (window.innerWidth < 1024) {
+        closeSidebarDrawer();
+      }
+    }
+  });
+});
+
+quickPills.forEach(pill => {
+  pill.addEventListener("click", () => {
+    const href = pill.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      setActiveNavSection(href);
+    }
+  });
+});
+
+if ("IntersectionObserver" in window) {
+  const sectionIds = ["now", "handover", "ci-remote", "verifications", "suggestions", "ledgers", "waves", "projects", "platforms", "accounts", "autopilot", "workforce", "activity"];
+  const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+        setActiveNavSection("#" + entry.target.id);
+      }
+    });
+  }, { rootMargin: "-10% 0px -60% 0px", threshold: [0.15] });
+
+  sectionEls.forEach(el => navObserver.observe(el));
+}
+
+// Initial Render
+applyLang(currentLang);
+updateOnlineStatus();
+
+const openParam = new URLSearchParams(window.location.search).get("open");
+if (openParam === "settings") {
+  openSettings();
+} else if (openParam === "drawer") {
+  openSidebarDrawer();
+}
+
+// Native-app feel: app context menu replaces the browser default
+const ctxMenu = $("#app-context-menu");
+function closeCtxMenu() {
+  if (!ctxMenu) return;
+  ctxMenu.classList.remove("open");
+  ctxMenu.setAttribute("aria-hidden", "true");
+}
+window.addEventListener("contextmenu", (e) => {
+  const t = e.target;
+  if (t && t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
+  e.preventDefault();
+  if (!ctxMenu) return;
+  ctxMenu.classList.add("open");
+  ctxMenu.setAttribute("aria-hidden", "false");
+  ctxMenu.style.left = "0px";
+  ctxMenu.style.top = "0px";
+  const r = ctxMenu.getBoundingClientRect();
+  const pad = 8;
+  ctxMenu.style.left = Math.max(pad, Math.min(e.clientX, window.innerWidth - r.width - pad)) + "px";
+  ctxMenu.style.top = Math.max(pad, Math.min(e.clientY, window.innerHeight - r.height - pad)) + "px";
+});
+document.addEventListener("click", closeCtxMenu);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCtxMenu(); });
+window.addEventListener("blur", closeCtxMenu);
+const ctxRefreshBtn = $("#ctx-refresh");
+if (ctxRefreshBtn) ctxRefreshBtn.addEventListener("click", () => location.reload());
+const ctxThemeBtn = $("#ctx-theme");
+if (ctxThemeBtn) ctxThemeBtn.addEventListener("click", () => {
+  applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+});
+const ctxCopyBtn = $("#ctx-copy");
+if (ctxCopyBtn) ctxCopyBtn.addEventListener("click", async () => {
+  const label = $("#txt-ctx-copy");
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    if (label) {
+      const prev = label.textContent;
+      label.textContent = currentLang === "ar" ? "تم النسخ" : "Copied";
+      setTimeout(() => { label.textContent = prev; }, 1200);
+    }
+  } catch (_) { /* clipboard unavailable */ }
+});
+</script>
+</body>
+</html>

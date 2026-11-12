@@ -1,0 +1,198 @@
+<body>
+<a href="#main-content" class="skip-link" id="skip-link">Skip to main content</a>
+<div class="wrap">
+  <header>
+    <div class="header-brand">
+      <div class="brand-logo-wrap" title="SIR Control Room - Command Bridge">
+        <svg class="brand-logo" viewBox="0 0 512 512" aria-hidden="true">
+          <defs>
+            <linearGradient id="hdrBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0A0F15"/>
+              <stop offset="50%" stop-color="#111923"/>
+              <stop offset="100%" stop-color="#172433"/>
+            </linearGradient>
+            <linearGradient id="hdrCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2DD4BF"/>
+              <stop offset="60%" stop-color="#0F766E"/>
+              <stop offset="100%" stop-color="#042F2E"/>
+            </linearGradient>
+          </defs>
+          <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#hdrBgGrad)" stroke="#263545" stroke-width="6"/>
+          <rect x="24" y="24" width="464" height="464" rx="108" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3"/>
+          <circle cx="256" cy="256" r="184" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.2" stroke-dasharray="6 8"/>
+          <circle cx="256" cy="256" r="128" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-opacity="0.35"/>
+          <circle cx="256" cy="256" r="76" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.5"/>
+          <line x1="256" y1="56" x2="256" y2="456" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+          <line x1="56" y1="256" x2="456" y2="256" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+          <circle cx="256" cy="72" r="5" fill="#2DD4BF"/>
+          <circle cx="256" cy="440" r="5" fill="#2DD4BF"/>
+          <circle cx="72" cy="256" r="5" fill="#2DD4BF"/>
+          <circle cx="440" cy="256" r="5" fill="#2DD4BF"/>
+          <g transform="translate(256, 256) rotate(45)">
+            <rect x="-64" y="-64" width="128" height="128" rx="26" fill="url(#hdrCoreGrad)" stroke="#5EEAD4" stroke-width="3"/>
+            <rect x="-36" y="-36" width="72" height="72" rx="12" fill="#0A1E24" stroke="#2DD4BF" stroke-width="2"/>
+            <circle cx="0" cy="0" r="13" fill="#5EEAD4"/>
+            <circle cx="0" cy="0" r="5" fill="#FFFFFF"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="label" id="txt-label">HQ for Ahmed Alaa</div>
+        <h1 id="txt-title" style="margin:2px 0 0">SIR Control Room</h1>
+        <p id="txt-desc" class="sub">Live portfolio ground truth: CI state, active worker chats, and verified status per project. AHome private data is never shown here.</p>
+      </div>
+    </div>
+    <div class="header-toolbar" id="header-toolbar">
+      <button id="settings-btn" class="fb" aria-label="Settings and preferences" aria-expanded="false" aria-controls="settings-modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span id="txt-settings-btn">Settings</span>
+      </button>
+      <div class="status-strip" id="status-strip">
+        <span class="chip" id="chip-updated"></span>
+        <span class="chip" id="chip-commit"></span>
+        <span class="chip" id="chip-republish"></span>
+      </div>
+      <span class="pill bad" id="offline-pill" style="display:none">Offline</span>
+    </div>
+  </header>
+  <!-- Settings Popover Dialog -->
+  <div id="settings-backdrop" class="modal-backdrop" aria-hidden="true"></div>
+  <div id="settings-modal" class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="settings-header">
+      <h3 id="settings-title" style="margin:0;font-size:14px;font-weight:600;letter-spacing:0.02em">Settings &amp; Preferences</h3>
+      <button id="settings-close-btn" class="settings-close-btn" aria-label="Close settings">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-appearance">Appearance</div>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-appearance">
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="light" id="theme-btn-light">Light</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="dark" id="theme-btn-dark">Dark</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-theme-val="system" id="theme-btn-system">System</button>
+        </div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-language">Language &amp; Direction</div>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-language">
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="en" id="lang-btn-en">English</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-lang-val="ar" id="lang-btn-ar">العربية</button>
+        </div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-density">Display Density</div>
+        <div class="segmented-control" role="radiogroup" aria-labelledby="txt-set-density">
+          <button class="seg-btn active" role="radio" aria-checked="true" data-density-val="comfortable" id="density-btn-comfort">Comfortable</button>
+          <button class="seg-btn" role="radio" aria-checked="false" data-density-val="compact" id="density-btn-compact">Compact</button>
+        </div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-telemetry">Telemetry &amp; Sync</div>
+        <div style="font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:5px;margin-bottom:10px">
+          <div><span id="txt-hash-lbl">Artifact Hash:</span> <bdi class="hash" id="set-artifact-hash"></bdi></div>
+          <div><span id="txt-git-lbl">Git:</span> <bdi class="hash" id="set-git-hash"></bdi></div>
+        </div>
+        <button id="set-refresh-btn" class="fb" style="width:100%;justify-content:center;gap:8px">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span id="txt-refresh-now">Refresh Telemetry Now</span>
+        </button>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title" id="txt-set-actions">Actions &amp; Export</div>
+        <button id="print-report-btn" class="fb" style="width:100%;justify-content:center;gap:8px" aria-label="Print / Export PDF Report">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span id="txt-print-report">Print / Export PDF Report</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Quick Navigation Bar (Top 4 sections + More) -->
+  <nav class="mobile-quick-bar" aria-label="Quick navigation">
+    <a href="#now" class="quick-pill active" id="qp-now" aria-current="page"><span id="qp-now-text">Now</span></a>
+    <a href="#handover" class="quick-pill" id="qp-handover"><span id="qp-handover-text">Handover</span></a>
+    <a href="#ci-remote" class="quick-pill" id="qp-ci"><span id="qp-ci-text">CI</span></a>
+    <a href="#projects" class="quick-pill" id="qp-projects"><span id="qp-projects-text">Projects</span></a>
+    <button id="mobile-menu-trigger" class="quick-pill menu-btn" aria-label="Open full navigation drawer" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span id="txt-qp-more">More</span>
+    </button>
+  </nav>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+
+  <!-- App Layout: Responsive Sidebar Rail + Main Content Area -->
+  <div class="app-layout">
+    <aside id="app-sidebar" class="sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <h3 id="txt-nav-title" style="margin:0;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)">Navigation</h3>
+        <button id="drawer-close-btn" class="drawer-close-btn" aria-label="Close navigation drawer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#now" id="side-now" class="sidebar-link active" aria-current="page">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="side-now-text">Now</span>
+        </a>
+        <a href="#handover" id="side-handover" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span id="side-handover-text">Handover</span>
+        </a>
+        <a href="#ci-remote" id="side-ci" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          <span id="side-ci-text">CI</span>
+        </a>
+        <a href="#verifications" id="side-ver" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          <span id="side-ver-text">Verifications</span>
+        </a>
+        <a href="#suggestions" id="side-sug" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 2v20"/><path d="M9.5 9h5"/><path d="M9.5 14.5h5"/></svg>
+          <span id="side-sug-text">Suggestions</span>
+        </a>
+        <a href="#ledgers" id="side-ledgers" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span id="side-ledgers-text">Ledgers</span>
+        </a>
+        <a href="#waves" id="side-waves" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span id="side-waves-text">Waves</span>
+        </a>
+        <a href="#projects" id="side-projects" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span id="side-projects-text">Projects</span>
+        </a>
+        <a href="#platforms" id="side-platforms" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span id="side-platforms-text">Platforms</span>
+        </a>
+        <a href="#accounts" id="side-accounts" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="side-accounts-text">Accounts</span>
+        </a>
+        <a href="#autopilot" id="side-autopilot" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12.01" y2="12"/><line x1="12" y1="12" x2="16" y2="12"/></svg>
+          <span id="side-autopilot-text">Autopilot &amp; State</span>
+        </a>
+        <a href="#workforce" id="side-workforce" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span id="side-workforce-text">Workforce</span>
+        </a>
+        <a href="#activity" id="side-activity" class="sidebar-link">
+          <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span id="side-activity-text">Activity</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content" id="main-content" tabindex="-1">
+
+
+  <section id="now" class="grid2">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="tiles" id="tiles"></div>
+      <div class="panel">
+        <h2 id="txt-working-now">Working now</h2>
+        <ul class="list" id="active"></ul>

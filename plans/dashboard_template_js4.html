@@ -1,0 +1,243 @@
+  const isAr = lang === "ar";
+  const t = i18n[lang] || i18n.en;
+  const sugs = D.suggestions || [];
+  if (!$("#sug-rows")) return;
+  if (!sugs.length) {
+    $("#sug-rows").innerHTML = `<div style="padding:16px;color:var(--muted);text-align:center">${isAr ? "لا توجد مقترحات بعد - الكشافة تعمل يومياً" : "No suggestions yet - scouts run daily"}</div>`;
+    return;
+  }
+  $("#sug-rows").innerHTML = sugs.map((s, idx) => {
+    const sev = (s.severity || "medium").toLowerCase();
+    let sevClass = "mute";
+    let sevLabel = sev;
+    if (sev === "critical") { sevClass = "bad"; sevLabel = isAr ? "حرج" : "CRITICAL"; }
+    else if (sev === "high") { sevClass = "bad"; sevLabel = isAr ? "عالي" : "HIGH"; }
+    else if (sev === "medium") { sevClass = "warn"; sevLabel = isAr ? "متوسط" : "MEDIUM"; }
+    else if (sev === "low") { sevClass = "info"; sevLabel = isAr ? "منخفض" : "LOW"; }
+    const status = (s.status || "pending").toLowerCase();
+    let statusClass = "warn";
+    let statusLabel = isAr ? "معلق" : "PENDING";
+    if (status === "approved") { statusClass = "ok"; statusLabel = isAr ? "معتمد" : "APPROVED"; }
+    else if (status === "rejected") { statusClass = "bad"; statusLabel = isAr ? "مرفوض" : "REJECTED"; }
+    return `
+      <details class="row" id="s-${idx}">
+        <summary aria-label="${esc(s.finding || s.project)} suggestion">
+          <i class="dot" style="background:${sevClass === 'bad' ? 'var(--bad)' : sevClass === 'warn' ? 'var(--warn)' : sevClass === 'ok' ? 'var(--ok)' : 'var(--accent)'}" aria-hidden="true"></i>
+          <span class="summary-title">
+            <span class="name">${esc(s.project || "Unknown")}</span><br>
+            <span class="sub">${esc(s.finding || "Finding")}</span>
+          </span>
+          <span class="stw">
+            <span class="pill ${sevClass}" style="font-size:10px;padding:2px 6px">${esc(sevLabel)}</span>
+            <span class="pill ${statusClass}" style="font-size:10px;padding:2px 6px;margin-inline-start:4px">${esc(statusLabel)}</span>
+          </span>
+        </summary>
+        <div class="detail">
+          <div class="meta-grid">
+            <div class="meta-card">
+              <h3>${isAr ? "الدليل" : "Evidence"}</h3>
+              <p class="sub" style="overflow-wrap:anywhere">${esc(s.evidence || "-")}</p>
+            </div>
+            <div class="meta-card">
+              <h3>${isAr ? "المهمة المقترحة" : "Proposed Brief"}</h3>
+              <p class="sub" style="overflow-wrap:anywhere">${esc(s.proposed_brief || "-")}</p>
+            </div>
+          </div>
+          ${s.hq_note ? `<div class="panel" style="background:var(--warn-soft);border-color:var(--warn)"><h3>${isAr ? "ملاحظة المقر" : "HQ Note"}</h3><p>${esc(s.hq_note)}</p></div>` : ""}
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <span class="pill mute">${isAr ? "الوقت: " : "Time: "}${esc(s.timestamp || "-")}</span>
+            <span class="pill mute">${isAr ? "الفئة: " : "Category: "}${esc(s.category || "bug")}</span>
+          </div>
+        </div>
+      </details>
+    `;
+  }).join("");
+}
+
+function renderLanes(lang) {
+  const isAr = lang === "ar";
+  $("#lanes").innerHTML = (D.waves || []).map((w) => {
+    const wName = isAr ? (w.name_ar || w.name) : w.name;
+    const wTitle = isAr ? `المرحلة ${w.wave}` : `Wave ${w.wave}`;
+    const verifiedText = isAr ? `${w.verified}/${w.total} تم التحقق اليوم` : `${w.verified}/${w.total} verified today`;
+    const progressPct = pct(w.verified, w.total);
+    return `
+      <div class="lane">
+        <div>
+          <div class="label">${wTitle}</div>
+          <div style="font-weight:600;font-size:13.5px">${esc(wName)}</div>
+          <div class="bar ${progressPct === 100 ? "ok" : ""}" style="margin-top:6px"><i style="width:${progressPct}%"></i></div>
+          <span class="sub num">${verifiedText}</span>
+        </div>
+        <div class="chips">
+          ${w.projects.map((slug) => {
+            const p = bySlug[slug];
+            if (!p) return "";
+            const pName = isAr ? (p.name_ar || p.name) : p.name;
+            const badge = p.status === "verified" ? (isAr ? "متحقق" : "VERIFIED") : p.status === "rebuilding" ? (isAr ? "بناء" : "REBUILD") : p.status === "frozen" ? (isAr ? "مجمّد" : "FROZEN") : (isAr ? "انتظار" : "BACKLOG");
+            return `<button class="chip" data-go="${slug}"><i style="background:${p.color}"></i><b>${esc(pName)}</b> <span class="sub">${badge}</span></button>`;
+          }).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderFilterChips(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang];
+  
+  $("#fchips").innerHTML = ["all", ...(D.waves || []).map((w) => String(w.wave))].map((w) => `
+    <button class="fb" data-w="${w}" aria-pressed="${w === wave}">
+      ${w === "all" ? t.allWaves : t.wavePrefix + w}
+    </button>
+  `).join("");
+
+  const stOptions = [
+    { k: "all", l: t.statusAll },
+    { k: "verified", l: t.statusVerified },
+    { k: "rebuilding", l: t.statusRebuilding },
+    { k: "backlog", l: t.statusBacklog },
+    { k: "frozen", l: t.statusFrozen }
+  ];
+  $("#status-chips").innerHTML = stOptions.map((s) => `
+    <button class="fb fb-status" data-st="${s.k}" aria-pressed="${s.k === statusFilter}">${s.l}</button>
+  `).join("");
+}
+
+function renderRows(lang) {
+  const isAr = lang === "ar";
+  const t = i18n[lang];
+  const q = ($("#q").value || "").trim().toLowerCase();
+
+  const list = P.filter((p) => {
+    const matchWave = wave === "all" || String(p.wave) === wave;
+    const matchStatus = statusFilter === "all" || p.status === statusFilter;
+    const searchTarget = JSON.stringify([
+      p.name, p.name_ar, p.arch, p.mission, p.mission_ar,
+      p.truth.exists_en, p.truth.exists_ar,
+      p.truth.verified_en, p.truth.verified_ar,
+      p.truth.missing_en, p.truth.missing_ar
+    ]).toLowerCase();
+    const matchQuery = !q || searchTarget.includes(q);
+    return matchWave && matchStatus && matchQuery;
+  });
+
+  const feedbackEl = $("#search-sr-feedback");
+  if (feedbackEl) {
+    feedbackEl.textContent = isAr ? "لم يتم العثور على أي مشروع مطابق للبحث" : "No projects match the current query";
+  }
+  if (!list.length) {
+    $("#rows").innerHTML = `<div style="padding:24px;color:var(--muted);text-align:center">${t.noMatch}</div>`;
+    return;
+  }
+  if (feedbackEl) {
+    feedbackEl.textContent = isAr ? `عرض ${list.length} من أصل ${P.length} مشروع` : `Showing ${list.length} of ${P.length} projects`;
+  }
+
+  $("#rows").innerHTML = list.map((p) => {
+    const displayName = isAr ? (p.name_ar || p.name) : p.name;
+    const missionText = isAr ? (p.mission_ar || p.mission) : p.mission;
+    const existsText = isAr ? p.truth.exists_ar : p.truth.exists_en;
+    const verifiedText = isAr ? p.truth.verified_ar : p.truth.verified_en;
+    const missingText = isAr ? p.truth.missing_ar : p.truth.missing_en;
+    
+    let stClass = "backlog";
+    let stLabel = isAr ? "في قائمة الانتظار" : "IN BACKLOG";
+    if (p.status === "verified") {
+      stClass = "verified";
+      stLabel = isAr ? "تم التحقق اليوم" : "VERIFIED TODAY";
+    } else if (p.status === "rebuilding") {
+      stClass = "rebuilding";
+      stLabel = isAr ? "قيد إعادة البناء" : "REBUILDING";
+    } else if (p.status === "frozen") {
+      stClass = "frozen";
+      stLabel = isAr ? "مجمّد (مشروع صديق)" : "FROZEN (FRIEND)";
+    }
+
+    let syncLabel = "";
+    if (p.sync) {
+      if (isAr) {
+        if (p.sync === "in sync") {
+          syncLabel = "متزامن";
+        } else if (p.sync.startsWith("dirty")) {
+          const cnt = p.sync.match(/\d+/)?.[0] || "";
+          syncLabel = cnt ? `تعديلات غير محفوظة (${cnt})` : "تعديلات غير محفوظة";
+        } else if (p.sync.startsWith("ahead")) {
+          syncLabel = "غير مرفوع";
+        } else if (p.sync.startsWith("behind")) {
+          syncLabel = "متأخر عن السحاب";
+        } else {
+          syncLabel = "غير متزامن";
+        }
+      } else {
+        syncLabel = p.sync;
+      }
+    }
+    const waveLabel = isAr ? `المرحلة ${p.wave}` : `Wave ${p.wave}`;
+
+    return `
+      <details class="row" id="p-${p.slug}">
+        <summary aria-label="${esc(displayName)} details">
+          <i class="dot" style="background:${p.color}" aria-hidden="true"></i>
+          <span class="summary-title">
+            <span class="name">${esc(displayName)}</span><br>
+            <span class="sub">${waveLabel} &middot; ${esc(p.arch)}</span>
+          </span>
+          <span class="sub syn num">${esc(p.hash ? p.hash + " &middot; " + p.commit : p.commit)}${syncLabel ? " &middot; " + esc(syncLabel) : ""}</span>
+          <span class="stw"><span class="st ${stClass}">${stLabel}</span></span>
+        </summary>
+        <div class="detail">
+          <div class="truth-grid">
+            <div class="truth-card">
+              <span class="h-tag">${t.truthExists}</span>
+              <p>${esc(existsText)}</p>
+            </div>
+            <div class="truth-card ${p.status === "verified" ? "verified" : ""}">
+              <span class="h-tag">${t.truthVerified}</span>
+              <p>${esc(verifiedText)}</p>
+            </div>
+            <div class="truth-card ${p.status !== "verified" ? "missing" : ""}">
+              <span class="h-tag">${t.truthMissing}</span>
+              <p>${esc(missingText)}</p>
+            </div>
+          </div>
+          <div class="verification-card ${p.status === "verified" ? "verified" : ""}">
+            <div class="v-header">
+              <span class="v-badge">${p.status === "verified" ? (isAr ? "مدقق وموثق" : "VERIFIED & AUDITED") : (isAr ? "حالة التدقيق" : "AUDIT STATUS")}</span>
+              <span class="v-meta">
+                <b>${t.verifiedDateTag}:</b> <span class="num">${esc(p.verified_date || (isAr ? "لم يتم بعد" : "Pending"))}</span> &middot;
+                <b>${t.verifiedByTag}:</b> <span>${esc(isAr ? (p.verified_by_ar || p.verified_by) : p.verified_by)}</span>
+              </span>
+            </div>
+            <p class="v-note"><b>${t.verifiedByControlTag}:</b> ${esc(isAr ? (p.control_note_ar || p.control_note_en) : p.control_note_en)}</p>
+          </div>
+          <div class="meta-grid">
+            <div class="meta-card">
+              <h3>${t.missionTag}</h3>
+              <p>${esc(missionText)}</p>
+            </div>
+            <div class="meta-card">
+              <h3>${t.whereTag}</h3>
+              <p class="sub" style="margin:0">${esc(p.repo)}<br>
+                <code class="copy-badge" tabindex="0" role="button" aria-label="${t.copyBadge}: ${esc(p.folder)}" data-copy="${esc(p.folder)}" title="Click to copy path">${esc(p.folder)} &bull; ${t.copyBadge}</code>
+              </p>
+            </div>
+          </div>
+          <div class="meta-card">
+            <h3>${t.tasksTag}</h3>
+            ${p.milestones.map((m) => `
+              <div class="ms">
+                <div class="label">${esc(m.name)}</div>
+                <ul>
+                  ${m.items.map((i) => `
+                    <li class="${i.done ? "d" : ""}">
+                      <span class="task-mark ${i.done ? "done" : ""}">${i.done ? "[x]" : "[ ]"}</span>
+                      <span><code>${i.id}</code> ${esc(i.text || (isAr ? "مهمة معمارية" : "Architecture task"))}</span>
+                    </li>
+                  `).join("")}
+                </ul>
+              </div>
+            `).join("")}
+          </div>
+        </div>
