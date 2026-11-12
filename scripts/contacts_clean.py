@@ -144,6 +144,25 @@ def clean_google(src: Path, suffix: str = "_clean") -> int:
     return len(rows)
 
 
+CRLF_SP = chr(13) + chr(10) + " "
+
+
+def fold(line: str, limit: int = 74) -> str:
+    """RFC 6350 line folding (75 octets)."""
+    if len(line.encode("utf-8")) <= limit:
+        return line
+    parts, cur, size = [], "", 0
+    for ch in line:
+        n = len(ch.encode("utf-8"))
+        if size + n > limit:
+            parts.append(cur)
+            cur, size = "", 1
+        cur += ch
+        size += n
+    parts.append(cur)
+    return CRLF_SP.join(parts)
+
+
 def clean_vcf(src: Path, suffix: str = "_clean") -> int:
     text = src.read_text(encoding="utf-8-sig", errors="replace")
     text = re.sub(r"\r?\n[ \t]", "", text)  # unfold
@@ -169,9 +188,10 @@ def clean_vcf(src: Path, suffix: str = "_clean") -> int:
                 for i, ln in enumerate(lines):
                     if re.match(r"FN[;:]", ln):
                         lines[i] = f"FN:{fn}"
-        out_cards.append("\r\n".join(lines))
+        out_cards.append("\r\n".join(fold(ln) for ln in lines))
     out = src.with_name(src.stem + suffix + ".vcf")
-    out.write_text("\r\n".join(out_cards) + "\r\n", encoding="utf-8")
+    # bytes, not write_text: Windows newline translation turned CRLF into CR CR LF and iCloud rejected the file
+    out.write_bytes(("\r\n".join(out_cards) + "\r\n").encode("utf-8"))
     print(f"apple: {count} contacts -> {out.name}")
     return count
 
