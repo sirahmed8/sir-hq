@@ -95,7 +95,7 @@ def main() -> None:
         w.writerows([{k: r.get(k, "") for k in gfields} for r in grows] + extra)
 
     # final_apple.vcf: Apple cards plus Google-only people as simple cards
-    cards = [a["raw"] for a in apple]
+    cards = [CRLF.join(cc.fold(ln) for ln in a["raw"].splitlines() if ln) for a in apple]
     for r in google_only:
         pre, giv, mid, fam, suf = (r.get(cols[k], "") for k in ("prefix", "first", "middle", "last", "suffix"))
         fn = " ".join(x for x in (pre, giv, mid, fam, suf) if x)
