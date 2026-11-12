@@ -37,3 +37,5 @@
 2026-11-12 opencode START r61-plan-sir-game-deals planning-only refresh (rule 20/22)
 2026-11-12 opencode DONE r61-plan-sir-game-deals planning-only: 48 tasks expanded in sir-game-deals-tasks.md, REFRESH-LOG created, risks+open questions added, team board updated; ready for queue
 18:00 devin DONE r61-plan-sir-modpack planning-only: 50 tasks in sir-modpack-tasks.md, plan s14 + REFRESH-LOG + competitor addendum committed; no build (rule 22)
+2026-11-12 r61-plan-sir-price-finder DONE: planning refresh - plan +5 sections (research/screens/API/launch/risks), competitor addendum, tasks 10->60 with skills, REFRESH-LOG written; no build per rule 22
+20:01 devin DONE r61-plan-sir-mods-gta-v planning-only: tasks expanded 10->45, plan section 23 delta added, competitor file second-pass research (Enhanced edition, Sept-2026 Rockstar guidelines, 5 new installer competitors), REFRESH-LOG created; no build per rule 22
