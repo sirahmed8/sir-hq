@@ -309,6 +309,12 @@
     "name": "r44-portfolio-plans-upgrade",
     "folder": "D:/Projects/_SIR",
     "title": "r44 plans upgrade all products",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261112-0700",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: red CI after cleanup commit",
     "done": false
   }
 ]
