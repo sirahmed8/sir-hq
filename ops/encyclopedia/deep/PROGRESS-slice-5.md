@@ -23,4 +23,18 @@ Done so far (17):
 16. notion-spec-to-implementation
 17. notion-weekly-project-digest
 
-Next: offload-to-sandbox (18)
+Done so far (23):
+18. offload-to-sandbox
+19. omniroute-resilience-gateway
+20. open-seo-auditor
+21. openedit-to-invideo
+22. optimize-audio
+23. optimize-text-mesh-pro
+24. optimize-web
+25. owasp-vulnerability-shield
+26. paperclip-orchestrator
+27. pc-storage-guardian
+28. performance-testing
+29. permissioned-github
+
+Next: physics-3d-collision (slice row 30)
