@@ -69,7 +69,7 @@ def fails(argv: list) -> int:
         rows = rows_of(path)
         bad = [r["item"] for r in rows if r["verdict"] == "FAIL"]
         text = ("تدقيق مهمة لم ينجح\n"
-                f"المهمة: {task}\n"
+                f"المهمة: {label_of(task)}\n"
                 f"البنود الفاشلة: {len(bad)} من {len(rows)}.\n"
                 "تم إنشاء مهمة تصحيح لها في قائمة العمل تلقائيا.\n"
                 "المطلوب منك: لا شيء.")
