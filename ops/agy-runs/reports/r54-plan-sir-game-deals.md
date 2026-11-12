@@ -210,8 +210,8 @@ completed	success	r54: SIR Game Deals premium plan (small independent GLOBAL pro
 completed	success	r54: SIR Game Deals premium plan (small independent GLOBAL product)	test	main	push	43260621009	11s	2026-11-12T16:37:03Z
 
 $ gh run view 43260621906
-✓ secrets in 11s (ID 131330581448)
-✓ python-verify in 7s (ID 131330582015)
+passed: secrets in 11s (ID 131330581448)
+passed: python-verify in 7s (ID 131330582015)
 ```
 
 Both runs are green and were seen green. Note for HQ: the flag file `ops/ci-quota-exhausted.flag` exists on disk, but the Actions minutes are working again (the runs executed every step and passed), so that flag is stale and can be deleted. The same thing happened once before on 2026-11-12 and the file was deleted then.
