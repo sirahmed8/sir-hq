@@ -34,6 +34,9 @@ Task: r61 PLANNING ONLY, SIR Controller (slug sir-controller). Owner order: free
 5. `ops/bus/team.md` - START line appended (19:42) and DONE line appended (19:45).
 6. `ops/bus/sir-hq.md` - one line appended.
 
+## Commit note
+- `ops/competitors/sir-controller.md` (my rewrite) was swept into parallel commit 9818a2d (r58 skeletons round) before I committed; `git show HEAD:ops/competitors/sir-controller.md` confirms the refreshed content landed. My commit fb0b4ad carries the other 6 files.
+
 ## Commands run (real)
 - `git status --short; git log --oneline -5` (start of round; tree had many pre-existing modifications from other processes; none of mine touched, none reverted)
 - `wc -l plans/sir-controller.md plans/sir-controller-DEEP.md ops/briefs/sir-controller-tasks.md ops/competitors/sir-controller.md`
