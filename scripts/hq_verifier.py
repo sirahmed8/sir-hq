@@ -199,7 +199,12 @@ def verify_task(task: dict, dry: bool) -> dict:
         return result
     result["model"] = pick
     log(NAME, f"verifying {name} with {pick}")
-    code, out, log_file = run_agent(pick, prompt, ROOT, f"verifier-{name}")
+    pdir = VERIFICATIONS / "_prompts"
+    pdir.mkdir(parents=True, exist_ok=True)
+    pfile = pdir / f"{name}.txt"
+    pfile.write_text(prompt, encoding="utf-8")
+    short = f"Read the file {pfile} completely and do exactly what it says. Write the result file it asks for."
+    code, out, log_file = run_agent(pick, short, ROOT, f"verifier-{name}")
     result["log"] = str(log_file)
     target = VERIFICATIONS / f"{name}.md"
     if not target.exists():
@@ -250,7 +255,10 @@ def main(argv: list) -> int:
             continue
         if (VERIFICATIONS / f"{task['name']}.md").exists():
             continue
+        if "AHome" in task.get("folder", ""):
+            continue  # private: never to an outside model; local-only verification is not wired yet
         todo.append(task)
+    todo.reverse()  # newest finished rounds first
     if not todo:
         log(NAME, "nothing to verify")
         print("nothing to verify")
