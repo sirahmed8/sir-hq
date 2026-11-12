@@ -205,3 +205,11 @@
 - Next step: `git -C D:/Projects/_SIR push origin main`; `python scripts/ai-status.py`; read r37, r36, r39, r41 reports in `ops/agy-runs/reports/`; when r42 lands, check `ops/verifications/` and `ops/SUGGESTIONS.md`.
 - Open promises: reconnect Claude in Chrome (owner: open Claude panel in Chrome, sign in) then run WhatsApp digest and NotebookLM Data Bank.pdf upload; reports in plain words (no heartbeat/pid); recreate session crons after restart.
 - Re-read after a reset: `ops/HQ_CHECKPOINT.md`, `ops/AUTOPILOT_QUEUE.json`, `ops/RUNNING_STATE.md`, `ops/briefs/r42-verifier-scout.md`, memory `feedback-plain-words-and-staff-agents`.
+
+## r42-verifier-scout worker note (2026-11-12)
+- Done: committed the previous model's r42 work (was uncommitted): scripts/hq_team.py, hq_verifier.py, scout.py + 7 scout-*.py wrappers, hq_review.py, hq_notify.py, hq_usage_plan.py, r42_rounds.py, install-r42-tasks.ps1; ops/LESSONS.md (cross-project rules seeded from OWNER_DEFAULTS + r33/r34/r35/r38), ops/SUGGESTIONS.md, ops/verifications/ (r41 verification), dashboard Verification + Suggestions sections (generate_dashboard.py + template + regenerated dashboard.html hash 48899f02), hq_manager_tick.py PATHEXT fix, .gitignore for r42 runtime logs.
+- Registered the 5 scheduled tasks: SIR_HQ_Verifier (:30, every 2h), SIR_HQ_Scouts (04:00 daily), SIR_HQ_Review (:00, every 2h), SIR_HQ_NotifyFails (:45, every 2h), SIR_HQ_NotifyDaily (21:00 daily). All State=Ready. Rounds pause on game mode, run below-normal priority, take a lock.
+- Dry runs verified: scout --all, verifier --dry, review --dry, notify --daily --dry, hq_usage_plan (plan written into ops/RUNNING_STATE.md markers r42-usage). Tests: tests/test_r42_team.py + test_r42_dashboard.py 26/26 pass; compileall clean; CI verify green on main (run 43133050729).
+- Also committed r41 leftovers: deleted old agy-runs reports (disk cleanup), r41 report + disk plan.
+- Known open: ops/artifact/PUBLISHED.txt still at 20ee1159 - HQ republishes when ready. Local-only Playwright test test_no_clipped_text fails at 320px on BOTH old and new dashboard (127 clipped elements at HEAD too) - pre-existing, not in CI gate.
+- Next step: first real scout run happens at 04:00 via SIR_HQ_Scouts; first verifier round at next :30. Watch ops/verifications/ and ops/SUGGESTIONS.md.
