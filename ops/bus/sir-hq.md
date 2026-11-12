@@ -832,3 +832,4 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-12 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 48899f02)
+2026-11-12T01:14Z | r42-verifier-scout | verifier+scouts+review+notify scheduled tasks registered, LESSONS/SUGGESTIONS/dashboard/usage plan committed, CI green
