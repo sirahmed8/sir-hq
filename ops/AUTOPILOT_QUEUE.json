@@ -14,13 +14,6 @@
     "parallel_ok": true
   },
   {
-    "name": "r53-hagoozat-and-ideas",
-    "folder": "D:/Projects/_SIR",
-    "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
-    "done": false,
-    "parallel_ok": true
-  },
-  {
     "name": "r14-ahome",
     "folder": "D:/Projects/AHome",
     "title": "إصلاحات المشروع الخاص",
@@ -653,12 +646,6 @@
     "done": true
   },
   {
-    "name": "ci-sir-study-20261112-0700-fix1",
-    "folder": "D:/Projects/SIR Study",
-    "title": "Fix failures from ci-sir-study-20261112-0700 verification",
-    "done": false
-  },
-  {
     "name": "r54-plan-sir-handyman",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
@@ -699,25 +686,6 @@
     "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
     "done": true,
     "parallel_ok": true
-  },
-  {
-    "name": "r56-business-sector-depth",
-    "folder": "D:/Projects/_SIR",
-    "title": "SIR Business: 25+ sectors, each with its own specialised plan",
-    "done": false,
-    "parallel_ok": true
-  },
-  {
-    "name": "r58-new-project-folders",
-    "folder": "D:/Projects/_SIR",
-    "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
-    "done": false
-  },
-  {
-    "name": "r60-build-sir-ai",
-    "folder": "D:/Projects/SIR AI",
-    "title": "SIR AI: rescan, then build from the first task",
-    "done": false
   },
   {
     "name": "r60-build-sir-business",
@@ -797,6 +765,18 @@
     "cancelled": "owner 2026-11-12: planning only until the current projects are done"
   },
   {
+    "name": "ci-sir-study-20261112-0700-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from ci-sir-study-20261112-0700 verification",
+    "done": false
+  },
+  {
+    "name": "r60-build-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: rescan, then build from the first task",
+    "done": false
+  },
+  {
     "name": "r60-build-sir-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: rescan, then build from the first task",
@@ -818,6 +798,26 @@
     "name": "r60-build-sir-portfolio",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: rescan, then build from the first task",
+    "done": false
+  },
+  {
+    "name": "r53-hagoozat-and-ideas",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r56-business-sector-depth",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: 25+ sectors, each with its own specialised plan",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r58-new-project-folders",
+    "folder": "D:/Projects/_SIR",
+    "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
     "done": false
   },
   {

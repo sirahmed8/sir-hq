@@ -138,7 +138,7 @@ def ensure_listener() -> None:
     log(f"telegram listener started pid {p.pid}")
 
 
-MAX_PARALLEL = 14  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
+MAX_PARALLEL = 22  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
 
 
 def rstate(state: dict, name: str) -> dict:
