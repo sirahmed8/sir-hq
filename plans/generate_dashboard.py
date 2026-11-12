@@ -88,7 +88,7 @@ def main():
     digest = publish(html)
     if page.write_mirror():
         print("template mirror updated from parts")
-    print(f"generated {OUT} ({len(html)} bytes, {digest}) at {payload['generated_at']}")
+    print(f"generated {OUT} ({len(html.encode('utf-8'))} bytes, {digest}) at {payload['generated_at']}")
     return 0
 
 

@@ -32,6 +32,10 @@ def test_build_html_ltr_for_english(tmp_path):
 def test_render_pdf_arabic_sample(tmp_path):
     pytest.importorskip("playwright.sync_api")
     pytest.importorskip("markdown_it")
+    pytest.importorskip("pypdf")
+    from playwright_support import chromium_ready
+    if not chromium_ready():
+        pytest.skip("Chromium is not installed for Playwright")
     out = tmp_path / "report.pdf"
     mrp.render_pdf(mrp.build_html(FIXTURE, None), out)
     data = out.read_bytes()

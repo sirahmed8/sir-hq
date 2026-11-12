@@ -1,5 +1,7 @@
 """Hourly: publish ops/artifact/control-room.html to the owner's Claude artifact with a cheap headless Haiku run, so the page the owner reads stays current without any chat open.
-Skips in game mode, skips when the generated file did not change since the last publish. Log: ops/artifact/publish.log"""
+Skips in game mode, skips when the generated file did not change since the last publish.
+ops/artifact/PUBLISHED.txt holds the hash of the last artifact that was really published (one hash per line);
+ops/artifact/CHANGED.txt holds the hash of the artifact on disk. Log: ops/artifact/publish.log"""
 import hashlib
 import subprocess
 import sys
@@ -41,10 +43,13 @@ def main() -> int:
     res = subprocess.run([str(CLAUDE), "-p", prompt, "--model", "haiku", "--permission-mode", "bypassPermissions"],
                          capture_output=True, text=True, timeout=600, stdin=subprocess.DEVNULL)
     out = (res.stdout or res.stderr or "").strip().splitlines()[-1:] or [""]
-    ok = "ublished" in out[0]
-    log(f"{'published' if ok else 'FAILED'} {digest}: {out[0][:160]}")
+    # The helper must say "published" and nothing else: "not published" is a failure, not a success.
+    ok = out[0].strip().lower().startswith("published")
     if ok:
-        STATE.write_text(f"{time.strftime('%Y-%m-%d %H:%M')} {digest}\n", encoding="utf-8")
+        log(f"published {digest}")
+        STATE.write_text(digest + "\n", encoding="utf-8")
+    else:
+        log(f"FAILED {digest}: {out[0].strip()[:160]}")
     return 0 if ok else 1
 
 
