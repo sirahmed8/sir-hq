@@ -363,6 +363,15 @@ Updated: 2026-11-12
 
 ---
 
+## Design principle for every product (owner, research round 43, 2026-11-12)
+
+**Source:** SIR AI competitor research (`SIR AI/.sir/plans/COMPETITOR_MATRIX.md`, `FEATURE_IDEAS.md`).
+**Rule:** Every project runs the same competitor research before its plan is accepted: at least 8 competitors or open-source cousins, each with what it is, licence, pricing (mark third-party prices as unverified), 3 strongest features, 3 weakest flaws, what we copy, and what we do better. Keep the result in `<project>/.sir/plans/COMPETITOR_MATRIX.md`, and at least 40 tagged ideas in `<project>/.sir/plans/FEATURE_IDEAS.md` (each idea tagged `cite` or `original`).
+**Checks:** Licences and star counts come from the GitHub API, not from aggregator blogs. Do not clone repos over 150 MB or with a non-open licence; reference them through their docs. Refresh the matrix every quarter and whenever a competitor changes owner.
+**Apply to all:** Every project, starting with the next plan review.
+
+---
+
 ## How to Use This File
 1. **Verifier** checks every task against relevant lessons before marking PASS.
 2. **Scouts** read this file daily and test their project against every lesson.
