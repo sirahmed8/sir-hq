@@ -985,3 +985,4 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 r49-skills-deep-4 DONE: 65/65 slice-4 deep digests written+verified, committed b3781e5 pushed to sir-hq main; report at ops/agy-runs/reports/r49-skills-deep-4.md
 2026-11-12 16:50 | devin-r49-slice3 | slice-3 deep digests 53/65 done+pushed; 12 remaining (gdocs,gdrive,gemini-*,gcp-*); resume: ops/encyclopedia/deep/PROGRESS-slice-3.md; report: ops/agy-runs/reports/r49-skills-deep-3.md
 r49-skills-deep-5 DONE: 65/65 slice-5 deep digests written+verified (zero MISSING vs slice-5.txt), pushed to sir-hq main; report at ops/agy-runs/reports/r49-skills-deep-5.md
+2026-11-12 16:57 | desktop-folders | Desktop SIR Projects: folder.ico + desktop.ini in 16 folders (SIR Control Room has no project folder.ico), Versions.txt in 17, web links only for answering hosts (SIR AI x2, SIR Portfolio x2, Control Room), GitHub repos 404 anonymously so not linked; report ops/reports/desktop-folders-report.md
