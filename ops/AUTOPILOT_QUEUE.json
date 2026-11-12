@@ -387,7 +387,7 @@
     "name": "r46-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: competitors and feature gaps",
-    "done": false
+    "done": true
   },
   {
     "name": "r46-laptop-manager",
@@ -415,38 +415,111 @@
   },
   {
     "name": "r49-skills-deep-1",
-    "folder": "D:/Projects/SIR Study",
+    "folder": "D:/Projects/_SIR",
     "title": "skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt)",
-    "done": false
+    "done": true,
+    "parallel_ok": true
   },
   {
     "name": "r49-skills-deep-2",
     "folder": "D:/Projects/SIR Jobs",
     "title": "skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt)",
-    "done": false
+    "done": true
   },
   {
     "name": "r49-skills-deep-3",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt)",
-    "done": false
+    "done": true
   },
   {
     "name": "r49-skills-deep-4",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt)",
-    "done": false
+    "done": true
   },
   {
     "name": "r49-skills-deep-5",
     "folder": "D:/Projects/SIR AI",
     "title": "skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt)",
-    "done": false
+    "done": true
   },
   {
     "name": "r49-skills-deep-6",
     "folder": "D:/Projects/_SIR",
     "title": "skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt)",
+    "done": true
+  },
+  {
+    "name": "r47-skills-encyclopedia-fix1",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Fix failures from r47-skills-encyclopedia verification",
+    "done": false
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901-fix1 verification",
+    "done": false
+  },
+  {
+    "name": "r46-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r46-laptop-manager verification",
+    "done": false
+  },
+  {
+    "name": "r49b-skills-deep-1",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-2",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing-2.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-3",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing-3.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-4",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-5",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-6",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
+    "done": false,
+    "parallel_ok": true
+  },
+  {
+    "name": "r50-portfolio-owner-fixes",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
+    "done": false
+  },
+  {
+    "name": "r51-backlog-projects",
+    "folder": "D:/Projects/SIR Platform",
+    "title": "Backlog ideas into projects or modules, final product list",
     "done": false
   }
 ]

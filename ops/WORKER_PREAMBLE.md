@@ -36,3 +36,5 @@ Only when every checklist line is fixed with proof or honestly marked open with 
 If you cannot finish, do NOT run it. The runner keeps going with the next model.
 
 18. GitHub Actions minutes are used up (2026-11-12, flag file `ops/ci-quota-exhausted.flag`, expected reset around 2026-12-01): CI jobs fail in about 3 seconds with zero steps. That is the quota, not your code. While the flag file exists, "CI green" is replaced by: run the full local verification (tests, lint, build) and paste the passing output into the checkpoint; still commit and push to main. Never loop on CI fixes. When the flag file is deleted, rule 4 (CI must be seen green) applies again.
+
+19. Tools are shared: never wait for your own tool alone; if your tool stops, the next task goes to another tool automatically. Tasks that only write new files under ops/ may be marked parallel_ok in the queue and run beside other work in the same folder.

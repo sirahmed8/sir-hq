@@ -130,7 +130,7 @@ def ensure_listener() -> None:
     log(f"telegram listener started pid {p.pid}")
 
 
-MAX_PARALLEL = 6  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
+MAX_PARALLEL = 10  # owner 2026-11-11: run every project at once; one writer per project folder is still enforced
 
 
 def rstate(state: dict, name: str) -> dict:
@@ -182,7 +182,7 @@ def handle(task: dict, queue: list, state: dict) -> None:
         log(f"task done: {task['name']}")
         log(f"owner message skipped (done): {task['name']}")
         return
-    if minutes_since_activity(task["folder"]) < STALL_MINUTES or runner_alive(rs):
+    if (minutes_since_activity(task["folder"]) < STALL_MINUTES and not task.get("parallel_ok")) or runner_alive(rs):
         return  # someone is working on it
     if time.time() < rs.get("retry_after", 0):
         return
@@ -226,8 +226,12 @@ def step(state: dict) -> None:
     ensure_listener()
     queue = load(QUEUE, [])
     open_tasks, folders = [], set()
-    for t in queue:  # first MAX_PARALLEL unfinished tasks, one per project folder
-        if not t.get("done") and t["folder"].lower() not in folders:
+    for t in queue:  # first MAX_PARALLEL unfinished tasks; one per project folder unless the task is marked parallel_ok
+        if t.get("done"):
+            continue
+        if t.get("parallel_ok"):
+            open_tasks.append(t)
+        elif t["folder"].lower() not in folders:
             open_tasks.append(t)
             folders.add(t["folder"].lower())
         if len(open_tasks) == MAX_PARALLEL:
