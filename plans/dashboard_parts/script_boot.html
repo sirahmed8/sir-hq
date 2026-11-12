@@ -1,0 +1,152 @@
+<script>
+"use strict";
+let checkFilter = "all";
+
+/* ---------- Tools: free models and usage limits ---------- */
+function poolCard(p, idx) {
+  const kind = p.state === "ready" ? "ok" : "warn";
+  const ret = p.state === "cooling" ? chip(t("returns", { t: p.until }), "warn") : "";
+  return `<article class="card">
+    <div class="card-title">${bdi(p.tool)} <span class="card-sub num">${bdi(p.model)}</span></div>
+    <div class="row">${chip(p.state === "ready" ? t("ready") : t("cooling"), kind)}${ret}</div>
+    <div class="card-sub">${bdi(p.last_ok ? t("lastOk", { t: p.last_ok }) : "")}</div>
+    <div class="row"><button type="button" class="linkish" data-detail="pool" data-idx="${idx}">${esc(t("details"))}</button></div>
+  </article>`;
+}
+function limitCard(l) {
+  return `<article class="card"><div class="card-title">${bdi(l.tool)}</div><div class="card-sub">${bdi(l.expected_return)}</div></article>`;
+}
+function renderTools() {
+  const pool = D.pool || [];
+  let html = `<div class="section-head"><h2>${esc(t("toolsTitle"))}</h2><span class="meta">${esc(t("countWorkers", { n: pool.filter(p => p.state === "ready").length }))}</span></div>`;
+  html += `<div class="grid wide">${listWithOverflow("pool", pool, poolCard, t("poolEmpty"))}</div>`;
+  const limits = (D.notes && D.notes.usage_limits) || [];
+  html += `<div class="section-head"><h2>${esc(t("limitsTitle"))}</h2></div>`;
+  html += `<div class="grid wide">${listWithOverflow("limits", limits, limitCard, t("unknown"))}</div>`;
+  return html;
+}
+
+/* ---------- Verification: rounds with PASS, FAIL or not verified ---------- */
+function checkRow(r) {
+  const kind = roundStateKind(r);
+  return `<article class="card">
+    <div class="row">${roundChip(r)}${chip(stateWord(r), kind === "verified" ? "ok" : (kind === "failed" ? "bad" : "warn"))}</div>
+    <div class="card-title">${bdi(r.title)}</div>
+    <div class="card-sub">${bdi(roundProject(r.label))} · <span class="num">${bdi(r.task)}</span></div>
+  </article>`;
+}
+function renderChecks() {
+  const rounds = D.rounds || [];
+  const pick = {
+    all: rounds,
+    verified: rounds.filter(r => r.verified === "verified"),
+    not: rounds.filter(r => r.verified === "not verified"),
+    failed: rounds.filter(r => r.verified === "failed"),
+  };
+  const f = [["all", "all", rounds.length], ["verified", "filterVerified", pick.verified.length], ["not", "filterNot", pick.not.length], ["failed", "filterFailed", pick.failed.length]];
+  const seg = `<div class="seg" role="group" aria-label="${esc(t("filterLabel"))}">` +
+    f.map(([k, key, n]) => `<button type="button" data-filter="${k}" aria-pressed="${String(checkFilter === k)}">${esc(t(key))} <span class="num">${n}</span></button>`).join("") + "</div>";
+  const list = pick[checkFilter] || rounds;
+  return `<div class="section-head"><h2>${esc(t("checksTitle"))}</h2></div>` +
+    `<p class="card-sub">${esc(t("checksNote"))}</p>` +
+    `<div style="margin:var(--s3) 0">${seg}</div>` +
+    `<div class="grid wide">${listWithOverflow("checks-" + checkFilter, list, checkRow, t("noRounds"))}</div>`;
+}
+
+/* ---------- Suggestions ---------- */
+function renderIdeas() {
+  const s = (D.notes && D.notes.suggestions) || { counts: { pending: 0, approved: 0, rejected: 0 }, pending: [] };
+  let html = `<div class="section-head"><h2>${esc(t("ideasTitle"))}</h2></div><div class="row">` +
+    chip(t("pendingCount", { n: s.counts.pending }), "warn") + chip(t("approvedCount", { n: s.counts.approved }), "ok") + chip(t("rejectedCount", { n: s.counts.rejected }), "") + "</div>";
+  html += `<div style="margin-top:var(--s3)" class="grid wide">${listWithOverflow("ideas", s.pending, i =>
+    `<article class="card"><div class="row">${chip(i.severity || t("unknown"), "plain")}${chip(i.project || t("unknown"), "plain")}</div><div class="card-sub">${bdi(i.finding)}</div></article>`,
+    t("ideasEmpty"))}</div>`;
+  return html;
+}
+
+/* ---------- Owner: one-tap items, read only ---------- */
+function renderOwner() {
+  const items = (D.notes && D.notes.owner_actions) || [];
+  return `<div class="section-head"><h2>${esc(t("ownerTitle"))}</h2></div><p class="card-sub">${esc(t("ownerNote"))}</p>` +
+    `<div style="margin-top:var(--s3)" class="grid wide">${listWithOverflow("owner", items, i => `<article class="card"><div class="card-title">${bdi(i.title)}</div></article>`, t("ownerEmpty"))}</div>`;
+}
+
+/* ---------- Accounts and keys: names and status only ---------- */
+function renderAccounts() {
+  const keys = (D.notes && D.notes.key_names) || [];
+  const head = (D.notes && D.notes.checkpoint_head) || "";
+  let html = `<div class="section-head"><h2>${esc(t("accountsTitle"))}</h2></div><p class="card-sub">${esc(t("accountsNote"))}</p>`;
+  html += `<div style="margin-top:var(--s3)" class="grid wide">${listWithOverflow("keys", keys, k =>
+    `<article class="card"><div class="card-title">${bdi(k.service)}</div><div class="card-sub">${bdi(k.status)}</div></article>`, t("keysEmpty"))}</div>`;
+  if (head) html += `<details class="card" style="margin-top:var(--s4)"><summary>${esc(t("checkpointTitle"))}</summary><pre dir="auto">${esc(head)}</pre></details>`;
+  return html;
+}
+
+/* ---------- router, guarded so a broken section shows its own error state ---------- */
+const RENDER = {
+  now: renderNow, projects: renderProjects, tools: renderTools, checks: renderChecks,
+  ideas: renderIdeas, owner: renderOwner, accounts: renderAccounts,
+};
+function render() {
+  const el = document.getElementById("view");
+  if (!D || !D.generated_at) { el.innerHTML = errorBox(); return; }
+  try {
+    el.innerHTML = RENDER[view]();
+  } catch (err) {
+    el.innerHTML = errorBox(view);
+  }
+  renderStrip();
+}
+function setView(v) {
+  if (VIEWS.indexOf(v) < 0) return;
+  view = v;
+  store("cr-view", v);
+  renderNav();
+  render();
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+/* ---------- events (one delegated listener) ---------- */
+document.addEventListener("click", e => {
+  const tgt = e.target.closest("[data-view],[data-showall],[data-retry],[data-detail],[data-filter],[data-theme-set],#lang-btn");
+  if (!tgt) return;
+  if (tgt.hasAttribute("data-view")) return setView(tgt.getAttribute("data-view"));
+  if (tgt.hasAttribute("data-showall")) { showAll[tgt.getAttribute("data-showall")] = true; return render(); }
+  if (tgt.hasAttribute("data-retry")) return render();
+  if (tgt.hasAttribute("data-filter")) { checkFilter = tgt.getAttribute("data-filter"); return render(); }
+  if (tgt.hasAttribute("data-theme-set")) { theme = tgt.getAttribute("data-theme-set"); store("cr-theme", theme); return applyTheme(); }
+  if (tgt.id === "lang-btn") { lang = lang === "ar" ? "en" : "ar"; store("cr-lang", lang); applyLang(); renderNav(); return render(); }
+  if (tgt.hasAttribute("data-detail")) {
+    const kind = tgt.getAttribute("data-detail");
+    if (kind === "runner") {
+      const r = (D.team || [])[+tgt.getAttribute("data-idx")];
+      if (r) openSheet(r.title || r.task, detailsHtml({ [t("kind")]: r.kind, since: r.since, task: r.task, pid: r.pid }));
+    } else if (kind === "project") {
+      const tpl = document.querySelector('template[data-sheet="' + tgt.getAttribute("data-idx").replace(/"/g, '\\"') + '"]');
+      openSheet(tgt.getAttribute("data-idx"), tpl ? tpl.innerHTML : "");
+    } else if (kind === "pool") {
+      const p = (D.pool || [])[+tgt.getAttribute("data-idx")];
+      if (p) openSheet(p.tool, detailsHtml({ tool: p.tool, model: p.model, state: p.state, until: p.until, why: p.why, last_ok: p.last_ok }));
+    }
+  }
+});
+
+/* ---------- start: skeleton first, then real data; freshness refresh every 30 s ---------- */
+function init() {
+  lang = store("cr-lang") || "ar";
+  theme = store("cr-theme") || "system";
+  view = store("cr-view") || "now";
+  if (VIEWS.indexOf(view) < 0) view = "now";
+  applyLang();
+  applyTheme();
+  renderNav();
+  document.getElementById("view").innerHTML = skeleton(3);
+  requestAnimationFrame(() => {
+    try { render(); } catch (err) { document.getElementById("view").innerHTML = errorBox(); }
+  });
+  setInterval(() => { renderStrip(); renderNav(); }, 30000);
+}
+init();
+</script>
+</body>
+</html>

@@ -430,15 +430,15 @@
   "label": "Study A3",
   "task": "audit-sir-study-20261112-1401",
   "title": "SIR Study: دورة فحص ذاتي",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "Jobs R12",
   "task": "r46-jobs",
   "title": "SIR Jobs: competitors and feature gaps",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "Portfolio R2",
@@ -451,34 +451,153 @@
   "label": "Study R8",
   "task": "r46-study",
   "title": "SIR Study: competitors and feature gaps",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "not verified"
  },
  {
   "label": "Laptop R6",
   "task": "r46-laptop-manager",
   "title": "SIR Laptop Manager: competitors and feature gaps",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "PASS"
  },
  {
   "label": "HQ F5",
   "task": "ci-sir-20261112-0901-fix1",
   "title": "Fix failures from ci-sir-20261112-0901 verification",
   "state": "done by worker",
-  "verified": "not verified"
+  "verified": "FAIL"
  },
  {
   "label": "Portfolio R3",
   "task": "r47-skills-encyclopedia",
   "title": "HQ: skills encyclopedia and organization",
-  "state": "open",
-  "verified": ""
+  "state": "done by worker",
+  "verified": "FAIL"
  },
  {
   "label": "SIR AI R3",
   "task": "r48-video-digest",
   "title": "HQ: video digest skill",
+  "state": "done by worker",
+  "verified": "PASS"
+ },
+ {
+  "label": "HQ R12",
+  "task": "r49-skills-deep-1",
+  "title": "skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Jobs R13",
+  "task": "r49-skills-deep-2",
+  "title": "skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Laptop R7",
+  "task": "r49-skills-deep-3",
+  "title": "skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Portfolio R4",
+  "task": "r49-skills-deep-4",
+  "title": "skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "SIR AI R4",
+  "task": "r49-skills-deep-5",
+  "title": "skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "HQ R13",
+  "task": "r49-skills-deep-6",
+  "title": "skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt)",
+  "state": "done by worker",
+  "verified": "not verified"
+ },
+ {
+  "label": "Portfolio F1",
+  "task": "r47-skills-encyclopedia-fix1",
+  "title": "Fix failures from r47-skills-encyclopedia verification",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ F6",
+  "task": "ci-sir-20261112-0901-fix1-fix1",
+  "title": "Fix failures from ci-sir-20261112-0901-fix1 verification",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Laptop F2",
+  "task": "r46-laptop-manager-fix1",
+  "title": "Fix failures from r46-laptop-manager verification",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R14",
+  "task": "r49b-skills-deep-1",
+  "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R15",
+  "task": "r49b-skills-deep-2",
+  "title": "skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing-2.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R16",
+  "task": "r49b-skills-deep-3",
+  "title": "skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing-3.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R17",
+  "task": "r49b-skills-deep-4",
+  "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R18",
+  "task": "r49b-skills-deep-5",
+  "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "HQ R19",
+  "task": "r49b-skills-deep-6",
+  "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "Portfolio R5",
+  "task": "r50-portfolio-owner-fixes",
+  "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
+  "state": "open",
+  "verified": ""
+ },
+ {
+  "label": "SIR Platform R1",
+  "task": "r51-backlog-projects",
+  "title": "Backlog ideas into projects or modules, final product list",
   "state": "open",
   "verified": ""
  }

@@ -1,0 +1,204 @@
+<script>
+"use strict";
+const D = /*__DATA__*/{};
+
+/* ---------- strings (English and Arabic) ---------- */
+const S = {
+  en: {
+    brand: "SIR Control Room", lang: "العربية", themeSystem: "System", themeLight: "Light", themeDark: "Dark",
+    refresh: "Refresh", copyTime: "Copy update time", close: "Close", retry: "Try again",
+    navNow: "Now", navProjects: "Projects", navTools: "Tools", navChecks: "Verification", navIdeas: "Suggestions", navOwner: "Owner", navAccounts: "Accounts",
+    updatedAt: "Updated {t}", updated: "Updated {n} ago", justNow: "Updated just now", stale: "Stale: last update {n} ago", staleHint: "The page regenerates every 30 minutes. Newer data may exist.",
+    health: "Overall", healthOk: "Nothing needs you right now", healthWarn: "Needs attention",
+    ciBanner: "GitHub Actions minutes are used up", ciBannerHint: "Red CI means the quota is gone, not the code. Workers verify locally.",
+    liveWorkers: "Workers running now", liveHint: "Real processes running at generation time",
+    waiting: "Waiting in queue", verifiedOf: "Verified {a} of {b} rounds", doneByWorker: "Done by worker", failedChecks: "Failed checks",
+    teamTitle: "What the team is doing", teamEmpty: "No worker is running right now.", teamEmptyHint: "The next task starts when the queue has one ready.",
+    queueTitle: "Next in queue", queueEmpty: "The queue is empty.", helpersTitle: "Background Claude helpers",
+    since: "Started {t}", kind: "Process", details: "Details", showAll: "Show all ({n})",
+    projectsTitle: "Projects", lastCommit: "Last commit", ageAgo: "{n} ago", ci: "CI", ciOk: "CI passing", ciFail: "CI failed", ciRun: "CI running", ciNone: "No CI data",
+    private: "Private project: only dates and CI state are shown.", nextStep: "Next step", noRounds: "No rounds recorded yet.",
+    rounds: "Rounds", verifiedN: "{n} verified", openN: "{n} open", failedN: "{n} failed",
+    toolsTitle: "Free tools and models", ready: "Ready", cooling: "Cooling down", returns: "Back at {t}", lastOk: "Last good run {t}",
+    limitsTitle: "Usage limits and return times", poolEmpty: "No tool state yet.",
+    checksTitle: "Verification", all: "All", filterVerified: "Verified", filterNot: "Not verified", filterFailed: "Failed",
+    checksNote: "A round is done by worker until a verification shows PASS. Nothing here is called finished without that.",
+    ideasTitle: "Suggestions", pending: "Pending", approved: "Approved", rejected: "Rejected", ideasEmpty: "No pending suggestions.",
+    ownerTitle: "Owner: one tap each", ownerEmpty: "Nothing waits for you.", ownerNote: "This page only lists these. Nothing is sent or changed from here.",
+    accountsTitle: "Accounts and keys", accountsNote: "Names and status only. Key values are never shown.", keysEmpty: "No key status file yet.",
+    checkpointTitle: "HQ checkpoint (start)", helpersEmpty: "No helper listed.",
+    error: "Could not load this section.", errorHint: "The data file is missing or unreadable.",
+    unknown: "Unknown", none: "None", seconds: "s", minutes: "min", hours: "h", days: "d",
+    minAgo: "{n} min ago", hAgo: "{n} h ago", dAgo: "{n} d ago", nowWord: "now", sinceDays: "{n} d",
+    countWorkers: "{n} running", countWaiting: "{n} waiting",
+    openOwner: "Open list", pendingCount: "{n} pending", approvedCount: "{n} approved", rejectedCount: "{n} rejected",
+    stateDone: "done by worker", stateVerified: "verified", stateFailed: "failed", stateNot: "not verified", stateOpen: "open",
+    filterLabel: "Filter", pauseNote: "Refresh paused during game mode."
+  },
+  ar: {
+    brand: "غرفة تحكم SIR", lang: "English", themeSystem: "تلقائي", themeLight: "فاتح", themeDark: "داكن",
+    refresh: "تحديث", copyTime: "نسخ وقت التحديث", close: "إغلاق", retry: "أعد المحاولة",
+    navNow: "الآن", navProjects: "المشاريع", navTools: "الأدوات", navChecks: "التحقق", navIdeas: "الاقتراحات", navOwner: "المالك", navAccounts: "الحسابات",
+    updatedAt: "آخر تحديث {t}", updated: "آخر تحديث قبل {n}", justNow: "تم التحديث الآن", stale: "البيانات قديمة: آخر تحديث قبل {n}", staleHint: "تتجدد الصفحة كل 30 دقيقة، وقد تكون هناك بيانات أحدث.",
+    health: "الحالة العامة", healthOk: "لا يوجد ما يحتاج تدخلك الآن", healthWarn: "يحتاج انتباهاً",
+    ciBanner: "دقائق GitHub Actions انتهت", ciBannerHint: "الفشل الأحمر يعني نفاد الحصة وليس خللاً في الكود. يتحقق العمال محلياً.",
+    liveWorkers: "عمال يعملون الآن", liveHint: "عمليات حقيقية تعمل وقت إنشاء الصفحة",
+    waiting: "في الطابور", verifiedOf: "تم التحقق من {a} من {b} جولات", doneByWorker: "أنهاه العامل", failedChecks: "فحوصات فاشلة",
+    teamTitle: "ما يفعله الفريق الآن", teamEmpty: "لا يعمل أي عامل الآن.", teamEmptyHint: "تبدأ المهمة التالية عندما تكون جاهزة في الطابور.",
+    queueTitle: "التالي في الطابور", queueEmpty: "الطابور فارغ.", helpersTitle: "مساعدو Claude في الخلفية",
+    since: "بدأ {t}", kind: "نوع العملية", details: "التفاصيل", showAll: "عرض الكل ({n})",
+    projectsTitle: "المشاريع", lastCommit: "آخر تعديل محفوظ", ageAgo: "قبل {n}", ci: "الاختبارات", ciOk: "الاختبارات تمر", ciFail: "فشل الاختبار", ciRun: "الاختبار يعمل", ciNone: "لا توجد بيانات اختبار",
+    private: "مشروع خاص: تظهر التواريخ وحالة الاختبار فقط.", nextStep: "الخطوة التالية", noRounds: "لا توجد جولات مسجلة بعد.",
+    rounds: "الجولات", verifiedN: "{n} تم التحقق", openN: "{n} مفتوح", failedN: "{n} فشل",
+    toolsTitle: "الأدوات والنماذج المجانية", ready: "جاهز", cooling: "في فترة الراحة", returns: "يعود {t}", lastOk: "آخر تشغيل ناجح {t}",
+    limitsTitle: "حدود الاستخدام وأوقات العودة", poolEmpty: "لا توجد حالة للأدوات بعد.",
+    checksTitle: "التحقق", all: "الكل", filterVerified: "تم التحقق", filterNot: "لم يتم التحقق", filterFailed: "فشل",
+    checksNote: "تُعد الجولة منجزة من العامل إلى أن يظهر تحقق بنتيجة نجاح. لا شيء هنا يُعد منتهياً دون ذلك.",
+    ideasTitle: "الاقتراحات", pending: "معلّقة", approved: "مقبولة", rejected: "مرفوضة", ideasEmpty: "لا توجد اقتراحات معلقة.",
+    ownerTitle: "للمالك: ضغطة واحدة لكل بند", ownerEmpty: "لا شيء ينتظرك.", ownerNote: "هذه الصفحة تعرض البنود فقط. لا يُرسل ولا يتغير شيء من هنا.",
+    accountsTitle: "الحسابات والمفاتيح", accountsNote: "الأسماء والحالة فقط. لا تُعرض قيم المفاتيح أبداً.", keysEmpty: "لا يوجد ملف حالة للمفاتيح بعد.",
+    checkpointTitle: "نقطة متابعة المقر (البداية)", helpersEmpty: "لا يوجد مساعد مسجل.",
+    error: "تعذر تحميل هذا القسم.", errorHint: "ملف البيانات مفقود أو لا يمكن قراءته.",
+    unknown: "غير معروف", none: "لا شيء", seconds: "ث", minutes: "د", hours: "س", days: "ي",
+    minAgo: "قبل {n} د", hAgo: "قبل {n} س", dAgo: "قبل {n} ي", nowWord: "الآن", sinceDays: "{n} ي",
+    countWorkers: "{n} يعمل", countWaiting: "{n} في الانتظار",
+    openOwner: "افتح القائمة", pendingCount: "{n} معلّقة", approvedCount: "{n} مقبولة", rejectedCount: "{n} مرفوضة",
+    stateDone: "أنهاه العامل", stateVerified: "تم التحقق", stateFailed: "فشل", stateNot: "لم يتم التحقق", stateOpen: "مفتوح",
+    filterLabel: "تصفية", pauseNote: "التحديث متوقف أثناء وضع اللعب."
+  }
+};
+
+let lang = "ar";
+let theme = "system";
+let view = "now";
+let sheetReturn = null;
+const VIEWS = ["now", "projects", "tools", "checks", "ideas", "owner", "accounts"];
+const VIEW_KEY = { now: "navNow", projects: "navProjects", tools: "navTools", checks: "navChecks", ideas: "navIdeas", owner: "navOwner", accounts: "navAccounts" };
+
+function store(key, value) { try { if (value === undefined) return localStorage.getItem(key); localStorage.setItem(key, value); } catch (e) { return null; } return value; }
+function t(key, vars) {
+  let s = (S[lang] && S[lang][key]) || S.en[key] || key;
+  if (vars) for (const k in vars) s = s.replace("{" + k + "}", vars[k]);
+  return s;
+}
+function esc(v) {
+  return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+function bdi(v) { return '<bdi dir="auto">' + esc(v) + "</bdi>"; }
+function numText(n) { return '<span class="num">' + esc(n) + "</span>"; }
+
+/* Relative time from a "YYYY-MM-DD HH:MM" local string or epoch seconds. */
+function parseLocal(s) {
+  if (!s) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/.exec(s);
+  if (!m) return null;
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime();
+}
+function agoText(ms) {
+  if (ms == null || isNaN(ms)) return t("unknown");
+  const diff = Math.max(0, Date.now() - ms);
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return t("nowWord");
+  if (min < 60) return t("minAgo", { n: min });
+  const h = Math.floor(min / 60);
+  if (h < 48) return t("hAgo", { n: h });
+  return t("dAgo", { n: Math.floor(h / 24) });
+}
+function sinceText(s) {
+  const ms = parseLocal(s);
+  return ms == null ? t("unknown") : agoText(ms);
+}
+function generatedMs() { return D.generated_epoch ? D.generated_epoch * 1000 : parseLocal(D.generated_at); }
+function ageMinutes() { const g = generatedMs(); return g ? Math.floor((Date.now() - g) / 60000) : null; }
+
+/* ---------- chrome: language, theme, nav ---------- */
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.getAttribute("data-i18n")); });
+  document.getElementById("lang-btn").textContent = t("lang");
+  document.title = t("brand");
+}
+function applyTheme() {
+  if (theme === "system") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", theme);
+  document.querySelectorAll("[data-theme-set]").forEach(b => b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-set") === theme)));
+}
+function countFor(v) {
+  if (v === "now") return D.team ? D.team.length : 0;
+  if (v === "projects") return D.projects ? D.projects.length : 0;
+  if (v === "tools") return D.pool ? D.pool.length : 0;
+  if (v === "checks") return D.rounds ? D.rounds.length : 0;
+  if (v === "ideas") return D.notes && D.notes.suggestions ? D.notes.suggestions.counts.pending : 0;
+  if (v === "owner") return D.notes && D.notes.owner_actions ? D.notes.owner_actions.length : 0;
+  return 0;
+}
+function renderNav() {
+  const items = VIEWS.map(v => {
+    const cur = v === view ? ' aria-current="page"' : "";
+    const c = countFor(v);
+    return { v, cur, c, label: t(VIEW_KEY[v]) };
+  });
+  document.getElementById("nav-bottom").innerHTML = items.map(i =>
+    `<button type="button" class="tab" data-view="${i.v}"${i.cur}><span>${esc(i.label)}</span><span class="count num">${i.c}</span></button>`).join("");
+  document.getElementById("nav-side").innerHTML = items.map(i =>
+    `<button type="button" class="side-tab" data-view="${i.v}"${i.cur}><span>${esc(i.label)}</span><span class="count num">${i.c}</span></button>`).join("");
+  const active = document.querySelector("#nav-bottom .tab[aria-current]");
+  if (active && active.scrollIntoView) active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+}
+
+/* ---------- spring sheet (open and matching close) ---------- */
+function openSheet(title, html) {
+  sheetReturn = document.activeElement;
+  document.getElementById("sheet-title").textContent = title;
+  document.getElementById("sheet-body").innerHTML = html;
+  const scrim = document.getElementById("scrim");
+  const sheet = document.getElementById("sheet");
+  scrim.hidden = false;
+  requestAnimationFrame(() => { scrim.classList.add("on"); sheet.classList.add("on"); });
+  setTimeout(() => sheet.focus(), 40);
+}
+function closeSheet() {
+  const scrim = document.getElementById("scrim");
+  const sheet = document.getElementById("sheet");
+  if (!sheet.classList.contains("on")) return;
+  scrim.classList.remove("on");
+  sheet.classList.remove("on");
+  setTimeout(() => { scrim.hidden = true; }, 260);
+  if (sheetReturn && sheetReturn.focus) sheetReturn.focus({ preventScroll: true });
+}
+function detailsHtml(obj) {
+  const rows = Object.keys(obj).map(k => `<dt>${esc(k)}</dt><dd>${bdi(obj[k] == null || obj[k] === "" ? "-" : obj[k])}</dd>`).join("");
+  return `<dl class="kv">${rows}</dl>`;
+}
+
+/* ---------- own context menu, selection rules ---------- */
+function showCtx(x, y) {
+  const m = document.getElementById("ctx");
+  m.hidden = false;
+  const w = m.offsetWidth || 200, h = m.offsetHeight || 96;
+  m.style.left = Math.min(x, window.innerWidth - w - 8) + "px";
+  m.style.top = Math.min(y, window.innerHeight - h - 8) + "px";
+  requestAnimationFrame(() => m.classList.add("on"));
+}
+function hideCtx() {
+  const m = document.getElementById("ctx");
+  if (!m.classList.contains("on")) return;
+  m.classList.remove("on");
+  setTimeout(() => { m.hidden = true; }, 220);
+}
+document.addEventListener("contextmenu", e => {
+  if (e.target.closest("input, textarea, [contenteditable='true']")) return;
+  e.preventDefault();
+  showCtx(e.clientX, e.clientY);
+});
+document.addEventListener("click", e => { if (!e.target.closest("#ctx")) hideCtx(); });
+document.getElementById("ctx-refresh").addEventListener("click", () => location.reload());
+document.getElementById("ctx-copy-time").addEventListener("click", () => {
+  const txt = D.generated_at || "";
+  try { navigator.clipboard && navigator.clipboard.writeText(txt); } catch (e) { /* clipboard may be blocked: ignore */ }
+  hideCtx();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); hideCtx(); } });
+document.getElementById("scrim").addEventListener("click", closeSheet);
+</script>

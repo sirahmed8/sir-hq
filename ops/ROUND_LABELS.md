@@ -1,4 +1,4 @@
-# Round labels (generated 2026-11-12 15:16)
+# Round labels (generated 2026-11-12 17:20)
 
 R = round, A = self-audit, F = fix. Numbers restart per project. The old global task id is in the second column.
 
@@ -65,11 +65,28 @@ R = round, A = self-audit, F = fix. Numbers restart per project. The old global 
 | HQ F4 | ci-sir-20261112-0951-fix1 | done by worker | PASS | Fix failures from ci-sir-20261112-0951 verification |
 | AHome F1 | ci-ahome-20261112-1401 | done by worker | not verified | AHome: إصلاح الفحص الآلي الأحمر |
 | Laptop A3 | audit-sir-laptop-manager-20261112-1401 | done by worker | not verified | SIR Laptop Manager: دورة فحص ذاتي |
-| Study A3 | audit-sir-study-20261112-1401 | open |  | SIR Study: دورة فحص ذاتي |
-| Jobs R12 | r46-jobs | open |  | SIR Jobs: competitors and feature gaps |
+| Study A3 | audit-sir-study-20261112-1401 | done by worker | not verified | SIR Study: دورة فحص ذاتي |
+| Jobs R12 | r46-jobs | done by worker | not verified | SIR Jobs: competitors and feature gaps |
 | Portfolio R2 | r46-portfolio | done by worker | not verified | SIR Portfolio: competitors and feature gaps |
-| Study R8 | r46-study | open |  | SIR Study: competitors and feature gaps |
-| Laptop R6 | r46-laptop-manager | open |  | SIR Laptop Manager: competitors and feature gaps |
-| HQ F5 | ci-sir-20261112-0901-fix1 | done by worker | not verified | Fix failures from ci-sir-20261112-0901 verification |
-| Portfolio R3 | r47-skills-encyclopedia | open |  | HQ: skills encyclopedia and organization |
-| SIR AI R3 | r48-video-digest | open |  | HQ: video digest skill |
+| Study R8 | r46-study | done by worker | not verified | SIR Study: competitors and feature gaps |
+| Laptop R6 | r46-laptop-manager | done by worker | PASS | SIR Laptop Manager: competitors and feature gaps |
+| HQ F5 | ci-sir-20261112-0901-fix1 | done by worker | FAIL | Fix failures from ci-sir-20261112-0901 verification |
+| Portfolio R3 | r47-skills-encyclopedia | done by worker | FAIL | HQ: skills encyclopedia and organization |
+| SIR AI R3 | r48-video-digest | done by worker | PASS | HQ: video digest skill |
+| HQ R12 | r49-skills-deep-1 | done by worker | not verified | skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt) |
+| Jobs R13 | r49-skills-deep-2 | done by worker | not verified | skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt) |
+| Laptop R7 | r49-skills-deep-3 | done by worker | not verified | skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt) |
+| Portfolio R4 | r49-skills-deep-4 | done by worker | not verified | skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt) |
+| SIR AI R4 | r49-skills-deep-5 | done by worker | not verified | skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt) |
+| HQ R13 | r49-skills-deep-6 | done by worker | not verified | skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt) |
+| Portfolio F1 | r47-skills-encyclopedia-fix1 | open |  | Fix failures from r47-skills-encyclopedia verification |
+| HQ F6 | ci-sir-20261112-0901-fix1-fix1 | open |  | Fix failures from ci-sir-20261112-0901-fix1 verification |
+| Laptop F2 | r46-laptop-manager-fix1 | open |  | Fix failures from r46-laptop-manager verification |
+| HQ R14 | r49b-skills-deep-1 | open |  | skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing |
+| HQ R15 | r49b-skills-deep-2 | open |  | skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing |
+| HQ R16 | r49b-skills-deep-3 | open |  | skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing |
+| HQ R17 | r49b-skills-deep-4 | open |  | skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing |
+| HQ R18 | r49b-skills-deep-5 | open |  | skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing |
+| HQ R19 | r49b-skills-deep-6 | open |  | skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing |
+| Portfolio R5 | r50-portfolio-owner-fixes | open |  | Portfolio: owner corrections (projects list, previews, counts, timelin |
+| SIR Platform R1 | r51-backlog-projects | open |  | Backlog ideas into projects or modules, final product list |

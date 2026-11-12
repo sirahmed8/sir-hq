@@ -1,0 +1,122 @@
+<script>
+"use strict";
+/* ---------- shared pieces: chips, lists with five states ---------- */
+const LIMIT = 12;
+const showAll = {};
+function chip(label, kind) { return `<span class="chip ${kind || ""}">${esc(label)}</span>`; }
+function skeleton(n) { let s = ""; for (let i = 0; i < n; i++) s += '<span class="tall"></span>'; return `<div class="skel" aria-busy="true">${s}</div>`; }
+function emptyBox(title, hint) { return `<div class="empty"><strong>${esc(title)}</strong>${hint ? `<span>${esc(hint)}</span>` : ""}</div>`; }
+function errorBox(key) {
+  return `<div class="errbox" role="alert"><strong>${esc(t("error"))}</strong><span>${esc(t("errorHint"))}</span>` +
+    `<button type="button" class="btn ghost" data-retry="1">${esc(t("retry"))}</button></div>`;
+}
+/* Lists render at most LIMIT rows, then an explicit "show all" control (overflow state). */
+function listWithOverflow(key, items, renderOne, emptyTitle, emptyHint) {
+  if (!items || !items.length) return emptyBox(emptyTitle, emptyHint);
+  const open = !!showAll[key];
+  const shown = open ? items : items.slice(0, LIMIT);
+  let html = shown.map(renderOne).join("");
+  if (items.length > LIMIT && !open) {
+    html += `<button type="button" class="linkish more" data-showall="${esc(key)}">${esc(t("showAll", { n: items.length }))}</button>`;
+  }
+  return html;
+}
+function ciChip(ci) {
+  const c = ci || {};
+  if (c.conclusion === "success") return chip(t("ciOk"), "ok");
+  if (c.conclusion === "failure") return chip(t("ciFail"), "bad");
+  if (c.state && c.state !== "completed") return chip(t("ciRun"), "warn");
+  return chip(t("ciNone"), "");
+}
+function roundProject(label) {
+  const map = { AHome: "AHome", Laptop: "SIR Laptop Manager", Jobs: "SIR Jobs", Study: "SIR Study", HQ: "_SIR", "SIR AI": "SIR AI", Portfolio: "SIR Portfolio" };
+  const key = Object.keys(map).sort((a, b) => b.length - a.length).find(k => label.indexOf(k) === 0);
+  return key ? map[key] : label;
+}
+function roundStateKind(r) {
+  if (r.verified === "verified") return "verified";
+  if (r.verified === "failed") return "failed";
+  return "open";
+}
+function roundLabelText(r) { return (r.label || "").split(" ").pop() || r.label; }
+function roundChip(r) {
+  const kind = roundStateKind(r);
+  return `<span class="rlabel ${kind}" title="${esc(r.task)}">${esc(roundLabelText(r))}</span>`;
+}
+function stateWord(r) {
+  if (r.verified === "verified") return t("stateVerified");
+  if (r.verified === "failed") return t("stateFailed");
+  return t("stateNot");
+}
+
+/* ---------- strip (overall health, banner, freshness) ---------- */
+function renderStrip() {
+  const age = ageMinutes();
+  const stale = age != null && age > 60;
+  const rounds = D.rounds || [];
+  const verified = rounds.filter(r => r.verified === "verified").length;
+  const failedProjects = (D.projects || []).filter(p => p.ci && p.ci.conclusion === "failure").length;
+  const failedRounds = rounds.filter(r => r.verified === "failed").length;
+  const warn = !!D.ci_banner || stale || failedRounds > 0;
+  let html = '<div class="strip-row">';
+  html += chip(warn ? t("healthWarn") : t("healthOk"), warn ? "warn" : "ok");
+  html += chip(`${t("liveWorkers")}: ${(D.team || []).length}`, "plain");
+  html += chip(t("verifiedOf", { a: verified, b: rounds.length }), "plain");
+  html += chip(age == null ? t("unknown") : t("updatedAt", { t: D.generated_at || t("unknown") }), stale ? "bad" : "ok");
+  html += "</div>";
+  if (stale) html += `<div class="banner stale" role="status"><strong>${esc(t("stale", { n: age + " " + t("minutes") }))}</strong><p>${esc(t("staleHint"))}</p></div>`;
+  if (D.ci_banner) html += `<div class="banner" role="status"><strong>${esc(t("ciBanner"))}</strong><p>${esc(t("ciBannerHint"))}</p><p class="card-sub">${bdi(D.ci_banner.text)}</p></div>`;
+  if (failedProjects) html += `<div class="card-sub">${esc(t("ciFail"))}: <span class="num">${failedProjects}</span></div>`;
+  document.getElementById("strip").innerHTML = html;
+}
+
+/* ---------- Now: team, queue, helpers ---------- */
+function runnerCard(r, idx) {
+  return `<article class="card" data-runner="${idx}">
+    <div class="card-title">${bdi(r.title || r.task)}</div>
+    <div class="row">${chip(t("since", { t: sinceText(r.since) }), "ok")}${chip(r.kind, "plain")}</div>
+    <div class="row"><button type="button" class="linkish" data-detail="runner" data-idx="${idx}">${esc(t("details"))}</button></div>
+  </article>`;
+}
+function renderNow() {
+  const team = D.team || [];
+  let html = `<div class="section-head"><h2>${esc(t("teamTitle"))}</h2><span class="meta">${esc(t("liveHint"))}</span></div>`;
+  html += team.length ? `<div class="grid wide">${team.map(runnerCard).join("")}</div>` : emptyBox(t("teamEmpty"), t("teamEmptyHint"));
+  const queue = D.queue || [];
+  html += `<div class="section-head"><h2>${esc(t("queueTitle"))}</h2><span class="meta num">${esc(t("countWaiting", { n: queue.length }))}</span></div>`;
+  html += `<div class="grid wide">${listWithOverflow("queue", queue, q => `<article class="card"><div class="card-title">${bdi(q.title || q.task)}</div><div class="card-sub">${bdi(q.folder)}</div></article>`, t("queueEmpty"))}</div>`;
+  const helpers = (D.notes && D.notes.helpers) || [];
+  html += `<div class="section-head"><h2>${esc(t("helpersTitle"))}</h2></div>`;
+  html += `<div class="grid wide">${listWithOverflow("helpers", helpers, h => `<article class="card"><div class="card-title">${bdi(h.name)}</div><div class="card-sub">${bdi(h.note)}</div></article>`, t("helpersEmpty"))}</div>`;
+  return html;
+}
+
+/* ---------- Projects: a card per project, rounds as R labels ---------- */
+function projectCard(p) {
+  const rounds = (D.rounds || []).filter(r => roundProject(r.label) === p.name);
+  const verified = rounds.filter(r => r.verified === "verified").length;
+  const open = rounds.filter(r => r.state === "open").length;
+  const failed = rounds.filter(r => r.verified === "failed").length;
+  const next = rounds.find(r => r.state === "open") || null;
+  const age = p.age_hours == null ? t("unknown") : (p.age_hours < 1 ? t("nowWord") : (p.age_hours < 48 ? t("hAgo", { n: Math.floor(p.age_hours) }) : t("dAgo", { n: Math.floor(p.age_hours / 24) })));
+  const priv = p.private ? `<p class="card-sub">${esc(t("private"))}</p>` : "";
+  const roundChips = rounds.length ? rounds.map(roundChip).join("") : `<span class="card-sub">${esc(t("noRounds"))}</span>`;
+  const sheetHtml = detailsHtml({ [t("lastCommit")]: p.last_commit || t("unknown"), [t("ci")]: (p.ci && p.ci.at) || t("unknown") });
+  return `<article class="card" data-project="${esc(p.name)}">
+    <div class="card-title">${bdi(p.name)}</div>
+    ${priv}
+    <div class="row">${chip(t("lastCommit") + ": " + age, "plain")}${ciChip(p.ci)}</div>
+    <div class="card-sub">${esc(t("rounds"))}</div>
+    <div class="row">${roundChips}</div>
+    <div class="row">${chip(t("verifiedN", { n: verified }), "ok")}${chip(t("openN", { n: open }), open ? "warn" : "")}${failed ? chip(t("failedN", { n: failed }), "bad") : ""}</div>
+    ${next ? `<div class="kv"><dt>${esc(t("nextStep"))}</dt><dd>${bdi(next.title)}</dd></div>` : ""}
+    <div class="row"><button type="button" class="linkish" data-detail="project" data-idx="${esc(p.name)}">${esc(t("details"))}</button></div>
+    <template data-sheet="${esc(p.name)}">${sheetHtml}</template>
+  </article>`;
+}
+function renderProjects() {
+  const projects = D.projects || [];
+  if (!projects.length) return emptyBox(t("unknown"));
+  return `<div class="section-head"><h2>${esc(t("projectsTitle"))}</h2></div><div class="grid wide">${projects.map(projectCard).join("")}</div>`;
+}
+</script>

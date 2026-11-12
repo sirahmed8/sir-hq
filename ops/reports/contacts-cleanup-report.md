@@ -25,6 +25,14 @@
 - Chrome autofill (chrome://settings/addresses): NOT DONE. The browser extension cannot open chrome:// pages (error page), and the computer-use tool is read-only for browsers. Before/after counts: not obtained.
 - iCloud: still not on the v2 file (see above). iCloud shows 522 contacts from an earlier import, version unverified.
 
+## Round 4 (HQ rebuilt final_google.csv)
+- Google before: 607 contacts. Deleted all (Bin), imported final_google.csv (597 rows).
+- Google after: 597 contacts. Verified (target 597 +/-2). Done.
+- Import labels: both auto-created "Imported on 12/11" labels deleted, contacts kept. Done.
+- Merge and fix (not clicked): 1 merge suggestion, 0 fix suggestions (badge was 13 before the replace: 12 merge + 1 fix).
+- Side effect: one favourite star was toggled off by a misclick during the step; after the import the favourites count is 8 again.
+- iCloud and Chrome settings: not touched in this round.
+
 ## Next step (owner, about 1 minute)
 1. Open icloud.com/contacts, click the + icon above the list, choose Import vCard, pick D:/Projects/_SIR/_local/contacts/apple_clean.vcf.
 2. Check that the list shows 522 contacts.
