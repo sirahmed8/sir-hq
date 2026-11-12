@@ -3,6 +3,7 @@
 ## Now
 - Claude weekly quota about 5 percent (2026-11-12 21:00): the owner talks to the backup manager through the Telegram bot; backup mode is ON (ops/backup-manager.json). Free tools build only on current projects (Study, Jobs, AI, Laptop Manager, Portfolio, AHome); every other project is planning only.
 - Task board ops/tasks (scripts/taskboard.py, rules 22 to 24 in ops/WORKER_PREAMBLE.md). Queue top: r64-telegram-first (speed, one context for text and photos, Bot API kit, profile photo, robustness), r63-control-room-private, r62 (control-room mirror live at the pages.dev link in ops/DASHBOARD_URL.txt, AHome smart sync), r57 AHome owner feedback, r65 AHome APK to phone by ADB, phone power-off cause, update system.
+- r66-bot-profile-photo DONE (2026-11-12): @PersonalAI_1Bot profile photo replaced with the SIR AI brand icon at 1024x1024 (ops/telegram-media/bot-profile-r66.png/.jpg, from SIR AI assets/brand/source.png). setMyProfilePhoto needs InputProfilePhoto JSON {"type":"static","photo":"attach://name"} + JPEG upload; verified via getUserProfilePhotos (new file_ids). Evidence: ops/verifications/r66-bot-profile-photo.md.
 - A Haiku subagent was started for the WhatsApp digest.
 
 ## Next step (exact)
