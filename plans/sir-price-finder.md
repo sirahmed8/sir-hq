@@ -329,9 +329,16 @@ Exit checks:
 4. The lawyer has reviewed the legal pages and the tax question is answered, and only then can a paid plan go live.
 5. Each legacy folder moves from `legacy/` to `D:\Projects\old projects\` only after the parity matrix shows every kept feature is ported and verified, keeping the git history. `legacy/` is never deleted from the repository history.
 
-### M6: Release, real products and the legacy handover
+### M6: Scale and retention pass
 
-(M6 is the same as M5 for this small independent product; the milestones merge at release.)
+Work: usage review from real owner data only, alert-quality tuning (thresholds, quiet hours, digest mode), deeper history backfill where a lawful source allows it, performance pass on 1,000+ tracked products, and the decision record for the next platform surface (browser extension or mobile push).
+
+Exit checks:
+
+1. The owner analytics page shows real numbers for tracked products, alerts fired and price drops detected; an empty metric shows a dash and the reason, never a zero dressed as a fact.
+2. Alert tuning is data-driven: the report lists how many alerts fired, how many were dismissed and how many were acted on, from real events only.
+3. Search and price-table queries stay under the agreed latency budget at 1,000 tracked products, proven by a load script with saved output.
+4. A written ADR records the keep/drop decision for the browser extension and mobile push, with the evidence.
 
 ---
 
@@ -360,3 +367,69 @@ Ready to queue, each with its own brief: `D:/Projects/_SIR/ops/briefs/sir-price-
 10. The currency auto-detect from visitor locale and IP. Implement the locale/IP detection that shows EGP for Egypt, SAR for KSA, AED for UAE, etc., with a manual override widget on the settings page.
 
 All tasks: after finishing, run the gates (`npm test`, `npm run lint`, `npm run typecheck`), update the project checkpoint, commit to `main` with a clear message. Do not push to `D:\Projects\_SIR` for project-code changes; push the SIR Price Finder repo. Reports go to `D:/Projects/_SIR/ops/agy-runs/reports\<task>.md`.
+---
+
+## 10. Research refresh, 2026-11-12 (round r61)
+
+What is new in the category and what it changes in this plan. Every external claim below was read on 2026-11-12; anything not confirmed is marked "(unsourced, verify)".
+
+1. **Amazon's data API changed underneath the whole category.** PA-API 5.0 was deprecated 2026-04-30 and switched off 2026-05-15; the successor is the Amazon **Creators API** (affiliate-program.amazon.com/creatorsapi docs). Differences that matter to us: OAuth 2.0 with a Credential ID + Secret issued in Associates Central (old AWS keys do not work), bearer tokens valid 1 hour, a global `creatorsapi.amazon/catalog/v1` endpoint with an `x-marketplace` header, lowerCamelCase payloads, and Offers V2 for live pricing. Eligibility: enrolled in Amazon Associates for the target marketplace **and at least 10 qualifying sales in the past 30 days**. Plan impact: the Amazon price source is built as a Creators API client behind a `PriceSource` interface with fixture fallback; if Associates eligibility is not met, scripts report "blocked on Associates approval" and store nothing fake.
+2. **Jumia Egypt has a lawful affiliate path.** JForce (jforce.jumia.com.eg) pays commissions up to about 7% in Egypt with a 7-day cookie per the program page read 2026-11-12, and a Jumia KOL/affiliate API exists in beta (product retrieve + tracked affiliate links). Plan impact: Jumia is the second official source after Amazon, via tracked links and the affiliate API once the owner enrolls. Commission is a possible later revenue line, not a v1 dependency.
+3. **Noon has no confirmed official product feed or public API.** Third-party price APIs exist (ReefAPI noon endpoints verified 2026-09-15 on their docs; WebFusion; HappyEndpoint) but their terms coverage for storing and redistributing prices is unverified. Plan impact: **Noon enters through manual price snapshots and user-submitted "I saw this price" entries only** until an approved feed exists. We never present a third-party scrape as an official source, and every price row shows its source and last-checked time.
+4. **Amazon.eg Associates economics.** Egypt rates run roughly 2-14% by category with a 24-hour cookie, but Associates reviews a new channel only after 3 qualifying sales in the first 180 days (afliet.com comparison read 2026-10-14, secondary source). Plan impact: affiliate revenue is a stretch goal, not a launch assumption.
+5. **Google Shopping as a data source costs real money.** SerpApi's Google Shopping engine starts at USD 25/month for 1,000 searches and scales up (serpapi.com pricing read 2026-11-12). Plan impact: out of the $0 API budget for v1; Google Shopping stays a competitor reference, not a source.
+6. **Fake-discount detection has no off-the-shelf API.** The deterministic local rubric (compare claimed "was" price against the product's own observed history) remains the right build: testable, explainable, free.
+7. **The whole category is account-first; our edge is local-first.** CamelCamelCamel, Keepa, PriceSpy and Idealo all gate history or alerts behind accounts and often paid tiers. SIR Price Finder keeps: no account needed for search and history, Google sign-in optional for sync, one alert firing per drop.
+
+## 11. Screens and routes (detail for the build tasks)
+
+| Route | What it shows | Five states |
+|---|---|---|
+| `/` | Search box, recent searches, today's tracked drops | All five |
+| `/compare?q=` | Product search results: per-store price rows with source, last-checked time, real-discount badge, sparkline | All five |
+| `/product/[id]` | One product: price table across stores, history chart (30d free / 365d plus), badge explanation, add-to-wishlist, set alert | All five |
+| `/wishlist` | Saved items with current best price, target price, alert status | All five |
+| `/alerts` | Active alerts, fired alerts log, quiet hours and channel settings | All five |
+| `/settings` | Language, currency override, notification channel (Telegram link), data export/delete | All five |
+| `/owner` | Owner-only analytics, server-verified, 403 for everyone else | All five |
+| `/pricing` | Free/Plus test prices, "Subscriptions launching soon" fallback with email capture | All five |
+| `/legal/*` | privacy, terms, refunds, cookies; AI-drafted, lawyer-review tagged | Static |
+
+## 12. API and job list
+
+| Endpoint / job | Purpose | Auth |
+|---|---|---|
+| `GET /api/products/search?q=` | Cross-store product search over indexed data | Public, rate-limited |
+| `GET /api/products/[id]` | Product detail with current prices per store | Public |
+| `GET /api/products/[id]/history` | Price history points (30d free, 365d plus) | Public / entitlement for deep history |
+| `GET/POST/DELETE /api/wishlist` | Wishlist CRUD | Firebase token |
+| `GET/POST/PATCH/DELETE /api/alerts` | Alert CRUD, one active alert per product on free tier | Firebase token + entitlement |
+| `POST /api/products/manual-price` | Owner/user-submitted price snapshot (Noon and manual sources) | Firebase token, audited |
+| `GET /api/health` | Health JSON for both hosts | Public |
+| `GET /api/owner/stats` | Owner analytics aggregates | Owner token only |
+| `POST /api/ai/explain` | AI sentence for price-history explanation, metered | Firebase token, quota |
+| Scheduled job `price-refresh` | Re-fetch tracked products from lawful sources, write price points | Service account, cron |
+| Scheduled job `alert-check` | Compare fresh prices to targets, fire one alert per drop | Service account, cron |
+| Telegram webhook/sender | Deliver alerts and weekly digest | Bot token in env only |
+
+## 13. Launch and marketing (personal product, owner-decided)
+
+- v1 is the owner's own tool first; public launch only after the owner says so (PRODUCT_DIRECTION rule). Noindex until then.
+- When public: Arabic-first landing explaining the fake-discount badge (the trust feature nobody else in Egypt ships), shareable product links, and a Telegram channel posting the owner's own tracked drops. No paid acquisition, no ads (ad spend cap 0).
+- SEO: one static page per tracked product category is deferred; start with the landing and legal pages only.
+
+## 14. Risks and open questions (r61) with recommended answers
+
+| # | Risk / question | Recommended answer |
+|---|---|---|
+| R1 | Lawful price coverage is thinner than the marketing promise (Amazon Creators API + Jumia JForce confirmed; Noon unconfirmed) | Ship with the confirmed sources plus manual price snapshots; the UI always shows the source per price row and never implies coverage it does not have. Promise "stores we can lawfully read", not "every store". |
+| R2 | Amazon Associates eligibility (10 sales in 30 days) may block the Creators API | Build the client with fixture fallback from day one; if blocked, Amazon enters via manual snapshots too and the report says "blocked on Associates approval". |
+| R3 | Third-party scraping APIs (ReefAPI etc.) violate store terms or their own ToS is unclear | Do not use them for stored price data in v1. Revisit only with written terms confirmation. |
+| R4 | Stale prices presented as current | Every price row and chart point shows source + last-checked timestamp; prices older than the source's refresh window are visually marked stale, never silently used. |
+| R5 | Alert fatigue / duplicate alerts | One alert per product per drop, quiet hours, digest option; 5 parallel checks must produce exactly one alert (already an exit test). |
+| R6 | Currency conversion inaccuracy | Show the original currency amount next to every converted price, cite the rate source and its date; manual override always wins. |
+| R7 | Paid tier before legal/fee review | Test prices only, "Subscriptions launching soon" fallback with email capture; no real charge until the lawyer review in M5. |
+| Q1 | Does Noon offer any official feed later? | Re-check quarterly; meanwhile manual snapshots keep Noon products trackable. |
+| Q2 | Google Shopping paid API? | No until the product has revenue; it is a competitor reference, not a source. |
+| Q3 | Browser extension timing? | Defer to M4+ per the existing milestone; revisit with the M6 ADR. |
+| Q4 | Personal tool vs public product? | Build personal-first (the owner's own use proves the loop); public launch is the owner's call per PRODUCT_DIRECTION. |

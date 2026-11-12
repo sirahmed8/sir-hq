@@ -79,3 +79,40 @@ Read from the pages opened on 2026-11-12, not from an aggregator.
 10. Confirm the Google Cloud pricing for a small Node.js server (enough for NPC dialog API with 5 free per day quota) and record the numbers with a link.
 
 ---
+---
+
+## 5. Second research pass, 2026-11-12 evening (new facts that change the plan)
+
+### 5.1 GTA V now has two PC editions (Legacy Gen8 and Enhanced Gen9)
+
+- GTA V Enhanced shipped 2025-03-25 for PC (builds 1.0.811.x / 1.0.812.x). ScriptHookV added Enhanced support on 2025-03-23 (`dev-c.com/post/scripthookv-enhanced`, their claim, read 2026-11-12).
+- The script ecosystem split: most `.asi` script plugins written for Legacy do NOT work on Enhanced because memory patterns changed (SHVDN issue #1558, `github.com/scripthookvdotnet/scripthookvdotnet/issues/1558`, read 2026-11-12). A community fork "ScriptHookVDotNet Enhanced" (SHVDNE, zlib licence) supports both editions (`github.com/Chiheb-Bacha/scripthookvdotnetenhanced`, read 2026-11-12).
+- The mods-folder loader differs per edition: Legacy uses `OpenIV.asi`; Enhanced uses `OpenRPF.asi` (OIV Package Installer page, `gta5-mods.com/tools/oiv-package-installer`, read 2026-11-12). OpenIV itself cannot read Enhanced archives without a workaround (copy `GTA5_Enhanced.exe` as `gta5.exe`, per JulioNIB's Patreon post, 2025-03-24, their claim).
+- Assets are NOT interchangeable: Gen8 RPF content on Gen9 crashes the game; CodeWalker (Dexyfex) converts between them (Nexus Mods video tutorial page, `nexusmods.com/gta5/videos/1082`, read 2026-11-12, their claim).
+- Plan impact: the installer MUST detect which edition is installed (exe name `GTA5.exe` vs `GTA5_Enhanced.exe`, build number) and either support both via the right loader or refuse with a clear message. Every mod row in the catalogue needs an `editions` field. This is now task scope in `ops/briefs/sir-mods-gta-v-tasks.md`.
+
+### 5.2 Rockstar/Take-Two official mod guidelines, updated September 2026
+
+- Official support page: `support.rockstargames.com/articles/5NVOAYjcTomO8v6SX2k76k/pc-single-player-mods` ("Last Updated: September 15, 2026", read 2026-11-12). It links three documents: Rockstar Games Terms of Service, Rockstar Games Creator Platform License Agreement, and Rockstar Games Mod Guidelines.
+- Per secondary coverage (allthings.how summary of the published guidelines, read 2026-11-12, their claim): single-player, non-commercial mods that respect third-party IP remain allowed; monetized mods may only be sold "via digital storefront providers approved by Rockstar Games" (reported as the Cfx Marketplace). Paid mod packs outside an approved storefront are now an explicit violation.
+- Plan impact: the "49 EGP curated pack" idea in plan section 20 is HIGH RISK under the September 2026 guidelines unless sold through an approved storefront or reclassified. Recommended answer (open question Q1 below): keep every mod file free forever; monetise only the installer convenience, NPC AI quota packs and cosmetic supporter perks sold as a service, never as "mods"; get the exact wording reviewed by the lawyer before any paid launch.
+
+### 5.3 The one-click installer space got crowded in 2025-2026
+
+New competitors found on 2026-11-12 (pages read the same day unless noted):
+
+| Competitor | What it is | Notable claims (theirs) | Source |
+|---|---|---|---|
+| ModDrop V | Drag-drop GTA V mod installer, Legacy + Enhanced, 13 languages | Per-step install plan shown first, profiles, load order/conflict resolution, check-and-repair after game updates, `.ini/.xml/.json` in-app editor, uninstall everything | `gta5-mods.com/tools/moddropv-install-any-mods-in-just-a-few-clicks` |
+| ModsHub | Electron desktop app for GTA 5 + FiveM, one-click installs, setup syncs to FiveM servers | Library-driven install, no manual folder edits | `modshub.io` |
+| LSPDFRManager | Open-source (.NET 8 WPF + React/TS) LSPDFR/GTA V command center | Library, install with conflict detection + rollback, diagnostics, profiles, backups, OIV build wizard, crash log analyzer | `github.com/rolling-codes/LSPDFRManager` (MIT licence) |
+| Nexus ModMaster Fluent | Next-gen GTA V installer, Fluent UI on .NET 8 | Handles `.oiv`, `.oivs` (Super OIVs), `.nexus`; Legacy + Enhanced; auto-detects Steam/Epic/Rockstar installs; 1-click game launch | `gtainside.com` listing, uploaded 2026-10-11 (their claim) |
+| OIV Package Installer | Lightweight CodeWalker-core `.oiv`/`.oivs`/DLC installer with Manage Mods | `.oivs` wizard format (Vortex-style options + before/after previews), dlc.rpf registration in dlclist.xml, game-version validation | `gta5-mods.com/tools/oiv-package-installer` |
+
+What this means: "one-click installer" is no longer a differentiator by itself (ModDrop V and Nexus ModMaster already do drag-drop install, load order, profiles, check-and-repair). Our surviving edges: the AI NPC conversation mod (nobody else has it), the curated+licence-gated pack, the Arabic-first/Egyptian guide, free forever with no ads, publisher-policy-safe design, and owner analytics. The plan's feature list must now match or beat ModDrop V's checklist (profiles, conflict resolution, check-and-repair, .oivs-style options) instead of only beating manual OpenIV installs.
+
+### 5.4 Still open after this pass
+
+- Whether Rockstar's September 2026 Mod Guidelines PDF text itself can be fetched verbatim (the support page links it; the PDF may need a browser). Task T-policy owns fetching it and quoting headings.
+- Whether Cfx Marketplace accepts non-FiveM single-player mods (unsourced, verify) - decides if paid packs have any legal path at all.
+- GTA 6 released November 2026 (GamesRadar coverage, their claim): long-term this may shift the whole modding audience; out of scope for v1 but noted as a market risk.

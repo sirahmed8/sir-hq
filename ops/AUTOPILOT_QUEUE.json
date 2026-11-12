@@ -824,7 +824,7 @@
     "name": "r61-plan-sir-business",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Business: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -838,7 +838,7 @@
     "name": "r61-plan-sir-content-creation-studio",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Content Creation Studio: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -866,7 +866,7 @@
     "name": "r61-plan-sir-handyman",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Handyman: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   },
   {
@@ -915,7 +915,7 @@
     "name": "r61-plan-sir-access-map",
     "folder": "D:/Projects/_SIR",
     "title": "SIR Access Map: planning refresh only (no building)",
-    "done": false,
+    "done": true,
     "parallel_ok": true
   }
 ]

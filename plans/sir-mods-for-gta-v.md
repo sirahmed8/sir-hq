@@ -182,3 +182,90 @@ Match or exceed the best GTA V mod site for: curated single-player pack, one-cli
 **Queue order and dependencies.** T1, T2 and T3 can run in parallel (T1 is read-only, T2 owns the repo scaffold, T3 owns the Firebase project and auth). T4 needs T2. T5 needs T2 and T4. T6 needs T2. T7 needs T2 and T6. T8 needs T2 and T5. T9 needs T2 and T8. T10 needs T3 and T2. Each task writes to its own area of the repository so two agents never fight over one file: T1 writes `.sir/reports/parity.md`, T2 writes the scaffold, `packages/ui` skeleton and the workflow, T3 writes `packages/kit/owner-auth` and `.firebaserc`, T4 writes `scripts/check-binaries.mjs` and the workflow, T5 writes `packages/installer-core/`, T6 writes `packages/ui`, T7 writes `apps/web/app/(player)/catalog`, T8 writes `packages/installer-core` and its tests, T9 writes `apps/web/app/(player)/catalog` five states, T10 writes `packages/kit/owner-auth` and `docs/OWNER_STEPS.md`. Each task writes to its own area of the repository so two agents never fight over one file.
 
 **What is deliberately not in these ten:** the tournaments engine, the owner console with the cash register, the Windows installer, the AI features beyond the NPC support bot, the marketing work. They are M4, M5 and M6 in the plan and each one needs the ten above to be green first.
+---
+
+## 23. Refresh delta (2026-11-12, round r61, rule 20 rescan)
+
+This section is the current truth where it differs from anything above. Research source: `ops/competitors/sir-mods-for-gta-v.md` section 5 (second pass, same date).
+
+### 23.1 The two-edition reality (new, blocking for the installer)
+
+- GTA V ships as Legacy (`GTA5.exe`, Gen8) and Enhanced (`GTA5_Enhanced.exe`, Gen9, builds 1.0.811.x/812.x, released 2025-03-25). ScriptHookV supports Enhanced since 2025-03-23, but most Legacy `.asi` scripts are broken on it (memory patterns changed; SHVDN issue #1558).
+- Mods-folder loaders differ: Legacy = `OpenIV.asi`, Enhanced = `OpenRPF.asi`. RPF assets are not interchangeable between editions (Gen8 content crashes Gen9; CodeWalker converts).
+- Decision (recommended): v1 detects the edition at install time (exe name + build number) and marks every catalogue mod with `editions: ["legacy"] | ["enhanced"] | ["both"]`. Mods without an Enhanced-safe loader are shown only to Legacy installs. Enhanced support ships in M3 at the earliest, after the Legacy path is proven; never install a Legacy-only asset onto Enhanced.
+
+### 23.2 Monetisation correction (legal)
+
+- Rockstar's official single-player mod support page was updated 2026-09-15 and links the Rockstar Games Mod Guidelines. Per secondary coverage, monetized mods are only allowed "via digital storefront providers approved by Rockstar Games" (reported as Cfx Marketplace). Selling mod files outside an approved storefront is now an explicit violation.
+- Decision (recommended): every mod file stays free forever. Paid surface = services, not mods: NPC AI conversation packs (server-side quota), installer convenience features, supporter cosmetics. If paid mod packs are ever wanted, the only path is a Rockstar-approved storefront - owner decision, lawyer review first. This replaces the "49 EGP curated pack" line in section 20.
+
+### 23.3 Competitive reality
+
+- The drag-drop installer is no longer unique: ModDrop V (Legacy+Enhanced, 13 languages, profiles, load order, check-and-repair), Nexus ModMaster Fluent (`.oiv`/`.oivs`/`.nexus`, Legacy+Enhanced), ModsHub (FiveM sync), LSPDFRManager (open source, MIT), OIV Package Installer (CodeWalker core, `.oivs` wizard) all do it.
+- Feature bar to match: profiles, mod load order and per-file conflict resolution, check-and-repair after game updates, `.ini/.xml/.json` config editing in-app, dlc.rpf registration in dlclist.xml, uninstall-all, game-version compatibility check before install.
+- Surviving edges: AI NPC conversations (unique), licence-gated curated pack, Egyptian Arabic guide first, free forever, Rockstar-policy-safe by design, owner analytics page.
+
+### 23.4 Data model (Firestore, product project `sir-mods-for-gta-v`)
+
+Collections and key fields (full rules in `firestore.rules`, detail doc `docs/data-model.md`):
+
+- `mods/{id}`: slug, name_ar, name_en, description_ar/en, category, editions[], loader (`openiv.asi`|`openrpf.asi`|`none`), files[] {path, sha256, size, target}, licence {name, author, sourceUrl, redistributionProof}, status (`draft|review|published|blocked`), owner_uid (curator), created_at, updated_at.
+- `manifests/{gameVersion}/{edition}`: generated manifest per game build; entries reference mod ids + file hashes; signed with server key.
+- `installs/{uid}`: game edition, game build, mod ids installed, install log entries, created_at. One doc per user, subcollection `installs/{uid}/events` for telemetry.
+- `backups/{uid}/{id}`: snapshot metadata (which files, hashes), retention 30 days.
+- `supporters/{uid}`: tier, perks, since, payment ref (names only, no card data).
+- `inquiries/{id}`: contact form rows.
+- `npcSessions/{id}`: uid, started_at, message count, tokens used, cost_usd, ended_at, kill_switch flag.
+- `profiles/{uid}`: named install profiles (mod sets) for the multi-profile feature.
+- `leads/{id}`: pricing-page email capture (email, locale, created_at).
+- `auditLog/{id}`: owner/admin actions, server-written only.
+
+### 23.5 API list (all server-side, keys never in client)
+
+- `GET /api/health` - real status (db ping, ai provider chain status, manifest freshness).
+- `GET /api/mods` - published mods filtered by detected edition; `GET /api/mods/:slug` - detail + licence block.
+- `POST /api/manifest` - body {edition, gameBuild}; returns signed manifest for the installer. Rate limited.
+- `POST /api/install-report` - installer posts install/uninstall result (consent-gated telemetry).
+- `POST /api/npc/session` - start NPC dialog session; returns session id + provider chain order.
+- `POST /api/npc/message` - {sessionId, text} -> streamed reply; enforces per-session token cap and daily quota.
+- `POST /api/support/ask` - support bot, 5/day free quota, grounded in docs only.
+- `POST /api/leads` - pricing email capture, validates address, writes `leads`.
+- `GET /api/owner/metrics` - owner-only (server-verified token), real counts only.
+- `GET /api/legal/*` - static legal pack pages.
+
+### 23.6 AI features (via `ai-proxy`, all server-side)
+
+1. NPC city-life dialog (flagship): persona-grounded conversations, safety + profanity filter, per-session token cap, daily cost cap, `AI_ENABLED` kill switch, 40-prompt eval suite.
+2. Support assistant: grounded strictly in the guide/docs, 5 free questions/day, quota badge, upgrade prompt on exhaustion.
+3. Mod-description writer (curator tool, owner-only): drafts AR/EN descriptions from licence notes; human approves before publish.
+4. Crash-log triage: parses `ScriptHookV.log`/`asiloader.log`, names the failing script, suggests disable (runs locally, no AI needed for v1; AI summary optional later).
+
+### 23.7 Security and privacy additions
+
+- Edition/build fingerprint sent with install reports is minimal (edition + build number only); no file paths, no Steam id.
+- Telemetry is opt-in per install; uninstall offers "remove my telemetry data" which deletes `installs/{uid}` and `npcSessions` for that uid.
+- NPC dialog text is filtered server-side; nothing is stored beyond session metadata (message text kept 24h max for abuse review, then deleted - documented in privacy page).
+- Manifest signing: server signs manifests with an Ed25519 key held in Secret Manager; installer verifies signature before applying; unsigned manifests are refused.
+
+### 23.8 Launch and marketing additions
+
+- Launch surfaces: GTA5-Mods.com tool page (if the policy gate passes - needs the tool to be a legit file tool, not a mod), Nexus Mods forum thread, r/GTAMods post, Egyptian Arabic YouTube tutorial (owner or hired), Discord server for support.
+- SEO/GEO: `llms.txt`, `/facts` page, Arabic queries ("برنامج تثبيت مودات GTA V", "مود سيارات قراند 5"), English queries ("safe GTA V mod installer single player").
+- 12-week calendar lives in the DEEP plan section 5.4; keep it, add the Enhanced-edition angle as a news hook ("works on Legacy AND Enhanced").
+- Dual hosting from day one of the portal: Firebase Hosting + Vercel, both curl-checked.
+
+### 23.9 Risks (each with the recommended answer)
+
+- R1 Rockstar guideline change bans even free mod redistribution tooling: answer - the installer distributes zero Rockstar assets; mods are either licence-clean third-party files or links to authors; lawyer review before launch.
+- R2 Enhanced edition fragments the audience and halves the usable mod list: answer - detect edition, ship Legacy first (bigger installed base today), add Enhanced-safe mods progressively.
+- R3 A competitor ships the same AI NPC idea: answer - speed on the NPC eval suite and persona quality; the licence-gated pack and Arabic guide are not copyable quickly.
+- R4 ScriptHookV/loader licence does not allow bundling: answer - CSV gate; bundle nothing without proof; installer can download-from-author mode.
+- R5 Game updates break ScriptHookV offsets weekly: answer - version checker + update watcher + Telegram alert to owner; manifest per game build.
+- R6 Paid surface accidentally looks like paid mods: answer - pricing page sells "supporter" and "AI conversation packs", never "mod files"; copy reviewed against the September 2026 guidelines.
+
+### 23.10 Open questions (recommended answers)
+- Q1 Can we sell AI conversation packs / supporter perks without touching the mod-files rule? Recommended: yes, they are services; still get lawyer sign-off.
+- Q2 Do we support Enhanced at launch? Recommended: detect and warn; ship Legacy-only mods first.
+- Q3 Domain: `sirgtamods.com` (section 2) vs `sirgtamods.app` (DEEP plan)? Recommended: owner picks one at purchase time; plan defaults to `.com`.
+- Q4 Bundle ScriptHookV/dinput8 or require the player to install them? Recommended: require + verify + link to author (licence unproven until CSV task completes).
+- Q5 GTA 6 released Nov 2026 - does it change anything for v1? Recommended: no for v1; revisit after launch if GTA V modding audience migrates.

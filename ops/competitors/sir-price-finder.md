@@ -91,3 +91,16 @@
 Buy the domain and point it at both hosts. Create and fund the Paymob and Fawry business accounts and paste the keys into the project's ignored env file. Sign in once on the Google OAuth screen so the branding is right. Talk to three real pitch owners, or approve the outreach text. Lawyer and accountant. Buy the code-signing certificate later. Create the Play Console and Apple developer accounts when the reinvestment ladder allows.
 
 Everything else is an agent's job.
+
+---
+
+## 8. Research addendum, round r61 (read 2026-11-12)
+
+New facts that change the plan, with sources:
+
+- **Amazon PA-API 5.0 is dead.** Deprecated 2026-04-30, endpoint switched off 2026-05-15; successor is the **Creators API**: OAuth 2.0 Credential ID + Secret from Associates Central, bearer tokens (1 hour), global `creatorsapi.amazon/catalog/v1` endpoint with `x-marketplace` header, lowerCamelCase, Offers V2 for live pricing. Eligibility requires Associates enrollment plus **at least 10 qualifying sales in the past 30 days**. Sources: affiliate-program.amazon.com/creatorsapi/docs (introduction, migrating-to-creatorsapi-from-paapi), socq.ai PA-API alternatives, blog.freshstore.com retirement guide.
+- **Jumia Egypt affiliate path exists.** JForce (jforce.jumia.com.eg) advertises commissions up to about 7% in Egypt; a Jumia KOL/affiliate API is in beta (product retrieve + tracked links). Cookie window reported as 7 days by affiliatesaz.com (secondary). Source: jforce.jumia.com.eg, github.com/WackyDawg/Jumia-Kol-API, affiliatesaz.com.
+- **Amazon.eg Associates economics (secondary sources).** Rates roughly 2-14% by category, 24-hour cookie, minimum payout 1,000 EGP, monthly payment; channel review needs 3 qualifying sales in the first 180 days. Source: afliet.com comparison read 2026-10-14 (secondary, verify on Associates Central).
+- **Noon has no confirmed official feed/API.** Third-party price APIs exist (ReefAPI noon endpoints verified 2026-09-15 on their docs; WebFusion Data; HappyEndpoint) but their terms for storing/redistributing prices are unverified. Treat as research-only; plan uses manual price snapshots until an approved feed exists.
+- **Google Shopping data via SerpApi costs money.** From USD 25/month for 1,000 searches (serpapi.com pricing read 2026-11-12). Not a v1 source under the $0 API budget.
+- **Category pattern confirmed:** CamelCamelCamel, Keepa, PriceSpy, Idealo all gate history or alerts behind accounts and often paid tiers; the local-first, no-account-needed loop stays the differentiator.

@@ -367,6 +367,17 @@ Web research performed 2026-11-12 via direct fetches (no search-engine scraping)
 - **Free APIs worth using (free tier, no key cost where possible)**: Firebase Auth (Google sign-in), Firebase Firestore/Storage, Gemini flash-lite/flash via the shared fallback chain, OpenRouter free models, Web Push, ICS (RFC 5545) generation client-side, PDF.js for transcript parsing, Web Speech API for pronunciation practice (local where possible).
 - **Regulations to handle before paid launch**: Egypt PDPL 151/2020, GDPR, Saudi PDPL (if expanding to KSA), COPPA-style minor consent, academic integrity (no graded-work solving).
 
+### Additional 2026-11-12 findings (added via r61 refresh):
+
+- **Moodle 2026**: open-source LMS with WCAG 2.2 AA, certified integrations, B-Corp certified, MoodleCloud hosted option. Takeaway: our self-serve onboarding + Arabic-first + EGP pricing opens a gap below the heavy-admin LMS bar.
+- **Classera 2026**: MENA LMS with 30M+ users across 45+ countries, AI + gamification + personalization, LMS + ERP + payments + marketplace as "Learning Super Platform", enterprise sales, opaque pricing. Takeaway: self-serve + transparent pricing + premium UX + integrity-first AI tutor is our opening.
+- **Teachable 2026**: course-selling platform with USD pricing, 7.5% transaction fee on Starter only, 7-day free trial + 30-day money-back, iOS/Android student apps, auto-graded quizzes, certificates, drip content, memberships, affiliate program. Takeaway: course-creator UX bar (certificates, drip, quiz auto-grade); our edge is institute-first (timetable, attendance, GPA, multi-tenant) and EGP pricing.
+- **Canvas Instructure 2026**: pricing page returned 404; stays "(unsourced, verify)" for exact tiers.
+- **Egyptian PDPL 151/2020**: data inventory, legal consent, data subject rights (access, correction, deletion, portability), cross-border transfer restrictions, breach notification. Legal pack must be marked "AI-drafted, to be reviewed by a qualified Egyptian lawyer before paid launch".
+- **GDPR**: lawful basis, data minimization, DPIA for minors, parental consent for under-16 (varies by member state), right to erasure, portability, DPO where required.
+- **Free APIs worth using**: Firebase Auth, Firebase Firestore/Storage, Gemini flash-lite/flash via fallback chain, OpenRouter free models, Web Push, ICS (RFC 5545) client-side, PDF.js for transcript parsing, Web Speech API for pronunciation practice (local where possible).
+- **Regulations to handle before paid launch**: Egypt PDPL 151/2020, GDPR, Saudi PDPL (if expanding to KSA), COPPA-style minor consent, academic integrity (no graded-work solving).
+
 ## 22. Screens (v1, detailed)
 
 All screens are multi-tenant (scoped to current Hub), Arabic RTL first then English, light/dark/system/high-contrast, five states.
