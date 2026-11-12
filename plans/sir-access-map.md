@@ -190,6 +190,7 @@ User             uid, display_name (public contributor name or "anonymous"), rol
 - A `FeatureClaim` becomes `confirmed` when a second distinct user confirms it; a single report shows as `reported` (visible with a "reported, unconfirmed" badge, never as fact).
 - A `Claim` verified by the owner marks its `FeatureClaim`s as `owner_verified`, which counts as a confirmation but is labelled "claimed by the place".
 - `verified_on` is set when a claim is confirmed; `recheck_after` is 180 days by default for stable features (entrance, parking) and 90 days for changeable ones (lift, accessible toilet, quiet hours). Past `recheck_after` the feature shows a "needs re-check" badge, and the owner of the product sees it in the moderation queue.
+- Every `FeatureKey` traces to a written source in `docs/DATA_SOURCES.md`: the Egyptian Building Code for persons with disabilities gives measurable thresholds (corridors and doorways at least 1.2 m, ramp slope at most about 5 percent, entrance curb height at most 15 cm, designated parking bays with markings), and Law No. 10 of 2018 Articles 39 to 46 give the legal hook. A feature that cannot be traced to a source or marked "(unsourced, verify)" does not ship.
 - Photo upload is size- and type-checked before storage, stored with signed URLs, auto-deleted 90 days after the place or claim is removed.
 - A place owner sees only their own claimed places in their console; enforced in Firestore rules and re-checked on the server.
 
@@ -221,7 +222,7 @@ Free users get 5 AI calls per rolling 24 hours with a visible badge, the owner i
 
 - Firestore with deny-by-default rules, per-user and per-place-owner claims, emulator tests including a cross-tenant read that must fail.
 - A place submission, a feature claim and a confirmation are Firestore transactions with idempotency keys. Test: 20 parallel confirmations from distinct users on one claim produce exactly one confirmed state and clean rejections for duplicates.
-- The base map provider is decided in M0 and recorded in `docs/DATA_SOURCES.md`: OpenStreetMap tiles (ODbL licence, attribution required) or a licensed provider; the decision weighs Egypt tile coverage, cost at free tier and the route engine's needs. Route planning in v1 uses the provider's routing or OSRM on OSM data; the "avoids barriers" layer is ours on top.
+- The base map provider is decided in M0 and recorded in `docs/DATA_SOURCES.md`. The r61 refresh (2026-11-12) compared the official pricing pages: Geoapify free plan (3,000 credits per day, commercial use allowed with attribution, routing plus geocoding plus isochrones) is the recommended v1 provider; Mapbox free tier (50,000 GL JS loads per month) is the fallback; Google Maps Platform Essentials (10,000 free Dynamic Maps loads and 100,000 free Map Tiles API tiles per month) is viable but needs a billing account, which is an owner step; MapTiler and Stadia free tiers are non-commercial and rejected; the public OSM tile server has no SLA and is for development and offline tiles only, never the production host. Route planning in v1 uses the provider's routing or OSRM on OSM data; the "avoids barriers" layer is ours on top.
 - Signed webhook for any future payment provider (HMAC-SHA256, timestamp inside the signed body, server-side verification, idempotent activation). Test: tampered, replayed, unsigned and wrong-timestamp events are rejected.
 - No wallet or card payment is required for v1 publishing; the billing fallback page collects leads for the paid tiers in section 7.
 
@@ -379,9 +380,9 @@ Exit checks:
 
 ---
 
-## 9. The first ten tasks for the free agents
+## 9. The task list for the free agents
 
-Ready to queue, each with its own brief: `D:/Projects/_SIR/ops/briefs/sir-access-map-tasks.md`.
+The full ordered task list is `D:/Projects/_SIR/ops/briefs/sir-access-map-tasks.md` (48 tasks after the r61 refresh, each with an acceptance test and the skills that fit). The first ten stay ready to hand to agents at any time; tasks 11 and beyond queue behind them in order. The first ten:
 
 1. Monorepo scaffold with tokens, RTL, the health route and CI.
 2. The product's own Firebase project, the project folder and `owner-auth` with negative tests.
@@ -455,3 +456,33 @@ Picked from `D:/Projects/_SIR/ops/SKILLS_INDEX.md` and the digests in `D:/Projec
 - **The map provider cost or licence fails.** Default: the M0 decision records the licence and cost tier; OSM/OSRM is the fallback; if both fail, the product ships list-and-profile first and the map second, never a broken map.
 - **The audience cannot afford any subscription.** Default: the free tier covers every safety feature; paid tiers sell convenience (offline tiles, unlimited routes, alerts) and business visibility, never access to accessibility information. If real users say even that is too much, the plan drops to a donation/NGO model and the owner decides.
 - **Privacy: a submitter's identity leaks.** Default: submitter UID is stored but never shown publicly; public records show "community verified" or "claimed by the place"; one-tap deletion removes the account and its submissions per the retention policy the lawyer confirms.
+
+---
+
+## 12. Plan refresh r61 (2026-11-12): what the rescan changed
+
+Rescan per rule 20: re-read the project folder (`.sir/CHECKPOINT.md`, `PLAN_REFRESH.md`, `AGENTS.md`, README), this plan, the competitor file, the tasks file, the TickTick row and `PRODUCT_DIRECTION_2026-11-12.md`, then ran fresh web research. Findings and where they landed:
+
+1. **Five more competitors found** (Braillito Maps, DisabledEnabled, Kimap, Ahoi, RailsMaps Egypt stations) plus an academic platform comparison (Zenodo SKI Canada 2026). Added to `ops/competitors/sir-access-map.md` addendum. Braillito validates the checklist-per-place model and the "number plus colour, never colour alone" accessibility rule, which this plan already had in spirit; DisabledEnabled validates the offline-first no-account posture and adds a fourth needs filter (cognitive) worth keeping in the filter design. Kimap's "patented navigation" claim is unverified and treated as marketing, not a model.
+2. **Map provider decided with real numbers.** Official pricing pages checked 2026-11-12: Geoapify free (3,000 credits/day, commercial OK) recommended for v1, Mapbox free (50k GL JS loads/month) fallback, Google Maps Platform Essentials (10k loads + 100k tiles free monthly) viable but needs an owner billing account, MapTiler and Stadia free tiers rejected as non-commercial, public OSM tiles rejected for production. Written into 5.6.
+3. **Egyptian legal baseline found and mapped to the checklist.** Law 10 of 2018 Articles 39 to 46 plus the Egyptian Building Code for persons with disabilities give measurable thresholds (1.2 m corridors, 5 percent ramp slope, 15 cm curb, designated parking). Every FeatureKey now must trace to a source in `docs/DATA_SOURCES.md`. Written into 5.3.
+4. **Task list expanded from 10 to 48** with acceptance tests and skills per task in `ops/briefs/sir-access-map-tasks.md`.
+
+### Open questions and the recommended answer for each
+
+| Question | Recommended answer |
+|---|---|
+| Which map provider for v1? | Geoapify free tier first (commercial use allowed, routing included), Mapbox as fallback, Google Maps Platform only if the owner opens a billing account. Decide for real in M0 and record licence plus cost tier in `docs/DATA_SOURCES.md`. |
+| How to seed the first city without fake data? | Owner, family and volunteers submit and confirm 50 real places in Cairo in month one; no seeded or invented places ever. NGOs and disability communities are outreach targets, not data sources we copy. |
+| Should contributors get a public profile? | No in v1. Public records show "community verified" or "claimed by the place"; opt-in public profiles wait for a moderation and abuse review. |
+| Indoor accessibility (malls, metro stations)? | Out of v1 as indoor mapping, but station and mosque entrance features are in scope. Metro station step-free status can be sourced from RATP-style official lists where they exist; otherwise crowd-sourced like everything else. |
+| Paid place-owner badge: is it ethical here? | Keep it, with the published priority rule and the same evidence bar as everyone. If real owners say it feels pay-to-rank, drop to a flat "verified" badge with no ranking effect. |
+| Egypt data protection law (Law 151 of 2020) for health-adjacent submissions? | Treat all submissions as personal data: no health details requested, submitter UID never public, one-tap export and deletion, lawyer review before paid launch. The legal pack task covers this. |
+| What if Geoapify free quota is too small at launch? | The provider sits behind one adapter interface; switching to Mapbox or Google is a config change, not a rewrite. Quota alerts live in owner analytics. |
+| Should route planning include public transport step-free info? | Not in v1 (no lawful structured feed). v2 candidate: ingest official metro/RER accessibility lists as citations, not scraped data. |
+
+### Risks added by the r61 research
+
+- **Provider dependency.** A free-tier map provider can change terms or quotas; mitigated by the adapter interface and the two-host rule.
+- **Legal exposure if we cite the building code wrong.** Mitigated by quoting thresholds with source links and dates, and marking anything unverified.
+- **Braillito-style screen-reader-first competition.** Mitigated by the plan's own WCAG 2.2 AA bar plus VoiceOver/TalkBack testing tasks added in M5.
