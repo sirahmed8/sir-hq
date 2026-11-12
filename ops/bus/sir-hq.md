@@ -892,3 +892,18 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 
 - [ ] 2026-11-12 from control-room-daemon:
   notice: artifact outdated: republish ops/artifact/control-room.html (hash 889239c8)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 7ff8ec5a)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash d841e450)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 87a52a73)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 82c03952)
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 0bf1e352)
