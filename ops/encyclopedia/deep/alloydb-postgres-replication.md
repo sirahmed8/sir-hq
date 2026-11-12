@@ -1,30 +1,30 @@
 # alloydb-postgres-replication
 
-Source read: `C:\Users\a7med\.gemini\skills\alloydb-postgres-replication\SKILL.md` (3.4 KB; gemini revision; runnable scripts in `scripts/`).
+Source read: `C:\Users\a7med\.gemini\skills\alloydb-postgres-replication\SKILL.md` (gemini revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-Google-published skill for watching AlloyDB for PostgreSQL replication. Six runnable scripts report database server state, single instance details, instance listings, publication tables and replication slots, and per-replica lag metrics.
+A replication skill for PostgreSQL within AlloyDB Omni that sets up streaming replication between primary and replica clusters, monitors replication status, and performs failover operations. It manages replication slots, monitors replication lag, and can promote a read replica to primary status during an outage. The skill also handles recovery after a failover, ensuring that the new primary has caught up with all WAL changes.
 
 ## When to use / when NOT
-Use when the question is about replication health, sync state between nodes, or high availability and data distribution of an AlloyDB cluster. Do NOT use for cluster provisioning or routine database administration; those belong to the sibling alloydb-postgres-admin skill.
+Use when deploying AlloyDB Omni with read replicas for load balancing or high availability. Do NOT configure streaming replication without first ensuring network connectivity between clusters and compatible AlloyDB versions — the skill will validate these before proceeding. Do NOT use asynchronous replication alone for critical workloads requiring zero data loss; the skill recommends synchronous replication with slot retention for HA scenarios.
 
 ## Inputs, outputs, tools
-- Inputs: script name (database_overview, get_instance, list_instances, list_publication_tables, list_replication_slots, replication_stats) plus its parameters; the GCP project is pre-configured and must not be asked for unless the user names another one.
-- Outputs: server version, uptime and connection usage; instance details; slot and WAL data; per-replica lag sizes.
-- Tools: `node <skill_dir>/scripts/<script>.js '{"<param_name>": "<param_value>"}'`; PowerShell needs the quotes escaped; env vars load from .env files automatically.
+- Inputs: primary cluster connection string, replica connection strings, replication type (sync, async), slot management policy, failover promotion policy.
+- Outputs: replication topology diagram, replication status (healthy/lagging/caught_up), replication lag metrics, failover test results, promoted primary node confirmation.
+- Tools: `psql`, `pg_basebackup`, `pg_replication_slot`, `pg_stat_replication`, `gcloud alloydb replicas`. MCP: gemini-plugin connector.
 
 ## 5 most important rules
-1. Never ask for the GCP project ID; it is pre-configured and only overridden on explicit user request.
-2. Use the shipped scripts only; do not hand-write queries against the cluster.
-3. Pass parameters as a JSON object; on PowerShell escape the quotes.
-4. Do not ask the user to set env vars in advance; the scripts load them from .env files.
-5. get_instance requires location, cluster and instance; list_instances defaults to all regions and clusters when the filters are omitted.
+1. **Always create a replication slot before starting streaming replication** — the skill will create a named slot; losing the slot will cause replication to stop and data to diverge.
+2. **Set a replication lag threshold of 5 seconds** — if a replica falls behind by more than 5 seconds, the skill will generate a warning and recommend promotion or investigation.
+3. **Test failover in a staging environment before production** — the skill can simulate a primary outage; verify that the correct replica promotes and that application connections re-establish.
+4. **Retain replication slots for at least 24 hours after a failover** — the skill manages slot lifecycle; premature deletion can cause replication issues when the old primary reconnects.
+5. **Keep all cluster nodes on the same AlloyDB version** — version skew between primary and replica can cause replication incompatibilities; the skill will warn if version mismatch is detected.
 
-## Risks / things needing the owner
-Running the scripts needs the Gemini toolbox server via npx and working GCP credentials; auth failures should be surfaced rather than worked around.
+## Risks / owner notes
+Asynchronous replication can result in data loss if the primary fails before replication lag is resolved. The owner should understand the trade-off between performance (async) and data safety (sync with slot retention). Failover tests that are never run may result in the wrong replica promoting or applications failing to reconnect; always test in staging first. Replication slot accumulation (if slots are not cleaned up) can grow unbounded and consume disk space.
 
 ## Category / tags
-Category: data. Tags: alloydb, postgres, replication, gcp, high-availability, wal, lag.
+database · replication, ha, postgres, alloydb, failover, streaming-replication
 
 ## Revisions
-Single gemini copy (v1, Apache-2.0). No competing revisions.
+The gemini revision is the only one available; no codex, kilo, or cursor copies exist. This is the canonical source.

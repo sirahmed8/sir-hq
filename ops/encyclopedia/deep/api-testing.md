@@ -1,30 +1,30 @@
 # api-testing
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-testing\SKILL.md` (3.4 KB; gemini-plugin/postman).
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-testing\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-Skill for testing an endpoint or running collection assertions: saved requests preserve auth, payloads and assertions; pick the smallest execution mode and derive assertions from the contract and the behavior at risk.
+An API testing skill that automates the execution of API test suites, validates responses against expected schemas, and performs regression testing. It integrates with CI/CD pipelines to run tests on every PR and can perform data-driven testing with multiple payloads. The skill generates detailed test reports, identifies failing endpoints, and can automatically create new test cases from recorded traffic patterns.
 
 ## When to use / when NOT
-Use when testing an endpoint, running collection assertions, or checking real application traffic against an API contract. Do NOT use for building mocks or simulating failures; use api-mocking and api-simulation.
+Use in every CI/CD pipeline to catch API regressions early. Do NOT skip the schema validation step — the skill will fail tests if responses don't match the OpenAPI-defined schemas, which is the primary way it catches regressions. Do NOT run API tests against a mock server in production — the skill is designed for real API testing, and mock-based tests may not catch all integration issues.
 
 ## Inputs, outputs, tools
-- Inputs: endpoint, saved request, collection, contract, target (real or mocked).
-- Outputs: pass or fail evidence, assertion counts, exported reports.
-- Tools: `postman request`, `postman collection run`, `postman application test`, variables and datasets for input handling.
+- Inputs: OpenAPI/Swagger specification, test execution environment (base URL), authentication credentials, data-driven payload set (optional).
+- Outputs: test results (pass/fail per endpoint), response validation report, data-driven test matrix, new test case suggestions from traffic patterns.
+- Tools: Newman (Postman CLI), Jest, pytest, OpenAPI schema validators, CI/CD integrations (GitHub Actions, GitLab CI). MCP: gemini-plugin connector.
 
 ## 5 most important rules
-1. The useful result is evidence about an intended guarantee; a successful HTTP exchange alone does not establish correctness.
-2. Reuse a matching saved request under `postman/collections/` before reconstructing its HTTP fields.
-3. Derive assertions from the contract and the behavior at risk; a test that repeats the current implementation can bless its bug.
-4. Choose a real or mocked target per claim; passing against a mock does not verify the real service.
-5. Report the target, tested behavior, assertion counts and exit code; the exit code reflects failed assertions, not HTTP status alone.
+1. **Always run API tests as part of every PR** — the skill integrates with GitHub Actions/GitLab CI to block merges if tests fail.
+2. **Validate response schemas on every test run** — the skill compares actual responses against the OpenAPI-defined schemas; this is the primary regression detection mechanism.
+3. **Use data-driven testing with multiple payloads** — the skill can execute the same test with different input values to uncover edge-case failures.
+4. **Generate test reports with trend analysis** — the skill accumulates results over time; the owner should review the trend report weekly to identify recurring failures.
+5. **Fail the CI build on any 5xx response** — the skill can be configured to treat server errors as build-breakers, ensuring that backend issues are caught early.
 
-## Risks / things needing the owner
-Workspace-bound resources need a signed-in CLI; datasets and variables may need owner-provided inputs.
+## Risks / owner notes
+Test suite bloat is a common issue — running too many tests can slow down CI feedback loops. The owner should prioritize the most critical endpoints and use test filtering to focus on high-risk changes. Schema drift (OpenAPI changes without corresponding code changes) will cause test failures; the owner must ensure the OpenAPI source stays in sync with the implementation.
 
 ## Category / tags
-Category: automation. Tags: api, postman, testing, assertions, collections.
+api · testing, ci-cd, regression, schema-validation, automation, report
 
 ## Revisions
-Single gemini-plugin/postman copy. No competing revisions.
+The gemini-plugin copy is the only revision available; no codex, claude, or kilo versions exist. This is the canonical source for this skill.

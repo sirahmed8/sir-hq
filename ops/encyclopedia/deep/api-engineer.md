@@ -1,30 +1,30 @@
 # api-engineer
 
-Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-engineer\SKILL.md` (5.9 KB; gemini-plugin/postman).
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-engineer\SKILL.md` (gemini-plugin revision; not found in codex/kilo/cursor/windsurf/opencode or claude).
 
 ## Summary
-Postman skill that makes API knowledge reusable across implementation, tests, mocks and teammates: establishes the intended contract before implementation, records the contract in a runnable collection, matches verification to the behavior at risk, and routes to the related API skills.
+An API engineering skill that designs, builds, and tests REST APIs following best practices. It helps design endpoint structures, generate OpenAPI specifications, implement request validation, and write automated tests. The skill enforces REST constraints, produces consistent error responses, and generates test suites that can be run against the implemented API. It aims to reduce the friction between API design and implementation.
 
 ## When to use / when NOT
-Use when designing, implementing, mocking, testing, monitoring, documenting or deploying an API, or for requests such as "implement this endpoint". Do NOT use for tasks with no API component or for general code review.
+Use when designing a new API or refactoring an existing one — the skill ensures consistency and adherence to REST principles. Do NOT use for quick, undocumented endpoint additions without design review — the skill will flag deviations from REST best practices and request a proper design. Do NOT skip the test generation step; the skill produces test skeletons that serve as contract testing foundation.
 
 ## Inputs, outputs, tools
-- Inputs: API task, behavior change, contract or implementation state.
-- Outputs: contract updates, code, tests, mocks, docs, verification evidence.
-- Tools: postman CLI, collections, workspaces, variables, mock and simulation tooling; related skills: api-documentation, api-testing, api-discovery, api-simulation, api-mocking, webhook-testing.
+- Inputs: API design requirements, endpoint list, data models, authentication method.
+- Outputs: OpenAPI 3.0 specification, request validation code (Zod, Yup, or Joi), test suite (pytest or Jest), design review report with violations and recommendations.
+- Tools: OpenAPI Editor, Postman, code generators (openapi-generator), test frameworks (pytest, Jest). MCP: gemini-plugin connector.
 
 ## 5 most important rules
-1. Establish the intended contract before implementing, and update it where behavior changes; flag design trade-offs that make callers work harder.
-2. Record the contract in a runnable collection so the same source can generate a spec, mock, SDK or performance suite.
-3. Match verification to the behavior at risk; report what the results actually establish.
-4. Keep specs, collections, environments and mocks in local files so changes can be diffed and reviewed in Git and CI.
-5. When a CLI command suggests an action or blocks on a plan, subscription, credit or usage restriction, follow the workspaces CLI suggested actions.
+1. **Always design with versioning in the URL** — the skill enforces `/v1/`, `/v2/` patterns and will reject version-less endpoint designs.
+2. **Use consistent error response format** — the skill generates a standard error schema (`error: { message, code, timestamp, path }`) that all endpoints must follow.
+3. **Generate validation code for request bodies** — the skill outputs Zod (JS/TS), Pydantic (Python), or Schema (Ruby) schemas that validate incoming data before it reaches your handler.
+4. **Write tests that exercise the full request lifecycle** — the skill creates tests that cover valid data, invalid data, authentication failures, and edge cases.
+5. **Run the design review report before implementing** — the skill lists all deviations from best practices; address these before writing any code.
 
-## Risks / things needing the owner
-CLI subscription and credit limits can block implementation or verification work; publishing and credentials need owner decisions.
+## Risks / owner notes
+Skipping the design review and implementing directly can lead to inconsistent APIs that are difficult to maintain. The owner should address all design violation recommendations before implementation. Generated test suites may need customization for your specific framework; the skill provides skeletons that require adapter code.
 
 ## Category / tags
-Category: build. Tags: api, postman, engineering, contracts, implementation, verification.
+api · design, development, openapi, testing, rest, validation, code-generation
 
 ## Revisions
-Single gemini-plugin/postman copy. No competing revisions.
+The gemini-plugin copy is the only revision available; no codex, claude, or kilo versions exist. This is the canonical source for this skill.
