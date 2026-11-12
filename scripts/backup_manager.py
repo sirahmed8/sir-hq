@@ -508,6 +508,8 @@ def direct_reply(body: str, notes: str):
             if p.exists():
                 state += f"\n--- {rel} (tail)\n" + p.read_text(encoding="utf-8", errors="ignore")[-n:]
         board = subprocess.run([sys.executable, str(ROOT / "scripts" / "taskboard.py"), "list"], capture_output=True, text=True, timeout=20).stdout[-1500:]
+        live = subprocess.run([sys.executable, str(ROOT / "scripts" / "ai-status.py")], capture_output=True, text=True, timeout=40).stdout[:3500]
+        state += "\n--- LIVE STATUS right now (trust this over any older text; the free tools are working when runner pids are listed; a model cooling down is normal and the next one takes over)\n" + live
         system = (PERSONA.read_text(encoding="utf-8") +
                   "\n\n## Mode: fast chat answer\nYou cannot run tools in this step. Answer Ahmed directly and honestly from the state below. "
                   "If he asks for work to be done or checked on the computer, say what you will do and set needs_agent true. "
