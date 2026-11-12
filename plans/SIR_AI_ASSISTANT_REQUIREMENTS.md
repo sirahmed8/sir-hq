@@ -22,3 +22,15 @@ SIR AI is a general product (subscriptions, many users in Egypt and beyond), not
 - Premium UI: Arabic RTL first, English, spring animations, no glitches, tab bars draggable by finger, one shared component set, five states on every view.
 - Integrations: Telegram, WhatsApp, Google Workspace, TickTick, Microsoft To Do, Notion, Apple Reminders via CalDAV/ICS, health data import. Each with clear states and a retry.
 - AI: several providers with fallback and privacy routing; local models for private data.
+
+## 4. Platform research (round 40, 2026-11-12)
+Researched agentic OS platforms, memory systems and local voice. Shallow read-only clones kept in `SIR AI/legacy/agentic-os-research/` with licences (never edited, never deleted):
+- Agent OS (use-agent-os/agent-os, Apache 2.0) — pilot router, cheapest-capable-model routing, multi-provider support.
+- Open Agent OS (openit-ai/open-agent-os, Apache 2.0/BSL 1.1) — Telegram channel, self-hosted mini-PC edition model.
+- OpenHands (All-Hands-AI/OpenHands, MIT) — agent control center, agent abstraction, sandboxed execution.
+- Goose (aaif-goose/goose, Apache 2.0) — desktop app + CLI + API, MCP tool connections, ACP IDE integration.
+- Hermes Agent (NousResearch/hermes-agent, MIT) — self-improving skills, persistent memory, multi-platform gateway including Telegram.
+- mem0 (mem0ai/mem0, Apache 2.0) — add()/search() per-user memory layer.
+- Letta (letta-ai/letta, Apache 2.0) — stateful agent runtime with agent-edited memory tiers.
+- Whisper (openai/whisper, MIT) — local STT for the offline Owner Edition voice path.
+Decisions: no code is copied from any clone; every SIR AI module is clean-room written. Memory follows a mem0-style per-user add/search layer over per-user Firestore documents, tiered P0-P3 like the privacy router; Letta's whole-runtime option is kept for the Owner Edition later. Voice starts with the browser Web Speech API (T-06E) and upgrades to local Faster-Whisper/Piper in the Owner Edition (T-06A). AGPL material in legacy/Odysseus app is reference only, never copied.

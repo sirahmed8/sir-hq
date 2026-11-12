@@ -1,5 +1,21 @@
 # Inbox: HQ
 Project chats report here (newest first). HQ replies in the project chat or in that project's inbox. Format: - [ ] date from <slug>: done / evidence / needs review / question.
+- [ ] 2026-11-12 from sir-ai (SIR AI - r40-sir-ai-vision: planning and research round):
+  done:
+    (1) Researched agentic OS platforms and memory systems (Agent OS, Open Agent OS, OpenHands, Goose, Hermes Agent, mem0, Letta, Whisper); shallow read-only clones in legacy/agentic-os-research/ with licences kept, nothing copied.
+    (2) Wrote .sir/plans/PERSONAL_AI_PLATFORM.md: architecture (accounts, Firebase sync, desktop agent, phone remote, CLI bundling, memory model P0-P3, privacy, account gating), phased roadmap M0-M6, free-tier cost plan.
+    (3) Audited the website: connection states (integrations not_connected/connecting/connected/error/revoked, Telegram unlinked/waiting/linked, devices empty, AI not configured), missing features vs vision (live OAuth, payments, phone shells, push, QR pairing, signed installer), Ask card AI has no configured key and no model picker or voice model selection.
+    (4) Updated _SIR/plans/SIR_AI_ASSISTANT_REQUIREMENTS.md section 4 and .sir/MASTER_PLAN.md section 19; ticked T-080 to T-083 in .sir/TASKS.md.
+  evidence: .sir/plans/PERSONAL_AI_PLATFORM.md, .sir/TASKS.md, ops/agy-runs/reports/r40-sir-ai-vision.md
+  signal: r40-sir-ai-vision ready for CI check and commit
+- [ ] 2026-11-12 from _SIR (SIR Disk Cleanup - r41-disk-regenerable: freed 14.81 GB regenerable space):
+  done:
+    (1) Dry-run identified 15.0 GB regenerable: legacy node_modules (9.3 GB), build outputs (2.4 GB), package/tool caches (3.1 GB), _quarantine folders (0.16 GB), browser test profiles (0.02 GB), old agy-runs logs (0.03 GB).
+    (2) Executed deletion of all marked items: 20+ legacy node_modules folders, 15+ legacy build outputs, 7 non-active project build outputs, pnpm store (0.49 GB), Playwright browsers (1.58 GB), Gradle cache (0.51 GB), Windows Temp (0.22 GB), 3 _quarantine folders, AHome CDP profile, 80+ old agy-runs reports/screenshots.
+    (3) Protected items preserved: legacy/ folders, old projects/, games/, AI_Models_Hub (11.68 GB), Backups/ (1.56 GB), AHome data, git history, secrets, active project node_modules/build outputs.
+  result: D: 2.03 GB → 14.82 GB (+12.79 GB), C: 7.61 GB → 9.63 GB (+2.02 GB), total freed 14.81 GB.
+  evidence: ops/disk-plan-2026-11-12.md, ops/agy-runs/reports/r41-disk-regenerable.md.
+  signal: r41-disk-regenerable ok - D: drive now at 5% used from 99%.
 - [ ] 2026-11-11 from sir-jobs (SIR Jobs - r34-jobs-ui-overhaul: full dashboard UI/UX overhaul):
   done:
     (1) All 8 checklist items complete: click-target audit (158 elements, 0 dead), compact top-bar with labelled chips + dot status, language copy cleaned (English/العربية only), bidi isolation via bdiHtml() everywhere mixed AR/EN renders, locale-aware currency auto-detect with manual override, native-app feel (selection lock + app-owned context menu), full visual redesign (styled target-calculator dialog, normalized radii/padding/4-8px grid, spring press feedback, deduped nav), two clean self-audit cycles.
@@ -798,3 +814,12 @@ r20-study done 2026-11-11: all 9 brief items closed, R19 checklist fully fixed w
 - 2026-11-12 drive-upload agent: BLOCKED, Claude in Chrome not connected (no browsers); also file_upload cap is under 10 MB and Lec 03 slides PDF is 10,566,459 bytes. Drive folder id 1JWow5j2VDUj5nZwuS-G7ZIz3uXiEZqi4. OWNER_ACTIONS items 1 and 2 left unchanged.
 - 2026-11-12 01:27 sir-ai-builder: SIR AI r26 pushed 4babf5d: Telegram webhook/link flow matches BOT_ARCHITECTURE.md (shared bot, webhook, tappable t.me link + code), voice on Ask card, cookie banner overlap fixed; both hosts identical (fingerprint 4b7ded28a26c), 202 tests and sweep 0 findings; owner bug list (a)-(f) not present in SIR AI code (likely another product); OWNER_DEFAULTS 14-18 still open.
 - 2026-11-12 01:33 r36-more-free-workers: widened pool/runner/manager for codex,qwen,goose,crush,cline,kimi,gemini,aider (gemini ineligible, aider not installed, cline/kimi need auth, codex quota-limited; qwen/goose smoke pass in ops/agy-runs/scratch/r36). ai-status now writes daily pool health.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 795cb386)
+- 2026-11-12 01:48 sir-ai-builder: stopped by owner order. r27 item 1 (native feel, own context menu, live bidi + bdi, currency auto-detect) pushed, 210 tests, sweep 0 findings; items 2 (legacy/TickTick mining) and 3 (Jarvis assistant) not started, full plan in SIR AI .sir/CHECKPOINT.md Round 27.
+
+- [ ] 2026-11-12 from control-room-daemon:
+  notice: artifact outdated: republish ops/artifact/control-room.html (hash 1ec83893)
+
+- 2026-11-12 kilo-worker: SIR Portfolio r39 copy rewrite pushed to main — SIR AI reframed as flagship public product (sign up on the website, desktop app, phone remote, everything syncs) in products.json and ui.json; 'private project / early stage' wording removed from products.json, ui.json, MASTER_PLAN.md, PLAN.md and the README draft; content:check 0 errors 0 warnings, 829 tests pass, axe 24/24 and keyboard audit pass, both Firebase and Vercel redeployed and curl-checked 200.
