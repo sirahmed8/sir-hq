@@ -50,5 +50,6 @@ If you cannot finish, do NOT run it. The runner keeps going with the next model.
 24. TickTick and the browser (owner, 2026-11-12): never press Ctrl+P or any shortcut with `computer type/key` on a web page; use sir_ctl `browser fill/click` on elements instead, or the TickTick Open API. If a print dialog appears (a Chrome window titled Print), press Escape at once and note it in ops/bus/team.md. Close every tab you opened when you finish.
 
 
-## Browser rule (owner, 2026-11-13)
-Never open a visible browser window or tab on the owner's PC (no Chrome, no Edge, no Claude in Chrome). Use headless Playwright only (chromium.launch(headless=True)). Do not open localhost ports in a visible browser; the owner sees stray tabs.
+
+## Browser rule (owner, 2026-11-13, replaces the earlier rule)
+A worker may open a browser only once per task, only when the brief needs a visual check, and must say in its report which tool and which URL it opened. Use headless Playwright when possible. Never leave tabs open on the owner PC; close what you opened. Repeated stray tabs are a defect.
