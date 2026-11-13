@@ -370,3 +370,9 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - iCloud explained to owner: local folder is already online-only (0 GB); nothing local to delete; cloud copies are his call on icloud.com.
 - Bionic: desktop AI assistant app (C:\Program Files\Bionic) - overlapping conversational AI; role = optional leftover client, not core infrastructure.
 - Next step: owner re-sends clean Hermes bot token; SIR Study audit still running; OpenClaw main-session model override still needs the one-click Control UI fix or a new chat.
+
+## HQ note (2026-11-13 21:30) [Devin = backup manager]
+- HERMES TELEGRAM LIVE: owner re-sent clean @HermesSIRAIBot token -> written to hermes .env, `hermes gateway restart` -> telegram state=connected (pid 19088). Hermes is now reachable on its own bot with local qwen3.5:9b.
+- Bot map final: @PersonalAI_1Bot = SIR manager (backup chain), @Personal1AI1Bot = AHome, @HermesSIRAIBot = Hermes agent. SIR AI bot reserved for the SIR AI project later.
+- Team now: audit-sir-study-20261113-1501-fix1 running (pid 8412); audit-sir-jobs-1821-fix1 done 21:28; autopilot healthy.
+- Owner wants strongest model on SIR AI + Agentic OS epic (brief written). Recommendation given: Devin/me for architecture, agy/free-pool for volume.
