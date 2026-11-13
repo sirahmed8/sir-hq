@@ -8,8 +8,9 @@ One job = one burst of Ahmed's messages (text + voice + photos, grouped by the
 listener's 8 s debounce and media_group_id). Flow:
   download media -> transcribe every voice note and describe every photo IN
   PARALLEL -> one ordered prompt (persona + recent chat + everything Ahmed sent)
-  -> race TWO free coding agents from the shared pool, first valid reply file
-  wins, 150 s per attempt -> answer goes back to Telegram.
+  -> walk the ordered model chain (CHAIN below, best to worst, one provider per
+  step), 40 s per attempt inside a 180 s cap; a quota/limit/401/timeout/empty
+  reply only moves the chain to the next model -> answer goes back to Telegram.
 
 Speed contract (r64): instant ack is the listener's job (reaction + typing);
 this script sends a short "got it" line, keeps typing alive, and answers as
@@ -47,13 +48,28 @@ PERSONA = ROOT / "ops" / "BACKUP_MANAGER_PROMPT.md"
 DEVIN = Path(os.environ.get("LOCALAPPDATA", "")) / "devin/cli/bin/devin.exe"
 TOKEN = os.environ.get("SIR_TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = os.environ.get("SIR_TELEGRAM_CHAT_ID", "")
-BRAIN_TOOLS = {"kilo", "opencode", "devin", "agy"}
+BRAIN_TOOLS = {"kilo", "opencode", "devin", "agy", "aider", "pi", "cline"}
 # small free models mix Chinese, Russian and English into Arabic (owner complaint 2026-11-12): never use them to talk to him
-WEAK_MODELS = ("nemotron-3.5-lightning", "beam-free", "flint", "mimo", "longcat", "minimax", "lightning")
+WEAK_MODELS = ("nemotron-3.5-lightning", "mimo", "longcat", "minimax", "lightning")
 BAD_SCRIPT = re.compile(r"[぀-ヿ㐀-鿿가-힯Ѐ-ӿ฀-๿]")
-ATTEMPT_TIMEOUT = 150      # seconds per racing pair (r64: was 20 minutes)
-MAX_ATTEMPTS = 4
-RACE_SIZE = 2
+# Ordered fallback chain (owner order 2026-11-13): the best model answers first; when its
+# usage limit dies, a 401/403 appears, it times out or it writes no valid reply, the next
+# model in the list takes over by itself, best to worst, so Ahmed always gets an answer and
+# work keeps going. One entry per upstream provider/account: every step is a real second
+# chance and two steps can never spend the same quota.
+ATTEMPT_TIMEOUT = 40       # seconds for ONE chain step (owner: 25-40 s per attempt)
+MAX_TOTAL = 180            # hard cap for the whole chain, then the honest fallback line
+CHAIN = [
+    ("agy", "claude-sonnet-4-6", "claude via antigravity"),
+    ("aider", "groq/openai/gpt-oss-120b", "groq gpt-oss 120b"),
+    ("kilo", "kilo/kilo-auto/free", "kilo free router"),
+    ("aider", "nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b", "nvidia nemotron ultra"),
+    ("devin", "swe-2-flash-medium", "devin swe-2"),
+    ("aider", "openai/@cf/openai/gpt-oss-120b", "cloudflare gpt-oss 120b"),
+    ("opencode", "opencode/big-pickle", "opencode big-pickle"),
+    ("cline", "reflection/beam-free", "beam via cline"),
+    ("pi", "radius/recursive/flint", "flint via radius"),
+]
 
 
 def reply_problem(text: str) -> str:
@@ -272,35 +288,60 @@ def record_latency(entry: str, seconds: float, won: bool) -> None:
         pass
 
 
-def pick_brain() -> list[str]:
-    """Two distinct pool entries for the next race. Entries that have answered
-    fast before are preferred (latency.json), but a cooling entry is never picked."""
-    lat = load_latency()
+def chain_entries() -> list[tuple[str, str, str, str]]:
+    """The ordered chain minus the entries the shared pool knows are cooling down.
+    Returns (entry, tool, model, label) in quality order, best first."""
+    data = cli_pool.load()
+    now = time.time()
     out = []
-    skipped = 0
-    while len(out) < RACE_SIZE and skipped < 40:
-        pick = cli_pool.pick()
-        if pick.startswith("WAIT"):
-            log("pool empty: " + pick)
-            break
-        tool, _, model = pick.partition("|")
+    for tool, model, label in CHAIN:
+        entry = f"{tool}|{model}"
         if tool not in BRAIN_TOOLS or any(w in model for w in WEAK_MODELS):
-            skipped += 1
             continue
-        if pick in out:
-            skipped += 1
+        rec = data.get(entry, {})
+        if rec.get("until", 0) > now:
+            left = int((rec["until"] - now) / 60) + 1
+            log(f"chain skips {entry} ({left} min cooling: {rec.get('why', '')})")
             continue
-        out.append(pick)
+        out.append((entry, tool, model, label))
     return out
 
 
-def agent_cmd(tool: str, model: str, msg: str) -> list[str]:
-    return {
-        "kilo": ["kilo", "run", "--auto", "-m", model, msg],
-        "opencode": ["opencode", "run", "-m", model, msg],
-        "devin": [str(DEVIN), "-p", "--model", model, "--permission-mode", "dangerous", "--respect-workspace-trust", "false", "--", msg],
-        "agy": ["agy", "--print", msg, "--model", model, "--dangerously-skip-permissions"],
-    }[tool]
+# Full paths: the listener may run with a PATH that lacks the npm and user bin folders, and a
+# tool that cannot be found exits before it ever sees the prompt (that is how the old race
+# wasted whole attempts on "not recognized"). Keys come from the ignored _local/api-keys.env.
+NPM_BIN = Path(os.environ.get("APPDATA") or r"C:\Users\a7med\AppData\Roaming") / "npm"
+AGY_EXE = Path(os.environ.get("LOCALAPPDATA") or r"C:\Users\a7med\AppData\Local") / "agy" / "bin" / "agy.exe"
+PI_EXE = Path(os.environ.get("USERPROFILE") or r"C:\Users\a7med") / ".pi" / "agent" / "bin" / "pi.cmd"
+AIDER_EXE = Path(os.environ.get("USERPROFILE") or r"C:\Users\a7med") / ".local" / "bin" / "aider.exe"
+
+
+def agent_cmd(tool: str, model: str, msg: str) -> tuple[list[str], dict]:
+    """Command + extra environment for one chain entry (mirrors scripts/cli-run2.sh)."""
+    env = dict(KEYS)
+    if tool == "aider":
+        env["BROWSER"] = "true"
+        if model.startswith("nvidia_nim/"):
+            env["NVIDIA_NIM_API_KEY"] = KEYS.get("NVIDIA_API_KEY", "")
+        elif model.startswith("gemini/"):
+            env["GEMINI_API_KEY"] = KEYS.get("GOOGLE_AI_STUDIO_KEY", "")
+        elif model.startswith("openai/@cf/"):
+            env["OPENAI_API_BASE"] = ("https://api.cloudflare.com/client/v4/accounts/"
+                                      f"{KEYS.get('CLOUDFLARE_ACCOUNT_ID', '')}/ai/v1")
+            env["OPENAI_API_KEY"] = KEYS.get("CLOUDFLARE_API_TOKEN", "")
+        return ([str(AIDER_EXE), "--model", model, "--yes-always", "--no-detect-urls", "--no-browser",
+                 "--no-auto-commits", "--no-show-model-warnings", "--message", msg], env)
+    cmds = {
+        "kilo": [str(NPM_BIN / "kilo.cmd"), "run", "--auto", "-m", model, msg],
+        "opencode": [str(NPM_BIN / "opencode.cmd"), "run", "-m", model, msg],
+        "devin": [str(DEVIN), "-p", "--model", model, "--permission-mode", "dangerous",
+                  "--respect-workspace-trust", "false", "--", msg],
+        "agy": [str(AGY_EXE), "--print", msg, "--model", model, "--dangerously-skip-permissions"],
+        "pi": [str(PI_EXE), "-p", "--no-session", "--model", model, msg],
+        "cline": [str(NPM_BIN / "cline.cmd"), "-P", "cline", "--thinking", "high", "-p", "--yolo",
+                  "-m", model, msg],
+    }
+    return cmds[tool], env
 
 
 def valid_reply(path: Path) -> str:
@@ -315,91 +356,82 @@ def valid_reply(path: Path) -> str:
     return text
 
 
-def race(entries: list[str], prompt_file: Path, tag: str) -> str | None:
-    """Run up to RACE_SIZE agents in parallel; first valid reply file wins.
-    Per-attempt wall clock is ATTEMPT_TIMEOUT seconds. Returns the winning entry
-    or None. Every entry is reported to cli_pool exactly once."""
-    procs = []
-    reply_files = []
-    t0 = time.time()
+def try_entry(entry: str, prompt_file: Path, tag: str, index: int, budget: float) -> str:
+    """Run ONE chain entry and wait up to min(ATTEMPT_TIMEOUT, budget) seconds for its
+    valid reply file. Returns the reply text, or "" when this entry could not answer
+    (quota/limit/401, timeout, crash, empty or unusable reply). The entry is reported
+    to the shared pool once so its cooldown is remembered."""
+    tool, _, model = entry.partition("|")
+    reply_file = DIR / f"reply-{tag}-{index}.txt"
+    reply_file.unlink(missing_ok=True)
     msg = (f"Read the file {prompt_file.as_posix()} and do exactly what it says. "
-           f"Your final action is to write the reply to the reply file named in it.")
+           f"Your final action is to write the reply to the reply file {reply_file.as_posix()}")
+    cmd, extra_env = agent_cmd(tool, model, msg)
     LOG.parent.mkdir(parents=True, exist_ok=True)
     base_offset = LOG.stat().st_size if LOG.exists() else 0
-    for i, entry in enumerate(entries):
-        tool, _, model = entry.partition("|")
-        reply_file = DIR / f"reply-{tag}-{i}.txt"
-        reply_file.unlink(missing_ok=True)
-        reply_files.append(reply_file)
-        # the prompt file itself names ONE reply path; give each racer its own by suffixing the instruction
-        m = msg + f" Write it to {reply_file.as_posix()}"
-        cmd = agent_cmd(tool, model, m)
-        try:
-            lf = LOG.open("ab")
-            p = subprocess.Popen(cmd, cwd=str(ROOT), stdout=lf, stderr=subprocess.STDOUT,
-                                 shell=(os.name == "nt" and tool != "devin"),
-                                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
-            procs.append((entry, p, reply_file, lf))
-        except OSError as e:
-            log(f"spawn failed for {entry}: {e}")
-            cli_pool.report(entry, 1, str(LOG), base_offset, 0.1)
-    winner = None
-    winner_text = ""
-    deadline = t0 + ATTEMPT_TIMEOUT
+    wait_for = max(5.0, min(ATTEMPT_TIMEOUT, budget))
+    t0 = time.time()
+    lf = LOG.open("ab")
+    try:
+        p = subprocess.Popen(cmd, cwd=str(ROOT), stdout=lf, stderr=subprocess.STDOUT,
+                             env={**os.environ, **extra_env},
+                             shell=(os.name == "nt" and cmd[0].lower().endswith((".cmd", ".bat"))),
+                             creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+    except OSError as e:
+        log(f"chain step {entry}: spawn failed: {e}")
+        lf.close()
+        cli_pool.report(entry, 1, str(LOG), base_offset, 0.1)
+        return ""
+    deadline = t0 + wait_for
+    text = ""
     while time.time() < deadline:
-        for entry, p, rf, _lf in procs:
-            text = valid_reply(rf)
-            if text:
-                winner, winner_text = entry, text
-                break
-        if winner:
+        text = valid_reply(reply_file)
+        if text or p.poll() is not None:
             break
-        if all(p.poll() is not None for _, p, _, _ in procs):
-            break  # everyone exited without a reply
-        time.sleep(2)
+        time.sleep(1)
     elapsed = time.time() - t0
-    # collect results and report each entry once
-    for i, (entry, p, rf, lf) in enumerate(procs):
-        if p.poll() is None:
+    if p.poll() is None:
+        try:
+            p.terminate()
+        except OSError:
+            pass
+        try:
+            p.wait(timeout=8)
+        except subprocess.TimeoutExpired:
             try:
-                p.terminate()
+                p.kill()
             except OSError:
                 pass
-            try:
-                p.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                try:
-                    p.kill()
-                except OSError:
-                    pass
-        lf.close()
-        text = valid_reply(rf)
-        won = winner == entry
-        cli_pool.report(entry, 0 if (won or text) else 1, str(LOG), base_offset, elapsed)
-        record_latency(entry, elapsed, won)
-        if won:
-            log(f"race won by {entry} in {elapsed:.0f}s")
-        elif text:
-            log(f"{entry} wrote a reply but lost the race")
-        else:
-            log(f"{entry} produced no valid reply in {elapsed:.0f}s")
-    if winner_text:
-        # hand the winning reply to the caller through a stable name
-        (DIR / f"reply-{tag}.txt").write_text(winner_text, encoding="utf-8")
-    return winner
+    lf.close()
+    text = valid_reply(reply_file)
+    cli_pool.report(entry, 0 if text else 1, str(LOG), base_offset, elapsed)
+    record_latency(entry, elapsed, bool(text))
+    if text:
+        log(f"chain answered by {entry} in {elapsed:.0f}s")
+        return text
+    log(f"chain step {entry} gave no valid reply in {elapsed:.0f}s, moving to the next")
+    return ""
 
 
 def brain(prompt_file: Path, reply_tag: str) -> bool:
-    """Race pairs of free agents until one writes a valid reply."""
-    tried = 0
-    while tried < MAX_ATTEMPTS:
-        entries = pick_brain()
-        if not entries:
-            return False
-        tried += 1
-        log(f"attempt {tried}: race {' vs '.join(entries)}")
-        stage("thinking", f"attempt {tried}")
-        if race(entries, prompt_file, reply_tag):
+    """Walk the ordered chain once, best model first, and stop at the first valid reply.
+    A dead quota, 401, timeout, crash or empty reply on one step only moves the chain on.
+    The whole walk is capped at MAX_TOTAL seconds (owner: bounded latency)."""
+    entries = chain_entries()
+    if not entries:
+        log("chain empty: every free tool is cooling down")
+        return False
+    deadline = time.time() + MAX_TOTAL
+    for i, (entry, _tool, _model, label) in enumerate(entries):
+        budget = deadline - time.time()
+        if budget < 5:
+            log("chain budget used up, stopping")
+            break
+        log(f"chain step {i + 1}/{len(entries)}: {entry} ({label})")
+        stage("thinking", f"{i + 1}/{len(entries)} {label}")
+        text = try_entry(entry, prompt_file, reply_tag, i, budget)
+        if text:
+            (DIR / f"reply-{reply_tag}.txt").write_text(text, encoding="utf-8")
             return True
     return False
 
@@ -490,6 +522,23 @@ def ack_text(items: list[dict]) -> str:
     return "تمام، وصلت رسالتك."
 
 
+def _google_chat(model: str, system: str, user: str) -> str:
+    """Google AI Studio chat through its own generateContent shape (the OpenAI-compatible
+    path proved unreliable, its alias answer is the same state text either way)."""
+    key = KEYS.get("GOOGLE_AI_STUDIO_KEY", "")
+    body = json.dumps({
+        "systemInstruction": {"parts": [{"text": system}]},
+        "contents": [{"role": "user", "parts": [{"text": user}]}],
+        "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1200},
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}",
+        data=body, headers={"Content-Type": "application/json", "User-Agent": "sir-hq/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        data = json.loads(r.read().decode("utf-8"))
+    return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+
 def _llm_chat(url: str, key: str, model: str, system: str, user: str) -> str:
     body = json.dumps({"model": model, "temperature": 0.3, "max_tokens": 1200,
                        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode("utf-8")
@@ -516,14 +565,23 @@ def direct_reply(body: str, notes: str):
                   'Output ONLY compact JSON: {"reply": "<Egyptian Arabic, short, ends with the line المطلوب منك: ...>", "needs_agent": true or false}.\n'
                   f"\n## Current state\n{state}\n## Task board\n{board}\n")
         user = f"Recent chat:\n{history()}\n\nNew burst from Ahmed (oldest first):\n{body}\n{notes}"
+        # ordered best to worst as well: the first healthy provider answers the fast line,
+        # the next takes over on its own when a limit or an error appears (owner order 2026-11-13)
         providers = []
         if KEYS.get("GROQ_API_KEY"):
             providers.append(("https://api.groq.com/openai/v1/chat/completions", KEYS["GROQ_API_KEY"], "openai/gpt-oss-120b"))
+        if KEYS.get("OPENROUTER_API_KEY"):
+            providers.append(("https://openrouter.ai/api/v1/chat/completions", KEYS["OPENROUTER_API_KEY"], "nvidia/nemotron-3-ultra-550b-a55b:free"))
         if KEYS.get("NVIDIA_API_KEY"):
             providers.append(("https://integrate.api.nvidia.com/v1/chat/completions", KEYS["NVIDIA_API_KEY"], "nvidia/nemotron-3-ultra-550b-a55b"))
+        if KEYS.get("GOOGLE_AI_STUDIO_KEY"):
+            providers.append(("google-generateContent", KEYS["GOOGLE_AI_STUDIO_KEY"], "gemini-3.8-flash"))
         for url, key, model in providers:
             try:
-                raw = _llm_chat(url, key, model, system, user)
+                if url == "google-generateContent":
+                    raw = _google_chat(model, system, user)
+                else:
+                    raw = _llm_chat(url, key, model, system, user)
                 m = re.search(r"\{.*\}", raw, re.S)
                 data = json.loads(m.group(0)) if m else {"reply": raw, "needs_agent": False}
                 reply = str(data.get("reply", "")).strip()

@@ -39,16 +39,39 @@ const BM_STAGE = `${BM_DIR}/job-state.json`;
 const BURST_MS = 8000;          // one context per burst: 8 s after the last message
 const WATCHDOG_MS = 3 * 60 * 1000; // warn Ahmed if a job runs longer than 3 minutes
 
+// Full exe paths on purpose: a listener restarted by a launcher with a minimal
+// environment has no PATH entry for bare "powershell", so the old version exited
+// silently with "token or chat id missing" and the manager bot died (2026-11-13).
+const PS_EXE = 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe';
+const REG_EXE = 'C:\\Windows\\System32\\reg.exe';
+
 function userEnv(name) {
   if (process.env[name]) return process.env[name];
+  // 1) read HKCU\Environment directly, no shell needed at all
   try {
-    return execFileSync('powershell', ['-NoProfile', '-Command', `[Environment]::GetEnvironmentVariable('${name}','User')`], { encoding: 'utf8', windowsHide: true }).trim();
-  } catch { return ''; }
+    const out = execFileSync(REG_EXE, ['query', 'HKCU\\Environment', '/v', name], { encoding: 'utf8', windowsHide: true, timeout: 15000 });
+    const m = /REG_(?:SZ|EXPAND_SZ)\s+([^\r\n]+)/.exec(out);
+    if (m && m[1].trim()) return m[1].trim();
+  } catch { /* fall through */ }
+  // 2) the same value through the user environment API
+  try {
+    const out = execFileSync(PS_EXE, ['-NoProfile', '-Command', `[Environment]::GetEnvironmentVariable('${name}','User')`], { encoding: 'utf8', windowsHide: true, timeout: 20000 });
+    if (out.trim()) return out.trim();
+  } catch { /* fall through */ }
+  return '';
 }
 
 const token = userEnv('SIR_TELEGRAM_BOT_TOKEN');
 const chatId = userEnv('SIR_TELEGRAM_CHAT_ID');
-if (!token || !chatId) { console.log('telegram-inbox: token or chat id missing'); process.exit(1); }
+if (!token || !chatId) {
+  // fail loudly: a silent exit is indistinguishable from a healthy listener and breaks
+  // the "a manager always answers on Telegram" promise (owner order 2026-11-13)
+  const missing = [!token ? 'SIR_TELEGRAM_BOT_TOKEN' : '', !chatId ? 'SIR_TELEGRAM_CHAT_ID' : ''].filter(Boolean).join(' and ');
+  const line = `${new Date().toISOString()} telegram-inbox: CANNOT START: ${missing} not readable from process env, HKCU\\Environment or the user environment API`;
+  try { appendFileSync(`${OPS}/telegram-listener.log`, line + '\n'); } catch {}
+  console.error(line);
+  process.exit(2);
+}
 writeFileSync(PID_FILE, String(process.pid));
 
 let offset = existsSync(OFFSET_FILE) ? Number(readFileSync(OFFSET_FILE, 'utf8')) || 0 : 0;

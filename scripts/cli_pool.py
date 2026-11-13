@@ -21,33 +21,20 @@ import time
 from pathlib import Path
 
 STATE = Path("D:/Projects/_SIR/ops/agy-runs/model-pool.json")
+# One entry per upstream API/provider/account (owner order 2026-11-13): two tools on the
+# same provider spend one shared quota, so keeping both gains nothing. Every line below is a
+# different provider (or a different key) and the list stays ordered strongest first.
+# The duplicates that were removed, and the single best tool per provider: ops/FREE_TOOLS_ORGANIZATION.md.
 POOL = [
-    "kilo|kilo/kilo-auto/free",
-    "opencode|opencode/big-pickle",
-    "devin|swe-2-flash-medium",
-    "cursor|auto",
-    "pi|groq/openai/gpt-oss-120b",
-    "pi|radius/recursive/flint",
-    "kilo|kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
-    "opencode|opencode/glm-5.3-flash-free",
-    "opencode|opencode/deepseek-v4.1-flash-free",
-    "opencode|opencode/minimax-m3.1-flash-free",
-    "opencode|opencode/mimo-v2.6-flash-free",
-    "opencode|opencode/nemotron-3.5-lightning-free",
-    "opencode|opencode/flint-40b-free",
-    "opencode|opencode/longcat-2.5-free",
-    "opencode|opencode/beam-free",
-    "agy|gemini-3.8-flash-low",
-    "agy|gemini-3.8-flash-medium",
-    "agy|gemini-3.8-flash-high",
-    "agy|gpt-oss-120b-medium",
-    "agy|claude-sonnet-4-6",
-    "cline|reflection/beam-free",
-    "aider|groq/openai/gpt-oss-120b",
-    "aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b",
-    "aider|openai/@cf/openai/gpt-oss-120b",
-    "aider|gemini/gemini-flash-lite-latest",
-    "aider|gemini/gemini-flash-latest",
+    "kilo|kilo/kilo-auto/free",                                 # Kilo free router (serves Nemotron and frontier models)
+    "opencode|opencode/big-pickle",                             # OpenCode Zen free tier
+    "devin|swe-2-flash-medium",                                 # Devin / Cognition free plan
+    "aider|groq/openai/gpt-oss-120b",                           # Groq API key
+    "aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b",       # NVIDIA NIM key
+    "agy|claude-sonnet-4-6",                                    # Google Antigravity account (Claude)
+    "aider|openai/@cf/openai/gpt-oss-120b",                     # Cloudflare Workers AI
+    "cline|reflection/beam-free",                               # Beam through Cline (needs one sign-in)
+    "pi|radius/recursive/flint",                                # Recursive flint through Radius
 ]
 LOCAL_TOOLS = {"qwen", "goose", "crush"}
 LIMIT = re.compile(r"usage limit|rate limit|too many requests|quota|out of credits|hit your usage limit|\b429\b", re.I)

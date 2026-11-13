@@ -1136,12 +1136,36 @@
     "name": "audit-sir-laptop-manager-20261113-1101",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "SIR Laptop Manager: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-jobs-20261113-1101",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: دورة فحص ذاتي",
     "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1501",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1501",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from owner-requests-verify verification",
+    "done": true
+  },
+  {
+    "name": "r73-laptop-ollama-single-instance",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: stop spawning a second Ollama server",
+    "done": false
   }
 ]

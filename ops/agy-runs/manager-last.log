@@ -1,2 +1,32 @@
-error: Your AI credits balance is too low to continue.
-AGY_ERROR: {"short_error":"RESOURCE_EXHAUSTED (code 429): Resource has been exhausted (e.g. check quota).","status":"RESOURCE_EXHAUSTED","error_code":429,"code_kind":"http","retryable":true,"error_id":"b0117fea-d46e-4fb8-8837-5a3c4f428ae0-1-2008"}
+Can't initialize prompt toolkit: No Windows console found. Are you running 
+cmd.exe?
+───────────────────────────────────────────────────────────────────────────────
+Warning: groq/openai/gpt-oss-120b expects these environment variables
+- GROQ_API_KEY: Not set
+Note: You may need to restart your terminal or command prompt for `setx` to 
+take effect.
+You can skip this check with --no-show-model-warnings
+
+https://aider.chat/docs/llms/warnings.html
+
+Aider v0.86.2
+Model: groq/openai/gpt-oss-120b with whole edit format
+Git repo: .git with 3,056 files
+Warning: For large repos, consider using --subtree-only and .aiderignore
+See: https://aider.chat/docs/faq.html#can-i-use-aider-in-a-large-mono-repo
+Repo-map: using 4096 tokens, auto refresh
+
+
+ops\AUTOPILOT_QUEUE.json
+
+ops\HQ_CHECKPOINT.md
+
+ops\OWNER_STANDING_REQUESTS.md
+
+ops\briefs\r22-jobs.md
+Warning: it's best to only add files that need changes to the chat.
+https://aider.chat/docs/troubleshooting/edit-errors.html
+litellm.BadRequestError: GroqException - {"error":{"message":"Invalid API 
+Key","type":"invalid_request_error","code":"invalid_api_key"}}
+
+

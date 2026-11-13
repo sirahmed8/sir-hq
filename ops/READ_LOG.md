@@ -271,3 +271,8 @@ A session with work but no line here is flagged by the nightly structure check a
 2026-11-13T08:31:30.044Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13 | (exact)
 2026-11-13T09:36:01.430Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)
 2026-11-13T12:10:57.953Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)
+2026-11-13T12:49:33.572Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13 | (exact)
+2026-11-13T14:31:59.658Z | claude-code | claude | SIR Study | SIR Study/AGENTS.md@2026-11-02, scripts/dev-start.vbs@2026-11-13, scripts/dev-start.ps1@2026-11-13, ops/agy-runs/reports/audit-sir-study-20261113-0721.md@2026-11-13, .sir/dev.log@2026-11-13 | full 5-minute cycles (fix applied: dev-start.vbs now passes -Headless); other Study tasks (SIR_Study_Briefing, SIR_Study_Sync) were not changed.
+2026-11-13T15:18:58.340Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/AUTOPILOT_QUEUE.json@2026-11-13, ops/agy-runs/reports/audit-sir-study-20261113-0721.md@2026-11-13 | (exact)
+2026-11-13T15:34:23.593Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12 | (exact)
+2026-11-13T15:52:24.597Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)

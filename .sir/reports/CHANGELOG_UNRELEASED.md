@@ -8,3 +8,4 @@
 2026-11-13 | HQ | Telegram conflict traced to shared token (SIR listener vs AHome bot); bge-m3 kept (AHome notes search); hardware model advice recorded; owner-requests-verify queued
 2026-11-13 | HQ | OpenClaw on new Telegram token and free OpenRouter Gemma default; Droid CLI wired to OpenRouter and added to team; DeepSeek harness blocked on DEEPSEEK_API_KEY
 2026-11-13 | HQ | DeepSeek harness corrected (owner signed in, not blocked); shared-limit OpenRouter tools removed from pool; SIR AI tools inventory written
+2026-11-13 | HQ | Pushed to origin; qwen3:8b removed; three new Ollama models present; OpenClaw Telegram removal still pending
