@@ -141,3 +141,4 @@ One line per distinct request or standing rule. Status is what files show today,
 | 11-12 | Voice: transcription sometimes hangs, keep developing it; keep workers finishing tasks and queue new ones so they never run dry | DONE | backup_manager.py transcribe hard cap + interim message; queued r67-build-sir-portfolio and r67-voice-pipeline-verify |
 
 - 22:05 Ahmed asked why messages arrive empty and why the ack has brackets; also asked progress on the 11 open tasks. Root cause found and fixed (see HQ_CHECKPOINT).
+2026-11-13 02:30 | backup-manager | AHome mobile UI report (3 screenshots): avatar zoom slider broken, crop/zoom awkward, inputs hidden under keyboard, buttons broken, toggle knobs overflow. Queued r71-ahome-profile-editor-fixes to free agents.

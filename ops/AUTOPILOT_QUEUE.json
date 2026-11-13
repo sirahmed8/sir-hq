@@ -814,13 +814,13 @@
     "name": "r60-build-sir-ai",
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI: rescan, then build from the first task",
-    "done": false
+    "done": true
   },
   {
     "name": "r60-build-sir-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: rescan, then build from the first task",
-    "done": false
+    "done": true
   },
   {
     "name": "r60-build-sir-study",
@@ -970,7 +970,7 @@
     "name": "r65-ahome-apk-adb-updates",
     "folder": "D:/Projects/AHome",
     "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
@@ -996,7 +996,7 @@
     "name": "r64-ahome-bot-kit",
     "folder": "D:/Projects/AHome",
     "title": "AHome Telegram bot: vendor telegram_lib.py and add edit-own-message support",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
@@ -1017,28 +1017,34 @@
     "name": "r70-cycle-sir-jobs",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: improvement cycle (new lens, 10 improvements, report)",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
     "name": "r70-cycle-sir-laptop-manager",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "SIR Laptop Manager: improvement cycle (new lens, 10 improvements, report)",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
     "name": "r70-cycle-sir-portfolio",
     "folder": "D:/Projects/SIR Portfolio",
     "title": "SIR Portfolio: improvement cycle (new lens, 10 improvements, report)",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
     "name": "r70-cycle-sir-study",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: improvement cycle (new lens, 10 improvements, report)",
-    "done": false,
+    "done": true,
     "parallel_ok": false
+  },
+  {
+    "name": "r71-ahome-profile-editor-fixes",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix avatar crop slider, keyboard overlap, buttons and toggles (owner screenshots)",
+    "done": false
   }
 ]

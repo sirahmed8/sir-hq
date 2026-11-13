@@ -255,3 +255,6 @@ Sweep: autopilot alive, queue was thin (5 open) so r70 improvement cycles queued
 
 ## HQ note (2026-11-13 01:45) [claude]
 r67 found the C: cause: system pagefile growth under memory pressure from 22 parallel agents plus worker caches. MAX_PARALLEL lowered 22 -> 9 (autopilot restarted). C: was 0 again at 01:30. r70 cycles running for current projects, review backlog 12.
+
+## HQ note (2026-11-13 02:30) [backup manager]
+Owner sent 3 AHome mobile screenshots: avatar zoom slider renders broken, crop/zoom awkward, text inputs covered by the keyboard (bio field), buttons broken, toggle knobs overflow. Queued r71-ahome-profile-editor-fixes (brief ops/briefs/r71-ahome-profile-editor-fixes.md, folder D:/Projects/AHome, taskboard inbox, queue entry added). Brief points at AvatarEditor.tsx, avatarEditor.ts clampState rotation remap, useKeyboardViewport kit reuse, toggle styling. Reply saved to ops/backup-manager/reply-1794529170535-1.txt.
