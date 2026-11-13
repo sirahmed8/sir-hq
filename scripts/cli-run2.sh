@@ -43,6 +43,7 @@ for round in $(seq 1 40); do
   offset=$(stat -c %s "$LOG"); t0=$(date +%s)
   case "$tool" in
     kilo) timeout 3300 kilo run --auto -m "$model" "$msg" >> "$LOG" 2>&1 ;;
+    cursor) timeout 3300 "/c/Users/a7med/AppData/Local/cursor-agent/agent.cmd" -p --trust -f --model "$model" --output-format text "$msg" >> "$LOG" 2>&1 ;;
     opencode) timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode dangerous --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
     codex) timeout 3300 codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -m "$model" "$msg" >> "$LOG" 2>&1 ;;
