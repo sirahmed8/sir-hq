@@ -77,3 +77,8 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 ## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in)
 - Telegram answers 401 Unauthorized for the SIR bot token in the user environment (SIR_TELEGRAM_BOT_TOKEN). The afternoon health check-in could not be sent, and the inbox listener cannot receive replies.
 - One step: in Telegram open @BotFather, send /token for the SIR bot, copy the new token, then set it as the user environment variable SIR_TELEGRAM_BOT_TOKEN (Windows: Settings > System > About > Advanced system settings > Environment Variables > User). Never paste it in chat.
+
+## 2026-11-13 (Devin backup manager)
+- Hermes Telegram: create a NEW bot via @BotFather in Telegram (e.g. /newbot, name it Hermes), send me the token or paste it into `C:\Users\a7med\AppData\Local\hermes\.env` as `TELEGRAM_BOT_TOKEN=...` — all existing bot tokens are already owned by the SIR manager bot and the AHome bot, so Hermes cannot share one.
+- iCloud Photos: local copies are already cloud-only (0 GB local). If you also want the CLOUD copies deleted, do it at icloud.com yourself — that is irreversible and owner-only.
+- OpenClaw gateway auto-start: it currently runs only because I spawned it; after a reboot it needs the tray app open or a scheduled task. Say the word and I will wire a logon task.
