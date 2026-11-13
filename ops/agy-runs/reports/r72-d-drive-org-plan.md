@@ -302,9 +302,13 @@ AHome and everything in it; `D:\Projects\AI_Models_Hub` (`OLLAMA_MODELS`); all o
 ## 6. Commits, push and CI
 
 ```
+04962e4 r72-d-drive-org-plan: final checkpoint with commits and CI run ids
+a004476 r72-d-drive-org-plan: the report with the real commands and output
 8aefeab r72-d-drive-org-plan: read-only D: audit and the ranked move plan
 6a6475b HQ: r71 AHome brief gets the verified root causes; ...
 ```
+
+All three commits are pushed to `origin/main`. GitHub Actions was green on each one: verify runs 43340309071, 43340596432 and 43340744642, test runs 43340309011, 43340596493 and 43340744665, every step success. The task board entry `5-r72-d-drive-org-plan` was moved to `review` with the report path in the result.
 
 Pushed to `origin/main` (sirahmed8/sir-hq). GitHub Actions on commit `8aefeab`:
 
