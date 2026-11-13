@@ -376,3 +376,13 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - Bot map final: @PersonalAI_1Bot = SIR manager (backup chain), @Personal1AI1Bot = AHome, @HermesSIRAIBot = Hermes agent. SIR AI bot reserved for the SIR AI project later.
 - Team now: audit-sir-study-20261113-1501-fix1 running (pid 8412); audit-sir-jobs-1821-fix1 done 21:28; autopilot healthy.
 - Owner wants strongest model on SIR AI + Agentic OS epic (brief written). Recommendation given: Devin/me for architecture, agy/free-pool for volume.
+
+## HQ note (2026-11-13 22:20) [Devin = backup manager, owner round 3]
+- HERMES ctx fix: model.ollama_num_ctx 16384 -> 65536 in config.yaml (matches context_length 65536); fixes "chat too long / needs 64000" error. Model reloads on next request.
+- DELETED per owner: Factory (Local+Roaming+shortcuts) and Bionic (Roaming+shortcuts). C:\Program Files\Bionic needs admin to remove -> OWNER_ACTIONS. ZCode already gone.
+- APPEARANCE restored: VisualFXSetting=2 (best appearance), UserPreferencesMask default, MinAnimate=1. Needs sign-out/in for full effect.
+- Disk: C: 6.1 GB, D: 13.0 GB free after temp/cache clean. Real reclaim needs a deep scan (pagefile 28 GB system-managed, iCloud archive figure was wrong).
+- ROLE ORDER confirmed by owner: Claude > AGY > Devin > rest, until SIR AI ships; then SIR AI is king and rides the USER's own subscriptions via CLIs (no resale of credits).
+- Voice requirement refined: neural human-like TTS + accurate STT with proper punctuation/grammar; built-in recording like top apps; installer does full onboarding (API keys, subscriptions, local voice models, APK to phone/Telegram).
+- SIR AI parked as flagship; all free-tool focus shifts to AI work after current tasks verify.
+- Pending owner: delete C:\Program Files\Bionic (admin), Factory/Bionic final confirmation.
