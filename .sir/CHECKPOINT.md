@@ -1,4 +1,26 @@
-# SIR HQ checkpoint (updated 2026-11-12 20:20)
+# SIR HQ checkpoint (updated 2026-11-13, HQ chat)
+
+## Now
+- Owner asked for team status, Telegram review and free-tool setup. Done: read queue, git logs, Telegram logs, CLI versions. Not done: committing ~120 uncommitted files, verifying AHome r71 on phone size, free-tool routing config, sign-in checks for each CLI.
+- Installed: codex 0.167.2, kilo 7.8.27, opencode 2.2.7, devin 3000.12, gemini 0.68.0, agy 1.5.7, auggie 0.37.1, pi 1.5.2. Missing: ZCode, cursor-agent. GitHub Copilot not connected.
+- Queue still open: r70-cycle-sir-ai, r70-cycle-sir-laptop-manager-fix1. Free-CLI "done" claims are unverified.
+- Owner open points on Telegram: AHome profile slider and crop (r71 pushed 7163267, unverified), SIR AI bot not answering.
+
+## Next step (exact)
+1. `cd D:/Projects/AHome && git status --short` then commit the reviewed r71 files; `cd D:/Projects/_SIR && git status --short` and commit checkpoint and reports.
+2. Verify AHome r71 on a 390 px screenshot; send result via `node scripts/deliver/send-telegram.mjs <file> "<caption>"`.
+3. Write the free-tool routing config in `ops/FREE_TOOLS_ROUTING.md` (CLI, free model, thinking level), then test each CLI with one small task.
+4. Tell the owner the verified facts in Telegram; never say "working" without evidence.
+
+## Open promises
+- Owner: free space on D: and then move work from C: to D: after current tasks finish.
+- Owner: answer "which model are you" (HQ is Claude Haiku 5.5 in this chat).
+- Owner: Telegram questions about SIR AI bot and AHome.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log, ops/bus/ahmed-telegram.md (tail), ops/bus/telegram-outbox.md (tail), ops/RUNNING_STATE.md
+
+---
 
 ## Now
 - 2026-11-13 00:40: autopilot alive; r70 improvement cycles queued for the current projects (Study, Jobs, Laptop Manager, Portfolio, AI); r69 reviewer round clears the review backlog; r64/r65/r67/r68 rounds from the owner's Telegram requests are in progress or reported in ops/tasks/reports; r67-voice-pipeline-verify verification complete (syntax check, live transcription, log review, edge cases all PASS).
