@@ -273,3 +273,14 @@ Owner request logged: keep D as is until current tasks finish; then use AOMEI to
 
 ## HQ note (2026-11-13 02:55) [backup manager]
 r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (212af85; push failed twice with ECONNREFUSED then went through on the verbose retry, GitHub reachable). Crop sheet is now a fixed overlay modal (z-80, backdrop/Escape/X close, safe-area bottom, own scroll); pinch-to-zoom and two-finger pan added; rotateState remaps pan so the photo stays put; slider is scoped avatar-zoom-track (no min-h, no white ring, no accent-color); keyboard CSS no longer pins non-chat screens; Switch inline drag styles cleared on lost-pointer-capture and unmount; duplicate dead .ui-switch__thumb rule removed; r64 bot gateway kit committed with 14/14 tests. r64 queue: done stays false in AUTOPILOT_QUEUE until the owner/phone check. CI red on purpose (quota flag; 4s zero-step fails are the quota, local gates are the evidence: tsc, eslint, 9 r71 node tests, next build, 14 bot tests). On-phone verification OPEN (phone dozing, INSTALL_FAILED_USER_RESTRICTED earlier; APK on his phone is stale). Reply written to ops/backup-manager/reply-1794529170535-1.txt.
+
+## HQ note (2026-11-13 06:21) [hourly watch]
+- All 7 projects CI red: GitHub Actions quota exhausted (ops/ci-quota-exhausted.flag exists, 3000 min/month used up 2026-11-12 06:49Z). Rule 18 applies: local verification replaces CI green while flag exists.
+- Active audits: audit-sir-study-20261113-0721 (SIR Study, runner pid 34932, on kilo round 1 then pi), audit-sir-jobs-20261113-0721 (SIR Jobs, runner pid 31828, on aider round 10 then devin). Both committing.
+- Model pool: 21 available, 7 cooling. Kilo (nemotron-3-ultra) and Devin (swe-2-flash-medium) operational. OpenCode big-pickle/glm/flint cooling. Aider (Groq/NVIDIA/Gemini) available.
+- Disk: C: 6.7 GB free (watchdog 08:21 local), recovered from 0.2 GB dip earlier. Watchdog cleaning every ~10 min.
+- Verifier: running (5 rounds/30 min, newest first, AHome skipped). Multiple verifier-fail alerts sent to Telegram (00:37, 04:45, 10:45, 16:45, 17:40, 18:40, 22:45, 23:30 - check telegram-outbox.md).
+- r71-ahome-profile-editor-fixes: done, pushed, local tests pass (9 node tests, tsc, eslint, build). Phone verification pending (stale APK on phone).
+- r64-telegram-first (backup manager): done=false in queue until owner phone check.
+- No new owner replies since 02:55.
+- Next step: wait for audit reports; when they finish, verify locally (tsc, tests, build) and queue next improvement cycles. Do not retry ZCode sign-in without owner.
