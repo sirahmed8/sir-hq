@@ -409,3 +409,11 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - AHome supervisor duplicate processes (2x uvicorn, 2x telegram bot) killed; watchdog auto-heals; supervisor itself respawned by scheduled task (single instance now).
 - OPENCLAW iPhone pairing: gateway.publicOrigin set to https://ahmed.tail9e9aa7.ts.net:8443 via tailscale serve (--bg, persistent); gateway.trustedProxies=["127.0.0.1","::1"] to accept tailscale proxy headers. QR/setup codes expire in minutes - regenerate with `openclaw qr` when pairing.
 - Manager bot DOES read images: describe_image() uses Google AI Studio Gemini vision (copies visible text, identifies error screens) then the AI chain reasons over it. Voice messages transcribed. Privacy: images go to Google free tier - fine for error shots, not for private AHome photos.
+
+## HQ note (2026-11-14 01:30) [backup manager]
+- STATUS: queue drained. All AUTOPILOT_QUEUE tasks done; last two 2241 audits (laptop-manager, jobs) completed 01:29. Autopilot heartbeat 0 min, CI quota flag still present (local verify is the gate).
+- SIR AI Agentic OS phase 1 shipped real commits (3f4fe3b, 827b80f), checkpoint close-out at 00:03.
+- QUEUED new build task sir-ai-runnable-adapters-01 (SIR AI: make the 8 detect-only CLI adapters runnable, brief ops/briefs/sir-ai-runnable-adapters-01.md) to keep the free pool busy. inbox now 1.
+- DISK LOW: C 8.2 GB, D 7.9 GB free. Both dropped since 23:10 note. Watch; deep reclaim may be needed soon (D free is now under 10 GB).
+- REVIEW backlog is large (31 in review): the review pass should keep trimming it; do not add build tasks that depend on unreviewed work.
+- Next step: watch the new SIR AI adapter task run; keep an eye on disk; owner still pending: delete C:\Program Files\Bionic (admin), ZCode already gone.
