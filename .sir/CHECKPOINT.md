@@ -1,7 +1,7 @@
 # SIR HQ checkpoint (updated 2026-11-12 20:20)
 
 ## Now
-- 2026-11-13 00:40: autopilot alive; r70 improvement cycles queued for the current projects (Study, Jobs, Laptop Manager, Portfolio, AI); r69 reviewer round clears the review backlog; r64/r65/r67/r68 rounds from the owner's Telegram requests are in progress or reported in ops/tasks/reports.
+- 2026-11-13 00:40: autopilot alive; r70 improvement cycles queued for the current projects (Study, Jobs, Laptop Manager, Portfolio, AI); r69 reviewer round clears the review backlog; r64/r65/r67/r68 rounds from the owner's Telegram requests are in progress or reported in ops/tasks/reports; r67-voice-pipeline-verify verification complete (syntax check, live transcription, log review, edge cases all PASS).
 - Backup manager on Telegram: direct_reply() fast path now reads the LIVE status (ai-status) so it no longer says the tools are stopped; language guard and voice fix in place. Control Room private on Tailscale only. C: 3.0 GB free (cause still being traced by r67).
 - WhatsApp digest (Thursday run with weekly news) started 2026-11-13 by a Haiku subagent; needs the owner's QR scan if it reports not logged in.
 
