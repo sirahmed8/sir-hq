@@ -1,4 +1,33 @@
-# SIR HQ checkpoint (updated 2026-11-13, HQ chat, after owner request on Cursor, slowness, icons, control room)
+# SIR HQ checkpoint (updated 2026-11-13 04:45, HQ chat, owner: "do it yourself, do not wait")
+
+## Now
+- Read the manager rules: START_HERE.md, core/02-rules.md, plans/HQ_PROTOCOL.md, plans/CLI_AGENT_INSTRUCTIONS.md, plans/MODEL_ROUTING.md, plans/LOW_USAGE_MODE.md. Key law: never ask the owner; AHome private content never leaves local systems; AHome work is done only from the AHome chat.
+- Cursor agent CLI logged in. Added to the model pool (scripts/cli_pool.py, entry cursor|auto) and runner case (scripts/cli-run2.sh, timeout 900 s). A test run hung once and was killed; the cap keeps a hang from blocking a runner for 55 minutes. Not yet proven on a real task.
+- Verification results (workers, not independent reviewers):
+  - verify-r71-ahome: PASS (1059 tests, 1 skip; screenshots at 390 and 768 px in AHome/.sir/evidence/verify-r71-20261113/). Owner phone check still pending.
+  - verify-r70-laptop-fix1: PASS (334 passed, 1 skipped).
+  - verify-r70-sir-ai: a11y violations 27 at baseline, 0 after (per worker report). CI on main not green (minutes used up); local gates used.
+- Queued: ahome-folder-icon (brief ops/briefs/ahome-folder-icon.md, runs in the AHome chat).
+- Control Room version 26 republished earlier today.
+
+## Next step (exact)
+1. Commit scripts/cli_pool.py, scripts/cli-run2.sh, ops/briefs/ahome-folder-icon.md and this checkpoint; push to main (`git push origin main`).
+2. Watch the next cursor|auto run in ops/agy-runs/done/ and ops/autopilot.log; if it hangs again, remove cursor|auto from POOL in scripts/cli_pool.py.
+3. Read ops/agy-runs/reports/verify-r71-ahome.md and verify-r70-sir-ai.md once more; decide whether to queue an independent review (a different tool than the one that wrote the fix).
+4. Owner: check AHome on his phone (slider, crop, keyboard over bio field).
+
+## Open promises
+- Owner: AHome folder and pink house shortcut icons (queued, AHome chat).
+- Owner: Cursor used as a free team tool (runner and pool entry added; first real run pending).
+- Owner: explain slowness (done in chat; numbers in the earlier checkpoint).
+- Owner: reply in Egyptian Arabic, never English.
+- Owner: do not uninstall VS Code.
+- AHome is private: no HQ reads of AHome files; the earlier HQ reads and writes of AHome/.sir are an admitted mistake.
+
+## Re-read after a reset
+core/02-rules.md, plans/HQ_PROTOCOL.md, plans/CLI_AGENT_INSTRUCTIONS.md, ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), scripts/cli_pool.py (POOL), scripts/cli-run2.sh
+
+---
 
 ## Now
 - Cursor agent CLI logged in (test "ok" passed). Runner case added to scripts/cli-run2.sh, pushed as d839cc1. NOT yet in the autopilot pool rotation.
