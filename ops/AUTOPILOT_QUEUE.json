@@ -1010,7 +1010,7 @@
     "name": "r70-cycle-sir-ai",
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI: improvement cycle (new lens, 10 improvements, report)",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
@@ -1064,18 +1064,54 @@
     "name": "verify-r71-ahome",
     "folder": "D:/Projects/AHome",
     "title": "Verify r71 AHome profile fixes",
-    "done": false
+    "done": true
   },
   {
     "name": "verify-r70-laptop-fix1",
     "folder": "D:/Projects/SIR Laptop Manager",
     "title": "Verify r70 Laptop Manager fix1",
-    "done": false
+    "done": true
   },
   {
     "name": "verify-r70-sir-ai",
     "folder": "D:/Projects/SIR AI",
     "title": "Finish and verify r70 SIR AI a11y cycle",
+    "done": true
+  },
+  {
+    "name": "ahome-folder-icon",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome folder and shortcut icon",
+    "done": true
+  },
+  {
+    "name": "smoke-cursor",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-cursor",
+    "done": true
+  },
+  {
+    "name": "smoke-pi",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-pi",
+    "done": false
+  },
+  {
+    "name": "smoke-devin",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-devin",
+    "done": false
+  },
+  {
+    "name": "parity-instructions",
+    "folder": "D:/Projects/_SIR",
+    "title": "Instruction parity across free tools",
+    "done": false
+  },
+  {
+    "name": "review-old-tasks",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify three old done claims",
     "done": false
   }
 ]
