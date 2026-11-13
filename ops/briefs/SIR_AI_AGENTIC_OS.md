@@ -23,3 +23,13 @@ Ahmed's direction: SIR AI becomes THE connected app for everything — the place
 
 ## Next step for the project chat
 Take the first unchecked box in `SIR AI/.sir/PLAN.md` section 8, then add a "Fleet/Manager" epic: read `_SIR/ops/FREE_TOOLS_ORGANIZATION.md` + `ops/backup-manager/latency.json` as the data source for the tool-status API.
+
+## Owner refinement (2026-11-13 late)
+- ROLE SPLIT: Hermes = local-AI everyday assistant (qwen3.5:9b, private, always-on). The STRONG manager stays the Devin/backup chain + free CLI pool until SIR AI ships. Do not expect Hermes-local to orchestrate.
+- SIR AI must feel like an IDE + chat: streaming thinking steps, file edits, diffs, tool calls visible live; unified chat with any agent; remote control from Telegram, mobile app, website, desktop.
+- MANAGER PICKER: owner chooses which agent/provider/subscription is "the manager" at any time; the OS can also pick its own team per task. Every provider/account/subscription is assignable.
+- REVERSE-ENGINEER competitors (Cursor, Windsurf, Claude apps, etc.) and merge the best ideas with the existing detailed plans in SIR AI/.sir/PLAN.md.
+- PROVIDER RULE (owner): one provider = one strongest tool. If a provider is wired into two tools, park the weaker and report it for owner keep/delete decision. OpenRouter is currently shared (Factory + pool) -> Factory parked pending owner.
+- PARKED APPS (owner leaning delete, decision his): Factory/Droid, Bionic. Keep: Ollama (core), OpenClaw, Hermes, all CLI pool tools.
+- DAEMONS/self-healing: every gateway, listener, watchdog, autopilot and background task must auto-start at boot, self-restart on crash, and keep working without errors. Use the existing game-mode snapshot mechanism: pause (never kill) heavy work during games, resume after; pause on no-internet; pause on metered/iPhone-hotspot connections; resume when back on unmetered.
+- Voice: local STT (whisper-class) + local TTS, loopback only.
