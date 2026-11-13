@@ -361,3 +361,12 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - WORKAROUND that works today: `openclaw agent -m "..." --model ollama/qwen3.5:9b` and any NEW chat/session in the Control UI resolves correctly.
 - OWNER ACTION (one click): open http://127.0.0.1:18789/ -> main chat -> model dropdown -> pick `ollama/qwen3.5:9b`. That clears the stale override permanently.
 - Next step: SIR Study audit still running; everything else verified or owner-gated.
+
+## HQ note (2026-11-13 21:10) [Devin = backup manager, owner round 2]
+- OPENCLAW GATEWAY CONFLICT FIXED: my earlier `openclaw gateway run` held port 18789 as a "foreign" process -> app showed "Gateway connection failed / not same package". Killed it, ran the packaged scheduled task "OpenClaw Gateway OpenClawFoundation.OpenClawGateway_..." -> native gateway booted via openclaw-gateway-recovery, port 200, owned by the package supervisor. App error should clear; durable across reboots via the packaged task.
+- HERMES TELEGRAM: owner created @HermesSIRAIBot but the pasted token is CORRUPT (contains "@" -> Telegram 404; without it -> 401). .env written with the raw paste for now; needs a clean re-copy from the BotFather token message -> OWNER_ACTIONS. Hermes gateway itself healthy on qwen3.5:9b.
+- SIR AI DIRECTION CAPTURED: owner wants SIR AI = the Agentic OS (manager picker, fleet dashboard, unified chat, local voice STT/TTS, fallbacks everywhere, mobile+PC). Written to ops/briefs/SIR_AI_AGENTIC_OS.md. Project is real and active (r70 a11y clean, 324 tests green).
+- RAM RULE for the team: max ~4 heavy agent processes concurrently; dashboards poll files/HTTP only, never spawn agents per view. Recorded in the brief.
+- iCloud explained to owner: local folder is already online-only (0 GB); nothing local to delete; cloud copies are his call on icloud.com.
+- Bionic: desktop AI assistant app (C:\Program Files\Bionic) - overlapping conversational AI; role = optional leftover client, not core infrastructure.
+- Next step: owner re-sends clean Hermes bot token; SIR Study audit still running; OpenClaw main-session model override still needs the one-click Control UI fix or a new chat.
