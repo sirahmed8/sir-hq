@@ -1,4 +1,29 @@
-# SIR HQ checkpoint (updated 2026-11-13, HQ chat)
+# SIR HQ checkpoint (updated 2026-11-13, HQ chat, after owner request on Cursor, slowness, icons, control room)
+
+## Now
+- Cursor agent CLI logged in (test "ok" passed). Runner case added to scripts/cli-run2.sh, pushed as d839cc1. NOT yet in the autopilot pool rotation.
+- SIR Control Room republished as artifact version 26 on the same link (https://claude.ai/code/artifact/5903680d-7f79-4595-a8ea-31b0f4c3b2db). Snapshot only; it does not refresh itself.
+- Why free rounds are slow (from ops/autopilot.log, 146 finished runs): median 38 min, mean 63 min, max 571 min. Causes: 25-minute idle rule per project, 5-minute tick, usage limits and cooling pools, 55-minute timeout per run, GitHub Actions minutes at 100% (CI red without code fault), one paging-file error 2026-11-12 21:34, and "done by worker" claims with no verification.
+- AHome folder icon and desktop shortcut icons NOT done. The AHome privacy guard blocks HQ from reading AHome files; this work must run from the AHome chat.
+- Earlier mistake: this HQ chat read and wrote AHome/.sir/CHECKPOINT.md and AHome probe files. Stop doing it; use the AHome chat.
+
+## Next step (exact)
+1. Add cursor to the autopilot pool: edit the pool list in scripts/hq_autopilot.py (or the tools config it reads) with tool "cursor", model "auto" (or the free model Cursor lists), then `python scripts/queue-add.py verify-cursor-smoke <brief> "D:/Projects/_SIR" "Cursor smoke test"`.
+2. Queue an AHome task for its own chat: write ops/briefs/ahome-folder-icon.md (no private content) and run `python scripts/queue-add.py ahome-folder-icon ops/briefs/ahome-folder-icon.md "D:/Projects/AHome" "AHome folder and shortcut icon"`.
+3. Check the three verification tasks in ops/AUTOPILOT_QUEUE.json (verify-r71-ahome, verify-r70-laptop-fix1, verify-r70-sir-ai) and read their reports in ops/agy-runs/reports/.
+4. Retry GitHub push if `git status -sb` shows ahead of origin.
+
+## Open promises
+- Owner: explain why tasks are slow (done in chat; keep the numbers above).
+- Owner: AHome folder icon and pink house shortcut icons (blocked here; queue to AHome chat).
+- Owner: Cursor used as a free tool in the team (runner ready; pool entry pending).
+- Owner: no English replies; answer in Egyptian Arabic.
+- Owner: do not uninstall VS Code.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/bus/ahmed-telegram.md (tail), ops/DASHBOARD_URL.txt, scripts/cli-run2.sh (cursor case), scripts/hq_autopilot.py (pool)
+
+---
 
 ## Now
 - Owner asked for team status, Telegram review and free-tool setup. Done: read queue, git logs, Telegram logs, CLI versions. Not done: committing ~120 uncommitted files, verifying AHome r71 on phone size, free-tool routing config, sign-in checks for each CLI.
