@@ -298,3 +298,17 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - r64-telegram-first: done=false in queue until owner phone check.
 - No new owner replies since 02:55.
 - Next step: wait for laptop audit to finish, verify locally (tsc, tests, build), then queue next improvement cycles for each project. Do not retry ZCode sign-in without owner.
+## HQ note (2026-11-13 14:21) [hourly watch]
+- All 7 projects CI red: GitHub Actions quota exhausted (ops/ci-quota-exhausted.flag exists). Rule 18 applies: local verification is the gate.
+- Audits completed and verified (from 10:21 watch):
+  - audit-sir-study-20261113-0721: PASS — 2 consecutive clean cycles, 12 improvements, local verify green.
+  - audit-sir-jobs-20261113-0721: PASS — 12 defects fixed, npm test/lint/typecheck/doctor green.
+  - audit-sir-jobs-20261113-1101: PASS — 12 AR localization defects fixed, i18n parity 237→313 keys, two clean cycles.
+  - verify-r71-ahome: PASS on all 5 brief checks, 1059 tests pass.
+- Active: audit-sir-laptop-manager-20261113-1101 (started 11:05, runner pid 29996, round 30 on Devin at 14:10, still running).
+- Model pool: 21 available, 7 cooling. Kilo (nemotron-3-ultra) and Devin (swe-2-flash-medium) operational. Aider (Groq/NVIDIA/Gemini) available.
+- Disk: C: 6.7 GB free. Watchdog cleaning every ~10 min.
+- r64-telegram-first: done=false in queue until owner phone check.
+- No new owner replies since 02:55.
+- Next step: wait for laptop audit to finish, verify locally (tsc, tests, build), then queue next improvement cycles for each project. Do not retry ZCode sign-in without owner.
+
