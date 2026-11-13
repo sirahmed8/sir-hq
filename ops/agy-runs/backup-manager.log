@@ -5973,3 +5973,103 @@ Tokens: 1.9k sent, 647 received.
 17:02:07 chain answered by devin|swe-2-flash-medium in 21s
 17:03:51 direct reply from openai/gpt-oss-120b
 17:39:56 direct reply from openai/gpt-oss-120b
+18:58:28 chain skips agy|claude-sonnet-4-6 (51 min cooling: usage limit)
+18:58:28 chain skips aider|openai/@cf/openai/gpt-oss-120b (422 min cooling: daily free neurons used up (Cloudflare 10000/day))
+18:58:28 chain skips opencode|opencode/big-pickle (50 min cooling: usage limit)
+18:58:28 chain skips agy|claude-sonnet-4-6 (51 min cooling: usage limit)
+18:58:28 chain skips aider|openai/@cf/openai/gpt-oss-120b (422 min cooling: daily free neurons used up (Cloudflare 10000/day))
+18:58:28 chain skips opencode|opencode/big-pickle (50 min cooling: usage limit)
+18:58:28 chain step 1/6: aider|groq/openai/gpt-oss-120b (groq gpt-oss 120b)
+Can't initialize prompt toolkit: Found xterm-256color, while expecting a 
+Windows console. Maybe try to run this program using "winpty" or run it in 
+cmd.exe instead. Or otherwise, in case of Cygwin, use the Python executable 
+that is compiled for Cygwin.
+───────────────────────────────────────────────────────────────────────────────
+Aider v0.86.2
+Model: groq/openai/gpt-oss-120b with whole edit format
+Git repo: .git with 3,087 files
+Warning: For large repos, consider using --subtree-only and .aiderignore
+See: https://aider.chat/docs/faq.html#can-i-use-aider-in-a-large-mono-repo
+Repo-map: using 4096 tokens, auto refresh
+
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8856, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 0.2 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8856, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 0.5 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8848, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 1.0 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8856, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 2.0 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8839, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 4.0 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8839, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 8.0 seconds...
+litellm.RateLimitError: RateLimitError: GroqException - 
+{"error":{"message":"Request too large for model `openai/gpt-oss-120b` in 
+organization `org_01m77tm4ceer0rpfgc4m55pp9j` service tier `on_demand` on 
+tokens per minute (TPM): Limit 8000, Requested 8848, please reduce your message
+size and try again. Need more tokens? Upgrade to Dev Tier today at 
+https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_e
+xceeded"}}
+
+The API provider has rate limited you. Try again later or check your quotas.
+Retrying in 16.0 seconds...
+18:59:09 chain step aider|groq/openai/gpt-oss-120b gave no valid reply in 40s, moving to the next
+18:59:09 chain step 2/6: kilo|kilo/kilo-auto/free (kilo free router)
+[0m
+> code · kilo-auto/free
+[0m
+[0m→ [0mRead ops/backup-manager/prompt-synthetic.txt
+[0m
+[0m← [0mWrite ops/backup-manager/reply-synthetic-1.txt
+Wrote file successfully.
+[0m
+تم اختبار سلسلة الموديلات بنجاح

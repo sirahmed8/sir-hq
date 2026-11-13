@@ -1,4 +1,17 @@
-# SIR HQ checkpoint (updated 2026-11-13 17:30, owner-requests-verify-fix1 worker)
+# SIR HQ checkpoint (updated 2026-11-13 18:45, HQ day summary run)
+
+## Now
+- Isha day summary sent to Telegram (message_id 776). Calendar tool did not load this run, so tomorrow's events are missing from the summary.
+- CI last run per project: _SIR green; AHome, SIR Jobs, SIR Study, SIR Laptop Manager red; SIR AI and SIR Portfolio red (last run 2026-11-12 late). `gh run view --log-failed` returns "log not found" for the red runs, so the causes are unknown.
+- Health: no check-in answer today. Last logged answer: 2026-11-12 health_later.
+- Telegram bot token still 401 (owner action, see Open promises).
+
+## Next step (exact)
+1. Read the failing CI cause by hand: `gh run view <id> --log` on AHome run 43458598811 and SIR Laptop Manager run 43460413053, or open them on GitHub.
+2. Owner: re-issue the SIR bot token via BotFather `/token`, then set the user env var `SIR_TELEGRAM_BOT_TOKEN`.
+3. Calendar: find a working Google Calendar route (gcalendar skill or script) so tomorrow's section can be filled.
+
+## Previous block (2026-11-13 17:30, owner-requests-verify-fix1 worker)
 
 ## Now
 - owner-requests-verify-fix1 DONE: item 4 (voice) fixed for real. Kokoro-82M ONNX fp16 pack + voices-v1.0.bin installed at `D:\Projects\AI_Models_Hub\kokoro\model\` with a working kokoro-onnx venv (`kokoro\.venv`, Python 3.13) and `kokoro\synthesize.py`; proof: `kokoro-check.wav` synthesized (2.5s @ 24kHz, voice af_heart). Whisper stays at `D:\Projects\AI_Models_Hub\whisper\faster-whisper-base` (+ HF cache copy). New `scripts/voice_models_report.py` (`--text`/`--json`) reports all locations; `tests/test_voice_models.py` guards presence. Commit 8c541c4 pushed to main. Local checks: compileall OK, pytest 60 passed / 5 skipped. CI quota flag still set (rule 18).

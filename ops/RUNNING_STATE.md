@@ -32,7 +32,7 @@ Freed 14.81 GB regenerable space: D: 2.03→14.82 GB (+12.79), C: 7.61→9.63 GB
 
 ## Daily pool health
 - pool health 2026-11-12: available=7 cooling=18
-- pool health 2026-11-13: available=8 cooling=1
+- pool health 2026-11-13: available=6 cooling=3
 
 ## Usage windows & scheduling (r42)
 - 5-hour window resets: 10 AM daily (owner). Current window: 2:45 AM - 7:45 AM (next reset ~10:00 AM).
@@ -77,4 +77,4 @@ Free CLI pool (kilo, opencode, devin, codex): separate from these accounts and u
 Plan written 2026-11-12 03:08 by scripts/hq_usage_plan.py.
 <!-- r42-usage:end -->
 - SIR_HQ_Dashboard (:00 and :30, regenerates ops/artifact/control-room.html), SIR_HQ_ArtifactPublish (hourly :05 from 17:05, hidden Haiku run republishes the Claude artifact only when the file changed; log ops/artifact/publish.log; tested once by hand: published). Owner no longer has to ask for status: Control Room is the answer.
-- pool health 2026-11-13: available=8 cooling=1
+- pool health 2026-11-13: available=6 cooling=3

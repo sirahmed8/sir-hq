@@ -41,14 +41,21 @@ AHome-only work, never the coding pool (owner order: local models are not for co
 - **Aider extra providers** — SambaNova removed (billing), HuggingFace skipped (paid credits), Groq/NVIDIA/Cloudflare/Gemini keys live in `_local/api-keys.env` (gitignored).
 - **DeepSeek Harness (dsh)** — the desktop app Ahmed used on 2026-11-13; its account hit "Insufficient Balance". Kept installed; not in the pool.
 - **Factory (factory-desktop)** and **Bionic** — desktop apps, running; not CLI pool tools.
-- **OpenClaw** — multi-channel gateway, running; its Telegram channel uses a different bot token than the SIR manager bot, so no conflict. WhatsApp channel was not present in `channels list`.
-- **Hermes Agent** — the intended primary manager app; gateway runs on local `qwen3.5:9b` (see `ops/HQ_CHECKPOINT.md` 2026-11-13 16:50 note).
+- **OpenClaw** — multi-channel gateway, running; its Telegram channel uses a different bot token than the SIR manager bot. **2026-11-13 night:** `channels.telegram.enabled=false` and `channels.whatsapp.enabled=false` set via `openclaw config set` (config preserved, reversible, no gateway restart needed). Other OpenClaw data untouched.
+- **Hermes Agent** — gateway running (python PID, heartbeat fresh), provider `ollama` + `qwen3.5:9b`, auto-starts at logon via Startup-folder `Hermes_Gateway.vbs`. Its Telegram platform has no channel configured (empty `channel_directory.json`), so it does not compete with the SIR listener. Decision: `telegram-inbox.mjs` + `backup_manager.py` chain stays the Telegram front-end; wiring Hermes telegram to the same bot later would need the listener retired first (two pollers split updates).
+- **Devin ACP agents** — Devin Desktop was spawning ~35 `npx` ACP agent processes (every detected CLI) and crashed the machine twice tonight. Fixed 2026-11-13: `devin.acp.enabledAgents` in `AppData/Roaming/Devin/User/settings.json` — 23 agents set to `false`, only `devin-cli` + `devin-cloud` kept. Backup at `settings.json.bak-20261113`. RAM recovered 0.3 GB → 12+ GB free, commit 49.8 → 28.5 GB.
+- **Augment (auggie)**, **Factory Droid CLI (droid)**, **GitHub Copilot CLI**, **ZCode app** (`C:\Program Files\ZCode\ZCode.exe`), **Cursor IDE + cursor-agent** — installed, not in the worker pool. Copilot CLI shim exists but package not bootstrapped; droid runs via Factory's bundled exe (`cli-run2.sh` line for `droid`).
 
 ## Best tool for talking to the local AI
 
-Direct Ollama HTTP API (`http://127.0.0.1:11434`) is the proven path: a real
-`think:false` generation answered in ~3 s on 2026-11-13. `ollama run` CLI works but
-interactive/thinking modes are slow for chat. **Pick: the Ollama API** (used by
-Hermes, OpenClaw and AHome local-core already). `aider` remains the best CLI wrapper
-when a tool must drive Ollama with files; `goose`/`crush`/`qwen` CLIs are installed
-but unproven for chat (goose not on PATH in minimal envs, qwen CLI arg quirks).
+**Pick: `aider`** — verified end-to-end tonight (2026-11-13): `aider --model
+ollama/qwen3.5:9b` answered a live prompt. It is git-aware, edits files, and is
+already trusted inside the backup-manager chain. Runner-up **`crush`** (Charm,
+verified same night after adding `~/.config/crush/crushrc` with an `ollama`
+provider) if a nicer interactive TUI is wanted; **`goose`** and **`qwen-code`**
+also verified working via Ollama (`qwen-code` needed its `~/.qwen/settings.json`
+model fixed from missing `qwen3:8b` to `qwen3.5:9b`). For pure chat with no
+tooling, the Ollama HTTP API (`http://127.0.0.1:11434`, `think` field) remains
+the fastest path (~3 s). `ollama run` CLI works but thinking modes are slow.
+Local models stay out of the coding pool per owner order; AHome uses them via
+its own local-core, never through these CLIs.

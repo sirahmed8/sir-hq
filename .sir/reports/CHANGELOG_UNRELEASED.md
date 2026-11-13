@@ -9,3 +9,5 @@
 2026-11-13 | HQ | OpenClaw on new Telegram token and free OpenRouter Gemma default; Droid CLI wired to OpenRouter and added to team; DeepSeek harness blocked on DEEPSEEK_API_KEY
 2026-11-13 | HQ | DeepSeek harness corrected (owner signed in, not blocked); shared-limit OpenRouter tools removed from pool; SIR AI tools inventory written
 2026-11-13 | HQ | Pushed to origin; qwen3:8b removed; three new Ollama models present; OpenClaw Telegram removal still pending
+
+- 2026-11-13: HQ Isha day summary sent (msg 776). CI red in AHome, SIR Jobs, SIR Study, SIR Laptop Manager, SIR AI, SIR Portfolio (causes not yet read). Calendar tool unavailable this run.
