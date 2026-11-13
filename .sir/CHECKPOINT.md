@@ -1,4 +1,18 @@
-# SIR HQ checkpoint (updated 2026-11-13 11:10, HQ chat)
+# SIR HQ checkpoint (updated 2026-11-13 17:30, owner-requests-verify-fix1 worker)
+
+## Now
+- owner-requests-verify-fix1 DONE: item 4 (voice) fixed for real. Kokoro-82M ONNX fp16 pack + voices-v1.0.bin installed at `D:\Projects\AI_Models_Hub\kokoro\model\` with a working kokoro-onnx venv (`kokoro\.venv`, Python 3.13) and `kokoro\synthesize.py`; proof: `kokoro-check.wav` synthesized (2.5s @ 24kHz, voice af_heart). Whisper stays at `D:\Projects\AI_Models_Hub\whisper\faster-whisper-base` (+ HF cache copy). New `scripts/voice_models_report.py` (`--text`/`--json`) reports all locations; `tests/test_voice_models.py` guards presence. Commit 8c541c4 pushed to main. Local checks: compileall OK, pytest 60 passed / 5 skipped. CI quota flag still set (rule 18).
+- Note: Hermes' kokoro-tts plugin is macOS/Linux-only, so the pack is provisioned standalone under AI_Models_Hub for any local consumer; Hermes on Windows uses its built-in TTS providers (edge/neutts/piper etc.) instead.
+- .gitignore repaired: a UTF-16-corrupted `nul` line replaced with a real `nul` entry (Windows redirect artifact).
+
+## Next step (exact)
+1. Owner decisions still open from earlier sections (SIR bot token 401, OpenClaw Telegram channel, shared-limit tool on local AI).
+2. If a product needs Arabic TTS, evaluate edge-tts (Hermes built-in, ar-EG voices) or piper per SIR AI plan; Kokoro v1.0 voices are English-only.
+
+## Open promises
+- Owner: re-issue SIR bot token (ops/OWNER_ACTIONS.md); reply in Egyptian Arabic.
+
+---
 
 ## Now
 - Push done: origin/main is up to date (network works now).
