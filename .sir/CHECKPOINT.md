@@ -1,12 +1,14 @@
-# SIR HQ checkpoint (updated 2026-11-13 18:45, HQ day summary run)
+# SIR HQ checkpoint (updated 2026-11-13 17:40, evening health check-in run)
 
 ## Now
-- Isha day summary sent to Telegram (message_id 776). Calendar tool did not load this run, so tomorrow's events are missing from the summary.
+- Evening health check-in sent 2026-11-13 17:39 UTC with buttons health_done / health_later / health_skip (ok from Telegram). Waiting for his tap; no new answer in ahmed-telegram.md yet, so health_log.jsonl is unchanged.
+- Earlier today: Isha day summary sent to Telegram (message_id 776). Calendar tool did not load that run, so tomorrow's events are missing from the summary.
 - CI last run per project: _SIR green; AHome, SIR Jobs, SIR Study, SIR Laptop Manager red; SIR AI and SIR Portfolio red (last run 2026-11-12 late). `gh run view --log-failed` returns "log not found" for the red runs, so the causes are unknown.
 - Health: no check-in answer today. Last logged answer: 2026-11-12 health_later.
 - Telegram bot token still 401 (owner action, see Open promises).
 
 ## Next step (exact)
+0. Health: at the next duty run, read `ops/bus/ahmed-telegram.md` (last 40 lines) for his tap; append it to `_local/health_log.jsonl` (`{"date","time_utc","duty":"isha","answer","source"}`), then adapt. Re-read after a reset: `ops/DAILY_RHYTHM.md`, `ops/bus/ahmed-telegram.md`, `_local/health_log.jsonl`.
 1. Read the failing CI cause by hand: `gh run view <id> --log` on AHome run 43458598811 and SIR Laptop Manager run 43460413053, or open them on GitHub.
 2. Owner: re-issue the SIR bot token via BotFather `/token`, then set the user env var `SIR_TELEGRAM_BOT_TOKEN`.
 3. Calendar: find a working Google Calendar route (gcalendar skill or script) so tomorrow's section can be filled.
@@ -23,6 +25,7 @@
 2. If a product needs Arabic TTS, evaluate edge-tts (Hermes built-in, ar-EG voices) or piper per SIR AI plan; Kokoro v1.0 voices are English-only.
 
 ## Open promises
+- HQ: log Ahmed's health tap from the 17:39 UTC check-in into health_log.jsonl once it arrives.
 - Owner: re-issue SIR bot token (ops/OWNER_ACTIONS.md); reply in Egyptian Arabic.
 
 ---

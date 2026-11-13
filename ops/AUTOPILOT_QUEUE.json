@@ -1172,12 +1172,18 @@
     "name": "audit-sir-jobs-20261113-1821",
     "folder": "D:/Projects/SIR Jobs",
     "title": "SIR Jobs: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-study-20261113-1821",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "audit-sir-study-20261113-1501-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261113-1501 verification",
     "done": false
   }
 ]
