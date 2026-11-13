@@ -1,0 +1,135 @@
+2026-11-13T19:43:03.021+02:00 [gateway] loading configuration…
+2026-11-13T19:43:03.044+02:00 [gateway] resolving authentication…
+2026-11-13T19:43:03.047+02:00 [gateway] starting...
+2026-11-13T19:43:06.534+02:00 [gateway] shutdown budget at startup: drain=315000ms shutdown=325000ms reserve=10000ms exitMargin=5000ms; source=Gateway stop policy=330000ms
+2026-11-13T19:43:09.836+02:00 [gateway] startup phase: process.bootstrap 14121.9ms total=14121.9ms
+2026-11-13T19:43:11.404+02:00 [gateway] startup phase: state.schema-preflight starting total=15689.3ms
+2026-11-13T19:43:11.410+02:00 [gateway] startup phase: state.schema-preflight 6.2ms total=15695.5ms
+2026-11-13T19:43:58.323+02:00 [gateway] auto-enabled plugins for this runtime without writing config:
+- openrouter/google/gemma-4-31b-it:free model configured, enabled automatically.
+- openai decision provider selected, enabled automatically.
+2026-11-13T19:43:58.329+02:00 [gateway] startup phase: config.auth starting total=62612.7ms
+2026-11-13T19:44:05.045+02:00 [gateway] startup phase: config.auth 6718.0ms total=69330.7ms
+2026-11-13T19:44:07.082+02:00 [gateway] startup phase: state.desktop-approval-admission starting total=71367.3ms
+2026-11-13T19:44:07.141+02:00 [gateway] startup phase: state.desktop-approval-admission 59.4ms total=71426.7ms
+2026-11-13T19:44:07.142+02:00 [gateway] startup phase: sessions.admission starting total=71428.4ms
+2026-11-13T19:44:09.034+02:00 [gateway] startup phase: sessions.admission 1892.0ms total=73320.4ms
+2026-11-13T19:44:10.478+02:00 [gateway] starting HTTP server...
+2026-11-13T19:44:11.596+02:00 [health-monitor] started (interval: 300s, startup-grace: 60s, channel-connect-grace: 120s)
+2026-11-13T19:44:11.987+02:00 [gateway] startup phase: http.bound 0.0ms total=76272.5ms
+2026-11-13T19:44:11.987+02:00 [gateway] startup phase: runtime.early starting total=76273.1ms
+2026-11-13T19:44:11.991+02:00 [gateway] startup phase: runtime.early.discovery starting total=76277.2ms
+2026-11-13T19:44:12.000+02:00 [gateway] startup phase: runtime.early.discovery 8.5ms total=76285.7ms
+2026-11-13T19:44:12.000+02:00 [gateway] startup phase: runtime.early.lazy-runtime-imports starting total=76286.1ms
+2026-11-13T19:44:12.002+02:00 [gateway] startup phase: runtime.early.lazy-runtime-imports 2.0ms total=76288.1ms
+2026-11-13T19:44:12.003+02:00 [gateway] startup phase: runtime.early.skills-listener starting total=76288.8ms
+2026-11-13T19:44:12.023+02:00 [gateway] startup phase: runtime.early.skills-listener 20.2ms total=76309.0ms
+2026-11-13T19:44:12.023+02:00 [gateway] startup phase: runtime.early 36.2ms total=76309.3ms
+2026-11-13T19:44:15.713+02:00 [gateway] startup phase: post-attach.system-ca starting total=79998.8ms
+2026-11-13T19:44:15.713+02:00 [gateway] startup phase: post-attach.system-ca 0.6ms total=79999.4ms
+2026-11-13T19:44:15.723+02:00 [gateway] startup phase: sidecars.main-session-recovery starting total=80009.1ms
+2026-11-13T19:44:15.729+02:00 [gateway] startup phase: plugins.runtime-post-bind starting total=80014.7ms
+2026-11-13T19:44:16.804+02:00 [gateway] startup phase: plugins.runtime-post-bind 1075.1ms total=81089.8ms
+2026-11-13T19:44:16.804+02:00 [gateway] startup phase: plugins.runtime-attach starting total=81090.2ms
+2026-11-13T19:44:16.810+02:00 [gateway] startup phase: plugins.runtime-attach 5.3ms total=81095.5ms
+2026-11-13T19:44:20.611+02:00 [gateway] startup phase: sidecars.main-session-recovery 4887.7ms total=84896.8ms
+2026-11-13T19:44:20.686+02:00 [gateway] agent model: ollama/qwen3:4b (thinking=off, fast=auto)
+2026-11-13T19:44:20.686+02:00 [gateway] http server listening (17 plugins: anthropic, browser, canvas, cua-computer, device-pair, duckduckgo, file-transfer, gateway-isolation, geolocation, github, linux-node, memory-core, ollama, openai, openrouter, talk-voice, xai; 74.2s)
+2026-11-13T19:44:20.686+02:00 [gateway] log file: C:\Users\W8-Q9\AppData\Local\Temp\openclaw\openclaw-2026-11-13.log
+2026-11-13T19:44:20.687+02:00 [gateway] Older local CLI/SDK versions can bypass Gateway state mutation routing. Use matching CLI/SDK and Gateway versions; direct state writes from another process while this Gateway owns state are unsupported.
+2026-11-13T19:44:20.687+02:00 [gateway] native runtime: {"pid":30876,"platform":"win32","arch":"x64","node":"24.22.1","v8":"13.6.233.17-node.58","uv":"1.52.1","openssl":"3.5.9","sqlite":"3.53.4","sqliteClose":{"explicitSqliteCloseReleasesNativeResources":true,"decided":true,"reason":"Node runtime"}}
+2026-11-13T19:44:20.687+02:00 [gateway] worker startup state: {"workerCount":11,"workerLifecycle":[{"script":"other","started":1,"retired":[{"reason":"exit","count":1}]},{"script":"worker-native-lifecycle.worker.js","started":1,"retired":[]},{"script":"openclaw-state-read.worker.js","started":2,"retired":[]},{"script":"sqlite-snapshot-staging.worker.js","started":2,"retired":[{"reason":"rotation","count":2}]},{"script":"gateway-state-owner-heartbeat.worker.js","started":1,"retired":[]},{"script":"openclaw-state-lease-heartbeat.worker.js","started":1,"retired":[]},{"script":"sqlite-store.worker.js","started":2,"retired":[]},{"script":"session-transcript.worker.js","started":4,"retired":[]}],"compute":{"limit":19,"active":0,"waitingPools":0,"pendingTasks":0,"pendingBytes":0}}
+2026-11-13T19:44:20.705+02:00 [gateway] startup phase: sidecars.worker-environments starting total=84990.6ms
+2026-11-13T19:44:20.793+02:00 [gateway] startup phase: sidecars.worker-environments 88.3ms total=85078.9ms
+2026-11-13T19:44:20.794+02:00 [gateway] starting channels and sidecars...
+2026-11-13T19:44:20.794+02:00 [gateway] startup phase: sidecars.internal-hooks starting total=85080.3ms
+2026-11-13T19:44:20.799+02:00 [gateway] startup phase: sidecars.reply-runtime starting total=85085.3ms
+2026-11-13T19:44:20.821+02:00 [gateway] startup phase: sidecars.model-runtime starting total=85107.0ms
+2026-11-13T19:44:21.389+02:00 [gateway] startup phase: sidecars.internal-hooks 594.7ms total=85675.0ms
+2026-11-13T19:44:21.874+02:00 [gateway] startup phase: sidecars.reply-runtime 1075.1ms total=86160.5ms
+2026-11-13T19:44:22.137+02:00 [gateway] startup phase: sidecars.model-runtime 1316.2ms total=86423.2ms
+2026-11-13T19:44:22.193+02:00 [gateway] startup phase: sidecars.chat-metadata starting total=86478.7ms
+2026-11-13T19:44:22.194+02:00 [gateway] startup phase: sidecars.chat-metadata 1.0ms total=86479.8ms
+2026-11-13T19:44:22.194+02:00 [gateway] startup phase: sidecars.channels starting total=86480.0ms
+2026-11-13T19:44:22.301+02:00 [gateway] startup phase: sidecars.channels 107.4ms total=86587.4ms
+2026-11-13T19:44:22.306+02:00 [gateway] startup phase: sidecars.plugin-services starting total=86591.4ms
+2026-11-13T19:44:22.515+02:00 [gateway] startup phase: sidecars.plugin-services 209.9ms total=86801.3ms
+2026-11-13T19:44:22.519+02:00 [gateway] startup outcomes: internal-hooks=skipped (not-configured); internal-startup-hook=skipped (no-handlers-loaded); gateway-start-hooks=scheduled; gmail-watcher=skipped (hooks-disabled); gmail-model=skipped (not-configured)
+2026-11-13T19:44:22.524+02:00 [gateway] startup phase: runtime.worker-pool-metrics starting total=86810.1ms
+2026-11-13T19:44:22.531+02:00 [gateway] startup phase: runtime.worker-pool-metrics 6.5ms total=86816.6ms
+2026-11-13T19:44:22.531+02:00 [gateway] startup phase: ready 0.6ms total=86817.2ms
+2026-11-13T19:44:22.531+02:00 [gateway] ready
+2026-11-13T19:44:22.613+02:00 [heartbeat] started
+2026-11-13T19:44:23.580+02:00 [gateway] startup phase: sidecars.subagent-recovery starting total=87865.8ms
+2026-11-13T19:44:24.099+02:00 [gateway] startup phase: sidecars.subagent-recovery 519.2ms total=88385.0ms
+2026-11-13T19:44:25.176+02:00 [main-session-restart-recovery] main-session restart recovery candidate {"boot":"2df12848-20ef-4027-95bb-3bcda0d0722b","pass":"6d243335-a164-4242-8344-b2bf05e96e14","agentId":"main","storePath":"C:\\Users\\W8-Q9\\.openclaw\\agents\\main\\sessions\\sessions.json","sessionKey":"agent:main:main","sessionId":"f9a46466-abdf-4448-a895-49a4cb20bff2","decision":"settled","reason":"pending_delivery_notice","nextOwner":"none"}
+2026-11-13T19:44:25.180+02:00 [main-session-restart-recovery] main-session restart recovery startup complete: started=0 settled=1 failed=0 skipped=0 boot=2df12848-20ef-4027-95bb-3bcda0d0722b pass=6d2433…6e14
+2026-11-13T19:44:31.232+02:00 [gateway] remote model catalog applied
+2026-11-13T19:44:34.407+02:00 [gateway] startup phase: post-ready.startup-maintenance starting total=98693.2ms
+2026-11-13T19:44:34.408+02:00 [gateway] startup phase: startup.maintenance.plugin-registry starting total=98694.2ms
+2026-11-13T19:44:34.413+02:00 [gateway] startup phase: startup.maintenance.channels starting total=98698.8ms
+2026-11-13T19:44:34.415+02:00 [gateway] startup phase: startup.maintenance.sessions starting total=98700.6ms
+2026-11-13T19:44:34.415+02:00 [gateway] startup phase: startup.maintenance.pairing starting total=98701.1ms
+2026-11-13T19:44:34.419+02:00 [gateway] startup phase: startup.maintenance.channels 5.8ms total=98704.6ms
+2026-11-13T19:44:34.422+02:00 [gateway] startup phase: startup.maintenance.pairing 7.0ms total=98708.0ms
+2026-11-13T19:44:34.422+02:00 [gateway] startup phase: startup.maintenance.session-transcripts starting total=98708.4ms
+2026-11-13T19:44:34.472+02:00 [gateway] startup phase: startup.maintenance.session-transcripts 50.1ms total=98758.5ms
+2026-11-13T19:44:34.473+02:00 [gateway] startup phase: startup.maintenance.sessions 58.3ms total=98758.9ms
+2026-11-13T19:44:34.851+02:00 [gateway] startup phase: startup.maintenance.plugin-registry 443.1ms total=99137.3ms
+2026-11-13T19:44:34.852+02:00 [gateway] startup phase: post-ready.startup-maintenance 444.5ms total=99137.7ms
+2026-11-13T19:44:52.846+02:00 [gateway] cleaned 1 retired native plugin capture(s)
+2026-11-13T19:45:16.119+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=25158 promptBudgetBeforeReserve=24576
+2026-11-13T19:45:19.370+02:00 [ws] ⇄ res ✗ agent errorCode=UNAVAILABLE errorMessage=This model was not found. Choose another model in the Control UI. | 404 runId=122bad77-0abb-4668-8527-1cc72cf3fd79 error=This model was not found. Choose another model in the Control UI. | 404 bytes=346 conn=9e101379…4c33 id=2:dc22ea1d-d…99a5
+2026-11-13T19:46:57.073+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3.5:9b route=compact_only estimatedPromptTokens=27986 promptBudgetBeforeReserve=24576
+2026-11-13T19:48:08.020+02:00 OK
+2026-11-13T19:48:08.025+02:00 [agents/agent-command] [agent] run 5e24e27c-925e-45d6-91b4-c836204dc17a ended with stopReason=stop
+2026-11-13T19:48:09.228+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3.5:9b route=compact_only estimatedPromptTokens=31082 promptBudgetBeforeReserve=24576
+2026-11-13T19:48:28.678+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=34167 promptBudgetBeforeReserve=24576
+2026-11-13T19:48:29.003+02:00 [ws] ⇄ res ✗ agent errorCode=UNAVAILABLE errorMessage=This model was not found. Choose another model in the Control UI. | 404 runId=c1825f00-9b51-4120-8636-0849e6fe9065 error=This model was not found. Choose another model in the Control UI. | 404 bytes=346 conn=0c972df2…e122 id=2:9094f4bc-a…5e65
+2026-11-13T19:57:14.220+02:00 [ws] ⇄ res ✓ agent 1714ms runId=2e66dd09-ca09-4132-8287-843910b45ab5 bytes=233 conn=34af1fae…df14 id=2:3a83d784-3…d327
+2026-11-13T19:59:51.859+02:00 OK3
+2026-11-13T19:59:51.862+02:00 [agents/agent-command] [agent] run 2e66dd09-ca09-4132-8287-843910b45ab5 ended with stopReason=stop
+2026-11-13T20:01:14.096+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=34411 promptBudgetBeforeReserve=24576
+2026-11-13T20:01:14.362+02:00 [ws] ⇄ res ✗ agent errorCode=UNAVAILABLE errorMessage=This model was not found. Choose another model in the Control UI. | 404 runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00 error=This model was not found. Choose another model in the Control UI. | 404 bytes=346 conn=b7ac9a63…75c2 id=2:82150adc-5…e0e0
+2026-11-13T20:02:54.423+02:00 [gateway] config.patch write actor=cli device=unknown-device ip=unknown-ip conn=c4866c7b-1bcb-485d-a6e5-6fa54a6613b6 changedPaths=agents.defaults.decisionModel restartReason=config.patch
+2026-11-13T20:02:54.841+02:00 [reload] config change detected; evaluating reload (plugins.entries.openai, agents.defaults.decisionModel)
+2026-11-13T20:03:21.130+02:00 [gateway] Plugin replacement applied: openai
+2026-11-13T20:03:23.966+02:00 [reload] config hot reload applied (plugins.entries.openai, agents.defaults.decisionModel)
+2026-11-13T20:03:23.979+02:00 [reload] config source revision 1 accepted (write)
+2026-11-13T20:03:25.827+02:00 [ws] ⇄ res ✓ config.patch 31855ms bytes=6154 conn=c4866c7b…13b6 id=2:dcc67a41-4…8520
+2026-11-13T20:03:39.846+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=34655 promptBudgetBeforeReserve=24576
+2026-11-13T20:03:40.109+02:00 [ws] ⇄ res ✗ agent errorCode=UNAVAILABLE errorMessage=This model was not found. Choose another model in the Control UI. | 404 runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07 error=This model was not found. Choose another model in the Control UI. | 404 bytes=346 conn=5e4df873…4f71 id=2:3b484b46-4…fb52
+2026-11-13T20:04:05.786+02:00 [gateway] config.patch write actor=cli device=unknown-device ip=unknown-ip conn=19a70d0b-07db-479f-9d0b-5a1643a2aae1 changedPaths=agents.entries.main.model.primary restartReason=config.patch
+2026-11-13T20:04:06.151+02:00 [reload] config change detected; evaluating reload (agents.entries.main.model.primary)
+2026-11-13T20:04:06.597+02:00 [reload] config hot reload applied (agents.entries.main.model.primary)
+2026-11-13T20:04:06.609+02:00 [reload] config source revision 4 accepted (write)
+2026-11-13T20:04:07.599+02:00 [ws] ⇄ res ✓ config.patch 1995ms bytes=6160 conn=19a70d0b…aae1 id=2:fd52673d-c…8e2b
+2026-11-13T20:04:08.379+02:00 [reload] config reload superseded: GatewayConfigReloadSupersededError: config reload superseded by a newer runtime config source
+2026-11-13T20:04:30.358+02:00 [gateway] config.patch write actor=cli device=unknown-device ip=unknown-ip conn=238eccf3-ad0b-4cba-9ad6-55b3631f05c3 changedPaths=agents.entries.main.model.fallbacks restartReason=config.patch
+2026-11-13T20:04:30.504+02:00 [reload] config change detected; evaluating reload (agents.entries.main.model.fallbacks)
+2026-11-13T20:04:30.768+02:00 [reload] config hot reload applied (agents.entries.main.model.fallbacks)
+2026-11-13T20:04:30.779+02:00 [reload] config source revision 7 accepted (write)
+2026-11-13T20:04:31.753+02:00 [ws] ⇄ res ✓ config.patch 1428ms bytes=6044 conn=238eccf3…05c3 id=2:477437fb-2…1139
+2026-11-13T20:04:32.597+02:00 [reload] config reload superseded: GatewayConfigReloadSupersededError: config reload superseded by a newer runtime config source
+2026-11-13T20:04:39.574+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=34898 promptBudgetBeforeReserve=24576
+2026-11-13T20:04:39.823+02:00 [ws] ⇄ res ✗ agent errorCode=UNAVAILABLE errorMessage=This model was not found. Choose another model in the Control UI. | 404 runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227 error=This model was not found. Choose another model in the Control UI. | 404 bytes=346 conn=b57a05cd…f2dd id=2:57c15f5a-2…77f3
+2026-11-13T20:26:23.828+02:00 [agent/embedded] [context-pressure-diagnostic] admitted provider attempt for ollama/qwen3:8b route=compact_only estimatedPromptTokens=35687 promptBudgetBeforeReserve=24576
+2026-11-13T20:33:43.112+02:00 [ws] webchat connected conn=f3fd3910-915f-448d-bb4c-933e8a313cf5 remote=127.0.0.1 client=openclaw-control-ui webchat v2026.11.1 build=2026.11.1-release-4ffdd2047d19-2026-11-05T21-25-21.901Z
+2026-11-13T20:33:43.817+02:00 [ws] ⇄ res ✗ talk.catalog 469ms errorCode=UNAVAILABLE errorMessage=Talk catalog is warming; retry shortly bytes=234 conn=f3fd3910…3cf5 id=18:62f73c4e-…d7ab
+2026-11-13T20:33:44.179+02:00 [ws] ⇄ res ✗ talk.catalog 2ms errorCode=UNAVAILABLE errorMessage=Talk catalog is warming; retry shortly bytes=234 conn=f3fd3910…3cf5 id=33:1f742d5c-…8b64
+2026-11-13T20:33:44.940+02:00 [ws] ⇄ res ✓ agent.identity.get 1593ms bytes=155 conn=f3fd3910…3cf5 id=17:75a5049f-…c7f8
+2026-11-13T20:33:45.351+02:00 [ws] ⇄ res ✓ board.get 2005ms bytes=192 conn=f3fd3910…3cf5 id=12:2a09734f-…5c3a
+2026-11-13T20:33:45.584+02:00 [ws] ⇄ res ✓ progressCard.get 1720ms bytes=95 conn=f3fd3910…3cf5 id=27:7040a1b0-…b8f1
+2026-11-13T20:33:45.791+02:00 [ws] ⇄ res ✓ models.list 2675ms bytes=173332 conn=f3fd3910…3cf5 id=catalog:f3fd…3cf5
+2026-11-13T20:33:45.794+02:00 [ws] ⇄ res ✓ models.list 2446ms bytes=173148 conn=f3fd3910…3cf5 id=15:301f1b3e-…69ea
+2026-11-13T20:33:45.806+02:00 [ws] ⇄ res ✓ session.members.listEvidence 1826ms bytes=668 conn=f3fd3910…3cf5 id=32:9fcf2a1a-…6ef0
+2026-11-13T20:33:46.491+02:00 [ws] ⇄ res ✓ chat.startup 1717ms bytes=185136 conn=f3fd3910…3cf5 id=34:a22ad562-…1782
+2026-11-13T20:33:46.498+02:00 [ws] ⇄ res ✓ session.reactions.list 2633ms bytes=149 conn=f3fd3910…3cf5 id=28:3a129710-…c1d7
+2026-11-13T20:33:47.054+02:00 [ws] ⇄ res ✓ sessions.github.options 3073ms bytes=395 conn=f3fd3910…3cf5 id=31:99ab2860-…d93f
+2026-11-13T20:33:48.094+02:00 [ws] ⇄ res ✓ update.status 4921ms bytes=201 conn=f3fd3910…3cf5 id=4:84ec2d44-1…8284
+2026-11-13T20:33:48.267+02:00 [ws] ⇄ res ✓ sessions.branches.list 1647ms bytes=97 conn=f3fd3910…3cf5 id=38:648a0ad4-…ed25
+2026-11-13T20:33:48.852+02:00 [ws] ⇄ res ✓ system.info 2232ms bytes=1368 conn=f3fd3910…3cf5 id=37:7aa6ef8b-…62ea
+2026-11-13T20:33:59.685+02:00 [ws] ⇄ res ✓ chat.history 1285ms bytes=4470 conn=f3fd3910…3cf5 id=43:ac16d355-…1d08
+2026-11-13T20:33:59.905+02:00 [git/worker] slow Git content read {"pid":30876,"threadId":0,"isMainThread":true,"durationMs":1461,"firstHostRequestMs":1166,"workerMs":295,"settlementMs":0,"callbackEntered":true,"outcome":"returned","omittedObservations":0,"operation":"checkout.baseline","checkoutId":"e0a45c8d6aa74e00","checkoutClass":"unspecified","gitCommandCount":3,"workerQueueWaitMs":0,"summedGitWallMs":388,"summedGitQueueWaitMs":9,"gitStdoutBytes":99,"gitStderrBytes":0,"gitTimeoutCount":0,"slowestGitCommand":{"command":"rev-parse","durationMs":149,"termination":"exit"}}
+2026-11-13T20:34:03.136+02:00 [gateway] slow chat send 4912ms stage=startup ack=101ms preparation=4718ms replyContext=0ms authoring=0ms replyInitialization=188ms snapshot=8ms dispatch=4ms detail.attempt.actor=14ms detail.attempt.bootstrap=15ms detail.attempt.bundle-tools=12ms detail.attempt.history=140ms detail.attempt.history-boundary=1ms detail.attempt.session-runtime=164ms detail.attempt.setup=6ms detail.attempt.skills=1ms detail.attempt.system-prompt=1194ms detail.attempt.tool-base=44ms detail.attempt.tool-catalog=9ms detail.attempt.transcript-lifecycle=1ms detail.auto_reply.dispatch_reply_from_config=4890ms detail.auto_reply.finalize_context=0ms detail.reply.admit_dispatch=0ms detail.reply.admit_pre_dispatch=7ms detail.reply.build_prompt_bodies=0ms detail.reply.capture_session_diff_baseline=1491ms detail.reply.drain_system_events=0ms detail.reply.ensure_skill_snapshot=596ms detail.reply.ensure_workspace=23ms detail.reply.handle_inline_actions=1ms detail.reply.init_session_state=100ms detail.reply.load_agent_runner_runtime=0ms detail.reply.load_embedded_agent_runtime=0ms detail.reply.load_prepared_dispatch_runtime=0ms detail.reply.load_reply_resolver=0ms detail.reply.native_slash_command_fast_path=0ms detail.reply.preflight_compaction=2082ms detail.reply.resolve_auth_profile=1ms detail.reply.resolve_current_turn_images=0ms detail.reply.resolve_directives=4ms detail.reply.run_agent_turn=1610ms detail.reply.run_prepared_reply=4696ms detail.reply.run_reply_resolver=4831ms detail.reply.session.binding=1ms detail.reply.session.commit=77ms detail.reply.session.commit.mutation=76ms detail.reply.session.hydrate=8ms detail.reply.session.initialize=88ms detail.reply.session.snapshot=8ms detail.reply.session.writer=91ms detail.reply.wait_admission_ticket=0ms detail.runtime=16ms
+2026-11-13T20:44:20.074+02:00 [health] Managed worktree cleanup completed: removed 0; deleted 0 orphans; retired 0 orphan records; pruned 0 snapshots; eligible 0; deferred 0; failed 0; protected 0; limits satisfied.

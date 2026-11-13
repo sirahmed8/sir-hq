@@ -1221,5 +1221,12 @@
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI Agentic OS phase 2: chat stream parser",
     "done": false
+  },
+  {
+    "name": "normal-sir-ai-runnable-adapters-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: make the 8 detect-only CLI adapters runnable",
+    "done": false,
+    "parallel_ok": false
   }
 ]

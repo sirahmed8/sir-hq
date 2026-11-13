@@ -1,0 +1,156 @@
+[gateway] startup phase: entry.run-main-import starting total=149.9ms
+[gateway] startup phase: entry.run-main-import 48.5ms total=198.4ms start=149.9ms
+[gateway] startup phase: cli.main.gateway-run-select-environment starting total=981.2ms
+[gateway] startup phase: cli.main.gateway-run-select-environment 2768.2ms total=3749.4ms start=981.2ms
+[gateway] startup phase: cli.main.gateway-run-imports starting total=3783.4ms
+[gateway] startup phase: cli.main.gateway-run-imports 5.6ms total=3789.1ms start=3783.4ms
+[gateway] startup phase: cli.main.gateway-run-pre-bootstrap starting total=3805.2ms
+[gateway] startup phase: cli.main.gateway-run-pre-bootstrap 1120.4ms total=4925.6ms start=3805.2ms
+[gateway] startup phase: cli.main.gateway-run-bootstrap starting total=4925.7ms
+[gateway] startup phase: cli.command.config-ready starting total=4929.9ms
+[gateway] startup phase: cli.command.config-guard-import starting total=4930.3ms
+[gateway] startup phase: cli.command.config-guard-import 23.0ms total=4953.2ms start=4930.3ms
+[gateway] startup phase: cli.bootstrap.admission.live-owner starting total=4976.6ms
+[gateway] startup phase: cli.bootstrap.admission.live-owner 4.5ms total=4981.1ms start=4976.6ms
+[gateway] startup phase: cli.bootstrap.admission.core-config starting total=4981.3ms
+[gateway] startup phase: cli.bootstrap.admission.core-config 3.3ms total=4984.5ms start=4981.3ms
+[gateway] startup phase: cli.bootstrap.admission.state-snapshot starting total=4984.6ms
+[gateway] startup phase: cli.bootstrap.admission.core-recovery starting total=4992.2ms
+[gateway] startup phase: cli.bootstrap.admission.core-recovery 15.9ms total=5008.1ms start=4992.2ms
+[gateway] startup phase: cli.bootstrap.admission.database-runtime-import starting total=5008.5ms
+[gateway] startup phase: cli.bootstrap.admission.plugin-config starting total=5008.5ms
+[gateway] startup phase: cli.bootstrap.admission.database-runtime-import 82.6ms total=5091.0ms start=5008.5ms
+[gateway] startup phase: cli.bootstrap.admission.database-readiness starting total=5091.2ms
+[gateway] startup phase: cli.bootstrap.admission.database-readiness 17.1ms total=5108.3ms start=5091.2ms agentCount=1 schemaProcessCount=0 schemaInspectionCount=0 schemaSnapshotCount=0
+[gateway] startup phase: cli.bootstrap.admission.session-runtime-import starting total=5108.4ms
+[gateway] startup phase: cli.bootstrap.admission.session-runtime-import 586.5ms total=5694.9ms start=5108.4ms
+[gateway] startup phase: cli.bootstrap.admission.agent-inventory starting total=5695.0ms
+[gateway] startup phase: cli.bootstrap.admission.agent-inventory 8.2ms total=5703.2ms start=5695.0ms
+[gateway] startup phase: cli.bootstrap.admission.session-targets starting total=5703.3ms
+[gateway] startup phase: cli.bootstrap.admission.session-targets 2.6ms total=5705.9ms start=5703.3ms agentCount=1 registeredDatabaseCount=1
+[gateway] startup phase: cli.bootstrap.admission.session-readiness starting total=5706.2ms
+[gateway] startup phase: cli.bootstrap.admission.session-readiness 0.4ms total=5706.6ms start=5706.2ms targetCount=1
+[gateway] startup phase: cli.bootstrap.admission.workspace-runtime-import starting total=5706.6ms
+[gateway] startup phase: cli.bootstrap.admission.workspace-runtime-import 11.9ms total=5718.5ms start=5706.6ms
+[gateway] startup phase: cli.bootstrap.admission.workspace-readiness starting total=5718.6ms
+[gateway] startup phase: cli.bootstrap.admission.workspace-readiness 2.3ms total=5720.9ms start=5718.6ms agentCount=1
+[gateway] startup phase: cli.bootstrap.admission.plugin-config 1257.2ms total=6265.7ms start=5008.5ms
+[gateway] startup phase: cli.bootstrap.admission.config-recovery starting total=6265.8ms
+[gateway] startup phase: cli.bootstrap.admission.config-recovery 12.4ms total=6278.3ms start=6265.8ms
+[gateway] startup phase: cli.bootstrap.admission.device-identity starting total=6278.4ms
+[gateway] startup phase: cli.bootstrap.admission.device-identity 11.1ms total=6289.5ms start=6278.4ms
+[gateway] startup phase: cli.bootstrap.admission.state-snapshot 1305.2ms total=6289.8ms start=4984.6ms
+[gateway] startup phase: cli.bootstrap.admission.config-guard starting total=6289.9ms
+[gateway] startup phase: cli.bootstrap.admission.config-guard 1.2ms total=6291.1ms start=6289.9ms
+[gateway] startup phase: cli.bootstrap.webhook-readiness starting total=6300.7ms
+[gateway] startup phase: cli.bootstrap.webhook-readiness 181.3ms total=6482.1ms start=6300.7ms
+[gateway] startup phase: cli.bootstrap.plugin-plan-import starting total=6482.3ms
+[gateway] startup phase: cli.bootstrap.plugin-plan-import 9.3ms total=6491.7ms start=6482.3ms
+[gateway] startup phase: cli.bootstrap.plugin-plan starting total=6491.8ms
+[gateway] startup phase: cli.bootstrap.plugin-plan 0.4ms total=6492.2ms start=6491.8ms
+[gateway] startup phase: cli.bootstrap.plugin-payload-verification-import starting total=6690.6ms
+[gateway] startup phase: cli.bootstrap.plugin-payload-verification-import 5.9ms total=6696.5ms start=6690.6ms
+[gateway] startup phase: cli.bootstrap.plugin-payload-verification starting total=6696.6ms
+[gateway] startup phase: cli.bootstrap.plugin-payload-verification 8.3ms total=6704.9ms start=6696.6ms
+[gateway] startup phase: cli.command.config-ready 1781.2ms total=6711.1ms start=4929.9ms
+[gateway] startup phase: cli.main.gateway-run-reload-environment starting total=6711.2ms
+[gateway] startup phase: cli.main.gateway-run-reload-environment 1.3ms total=6712.5ms start=6711.2ms
+[gateway] startup phase: cli.main.gateway-run-bootstrap 1786.9ms total=6712.5ms start=4925.7ms
+[gateway] startup phase: cli.bootstrap.lifecycle-runtime starting total=7335.7ms
+[gateway] startup phase: cli.bootstrap.lifecycle-runtime 154.7ms total=7490.4ms start=7335.7ms
+[gateway] startup phase: cli.bootstrap.gateway-lock starting total=7490.8ms
+[gateway] startup phase: cli.bootstrap.gateway-lock 3328.9ms total=10819.7ms start=7490.8ms
+[gateway] startup phase: cli.bootstrap.boot-lifecycle starting total=10821.8ms
+[gateway] startup phase: cli.bootstrap.boot-lifecycle 30.4ms total=10852.2ms start=10821.8ms
+[gateway] startup phase: gateway.server-start-import starting total=10861.6ms
+[gateway] startup phase: gateway.server-start-import 1108.0ms total=11969.6ms start=10861.6ms
+2026-11-13T19:44:05.044+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T19:44:20.610+02:00 [main-session-restart-recovery] marked 1 startup-orphaned main session(s) for restart recovery
+(node:30876) [DEP_PLUGIN_SDK] DeprecationWarning: Plugin SDK: resolveAuthStorePathForDisplay is deprecated; use provider/profile identifiers for displays (there is no public async database-path replacement) instead. The legacy contract remains supported during its deprecation period. Final compatibility day: 2026-12-31. Removal ships in the first January 2027 stable release; no SDK major is required.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-13T19:45:15.439+02:00 (node:30876) [DEP_PLUGIN_SDK] DeprecationWarning: Plugin SDK: createApproverRestrictedNativeApprovalCapability is deprecated; use createApproverRestrictedNativeApprovalCapabilityAsync instead. The legacy contract remains supported during its deprecation period. Final compatibility day: 2026-12-31. Removal ships in the first January 2027 stable release; no SDK major is required.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-13T19:45:18.081+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T19:45:19.098+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="122bad77-0abb-4668-8527-1cc72cf3fd79" requestId="122bad77-0abb-4668-8527-1cc72cf3fd79:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T19:45:19.131+02:00 [telegram] embedded run agent end: runId=122bad77-0abb-4668-8527-1cc72cf3fd79 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T19:45:19.176+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=122bad77-0abb-4668-8527-1cc72cf3fd79 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T19:45:19.181+02:00 [agent/embedded] embedded run failover decision: runId=122bad77-0abb-4668-8527-1cc72cf3fd79 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T19:45:19.199+02:00 [diagnostic] lane task error: lane=main durationMs=4946 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=122bad77-0abb-4668-8527-1cc72cf3fd79
+2026-11-13T19:45:19.201+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=4951 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=122bad77-0abb-4668-8527-1cc72cf3fd79
+2026-11-13T19:45:19.206+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T19:45:53.473+02:00 [memory] memory_index_chunks_vec not updated — semantic vector embeddings unavailable — no vector dimensions resolved. Vector recall degraded. Further duplicate warnings suppressed.
+2026-11-13T19:48:07.966+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T19:48:28.219+02:00 [diagnostic] lane task error: lane=main durationMs=19357 error="Session maintenance yielded to a foreground turn" errorName=AbortError taskKind=turn sessionKey=agent:main:internal-session-effects:8905b770-ad01-4bd1-8381-6f91d5c3b8b7-06eb800c102c4ad5 runId=8905b770-ad01-4bd1-8381-6f91d5c3b8b7
+2026-11-13T19:48:28.220+02:00 [diagnostic] lane task error: lane=session:agent:main:internal-session-effects:8905b770-ad01-4bd1-8381-6f91d5c3b8b7-06eb800c102c4ad5 durationMs=19359 error="Session maintenance yielded to a foreground turn" errorName=AbortError taskKind=turn sessionKey=agent:main:internal-session-effects:8905b770-ad01-4bd1-8381-6f91d5c3b8b7-06eb800c102c4ad5 runId=8905b770-ad01-4bd1-8381-6f91d5c3b8b7
+2026-11-13T19:48:28.222+02:00 [model-fallback/decision] model fallback chain stopped: reason=caller_signal_aborted candidate=ollama/qwen3.5:9b errorName=AbortError
+2026-11-13T19:48:28.834+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="c1825f00-9b51-4120-8636-0849e6fe9065" requestId="c1825f00-9b51-4120-8636-0849e6fe9065:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T19:48:28.853+02:00 [telegram] embedded run agent end: runId=c1825f00-9b51-4120-8636-0849e6fe9065 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T19:48:28.870+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=c1825f00-9b51-4120-8636-0849e6fe9065 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T19:48:28.872+02:00 [agent/embedded] embedded run failover decision: runId=c1825f00-9b51-4120-8636-0849e6fe9065 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T19:48:28.889+02:00 [diagnostic] lane task error: lane=main durationMs=587 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=c1825f00-9b51-4120-8636-0849e6fe9065
+2026-11-13T19:48:28.890+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=588 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=c1825f00-9b51-4120-8636-0849e6fe9065
+2026-11-13T19:48:28.894+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T19:57:19.712+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:01:14.188+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:01:14.242+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00" requestId="e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:01:14.262+02:00 [telegram] embedded run agent end: runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:01:14.273+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:01:14.276+02:00 [agent/embedded] embedded run failover decision: runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:01:14.287+02:00 [diagnostic] lane task error: lane=main durationMs=420 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00
+2026-11-13T20:01:14.288+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=421 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=e4b852c5-ae37-4ac3-9470-a3cfe4d1ea00
+2026-11-13T20:01:14.292+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T20:02:54.665+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:02:55.012+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:03:20.970+02:00 [diagnostic] liveness heartbeat delayed: overdue=10963ms elapsed=40963ms; deferring recovery decisions
+2026-11-13T20:03:21.138+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:03:22.084+02:00 [event-loop] main-thread stall: elapsedMs=20972 task=unattributed
+2026-11-13T20:03:39.973+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:03:39.999+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="d5d0ee12-5943-44e2-8e7c-c418b7075d07" requestId="d5d0ee12-5943-44e2-8e7c-c418b7075d07:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:03:40.017+02:00 [telegram] embedded run agent end: runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:03:40.031+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:03:40.033+02:00 [agent/embedded] embedded run failover decision: runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:03:40.041+02:00 [diagnostic] lane task error: lane=main durationMs=659 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07
+2026-11-13T20:03:40.042+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=660 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=d5d0ee12-5943-44e2-8e7c-c418b7075d07
+2026-11-13T20:03:40.045+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T20:04:06.026+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:06.327+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:06.374+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:30.339+02:00 [config/redaction] Redacted config array key agents.entries.*.model.fallbacks[] has been truncated
+2026-11-13T20:04:30.403+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:30.518+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:30.556+02:00 [secrets] [SECRETS_REF_IGNORED_INACTIVE_SURFACE] channels.telegram.botToken: no enabled Telegram surface inherits this top-level botToken (tokenFile is configured).
+2026-11-13T20:04:39.680+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="043bfa43-2053-45ea-9c34-d5d7fbe1e227" requestId="043bfa43-2053-45ea-9c34-d5d7fbe1e227:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:04:39.697+02:00 [telegram] embedded run agent end: runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:04:39.711+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:04:39.713+02:00 [agent/embedded] embedded run failover decision: runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:04:39.722+02:00 [diagnostic] lane task error: lane=main durationMs=382 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227
+2026-11-13T20:04:39.722+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=383 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=043bfa43-2053-45ea-9c34-d5d7fbe1e227
+2026-11-13T20:04:39.726+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T20:05:09.844+02:00 [memory] memory_index_chunks_vec not updated — semantic vector embeddings unavailable — no vector dimensions resolved. Vector recall degraded. Further duplicate warnings suppressed.
+2026-11-13T20:26:20.143+02:00 [agent/embedded] [model-fallback] configured fallbacks disabled by user model override run=d635b357-f9af-43be-b50d-c5c19a865fb5 session=sha256:410954a4d68e
+2026-11-13T20:26:20.450+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:26:24.752+02:00 [provider-error] Model request failed sessionKey="agent:main:main" runId="d635b357-f9af-43be-b50d-c5c19a865fb5" requestId="d635b357-f9af-43be-b50d-c5c19a865fb5:model:1" requestNumber=1 provider=ollama model=qwen3:8b status=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:26:24.787+02:00 [telegram] embedded run agent end: runId=d635b357-f9af-43be-b50d-c5c19a865fb5 isError=true model=qwen3:8b provider=ollama error=This model was not found. Choose another model in the Control UI. rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:26:24.795+02:00 [agent/embedded] Assistant attempt failed provider=ollama model=qwen3:8b runId=d635b357-f9af-43be-b50d-c5c19a865fb5 code=404 message="404 {\"error\":\"model 'qwen3:8b' not found\"}" body="{\"error\":\"model 'qwen3:8b' not found\"}"
+2026-11-13T20:26:24.797+02:00 [agent/embedded] embedded run failover decision: runId=d635b357-f9af-43be-b50d-c5c19a865fb5 stage=assistant decision=surface_error reason=model_not_found attempt=1 retry=0 rotations=0 from=ollama/qwen3:8b profile=- rawError=404 {"error":"model 'qwen3:8b' not found"}
+2026-11-13T20:26:24.805+02:00 [diagnostic] lane task error: lane=cron-nested durationMs=6239 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=d635b357-f9af-43be-b50d-c5c19a865fb5
+2026-11-13T20:26:24.806+02:00 [diagnostic] lane task error: lane=session:agent:main:main durationMs=6239 error="This model was not found. Choose another model in the Control UI." errorName=FailoverError taskKind=turn sessionKey=agent:main:main runId=d635b357-f9af-43be-b50d-c5c19a865fb5
+2026-11-13T20:26:24.808+02:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=ollama/qwen3:8b candidate=ollama/qwen3:8b reason=model_not_found next=none detail=model 'qwen3:8b' not found
+2026-11-13T20:26:24.881+02:00 [diagnostic] message dispatch completed: channel=unknown sessionId=unknown sessionKey=agent:main:main source=replyResolver outcome=error duration=7763ms
+2026-11-13T20:26:24.881+02:00 [diagnostic] message processed: channel=unknown chatId=telegram:1947329340 messageId=unknown sessionId=f9a46466-abdf-4448-a895-49a4cb20bff2 sessionKey=agent:main:main outcome=error duration=7784ms
+2026-11-13T20:26:24.884+02:00 [heartbeat] session event wake failed; no wake retry scheduled source=interval intent=scheduled agentId=main wakeReason=interval error=agent-runner-failure
+2026-11-13T20:33:44.767+02:00 (node:30876) [DEP_PLUGIN_SDK] DeprecationWarning: Plugin SDK: SpeechProviderPlugin.isConfigured is deprecated; use isConfiguredAsync instead. The legacy contract remains supported during its deprecation period. Final compatibility day: 2026-12-31. Removal ships in the first January 2027 stable release; no SDK major is required.
+2026-11-13T20:33:48.095+02:00 [gateway] update.status: slow request operation=update.status elapsedMs=4756 phaseDurationsMs={"sentinel":1,"checkout":0,"reconciliation":2790,"history":3,"identity":1961,"response":1}
+2026-11-13T20:33:58.410+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:33:59.629+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:33:59.631+02:00 [conversation-label] Conversation label generation failed for ollama/qwen2.5:1.5b (utility). Check the provider/model configuration or choose another agents.defaults.utilityModel. Further warnings for this model are suppressed for 60 seconds.
+2026-11-13T20:34:01.579+02:00 [agent/embedded] [model-fallback] configured fallbacks disabled by user model override run=87adb470-9a8b-433c-9154-5db75ab5c574 session=sha256:f6e22570426b
+2026-11-13T20:34:14.762+02:00 [conversation-label] Conversation label generation failed for ollama/qwen3.5:9b (primary fallback). Check the provider/model configuration or choose another agents.defaults.utilityModel. Further warnings for this model are suppressed for 60 seconds.
+2026-11-13T20:35:15.137+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:35:15.139+02:00 [conversation-label] Conversation label generation failed for ollama/qwen2.5:1.5b (utility). Check the provider/model configuration or choose another agents.defaults.utilityModel. Further warnings for this model are suppressed for 60 seconds.
+2026-11-13T20:35:15.153+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:35:15.184+02:00 [provider-error] Model request failed provider=ollama model=qwen2.5:1.5b status=404 message="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"}" body="{\"error\":\"model 'qwen2.5:1.5b' not found\"}"
+2026-11-13T20:35:15.194+02:00 [session-observer] session observer disabled after consecutive failures sessionKey=agent:main:dashboard:27f5132b-d5d9-428b-819a-d2ff641dc2e6 runId=87adb470-9a8b-433c-9154-5db75ab5c574 consecutiveFailures=2 error="404 {\"error\":\"model 'qwen2.5:1.5b' not found\"} | {\"status\":404,\"code\":\"404\",\"message\":\"404 {\\\"error\\\":\\\"model 'qwen2.5:1.5b' not found\\\"}\",\"provider\":\"ollama\",\"details\":[\"{\\\"error\\\":\\\"model 'qwen2.5:1.5b' not found\\\"}\",\"model 'qwen2.5:1.5b' not found\"]}"
+2026-11-13T20:35:30.156+02:00 [conversation-label] Conversation label generation failed for ollama/qwen3.5:9b (primary fallback). Check the provider/model configuration or choose another agents.defaults.utilityModel. Further warnings for this model are suppressed for 60 seconds.
+2026-11-13T20:35:30.157+02:00 [gateway] dashboard session title generation exhausted; using a crustacean fallback name
+2026-11-13T20:35:50.323+02:00 [memory] memory_index_chunks_vec not updated — semantic vector embeddings unavailable — no vector dimensions resolved. Vector recall degraded. Further duplicate warnings suppressed.

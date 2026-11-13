@@ -417,3 +417,12 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - DISK LOW: C 8.2 GB, D 7.9 GB free. Both dropped since 23:10 note. Watch; deep reclaim may be needed soon (D free is now under 10 GB).
 - REVIEW backlog is large (31 in review): the review pass should keep trimming it; do not add build tasks that depend on unreviewed work.
 - Next step: watch the new SIR AI adapter task run; keep an eye on disk; owner still pending: delete C:\Program Files\Bionic (admin), ZCode already gone.
+
+## HQ note (2026-11-14 02:00) [Devin = backup manager]
+- Manager bot accuracy fix: ai-status.py now prints live timestamp + real disk free (C/D) first; direct_reply prompt now says checkpoint tails are HISTORY and live status wins for "right now" questions. Removed canned "بنفذ الشغل ده" line; fallback message no longer claims all tools are down (says queued until a tool frees). Admin-action failures now log the real error and send a friendly retry line instead of raw exceptions (Habiba-safe).
+- Bot descriptions set via Bot API: AHome = "Ahmed and Habiba's personal AI assistant for daily tasks, reminders, and private household help. Runs fully on their own devices." Hermes/SIR AI/manager also set.
+- Hermes SOUL.md rewritten: full personality spec (Professional/Friendly/Candid/Quirky/Efficient/Cynical), Ahmed bio (20, Syrian in Al Obour Egypt, CS at Obour Institutes, Habiba, family, RTX4050/i7/24GB/iPhone14, football CR7 Liverpool Barca), verified-adult NSFW allowance, Egyptian Arabic rules. Context stays 65536.
+- OpenClaw gateway scheduled tasks DISABLED (runs only when the app opens). Windhawk uninstalled completely (UAC accepted, 0 processes, files gone) - Windows back to stock visuals.
+- Ollama auto-unloaded qwen (keep_alive) - llama-server RAM freed. AHome local-core healthy on 8090.
+- SIR AI work is RUNNING: autopilot task sir-ai-agentic-os-02 (pid 40256) + normal-sir-ai-runnable-adapters-01 queued. Model pool mostly cooling/limited - normal rotation.
+- Disks: C 8.9GB free, D 7.9GB free (D dropped - autopilot artifacts; disk cleanup task exists).

@@ -561,6 +561,9 @@ def direct_reply(body: str, notes: str):
         state += "\n--- LIVE STATUS right now (trust this over any older text; the free tools are working when runner pids are listed; a model cooling down is normal and the next one takes over)\n" + live
         system = (PERSONA.read_text(encoding="utf-8") +
                   "\n\n## Mode: fast chat answer\nYou cannot run tools in this step. Answer Ahmed directly and honestly from the state below. "
+                  "CRITICAL: the checkpoint tails are HISTORY, not current state. For anything about right now "
+                  "(running tasks, disk space, queue, tools up or down, tokens) use ONLY the LIVE STATUS block; "
+                  "if it does not say it, say you will check rather than quoting old numbers. "
                   "If he asks for work to be done or checked on the computer, say what you will do and set needs_agent true. "
                   'Output ONLY compact JSON: {"reply": "<Egyptian Arabic, short, ends with the line المطلوب منك: ...>", "needs_agent": true or false}.\n'
                   f"\n## Current state\n{state}\n## Task board\n{board}\n")
@@ -663,12 +666,11 @@ def main() -> int:
                 remember("Manager", direct["reply"])
                 if not direct.get("needs_agent"):
                     return 0
-                send("بنفذ الشغل ده دلوقتي بأداة بتشتغل على الملفات وهبلغك أول ما يخلص.")
             stage("brain", "racing agents")
             ok = brain(prompt_file, tag)
             reply_path = DIR / f"reply-{tag}.txt"
             answer = reply_path.read_text(encoding="utf-8").strip() if ok and reply_path.exists() else \
-                "[المدير الاحتياطي] كل الأدوات المجانية واقفة دلوقتي (حدود الاستخدام). رسالتك اتسجلت وهتتنفذ أول ما أداة تفتح.\nالمطلوب منك: لا شيء."
+                "[المدير الاحتياطي] رسالتك اتسجلت في الطابور لكن مفيش أداة حرة نفذتها دلوقتي. هتتنفذ أول ما أداة تشتغل وهبلغك بالنتيجة.\nالمطلوب منك: لا شيء."
             remember("Manager", answer)
             stage("sending", "answer ready")
             send(answer)

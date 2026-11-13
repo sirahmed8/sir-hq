@@ -48,3 +48,17 @@
 - 2026-11-13T15:33:33.000Z from Ahmed (Telegram): مين المدير دلوقتي؟
 - 2026-11-13T17:16:25.000Z from Ahmed (Telegram): هلا
 - 2026-11-13T17:40:07.055Z from Ahmed (Telegram button): health_later
+- 2026-11-13T22:13:13.000Z from Ahmed (Telegram): Hi
+- 2026-11-13T23:28:03.000Z from Ahmed (Telegram): اي الدنيا
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): Sometimes saving the picture not saving it and the button also not changed when click save also voice call or video call they start while habiba didnt even join the site! So they r hardcoded features? Cuz they should be like ringing tell she answered or me answer and also video call not opening camera immediately. Also improve noise cancellation feature and make more high quality voice and video and screen share calls! Also done make hardcoded gifs and make it just appear tranding gifs and no catagory and fix searching type box and make it better and sending request to play a game not working and xo game i play it with my self bro! Any 1v1 game should not start until the other start and make notification if someone start the game or we in game and someone out the open and the other continue playing and waiting. And fix cropped buttons and texts in the games cards and remove sir negm furniture and make it just negm furniture in the sir portfolio site cuz its client work
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:06.000Z from Ahmed (Telegram): [photo]
+- 2026-11-13T23:54:07.000Z from Ahmed (Telegram): and remove sir obour hub become sir education hub cuz i say old projects should not mentioned also make in navbar instead of SP make the logo project. Also do anyone work in SIR AI project cuz until now i dont see any change in the sites or the project!

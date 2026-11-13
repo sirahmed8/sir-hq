@@ -49,6 +49,14 @@ def append_daily_pool_health(pool_status: str) -> None:
 
 
 st = load(OPS / "autopilot_state.json")
+print(f"NOW: {datetime.now().strftime('%Y-%m-%d %H:%M')} (all times below are live, trust them over any checkpoint text)")
+import shutil
+for drv in ("C:\\", "D:\\"):
+    try:
+        free = shutil.disk_usage(drv).free / (1024 ** 3)
+        print(f"disk {drv} free: {free:.1f} GB")
+    except Exception:
+        pass
 print(f"autopilot heartbeat: {int((now - st.get('last_tick', 0)) / 60)} min ago (must be under 6)")
 queue = load(OPS / "AUTOPILOT_QUEUE.json") or []
 print("\nQUEUE")

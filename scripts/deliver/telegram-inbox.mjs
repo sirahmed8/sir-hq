@@ -246,7 +246,7 @@ async function runAction(name, msgText = '') {
   running.add(name);
   try {
     const { err, out } = await run(def.cmd[0], def.cmd.slice(1), 600000);
-    if (err) await sendText(`[الإدارة] فشل تنفيذ "${name}": ${String(err.message).slice(0, 200)}`);
+    if (err) { console.error(`[admin-action] ${name} failed: ${err.message}`); await sendText(`[الإدارة] الأمر "${name}" ما كمّلش دلوقتي — هعيد المحاولة وأبلغك.`); }
     else await sendText(def.reply ? def.reply : (out ? out.slice(0, 1500) : `[الإدارة] تم تنفيذ: ${name}`));
   } finally { running.delete(name); }
 }
