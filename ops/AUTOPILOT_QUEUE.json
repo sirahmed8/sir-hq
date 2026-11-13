@@ -1209,5 +1209,11 @@
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI Agentic OS phase 1: adapter registry + status plane",
     "done": false
+  },
+  {
+    "name": "ahome-free-tools-fallback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: bounded free-tools fallback for hard non-private tasks",
+    "done": false
   }
 ]
