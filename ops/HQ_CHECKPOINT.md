@@ -403,3 +403,9 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - UPDATES: claude code 2.1.319->2.1.325, agy already latest 1.5.8, cloudflared 2026.11.0 confirmed installed, gh 2.104.0, tailscale 1.104.7, all npm CLIs current. aider upgrade failed on pypi timeout - retrying in background.
 - QUEUED: ahome-free-tools-fallback (bounded escalation of non-private tasks to free CLI pool, max 2 heavy workers).
 - NETWORK: github.com unreachable for AHome push (committed locally, will push later); pypi flaky.
+
+## HQ note (2026-11-14 00:45) [Devin = backup manager]
+- AHONE assistant fixed end-to-end (3 root causes): (1) AHome chat ctx 16384 fought Hermes 65536 -> Ollama reload churn -> aligned both to 65536; (2) fast profile think="low" made qwen3.5:9b spend the whole token budget analysing the system prompt and emit empty content -> think=False, num_predict 400, timeout 120s; (3) balanced num_predict 700 -> 1500, timeout 150s. Verified: fast 0.7s "تمام", balanced real Arabic answer. AHome commits fbda5b3 pushed.
+- AHome supervisor duplicate processes (2x uvicorn, 2x telegram bot) killed; watchdog auto-heals; supervisor itself respawned by scheduled task (single instance now).
+- OPENCLAW iPhone pairing: gateway.publicOrigin set to https://ahmed.tail9e9aa7.ts.net:8443 via tailscale serve (--bg, persistent); gateway.trustedProxies=["127.0.0.1","::1"] to accept tailscale proxy headers. QR/setup codes expire in minutes - regenerate with `openclaw qr` when pairing.
+- Manager bot DOES read images: describe_image() uses Google AI Studio Gemini vision (copies visible text, identifies error screens) then the AI chain reasons over it. Voice messages transcribed. Privacy: images go to Google free tier - fine for error shots, not for private AHome photos.
