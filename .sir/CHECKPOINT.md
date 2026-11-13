@@ -1,4 +1,32 @@
-# SIR HQ checkpoint (updated 2026-11-13 05:05, HQ chat)
+# SIR HQ checkpoint (updated 2026-11-13, HQ chat, after owner's flint and team requests)
+
+## Now
+- Flint works on Pi (recursive/flint replied "ok"). Added to the pool as pi|radius/recursive/flint (scripts/cli_pool.py). Earlier "radius balance zero" claim applied to the gateway, not proven for flint; the test passed.
+- Muse Spark 1.3 contributor (Meta) and Grok 4.7 (xAI) are NOT free as configured: Meta billing not set up, xAI rate limit 0/0. Not in the pool.
+- Cursor smoke test done (ops/agy-runs/reports/smoke-cursor.md). Pi and Devin smoke tests still queued.
+- Finished tasks reported by autopilot but not yet read: verify-r71-ahome, verify-r70-laptop-fix1, verify-r70-sir-ai, ahome-folder-icon.
+- Telegram listener telegram-inbox.mjs running (PID 20260). Backup manager runs per job from the listener. No watchdog check for the listener yet.
+- Disk: C: 27.8 GB free, D: 23 GB free.
+- OpenQ CLI: not found in Microsoft Store or web search. Owner needs to send a link.
+
+## Next step (exact)
+1. Read ops/agy-runs/reports/smoke-pi.md, smoke-devin.md, parity-instructions.md, verify-r71-ahome.md, verify-r70-sir-ai.md, verify-r70-laptop-fix1.md, and review-old-tasks outputs when they appear.
+2. Remove any tool that fails its smoke test from POOL in scripts/cli_pool.py.
+3. Add a listener check to scripts/hq_watchdog.py: if no process matches telegram-inbox.mjs, start it with the same command as scripts/hq_autopilot.py line 135.
+4. Commit and push: `git add scripts/cli_pool.py scripts/hq_watchdog.py .sir/CHECKPOINT.md && git commit && git push origin main`.
+
+## Open promises
+- Owner: OpenQ CLI. Ask for the link; do not install unknown software.
+- Owner: Muse Spark and Grok are only usable after the owner sets up billing; say so, do not add them.
+- Owner: all free tools get the same rules and skills (parity-instructions brief queued).
+- Owner: all tools busy with real tasks; idle ones get review work (review-old-tasks queued).
+- Owner: Telegram backup manager always on (listener running; watchdog check still to add).
+- Owner: reply in Egyptian Arabic, never English.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/model-pool.json, scripts/cli_pool.py (POOL), scripts/cli-run2.sh, scripts/hq_watchdog.py, ops/briefs/parity-instructions.md, ops/briefs/review-old-tasks.md
+
+---
 
 ## Now
 - Cursor: fixed. The hang came from the GitKraken hook plugin in ~/.claude/settings.json, which Cursor reads too; it failed with "you are not logged in" and blocked every tool call. Plugin set to false (backup: ~/.claude/settings.json.bak-2026-11-13). Cursor now writes a real file in a test run. Pool entry cursor|auto, 900 s cap.
