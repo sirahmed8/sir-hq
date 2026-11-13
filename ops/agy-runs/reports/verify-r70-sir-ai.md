@@ -102,3 +102,10 @@ Round-level checklist status is recorded separately in `D:/Projects/_SIR/ops/ver
 ## Recommendation
 
 Next improvement cycle for SIR AI: offline and error recovery lens, or security and auth lens.
+
+## Final re-verification (this session, 2026-11-13)
+
+- Accidental uncommitted changes (assets/brand/icon.png, scripts/dev-start.ps1, scripts/dev-stop.ps1 BOM loss) restored to HEAD; tree is now clean.
+- Local gates (rule 18, CI minutes exhausted): typecheck clean (10 workspaces), eslint clean, 324 tests passed (32 files), web build green (built in 5.61s). a11y after-run: 0 findings.
+- Item 3 of the r70 cycle (next unfinished tasks / owner open requests) remains honestly open and is not in scope for this verify task; documented as such in ops/verifications/r70-cycle-sir-ai.md.
+

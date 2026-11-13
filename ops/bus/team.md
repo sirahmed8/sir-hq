@@ -105,3 +105,26 @@
 11-13 04:10 autopilot START verify-r70-laptop-fix1 (runner pid 32008)
 11-13 04:20 devin DONE verify-r71-ahome: PASS all checks at 390/768px synthetic data; suite 1059 green; report ops/agy-runs/reports/verify-r71-ahome.md; AHome 7e18876 pushed
 2026-11-13 opencode DONE r70-cycle-sir-ai: a11y lens, baseline 27 -> after 0 findings, fixes fb21360..bcb8221 + evidence pushed, local gates green (CI quota flag), scratch _debug-* removed; next: offline/error-recovery or security/auth lens
+11-13 04:41 autopilot START ahome-folder-icon (runner pid 12196)
+11-13 04:56 autopilot START verify-r70-sir-ai (runner pid 43424)
+2026-11-13 05:02 opencode DONE verify-r70-sir-ai local gates green, a11y 0 findings, tree clean, agy-done signalled
+11-13 05:06 autopilot START smoke-cursor (runner pid 21160)
+11-13 05:17 autopilot START smoke-pi (runner pid 18860)
+11-13 05:53 autopilot START smoke-pi (runner pid 25400)
+11-13 06:20 autopilot DONE smoke-pi: pi smoke report written and pushed; report ops/agy-runs/reports/smoke-pi.md committed as d071f43 and pushed to main; done marker smoke-pi ok signalled
+11-13 06:23 autopilot START smoke-devin (runner pid 32020)
+11-13 06:33 autopilot START parity-instructions (runner pid 35072)
+=== team START ===
+2026-11-13 06:35 cursor START parity-instructions: audit instruction loading across free tools
+11-13 06:53 autopilot START review-old-tasks (runner pid 7320)
+11-13 07:23 autopilot START audit-sir-study-20261113-0721 (runner pid 34932)
+11-13 07:23 autopilot START audit-sir-jobs-20261113-0721 (runner pid 31828)
+11-13 09:00 autopilot START owner-requests-verify (runner pid 39452)
+2026-11-13 07:26 glyph-cluster START audit-sir-study-20261113-0721 resume audit, repair partial state, run cycles
+2026-11-13 07:35 glyph-cluster NOTE audit cycle 3 command hung (no output, timed out); investigating stuck process/state
+2026-11-13 07:38 glyph-cluster NOTE committing improvement 3 (touch targets) and repairing evidence pairs; audit script hangs in this shell, using targeted verification
+11-13 11:05 autopilot START audit-sir-laptop-manager-20261113-1101 (runner pid 29996)
+11-13 11:05 autopilot START audit-sir-jobs-20261113-1101 (runner pid 40012)
+2026-11-13 09:07 kilo START audit-sir-jobs-20261113-1101 full visual/interaction sweep (overlap, clipping, colours, motion, dead buttons, empty states, slow feedback)
+2026-11-13 09:40 kilo DONE audit-sir-jobs-20261113-1101 12 defects fixed (AR localization, profile empty action, overdue contrast), i18n 313/313, gates green, 2 clean cycles, pushed cfbfa15
+2026-11-13 devin NOTE audit-sir-laptop-manager-20261113-1101: repaired python dev launchers + 4 audit scripts, fixed skip-link/game-mode touch targets, i18n batches 1+2 pushed (1617337, 19da2a2, 9a2b2ec); cycle-2 sweep running

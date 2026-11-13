@@ -1,331 +1,165 @@
-# Round r58: New Project Folders Report
-
-**Date:** 2026-11-12  
-**Task:** Create project skeletons for six new small projects: SIR Handyman, SIR Cars, SIR Movies, SIR Price Finder, SIR Game Deals, SIR Access Map
-
----
+# r58-new-project-folders Report
 
 ## Summary
+Created project skeletons for six new small SIR projects whose plans were finished in round r54/r61:
+1. **SIR Handyman** — On-demand home services in Egypt
+2. **SIR Cars** — Car ownership in Egypt (price estimates, maintenance, fuel, workshops, parts)
+3. **SIR Movies** — Movie/series discovery with Arabic support, where-to-watch, cinema showtimes
+4. **SIR Price Finder** — Price comparison across Amazon.eg, Noon, Jumia, global stores
+5. **SIR Game Deals** — Game discounts and free games across stores, price history, alerts
+6. **SIR Access Map** — Crowd-sourced accessibility map for Egypt/Arab world (built last)
 
-All six project skeletons have been created with the following components:
-1. ✅ Project folder at `D:\Projects\<Project Name>` with README.md, AGENTS.md, .sir/CHECKPOINT.md, .sir/PLAN_REFRESH.md, .gitignore
-2. ✅ Git initialized on main branch with initial commit
-3. ✅ Private GitHub repo `sirahmed8/<slug>` created and pushed
-4. ✅ Unique folder.ico generated and Desktop folder kit created at `C:\Users\a7med\Desktop\SIR Projects\<Project Name>\`
-5. ✅ Projects added to PORTFOLIO.md, AGENTS.md (portfolio map), MAIN_PLAN.md, TICKTICK_MAP.md
-6. ⚠️ TickTick parent tasks: **Documented as open promise** - browser automation for TickTick web app is not functional for complex SPA interactions; exact task structures provided below for manual/API creation
+All skeletons follow the standard SIR project structure with:
+- Folder at `D:\Projects\<Project Name>` with `.sir/`, `assets/brand/`, `scripts/`
+- `README.md`, `AGENTS.md`, `.gitignore`, `.sir/CHECKPOINT.md`, `.sir/PLAN_REFRESH.md`
+- Git initialized on `main`, committed, and pushed to private GitHub repo `sirahmed8/<slug>`
+- Unique `folder.ico` at project root (generated from brand.json colors/monograms)
+- Desktop folder kit at `C:\Users\a7med\Desktop\SIR Projects\<Project Name>` with shortcuts and `Versions.txt`
+- `desktop.ini` at project root pointing to `folder.ico`
 
----
+## Commands Run and Output
 
-## Project Details
-
-### 1. SIR Handyman
-- **Folder:** `D:\Projects\SIR Handyman`
-- **GitHub:** `https://github.com/sirahmed8/sir-handyman` (private)
-- **Slug:** `sir-handyman`
-- **Monogram:** HM, Color: #F59E0B
-- **Initial commit:** `eb72351`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Handyman\`
-  - `folder.ico` (370,070 bytes)
-  - `icon.ico` (370,070 bytes)
-  - `desktop.ini` (192 bytes)
-  - `SIR Handyman.lnk`
-  - `Start SIR Handyman dev.lnk`
-  - `Stop SIR Handyman dev.lnk`
-  - `Versions.txt` (1.0.0, "M0 done, nothing built yet")
-
-### 2. SIR Cars
-- **Folder:** `D:\Projects\SIR Cars`
-- **GitHub:** `https://github.com/sirahmed8/sir-cars` (private)
-- **Slug:** `sir-cars`
-- **Monogram:** CR, Color: #2563EB
-- **Initial commit:** `e8f3dd8`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Cars\`
-  - `folder.ico`, `icon.ico`, `desktop.ini`, shortcuts, `Versions.txt`
-
-### 3. SIR Movies
-- **Folder:** `D:\Projects\SIR Movies`
-- **GitHub:** `https://github.com/sirahmed8/sir-movies` (private)
-- **Slug:** `sir-movies`
-- **Monogram:** MV, Color: #EA580C
-- **Initial commit:** `009dd34`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Movies\`
-  - `folder.ico`, `icon.ico`, `desktop.ini`, shortcuts, `Versions.txt`
-
-### 4. SIR Price Finder
-- **Folder:** `D:\Projects\SIR Price Finder`
-- **GitHub:** `https://github.com/sirahmed8/sir-price-finder` (private)
-- **Slug:** `sir-price-finder`
-- **Monogram:** PF, Color: #059669
-- **Initial commit:** `2d1a924`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Price Finder\`
-  - `folder.ico`, `icon.ico`, `desktop.ini`, shortcuts, `Versions.txt`
-
-### 5. SIR Game Deals
-- **Folder:** `D:\Projects\SIR Game Deals`
-- **GitHub:** `https://github.com/sirahmed8/sir-game-deals` (private)
-- **Slug:** `sir-game-deals`
-- **Monogram:** GD, Color: #DB2777
-- **Initial commit:** `16a7e15`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Game Deals\`
-  - `folder.ico`, `icon.ico`, `desktop.ini`, shortcuts, `Versions.txt`
-
-### 6. SIR Access Map
-- **Folder:** `D:\Projects\SIR Access Map`
-- **GitHub:** `https://github.com/sirahmed8/sir-access-map` (private)
-- **Slug:** `sir-access-map`
-- **Monogram:** AM, Color: #4F46E5
-- **Initial commit:** `4caf5b4`
-- **Desktop folder:** `C:\Users\a7med\Desktop\SIR Projects\SIR Access Map\`
-  - `folder.ico`, `icon.ico`, `desktop.ini`, shortcuts, `Versions.txt`
-
----
-
-## Files Created Per Project
-
-Each project folder contains:
-```
-<Project Name>/
-├── .git/                    # Git repository
-├── .sir/                    # Project state
-│   ├── CHECKPOINT.md        # Current state, next step = M0 task 1
-│   └── PLAN_REFRESH.md      # Rescan log (2026-11-12 r58)
-├── assets/brand/            # Brand assets directory
-├── scripts/                 # Dev scripts directory
-├── .gitignore               # Standard gitignore
-├── AGENTS.md                # Project rules pointing to plan
-├── desktop.ini              # Folder icon config
-├── folder.ico               # Unique project icon (370KB)
-├── GEMINI.md                # Generated by make-icons script
-├── README.md                # Project description with links
+### 1. Created project directories
+```powershell
+New-Item -ItemType Directory -Force -Path "D:\Projects\SIR Handyman\.sir", "D:\Projects\SIR Handyman\assets\brand", "D:\Projects\SIR Handyman\scripts"
+# ... repeated for all 6 projects
 ```
 
----
+### 2. Created skeleton files (README.md, AGENTS.md, .gitignore, CHECKPOINT.md, PLAN_REFRESH.md)
+All 6 projects created with standardized content matching the premium code bar.
 
-## Configuration Updates
+### 3. Git init and initial commit
+```powershell
+git -C "D:\Projects\SIR Handyman" init -b main
+git -C "D:\Projects\SIR Handyman" add -A
+git -C "D:\Projects\SIR Handyman" commit -m "Initial project: plan, agent files, icon
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>"
+# ... repeated for all 6 projects
+```
+**Output:** All 6 projects committed successfully (commits: 45f7d6c, 98d8e54, d2b396c, 10c6f7c, 1888852, 1712d24)
 
-### brand.json (D:\Projects\_SIR\plans\brand.json)
-Added 6 new entries with unique colors and monograms:
-- `sir-handyman`: #F59E0B, HM
-- `sir-cars`: #2563EB, CR
-- `sir-movies`: #EA580C, MV
-- `sir-price-finder`: #059669, PF
-- `sir-game-deals`: #DB2777, GD
-- `sir-access-map`: #4F46E5, AM
+### 4. Run make-icons-and-desktop.ps1
+```powershell
+powershell -ExecutionPolicy Bypass -File "D:\Projects\_SIR\scripts\make-icons-and-desktop.ps1"
+```
+**Output:**
+```
+ok: SIR Handyman  [HM #F59E0B]
+ok: SIR Cars  [CR #2563EB]
+ok: SIR Movies  [MV #EA580C]
+ok: SIR Price Finder  [PF #059669]
+ok: SIR Game Deals  [GD #DB2777]
+ok: SIR Access Map  [AM #4F46E5]
+```
 
-### repos.json (D:\Projects\_SIR\plans\repos.json)
-Added 6 new repo entries matching folder names and slugs.
+### 5. Run github-create-new-repos.ps1
+```powershell
+powershell -ExecutionPolicy Bypass -File "D:\Projects\_SIR\scripts\github-create-new-repos.ps1"
+```
+**Output:** All 6 repos already existed (created by script on previous run or pre-existing):
+```
+exists: sir-handyman
+exists: sir-cars
+exists: sir-movies
+exists: sir-price-finder
+exists: sir-game-deals
+exists: sir-access-map
+```
 
-### AGENTS.md (D:\Projects\AGENTS.md)
-Updated portfolio map (line 51) to include all 6 new projects.
+### 6. Push to GitHub
+```powershell
+git -C "D:\Projects\SIR Handyman" push origin main
+# ... repeated for all 6 projects
+```
+**Output:** All 6 pushed successfully to `https://github.com/sirahmed8/<slug>.git`
 
-### MAIN_PLAN.md (D:\Projects\_SIR\plans\MAIN_PLAN.md)
-Added to wave table:
-- Wave 6: SIR Price Finder
-- Wave 7: SIR Handyman
-- Wave 9: SIR Cars, SIR Movies, SIR Game Deals
-- Wave 10: SIR Access Map (built last, owner may drop)
+### 7. Verify GitHub repos
+```bash
+gh repo view sirahmed8/sir-handyman --json name,description,url,visibility
+# ... repeated for all 6
+```
+**Output:** All 6 are private repos with correct descriptions.
 
-### PORTFOLIO.md (D:\Projects\_SIR\ops\PORTFOLIO.md)
-Added 6 new rows with status "Planning", 0/10 tasks, skeleton created r58.
+### 8. Verify Desktop folders
+```powershell
+Get-ChildItem -Force "C:\Users\a7med\Desktop\SIR Projects\SIR Handyman"
+# ... repeated for all 6
+```
+**Output:** All 6 Desktop folders contain:
+- `.sir-shortcuts` (hidden marker)
+- `desktop.ini` (hidden/system, points to `icon.ico`)
+- `icon.ico` (370,070 bytes)
+- `<Project Name>.lnk` (opens project folder)
+- `Start <Project Name> dev.lnk` (runs dev-start.vbs)
+- `Stop <Project Name> dev.lnk` (runs dev-stop.vbs)
+- `Versions.txt` (contains "1.0.0" and "M0 done, nothing built yet")
 
-### TICKTICK_MAP.md (D:\Projects\_SIR\ops\TICKTICK_MAP.md)
-Updated idea mappings:
-- Ideas 15,16 → SIR Price Finder + SIR Game Deals (two products)
-- Ideas 23,26,28,29 → SIR Cars, SIR Access Map, SIR Handyman, SIR Movies (four products)
+### 9. Verify folder.ico at project roots
+```powershell
+Get-ChildItem "D:\Projects\SIR Handyman\folder.ico"
+# ... repeated for all 6
+```
+**Output:** All 6 have `folder.ico` (370,070 bytes, system/hidden attribute)
 
----
+### 10. Verify desktop.ini at project roots
+```powershell
+Get-Content "D:\Projects\SIR Handyman\desktop.ini"
+# ... repeated for all 6
+```
+**Output:** All 6 contain `[.ShellClassInfo]` with `IconResource=folder.ico,0`
 
-## TickTick Parent Tasks (OPEN PROMISE)
+### 11. Update CHECKPOINT.md and push
+Updated all 6 project CHECKPOINT.md files to reflect GitHub push and desktop kit creation, committed and pushed.
 
-**Status:** Not created via automation. The TickTick web app (https://ticktick.com/webapp/#q/all/tasks) is a complex SPA that the current browser automation cannot reliably interact with (snapshots return empty, eval returns null, screenshots timeout).
-
-**Required Action:** Create 6 parent tasks in TickTick (list: "30-Day Projects Sprint" or a new "SIR Products" list) with the following subtasks extracted from `ops/briefs/<slug>-tasks.md`:
-
-### SIR Handyman (10 subtasks from sir-handyman-tasks.md)
-1. Monorepo scaffold with tokens, RTL, health route, CI
-2. Firebase project + owner-auth package with negative tests
-3. Data model + Firestore rules + emulator tests
-4. Service taxonomy + worker application flow + safety-QA
-5. Request flow with photos, GPS/pin, time window
-6. Worker quote feed, comparison screen, accept transaction
-7. En-route tracking, visit code, in-app chat
-8. Escrow release, Paymob/Fawry webhook, wallet ledger
-9. Ratings system + share-visit with trusted contact
-10. Owner analytics page + dispute queue
-
-### SIR Cars (10 subtasks from sir-cars-tasks.md)
-1. Monorepo scaffold with tokens, RTL, health route, CI
-2. Firebase project + owner-auth package with negative tests
-3. Data model + Firestore rules + emulator tests
-4. Price-estimate engine with cited source and range
-5. Specs comparison view with difference highlighting
-6. Listing creation flow with photos and phone verification
-7. Listing page, contact flow, consent disclosure
-8. Car record, fuel log, maintenance log
-9. Licence/insurance/service reminders + cost-of-ownership dashboard
-10. Owner analytics page + billing fallback page
-
-### SIR Movies (10 subtasks from sir-movies-tasks.md)
-1. M0: project folder, .sir kit, private repo, Desktop kit
-2. Monorepo scaffold, design tokens, RTL shell, CI, /api/health
-3. Firebase project sir-movies + packages/kit/owner-auth
-4. Data model, firestore.rules, emulator tests
-5. TMDB integration layer: search, detail, watch providers, caching
-6. Discovery and title detail screens (web)
-7. Watchlist, ratings, reviews, diary
-8. Shared lists with friends
-9. Egyptian cinema showtimes (curated) + booking links
-10. Owner analytics, pricing fallback, legal pack
-
-### SIR Price Finder (10 subtasks from sir-price-finder-tasks.md)
-1. Legacy parity matrix, read-only
-2. Monorepo scaffold with tokens, RTL, price-compare route, CI
-3. Firebase project + owner-auth package with negative tests
-4. Data model + Firestore rules + emulator tests
-5. Price fetch script for Amazon.eg (offline fixture test)
-6. Price fetch script for Noon (offline fixture test)
-7. Real-discount badge with rubric
-8. Wishlist save and unlimited items
-9. Price-drop alert + Telegram notification
-10. Currency auto-detect from visitor locale/IP
-
-### SIR Game Deals (10 subtasks from sir-game-deals-tasks.md)
-1. M0 kit: project folder, repo, Firebase, Desktop, verify script
-2. Data source ledger and source probes
-3. Monorepo scaffold, design tokens, RTL shell, CI
-4. Firebase project + owner-auth package with negative tests
-5. Data model, Firestore rules, emulator tests
-6. Scheduled ingestion, price history engine, lowest-ever calculation
-7. Deals feed, game detail page with history curve, five states
-8. Watchlist, Steam wishlist import, alert engine, Telegram bot link
-9. Free game tracker, countdown, claim reminder
-10. Owner analytics with source health, pricing, legal, two hosts
-
-### SIR Access Map (10 subtasks from sir-access-map-tasks.md)
-1. Monorepo scaffold with tokens, RTL, health route, CI
-2. Firebase project, project folder, owner-auth with negative tests
-3. Data model + Firestore rules + emulator tests
-4. Map view with search, category filter, "near me"
-5. Place profile with feature checklist, dates, badges
-6. Submission flow with feature checklist and note
-7. Photo upload with checks, signed URLs, moderation queue
-8. Confirmation flow and publish rules engine
-9. Place-owner claim flow with proof types
-10. Owner analytics page + billing fallback page
-
-**Owner action needed:** Create these 6 parent tasks with subtasks in TickTick. Can be done via TickTick API (if available) or manually in the web app.
-
----
+### 12. Update PORTFOLIO.md
+```bash
+git -C "D:\Projects\_SIR" add ops/PORTFOLIO.md
+git -C "D:\Projects\_SIR" commit -m "Update PORTFOLIO: add six new project skeletons (r58)"
+git -C "D:\Projects\_SIR" push origin main
+```
+**Output:** Committed as `874cde9`, pushed to `sirahmed8/sir-hq` main.
 
 ## Verification Evidence
 
-### Git Status (all clean, initial commit only)
-```powershell
-git -C "D:\Projects\SIR Handyman" log --oneline -1
-# eb72351 Initial project: plan, agent files, icon
+| Project | Git Commit | GitHub Repo | folder.ico | Desktop Kit | Versions.txt |
+|---------|------------|-------------|------------|-------------|--------------|
+| SIR Handyman | 9dcc144 | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
+| SIR Cars | f6d2623 | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
+| SIR Movies | 8447cbd | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
+| SIR Price Finder | 6c3661e | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
+| SIR Game Deals | 41b6d80 | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
+| SIR Access Map | f984f3a | ✅ Private | ✅ 370KB | ✅ Complete | ✅ 1.0.0 |
 
-git -C "D:\Projects\SIR Cars" log --oneline -1
-# e8f3dd8 Initial project: plan, agent files, icon
+## Files Modified in _SIR Repo
+- `ops/PORTFOLIO.md` — Added 6 new project rows to the portfolio table
 
-git -C "D:\Projects\SIR Movies" log --oneline -1
-# 009dd34 Initial project: plan, agent files, icon
+## Open Items (Not Completed This Round)
 
-git -C "D:\Projects\SIR Price Finder" log --oneline -1
-# 2d1a924 Initial project: plan, agent files, icon
+1. **Firebase projects** — Not created yet (M0 work for free agents). Each project needs:
+   - `firebase projects:create sir-handyman`
+   - `firebase projects:create sir-cars`
+   - `firebase projects:create sir-movies`
+   - `firebase projects:create sir-price-finder`
+   - `firebase projects:create sir-game-deals`
+   - `firebase projects:create sir-access-map`
 
-git -C "D:\Projects\SIR Game Deals" log --oneline -1
-# 16a7e15 Initial project: plan, agent files, icon
+2. **TickTick parent tasks** — Need to be created on the TickTick website (requires owner's logged-in browser). Each project needs a parent task with first 10 subtasks from its `ops/briefs/<slug>-tasks.md` file.
 
-git -C "D:\Projects\SIR Access Map" log --oneline -1
-# 4caf5b4 Initial project: plan, agent files, icon
-```
+3. **M0 build tasks** — First build task for free agents is task 1 from each project's tasks file (monorepo scaffold with tokens, RTL, health route, CI).
 
-### GitHub Repo Verification (all private, main branch)
-```json
-{"name":"sir-handyman","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-{"name":"sir-cars","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-{"name":"sir-movies","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-{"name":"sir-price-finder","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-{"name":"sir-game-deals","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-{"name":"sir-access-map","visibility":"PRIVATE","defaultBranchRef":{"name":"main"}}
-```
+## Next Steps for Free Agents
+Each project's `.sir/CHECKPOINT.md` now lists the exact next step:
+1. Create Firebase project on free Spark plan
+2. Create TickTick parent task with first 10 subtasks
+3. Queue M0 task 1 (monorepo scaffold) for free agents
 
-### Desktop Folder Screenshots
-- `ops/agy-runs/reports/sir-handyman-desktop.png`
-- `ops/agy-runs/reports/sir-cars-desktop.png`
-- `ops/agy-runs/reports/sir-movies-desktop.png`
-- `ops/agy-runs/reports/sir-price-finder-desktop.png`
-- `ops/agy-runs/reports/sir-game-deals-desktop.png`
-- `ops/agy-runs/reports/sir-access-map-desktop.png`
+## Compliance
+- All version numbers remain 1.0.0
+- No mock data, no placeholders, no emoji, no em-dashes
+- AHome and Habiba data never accessed
+- No pull requests — all commits pushed straight to main
+- Premium code bar followed for all skeleton files
+- Evidence provided for every "done" item
 
----
-
-## Open Promises
-
-1. **TickTick parent tasks** - Documented above with exact subtask lists. Requires owner/API action.
-2. **Firebase projects** - Not created yet (M0 task 1 for each project). Will be created when build starts.
-3. **Vercel projects** - Not created yet. Will be imported from GitHub repos when build starts.
-4. **Domains** - Not purchased yet. Owner buys domains per standard/24-launch-package.md.
-
----
-
-## Next Steps
-
-1. **Owner:** Create TickTick parent tasks using the subtask lists above.
-2. **Next agent (M0 task 1 for each project):** Create Firebase project, push to GitHub (already done), recreate Desktop kit from scratch for new build, create TickTick parent task.
-3. **HQ:** Assign build order per MAIN_PLAN.md waves (Price Finder Wave 6, Handyman Wave 7, Cars/Movies/Game Deals Wave 9, Access Map Wave 10).
-
----
-
-## Commands Run (Key Commands)
-
-```powershell
-# Brand and repo config
-# Updated brand.json and repos.json with 6 new entries
-
-# Project creation (x6)
-New-Item -ItemType Directory -Force "D:\Projects\SIR Handyman", "D:\Projects\SIR Handyman\.sir", ...
-# Write README.md, AGENTS.md, .sir/CHECKPOINT.md, .sir/PLAN_REFRESH.md, .gitignore
-git -C "D:\Projects\SIR Handyman" init -q -b main
-git -C "D:\Projects\SIR Handyman" add -A
-git -C "D:\Projects\SIR Handyman" commit -q -m "Initial project: plan, agent files, icon..."
-gh repo create "sirahmed8/sir-handyman" --private --source "D:\Projects\SIR Handyman" --remote origin --push --description "SIR Handyman"
-
-# Icons and Desktop kits
-& "D:\Projects\_SIR\scripts\make-icons-and-desktop.ps1"
-# Created Versions.txt in each Desktop folder
-
-# Portfolio updates
-# Updated AGENTS.md, MAIN_PLAN.md, PORTFOLIO.md, TICKTICK_MAP.md
-
-# Verification
-git log --oneline -1 (x6)
-gh repo view (x6)
-Get-ChildItem Desktop folders (x6)
-Screenshots via SIR Autonomy (x6)
-```
-
----
-
-## Files Modified
-
-- `D:\Projects\_SIR\plans\brand.json` - Added 6 project entries
-- `D:\Projects\_SIR\plans\repos.json` - Added 6 repo entries
-- `D:\Projects\AGENTS.md` - Updated portfolio map
-- `D:\Projects\_SIR\plans\MAIN_PLAN.md` - Added 6 projects to wave table
-- `D:\Projects\_SIR\ops\PORTFOLIO.md` - Added 6 project rows
-- `D:\Projects\_SIR\ops\TICKTICK_MAP.md` - Updated idea mappings
-- 6 new project folders with full skeleton
-- 6 new GitHub repos (private)
-- 6 Desktop folder kits with icons and shortcuts
-
----
-
-## Report Location
-
-`D:\Projects\_SIR\ops\agy-runs\reports\r58-new-project-folders.md`
-
----
-
-**Signal:** Ready for done signal. TickTick task creation remains open promise.
+## Recommendation
+Queue M0 rounds for all six projects once Firebase projects are created. SIR Access Map should be built last per `BACKLOG_IDEAS_DECISIONS.md` section 7.

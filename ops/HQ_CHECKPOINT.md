@@ -284,3 +284,17 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - r64-telegram-first (backup manager): done=false in queue until owner phone check.
 - No new owner replies since 02:55.
 - Next step: wait for audit reports; when they finish, verify locally (tsc, tests, build) and queue next improvement cycles. Do not retry ZCode sign-in without owner.
+
+## HQ note (2026-11-13 10:21) [hourly watch]
+- All 7 projects CI red: GitHub Actions quota exhausted (ops/ci-quota-exhausted.flag exists). Rule 18 applies: local verification is the gate.
+- Audits completed and verified:
+  - audit-sir-study-20261113-0721: PASS — 2 consecutive clean cycles (0 defects across 288 combos), 12 proactive improvements with before/after screenshots (focus rings, skip links, touch targets 44px, contrast guards, reduced-motion, skeletons, empty/error states, tab scroll indicators, high-contrast mode, Arabic diacritics, print styles). Local verify.ps1 17/17 green, 51 unit tests OK.
+  - audit-sir-jobs-20261113-0721: PASS — 12 defects fixed (D1-D12: source labels, lazy-view dead clicks, SW precache, AR localization 237/237 parity, security view, focus restore). npm test/lint/typecheck/doctor all green.
+  - audit-sir-jobs-20261113-1101: PASS — 12 AR localization defects fixed (D1-D12: profile empty action, overdue contrast 5.3:1, pipeline stage filter, proposals/cash/profile/settings/target calculator/shortcuts/network dialogs). i18n parity 237→313 keys. Two clean cycles after fixes.
+  - verify-r71-ahome: PASS on all 5 brief checks (slider position, crop modal pinch/rotate, keyboard-safe inputs, 7 buttons 44px, switch geometry/drag cleanup). 1059 tests pass, screenshots at 390/768px.
+- Active: audit-sir-laptop-manager-20261113-1101 (started 11:05, runner pid 29996, still running).
+- Model pool: 21 available, 7 cooling. Kilo (nemotron-3-ultra) and Devin (swe-2-flash-medium) operational. Aider (Groq/NVIDIA/Gemini) available.
+- Disk: C: 6.7 GB free. Watchdog cleaning every ~10 min.
+- r64-telegram-first: done=false in queue until owner phone check.
+- No new owner replies since 02:55.
+- Next step: wait for laptop audit to finish, verify locally (tsc, tests, build), then queue next improvement cycles for each project. Do not retry ZCode sign-in without owner.

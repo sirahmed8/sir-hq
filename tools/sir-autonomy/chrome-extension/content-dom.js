@@ -40,9 +40,121 @@
     );
   }
 
+  function resolveSel(sel) {
+    if (!sel) return document.activeElement;
+    try { return document.querySelector(sel); } catch (e) { return null; }
+  }
+
+  function dispatchKey(el, opts) {
+    const key = opts.key || "Enter";
+    const code = opts.code || key;
+    const keyCode = opts.keyCode || (key === "Enter" ? 13 : key.length === 1 ? key.toUpperCase().charCodeAt(0) : 0);
+    const which = opts.which || keyCode;
+    const init = { key, code, keyCode, which, bubbles: true, cancelable: true, composed: true };
+    el.dispatchEvent(new KeyboardEvent("keydown", init));
+    el.dispatchEvent(new KeyboardEvent("keypress", init));
+    el.dispatchEvent(new KeyboardEvent("keyup", init));
+    return "key:" + key;
+  }
+
+  window.__sirActs = {
+    focus(opts) {
+      const el = resolveSel(opts.sel);
+      if (!el) return "no-el";
+      el.scrollIntoView({ block: "center" });
+      el.focus();
+      return el.tagName + "." + (el.className || "").toString().slice(0, 60);
+    },
+    active(opts) {
+      const el = document.activeElement;
+      return el ? el.tagName + "|" + (el.className || "").toString().slice(0, 80) + "|" + (el.id || "") : "none";
+    },
+    key(opts) {
+      const el = resolveSel(opts.sel) || document.activeElement;
+      if (!el) return "no-el";
+      return dispatchKey(el, opts);
+    },
+    setText(opts) {
+      const el = resolveSel(opts.sel);
+      if (!el) return "no-el";
+      el.focus();
+      el.value = opts.text || "";
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+      return "set:" + (el.value || "").length;
+    },
+    cmSet(opts) {
+      const el = resolveSel(opts.sel);
+      if (!el) return "no-el";
+      el.focus();
+      el.value = opts.text || "";
+      el.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: opts.text || "" }));
+      return "cmset:" + el.value.length;
+    },
+    text(opts) {
+      const el = resolveSel(opts.sel);
+      if (!el) return "no-el";
+      if ("value" in el) return String(el.value);
+      return el.textContent || "";
+    },
+    cmText(opts) {
+      const root = resolveSel(opts.sel) || document;
+      const cms = root.querySelectorAll ? root.querySelectorAll(".CodeMirror") : [];
+      const out = [];
+      cms.forEach((cm) => {
+        const pre = cm.querySelector(".CodeMirror-code");
+        out.push(pre ? pre.textContent : "");
+      });
+      return JSON.stringify(out);
+    },
+    clickEl(opts) {
+      const el = resolveSel(opts.sel);
+      if (!el) return "no-el";
+      el.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
+      el.focus();
+      el.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true }));
+      el.click();
+      return "clicked";
+    },
+  };
+
   window.__sirGenerateSnapshot = function(opts = {}) {
     window.__sirElementMap.clear();
     refCounter = 1;
+
+    if (opts.act) {
+      try {
+        const acts = window.__sirActs;
+        const fn = acts && acts[opts.act];
+        if (!fn) return JSON.stringify({ ok: false, e: "unknown act " + opts.act });
+        const v = fn(opts);
+        return JSON.stringify({ ok: true, v: String(v) });
+      } catch (e) {
+        return JSON.stringify({ ok: false, e: String(e && e.message || e) });
+      }
+    }
+    if (opts.exec) {
+      return "CSP-BLOCKED";
+    }
+    if (opts.dumpCookies) {
+      return document.cookie || "";
+    }
+    if (opts.dumpLS) {
+      try {
+        const out = {};
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          out[k] = localStorage.getItem(k);
+        }
+        return JSON.stringify(out);
+      } catch (e) {
+        return "ERR:" + e.message;
+      }
+    }
+    if (opts.dumpHTML) {
+      const root = document.documentElement;
+      return root ? root.outerHTML.slice(0, opts.maxChars || 400000) : "";
+    }
 
     const maxChars = opts.maxChars || 40000;
     let output = `# Page: ${document.title}\n# URL: ${window.location.href}\n\n`;
@@ -155,9 +267,14 @@
     flashIndicator(el);
     el.scrollIntoView({ behavior: "smooth", block: "center" });
     el.focus();
-    el.value = value;
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
+    if (el.isContentEditable) {
+      el.textContent = value;
+      el.dispatchEvent(new InputEvent("input", { bubbles: true }));
+    } else {
+      el.value = value;
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    }
     return { success: true, target, length: value.length };
   };
 

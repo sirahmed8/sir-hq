@@ -194,7 +194,7 @@ if __name__ == "__main__":
     if c == "add":
         print(add(*a))
     elif c == "claim":
-        print(claim(a[0], a[1]) or "not available")
+        print(claim(a[0], a[1]))
     elif c == "next":
         got = None
         for p in sorted((BOARD / "inbox").glob("*.md")):

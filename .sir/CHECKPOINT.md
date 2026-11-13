@@ -1,4 +1,206 @@
-# SIR HQ checkpoint (updated 2026-11-13, HQ chat, after owner's flint and team requests)
+# SIR HQ checkpoint (updated 2026-11-13 10:40, HQ chat)
+
+## Now
+- CORRECTION: DeepSeek harness is not blocked. Owner is signed in to his DeepSeek account and it runs. No DEEPSEEK_API_KEY needed. Verify with `dsh` launch before claiming more.
+- Removed from team pool (same OpenRouter daily limit, owner decision): kilo|kilo/openrouter/free, opencode|openrouter/openrouter/free, droid|custom:openrouter-gemma4-31b-0. Owner will choose one tool to run on local AI.
+- Tools inventory for SIR AI written: D:\Projects\SIR AI\.sir\TOOLS_INVENTORY.md (not committed; SIR AI is a separate repo).
+- OpenClaw Telegram channel still configured with an unresolved SecretRef and "Unauthorized". Removal pending.
+- SIR Study tabs fix awaiting confirmation (see SIR Study checkpoint).
+
+## Next step (exact)
+1. `git -C D:/Projects/_SIR push origin main` when network is up (commit made locally).
+2. Owner: confirm which shared-limit tool should run on local AI (Droid, Kilo, or OpenCode).
+3. Fix OpenClaw Telegram SecretRef, then `openclaw channels remove --channel telegram`.
+4. `ollama list` until qwen3.5:9b, gemma4:e4b, nemotron-3-nano:4b show, then remove qwen3:8b.
+
+## Open promises
+- Owner: DeepSeek harness works; keep it running.
+- Owner: tools inventory must stay in SIR AI's .sir folder and be updated when tools change.
+- Owner: reply in Egyptian Arabic.
+
+## Re-read after a reset
+scripts/cli_pool.py (POOL), D:/Projects/SIR AI/.sir/TOOLS_INVENTORY.md, ~/.openclaw state, `ollama list`
+
+---
+
+## Now
+- Telegram: OpenClaw bot is the new one (token in _local/api-keys.env as TELEGRAM_OPENCLAW_TOKEN, never printed). Channel reports "running, connected". Owner must send "hi" to confirm a reply; not verified by HQ.
+- OpenClaw default model switched from local ollama/qwen3:8b to openrouter/google/gemma-4-31b-it:free (API, free, text+image). Local models are not for team work.
+- Droid CLI 1.10.0 at C:\Users\a7med\AppData\Local\Factory\app-1.10.0\resources\bin\droid.exe. Its settings (~/.factory/settings.json) pointed at local Ollama; now point at OpenRouter gemma-4-31b (apiKey "${OPENROUTER_API_KEY}"). Connection works; daily free cap hit (resets 00:00 UTC). Backup: settings.json.bak-2026-11-13. Added to pool and runner (droid|custom:openrouter-gemma4-31b-0).
+- DeepSeek harness (dsh 0.2.2-rc.1): blocked. Needs DEEPSEEK_API_KEY from the owner's DeepSeek account.
+- Ollama: gemma4:e4b near done (5.3/5.5 GB at 09:55); qwen3.5:9b big layer 22% at 09:45; nemotron-3-nano:4b queued. qwen3:8b still installed (delete after qwen3.5 completes).
+- Git: commit made locally (ahead 1 of origin/main); push failed, GitHub unreachable at 10:00.
+- Not verified: team reports (parity-instructions and review-old-tasks exist; owner-requests-verify queued), SIR Study open tabs source, voice model folder, Hermes backend, Chrome jobs, power plan check, service rules (logon, game pause, offline stop), LM Studio directory, AHome default model.
+
+## Next step (exact)
+1. Owner: send "hi" to the OpenClaw Telegram bot and report the reply.
+2. `git push origin main` once network is back; if it fails again, leave it.
+3. `ollama list` until gemma4:e4b, qwen3.5:9b, nemotron-3-nano:4b show; then `ollama rm qwen3:8b`.
+4. Read ops/agy-runs/reports/owner-requests-verify.md and review-old-tasks.md when they land.
+5. Owner: provide DEEPSEEK_API_KEY for dsh; or confirm skipping DeepSeek harness.
+
+## Open promises
+- Owner: finish every item in the chat; each "done" needs evidence.
+- Owner: SIR Study tabs source; voice model folder; Hermes backend; Chrome jobs; LM Studio directory; service rules; AHome default model (AHome chat).
+- Owner: reply in Egyptian Arabic; no English.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/reports/, `ollama list`, `openclaw channels status`, `openclaw models list`, _local/api-keys.env (names only), ~/.factory/settings.json
+
+---
+
+## Now
+- Ollama pulls in background: qwen3.5:9b (full model, one layer was 921 MB; total is larger), gemma4:e4b (5.5 GB), nemotron-3-nano:4b queued after qwen3.5. Check with `ollama list`.
+- Deleted: deepseek-r1:1.5b, qwen2.5:1.5b, qwen2.5-coder:1.5b. Kept: qwen3:8b (until qwen3.5 is pulled; OpenClaw default), qwen3:4b, bge-m3 (used by AHome notes search per the audit snapshot; confirm in AHome chat), nomic-embed-text (candidate to delete, AHome check first).
+- Telegram conflict: SIR listener telegram-inbox.mjs (PID 20260) and AHome bot telegram_gateway_bot.py (launcher + child, normal) use the same token. Owner must choose which bot keeps the token; the other gets a new token from BotFather (owner action).
+- Voice: Kokoro and Whisper files not found in AppData. Likely inside Hermes or OpenClaw app data. Need owner to point to the Voice page location or continue search on D:.
+- Hardware advice (sources: promptquorum, localaimaster): default chat/code/Arabic candidate qwen3.5:4b (3.3 GB fits 6 GB VRAM); vision qwen3-vl:4b; 9B models exceed 6 GB and run partly on CPU. Arabic not benchmarked; test before choosing.
+- Team verification brief queued: ops/briefs/owner-requests-verify.md (queue name owner-requests-verify).
+- Projects cleanup: removed .mypy_cache, .pytest_cache, .ruff_cache, .hypothesis. Kept sir-study-before-661a0d9 (199 MB), old projects (12 MB), ahome-audit-before (AHome material).
+- Not done: OpenClaw default switch, Nemotron 4B, Droid CLI, DeepSeek harness, LM Studio directory, Chrome jobs and Hermes backend, service rules (logon start, game pause, offline stop), SIR Study tab source.
+
+## Next step (exact)
+1. `ollama list` until qwen3.5:9b, gemma4:e4b and nemotron-3-nano:4b appear; then `ollama rm qwen3:8b`.
+2. `openclaw models set ollama/qwen3.5:9b` then `openclaw models list --refresh`.
+3. Ask owner: which Telegram bot keeps the shared token (AHome or SIR listener)?
+4. Ask owner: where is the Kokoro / Whisper voice folder (Hermes or OpenClaw Voice page)?
+5. Read ops/agy-runs/reports/owner-requests-verify.md when it lands.
+
+## Open promises
+- Owner: finish every item from the chat before saying done; each done needs evidence.
+- Owner: service rules, Droid CLI, DeepSeek harness, LM Studio directory, Chrome jobs, Hermes backend, SIR Study tab source.
+- Owner: reply in Egyptian Arabic.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/reports/owner-requests-verify.md, `ollama list`, `openclaw models list`, _local/api-keys.env (names only)
+
+---
+
+## Now
+- Owner deleted D:\AI_Models_Hub himself (confirmed gone). Hugging Face cache lives in D:\Projects\AI_Models_Hub\huggingface.
+- Ollama downloads running (background): gemma4:e4b (5.5 GB, slow), qwen3.5:9b (921 MB), then nemotron-3-nano:4b. Check with `ollama list`.
+- OpenClaw default model set to ollama/qwen3:8b (must change to qwen3.5:9b after its pull finishes). heartbeat-main now shows "skipped" (not error).
+- Cron: heartbeat:main every 30m; Memory Dreaming daily 03:00.
+- Projects cleanup: removed regenerable caches .mypy_cache, .pytest_cache, .ruff_cache, .hypothesis. Kept: .agents, .agentsroom, .claude, .remember, .sir, Backups, old projects, ahome-audit-before (may contain AHome material; do not open from HQ), sir-study-before-661a0d9 (snapshot), Projects-Hub.html/.template.html, AI_Models_Hub, all SIR product folders.
+
+## Next step (exact)
+1. When `ollama list` shows qwen3.5:9b and gemma4:e4b and nemotron-3-nano:4b: `ollama rm qwen3:8b`, `ollama rm qwen2.5:1.5b`, `ollama rm qwen2.5-coder:1.5b` (keep qwen3:4b, bge-m3, nomic-embed-text, deepseek-r1:1.5b unless owner says otherwise).
+2. `openclaw models set ollama/qwen3.5:9b` (then `openclaw models list --refresh`); add nemotron 4B as ollama/nemotron-3-nano:4b when pulled.
+3. Droid CLI: verify official installer on factory.ai, install, check `droid --version`.
+4. DeepSeek harness: `ollama launch` menu (Launch DeepSeek Harness); test one prompt.
+5. LM Studio: set models directory to D:\Projects\AI_Models_Hub (its app setting), verify list.
+6. Chrome jobs and Hermes backend: check status and errors.
+7. AHome default model and the duplicate Telegram poller: AHome chat only.
+
+## Open promises
+- Owner: finish all listed tasks before saying done; every "done" needs evidence.
+- Owner: Win 3.59b likely means Qwen 3.5 9B; confirm.
+- Owner: service rules (logon start, game pause, offline stop) still to build.
+- Owner: reply in Egyptian Arabic.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/WORKER_PREAMBLE.md, `ollama list`, `openclaw models list`, _local/api-keys.env (names only)
+
+---
+
+## Now
+- Hugging Face cache moved: D:\AI_Models_Hub\huggingface -> D:\Projects\AI_Models_Hub\huggingface (11 files, verified). D:\AI_Models_Hub is empty; its removal was blocked by the safety check. Owner must delete it or approve a retry.
+- Temp sizes measured: temp-npm 3.8 MB, tmp 2 MB, tmp-win 9.5 MB, temp-verify 349 KB, temp 2 KB, tmp-npm 12 KB. D:\Caches and D:\d not measured (command timed out). Nothing deleted.
+- Ollama CLI (0.40.11) lists no local models. Gemma 4 E4B and Qwen models not pulled yet.
+- Power plans: off-limits for agents (AGENTS.md). Owner removes duplicates himself.
+- Telegram getUpdates conflict: two telegram_gateway_bot.py processes (AHome bot). AHome chat must stop the duplicate.
+- Cloud Ollama key stored (OLLAMA_API_KEY); all tested cloud models need credits.
+- OpenClaw gateway healthy on 127.0.0.1:18789; logon task from the Store app exists. Nemotron 4B "waiting" and heartbeat-main errors not fixed.
+- Not started: Droid CLI install, DeepSeek harness, service auto-start and pause rules (games, mobile data), LM Studio model directory, Chrome jobs and Hermes backend checks.
+
+## Next step (exact)
+1. Ask owner: is "Win 3.59b" Qwen 3.5 9B (shown in Hermes)? Then `ollama list` and `ollama pull gemma4:e4b` / `ollama pull qwen3:8b` after confirming tags on ollama.com.
+2. Measure D:\Caches and D:\d with a timeout: `du -sh /d/Caches /d/d` in background, then decide deletions per owner list.
+3. Check OpenClaw config (~/.openclaw/openclaw.json) for the Nemotron 4B model entry and the heartbeat-main cron job.
+4. Verify Droid CLI on the official site before installing.
+
+## Open promises
+- Owner: delete empty D:\AI_Models_Hub (or approve retry); remove duplicate power plans; stop the duplicate Telegram poller in the AHome chat; rotate the Ollama key.
+- Owner: decide the default AHome model (qwen3:8b vs Gemma 4 E4B) after tests in the AHome chat.
+- Owner: service rules (auto-start at logon, pause in games, stop without internet or on mobile data) still to design.
+- Owner: reply in Egyptian Arabic; claim done only with evidence.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/WORKER_PREAMBLE.md, AGENTS.md (power settings rule), _local/api-keys.env (names only), D:\Projects\AI_Models_Hub\README.md
+
+---
+
+## Now
+- Ollama cloud key stored in _SIR/_local/api-keys.env (OLLAMA_API_KEY). Cloud API works; every model tested (minimax-m3, mimo-v2.6-flash, gpt-oss:20b and 120b, gemma4:31b, nemotron-3-ultra, beam, glm-5.3-flash) returns "add usage credits". Not free; not added to the pool. Owner should rotate this key (it was pasted in chat).
+- Ollama local install (0.40.11) exists; owner downloads a newer one himself. Local AI is not used for team work (owner rule).
+- OpenClaw gateway: healthy (openclaw gateway health = OK; Telegram configured, WhatsApp stopped). A Windows logon task from the Store app ("OpenClaw Gateway ...", enabled, logon trigger) starts it without opening the app. `openclaw gateway install` is blocked by an external supervisor, so use the existing task.
+- Parity report read. Corrections: Codex reads AGENTS.md natively in repo folders; Cursor reads AGENTS.md from the workspace. The report marked both "No". Real gap: skills are not loaded by any tool except Kilo and OpenCode config; interactive runs depend on the runner preamble.
+- Browser rule replaced: one visible browser open per task, only for a visual check, reported in the task report, closed afterwards.
+
+## Next step (exact)
+1. Decide with owner: OpenClaw agent through an API provider (not local AI) needs a provider key in its config; check ~/.openclaw/openclaw.json providers before claiming it works.
+2. Re-run smoke-pi with `python scripts/hq_team.py --help` output pasted (smoke report is weak).
+3. Read ops/agy-runs/reports/review-old-tasks.md when it lands.
+
+## Open promises
+- Owner: rotate the Ollama key; cloud Ollama stays off the pool until credits exist.
+- Owner: OpenClaw should run without the app (logon task exists; verify after next logon).
+- Owner: reply in Egyptian Arabic; claim done only with PASS reports.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/reports/parity-instructions.md, ops/WORKER_PREAMBLE.md, _local/api-keys.env (names only), scripts/cli_pool.py
+
+---
+
+## Now
+- OpenRouter key stored in _SIR/_local/api-keys.env; openrouter/free answers "ok". nemotron :free hit the daily free cap. OpenCode runner now sources the key file.
+- OpenClaw 2026.11.1 CLI works (openclaw --version). Its doctor command hung. A broad process stop killed about 15 processes whose command line matched "openclaw" (including possibly the gateway). openclaw-session-host still runs. Gateway state unknown.
+- Cursor runner stdin fixed; Cursor now in usage-limit cooldown.
+- Pi (Groq, flint) and Devin working. OpenCode: flint-40b, nemotron-lightning, beam answer ok; others rate-limited.
+- Stray localhost:3300 tab: no script in _SIR opens it; Study audits are headless. Rule added to ops/WORKER_PREAMBLE.md (no visible browser on owner PC). Source still unknown.
+- Queue: review-old-tasks running since 06:53. parity-instructions done (report exists). smoke-cursor, smoke-devin done. smoke-pi report is weak and must be re-run.
+
+## Next step (exact)
+1. Read ops/agy-runs/reports/parity-instructions.md and ops/agy-runs/reports/review-old-tasks.md (when it lands); close gaps inside _SIR only.
+2. Re-queue smoke-pi with a real run of `python scripts/hq_team.py --help` and paste its output into the report.
+3. Owner: check OpenClaw app; if gateway is down, restart it from the app (do not run openclaw doctor again without a timeout).
+4. Remove the stale "needs setup/auth" OpenRouter state by letting the pool retry, or run `python scripts/cli_pool.py status`.
+
+## Open promises
+- Owner: OpenClaw gateway health; OpenClaw joins the team only after a real test passes.
+- Owner: Meta billing (Muse Spark) and xAI are not free; owner decides.
+- Owner: say which agent opened localhost:3300 if he knows.
+- Owner: reply in Egyptian Arabic; claim done only with PASS reports.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/reports/ (parity-instructions.md, review-old-tasks.md), scripts/cli-run2.sh, scripts/cli_pool.py (POOL), ops/WORKER_PREAMBLE.md
+
+---
+
+## Now
+- Cursor runner fixed: stdin closed (`< /dev/null`) in scripts/cli-run2.sh, pushed. Cursor smoke test succeeded inside the runner (round 2, code 0). Pool state for cursor|auto was stale ("failed fast") and clears on next pick.
+- OpenCode free models right now: flint-40b-free, nemotron-3.5-lightning-free, beam-free answer "ok". big-pickle, glm-5.3-flash, deepseek-v4.1-flash, minimax-m3.1-flash, mimo-v2.6-flash, longcat-2.5 return "Free usage limit reached" and cool down.
+- OpenRouter free models need an OpenRouter account and API key. No OPENROUTER key in _SIR/_local/api-keys.env. Owner must sign up himself at openrouter.ai and paste the key into _local/api-keys.env as OPENROUTER_API_KEY=... Agents do not create accounts.
+- Queue: parity-instructions running (pid 35072 since 06:33). review-old-tasks waiting.
+- smoke-pi report is weak (hq_team.py was not run; existence accepted as a check). Re-run before trusting it.
+- OpenClaw CLI: not installed. Official route is PowerShell installer from openclaw.ai (needs Node 24.22.1+ and a provider API key). Waiting for owner's yes.
+
+## Next step (exact)
+1. Wait for ops/agy-runs/reports/parity-instructions.md; read it; close gaps inside _SIR only.
+2. Run: python scripts/queue-add.py review-old-tasks ... is already queued; let autopilot run it, then read ops/agy-runs/reports/verify-r60-*.md.
+3. Re-queue smoke-pi with the real command: `python scripts/hq_team.py --help` run and its output pasted into the report.
+4. Owner actions: OpenRouter key (sign-up by owner); OpenClaw go-ahead; Meta billing (Muse Spark) if he wants it.
+
+## Open promises
+- Owner: OpenRouter setup steps (given in chat; owner does sign-up).
+- Owner: OpenClaw install after his yes.
+- Owner: reply in Egyptian Arabic.
+- Owner: report done/running/remaining whenever asked; do not claim verified without a PASS report.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/autopilot.log (tail), ops/agy-runs/reports/ (parity-instructions.md), scripts/cli-run2.sh (cursor case), scripts/cli_pool.py (POOL)
+
+---
 
 ## Now
 - Flint works on Pi (recursive/flint replied "ok"). Added to the pool as pi|radius/recursive/flint (scripts/cli_pool.py). Earlier "radius balance zero" claim applied to the gateway, not proven for flint; the test passed.

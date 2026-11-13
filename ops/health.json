@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-11T01:30:02.147Z",
+  "timestamp": "2026-11-13T01:30:02.289Z",
   "overallStatus": "RED",
   "manager": {
     "status": "AMBER",
@@ -16,15 +16,15 @@
   },
   "readLog": {
     "status": "GREEN",
-    "count": 97,
+    "count": 240,
     "lastEntry": {
-      "time": "2026-11-11T01:26:58.843Z",
-      "date": "2026-11-11",
+      "time": "2026-11-13T01:19:35.431Z",
+      "date": "2026-11-13",
       "tool": "claude-code",
       "agent": "claude",
-      "project": "AHome",
-      "filesRead": "AHome/AGENTS.md@2026-11-10, _SIR/START_ANY_AI.md@2026-11-08, .sir/TASKS.md@2026-11-11, .sir/reports/2026-11-08-security-review.md@2026-11-11",
-      "nextStep": "item 1 corner icon** — Today page care card round icon half-outside card with doubled offset ring; code audit found nothing actionable (see DEFECTS O1), needs owner's iPhone screenshot to reproduce or a code fix if a card's corner icon positioning is found; then item 12 OAuth PKCE for TickTick/Google Tasks; Part B three-cycle sweep 390/320/768 ar/en light/dark; report `_SIR/ops/agy-runs/reports/r21-ahome.md` PARTIAL — finish; `agy-done.py` NOT run — round incomplete."
+      "project": "HQ",
+      "filesRead": "_SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12",
+      "nextStep": "(exact)"
     },
     "ageDays": "0.0"
   },
@@ -40,8 +40,112 @@
       "status": "RED",
       "fileIssues": [],
       "pointerIssuesCount": 2,
-      "checkpointMtime": "2026-11-11T01:26:31.063Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-12T22:38:58.393Z",
+      "checkpointAgeDays": "0.1",
+      "checkpointStale": false
+    },
+    {
+      "name": "ahome-audit-before",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": ".sir\\CHECKPOINT.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 2,
+      "checkpointMtime": null,
+      "checkpointAgeDays": null,
+      "checkpointStale": true
+    },
+    {
+      "name": "SIR Access Map",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": "GEMINI.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 2,
+      "checkpointMtime": "2026-11-12T19:04:52.175Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -49,7 +153,7 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-11T00:50:43.181Z",
+      "checkpointMtime": "2026-11-13T00:40:17.339Z",
       "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
@@ -58,8 +162,58 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.250Z",
-      "checkpointAgeDays": "1.3",
+      "checkpointMtime": "2026-11-12T17:41:30.847Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Cars",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 1,
+      "checkpointMtime": "2026-11-12T19:03:53.808Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -67,8 +221,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.265Z",
-      "checkpointAgeDays": "1.3",
+      "checkpointMtime": "2026-11-12T17:38:33.025Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -76,8 +230,121 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.281Z",
-      "checkpointAgeDays": "1.3",
+      "checkpointMtime": "2026-11-12T18:03:47.025Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Deals",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 1,
+      "checkpointMtime": "2026-11-12T15:26:23.159Z",
+      "checkpointAgeDays": "0.4",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Education Hub",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-12T15:57:00.289Z",
+      "checkpointAgeDays": "0.4",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Game Deals",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": "GEMINI.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 2,
+      "checkpointMtime": "2026-11-12T19:04:38.125Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -85,8 +352,58 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.234Z",
-      "checkpointAgeDays": "1.3",
+      "checkpointMtime": "2026-11-12T17:36:30.416Z",
+      "checkpointAgeDays": "0.3",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Handyman",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 1,
+      "checkpointMtime": "2026-11-12T19:03:37.166Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -94,8 +411,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-11T01:23:14.966Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-12T23:16:14.495Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
     {
@@ -103,62 +420,103 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-11T01:15:42.809Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-12T23:39:34.693Z",
+      "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
     {
       "name": "SIR Life",
-      "status": "GREEN",
+      "status": "AMBER",
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.408Z",
-      "checkpointAgeDays": "1.3",
-      "checkpointStale": false
+      "checkpointAgeDays": "3.3",
+      "checkpointStale": true
     },
     {
       "name": "SIR ModPack",
-      "status": "GREEN",
+      "status": "AMBER",
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.379Z",
-      "checkpointAgeDays": "1.3",
-      "checkpointStale": false
+      "checkpointAgeDays": "3.3",
+      "checkpointStale": true
     },
     {
       "name": "SIR Mods for GTA V",
-      "status": "GREEN",
+      "status": "AMBER",
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.394Z",
-      "checkpointAgeDays": "1.3",
+      "checkpointAgeDays": "3.3",
+      "checkpointStale": true
+    },
+    {
+      "name": "SIR Movies",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 1,
+      "checkpointMtime": "2026-11-12T19:04:06.393Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
       "name": "SIR Negm Furniture",
-      "status": "GREEN",
+      "status": "AMBER",
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-08T15:19:03.477Z",
-      "checkpointAgeDays": "2.4",
-      "checkpointStale": false
-    },
-    {
-      "name": "SIR Obour Hub",
-      "status": "GREEN",
-      "fileIssues": [],
-      "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.218Z",
-      "checkpointAgeDays": "1.3",
-      "checkpointStale": false
+      "checkpointAgeDays": "4.4",
+      "checkpointStale": true
     },
     {
       "name": "SIR Platform",
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T22:08:11.521Z",
-      "checkpointAgeDays": "1.1",
+      "checkpointMtime": "2026-11-12T15:56:43.135Z",
+      "checkpointAgeDays": "0.4",
       "checkpointStale": false
     },
     {
@@ -166,8 +524,62 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-11T00:50:48.455Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-12T22:47:53.890Z",
+      "checkpointAgeDays": "0.1",
+      "checkpointStale": false
+    },
+    {
+      "name": "SIR Price Finder",
+      "status": "RED",
+      "fileIssues": [
+        {
+          "file": "CLAUDE.md",
+          "issue": "missing"
+        },
+        {
+          "file": "GEMINI.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLAN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\TASKS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BOARD.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\ARCHITECTURE.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\DESIGN.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\QUALITY.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PRODUCTION.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\PLATFORMS.md",
+          "issue": "missing"
+        },
+        {
+          "file": ".sir\\BENCHMARK.md",
+          "issue": "missing"
+        }
+      ],
+      "pointerIssuesCount": 2,
+      "checkpointMtime": "2026-11-12T19:04:22.716Z",
+      "checkpointAgeDays": "0.3",
       "checkpointStale": false
     },
     {
@@ -175,8 +587,17 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-11T01:23:04.761Z",
-      "checkpointAgeDays": "0.0",
+      "checkpointMtime": "2026-11-12T22:53:56.074Z",
+      "checkpointAgeDays": "0.1",
+      "checkpointStale": false
+    },
+    {
+      "name": "sir-study-before-661a0d9",
+      "status": "GREEN",
+      "fileIssues": [],
+      "pointerIssuesCount": 0,
+      "checkpointMtime": "2026-11-12T12:57:29.000Z",
+      "checkpointAgeDays": "0.5",
       "checkpointStale": false
     }
   ]

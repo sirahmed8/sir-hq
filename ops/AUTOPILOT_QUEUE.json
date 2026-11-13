@@ -1094,24 +1094,54 @@
     "name": "smoke-pi",
     "folder": "D:/Projects/_SIR",
     "title": "Smoke test: smoke-pi",
-    "done": false
+    "done": true
   },
   {
     "name": "smoke-devin",
     "folder": "D:/Projects/_SIR",
     "title": "Smoke test: smoke-devin",
-    "done": false
+    "done": true
   },
   {
     "name": "parity-instructions",
     "folder": "D:/Projects/_SIR",
     "title": "Instruction parity across free tools",
-    "done": false
+    "done": true
   },
   {
     "name": "review-old-tasks",
     "folder": "D:/Projects/_SIR",
     "title": "Verify three old done claims",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-0721",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-0721",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify all owner requests",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-1101",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
     "done": false
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1101",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
   }
 ]
