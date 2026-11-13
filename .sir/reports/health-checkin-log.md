@@ -1,0 +1,2 @@
+- 2026-11-13T17:40:00Z HQ duty: evening health check-in sent with buttons (health_done/health_later/health_skip); no new answer to log yet. Telegram send ok.
+- 2026-11-13T17:40:07Z Ahmed tapped health_later (لسه / not yet). Logged to _local/health_log.jsonl (duty isha). No further health reminders tonight; next check-in tomorrow Asr will adapt to the deferred answer.
