@@ -142,3 +142,4 @@ One line per distinct request or standing rule. Status is what files show today,
 
 - 22:05 Ahmed asked why messages arrive empty and why the ack has brackets; also asked progress on the 11 open tasks. Root cause found and fixed (see HQ_CHECKPOINT).
 2026-11-13 02:30 | backup-manager | AHome mobile UI report (3 screenshots): avatar zoom slider broken, crop/zoom awkward, inputs hidden under keyboard, buttons broken, toggle knobs overflow. Queued r71-ahome-profile-editor-fixes to free agents.
+2026-11-13 02:36 | backup-manager | Same report, source-level causes verified in AHome source and added to brief r71 so the free agent does not guess: slider painted by min-h-[44px] on a 4px range input, crop editor inline instead of a sheet, keyboard hook only in chat, toggle drag leaves an inline transform. Prompt regenerated, Cloudflare aider model cooled for the day.

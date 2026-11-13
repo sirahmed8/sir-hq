@@ -258,3 +258,9 @@ r67 found the C: cause: system pagefile growth under memory pressure from 22 par
 
 ## HQ note (2026-11-13 02:30) [backup manager]
 Owner sent 3 AHome mobile screenshots: avatar zoom slider renders broken, crop/zoom awkward, text inputs covered by the keyboard (bio field), buttons broken, toggle knobs overflow. Queued r71-ahome-profile-editor-fixes (brief ops/briefs/r71-ahome-profile-editor-fixes.md, folder D:/Projects/AHome, taskboard inbox, queue entry added). Brief points at AvatarEditor.tsx, avatarEditor.ts clampState rotation remap, useKeyboardViewport kit reuse, toggle styling. Reply saved to ops/backup-manager/reply-1794529170535-1.txt.
+
+## HQ note (2026-11-13 02:36) [backup manager]
+- Owner sent 3 AHome mobile screenshots (avatar crop sheet, profile form with keyboard, notification settings). Task r71-ahome-profile-editor-fixes queued at 02:27 and started by the autopilot at 02:30 (runner pid 40624, log ops/agy-runs/cli-r71-ahome-profile-editor-fixes.log).
+- HQ read the source and put the real causes in ops/briefs/r71-ahome-profile-editor-fixes.md (section 'Root causes HQ found in the source') and regenerated the prompt.txt: range input gets min-h-[44px] so the 44px box is painted grey over the 4px track (globals.css 1057); AvatarEditor renders inline in ProfileForm.tsx 88 instead of a sheet; useKeyboardViewport is only mounted in app/page.tsx so no other screen reacts to the keyboard; toggle travel maths is correct, the suspect is the inline transform left by a drag and the dead duplicate rule at ui-controls.css 251.
+- Pool: aider openai/@cf model cooled until 2026-11-14 00:00 UTC (Cloudflare 10,000 free neurons a day used up; cli_pool reported a rate-limited round as ok code 0, so cooldown never applied by itself).
+- Next step: when the runner logs 'task done: r71-ahome-profile-editor-fixes', check its report, run apps/web tsc + tests + build, and take 320 and 390 px screenshots of the three screens before calling it fixed.
