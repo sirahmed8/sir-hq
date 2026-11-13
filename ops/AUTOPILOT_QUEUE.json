@@ -1178,12 +1178,36 @@
     "name": "audit-sir-study-20261113-1821",
     "folder": "D:/Projects/SIR Study",
     "title": "SIR Study: دورة فحص ذاتي",
-    "done": false
+    "done": true
   },
   {
     "name": "audit-sir-study-20261113-1501-fix1",
     "folder": "D:/Projects/SIR Study",
     "title": "Fix failures from audit-sir-study-20261113-1501 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1821-fix1",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Fix failures from audit-sir-jobs-20261113-1821 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-2241",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "audit-sir-jobs-20261113-2241",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": false
+  },
+  {
+    "name": "sir-ai-agentic-os-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI Agentic OS phase 1: adapter registry + status plane",
     "done": false
   }
 ]

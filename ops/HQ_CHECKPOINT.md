@@ -386,3 +386,10 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - Voice requirement refined: neural human-like TTS + accurate STT with proper punctuation/grammar; built-in recording like top apps; installer does full onboarding (API keys, subscriptions, local voice models, APK to phone/Telegram).
 - SIR AI parked as flagship; all free-tool focus shifts to AI work after current tasks verify.
 - Pending owner: delete C:\Program Files\Bionic (admin), Factory/Bionic final confirmation.
+
+## HQ note (2026-11-13 23:10) [Devin = backup manager]
+- POST-REBOOT VERIFY: Hermes gateway RUNNING (pid 42160, telegram connected, gateway_state=running); desktop reconnected 23:02 ("gateway is ready", conn:local active). OpenClaw gateway listening on 18789, clawctl status OK. The screenshot errors were the boot window before gateways came up — both self-healed via scheduled tasks.
+- Hermes ctx fix VERIFIED: Ollama loaded qwen3.5:9b with num_ctx=65536 successfully (llama-server ~4.4GB). RAM dipped to 1.1GB free while model hot — expected; model unloads on keep_alive. Watch for OOM if other heavy apps run simultaneously.
+- UPDATES DONE: npm globals — opencode 2.3.0 (postinstall re-run manually), codex pkg 0.169.0 (native Codex app CLI 0.167.2 still shadows it in PATH — cosmetic), droid 1.10.0, kimi 2.6.2, qwen 0.27.3, copilot 1.0.111, cline 3.0.74, crush 0.101.0. winget: GitHub CLI 2.104.0, Tailscale 1.104.7 done; cloudflared 2026.11.0 MSI hung (killed, retry later — non-critical). aider uv-tool upgrade still running in background.
+- TEAM: all 189 prior queue tasks done. Two fresh audits running (laptop-manager, jobs). Queued sir-ai-agentic-os-01 via queue-add.py (brief ops/briefs/sir-ai-agentic-os-01.md) — autopilot picks it up when a slot frees. SIR AI is now the active build target per owner.
+- Hermes benign warnings noted: HF token unset (rate limits only), wake-word needs TTS config (voice epic), ollama provider "no api_key" warning is expected/harmless for local.
