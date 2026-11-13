@@ -480,3 +480,22 @@ plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_R
 - Next step: HQ reads `ops/plans/D_DRIVE_ORG_PLAN.md` section 7 and asks the owner two questions (which games stay, delete or go to an external drive; keep or drop `ahome-audit-before`), then the move happens only after the build rounds stop, one folder at a time, copy then verify then delete.
 - Report: `ops/agy-runs/reports/r72-d-drive-org-plan.md`.
 - Shipped: commits `8aefeab` (the plan `ops/plans/D_DRIVE_ORG_PLAN.md`) and `a004476` (the report `ops/agy-runs/reports/r72-d-drive-org-plan.md`), both pushed to main. CI green on both: verify run 43340309071 and 43340596432 (secrets/gitleaks job and python-verify job, every step success), test run 43340309011 and 43340596493 (success). Task board: r72-d-drive-org-plan moved to review. The r72 checklist is the brief itself (items 1 to 5 plus the output section); every item is done: the size table, the classification of every top-level folder, the real free space, the ranked move list with the do-not-touch list, and the junk sizes inside D:/Projects with nothing deleted.
+
+## HQ note (2026-11-13 Fajr duty, latest)
+### Now
+- Fajr plan sent to Ahmed (msg 744), health section sent as follow-up (msg 745). Report: .sir/reports/fajr-2026-11-13.md.
+- Calendar (primary and Family) and TickTick returned no items for 13-14 Nov; read as "none", not confirmed.
+- Human Rights exam (Thu 12 Nov 18:00) result unknown. Gmail: one notification thread, not inspected.
+- Open owner items from Telegram (2026-11-12/13): AHome profile slider, crop and keyboard fixes (AHome chat); Control Room public-access question (Tailscale only); SIR AI bot not answering (verify-r70-sir-ai still running on fallback agent beam-free); Telegram command list not updated.
+
+### Next step (exact)
+1. Check the Telegram inbox: `tail -n 40 D:/Projects/_SIR/ops/bus/ahmed-telegram.md` and answer any new message.
+2. Watch verify-r70-sir-ai: `tail -n 20 D:/Projects/_SIR/ops/autopilot.log`.
+3. Fajr duty tomorrow: re-read `ops/DAILY_RHYTHM.md`, then run the Gather steps; fix the Gmail check to read subjects and senders only.
+
+### Open promises
+- Health section is now in the follow-up; the next check-in is Asr +10 min.
+- Owner: AHome phone check (AHome chat, not HQ).
+
+### Re-read after a reset
+ops/DAILY_RHYTHM.md, ops/bus/ahmed-telegram.md (last 40 lines), .sir/reports/fajr-2026-11-13.md
