@@ -7,6 +7,9 @@
 - New smoke tasks queued: smoke-cursor, smoke-pi, smoke-devin (briefs in ops/briefs/smoke-*.md).
 - Still open in queue: verify-r70-sir-ai (report exists, no done marker), ahome-folder-icon (AHome chat).
 
+- Pi extra models checked (2026-11-13 05:20): meta/muse-spark-1.3-contributor returns 402 billing_not_configured (Meta team billing must be set up by the owner; not free as configured). xai/grok-4.7 returns rate limit 0/0 (no free tier). recursive/flint is on the radius gateway with $0 balance. None added to POOL. Groq openai/gpt-oss-120b remains the only free Pi model.
+- OWNER_ACTIONS candidate: Meta billing (only the owner can accept billing); xAI rate tier comes from API spend, so no free path.
+
 ## Next step (exact)
 1. `python scripts/autopilot_status.py` if it exists; otherwise read ops/autopilot.log tail and ops/agy-runs/done/smoke-*.done.
 2. When smoke-cursor / smoke-pi / smoke-devin reports exist in ops/agy-runs/reports/, read them and mark each tool as working or failing in the Control Room notes.
