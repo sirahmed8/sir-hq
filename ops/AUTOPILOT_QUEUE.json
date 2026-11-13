@@ -1003,7 +1003,7 @@
     "name": "r68-sir-ai-bot-answers",
     "folder": "D:/Projects/SIR AI",
     "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
-    "done": false,
+    "done": true,
     "parallel_ok": false
   },
   {
@@ -1045,6 +1045,37 @@
     "name": "r71-ahome-profile-editor-fixes",
     "folder": "D:/Projects/AHome",
     "title": "AHome: fix avatar crop slider, keyboard overlap, buttons and toggles (owner screenshots)",
+    "done": true
+  },
+  {
+    "name": "r72-d-drive-org-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "D drive organization plan (read only audit)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r70-cycle-sir-laptop-manager verification",
+    "done": true
+  },
+  {
+    "name": "verify-r71-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "Verify r71 AHome profile fixes",
+    "done": false
+  },
+  {
+    "name": "verify-r70-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Verify r70 Laptop Manager fix1",
+    "done": false
+  },
+  {
+    "name": "verify-r70-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "Finish and verify r70 SIR AI a11y cycle",
     "done": false
   }
 ]
