@@ -95,3 +95,5 @@
 11-13 02:30 autopilot START r71-ahome-profile-editor-fixes (runner pid 40624)
 11-13 02:36 manager DONE r71 brief sharpened: HQ read the AHome source and wrote the real causes (range input min-h-[44px] paints a 44px grey pill over the 4px track in globals.css 1057; AvatarEditor renders inline in ProfileForm 88 so there is no sheet; useKeyboardViewport only mounted in app/page.tsx so no screen outside chat reacts to the keyboard; toggle travel maths is fine, drag leaves an inline transform behind). Prompt regenerated. Also cooled aider openai/@cf model until 2026-11-14 00:00 UTC (10,000 free neurons a day used up; a rate-limited round had been reported ok code 0).
 11-13 02:36 note runner r71 rotated Cloudflare -> aider gemini-flash-lite-latest, edits already landing in apps/web/src/components/profile/AvatarEditor.tsx and lib/profile/avatarEditor.ts
+11-13 02:40 autopilot START r72-d-drive-org-plan (runner pid 39824)
+11-13 03:35 opencode START r72-d-drive-org-plan: read-only D: audit (robocopy /L per folder) and the ranked D: to C: move plan
