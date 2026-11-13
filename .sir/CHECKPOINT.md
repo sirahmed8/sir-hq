@@ -1,6 +1,31 @@
-# SIR HQ checkpoint (updated 2026-11-13 10:40, HQ chat)
+# SIR HQ checkpoint (updated 2026-11-13 11:10, HQ chat)
 
 ## Now
+- Push done: origin/main is up to date (network works now).
+- Ollama: nemotron-3-nano:4b (2.8 GB), qwen3.5:9b (6.6 GB), gemma4:e4b (6.6 GB) are present. qwen3:8b deleted. Kept qwen3:4b, bge-m3, nomic-embed-text.
+- OpenClaw secrets audit: unresolved=0; the gateway config shows a different user profile path (C:\Users\W8-Q9\.openclaw). Possible cause of the earlier token problem: the gateway runs under another profile.
+- OpenClaw Telegram channel still enabled. `channels remove` hung and was killed (twice). Not removed.
+- SIR Study audit cycle 0721: reported 1 defect (touch target 174x44 at 390px dark ar). 44px already meets the 44px minimum, so this finding needs a check before fixing. Queue item audit-sir-study-20261113-1501 is open.
+- Shared-limit tools removed from team pool (see earlier entry).
+
+## Next step (exact)
+1. Check the gateway's user profile: `openclaw gateway status` and confirm which profile runs it. Remove the Telegram channel from the gateway profile that owns it, or disable it in openclaw.json.
+2. Verify the 44px touch-target defect in SIR Study with a real measurement before any change.
+3. Owner: pick which shared-limit tool runs on local AI (Droid, Kilo or OpenCode).
+
+## Open promises
+- Owner: remove OpenClaw Telegram and WhatsApp channels.
+- Owner: DeepSeek harness works (signed in); keep it running.
+- Owner: reply in Egyptian Arabic.
+
+## Re-read after a reset
+ops/AUTOPILOT_QUEUE.json, ops/agy-runs/reports/audit-sir-study-20261113-0721.md, `openclaw secrets audit`, `ollama list`
+
+---
+
+## Now
+- BLOCKED (owner action): SIR bot token `SIR_TELEGRAM_BOT_TOKEN` returns 401 Unauthorized from Telegram (getMe checked 2026-11-13 12:49 UTC). Health check-in not sent; inbox cannot receive replies. Owner step logged in ops/OWNER_ACTIONS.md (re-issue via @BotFather /token, set user env var).
+- Health log: 2026-11-12 Asr skip and later-reply appended to _local/health_log.jsonl.
 - CORRECTION: DeepSeek harness is not blocked. Owner is signed in to his DeepSeek account and it runs. No DEEPSEEK_API_KEY needed. Verify with `dsh` launch before claiming more.
 - Removed from team pool (same OpenRouter daily limit, owner decision): kilo|kilo/openrouter/free, opencode|openrouter/openrouter/free, droid|custom:openrouter-gemma4-31b-0. Owner will choose one tool to run on local AI.
 - Tools inventory for SIR AI written: D:\Projects\SIR AI\.sir\TOOLS_INVENTORY.md (not committed; SIR AI is a separate repo).
@@ -8,18 +33,20 @@
 - SIR Study tabs fix awaiting confirmation (see SIR Study checkpoint).
 
 ## Next step (exact)
-1. `git -C D:/Projects/_SIR push origin main` when network is up (commit made locally).
-2. Owner: confirm which shared-limit tool should run on local AI (Droid, Kilo, or OpenCode).
-3. Fix OpenClaw Telegram SecretRef, then `openclaw channels remove --channel telegram`.
-4. `ollama list` until qwen3.5:9b, gemma4:e4b, nemotron-3-nano:4b show, then remove qwen3:8b.
+1. Owner: re-issue the SIR bot token and set SIR_TELEGRAM_BOT_TOKEN. Then verify: `node D:/Projects/_SIR/scripts/deliver/send-telegram.mjs "test"`; re-send the health check-in with `node D:/Projects/_SIR/scripts/deliver/send-buttons.mjs "<text>" "تمرنت=health_done" "لسه=health_later" "مش النهارده=health_skip"`.
+2. `git -C D:/Projects/_SIR push origin main` when network is up (commit made locally).
+3. Owner: confirm which shared-limit tool should run on local AI (Droid, Kilo, or OpenCode).
+4. Fix OpenClaw Telegram SecretRef, then `openclaw channels remove --channel telegram`.
+5. `ollama list` until qwen3.5:9b, gemma4:e4b, nemotron-3-nano:4b show, then remove qwen3:8b.
 
 ## Open promises
 - Owner: DeepSeek harness works; keep it running.
 - Owner: tools inventory must stay in SIR AI's .sir folder and be updated when tools change.
 - Owner: reply in Egyptian Arabic.
+- HQ: send the afternoon health check-in as soon as the bot token works.
 
 ## Re-read after a reset
-scripts/cli_pool.py (POOL), D:/Projects/SIR AI/.sir/TOOLS_INVENTORY.md, ~/.openclaw state, `ollama list`
+ops/DAILY_RHYTHM.md, ops/bus/ahmed-telegram.md (tail 40), _local/health_log.jsonl, ops/OWNER_ACTIONS.md (Telegram section), scripts/cli_pool.py (POOL), D:/Projects/SIR AI/.sir/TOOLS_INVENTORY.md, `ollama list`
 
 ---
 

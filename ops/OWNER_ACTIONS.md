@@ -73,3 +73,7 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 
 ## AHome APK install (2026-11-13, r65)
 - The signed release APK (v1.0.0, 5.2 MB) is already on the phone at Download/AHome-v1.0.0.apk. Android refuses `adb install` while the phone is locked (INSTALL_FAILED_USER_RESTRICTED, PIN lock). One step: unlock the phone once with fingerprint or PIN. Either tap AHome-v1.0.0.apk in the Files/Download app to install it, or leave it unlocked for a few minutes and the next agent run will install it, launch it and take the screenshot by adb.
+
+## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in)
+- Telegram answers 401 Unauthorized for the SIR bot token in the user environment (SIR_TELEGRAM_BOT_TOKEN). The afternoon health check-in could not be sent, and the inbox listener cannot receive replies.
+- One step: in Telegram open @BotFather, send /token for the SIR bot, copy the new token, then set it as the user environment variable SIR_TELEGRAM_BOT_TOKEN (Windows: Settings > System > About > Advanced system settings > Environment Variables > User). Never paste it in chat.
