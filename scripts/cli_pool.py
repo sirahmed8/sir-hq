@@ -26,6 +26,7 @@ POOL = [
     "opencode|opencode/big-pickle",
     "devin|swe-2-flash-medium",
     "cursor|auto",
+    "pi|groq/openai/gpt-oss-120b",
     "kilo|kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
     "opencode|opencode/glm-5.3-flash-free",
     "opencode|opencode/deepseek-v4.1-flash-free",

@@ -1,4 +1,27 @@
-# SIR HQ checkpoint (updated 2026-11-13 04:45, HQ chat, owner: "do it yourself, do not wait")
+# SIR HQ checkpoint (updated 2026-11-13 05:05, HQ chat)
+
+## Now
+- Cursor: fixed. The hang came from the GitKraken hook plugin in ~/.claude/settings.json, which Cursor reads too; it failed with "you are not logged in" and blocked every tool call. Plugin set to false (backup: ~/.claude/settings.json.bak-2026-11-13). Cursor now writes a real file in a test run. Pool entry cursor|auto, 900 s cap.
+- Pi: its own gateway (radius) has $0 credit, so it cannot be used. Switched to the free Groq model openai/gpt-oss-120b (key read from _SIR/_local/api-keys.env, never printed). Test passed. Pool entry pi|groq/openai/gpt-oss-120b; runner case added in scripts/cli-run2.sh.
+- Devin: test passed with swe-2-flash-medium. It looked idle because the queue had no open work; the autopilot gives work only from ops/AUTOPILOT_QUEUE.json.
+- New smoke tasks queued: smoke-cursor, smoke-pi, smoke-devin (briefs in ops/briefs/smoke-*.md).
+- Still open in queue: verify-r70-sir-ai (report exists, no done marker), ahome-folder-icon (AHome chat).
+
+## Next step (exact)
+1. `python scripts/autopilot_status.py` if it exists; otherwise read ops/autopilot.log tail and ops/agy-runs/done/smoke-*.done.
+2. When smoke-cursor / smoke-pi / smoke-devin reports exist in ops/agy-runs/reports/, read them and mark each tool as working or failing in the Control Room notes.
+3. Commit scripts/cli_pool.py, scripts/cli-run2.sh and ops/briefs/smoke-*.md if not yet pushed (`git status -sb`).
+
+## Open promises
+- Owner: Cursor, Pi and Devin work as normal team members, with real tasks.
+- Owner: VS Code is not uninstalled.
+- Owner: reply in Egyptian Arabic.
+- AHome: HQ does not open AHome files; the icon task runs in the AHome chat.
+
+## Re-read after a reset
+core/02-rules.md, plans/HQ_PROTOCOL.md, plans/CLI_AGENT_INSTRUCTIONS.md, ops/AUTOPILOT_QUEUE.json, ops/agy-runs/model-pool.json, scripts/cli_pool.py (POOL), scripts/cli-run2.sh
+
+---
 
 ## Now
 - Read the manager rules: START_HERE.md, core/02-rules.md, plans/HQ_PROTOCOL.md, plans/CLI_AGENT_INSTRUCTIONS.md, plans/MODEL_ROUTING.md, plans/LOW_USAGE_MODE.md. Key law: never ask the owner; AHome private content never leaves local systems; AHome work is done only from the AHome chat.
