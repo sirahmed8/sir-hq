@@ -45,7 +45,7 @@ for round in $(seq 1 40); do
     kilo) timeout 3300 kilo run --auto -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     pi) set -a; . "$ROOT/_local/api-keys.env" 2>/dev/null; set +a; timeout 900 /c/Users/a7med/.pi/agent/bin/pi -p --no-session --model "$model" "$msg" < /dev/null >> "$LOG" 2>&1 ;;
     cursor) timeout 900 "/c/Users/a7med/AppData/Local/cursor-agent/agent.cmd" -p --trust -f --model "$model" --output-format text "$msg" < /dev/null >> "$LOG" 2>&1 ;;
-    opencode) timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
+    opencode) set -a; . "$ROOT/_local/api-keys.env" 2>/dev/null; set +a; timeout 3300 opencode run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     devin) timeout 3300 "$DEVIN" -p --model "$model" --permission-mode dangerous --respect-workspace-trust false -- "$msg" >> "$LOG" 2>&1 ;;
     codex) timeout 3300 codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     agy) timeout 3300 agy --print "$msg" --model "$model" --dangerously-skip-permissions >> "$LOG" 2>&1 ;;
