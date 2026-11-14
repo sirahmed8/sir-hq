@@ -1,1286 +1,1322 @@
 [
- {
-  "name": "r53-education-hub-plan",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Education Hub: big merged plan",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r53-business-plan",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Business: sectors big merged plan",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r14-ahome",
-  "folder": "D:/Projects/AHome",
-  "title": "\u0625\u0635\u0644\u0627\u062d\u0627\u062a \u0627\u0644\u0645\u0634\u0631\u0648\u0639 \u0627\u0644\u062e\u0627\u0635",
-  "done": true
- },
- {
-  "name": "r15-laptop",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Laptop Manager overnight work",
-  "done": true
- },
- {
-  "name": "r15-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "Jobs inbox assistant, phase 1",
-  "done": true
- },
- {
-  "name": "r15-control",
-  "folder": "D:/Projects/_SIR",
-  "title": "Control Room and Telegram menu",
-  "done": true
- },
- {
-  "name": "r16-laptop",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Laptop Manager: fix review findings",
-  "done": true
- },
- {
-  "name": "r16-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs round 16",
-  "done": true
- },
- {
-  "name": "r16-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study round 16",
-  "done": true
- },
- {
-  "name": "r16-control",
-  "folder": "D:/Projects/_SIR",
-  "title": "Control Room round 16",
-  "done": true
- },
- {
-  "name": "r17-ahome-verify",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome round 14 verification",
-  "done": true
- },
- {
-  "name": "r18-ahome-phone",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u0625\u0646\u0647\u0627\u0621 \u062c\u0648\u0644\u0629 \u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644 \u0648\u0627\u0644\u0646\u0634\u0631",
-  "done": true
- },
- {
-  "name": "r19-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u0625\u0635\u0644\u0627\u062d CI \u0648\u0645\u0648\u0627\u0639\u064a\u062f \u0627\u0644\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a",
-  "done": true
- },
- {
-  "name": "r21-ahome",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644 \u0627\u0644\u062b\u0627\u0646\u064a\u0629 \u0648\u062d\u0644\u0642\u0629 \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "r19-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0625\u0635\u0644\u0627\u062d CI \u0648\u0628\u0627\u0642\u064a \u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629",
-  "done": true
- },
- {
-  "name": "r19-control",
-  "folder": "D:/Projects/_SIR",
-  "title": "\u0644\u0648\u062d\u0629 \u0627\u0644\u062a\u062d\u0643\u0645: \u0646\u0633\u062e\u0629 \u0648\u0627\u062d\u062f\u0629 \u0645\u0646 \u0627\u0644\u0633\u064a\u0631\u0641\u0631 \u0648\u0623\u0631\u0642\u0627\u0645 \u0635\u062d\u064a\u062d\u0629",
-  "done": true
- },
- {
-  "name": "r20-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u0642\u0641\u0644 \u0628\u0627\u0642\u064a \u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629 \u0648\u062a\u0623\u0643\u064a\u062f \u0645\u0648\u0627\u0639\u064a\u062f \u0627\u0644\u0627\u0645\u062a\u062d\u0627\u0646\u0627\u062a",
-  "done": true
- },
- {
-  "name": "r22-laptop",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Laptop Manager: \u0648\u0627\u062c\u0647\u0629 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644",
-  "done": true
- },
- {
-  "name": "r22-control",
-  "folder": "D:/Projects/_SIR",
-  "title": "\u0644\u0648\u062d\u0629 \u0627\u0644\u062a\u062d\u0643\u0645: \u0648\u0627\u062c\u0647\u0629 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644",
-  "done": true
- },
- {
-  "name": "r22-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0648\u0627\u062c\u0647\u0629 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644",
-  "done": true
- },
- {
-  "name": "r22-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u0648\u0627\u062c\u0647\u0629 \u0627\u0644\u0645\u0648\u0628\u0627\u064a\u0644",
-  "done": true
- },
- {
-  "name": "r23-jobs-cv",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062a\u0635\u062d\u064a\u062d \u0627\u0644\u0633\u064a \u0641\u064a (\u0641\u0627\u064a\u0628 \u0643\u0648\u062f\u0631)",
-  "done": true
- },
- {
-  "name": "r24-jobs-apply",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0627\u0644\u062a\u0642\u062f\u064a\u0645 \u0639\u0644\u0649 \u0627\u0644\u0634\u063a\u0644 \u0628\u0645\u0648\u0627\u0641\u0642\u062a\u0643",
-  "done": true
- },
- {
-  "name": "r24-games",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "\u0627\u0644\u0623\u0644\u0639\u0627\u0628: \u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0623\u062f\u0627\u0621 \u0648\u0627\u0644\u062c\u0631\u0627\u0641\u064a\u0643\u0633",
-  "done": true
- },
- {
-  "name": "r25-sir-ai",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI: \u0627\u0644\u062a\u0643\u0627\u0645\u0644 \u0648\u0645\u062f\u064a\u0631 \u0627\u0644\u0623\u062c\u0646\u062a\u0627\u062a \u0648\u0627\u0644\u0641\u0648\u0627\u062a\u064a\u0631",
-  "done": true
- },
- {
-  "name": "r26-infra",
-  "folder": "D:/Projects/_SIR",
-  "title": "\u0627\u0644\u0625\u062f\u0627\u0631\u0629: \u0635\u0648\u062a \u0627\u0644\u0644\u0627\u0628\u062a\u0648\u0628 \u0648PDF \u0648\u0623\u062f\u0648\u0627\u062a \u062c\u062f\u064a\u062f\u0629",
-  "done": true
- },
- {
-  "name": "r27-study-sources",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u0633\u062d\u0628 \u0627\u0644\u0645\u0648\u0627\u062f \u0627\u0644\u062c\u062f\u064a\u062f\u0629 \u0648\u062a\u0631\u062a\u064a\u0628\u0647\u0627",
-  "done": true
- },
- {
-  "name": "r28-jobs-autoapply",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0627\u0644\u062a\u0642\u062f\u064a\u0645 \u0627\u0644\u062a\u0644\u0642\u0627\u0626\u064a \u0628\u062f\u0648\u0646 \u0636\u063a\u0637\u0629",
-  "done": true
- },
- {
-  "name": "ci-sir-study-20261111-0621",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "audit-sir-laptop-manager-20261111-0841",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261111-0841",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261111-1011",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "r30-ahome-local-core",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u0635\u0644\u0651\u062d \u0641\u0634\u0644 local core \u0648\u0627\u062c\u0639\u0644\u0647 \u0630\u0627\u062a\u064a \u0627\u0644\u0625\u0635\u0644\u0627\u062d",
-  "done": true
- },
- {
-  "name": "audit-ahome-20261111-1011",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "laptop-updates-20261111",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Laptop Manager: \u062a\u062d\u062f\u064a\u062b \u0643\u0644 \u0627\u0644\u0628\u0631\u0627\u0645\u062c \u0648\u0627\u0644\u0640 CLIs",
-  "done": true
- },
- {
-  "name": "r29-jobs-verify-applies",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062a\u062f\u0642\u064a\u0642 \u0623\u0631\u0642\u0627\u0645 \u0627\u0644\u062a\u0642\u062f\u064a\u0645 \u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629",
-  "done": true
- },
- {
-  "name": "r31-desktop-organize",
-  "folder": "D:/Projects/_SIR",
-  "title": "\u062a\u0646\u0638\u064a\u0645 \u0633\u0637\u062d \u0627\u0644\u0645\u0643\u062a\u0628 \u0648Product Kit \u0644\u0643\u0644 \u0645\u0634\u0631\u0648\u0639",
-  "done": true
- },
- {
-  "name": "audit-sir-laptop-manager-20261111-1951",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261111-1951",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "r33-ahome-feedback",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u0645\u0644\u0627\u062d\u0638\u0627\u062a \u0643\u0628\u064a\u0631\u0629 \u0645\u0646 \u0635\u0627\u062d\u0628 \u0627\u0644\u0645\u0634\u0631\u0648\u0639 (\u062a\u0627\u0628\u0633\u060c \u0635\u0648\u062a\u060c \u0628\u0627\u064a\u0648\u0645\u062a\u0631\u0643\u0633\u060c \u0643\u0644\u0627\u0645 \u0645\u062e\u062a\u0644\u0637)",
-  "done": true
- },
- {
-  "name": "r34-jobs-ui-overhaul",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0625\u0635\u0644\u0627\u062d \u0634\u0627\u0645\u0644 \u0644\u0644\u0648\u0627\u062c\u0647\u0629 (\u0632\u0631\u0627\u064a\u0631 \u0648\u062a\u0635\u0645\u064a\u0645)",
-  "done": true
- },
- {
-  "name": "r35-control-room-laptop-ui",
-  "folder": "D:/Projects/_SIR",
-  "title": "\u0644\u0648\u062d\u0629 \u0627\u0644\u062a\u062d\u0643\u0645 \u0648\u0644\u0627\u0628\u062a\u0648\u0628 \u0645\u0627\u0646\u062c\u0631: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0645\u0643\u0633\u0648\u0631",
-  "done": true
- },
- {
-  "name": "audit-ahome-20261112-0051",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-ahome-20261112-0111",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "r36-more-free-workers",
-  "folder": "D:/Projects/_SIR",
-  "title": "r36 more free workers",
-  "done": true
- },
- {
-  "name": "r37-verify-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "r37 verify today's UI",
-  "done": true
- },
- {
-  "name": "r38-ahome-feedback2",
-  "folder": "D:/Projects/AHome",
-  "title": "r38 AHome feedback 2",
-  "done": true
- },
- {
-  "name": "r39-portfolio-copy",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "r39 Portfolio copy",
-  "done": true
- },
- {
-  "name": "r40-sir-ai-vision",
-  "folder": "D:/Projects/SIR AI",
-  "title": "r40 SIR AI vision plan",
-  "done": true
- },
- {
-  "name": "r41-disk-regenerable",
-  "folder": "D:/Projects/_SIR",
-  "title": "r41 disk regenerable",
-  "done": true
- },
- {
-  "name": "r42-verifier-scout",
-  "folder": "D:/Projects/_SIR",
-  "title": "r42 verifier and scouts",
-  "done": true
- },
- {
-  "name": "r15-laptop-fix1",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Fix failures from r15-laptop verification",
-  "done": true
- },
- {
-  "name": "r43-study-mobile-card-tables",
-  "folder": "D:/Projects/SIR Study",
-  "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
-  "done": true
- },
- {
-  "name": "r44-portfolio-plans-upgrade",
-  "folder": "D:/Projects/_SIR",
-  "title": "r44 plans upgrade all products",
-  "done": true
- },
- {
-  "name": "ci-sir-study-20261112-0700",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: red CI after cleanup commit",
-  "done": true
- },
- {
-  "name": "r45-study-scout-fixes",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: scout findings",
-  "done": true
- },
- {
-  "name": "r45-jobs-scout-fixes",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: scout findings",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0901",
-  "folder": "D:/Projects/_SIR",
-  "title": "_SIR: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0941",
-  "folder": "D:/Projects/_SIR",
-  "title": "_SIR: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0951",
-  "folder": "D:/Projects/_SIR",
-  "title": "_SIR: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0951-fix1",
-  "folder": "D:/Projects/_SIR",
-  "title": "Fix failures from ci-sir-20261112-0951 verification",
-  "done": true
- },
- {
-  "name": "ci-ahome-20261112-1401",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "audit-sir-laptop-manager-20261112-1401",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261112-1401",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "r46-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: competitors and feature gaps",
-  "done": true
- },
- {
-  "name": "r46-portfolio",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: competitors and feature gaps",
-  "done": true
- },
- {
-  "name": "r46-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: competitors and feature gaps",
-  "done": true
- },
- {
-  "name": "r46-laptop-manager",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: competitors and feature gaps",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0901-fix1",
-  "folder": "D:/Projects/_SIR",
-  "title": "Fix failures from ci-sir-20261112-0901 verification",
-  "done": true
- },
- {
-  "name": "r47-skills-encyclopedia",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "HQ: skills encyclopedia and organization",
-  "done": true
- },
- {
-  "name": "r48-video-digest",
-  "folder": "D:/Projects/SIR AI",
-  "title": "HQ: video digest skill",
-  "done": true
- },
- {
-  "name": "r49-skills-deep-1",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49-skills-deep-2",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt)",
-  "done": true
- },
- {
-  "name": "r49-skills-deep-3",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt)",
-  "done": true
- },
- {
-  "name": "r49-skills-deep-4",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt)",
-  "done": true
- },
- {
-  "name": "r49-skills-deep-5",
-  "folder": "D:/Projects/SIR AI",
-  "title": "skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt)",
-  "done": true
- },
- {
-  "name": "r49-skills-deep-6",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt)",
-  "done": true
- },
- {
-  "name": "r47-skills-encyclopedia-fix1",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "Fix failures from r47-skills-encyclopedia verification",
-  "done": true
- },
- {
-  "name": "ci-sir-20261112-0901-fix1-fix1",
-  "folder": "D:/Projects/_SIR",
-  "title": "Fix failures from ci-sir-20261112-0901-fix1 verification",
-  "done": true
- },
- {
-  "name": "r46-laptop-manager-fix1",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Fix failures from r46-laptop-manager verification",
-  "done": true
- },
- {
-  "name": "r49b-skills-deep-1",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49b-skills-deep-2",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing-2.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49b-skills-deep-3",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing-3.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49b-skills-deep-4",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49b-skills-deep-5",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r49b-skills-deep-6",
-  "folder": "D:/Projects/_SIR",
-  "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r50-portfolio-owner-fixes",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
-  "done": true
- },
- {
-  "name": "r51-backlog-projects",
-  "folder": "D:/Projects/old projects/SIR Platform",
-  "title": "Backlog ideas into projects or modules, final product list",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261112-1401-fix1",
-  "folder": "D:/Projects/SIR Study",
-  "title": "Fix failures from audit-sir-study-20261112-1401 verification",
-  "done": true
- },
- {
-  "name": "r52-plan-sir-ai",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR AI (slug sir-ai)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-obour-hub",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Education Hub (slug sir-education-hub)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-hagoozat",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-business",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Business (slug sir-business)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-content-creation-studio",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Content Creation Studio (slug sir-content-creation-studio)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-controller",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Controller (slug sir-controller)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-laptop-manager",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-modpack",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-mods-gta-v",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-life",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Life (slug sir-life)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-jobs",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-study",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: SIR Study (slug sir-study)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r52-plan-sir-platform",
-  "folder": "D:/Projects/_SIR",
-  "title": "r52 premium plan: the shared kit (slug sir-platform)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "ci-sir-jobs-20261112-1741",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u0625\u0635\u0644\u0627\u062d \u0627\u0644\u0641\u062d\u0635 \u0627\u0644\u0622\u0644\u064a \u0627\u0644\u0623\u062d\u0645\u0631",
-  "done": true
- },
- {
-  "name": "r45-jobs-scout-fixes-fix1",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "Fix failures from r45-jobs-scout-fixes verification",
-  "done": true
- },
- {
-  "name": "r54-plan-sir-handyman",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r54-plan-sir-cars",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Cars: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r54-plan-sir-movies",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Movies: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r54-plan-sir-price-finder",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Price Finder: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r54-plan-sir-game-deals",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Game Deals: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r54-plan-sir-access-map",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r60-build-sir-business",
-  "folder": "D:/Projects/SIR Business",
-  "title": "SIR Business: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-cars",
-  "folder": "D:/Projects/SIR Cars",
-  "title": "SIR Cars: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-content-creation-studio",
-  "folder": "D:/Projects/SIR Content Creation Studio",
-  "title": "SIR Content Creation Studio: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-controller",
-  "folder": "D:/Projects/SIR Controller",
-  "title": "SIR Controller: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-education-hub",
-  "folder": "D:/Projects/SIR Education Hub",
-  "title": "SIR Education Hub: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-hagoozat",
-  "folder": "D:/Projects/SIR Hagoozat",
-  "title": "SIR Hagoozat: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-handyman",
-  "folder": "D:/Projects/SIR Handyman",
-  "title": "SIR Handyman: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-life",
-  "folder": "D:/Projects/SIR Life",
-  "title": "SIR Life: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-modpack",
-  "folder": "D:/Projects/SIR ModPack",
-  "title": "SIR ModPack: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-mods-gta-v",
-  "folder": "D:/Projects/SIR Mods for GTA V",
-  "title": "SIR Mods for GTA V: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r60-build-sir-movies",
-  "folder": "D:/Projects/SIR Movies",
-  "title": "SIR Movies: rescan, then build from the first task",
-  "done": true,
-  "cancelled": "owner 2026-11-12: planning only until the current projects are done"
- },
- {
-  "name": "r62-control-room-mirror",
-  "folder": "D:/Projects/_SIR",
-  "title": "Control Room: free hosted mirror updated without Claude",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r69-review-backlog",
-  "folder": "D:/Projects/_SIR",
-  "title": "Verify the finished tasks waiting in review",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r67-c-drive-space",
-  "folder": "D:/Projects/_SIR",
-  "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r64-telegram-first",
-  "folder": "D:/Projects/_SIR",
-  "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r62-ahome-smart-sync",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: smart TickTick and linked-app sync with auto classification",
-  "done": true
- },
- {
-  "name": "r57-ahome-free",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: owner feedback round r57 (22 items) by free tools",
-  "done": true
- },
- {
-  "name": "ci-sir-study-20261112-0700-fix1",
-  "folder": "D:/Projects/SIR Study",
-  "title": "Fix failures from ci-sir-study-20261112-0700 verification",
-  "done": true
- },
- {
-  "name": "r60-build-sir-ai",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI: rescan, then build from the first task",
-  "done": true
- },
- {
-  "name": "r60-build-sir-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: rescan, then build from the first task",
-  "done": true
- },
- {
-  "name": "r60-build-sir-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: rescan, then build from the first task",
-  "done": true
- },
- {
-  "name": "r60-build-sir-laptop-manager",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: rescan, then build from the first task",
-  "done": true
- },
- {
-  "name": "r60-build-sir-portfolio",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: rescan, then build from the first task",
-  "done": true
- },
- {
-  "name": "r53-hagoozat-and-ideas",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r56-business-sector-depth",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Business: 25+ sectors, each with its own specialised plan",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r58-new-project-folders",
-  "folder": "D:/Projects/_SIR",
-  "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
-  "done": true
- },
- {
-  "name": "r61-plan-sir-business",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Business: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-cars",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Cars: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-content-creation-studio",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Content Creation Studio: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-controller",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Controller: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-education-hub",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Education Hub: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-hagoozat",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Hagoozat: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-handyman",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Handyman: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-life",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Life: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-modpack",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR ModPack: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-mods-gta-v",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Mods for GTA V: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-movies",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Movies: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-price-finder",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Price Finder: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-game-deals",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Game Deals: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r61-plan-sir-access-map",
-  "folder": "D:/Projects/_SIR",
-  "title": "SIR Access Map: planning refresh only (no building)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r63-control-room-private",
-  "folder": "D:/Projects/_SIR",
-  "title": "Control Room mirror: password, Tailscale links, privacy audit",
-  "done": true,
-  "parallel_ok": true,
-  "cancelled": "owner 2026-11-12: no public site; Control Room only on Tailscale"
- },
- {
-  "name": "r65-ahome-apk-adb-updates",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r66-bot-profile-photo",
-  "folder": "D:/Projects/_SIR",
-  "title": "Telegram bot: high-quality profile photo",
-  "done": true
- },
- {
-  "name": "r67-build-sir-portfolio",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: continue building from checkpoint",
-  "done": true
- },
- {
-  "name": "r67-voice-pipeline-verify",
-  "folder": "D:/Projects/_SIR",
-  "title": "Verify Telegram voice pipeline after hang fix",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r64-ahome-bot-kit",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome Telegram bot: vendor telegram_lib.py and add edit-own-message support",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r68-sir-ai-bot-answers",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r70-cycle-sir-ai",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI: improvement cycle (new lens, 10 improvements, report)",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r70-cycle-sir-jobs",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: improvement cycle (new lens, 10 improvements, report)",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r70-cycle-sir-laptop-manager",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: improvement cycle (new lens, 10 improvements, report)",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r70-cycle-sir-portfolio",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: improvement cycle (new lens, 10 improvements, report)",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r70-cycle-sir-study",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: improvement cycle (new lens, 10 improvements, report)",
-  "done": true,
-  "parallel_ok": false
- },
- {
-  "name": "r71-ahome-profile-editor-fixes",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: fix avatar crop slider, keyboard overlap, buttons and toggles (owner screenshots)",
-  "done": true
- },
- {
-  "name": "r72-d-drive-org-plan",
-  "folder": "D:/Projects/_SIR",
-  "title": "D drive organization plan (read only audit)",
-  "done": true,
-  "parallel_ok": true
- },
- {
-  "name": "r70-cycle-sir-laptop-manager-fix1",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Fix failures from r70-cycle-sir-laptop-manager verification",
-  "done": true
- },
- {
-  "name": "verify-r71-ahome",
-  "folder": "D:/Projects/AHome",
-  "title": "Verify r71 AHome profile fixes",
-  "done": true
- },
- {
-  "name": "verify-r70-laptop-fix1",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "Verify r70 Laptop Manager fix1",
-  "done": true
- },
- {
-  "name": "verify-r70-sir-ai",
-  "folder": "D:/Projects/SIR AI",
-  "title": "Finish and verify r70 SIR AI a11y cycle",
-  "done": true
- },
- {
-  "name": "ahome-folder-icon",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome folder and shortcut icon",
-  "done": true
- },
- {
-  "name": "smoke-cursor",
-  "folder": "D:/Projects/_SIR",
-  "title": "Smoke test: smoke-cursor",
-  "done": true
- },
- {
-  "name": "smoke-pi",
-  "folder": "D:/Projects/_SIR",
-  "title": "Smoke test: smoke-pi",
-  "done": true
- },
- {
-  "name": "smoke-devin",
-  "folder": "D:/Projects/_SIR",
-  "title": "Smoke test: smoke-devin",
-  "done": true
- },
- {
-  "name": "parity-instructions",
-  "folder": "D:/Projects/_SIR",
-  "title": "Instruction parity across free tools",
-  "done": true
- },
- {
-  "name": "review-old-tasks",
-  "folder": "D:/Projects/_SIR",
-  "title": "Verify three old done claims",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261113-0721",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-0721",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "owner-requests-verify",
-  "folder": "D:/Projects/_SIR",
-  "title": "Verify all owner requests",
-  "done": true
- },
- {
-  "name": "audit-sir-laptop-manager-20261113-1101",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-1101",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261113-1501",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-1501",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "owner-requests-verify-fix1",
-  "folder": "D:/Projects/_SIR",
-  "title": "Fix failures from owner-requests-verify verification",
-  "done": true
- },
- {
-  "name": "r73-laptop-ollama-single-instance",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: stop spawning a second Ollama server",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-1821",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261113-1821",
-  "folder": "D:/Projects/SIR Study",
-  "title": "SIR Study: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-study-20261113-1501-fix1",
-  "folder": "D:/Projects/SIR Study",
-  "title": "Fix failures from audit-sir-study-20261113-1501 verification",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-1821-fix1",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "Fix failures from audit-sir-jobs-20261113-1821 verification",
-  "done": true
- },
- {
-  "name": "audit-sir-laptop-manager-20261113-2241",
-  "folder": "D:/Projects/SIR Laptop Manager",
-  "title": "SIR Laptop Manager: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "audit-sir-jobs-20261113-2241",
-  "folder": "D:/Projects/SIR Jobs",
-  "title": "SIR Jobs: \u062f\u0648\u0631\u0629 \u0641\u062d\u0635 \u0630\u0627\u062a\u064a",
-  "done": true
- },
- {
-  "name": "sir-ai-agentic-os-01",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI Agentic OS phase 1: adapter registry + status plane",
-  "done": true
- },
- {
-  "name": "ahome-free-tools-fallback",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: bounded free-tools fallback for hard non-private tasks",
-  "done": true
- },
- {
-  "name": "sir-ai-agentic-os-02",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI Agentic OS phase 2: chat stream parser",
-  "done": false
- },
- {
-  "name": "normal-sir-ai-runnable-adapters-01",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI: make the 8 detect-only CLI adapters runnable",
-  "done": false,
-  "parallel_ok": false
- },
- {
-  "name": "r74-ahome-profile-save-fix",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: fix profile picture save and button state",
-  "done": false
- },
- {
-  "name": "r75-ahome-calling-fix",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: fix voice/video calling ringing and quality",
-  "done": false
- },
- {
-  "name": "r76-ahome-games-gifs-fix",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome: fix GIF picker, search, games invitations and XO",
-  "done": false
- },
- {
-  "name": "r77-portfolio-project-names",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: fix project names and navbar",
-  "done": false
- },
- {
-  "name": "r78-portfolio-complete",
-  "folder": "D:/Projects/SIR Portfolio",
-  "title": "SIR Portfolio: favicon, navbar logo, missing projects, descriptions, animations",
-  "done": false
- },
- {
-  "name": "r79-sir-ai-branding",
-  "folder": "D:/Projects/SIR AI",
-  "title": "SIR AI site: favicon + navbar logo",
-  "done": false
- },
- {
-  "name": "r80-ahome-models-audit",
-  "folder": "D:/Projects/AHome",
-  "title": "AHome local AI models audit",
-  "done": false
- },
- {
-  "name": "r81-projects-ai-features",
-  "folder": "D:/Projects",
-  "title": "SIR Jobs/Study/Portfolio AI features pass",
-  "done": false
- },
- {
-  "name": "r82-verify-sweep",
-  "folder": "D:/Projects/_SIR",
-  "title": "Verification sweep all projects",
-  "done": false
- }
+  {
+    "name": "r53-education-hub-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: big merged plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r53-business-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: sectors big merged plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r14-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "إصلاحات المشروع الخاص",
+    "done": true
+  },
+  {
+    "name": "r15-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager overnight work",
+    "done": true
+  },
+  {
+    "name": "r15-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Jobs inbox assistant, phase 1",
+    "done": true
+  },
+  {
+    "name": "r15-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room and Telegram menu",
+    "done": true
+  },
+  {
+    "name": "r16-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: fix review findings",
+    "done": true
+  },
+  {
+    "name": "r16-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs round 16",
+    "done": true
+  },
+  {
+    "name": "r16-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study round 16",
+    "done": true
+  },
+  {
+    "name": "r16-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room round 16",
+    "done": true
+  },
+  {
+    "name": "r17-ahome-verify",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome round 14 verification",
+    "done": true
+  },
+  {
+    "name": "r18-ahome-phone",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
+    "done": true
+  },
+  {
+    "name": "r19-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
+    "done": true
+  },
+  {
+    "name": "r21-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
+    "done": true
+  },
+  {
+    "name": "r19-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
+    "done": true
+  },
+  {
+    "name": "r19-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+    "done": true
+  },
+  {
+    "name": "r20-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
+    "done": true
+  },
+  {
+    "name": "r22-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r23-jobs-cv",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
+    "done": true
+  },
+  {
+    "name": "r24-jobs-apply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم على الشغل بموافقتك",
+    "done": true
+  },
+  {
+    "name": "r24-games",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "الألعاب: تحسين الأداء والجرافيكس",
+    "done": true
+  },
+  {
+    "name": "r25-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
+    "done": true
+  },
+  {
+    "name": "r26-infra",
+    "folder": "D:/Projects/_SIR",
+    "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
+    "done": true
+  },
+  {
+    "name": "r27-study-sources",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: سحب المواد الجديدة وترتيبها",
+    "done": true
+  },
+  {
+    "name": "r28-jobs-autoapply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261111-0621",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-0841",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261111-0841",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261111-1011",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r30-ahome-local-core",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261111-1011",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "laptop-updates-20261111",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
+    "done": true
+  },
+  {
+    "name": "r29-jobs-verify-applies",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
+    "done": true
+  },
+  {
+    "name": "r31-desktop-organize",
+    "folder": "D:/Projects/_SIR",
+    "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-1951",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261111-1951",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r33-ahome-feedback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
+    "done": true
+  },
+  {
+    "name": "r34-jobs-ui-overhaul",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
+    "done": true
+  },
+  {
+    "name": "r35-control-room-laptop-ui",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0051",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0111",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r36-more-free-workers",
+    "folder": "D:/Projects/_SIR",
+    "title": "r36 more free workers",
+    "done": true
+  },
+  {
+    "name": "r37-verify-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "r37 verify today's UI",
+    "done": true
+  },
+  {
+    "name": "r38-ahome-feedback2",
+    "folder": "D:/Projects/AHome",
+    "title": "r38 AHome feedback 2",
+    "done": true
+  },
+  {
+    "name": "r39-portfolio-copy",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "r39 Portfolio copy",
+    "done": true
+  },
+  {
+    "name": "r40-sir-ai-vision",
+    "folder": "D:/Projects/SIR AI",
+    "title": "r40 SIR AI vision plan",
+    "done": true
+  },
+  {
+    "name": "r41-disk-regenerable",
+    "folder": "D:/Projects/_SIR",
+    "title": "r41 disk regenerable",
+    "done": true
+  },
+  {
+    "name": "r42-verifier-scout",
+    "folder": "D:/Projects/_SIR",
+    "title": "r42 verifier and scouts",
+    "done": true
+  },
+  {
+    "name": "r15-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r15-laptop verification",
+    "done": true
+  },
+  {
+    "name": "r43-study-mobile-card-tables",
+    "folder": "D:/Projects/SIR Study",
+    "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
+    "done": true
+  },
+  {
+    "name": "r44-portfolio-plans-upgrade",
+    "folder": "D:/Projects/_SIR",
+    "title": "r44 plans upgrade all products",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261112-0700",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: red CI after cleanup commit",
+    "done": true
+  },
+  {
+    "name": "r45-study-scout-fixes",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: scout findings",
+    "done": true
+  },
+  {
+    "name": "r45-jobs-scout-fixes",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: scout findings",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0941",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0951",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0951-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0951 verification",
+    "done": true
+  },
+  {
+    "name": "ci-ahome-20261112-1401",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261112-1401",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261112-1401",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r46-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901 verification",
+    "done": true
+  },
+  {
+    "name": "r47-skills-encyclopedia",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "HQ: skills encyclopedia and organization",
+    "done": true
+  },
+  {
+    "name": "r48-video-digest",
+    "folder": "D:/Projects/SIR AI",
+    "title": "HQ: video digest skill",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-1",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49-skills-deep-2",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-3",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-4",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-5",
+    "folder": "D:/Projects/SIR AI",
+    "title": "skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-6",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt)",
+    "done": true
+  },
+  {
+    "name": "r47-skills-encyclopedia-fix1",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Fix failures from r47-skills-encyclopedia verification",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901-fix1 verification",
+    "done": true
+  },
+  {
+    "name": "r46-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r46-laptop-manager verification",
+    "done": true
+  },
+  {
+    "name": "r49b-skills-deep-1",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-2",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing-2.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-3",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing-3.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-4",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-5",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-6",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r50-portfolio-owner-fixes",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
+    "done": true
+  },
+  {
+    "name": "r51-backlog-projects",
+    "folder": "D:/Projects/old projects/SIR Platform",
+    "title": "Backlog ideas into projects or modules, final product list",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261112-1401-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261112-1401 verification",
+    "done": true
+  },
+  {
+    "name": "r52-plan-sir-ai",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR AI (slug sir-ai)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-obour-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Education Hub (slug sir-education-hub)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Business (slug sir-business)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Content Creation Studio (slug sir-content-creation-studio)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Controller (slug sir-controller)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-laptop-manager",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Life (slug sir-life)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-jobs",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-study",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Study (slug sir-study)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-platform",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: the shared kit (slug sir-platform)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "ci-sir-jobs-20261112-1741",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "r45-jobs-scout-fixes-fix1",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Fix failures from r45-jobs-scout-fixes verification",
+    "done": true
+  },
+  {
+    "name": "r54-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r60-build-sir-business",
+    "folder": "D:/Projects/SIR Business",
+    "title": "SIR Business: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-cars",
+    "folder": "D:/Projects/SIR Cars",
+    "title": "SIR Cars: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-content-creation-studio",
+    "folder": "D:/Projects/SIR Content Creation Studio",
+    "title": "SIR Content Creation Studio: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-controller",
+    "folder": "D:/Projects/SIR Controller",
+    "title": "SIR Controller: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-education-hub",
+    "folder": "D:/Projects/SIR Education Hub",
+    "title": "SIR Education Hub: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-hagoozat",
+    "folder": "D:/Projects/SIR Hagoozat",
+    "title": "SIR Hagoozat: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-handyman",
+    "folder": "D:/Projects/SIR Handyman",
+    "title": "SIR Handyman: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-life",
+    "folder": "D:/Projects/SIR Life",
+    "title": "SIR Life: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-modpack",
+    "folder": "D:/Projects/SIR ModPack",
+    "title": "SIR ModPack: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-mods-gta-v",
+    "folder": "D:/Projects/SIR Mods for GTA V",
+    "title": "SIR Mods for GTA V: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-movies",
+    "folder": "D:/Projects/SIR Movies",
+    "title": "SIR Movies: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r62-control-room-mirror",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room: free hosted mirror updated without Claude",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r69-review-backlog",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify the finished tasks waiting in review",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r67-c-drive-space",
+    "folder": "D:/Projects/_SIR",
+    "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r64-telegram-first",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r62-ahome-smart-sync",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: smart TickTick and linked-app sync with auto classification",
+    "done": true
+  },
+  {
+    "name": "r57-ahome-free",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: owner feedback round r57 (22 items) by free tools",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261112-0700-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from ci-sir-study-20261112-0700 verification",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r53-hagoozat-and-ideas",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r56-business-sector-depth",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: 25+ sectors, each with its own specialised plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r58-new-project-folders",
+    "folder": "D:/Projects/_SIR",
+    "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
+    "done": true
+  },
+  {
+    "name": "r61-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Content Creation Studio: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Controller: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-education-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Life: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR ModPack: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Mods for GTA V: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r63-control-room-private",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room mirror: password, Tailscale links, privacy audit",
+    "done": true,
+    "parallel_ok": true,
+    "cancelled": "owner 2026-11-12: no public site; Control Room only on Tailscale"
+  },
+  {
+    "name": "r65-ahome-apk-adb-updates",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r66-bot-profile-photo",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram bot: high-quality profile photo",
+    "done": true
+  },
+  {
+    "name": "r67-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: continue building from checkpoint",
+    "done": true
+  },
+  {
+    "name": "r67-voice-pipeline-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify Telegram voice pipeline after hang fix",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r64-ahome-bot-kit",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome Telegram bot: vendor telegram_lib.py and add edit-own-message support",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r68-sir-ai-bot-answers",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r71-ahome-profile-editor-fixes",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix avatar crop slider, keyboard overlap, buttons and toggles (owner screenshots)",
+    "done": true
+  },
+  {
+    "name": "r72-d-drive-org-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "D drive organization plan (read only audit)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r70-cycle-sir-laptop-manager verification",
+    "done": true
+  },
+  {
+    "name": "verify-r71-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "Verify r71 AHome profile fixes",
+    "done": true
+  },
+  {
+    "name": "verify-r70-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Verify r70 Laptop Manager fix1",
+    "done": true
+  },
+  {
+    "name": "verify-r70-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "Finish and verify r70 SIR AI a11y cycle",
+    "done": true
+  },
+  {
+    "name": "ahome-folder-icon",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome folder and shortcut icon",
+    "done": true
+  },
+  {
+    "name": "smoke-cursor",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-cursor",
+    "done": true
+  },
+  {
+    "name": "smoke-pi",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-pi",
+    "done": true
+  },
+  {
+    "name": "smoke-devin",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-devin",
+    "done": true
+  },
+  {
+    "name": "parity-instructions",
+    "folder": "D:/Projects/_SIR",
+    "title": "Instruction parity across free tools",
+    "done": true
+  },
+  {
+    "name": "review-old-tasks",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify three old done claims",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-0721",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-0721",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify all owner requests",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-1101",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1101",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1501",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1501",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from owner-requests-verify verification",
+    "done": true
+  },
+  {
+    "name": "r73-laptop-ollama-single-instance",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: stop spawning a second Ollama server",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1821",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1821",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1501-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261113-1501 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1821-fix1",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Fix failures from audit-sir-jobs-20261113-1821 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-2241",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-2241",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "sir-ai-agentic-os-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI Agentic OS phase 1: adapter registry + status plane",
+    "done": true
+  },
+  {
+    "name": "ahome-free-tools-fallback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: bounded free-tools fallback for hard non-private tasks",
+    "done": true
+  },
+  {
+    "name": "sir-ai-agentic-os-02",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI Agentic OS phase 2: chat stream parser",
+    "done": true
+  },
+  {
+    "name": "normal-sir-ai-runnable-adapters-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: make the 8 detect-only CLI adapters runnable",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r74-ahome-profile-save-fix",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix profile picture save and button state",
+    "done": true
+  },
+  {
+    "name": "r75-ahome-calling-fix",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix voice/video calling ringing and quality",
+    "done": true
+  },
+  {
+    "name": "r76-ahome-games-gifs-fix",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix GIF picker, search, games invitations and XO",
+    "done": true
+  },
+  {
+    "name": "r77-portfolio-project-names",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: fix project names and navbar",
+    "done": true
+  },
+  {
+    "name": "r78-portfolio-complete",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: favicon, navbar logo, missing projects, descriptions, animations",
+    "done": true
+  },
+  {
+    "name": "r79-sir-ai-branding",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI site: favicon + navbar logo",
+    "done": true
+  },
+  {
+    "name": "r80-ahome-models-audit",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome local AI models audit",
+    "done": true
+  },
+  {
+    "name": "r81-projects-ai-features",
+    "folder": "D:/Projects",
+    "title": "SIR Jobs/Study/Portfolio AI features pass",
+    "done": true
+  },
+  {
+    "name": "r82-verify-sweep",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verification sweep all projects",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-2241-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from audit-sir-laptop-manager-20261113-2241 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261114-0541",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261114-0541",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r82-study-drawer-hidden-from-taborder",
+    "folder": "D:/Projects/SIR Study",
+    "title": "The closed side drawer is hidden only by CSS transform (translateX off-screen) with no vis",
+    "done": false
+  },
+  {
+    "name": "r83-portfolio-chat-focus",
+    "folder": "D:/Projects/_SIR",
+    "title": "AI chat toggle unmounts on open so keyboard focus is dropped to <body> and never moved int",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261114-0722",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager audit loop 2026-11-14 0722",
+    "done": false
+  }
 ]
