@@ -1,7 +1,7 @@
 # gcp-spark-troubleshooting
 
 - Tool: `gemini-config`
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\skills\gcp-spark-troubleshooting\SKILL.md`
 - SKILL.md size: 27677 chars
 
@@ -26,7 +26,6 @@ Provides expert guidance for troubleshooting Google Cloud Spark and Dataproc wor
 - Task Execution Process for Troubleshooting Workloads
 - Troubleshooting Scenarios Catalog
 - Important Constraints
-- (none)
 
 ## Tools / MCPs it needs
 

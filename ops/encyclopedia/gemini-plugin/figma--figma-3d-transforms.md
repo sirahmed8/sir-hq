@@ -31,7 +31,6 @@ Add or edit 3D transforms — depth, perspective, z-axis rotation, tilt, isometr
 - Workflow
 - Recipes
 - Gotchas
-- (none)
 
 ## Tools / MCPs it needs
 

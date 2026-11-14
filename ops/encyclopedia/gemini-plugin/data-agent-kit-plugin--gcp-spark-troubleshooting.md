@@ -1,7 +1,7 @@
 # gcp-spark-troubleshooting
 
 - Tool: `gemini-plugin` (plugin: `data-agent-kit-plugin`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\data-agent-kit-plugin\skills.all\gcp-spark-troubleshooting\SKILL.md`
 - SKILL.md size: 27669 chars
 
@@ -26,7 +26,6 @@ Provides expert guidance for troubleshooting Google Cloud Spark and Dataproc wor
 - Task Execution Process for Troubleshooting Workloads
 - Troubleshooting Scenarios Catalog
 - Important Constraints
-- (none)
 
 ## Tools / MCPs it needs
 

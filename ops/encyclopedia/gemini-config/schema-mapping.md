@@ -1,7 +1,7 @@
 # schema-mapping
 
 - Tool: `gemini-config`
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\skills\schema-mapping\SKILL.md`
 - SKILL.md size: 11780 chars
 
@@ -30,7 +30,6 @@ Guides the process of analyzing, mapping, and documenting transformations betwee
 - Mapping Plan: `album`
 - Field Mappings
 - Critical Operational Rules
-- (none)
 
 ## Tools / MCPs it needs
 

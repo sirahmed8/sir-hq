@@ -7,7 +7,7 @@
 
 ## What it does
 
-> Implement feature flags in Next.js or SvelteKit code with the Flags SDK (`flags` npm package). Use when installing or configuring the SDK, declaring flags with `flag()`, setting up Project Connections, wiring a provider adapter (`@flags-sdk/vercel`, Statsig, LaunchDarkly, PostHog, GrowthBook, Global Config, OpenFeature, Split, Flagsmith, Reflag, Optimizely, or custom), using `identify`, `dedupe`, or `evaluate`, keeping pages static with precompute, setting up Flags Explorer and the Vercel Toolbar, or encrypting flag values. Triggers: `flags/next`, `flags/sveltekit`, `flags/react`, `@flags-sdk/*`, `vercelAdapter`, precompute. For planning a flag, for Vercel Flags rollouts, experiments, and the `vercel flags` CLI, or for other frameworks, use the `vercel-flags` skill.
+Implement feature flags in Next.js or SvelteKit code with the Flags SDK (`flags` npm package). Use when installing or configuring the SDK, declaring flags with `flag()`, setting up Project Connections, wiring a provider adapter (`@flags-sdk/vercel`, Statsig, LaunchDarkly, PostHog, GrowthBook, Global Config, OpenFeature, Split, Flagsmith, Reflag, Optimizely, or custom), using `identify`, `dedupe`, or `evaluate`, keeping pages static with precompute, setting up Flags Explorer and the Vercel Toolbar, or encrypting flag values. Triggers: `flags/next`, `flags/sveltekit`, `flags/react`, `@flags-sdk/*`, `vercelAdapter`, precompute. For planning a flag, for Vercel Flags rollouts, experiments, and the `vercel flags` CLI, or for other frameworks, use the `vercel-flags` skill.
 
 ## When to use (from skill text)
 
@@ -40,7 +40,6 @@
 - Next.js (App Router)
 - With external provider data
 - SvelteKit
-- (none)
 
 ## Tools / MCPs it needs
 

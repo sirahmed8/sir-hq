@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\ai-sdk\upstream\SKILL.md`
 - SKILL.md size: 5833 chars
 
@@ -22,7 +22,6 @@ Answer questions about the AI SDK and help build AI-powered features. Use when d
 - DevTools
 - Keep the SDK Current
 - After Making Changes
-- (none)
 
 ## Tools / MCPs it needs
 

@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\workflow\upstream\SKILL.md`
 - SKILL.md size: 36415 chars
 
@@ -41,7 +41,6 @@ Creates durable, resumable workflows using Vercel's Workflow SDK. Use when build
 - For Vercel-deployed projects, specify backend and project
 - Open Vercel dashboard in browser for a specific run
 - Cancel a running workflow
-- (none)
 
 ## Tools / MCPs it needs
 

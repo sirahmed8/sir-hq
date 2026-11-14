@@ -1,7 +1,7 @@
 # gcp-managed-airflow-recommendations
 
 - Tool: `gemini-plugin` (plugin: `data-agent-kit-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\data-agent-kit-plugin\skills.all\gcp-managed-airflow-recommendations\SKILL.md`
 - SKILL.md size: 6388 chars
 
@@ -21,7 +21,6 @@ Provides recommendations and best practices for creating, configuring, tuning an
 - Task Execution Process
 - Airflow Best Practices (General Knowledge)
 - Important Constraints & Instructions
-- (none)
 
 ## Tools / MCPs it needs
 

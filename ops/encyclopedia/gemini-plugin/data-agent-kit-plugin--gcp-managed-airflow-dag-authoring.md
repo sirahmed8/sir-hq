@@ -26,7 +26,6 @@ Guides the authoring and validation of Apache Airflow DAGs for Managed Service f
 - 3.2.2 Verify via Airflow CLI
 - 3.2.3 Monitor Cloud Logging
 - Definition of Done
-- (none)
 
 ## Tools / MCPs it needs
 

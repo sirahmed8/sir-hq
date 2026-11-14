@@ -17,7 +17,6 @@ Read and write the user's per-project to-do lists in ~/.Life/todos/. Use when th
 - Suggested by Luci
 - Two kinds of write
 - Reading
-- (none)
 
 ## Tools / MCPs it needs
 

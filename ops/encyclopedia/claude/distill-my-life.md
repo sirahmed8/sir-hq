@@ -28,7 +28,6 @@ Distill each day's raw activity into a daily report. Ensures ~/.Life exists, pul
 - Step 4: first-time notification
 - Step 5: the profile
 - Final output
-- (none)
 
 ## Tools / MCPs it needs
 

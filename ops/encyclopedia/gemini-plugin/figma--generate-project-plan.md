@@ -40,7 +40,6 @@ Generate a FigJam project plan board from a PRD plus codebase context. Interacti
 - Step 9 — Final review + report  [Write, then Read]
 - Operational rules
 - Trigger phrases
-- (none)
 
 ## Tools / MCPs it needs
 

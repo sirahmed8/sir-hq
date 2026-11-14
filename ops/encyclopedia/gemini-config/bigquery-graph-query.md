@@ -36,7 +36,6 @@ Provides guidelines and best practices for querying BigQuery property graphs and
 - 3. When No Starting Node Fits — Fall Back to GQL
 - 4. Querying Measures with `AGG()`
 - 5. Prefer Measures (AGG) over Standard SQL Aggregations
-- (none)
 
 ## Tools / MCPs it needs
 

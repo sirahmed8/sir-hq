@@ -7,7 +7,7 @@
 
 ## What it does
 
-> This skill should be used when the user asks to analyze a UI screen recording and map interaction states into Figma. Trigger for requests such as "put video frames in Figma", "extract states from my recording", "map interactions from video to Figma", "analyze this screen recording", "create a storyboard from my video", "deconstruct this interaction in Figma", "annotate the UI states in my recording", or "pull the key moments from this video into Figma". Also trigger when the user references a video file (.mp4, .mov, .webm, .avi) together with Figma, design review, interaction analysis, prototypes, or UI states. The skill extracts key visual moments from a video, infers interaction triggers, and builds an annotated Figma Design storyboard using native Figma annotations and uploaded screenshot assets.
+This skill should be used when the user asks to analyze a UI screen recording and map interaction states into Figma. Trigger for requests such as "put video frames in Figma", "extract states from my recording", "map interactions from video to Figma", "analyze this screen recording", "create a storyboard from my video", "deconstruct this interaction in Figma", "annotate the UI states in my recording", or "pull the key moments from this video into Figma". Also trigger when the user references a video file (.mp4, .mov, .webm, .avi) together with Figma, design review, interaction analysis, prototypes, or UI states. The skill extracts key visual moments from a video, infers interaction triggers, and builds an annotated Figma Design storyboard using native Figma annotations and uploaded screenshot assets.
 
 ## When to use (from skill text)
 
@@ -30,7 +30,6 @@
 - 8. Verify
 - Output Expectations
 - Edge Cases
-- (none)
 
 ## Tools / MCPs it needs
 

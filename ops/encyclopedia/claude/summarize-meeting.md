@@ -13,7 +13,6 @@ Write a meeting into ~/.Life/reflections/meetings/. Use when the user says summa
 
 - Action items
 - Shawn Shen
-- (none)
 
 ## Tools / MCPs it needs
 

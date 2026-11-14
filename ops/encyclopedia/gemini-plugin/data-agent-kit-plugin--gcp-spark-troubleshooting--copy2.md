@@ -1,7 +1,7 @@
 # gcp-spark-troubleshooting
 
 - Tool: `gemini-plugin` (plugin: `data-agent-kit-plugin`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\data-agent-kit-plugin\skills\gcp-spark-troubleshooting\SKILL.md`
 - SKILL.md size: 27669 chars
 - Identical content to: `encyclopedia/gemini-plugin/data-agent-kit-plugin--gcp-spark-troubleshooting.md`

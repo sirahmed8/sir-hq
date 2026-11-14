@@ -23,7 +23,6 @@ Write or rewrite ~/.Life/profile.md, the user's Luci profile, from their daily r
 - Not sure
 - This week, you changed
 - Limits
-- (none)
 
 ## Tools / MCPs it needs
 

@@ -1,7 +1,7 @@
 # SIR Customizations Catalog: Skills, Plugins & MCP Servers Across All AI Tools
 
 > **Status**: SYNCED & REFRESHED across `D:\Projects` (verified 2026-11-14).
-> **Machine-Wide Inventory**: **421 unique skill names** across **1,219 installed copies** (13 sources) indexed in [`SKILLS_INDEX.md`](SKILLS_INDEX.md), with per-skill digests in [`encyclopedia/`](encyclopedia/PROGRESS.md), canonical SIR core staging in [`encyclopedia/canonical/`](encyclopedia/canonical/), and cross-tool MCP/plugin names in [`encyclopedia/mcp-inventory.json`](encyclopedia/mcp-inventory.json).
+> **Machine-Wide Inventory**: **421 unique skill names** across **1,223 installed copies** (13 sources) indexed in [`SKILLS_INDEX.md`](SKILLS_INDEX.md), with per-skill digests in [`encyclopedia/`](encyclopedia/PROGRESS.md), canonical SIR core staging in [`encyclopedia/canonical/`](encyclopedia/canonical/), and cross-tool MCP/plugin names in [`encyclopedia/mcp-inventory.json`](encyclopedia/mcp-inventory.json).
 > **Context Budget Reality**: Antigravity loads workspace, `~/.gemini/config/skills/`, builtin, and plugin skills under a strict prompt context budget; excess lower-priority plugin skills are excluded dynamically when the budget is reached. Always read `SKILLS_INDEX.md` or search `ops/encyclopedia/` when looking up an excluded plugin skill.
 
 ---
@@ -50,13 +50,13 @@ Truthful snapshot verified against disk and [`encyclopedia/mcp-inventory.json`](
 
 | Agent / Runtime | Skill Roots (Verified Count) | Configured MCP Servers (User / Workspace) | Plugins |
 | :--- | :--- | :--- | :--- |
-| **Antigravity & Gemini CLI** | `~/.gemini/config/skills` (**69**)<br>`~/.gemini/skills` (**57**)<br>`~/.gemini/antigravity/builtin/skills` (**14**)<br>`~/.gemini/antigravity/scratch/skills` (**1**)<br>`~/.gemini/config/plugins/*/skills` (**405**)<br>`D:\Projects\.agents\skills` (**2**) | `~/.gemini/config/mcp_config.json` & `~/.gemini/antigravity/mcp_config.json` (**14**): `GitKraken`, `chrome-devtools-mcp`, `dart-mcp-server`, `datacloud_bigquery_remote`, `datacloud_cloud-sql_remote`, `datacloud_knowledge_catalog_remote`, `datacloud_spanner_remote`, `firebase-mcp-server`, `github-mcp-server`, `gmp-code-assist`, `nvidia-app`, `sequential-thinking`, `sir-autonomy`, `ticktick`<br>`~/.gemini/settings.json` adds: `MCP_DOCKER` | **44** plugin dirs on disk (**43** manifests in `mcp-inventory.json`, **16** exposing plugin-scoped MCP servers; `agent-reach` dir has no manifest) |
-| **Claude Code** | `~/.claude/skills` (**78**)<br>Canonical source for 26/27 SIR core skills + 9 synced Claude-only skills | `~/.claude.json` (**2**): `GitKraken`, `nvidia-app` | **85** installed plugins in `~/.claude/plugins/installed_plugins.json` (incl. `sir-context@sir-mods`, `sir-guards@sir-mods`) |
-| **Codex** | `~/.codex/skills` (**119**) | `~/.codex/config.toml` (**3**): `GitKraken`, `node_repl`, `sir_bridge` | **12** plugins (`7` `@openai-bundled`: `browser`, `chrome`, `code-review`, `codex-app-tools`, `computer-use`, `unified-computer-use`, `visualize`; `5` `@openai-primary-runtime`: `documents`, `pdf`, `presentations`, `spreadsheets`, `template-creator`) |
-| **OpenCode** | `~/.config/opencode/skills` (**124**)<br>(includes 9 Claude-only + 27 canonical SIR core) | `~/.config/opencode/opencode.jsonc` (**3** under `mcp.servers`): `GitKraken`, `nvidia-app`, `sir-autonomy`<br>Instructions: `WORKER_PREAMBLE.md`, `CLI_AGENT_INSTRUCTIONS.md`, `AGENTS.md`, `23-premium-code-bar.md`, `USAGE_POLICY.md` | None (uses skills + shared instructions) |
-| **Kilo** | `~/.config/kilo/skills` (**119**)<br>(includes 9 Claude-only + 27 canonical SIR core) | `~/.config/kilo/kilo.jsonc` (**2**): `nvidia-app`, `sir-autonomy`<br>Instructions: `WORKER_PREAMBLE.md`, `CLI_AGENT_INSTRUCTIONS.md`, `AGENTS.md`, `23-premium-code-bar.md`, `USAGE_POLICY.md` | None (uses skills + shared instructions) |
-| **Devin CLI** | Builtin (**2**): `declarative-repo-setup`, `upload-secrets`<br>Workspace `D:\Projects\.agents\skills` (**2**): `sir-session-end`, `sir-worker-preamble`<br>Shared `~/.agents/skills` (**2**): `agent-reach`, `sir-skill-library` | `%APPDATA%\devin\config.json`: empty `mcpServers: {}`<br>`AppData\Local\devin\cli\mcp\descriptions.json`: 2 cached MCP hashes (incl. NVIDIA App diagnostics) | None |
-| **Secondary IDEs (Windsurf / Cursor / Cline / Kimi / Goose)** | Windsurf (`~/.codeium/windsurf/skills`: **112**)<br>Cursor (`~/.cursor/skills`: **117**)<br>Cline, Kimi Code, Goose: **0** skill dirs | Workspace `.mcp.json` (`{}`) and `.agents\mcp_config.json` (`0bridge`, `100hires`, `everything-app`). No user MCP files for Windsurf, Cursor, Cline, Kimi, or Goose | None |
+| **Antigravity & Gemini CLI** | `~/.gemini/config/skills` (**69**)<br>`~/.gemini/skills` (**58**)<br>`~/.gemini/antigravity/builtin/skills` (**14**)<br>`~/.gemini/antigravity/scratch/skills` (**1**)<br>`~/.gemini/config/plugins/*/skills` (**405**)<br>`D:\Projects\.agents\skills` (**2**) | `~/.gemini/config/mcp_config.json` & `~/.gemini/antigravity/mcp_config.json` (**14**): `GitKraken`, `chrome-devtools-mcp`, `dart-mcp-server`, `datacloud_bigquery_remote`, `datacloud_cloud-sql_remote`, `datacloud_knowledge_catalog_remote`, `datacloud_spanner_remote`, `firebase-mcp-server`, `github-mcp-server`, `gmp-code-assist`, `nvidia-app`, `sequential-thinking`, `sir-autonomy`, `ticktick`<br>`~/.gemini/settings.json` adds: `MCP_DOCKER` | **44** plugin dirs on disk (**43** manifests in `mcp-inventory.json`, **16** exposing plugin-scoped MCP servers; `agent-reach` dir has no manifest) |
+| **Claude Code** | `~/.claude/skills` (**79**)<br>Canonical source for 26/27 SIR core skills + 9 synced Claude-only skills | `~/.claude.json` (**2**): `GitKraken`, `nvidia-app`<br>Enabled plugin MCPs (**6** plugins): `canva`, `chrome-devtools`, `cloudflare`, `figma`, `firebase`, `firecrawl` | **85** installed in `~/.claude/plugins/installed_plugins.json` (**14 enabled**, **71 disabled** in `~/.claude/settings.json`, incl. `sir-context@sir-mods`, `sir-guards@sir-mods`; **37 installed** total expose MCP definitions) |
+| **Codex** | `~/.codex/skills` (**119**) | `~/.codex/config.toml` (**3**): `GitKraken`, `node_repl`, `sir_bridge` | **12** configured (**11 enabled**, **1 disabled**: `code-review@openai-bundled`): `7` `@openai-bundled` (`browser`, `chrome`, `code-review`, `codex-app-tools`, `computer-use`, `unified-computer-use`, `visualize`) + `5` `@openai-primary-runtime` (`documents`, `pdf`, `presentations`, `spreadsheets`, `template-creator`) |
+| **OpenCode** | `~/.config/opencode/skills` (**124**)<br>(includes 9 Claude-only + 27 canonical SIR core) | `~/.config/opencode/opencode.jsonc` (**3** connected): `nvidia-app`, `sir-autonomy` (top-level under `mcp`), `GitKraken` (nested under `mcp.servers`)<br>Instructions: `WORKER_PREAMBLE.md`, `CLI_AGENT_INSTRUCTIONS.md`, `AGENTS.md`, `23-premium-code-bar.md`, `USAGE_POLICY.md` | None (uses skills + shared instructions) |
+| **Kilo** | `~/.config/kilo/skills` (**119**)<br>(includes 9 Claude-only + 27 canonical SIR core; `kilo debug skill` loads **129** incl. builtin, `~/.agents/skills`, `D:\Projects\.agents\skills\sir-worker-preamble`, and `~/.claude/skills` fallbacks) | `~/.config/kilo/kilo.jsonc` (**2** connected): `nvidia-app`, `sir-autonomy`<br>Instructions: `WORKER_PREAMBLE.md`, `CLI_AGENT_INSTRUCTIONS.md`, `AGENTS.md`, `23-premium-code-bar.md`, `USAGE_POLICY.md` | None (uses skills + shared instructions) |
+| **Devin CLI** | Builtin (**2**): `declarative-repo-setup`, `upload-secrets`<br>Workspace `D:\Projects\.agents\skills` (**2**): `sir-session-end`, `sir-worker-preamble`<br>Shared `~/.agents/skills` (**2**): `agent-reach`, `sir-skill-library`<br>Auto-imported (`devin skills list`): `~/.claude/skills`, `~/.codeium/windsurf/skills`, `~/.cursor/skills` | `%APPDATA%\devin\config.json` omits `mcpServers` (`hasMcpServersKey: false`); `devin mcp list` auto-imports `~/.claude.json` user MCPs (**2**): `GitKraken`, `nvidia-app`<br>`AppData\Local\devin\cli\mcp\descriptions.json`: 2 cached MCP hashes (incl. NVIDIA App diagnostics) | None |
+| **Secondary IDEs (Windsurf / Cursor / Cline / Kimi / Goose)** | Windsurf (`~/.codeium/windsurf/skills`: **113**)<br>Cursor (`~/.cursor/skills`: **118**)<br>Cline, Kimi Code, Goose: **0** skill dirs | Workspace `.mcp.json` (`{}`) and `.agents\mcp_config.json` (`0bridge`, `100hires`, `everything-app`). No user MCP files for Windsurf, Cursor, Cline, Kimi, or Goose | None |
 
 ### Retired `AgentsRoom` Cleanup (2026-11-14)
 - `D:\Projects\.mcp.json`: Removed 5 retired `AgentsRoom-*` entries; now `{ "mcpServers": {} }`.
@@ -72,8 +72,8 @@ Truthful snapshot verified against disk and [`encyclopedia/mcp-inventory.json`](
 | MCP Server Name | Active In | Purpose & Capabilities |
 | :--- | :--- | :--- |
 | `sir-autonomy` | Antigravity, Gemini CLI, OpenCode, Kilo, (`sir_bridge` in Codex) | Zero-prompt Chrome browser bridge & Windows desktop computer use |
-| `nvidia-app` | Antigravity, Gemini CLI, Claude, OpenCode, Kilo, (cached in Devin) | NVIDIA GPU telemetry, driver status, game filters, overlay capture |
-| `GitKraken` | Antigravity, Gemini CLI, Claude, Codex, OpenCode | Git workflows, branch inspection, PRs, repo history |
+| `nvidia-app` | Antigravity, Gemini CLI, Claude, OpenCode, Kilo, Devin (auto-imported from `~/.claude.json`) | NVIDIA GPU telemetry, driver status, game filters, overlay capture |
+| `GitKraken` | Antigravity, Gemini CLI, Claude, Codex, OpenCode, Devin (auto-imported from `~/.claude.json`) | Git workflows, branch inspection, PRs, repo history |
 | `chrome-devtools-mcp` | Antigravity, Gemini CLI | Chrome DevTools Protocol automation, network, console, CSS inspection |
 | `github-mcp-server` | Antigravity, Gemini CLI | GitHub repos, issues, pull requests, reviews, commits |
 | `firebase-mcp-server` | Antigravity, Gemini CLI | Cloud Firestore, Auth, Storage, Data Connect, Rules validation |
@@ -92,30 +92,30 @@ Truthful snapshot verified against disk and [`encyclopedia/mcp-inventory.json`](
 
 | MCP Server Name | Purpose & Notes |
 | :--- | :--- |
-| `everything-app` | Local Windows Voidtools Everything fast file search MCP |
-| `100hires` | Hiring & candidate workflow connector |
-| `0bridge` | Local bridge MCP (oauth cache still references legacy `~\.agentsroom\mcp-oauth` path; monitor if deprecated) |
+| `everything-app` | Remote Alpic staging HTTP MCP endpoint (`https://everything-app-7f22928f.staging.alpic.live` in `D:\Projects\.agents\mcp_config.json`; monitor remote quota limits) |
+| `100hires` | Remote 100hires HTTP MCP endpoint (`https://mcp.100hires.com/mcp`; hiring & candidate workflow connector) |
+| `0bridge` | Remote 0bridge MCP (`https://0bridge.dev/mcp` via `mcp-remote@0.15.2`; `MCP_REMOTE_CONFIG_DIR` still references `~\.agentsroom\mcp-oauth\e649caaf5f6077dc`: re-point or re-auth if used) |
 
 ### C. Antigravity Plugin-Scoped MCP Servers (16 Plugins in `C:\Users\a7med\.gemini\config\plugins\`)
 
-| Plugin Name | Exposed MCP Server Name(s) | Skills in Plugin |
+| Plugin Name | Exposed MCP Server Name(s) | Skills Indexed in Plugin |
 | :--- | :--- | :--- |
-| `canva` | `canva` | 6 |
+| `canva` | `canva` | 12 |
 | `context7` | `context7` | 1 |
-| `data-agent-kit-plugin` | `dak-bigquery`, `dak-cloudsql`, `dak-data-agent-kit`, `dak-kc`, `dak-notebook`, `dak-spanner` | 20 |
-| `figma` | `figma` | 16 |
-| `flutter` | `dart-mcp-server` | 11 |
-| `gemini-api` | `gemini-api-docs` | 3 |
+| `data-agent-kit-plugin` | `dak-bigquery`, `dak-cloudsql`, `dak-data-agent-kit`, `dak-kc`, `dak-notebook`, `dak-spanner` | 70 (40 unique) |
+| `figma` | `figma` | 35 (19 unique) |
+| `flutter` | `dart-mcp-server` | 25 |
+| `gemini-api` | `gemini-api-docs` | 4 |
 | `google-developer-knowledge` | `google-developer-knowledge` | 1 |
 | `linear` | `linear` | 0 |
 | `mobbin` | `mobbin` | 4 |
-| `netlify` | `netlify` | 15 |
-| `notion` | `notion` | 14 |
-| `postman` | `postman` | 17 |
+| `netlify` | `netlify` | 48 (16 unique) |
+| `notion` | `notion` | 12 |
+| `postman` | `postman` | 19 |
 | `sir-autonomy` | `sir-autonomy` | 2 |
 | `stripe` | `stripe` | 0 |
 | `supabase` | `mcp` | 2 |
-| `vercel-plugin` | `vercel` | 37 |
+| `vercel-plugin` | `vercel` | 48 (39 unique) |
 
 All remaining plugin directories in `~/.gemini/config/plugins/` (`advanced-engineering`, `android-cli-plugin`, `atlassian-twg-cli`, `auth0`, `base44`, `browse`, `chrome-devtools-plugin`, `creator-studio`, `firebase`, `gcalendar`, `gdocs`, `gdrive`, `gmail`, `google-antigravity-sdk`, `google_maps_platform`, `googlecloudtools.datacloud_telemetry`, `gsheets`, `gslides`, `invideo`, `modern-web-guidance-plugin`, `multi-agent-orchestrator`, `qodo`, `reverse-engineering`, `sir-ecosystem`, `sir-ecosystem-suite`, `superpowers`, `unity`, plus manifest-less `agent-reach`) provide skills/hooks without extra MCP servers. Total across `~/.gemini/config/plugins/*/skills`: **405 skills** across **44 plugin directories** (**43** plugin manifests).
 
@@ -165,7 +165,7 @@ Rather than duplicating 421 rows here, this table highlights the primary entry-p
 | :--- | :--- | :--- |
 | **SIR Core Governance & Session** | `sir-worker-preamble`, `sir-session-end`, `sir-ecosystem-orchestrator`, `sir-skill-library`, `master-production-directive`, `direct-action-shield`, `karpathy-skills`, `ponytail-yagni-optimizer`, `production-engineering-standards` | Canonical in `ops/encyclopedia/canonical/` & `.agents/skills/` |
 | **Autonomy, Planning & Review** | `sir-browser`, `sir-computer-use`, `agent-supercharged-os`, `claude-council`, `paperclip-orchestrator`, `review-agent`, `accidental-data-loss-prevention`, `using-superpowers`, `systematic-debugging`, `test-driven-development`, `verification-before-completion` | Synced across Claude, Antigravity, OpenCode, Kilo + `superpowers` plugin |
-| **Design, UI/UX & Copy** | `anti-vibecoded-design-system`, `cognitive-product-intuition`, `modern-ui-ux-design-system`, `taste-design-engine`, `emil-motion-impeccable`, `high-conversion-copywriting`, `shadcn`, `mobile-ergonomics-polish` | Plus `figma` (16), `canva` (6), `mobbin` (4), `creator-studio` (2) |
-| **Web, Next.js & Mobile** | `modern-web-guidance`, `nextjs`, `ai-sdk`, `react-best-practices`, `android-cli`, `compose-preview`, `flutter-*`, `dart-*` | Plus `vercel-plugin` (37), `netlify` (15), `android-cli-plugin` (3), `flutter` (11) |
-| **Data, Cloud & Security** | `database-reliability-transactions`, `firestore-data`, `zero-trust-security-hardening`, `vibe-auth-hardening`, `legal-compliance-shield`, `owasp-vulnerability-shield`, `omniroute-resilience-gateway` | Plus `firebase` (13), `supabase` (2), `data-agent-kit-plugin` (20), `auth0` (1) |
-| **Media, Docs & Tooling** | `imagegen`, `video-digest`, `social-creator-studio`, `skill-creator`, `skill-installer`, `customization-architect`, `repomix-token-optimizer`, `typst-pdf-maker`, `excel-generator` | Plus `invideo` (9), `postman` (17), `qodo` (5), `unity` (32), `notion` (14), `google-*` |
+| **Design, UI/UX & Copy** | `anti-vibecoded-design-system`, `cognitive-product-intuition`, `modern-ui-ux-design-system`, `taste-design-engine`, `emil-motion-impeccable`, `high-conversion-copywriting`, `shadcn`, `mobile-ergonomics-polish` | Plus `figma` (35 indexed / 19 unique), `canva` (12), `mobbin` (4), `creator-studio` (2) |
+| **Web, Next.js & Mobile** | `modern-web-guidance`, `nextjs`, `ai-sdk`, `react-best-practices`, `android-cli`, `compose-preview`, `flutter-*`, `dart-*` | Plus `vercel-plugin` (48 / 39 unique), `netlify` (48 / 16 unique), `android-cli-plugin` (3), `flutter` (25) |
+| **Data, Cloud & Security** | `database-reliability-transactions`, `firestore-data`, `zero-trust-security-hardening`, `vibe-auth-hardening`, `legal-compliance-shield`, `owasp-vulnerability-shield`, `omniroute-resilience-gateway` | Plus `firebase` (13), `supabase` (2), `data-agent-kit-plugin` (70 / 40 unique), `auth0` (1) |
+| **Media, Docs & Tooling** | `imagegen`, `video-digest`, `social-creator-studio`, `skill-creator`, `skill-installer`, `customization-architect`, `repomix-token-optimizer`, `typst-pdf-maker`, `excel-generator` | Plus `invideo` (11), `postman` (19), `qodo` (5), `unity` (33), `notion` (12), `google-*` |

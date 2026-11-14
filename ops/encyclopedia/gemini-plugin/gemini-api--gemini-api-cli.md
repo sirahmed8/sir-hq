@@ -25,7 +25,6 @@ Call the Gemini API from the shell with gemini-api. Use for media generation (im
 - Media, analysis, and transcription
 - Managed agents and sandboxes
 - Multi-turn and structured output
-- (none)
 
 ## Tools / MCPs it needs
 

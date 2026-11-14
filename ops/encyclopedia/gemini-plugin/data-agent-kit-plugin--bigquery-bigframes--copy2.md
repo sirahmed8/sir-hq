@@ -8,4 +8,4 @@
 
 Auto-generated stub: this SKILL.md is byte-identical to `encyclopedia/gemini-plugin/data-agent-kit-plugin--bigquery-bigframes.md`. Read that digest for full details.
 
-Description: >- Generates Python code using BigQuery DataFrames (BigFrames). Use by default for any Python data task involving BigQuery, including data processing, analysis, and machine learning. Don't use for SQL-first workflows or the google-cloud-bigquery client library — use bigquery-basics.
+Description: Generates Python code using BigQuery DataFrames (BigFrames). Use by default for any Python data task involving BigQuery, including data processing, analysis, and machine learning. Don't use for SQL-first workflows or the google-cloud-bigquery client library — use bigquery-basics.

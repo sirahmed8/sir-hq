@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: research
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-cli\upstream\SKILL.md`
 - SKILL.md size: 8255 chars
 
@@ -21,7 +21,6 @@ Deploy, manage, inspect, and troubleshoot Vercel projects from the command line.
 - OR
 - Decision Tree
 - Anti-Patterns
-- (none)
 
 ## Tools / MCPs it needs
 

@@ -7,7 +7,7 @@
 
 ## What it does
 
->- Build, package, and debug MCP Apps for Antigravity: MCP server tools whose results render as interactive UI in the conversation, in the side pane, or full-page from the sidebar. Use when adding a UI to an MCP tool, building or theming the app itself, packaging it as a plugin, or debugging an app that doesn't render or behave as expected.
+Build, package, and debug MCP Apps for Antigravity: MCP server tools whose results render as interactive UI in the conversation, in the side pane, or full-page from the sidebar. Use when adding a UI to an MCP tool, building or theming the app itself, packaging it as a plugin, or debugging an app that doesn't render or behave as expected.
 
 ## Structure (headings inside SKILL.md)
 
@@ -26,7 +26,6 @@
 - Sandbox and CSP
 - Packaging and iterating
 - Debugging checklist
-- (none)
 
 ## Tools / MCPs it needs
 

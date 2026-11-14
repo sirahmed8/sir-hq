@@ -32,7 +32,7 @@ function readJsonc(p) {
   } catch (e) { return { __parseError: String(e).slice(0, 120) }; }
 }
 
-// Claude: top-level mcpServers + per-project mcpServers names + plugins
+// Claude: top-level mcpServers + per-project mcpServers names + plugins (installed vs enabled) + plugin MCPs
 {
   const j = readJson(`${HOME}/.claude.json`);
   const names = new Set();
@@ -40,41 +40,103 @@ function readJsonc(p) {
   if (j && j.projects) for (const [proj, pv] of Object.entries(j.projects)) {
     if (pv && pv.mcpServers) Object.keys(pv.mcpServers).forEach(k => names.add(`${k} (project:${proj})`));
   }
-  out.claude = { mcpServers: [...names].sort() };
+  const settings = readJson(`${HOME}/.claude/settings.json`);
+  const enabledMap = (settings && settings.enabledPlugins && typeof settings.enabledPlugins === 'object') ? settings.enabledPlugins : {};
   const plugins = readJson(`${HOME}/.claude/plugins/installed_plugins.json`);
-  if (plugins) {
-    const list = plugins.plugins && typeof plugins.plugins === 'object' && !Array.isArray(plugins.plugins)
-      ? Object.keys(plugins.plugins)
-      : [];
-    out.claude.plugins = [...new Set(list)].sort();
+  const installedObj = (plugins && plugins.plugins && typeof plugins.plugins === 'object' && !Array.isArray(plugins.plugins))
+    ? plugins.plugins
+    : {};
+  const list = Object.keys(installedObj).sort();
+  const enabledPlugins = list.filter(k => enabledMap[k] === true);
+  const disabledPlugins = list.filter(k => enabledMap[k] !== true);
+  const extractPluginMcps = (installPath) => {
+    const sv = new Set();
+    if (!installPath || !fs.existsSync(installPath)) return sv;
+    const pj = readJson(path.join(installPath, '.claude-plugin/plugin.json'));
+    const cands = ['.mcp.json', 'mcp.json'];
+    if (pj && typeof pj.mcpServers === 'string') cands.push(pj.mcpServers);
+    else if (pj && pj.mcpServers && typeof pj.mcpServers === 'object') Object.keys(pj.mcpServers).forEach(k => sv.add(k));
+    for (const f of cands) {
+      const mj = readJson(path.join(installPath, f));
+      if (!mj || typeof mj !== 'object') continue;
+      const m = mj.mcpServers && typeof mj.mcpServers === 'object' ? mj.mcpServers : (!mj.name ? mj : null);
+      if (m && typeof m === 'object') Object.keys(m).forEach(k => sv.add(k));
+    }
+    return sv;
+  };
+  const enabledPluginMcps = {};
+  const allInstalledPluginMcps = {};
+  for (const k of list) {
+    const entries = Array.isArray(installedObj[k]) ? installedObj[k] : [];
+    const installPath = entries[0]?.installPath;
+    const sv = [...extractPluginMcps(installPath)].sort();
+    if (sv.length) {
+      allInstalledPluginMcps[k] = sv;
+      if (enabledMap[k] === true) enabledPluginMcps[k] = sv;
+    }
   }
+  out.claude = {
+    mcpServers: [...names].sort(),
+    plugins: list,
+    enabledPlugins,
+    disabledPlugins,
+    pluginMcpServers: {
+      enabledPluginCount: Object.keys(enabledPluginMcps).length,
+      allInstalledPluginCount: Object.keys(allInstalledPluginMcps).length,
+      enabled: enabledPluginMcps,
+      allInstalled: allInstalledPluginMcps
+    }
+  };
 }
 
-// Codex: ~/.codex/config.toml mcp_servers.* & plugins.*
+// Codex: ~/.codex/config.toml mcp_servers.* & plugins.* (with enabled flag)
 {
   try {
     const t = fs.readFileSync(`${HOME}/.codex/config.toml`, 'utf8');
     const mcpServers = [...new Set([...t.matchAll(/^\[mcp_servers\.([^.\]\r\n]+)\]/gm)].map(m => m[1]))].sort();
-    const plugins = [...new Set([...t.matchAll(/^\[plugins\."?([^"\]\r\n]+)"?\]/gm)].map(m => m[1]))].sort();
-    out.codex = { mcpServers, plugins };
-  } catch { out.codex = { mcpServers: [], plugins: [] }; }
+    const plugins = [];
+    const enabledPlugins = [];
+    const disabledPlugins = [];
+    const lines = t.split(/\r?\n/);
+    let curPlugin = null;
+    for (const line of lines) {
+      const m = line.match(/^\[plugins\."?([^"\]\r\n]+)"?\]/);
+      if (m) { curPlugin = m[1]; if (!plugins.includes(curPlugin)) plugins.push(curPlugin); continue; }
+      if (/^\[/.test(line)) { curPlugin = null; continue; }
+      if (curPlugin) {
+        const em = line.match(/^\s*enabled\s*=\s*(true|false)\b/);
+        if (em) {
+          if (em[1] === 'true') enabledPlugins.push(curPlugin);
+          else disabledPlugins.push(curPlugin);
+        }
+      }
+    }
+    out.codex = {
+      mcpServers,
+      plugins: plugins.sort(),
+      enabledPlugins: [...new Set(enabledPlugins)].sort(),
+      disabledPlugins: [...new Set(disabledPlugins)].sort()
+    };
+  } catch { out.codex = { mcpServers: [], plugins: [], enabledPlugins: [], disabledPlugins: [] }; }
 }
 
 // opencode + kilo jsonc (mcp section names only, including nested mcp.servers.*)
 for (const [tool, p] of [['opencode', `${HOME}/.config/opencode/opencode.jsonc`], ['kilo', `${HOME}/.config/kilo/kilo.jsonc`]]) {
   const j = readJsonc(p);
-  const keys = [];
+  const topLevel = [];
+  const nestedServers = [];
   if (j && j.mcp && typeof j.mcp === 'object') {
     for (const [k, v] of Object.entries(j.mcp)) {
       if (k === 'servers' && v && typeof v === 'object') {
-        for (const sk of Object.keys(v)) keys.push(sk);
+        for (const sk of Object.keys(v)) nestedServers.push(sk);
       } else {
-        keys.push(k);
+        topLevel.push(k);
       }
     }
   }
   out[tool] = {
-    mcpServers: [...new Set(keys)].sort(),
+    mcpServers: [...new Set([...topLevel, ...nestedServers])].sort(),
+    mcpLayout: { topLevel: topLevel.sort(), nestedServers: nestedServers.sort() },
     instructions: Array.isArray(j?.instructions) ? j.instructions : [],
     parseError: j?.__parseError || null
   };
@@ -130,13 +192,28 @@ for (const [tool, p] of [['opencode', `${HOME}/.config/opencode/opencode.jsonc`]
 {
   const d = readJson(`${HOME}/AppData/Local/devin/cli/mcp/descriptions.json`);
   const dc = readJson(`${APPDATA}/devin/config.json`);
+  const claudeUser = readJson(`${HOME}/.claude.json`);
   const descEntries = d && typeof d === 'object'
     ? Object.entries(d).map(([id, v]) => ({ id: id.slice(0, 12), description: v?.description || '' }))
     : [];
+  const hasMcpServersKey = Boolean(dc && Object.prototype.hasOwnProperty.call(dc, 'mcpServers'));
+  const appDataMcpServers = hasMcpServersKey && dc.mcpServers && typeof dc.mcpServers === 'object'
+    ? Object.keys(dc.mcpServers).sort()
+    : [];
+  const claudeImportedMcp = claudeUser && claudeUser.mcpServers ? Object.keys(claudeUser.mcpServers).sort() : [];
   out.devin = {
+    hasMcpServersKey,
+    appDataMcpServers,
+    importedMcpFromClaude: claudeImportedMcp,
+    mcpDescriptionsCount: descEntries.length,
     mcpDescriptions: descEntries,
-    appDataMcpServers: dc && dc.mcpServers ? Object.keys(dc.mcpServers) : [],
-    mcpNote: 'No custom user/project mcpServers configured; builtin skills (declarative-repo-setup, upload-secrets) + reads workspace .agents/skills and ~/.agents/skills'
+    skillSources: [
+      'builtin (declarative-repo-setup, upload-secrets)',
+      '~/.agents/skills',
+      'D:/Projects/.agents/skills',
+      'auto-imported: ~/.claude/skills, ~/.codeium/windsurf/skills, ~/.cursor/skills'
+    ],
+    mcpNote: 'AppData config.json omits mcpServers key; devin mcp list auto-imports ~/.claude.json user MCPs (GitKraken, nvidia-app); devin skills list also auto-imports claude/windsurf/cursor + ~/.agents/skills + workspace .agents/skills'
   };
 }
 

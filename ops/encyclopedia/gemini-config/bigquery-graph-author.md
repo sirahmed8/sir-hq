@@ -15,7 +15,6 @@ Provides an end-to-end journey for authoring a BigQuery property graph from your
 - The journey (one trunk, every request)
 - Plan-to-execute operating notes
 - Non-negotiable rules
-- (none)
 
 ## Tools / MCPs it needs
 

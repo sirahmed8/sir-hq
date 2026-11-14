@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\eve\upstream\SKILL.md`
 - SKILL.md size: 1024 chars
 
@@ -13,7 +13,6 @@ Build durable backend AI agents with the eve framework. Use when creating, editi
 
 - eve
 - Source of truth
-- (none)
 
 ## Tools / MCPs it needs
 

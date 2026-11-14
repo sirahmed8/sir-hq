@@ -7,7 +7,7 @@
 
 ## What it does
 
-| Enforces resource attribution for CLI commands. Use this skill whenever you are running `bq` or `gcloud` commands via `run_command`. It ensures mandatory labeling for supported `bq` operations while avoiding invalid flags on read-only commands.
+Enforces resource attribution for CLI commands. Use this skill whenever you are running `bq` or `gcloud` commands via `run_command`. It ensures mandatory labeling for supported `bq` operations while avoiding invalid flags on read-only commands.
 
 ## Structure (headings inside SKILL.md)
 
@@ -18,7 +18,6 @@
 - Examples
 - Google Cloud SDK (`gcloud`)
 - Examples
-- (none)
 
 ## Tools / MCPs it needs
 

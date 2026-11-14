@@ -1,7 +1,7 @@
 # vercel-schedules
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-schedules\SKILL.md`
 - SKILL.md size: 15612 chars
 
@@ -32,7 +32,6 @@ Vercel Schedules guidance — run a private function, route, or Vercel Queues to
 - Never do this on Vercel
 - Manage and debug
 - Related
-- (none)
 
 ## Tools / MCPs it needs
 

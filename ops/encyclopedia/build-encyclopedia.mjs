@@ -31,8 +31,12 @@ const onlyTool = process.argv.includes('--tool') ? process.argv[process.argv.ind
 function* walkSkillDirs(root) {
   if (!fs.existsSync(root)) return;
   for (const e of fs.readdirSync(root, { withFileTypes: true })) {
-    if (!e.isDirectory()) continue;
     const p = path.join(root, e.name);
+    let isDir = e.isDirectory();
+    if (!isDir && e.isSymbolicLink()) {
+      try { isDir = fs.statSync(p).isDirectory(); } catch { isDir = false; }
+    }
+    if (!isDir) continue;
     if (fs.existsSync(path.join(p, 'SKILL.md'))) yield { name: e.name, dir: p };
   }
 }
@@ -62,7 +66,11 @@ function parseFrontmatter(text) {
   let key = null;
   for (const line of m[1].split(/\r?\n/)) {
     const kv = line.match(/^(\w[\w-]*):\s*(.*)$/);
-    if (kv && !/^\s/.test(line)) { key = kv[1]; fm[key] = kv[2].replace(/^['"]|['"]$/g, ''); }
+    if (kv && !/^\s/.test(line)) {
+      key = kv[1];
+      const rawVal = kv[2].trim();
+      fm[key] = /^[|>][-+]?$/.test(rawVal) ? '' : rawVal.replace(/^['"]|['"]$/g, '');
+    }
     else if (key && /^\s+\S/.test(line)) fm[key] = (fm[key] ? fm[key] + ' ' : '') + line.trim();
   }
   return { fm, body: text.slice(m[0].length) };
@@ -107,7 +115,7 @@ function categoryOf(name, desc) {
   const s = (name + ' ' + desc).toLowerCase();
   const rules = [
     ['security', /secur|vulnerab|owasp|auth|zero-trust|reverse.engineer|penetrat|leak|privacy|compliance|legal/],
-    ['design', /design|ui|ux|motion|css|tailwind|figma|typst|theme|visual|a11y|accessib|chrome.extension|landing|copywrit|seo/],
+    ['design', /design|\bui\b|\bux\b|motion|css|tailwind|figma|typst|theme|visual|a11y|accessib|chrome.extension|landing|copywrit|seo/],
     ['data', /firestore|database|sql|bigquery|spanner|data|analytics|excel|sheet|docs|drive|calendar|notion|linear|stripe|supabase|postgres|firebase/],
     ['media', /image|video|remotion|ffmpeg|audio|music|youtube|thumbnail|motion.graphics|pdf|typst|dubbing|suno|media/],
     ['research', /research|search|find|gem|trend|knowledge|docs|skill.finder|internet|web|stock|market|youtube.video/],
@@ -179,7 +187,8 @@ function processSkill(name, tool, dir, plugin) {
     out.push('## What it does'); out.push(''); out.push(d.desc || '(no description found)'); out.push('');
     if (d.triggers.length) { out.push('## When to use (from skill text)'); out.push(''); d.triggers.forEach(t => out.push(`- ${t.trim().slice(0, 300)}`)); out.push(''); }
     out.push('## Structure (headings inside SKILL.md)'); out.push('');
-    (d.headings.slice(0, 25).forEach(h => out.push(`- ${h}`)) || out.push('- (none)')); out.push('');
+    if (d.headings.length) d.headings.slice(0, 25).forEach(h => out.push(`- ${h}`)); else out.push('- (none)');
+    out.push('');
     out.push('## Tools / MCPs it needs'); out.push('');
     if (d.toolsNeeded.length) d.toolsNeeded.forEach(t => out.push(`- ${t}`)); else out.push('- none declared');
     if (d.allowedTools) out.push(`- allowed-tools (frontmatter): \`${d.allowedTools.slice(0, 300)}\``);

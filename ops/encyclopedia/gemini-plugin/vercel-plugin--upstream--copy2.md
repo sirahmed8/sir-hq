@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: automation
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\vercel-sandbox\upstream\SKILL.md`
 - SKILL.md size: 39934 chars
 
@@ -36,7 +36,6 @@ Creates isolated Linux MicroVMs using Vercel Sandbox SDK. Use when building code
 - Root Access
 - File Operations
 - Write Files
-- (none)
 
 ## Tools / MCPs it needs
 

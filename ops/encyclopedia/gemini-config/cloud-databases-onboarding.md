@@ -1,7 +1,7 @@
 # cloud-databases-onboarding
 
 - Tool: `gemini-config`
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\skills\cloud-databases-onboarding\SKILL.md`
 - SKILL.md size: 4804 chars
 
@@ -18,7 +18,6 @@ Guides users through discovering their database requirements, recommends a Googl
 - Phase 2: Recommendation Analysis & Matrix Consultation
 - Phase 3: Implementation & Provisioning (Plan-Validate-Execute Pattern)
 - Supporting Resources & Documentation
-- (none)
 
 ## Tools / MCPs it needs
 

@@ -7,14 +7,13 @@
 
 ## What it does
 
->- Generates Python code using BigQuery DataFrames (BigFrames). Use by default for any Python data task involving BigQuery, including data processing, analysis, and machine learning. Don't use for SQL-first workflows or the google-cloud-bigquery client library — use bigquery-basics.
+Generates Python code using BigQuery DataFrames (BigFrames). Use by default for any Python data task involving BigQuery, including data processing, analysis, and machine learning. Don't use for SQL-first workflows or the google-cloud-bigquery client library — use bigquery-basics.
 
 ## Structure (headings inside SKILL.md)
 
 - BigFrames (BigQuery DataFrame) basics
 - Generic Coding Guidelines
 - Model Development
-- (none)
 
 ## Tools / MCPs it needs
 

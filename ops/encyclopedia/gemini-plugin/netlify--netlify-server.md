@@ -1,7 +1,7 @@
 # netlify-server
 
 - Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\netlify\skills\netlify-server\SKILL.md`
 - SKILL.md size: 18555 chars
 
@@ -30,7 +30,6 @@ Build and deploy a long-lived Node.js backend on Netlify Server (Early Access) f
 - Errors
 - Local dev and logs
 - Netlify house rules (server)
-- (none)
 
 ## Tools / MCPs it needs
 

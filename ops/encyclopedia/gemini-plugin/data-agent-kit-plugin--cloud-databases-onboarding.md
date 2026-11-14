@@ -1,13 +1,13 @@
 # cloud-databases-onboarding
 
 - Tool: `gemini-plugin` (plugin: `data-agent-kit-plugin`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\data-agent-kit-plugin\skills.all\cloud-databases-onboarding\SKILL.md`
 - SKILL.md size: 4809 chars
 
 ## What it does
 
->- Guides users through discovering their database requirements, recommends a Google Cloud database product or migration destination based on a recommendation matrix, and assists in database creation. Use when a user asks 'What database service should I use?', 'Help me pick a database', asks which Google Cloud database to migrate or onboard a workload to, or wants to create a new database on Google Cloud. Don't use for general Google Cloud maintenance, managing existing databases, or troubleshooting active Database Migration Service (DMS) jobs.
+Guides users through discovering their database requirements, recommends a Google Cloud database product or migration destination based on a recommendation matrix, and assists in database creation. Use when a user asks 'What database service should I use?', 'Help me pick a database', asks which Google Cloud database to migrate or onboard a workload to, or wants to create a new database on Google Cloud. Don't use for general Google Cloud maintenance, managing existing databases, or troubleshooting active Database Migration Service (DMS) jobs.
 
 ## Structure (headings inside SKILL.md)
 
@@ -18,7 +18,6 @@
 - Phase 2: Recommendation Analysis & Matrix Consultation
 - Phase 3: Implementation & Provisioning (Plan-Validate-Execute Pattern)
 - Supporting Resources & Documentation
-- (none)
 
 ## Tools / MCPs it needs
 

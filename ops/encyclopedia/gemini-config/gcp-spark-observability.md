@@ -20,7 +20,6 @@ Monitors, inventories, and assesses Google Cloud Managed Service for Apache Spar
 - Skill Routing & Handoff
 - Non-Obvious CLI & API Gotchas (Read First)
 - Where to Look (Quick Map)
-- (none)
 
 ## Tools / MCPs it needs
 

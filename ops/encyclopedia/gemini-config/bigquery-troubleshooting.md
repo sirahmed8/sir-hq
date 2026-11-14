@@ -23,7 +23,6 @@ Provides diagnostic workflows and step-by-step root-cause analysis procedures fo
 - Performance Troubleshooting
 - Cost Troubleshooting
 - Routing Boundaries
-- (none)
 
 ## Tools / MCPs it needs
 

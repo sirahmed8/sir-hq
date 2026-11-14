@@ -19,7 +19,6 @@ Search and summarize the user's personal activity history (screen, audio, apps) 
 - Life notes
 - Workflow
 - Rules
-- (none)
 
 ## Tools / MCPs it needs
 

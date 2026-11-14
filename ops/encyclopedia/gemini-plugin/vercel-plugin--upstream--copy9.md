@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\chat-sdk\upstream\SKILL.md`
 - SKILL.md size: 7555 chars
 
@@ -24,7 +24,6 @@ Build multi-platform chat bots with Chat SDK (`chat` npm package). Use when deve
 - Chat SDK adapters
 - Adapter directory
 - Adapter catalog package
-- (none)
 
 ## Tools / MCPs it needs
 

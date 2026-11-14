@@ -17,7 +17,6 @@ Score how ready a website, domain, or public MCP endpoint is for AI agents using
 - Improve a site's score
 - Errors
 - Gotchas
-- (none)
 
 ## Tools / MCPs it needs
 

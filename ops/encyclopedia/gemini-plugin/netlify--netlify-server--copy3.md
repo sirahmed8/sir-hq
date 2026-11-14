@@ -1,7 +1,7 @@
 # netlify-server
 
 - Tool: `gemini-plugin` (plugin: `netlify`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-server\SKILL.md`
 - SKILL.md size: 18555 chars
 - Identical content to: `encyclopedia/gemini-plugin/netlify--netlify-server.md`

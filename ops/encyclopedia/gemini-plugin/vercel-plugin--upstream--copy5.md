@@ -1,7 +1,7 @@
 # upstream
 
 - Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\react-best-practices\upstream\SKILL.md`
 - SKILL.md size: 7251 chars
 
@@ -25,7 +25,6 @@ React and Next.js performance optimization guidelines from Vercel Engineering. T
 - 8. Advanced Patterns (LOW)
 - How to Use
 - Full Compiled Document
-- (none)
 
 ## Tools / MCPs it needs
 

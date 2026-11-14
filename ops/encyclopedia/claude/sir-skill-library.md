@@ -12,7 +12,6 @@ Find and use any skill, plugin, MCP server or connector known on Ahmed's machine
 ## Structure (headings inside SKILL.md)
 
 - SIR skill library (one entry point for every skill on this PC)
-- (none)
 
 ## Tools / MCPs it needs
 

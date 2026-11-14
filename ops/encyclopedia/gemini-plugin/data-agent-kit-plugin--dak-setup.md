@@ -24,7 +24,6 @@ Configures (or reconfigures) the Google Cloud Data Agent Kit (DAK) plugin by che
 - Step 6 — Run the setup command
 - Step 7 — Tell the user to restart, and don't use the plugin until they do
 - If this is a reconfiguration
-- (none)
 
 ## Tools / MCPs it needs
 

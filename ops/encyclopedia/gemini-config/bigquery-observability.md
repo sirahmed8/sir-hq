@@ -1,7 +1,7 @@
 # bigquery-observability
 
 - Tool: `gemini-config`
-- Category: design
+- Category: data
 - Source: `C:\Users\a7med\.gemini\config\skills\bigquery-observability\SKILL.md`
 - SKILL.md size: 12641 chars
 
@@ -22,7 +22,6 @@ Provides data-retrieval best practices, tool selection guidance, and performant 
 - Telemetry Query Guides
 - Performance & Troubleshooting Guides
 - Schema Dictionaries (Column Definitions & Units)
-- (none)
 
 ## Tools / MCPs it needs
 
