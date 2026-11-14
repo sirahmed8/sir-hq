@@ -50,6 +50,8 @@ for s in STAGES:
 
 def pid_alive(pid: int) -> bool:
     """True when `pid` is a running bash, node, or python process."""
+    if isinstance(pid, bool):
+        return False
     try:
         pid_int = int(pid)
     except (TypeError, ValueError):
@@ -62,7 +64,7 @@ def pid_alive(pid: int) -> bool:
             capture_output=True,
             text=True,
             timeout=10,
-            creationflags=CREATE_NO_WINDOW,
+            creationflags=CREATE_NO_WINDOW if os.name == "nt" else 0,
             env={**os.environ, "MSYS_NO_PATHCONV": "1"},
         )
     except (OSError, subprocess.SubprocessError):
@@ -79,7 +81,11 @@ def minutes_since_activity(folder: str) -> float:
     if not folder or not Path(folder).exists():
         return 9999.0
     flags = CREATE_NO_WINDOW if os.name == "nt" else 0
-    if Path(folder).resolve() == ROOT.resolve():
+    try:
+        is_hq = Path(folder).resolve() == ROOT.resolve()
+    except OSError:
+        return 9999.0
+    if is_hq:
         try:
             res = subprocess.run(
                 ["git", "-C", folder, "log", "-1", "--format=%ct", "--"] + HQ_PATHSPEC,
@@ -94,6 +100,10 @@ def minutes_since_activity(folder: str) -> float:
                 p = Path(folder) / rel
                 if p.is_file():
                     age = min(age, (time.time() - p.stat().st_mtime) / 60)
+                elif p.is_dir():
+                    for sub in p.rglob("*"):
+                        if sub.is_file():
+                            age = min(age, (time.time() - sub.stat().st_mtime) / 60)
             return age
         except Exception:
             return 0.0
@@ -115,7 +125,7 @@ def minutes_since_activity(folder: str) -> float:
         out = (res.stdout or "").strip()
         age = (time.time() - int(out)) / 60 if res.returncode == 0 and out.isdigit() else 9999.0
         newest = 0.0
-        for line in (dirty_res.stdout or "").rstrip().splitlines()[:80]:
+        for line in (dirty_res.stdout or "").rstrip().splitlines():
             if len(line) < 4:
                 continue
             rel = line[3:].strip().split(" -> ")[-1].strip('"')
@@ -264,6 +274,8 @@ def sync() -> str:
                       "claimed_by": "", "claimed_at": ""}, f"(mirrored from the queue) {t.get('title', name)}\n\n## Log\n")
             st = "done" if t.get("done") else "inbox"
         rs = runners.get(name, {})
+        if not isinstance(rs, dict):
+            rs = {}
         if t.get("done") and st in ("inbox", "active"):
             stage_to(name, "review", "finished (done marker); waiting for a verifier")
             changed += 1

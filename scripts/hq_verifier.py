@@ -49,10 +49,11 @@ def build_prompt(task: dict, checklists: list) -> str:
     name, folder, title = task["name"], task["folder"], task.get("title", task["name"])
     checklist_block = "\n".join(f"- {p}" for p in checklists) or "- (no checklist file found: use the brief items)"
     ahome_guard = ""
-    if "ahome" in folder.lower():
+    if "ahome" in folder.lower() or "ahome" in name.lower():
         ahome_guard = (
             "\nAHOME PRIVACY GUARD (2026-11-12 AGENTS.md exception - mandatory): "
-            "You MAY verify this task using source code under apps/, unit/integration tests, and synthetic or running-app screenshots. "
+            "You MAY verify this task using source code under apps/, unit/integration tests, and synthetic or running-app screenshots "
+            "(using synthetic/fixture data only, never live personal data). "
             "You MUST NEVER read or open messages, notes, photos, calendar, the vault, or any personal/private facts.\n"
         )
     return f"""You are the SIR verifier for task {name} ({title}).
@@ -148,7 +149,11 @@ def enforce_evidence(text: str) -> tuple:
         rows = parse_rows(new_text)
         fails = [r for r in rows if r["verdict"] == "FAIL"]
         overall = "FAIL" if fails else "PASS"
-        new_text = re.sub(r"(?m)^## Overall:.*$", f"## Overall: {overall}", new_text)
+        overall_pat = re.compile(r"(?im)^##\s*Overall:.*$")
+        if overall_pat.search(new_text):
+            new_text = overall_pat.sub(f"## Overall: {overall}", new_text)
+        else:
+            new_text = new_text.rstrip() + f"\n\n## Overall: {overall}\n"
         note = (f"\n\n## Verifier notes\n{changed} PASS row(s) had no evidence and were downgraded to FAIL "
                 f"by scripts/hq_verifier.py. Nothing is verified without proof.\n")
         if "## Verifier notes" not in new_text:
@@ -157,11 +162,11 @@ def enforce_evidence(text: str) -> tuple:
 
 
 def overall_of(text: str, rows: list) -> str:
-    m = re.search(r"(?m)^## Overall:\s*(PASS|FAIL)", text)
+    m = re.search(r"(?im)^##\s*Overall:\s*(PASS|FAIL)\b", text)
     if not rows:
         return "FAIL"
     if m:
-        return m.group(1)
+        return m.group(1).upper()
     return "FAIL" if any(r["verdict"] == "FAIL" for r in rows) else "PASS"
 
 

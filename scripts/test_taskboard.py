@@ -20,8 +20,14 @@ import taskboard  # noqa: E402
 
 class PidAliveTests(unittest.TestCase):
     def test_invalid_pids_return_false(self):
-        for bad in (0, -1, None, "", "not-a-pid"):
+        for bad in (0, -1, None, "", "not-a-pid", True, False):
             self.assertFalse(taskboard.pid_alive(bad))
+
+    def test_bool_pid_does_not_spawn_tasklist(self):
+        with mock.patch.object(taskboard.subprocess, "run") as mrun:
+            self.assertFalse(taskboard.pid_alive(True))
+            self.assertFalse(taskboard.pid_alive(False))
+            mrun.assert_not_called()
 
     def test_alive_allowed_images(self):
         for img in ("bash.exe", "node.exe", "python.exe", "pythonw.exe"):
@@ -209,10 +215,73 @@ class TaskboardSyncTests(unittest.TestCase):
         self.assertTrue((self.board / "done" / "5-t-fail-fixed.md").exists())
         self.assertTrue((self.board / "review" / "5-t-fail-still-broken.md").exists())
 
+    def test_minutes_since_activity_ignores_past_80_ignored_dirty_lines(self):
+        src_dir = self.project_dir / "src"
+        src_dir.mkdir()
+        app_file = src_dir / "app.py"
+        app_file.write_text("print('fresh')\n", encoding="utf-8")
+        old_commit_ts = str(int(time.time() - 7200))
+        ignored_lines = [f" M assets/brand/icon_{i:03d}.png" for i in range(95)]
+        porcelain = "\n".join(ignored_lines + [" M src/app.py"]) + "\n"
+        with mock.patch.object(
+            taskboard.subprocess,
+            "run",
+            side_effect=[
+                mock.Mock(returncode=0, stdout=old_commit_ts),
+                mock.Mock(returncode=0, stdout=porcelain),
+            ],
+        ):
+            age = taskboard.minutes_since_activity(str(self.project_dir))
+        self.assertLess(age, 1.0)
+
+    def test_minutes_since_activity_root_scans_ops_public_dir(self):
+        pub_dir = self.root / "ops" / "public"
+        pub_dir.mkdir(parents=True, exist_ok=True)
+        index_html = pub_dir / "index.html"
+        index_html.write_text("<h1>fresh</h1>", encoding="utf-8")
+        old_commit_ts = str(int(time.time() - 7200))
+        with mock.patch.object(
+            taskboard.subprocess,
+            "run",
+            return_value=mock.Mock(returncode=0, stdout=old_commit_ts),
+        ):
+            age = taskboard.minutes_since_activity(str(self.root))
+        self.assertLess(age, 1.0)
+
+    def test_sync_handles_non_dict_runner_entry(self):
+        self._write_queue([{"name": "t-null-runner", "folder": str(self.project_dir), "title": "Null", "done": False}])
+        self._write_state({"runners": {"t-null-runner": None}})
+        res = taskboard.sync()
+        self.assertIn("board synced", res)
+        self.assertTrue((self.board / "inbox" / "5-t-null-runner.md").exists())
+
 
 class VerifierAndAutopilotTests(unittest.TestCase):
     def test_max_parallel_capped_at_5(self):
         self.assertEqual(hq_autopilot.MAX_PARALLEL, 5)
+
+    def test_enforce_evidence_rewrites_lowercase_overall_and_missing_header(self):
+        text_lower = (
+            "# Verification: t\n\n"
+            "| Item | Description | PASS/FAIL | Evidence |\n"
+            "| 1 | check | PASS | - |\n\n"
+            "## overall: pass\n"
+        )
+        new_text, changed, rows = hq_verifier.enforce_evidence(text_lower)
+        self.assertEqual(changed, 1)
+        self.assertEqual(hq_verifier.overall_of(new_text, rows), "FAIL")
+        self.assertRegex(new_text, r"(?m)^## Overall: FAIL$")
+        self.assertIsNone(hq_verifier.re.search(r"(?im)^##\s*Overall:\s*PASS\b", new_text))
+
+        text_missing = (
+            "# Verification: t\n\n"
+            "| Item | Description | PASS/FAIL | Evidence |\n"
+            "| 1 | check | PASS | n/a |\n"
+        )
+        new_text2, changed2, rows2 = hq_verifier.enforce_evidence(text_missing)
+        self.assertEqual(changed2, 1)
+        self.assertEqual(hq_verifier.overall_of(new_text2, rows2), "FAIL")
+        self.assertRegex(new_text2, r"(?m)^## Overall: FAIL$")
 
     def test_ahome_verifier_allowed_with_privacy_guard(self):
         import tempfile
@@ -228,6 +297,12 @@ class VerifierAndAutopilotTests(unittest.TestCase):
             self.assertIn("synthetic", prompt.lower())
             for forbidden in ("messages", "notes", "photos", "calendar", "vault"):
                 self.assertIn(forbidden, prompt.lower())
+
+            # Also triggers guard when task name has ahome even with generic root folder
+            prompt_generic = hq_verifier.build_prompt(
+                {"name": "r81-ahome-check", "folder": "D:/Projects", "title": "Check", "done": True}, []
+            )
+            self.assertIn("AHOME PRIVACY GUARD", prompt_generic)
 
             seen = []
             with mock.patch.object(hq_verifier, "VERIFICATIONS", ver_dir), \
