@@ -458,3 +458,10 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - ACTION: queued audit-sir-laptop-manager-20261114-0722 (brief ops/briefs/audit-sir-laptop-manager-20261114-0722.md) for the longest-idle non-AHome project; autopilot picks it up next tick. Pool has 6 available models.
 - NEXT: watch r82 and the new audit run; C: still low at 7.8GB - watchdog reclaims under 3GB only, flag for deeper cleanup if it drops.
 
+## HQ note (2026-11-14 09:25) [free manager, hourly duty]
+- STATUS: autopilot heartbeat 2 min, watchdog healthy. Disk C 8.0 GB / D 16.8 GB free. CI quota flag still set: local verify is the gate.
+- RUNNING: audit-sir-laptop-manager-20261114-0722 (runner pid 43796, round 12 on aider/nemotron). Queue otherwise empty; watchdog auto-queues audit rounds.
+- FOUND AND FIXED (the verifier was wasting most of its slots, which is why the 46-item review backlog was not draining): (1) hq_team.py had no `pi` entry, so every verify pick of `pi|radius/recursive/flint` died exit 127 "unknown tool"; (2) aider (3 of the 9 pool entries) can never verify - it has no file-read tool and always answered "add that file to the chat"; (3) a single bad pick (e.g. cline hitting its daily free limit) aborted the whole verification. Fixes: added `pi` to the agent command table (smoke-proven: `pi -p --no-session --model radius/recursive/flint "reply OK"` -> OK, exit 0); added `--exclude` to `cli_pool.py pick` and made the verifier exclude aider; made the verifier retry up to 3 different free models until one writes the result file. Commits aa4ec75, 93a9873.
+- Also committed 62 files of worker reports, verification files and runtime feeds (583c56c). No private AHome content included.
+- NEXT: watch the re-run of the r82 verification prove the retry end to end; keep draining review/ via hq_verifier; watch the laptop audit to completion.
+
