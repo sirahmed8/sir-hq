@@ -153,6 +153,21 @@ class TimeoutTreeKillTest(unittest.TestCase):
         self.assertTrue(logf.exists())
         self.assertLess(elapsed, 40, "run_agent must return after the timeout instead of hanging on the pipe")
 
+    def test_run_agent_captures_output_on_success(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        orig = (hq_team.agent_command, hq_team.pool_report, hq_team.OPS)
+        hq_team.agent_command = lambda pick, prompt: ["cmd", "/c", "echo hello-from-agent"]
+        hq_team.pool_report = lambda *a, **k: None
+        hq_team.OPS = Path(tmp.name)
+        try:
+            code, out, logf = hq_team.run_agent("x|y", "P", Path(tmp.name), "test-ok", timeout=30)
+        finally:
+            hq_team.agent_command, hq_team.pool_report, hq_team.OPS = orig
+        self.assertEqual(code, 0)
+        self.assertIn("hello-from-agent", out)
+        self.assertIn("hello-from-agent", logf.read_text(encoding="utf-8", errors="replace"))
+
 
 if __name__ == "__main__":
     unittest.main()
