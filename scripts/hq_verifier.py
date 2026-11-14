@@ -202,7 +202,7 @@ def write_fix_task(task: dict, rows: list, verification_file: Path) -> str:
     return "queued" if res.returncode == 0 else "queue-add failed"
 
 
-def verify_task(task: dict, dry: bool) -> dict:
+def verify_task(task: dict, dry: bool, tries: int = 3) -> dict:
     name = task["name"]
     result = {"task": name, "status": "skipped", "model": "", "reason": ""}
     checklists = checklist_files(name, task["folder"])
@@ -210,24 +210,29 @@ def verify_task(task: dict, dry: bool) -> dict:
     if dry:
         result.update(status="dry", reason=f"would verify with checklist {[str(p) for p in checklists]}")
         return result
-    pick = pool_pick(exclude=UNSUPPORTED_TOOLS)
-    if not pick:
-        result.update(status="no-model", reason="every free model is cooling down")
-        log(NAME, f"{name}: no free model available")
-        return result
-    result["model"] = pick
-    log(NAME, f"verifying {name} with {pick}")
     pdir = VERIFICATIONS / "_prompts"
     pdir.mkdir(parents=True, exist_ok=True)
     pfile = pdir / f"{name}.txt"
     pfile.write_text(prompt, encoding="utf-8")
     short = f"Read the file {pfile} completely and do exactly what it says. Write the result file it asks for."
-    code, out, log_file = run_agent(pick, short, ROOT, f"verifier-{name}")
-    result["log"] = str(log_file)
     target = VERIFICATIONS / f"{name}.md"
-    if not target.exists():
+    # One bad pick (a daily limit, a fast crash) must not waste the whole verification slot:
+    # try up to `tries` different free models until one actually writes the result file.
+    for attempt in range(1, tries + 1):
+        pick = pool_pick(exclude=UNSUPPORTED_TOOLS)
+        if not pick:
+            result.update(status="no-model", reason="every free model is cooling down")
+            log(NAME, f"{name}: no free model available")
+            return result
+        result["model"] = pick
+        log(NAME, f"verifying {name} with {pick} (attempt {attempt}/{tries})")
+        code, out, log_file = run_agent(pick, short, ROOT, f"verifier-{name}")
+        result["log"] = str(log_file)
+        if target.exists():
+            break
         result.update(status="no-file", reason=f"model wrote no verification file (exit {code})")
         log(NAME, f"{name}: no verification file, exit {code}, output {out[-200:]!r}")
+    else:
         return result
     text = read_text(target)
     fixed_text, changed, rows = enforce_evidence(text)
