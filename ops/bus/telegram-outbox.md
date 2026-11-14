@@ -23,3 +23,4 @@
 2026-11-14T06:00Z | HQ-review | 3 scout suggestions with approve/reject buttons
 2026-11-14T10:45Z | verifier-fail | تدقيق مهمة لم ينجح
 2026-11-14T12:49Z | HQ-health | afternoon check-in with buttons (health_done/health_later/health_skip)
+2026-11-14T16:40Z | HQ-duty | Isha day summary sent (Business Admin exam Sun 18:00, SIR AI token action)

@@ -844,3 +844,10 @@ plans/PRODUCT_DIRECTION_2026-11-12.md, ops/BACKUP_MANAGER_PROMPT.md, ops/BOARD_R
 
 ### Re-read after a reset
 ops/DAILY_RHYTHM.md, ops/bus/ahmed-telegram.md (last 40 lines), .sir/reports/fajr-2026-11-13.md
+
+## Now (Isha day summary, 2026-11-14)
+- Isha day summary sent to Telegram (message_id 847). Outbox line logged.
+- Collected: git log since midnight, CI (AHome, SIR Jobs, SIR Study, SIR AI, SIR Portfolio, SIR Optimizer red; _SIR green), calendar for 15 Nov (only Business Administration midterm 18:00).
+- ai-status.py fails when run with -I (imports nowindow from script dir); run it without -I.
+- Open owner action: SIR AI bot token (BotFather /token, env SIR_TELEGRAM_BOT_TOKEN).
+- Next step: at the next duty, read ahmed-telegram.md for replies and log any health answer.
