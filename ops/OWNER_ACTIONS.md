@@ -74,9 +74,8 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 ## AHome APK install (2026-11-13, r65)
 - The signed release APK (v1.0.0, 5.2 MB) is already on the phone at Download/AHome-v1.0.0.apk. Android refuses `adb install` while the phone is locked (INSTALL_FAILED_USER_RESTRICTED, PIN lock). One step: unlock the phone once with fingerprint or PIN. Either tap AHome-v1.0.0.apk in the Files/Download app to install it, or leave it unlocked for a few minutes and the next agent run will install it, launch it and take the screenshot by adb.
 
-## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in)
-- Telegram answers 401 Unauthorized for the SIR bot token in the user environment (SIR_TELEGRAM_BOT_TOKEN). The afternoon health check-in could not be sent, and the inbox listener cannot receive replies.
-- One step: in Telegram open @BotFather, send /token for the SIR bot, copy the new token, then set it as the user environment variable SIR_TELEGRAM_BOT_TOKEN (Windows: Settings > System > About > Advanced system settings > Environment Variables > User). Never paste it in chat.
+## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in) - RESOLVED 2026-11-14 09:50
+- RESOLVED: `api.telegram.org/bot<SIR_TELEGRAM_BOT_TOKEN>/getMe` now returns ok:true (bot "SIR AI Manager" @PersonalAI_1Bot), so the token in the user environment is valid again; the inbox listener (node telegram-inbox.mjs, pid 22448) is running. No owner step needed.
 
 ## 2026-11-13 (Devin backup manager)
 - Hermes Telegram: create a NEW bot via @BotFather in Telegram (e.g. /newbot, name it Hermes), send me the token or paste it into `C:\Users\a7med\AppData\Local\hermes\.env` as `TELEGRAM_BOT_TOKEN=...` — all existing bot tokens are already owned by the SIR manager bot and the AHome bot, so Hermes cannot share one.

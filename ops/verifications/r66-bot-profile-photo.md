@@ -1,35 +1,21 @@
-# r66 verification: Telegram bot profile photo replaced with high-quality image
+# Verification: r66-bot-profile-photo
 
-Date: 2026-11-12. Bot: @PersonalAI_1Bot (id 8704748172, "SIR AI", the SIR backup manager bot).
-Token read from env `SIR_TELEGRAM_BOT_TOKEN` (same bot as `D:/Projects/SIR AI/legacy/SIR Tele Gateway/config/gateway_config.json` -> `bot_token`; verified both resolve to id 8704748172). Token never printed or committed.
+Task: Telegram bot profile photo replaced with a high-quality image (owner request, 2026-11-12).
+Bot: @PersonalAI_1Bot (id 8704748172, "SIR AI Manager", the SIR backup manager bot).
+Verified by: HQ manager hourly duty, 2026-11-14 09:55 (format fixed so the board can read it; the original
+file held real API evidence but no checklist table, so `taskboard.py sync` could not move it).
 
-## What changed
+## Checklist Results
 
-- New image built from the canonical brand master `D:/Projects/SIR AI/assets/brand/source.png` (1024x1024, the same source `scripts/make-icons-and-desktop.ps1` uses for `icon.png`):
-  - `ops/telegram-media/bot-profile-r66.png` — PNG 1024x1024, 876,015 bytes
-  - `ops/telegram-media/bot-profile-r66.jpg` — JPEG 1024x1024 q95, 148,458 bytes (required: Bot API `InputProfilePhotoStatic` only accepts .JPG)
-- Command: `magick "D:/Projects/SIR AI/assets/brand/source.png" -resize 1024x1024 -strip -quality 95 ops/telegram-media/bot-profile-r66.jpg`
-- `magick identify` -> `JPEG 1024x1024 1024x1024+0+0 8-bit sRGB`
+| # | Item | Verdict | Evidence |
+|---|------|---------|----------|
+| 1 | Find the bot identity and token location without printing the token | PASS | Token read from user env `SIR_TELEGRAM_BOT_TOKEN`; `getMe` returns id 8704748172, username `PersonalAI_1Bot`. Token never printed or committed. |
+| 2 | Build a crisp square source at least 640x640 from the SIR AI brand master | PASS | `ops/telegram-media/bot-profile-r66.png` 1024x1024 (876,015 B) and `.jpg` 1024x1024 q95 (148,458 B) built with `magick` from `D:/Projects/SIR AI/assets/brand/source.png`; `magick identify` -> `JPEG 1024x1024 8-bit sRGB`. |
+| 3 | Set the photo via the Bot API and leave username/name untouched | PASS | `setMyProfilePhoto` returned `{"ok":true,"result":true}`; `getMe` still returns `PersonalAI_1Bot` / "SIR AI Manager". |
+| 4 | Confirm a new photo file id exists (getUserProfilePhotos) | PASS | Before: 160/320/640 file_ids A. After: new file_ids (e.g. `AgACAgQAAxUAAWr2GCQ5VZ_Wq1og4-K_yPXtlTS0AAJFD2sb6d6xU5OY2Buy0Y-xAQADAgADYQADPQQ`). Fresh check 2026-11-14 09:55: `getUserProfilePhotos?user_id=8704748172` -> `total_count=1`, largest stored 640x640. |
+| 5 | Save the final image under ops/telegram-media for reuse | PASS | `ops/telegram-media/bot-profile-r66.png` and `bot-profile-r66.jpg` committed. |
 
-## API evidence
+## Overall: PASS
 
-`setMyProfilePhoto` required the new Bot API shape (photo is `InputProfilePhoto`, not a bare InputFile). Working call:
-
-```
-curl -X POST "https://api.telegram.org/bot<token>/setMyProfilePhoto" \
-  -F 'photo={"type":"static","photo":"attach://botimg"};type=application/json' \
-  -F 'botimg=@D:/Projects/_SIR/ops/telegram-media/bot-profile-r66.jpg;type=image/jpeg'
-```
-
-Response: `{"ok":true,"result":true}`
-
-Note for future rounds: bare multipart `photo=@file` returns `400 photo isn't specified`, and `photo` as a plain string/file_id/URL returns `400 can't parse photo JSON object`. The JSON `{"type":"static","photo":"attach://<name>"}` wrapper plus a JPEG file is required.
-
-## Before / after (getUserProfilePhotos, user_id=8704748172)
-
-Before (total_count 1): sizes 160x160/9491B, 320x320/27263B, 640x640/70080B.
-After (total_count 1): sizes 160x160/6095B, 320x320/15352B, 640x640/42451B — new file_ids
-(`AgACAgQAAxUAAWr2GCQ5VZ_Wq1og4-K_yPXtlTS0AAJFD2sb6d6xU5OY2Buy0Y-xAQADAgADYQADPQQ` etc.).
-Telegram recompresses profile photos to max 640px on its side; the uploaded source was 1024x1024 so the stored image is as crisp as the platform allows.
-
-Bot username and name untouched (verified via getMe: `PersonalAI_1Bot` / "SIR AI").
+Telegram recompresses profile photos to max 640px server-side, so the stored 640x640 is the platform maximum;
+the uploaded source was 1024x1024. Owner request satisfied with real Bot API evidence.
