@@ -197,5 +197,5 @@ Write the file D:\Projects\_SIR\ops\verifications\audit-sir-study-20261113-1501-
 <short facts: what you ran, what you could not check, what the fix task must do>
 
 Never write PASS with an empty Evidence cell. Never invent a run id, a test result or a screenshot.
-AHome: only read source under apps/, tests, and screenshots of the running app. Never read messages, notes,
-photos or the vault.
+AHome: ONLY read source code under apps/, unit/integration tests, and synthetic or running-app screenshots.
+NEVER read messages, notes, photos, calendar, or the vault (nor any private data or names tied to private facts).

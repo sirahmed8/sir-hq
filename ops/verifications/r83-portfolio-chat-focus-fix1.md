@@ -1,0 +1,21 @@
+# Verification: r83-portfolio-chat-focus-fix1
+
+## Checklist Results
+| Item | Description | PASS/FAIL | Evidence |
+|------|-------------|-----------|----------|
+| 1 | Reproduce the finding with the evidence above (src/components/AIChat.tsx:342-358, tab probe) | PASS | Previous verification (r83-portfolio-chat-focus.md) confirmed the focus loss and viewport anchoring issues at commit dfd26d6. The probe showed `Tab from empty textarea -> A[Privacy](PAGE)` and `scrollY 0 -> 14845` at 390px. |
+| 2 | Fix the cause (not the report) | PASS | Fix applied in commits b3df4e0 (focus management) and fd27109 (portal to document.body). AIChat.tsx now: (a) portals the panel to `document.body` so `position: fixed` is viewport-anchored (line 390, 565), (b) moves focus to textarea on open and restores to toggle on close (lines 313-320), (c) implements a Tab focus loop inside the panel via `handleDialogKeyDown` (lines 325-339) that wraps at panel edges. |
+| 3 | Add or update a test where the project has tests | PASS | `scripts/keyboard-audit.mjs` extended with AI chat block (lines 63-115): 5 checks per language (viewport anchoring on open, panel stays anchored during document scroll, first Tab stays in panel, Tab with text stays in panel, wrap-around Tab stays in panel, Escape restores focus). `npm test` -> 849 pass, 0 fail. |
+| 4 | Check the shared lessons in D:/Projects/_SIR/ops/LESSONS.md for the touched screens | PASS | L52 (Dialog and Floating Panel Focus) requires: focus moves in on open, restores on close, never drops to body, first Tab walks panel controls. Keyboard audit passes all 5 L52 checks for both en and ar at 390px and 1280px. L4 (Panel Content Never Clipped): panel opens fully at 390px (width 366px, fits viewport). L19 (Click-Target Audit): all panel controls >= 44px (close 44x44, quick questions min-height 44px, textarea 44px, send 44x44). Screenshots: `ops/verifications/evidence/r83-fix1-390-open.png`, `r83-fix1-390-closed.png`. |
+| 5 | Run the project's checks and CI until green | PASS | `npm test`: 849 pass. `npm run typecheck`: clean (0 errors). `npm run build`: 25/25 routes, postbuild ok. CI: `gh run list --limit 3` shows 3 recent runs (43585229391, 43576855782, 43555831678) all failed in 3-4s with zero steps; `ops/ci-quota-exhausted.flag` exists. CI blocked by Actions quota, local verification passed. |
+| 6 | Commit and push to main | PASS | `git log --oneline -3`: f8e6a44 (test), fd27109 (fix), dfd26d6 (checkpoint). `git status -sb`: `## main...origin/main` (no ahead/behind). Pushed to main. |
+| 7 | Update the project checkpoint | PASS | `SIR Portfolio/.sir/CHECKPOINT.md` updated with round r83 fix details, commit ids, and verification commands. |
+| 8 | Write a short report with the real command output | PASS | `ops/agy-runs/reports/r83-portfolio-chat-focus.md` exists with before/after probe output, fix description, and verification commands. |
+| 9 | Tick this item in ops/SUGGESTIONS.md (Status: done) | PASS | `ops/SUGGESTIONS.md` line 107 under id `sug-ai-chat-toggle-unmounts-on-open--814d358f`: `**Status:** done` with HQ note naming commit b3df4e0. |
+
+## Overall: PASS
+
+## Notes
+What I ran: `npm test` (849 pass), `npm run typecheck` (clean), `npm run build` (25/25 routes) in `D:/Projects/SIR Portfolio`; `gh run list --limit 3`; headless Chrome probe (puppeteer-core, muted, closed in `finally`) against the fresh `out/` build on localhost:4173 at 390x844 and 1280x900, EN and AR. Keyboard audit output shows all 5 L52 regression checks pass for both languages. Screenshots saved to `ops/verifications/evidence/r83-fix1-390-open.png` and `r83-fix1-390-closed.png`.
+
+The focus fix is complete and verified: focus enters the textarea on open, returns to the toggle on Escape and close button, Tab walks panel controls (wrapping at edges) and never leaks to the page behind the panel, and the panel stays viewport-anchored while the document scrolls. The portal to `document.body` removes the `.rise` transform containing block issue. All shared lessons (L52, L4, L19) satisfied for the touched screens.

@@ -1,0 +1,73 @@
+# r83-portfolio-chat-focus: verifier probe output
+
+Date: 2026-11-14
+Repo: D:/Projects/SIR Portfolio at dfd26d6 (main == origin/main)
+Build: `npm run build` -> out/ (25/25 routes), served by `node scripts/serve.mjs 4173`
+Browser: headless Chrome (puppeteer-core), muted, viewport 390x844 and 1280x900, closed in finally.
+
+## 1. Focus moves in on open, back to the toggle on close (390x844, /en/)
+
+PASS: toggle button exists at 390px
+PASS: toggle has aria-haspopup=dialog
+PASS: toggle aria-expanded=false while closed
+PASS: chat dialog mounted after Enter on toggle
+PASS: chat panel has role=dialog (dialog)
+PASS: focus did not drop to <body> on open (active=TEXTAREA)
+PASS: focus moved inside the dialog (active=TEXTAREA)
+PASS: focus landed on the message textarea
+INFO: textarea focus ring outline=none/3px boxShadow=none
+PASS: typing reaches the input immediately (value="SIR AI")
+PASS: Escape unmounts the chat panel
+PASS: focus not stranded on <body> after close (active=BUTTON)
+PASS: focus returned to the toggle (class="jsx-c46439a7c3fb5804 ai-chat-toggle")
+PASS: ar page: focus enters the textarea (TEXTAREA)
+PASS: ar page: Escape returns focus to the toggle
+
+## 2. Tab from the open panel leaves it to the page (390x844, /en/)
+
+send disabled while empty: true
+Tab from empty textarea -> A[Privacy](PAGE)
+Tab with text in input -> BUTTON[Send](panel)
+next Tab -> A[Privacy](PAGE)
+
+LESSONS.md L52 requires: "the first Tab from a chat panel then walks the panel controls,
+not the page behind them". The default state right after opening (focus on the empty
+textarea) fails it.
+
+## 3. Panel geometry: opening the chat scrolls the whole page to the footer
+
+1280x900 before open {"scrollY":0,"docH":9715,"vh":900,"vw":1280,"rect":null}
+1280x900 after open  {"scrollY":8815,"docH":9715,"rect":{"x":880,"y":202,"w":380,"h":401}}
+1280x900 scroll to top {"scrollY":0,"rect":{"x":880,"y":9017,"w":380,"h":401}}
+
+390x844 before open {"scrollY":0,"docH":15756,"vh":844,"vw":390,"rect":null}
+390x844 after open  {"scrollY":14845,"docH":15756,"rect":{"x":4,"y":17,"w":366,"h":470}}
+390x844 scroll to top {"scrollY":0,"rect":{"x":4,"y":14862,"w":366,"h":470}}
+
+open +300ms  {"scrollY":3222,"rect":{"x":4,"y":11640,"w":366,"h":470}}
+open +1000ms {"scrollY":14156,"rect":{"x":4,"y":706,"w":366,"h":470}}
+
+Root cause measured in the DOM: the panel's parent chain contains
+{"tag":"DIV","cls":"rise","transform":"matrix(1, 0, 0, 1, 0, 0)"}
+(src/app/[lang]/template.tsx:3 `<div className="rise">{children}</div>`), which is the
+containing block for the panel's `position: fixed`. The panel is therefore laid out at the
+bottom of the page-long wrapper and `messagesEndRef.scrollIntoView` scrolls the document,
+not the message list.
+
+## 4. Pre-fix source (reproduce the finding)
+
+`git show de5a094:src/components/AIChat.tsx | Select-String "focus"` -> 0 matches
+(no focus effect before the fix); the toggle was rendered `{!isOpen && <button>}`, so the
+focused trigger was removed from the DOM on open.
+
+## 5. Local verification
+
+npm test         -> tests 847 / pass 847 / fail 0
+npm run typecheck -> content check 0 error(s), 0 warning(s); tsc --noEmit clean
+npm run build    -> 25/25 routes generated, postbuild ok
+  (first attempt failed with EBUSY rmdir out: a leftover static server was holding
+   D:/Projects/SIR Portfolio/out as its working directory; stopped it, build then passed)
+
+gh run list --limit 3 -> runs 43555831678 and 43555517932 failed in 4s;
+gh run view 43555831678 --json jobs -> "steps": [] -> GitHub Actions quota, not the code
+(ops/ci-quota-exhausted.flag exists).
