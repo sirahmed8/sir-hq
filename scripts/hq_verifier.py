@@ -9,7 +9,7 @@ Rules:
   - Nothing is ever marked verified without evidence. A PASS row with an empty evidence cell is rewritten to
     FAIL by this script itself, whatever the model wrote.
   - FAIL items become a new fix task <task>-fix1 in the autopilot queue (brief + prompt file included).
-  - AHome: only source under apps/, tests and screenshots of the running app. Never messages, notes, photos, vault.
+  - AHome: only source under apps/, unit/integration tests, and synthetic/running-app screenshots. Never messages, notes, photos, calendar, or vault.
 
 Usage: python hq_verifier.py [--task NAME] [--limit N] [--dry]
 Exit code 0 when the run itself worked (even if a task FAILed); 1 on a setup problem.
@@ -48,12 +48,19 @@ def checklist_files(task_name: str, folder: str) -> list:
 def build_prompt(task: dict, checklists: list) -> str:
     name, folder, title = task["name"], task["folder"], task.get("title", task["name"])
     checklist_block = "\n".join(f"- {p}" for p in checklists) or "- (no checklist file found: use the brief items)"
+    ahome_guard = ""
+    if "ahome" in folder.lower():
+        ahome_guard = (
+            "\nAHOME PRIVACY GUARD (2026-11-12 AGENTS.md exception - mandatory): "
+            "You MAY verify this task using source code under apps/, unit/integration tests, and synthetic or running-app screenshots. "
+            "You MUST NEVER read or open messages, notes, photos, calendar, the vault, or any personal/private facts.\n"
+        )
     return f"""You are the SIR verifier for task {name} ({title}).
 
 CI RULE: if the file D:/Projects/_SIR/ops/ci-quota-exhausted.flag exists, GitHub Actions minutes are used up and every CI job ends in about 3 seconds with zero steps. For the checklist item about CI being green, do NOT mark FAIL for that reason: mark it PASS only if the same commit passes the full LOCAL verification you run yourself (tests, lint, build), and write 'CI blocked by the Actions quota, local verification passed' in the evidence column. If local verification fails, mark FAIL as usual.
 Project folder: {folder}
 Project key: {project_key(folder)}
-
+{ahome_guard}
 Prove whether this task is really done. You are the one who stops a false "done".
 
 Steps:
@@ -89,8 +96,8 @@ Write the file {VERIFICATIONS / (name + '.md')} in exactly this shape:
 <short facts: what you ran, what you could not check, what the fix task must do>
 
 Never write PASS with an empty Evidence cell. Never invent a run id, a test result or a screenshot.
-AHome: only read source under apps/, tests, and screenshots of the running app. Never read messages, notes,
-photos or the vault.
+AHome: ONLY read source code under apps/, unit/integration tests, and synthetic or running-app screenshots.
+NEVER read messages, notes, photos, calendar, or the vault (nor any private data or names tied to private facts).
 """
 
 
@@ -258,8 +265,8 @@ def main(argv: list) -> int:
             continue
         if (VERIFICATIONS / f"{task['name']}.md").exists():
             continue
-        if "AHome" in task.get("folder", ""):
-            continue  # private: never to an outside model; local-only verification is not wired yet
+        # Per 2026-11-12 AGENTS.md AHome exception: AHome tasks are verified via apps/ source,
+        # unit/integration tests, and synthetic screenshots (strictly no messages/notes/photos/calendar/vault).
         todo.append(task)
     todo.reverse()  # newest finished rounds first
     if not todo:
