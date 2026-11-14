@@ -12015,5 +12015,1668 @@ Retrying in 8.0 seconds...
 [0m
 > code · kilo-auto/free
 [0m
-01:58:25 chain step kilo|kilo/kilo-auto/free gave no valid reply in 40s, moving to the next
-01:58:25 chain step 4/8: aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b (nvidia nemotron ultra)
+[0m→ [0mRead ops/backup-manager/prompt-1794614054820.txt
+[0m
+[0m$ [0mcd D:/Projects/_SIR && git status
+At line:4 char:21
++ cd D:/Projects/_SIR && git status
++                     ~~
+The token '&&' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/READ_LOG.md
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/backup-manager-chat.jsonl
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/taskboard.py list
+inbox   1
+   normal-sir-ai-runnable-adapters-01                      
+active  1
+   5-sir-ai-agentic-os-02                                  autopilot runner
+review  32
+   1-r67-c-drive-space                                     autopilot runner
+   1-r68-sir-ai-bot-answers                                autopilot runner
+   1-r69-review-backlog                                    autopilot runner
+   1-r71-ahome-profile-editor-fixes                        autopilot runner
+   2-r70-cycle-sir-jobs                                    autopilot runner
+   2-r70-cycle-sir-portfolio                               autopilot runner
+   2-r70-cycle-sir-study                                   autopilot runner
+   3-r65-ahome-apk-adb-updates                             autopilot runner
+   5-ahome-folder-icon                                     autopilot runner
+   5-ahome-free-tools-fallback                             autopilot runner
+   5-audit-sir-jobs-20261113-0721                          autopilot runner
+   5-audit-sir-jobs-20261113-1501                          autopilot runner
+   5-audit-sir-jobs-20261113-2241                          --help
+   5-audit-sir-laptop-manager-20261113-2241                autopilot runner
+   5-audit-sir-study-20261113-0721                         autopilot runner
+   5-audit-sir-study-20261113-1501-fix1                    autopilot runner
+   5-audit-sir-study-20261113-1821                         autopilot runner
+   5-owner-requests-verify-fix1                            autopilot runner
+   5-r60-build-sir-ai                                      autopilot runner
+   5-r60-build-sir-jobs                                    autopilot runner
+   5-r60-build-sir-laptop-manager                          autopilot runner
+   5-r64-ahome-bot-kit                                     autopilot runner
+   5-r66-bot-profile-photo                                 autopilot runner
+   5-r70-cycle-sir-laptop-manager-fix1                     autopilot runner
+   5-r72-d-drive-org-plan                                  autopilot runner
+   5-r73-laptop-ollama-single-instance                     autopilot runner
+   5-sir-ai-agentic-os-01                                  autopilot runner
+   5-smoke-cursor                                          autopilot runner
+   5-smoke-devin                                           autopilot runner
+   5-smoke-pi                                              autopilot runner
+   5-verify-r70-laptop-fix1                                autopilot runner
+   5-verify-r71-ahome                                      autopilot runner
+done    159
+[0m
+[0m$ [0mcd D:/Projects/_SIR; cat ops/AUTOPILOT_QUEUE.json
+[
+  {
+    "name": "r53-education-hub-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: big merged plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r53-business-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: sectors big merged plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r14-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "إصلاحات المشروع الخاص",
+    "done": true
+  },
+  {
+    "name": "r15-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager overnight work",
+    "done": true
+  },
+  {
+    "name": "r15-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Jobs inbox assistant, phase 1",
+    "done": true
+  },
+  {
+    "name": "r15-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room and Telegram menu",
+    "done": true
+  },
+  {
+    "name": "r16-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: fix review findings",
+    "done": true
+  },
+  {
+    "name": "r16-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs round 16",
+    "done": true
+  },
+  {
+    "name": "r16-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study round 16",
+    "done": true
+  },
+  {
+    "name": "r16-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room round 16",
+    "done": true
+  },
+  {
+    "name": "r17-ahome-verify",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome round 14 verification",
+    "done": true
+  },
+  {
+    "name": "r18-ahome-phone",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إنهاء جولة ملاحظات الموبايل والنشر",
+    "done": true
+  },
+  {
+    "name": "r19-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح CI ومواعيد الامتحانات",
+    "done": true
+  },
+  {
+    "name": "r21-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: قائمة الموبايل الثانية وحلقة الفحص الذاتي",
+    "done": true
+  },
+  {
+    "name": "r19-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح CI وباقي ملاحظات المراجعة",
+    "done": true
+  },
+  {
+    "name": "r19-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم: نسخة واحدة من السيرفر وأرقام صحيحة",
+    "done": true
+  },
+  {
+    "name": "r20-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: قفل باقي ملاحظات المراجعة وتأكيد مواعيد الامتحانات",
+    "done": true
+  },
+  {
+    "name": "r22-laptop",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-control",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r22-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: واجهة الموبايل",
+    "done": true
+  },
+  {
+    "name": "r23-jobs-cv",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تصحيح السي في (فايب كودر)",
+    "done": true
+  },
+  {
+    "name": "r24-jobs-apply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم على الشغل بموافقتك",
+    "done": true
+  },
+  {
+    "name": "r24-games",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "الألعاب: تحسين الأداء والجرافيكس",
+    "done": true
+  },
+  {
+    "name": "r25-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: التكامل ومدير الأجنتات والفواتير",
+    "done": true
+  },
+  {
+    "name": "r26-infra",
+    "folder": "D:/Projects/_SIR",
+    "title": "الإدارة: صوت اللابتوب وPDF وأدوات جديدة",
+    "done": true
+  },
+  {
+    "name": "r27-study-sources",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: سحب المواد الجديدة وترتيبها",
+    "done": true
+  },
+  {
+    "name": "r28-jobs-autoapply",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: التقديم التلقائي بدون ضغطة",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261111-0621",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-0841",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261111-0841",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261111-1011",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r30-ahome-local-core",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: صلّح فشل local core واجعله ذاتي الإصلاح",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261111-1011",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "laptop-updates-20261111",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Laptop Manager: تحديث كل البرامج والـ CLIs",
+    "done": true
+  },
+  {
+    "name": "r29-jobs-verify-applies",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: تدقيق أرقام التقديم الحقيقية",
+    "done": true
+  },
+  {
+    "name": "r31-desktop-organize",
+    "folder": "D:/Projects/_SIR",
+    "title": "تنظيم سطح المكتب وProduct Kit لكل مشروع",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261111-1951",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261111-1951",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r33-ahome-feedback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: ملاحظات كبيرة من صاحب المشروع (تابس، صوت، بايومتركس، كلام مختلط)",
+    "done": true
+  },
+  {
+    "name": "r34-jobs-ui-overhaul",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح شامل للواجهة (زراير وتصميم)",
+    "done": true
+  },
+  {
+    "name": "r35-control-room-laptop-ui",
+    "folder": "D:/Projects/_SIR",
+    "title": "لوحة التحكم ولابتوب مانجر: إصلاح التصميم المكسور",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0051",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-ahome-20261112-0111",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r36-more-free-workers",
+    "folder": "D:/Projects/_SIR",
+    "title": "r36 more free workers",
+    "done": true
+  },
+  {
+    "name": "r37-verify-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "r37 verify today's UI",
+    "done": true
+  },
+  {
+    "name": "r38-ahome-feedback2",
+    "folder": "D:/Projects/AHome",
+    "title": "r38 AHome feedback 2",
+    "done": true
+  },
+  {
+    "name": "r39-portfolio-copy",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "r39 Portfolio copy",
+    "done": true
+  },
+  {
+    "name": "r40-sir-ai-vision",
+    "folder": "D:/Projects/SIR AI",
+    "title": "r40 SIR AI vision plan",
+    "done": true
+  },
+  {
+    "name": "r41-disk-regenerable",
+    "folder": "D:/Projects/_SIR",
+    "title": "r41 disk regenerable",
+    "done": true
+  },
+  {
+    "name": "r42-verifier-scout",
+    "folder": "D:/Projects/_SIR",
+    "title": "r42 verifier and scouts",
+    "done": true
+  },
+  {
+    "name": "r15-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r15-laptop verification",
+    "done": true
+  },
+  {
+    "name": "r43-study-mobile-card-tables",
+    "folder": "D:/Projects/SIR Study",
+    "title": "14 study tables across 7 guide pages (data-structures, sad, or, human-rights, business-adm",
+    "done": true
+  },
+  {
+    "name": "r44-portfolio-plans-upgrade",
+    "folder": "D:/Projects/_SIR",
+    "title": "r44 plans upgrade all products",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261112-0700",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: red CI after cleanup commit",
+    "done": true
+  },
+  {
+    "name": "r45-study-scout-fixes",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: scout findings",
+    "done": true
+  },
+  {
+    "name": "r45-jobs-scout-fixes",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: scout findings",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0941",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0951",
+    "folder": "D:/Projects/_SIR",
+    "title": "_SIR: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0951-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0951 verification",
+    "done": true
+  },
+  {
+    "name": "ci-ahome-20261112-1401",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261112-1401",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261112-1401",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "r46-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "r46-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: competitors and feature gaps",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901 verification",
+    "done": true
+  },
+  {
+    "name": "r47-skills-encyclopedia",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "HQ: skills encyclopedia and organization",
+    "done": true
+  },
+  {
+    "name": "r48-video-digest",
+    "folder": "D:/Projects/SIR AI",
+    "title": "HQ: video digest skill",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-1",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests slice 1 (ops/encyclopedia/slices/slice-1.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49-skills-deep-2",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "skills deep digests slice 2 (ops/encyclopedia/slices/slice-2.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-3",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "skills deep digests slice 3 (ops/encyclopedia/slices/slice-3.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-4",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "skills deep digests slice 4 (ops/encyclopedia/slices/slice-4.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-5",
+    "folder": "D:/Projects/SIR AI",
+    "title": "skills deep digests slice 5 (ops/encyclopedia/slices/slice-5.txt)",
+    "done": true
+  },
+  {
+    "name": "r49-skills-deep-6",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests slice 6 (ops/encyclopedia/slices/slice-6.txt)",
+    "done": true
+  },
+  {
+    "name": "r47-skills-encyclopedia-fix1",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Fix failures from r47-skills-encyclopedia verification",
+    "done": true
+  },
+  {
+    "name": "ci-sir-20261112-0901-fix1-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from ci-sir-20261112-0901-fix1 verification",
+    "done": true
+  },
+  {
+    "name": "r46-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r46-laptop-manager verification",
+    "done": true
+  },
+  {
+    "name": "r49b-skills-deep-1",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 1 (ops/encyclopedia/slices/missing-1.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-2",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 2 (ops/encyclopedia/slices/missing-2.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-3",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 3 (ops/encyclopedia/slices/missing-3.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-4",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 4 (ops/encyclopedia/slices/missing-4.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-5",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 5 (ops/encyclopedia/slices/missing-5.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r49b-skills-deep-6",
+    "folder": "D:/Projects/_SIR",
+    "title": "skills deep digests remaining slice 6 (ops/encyclopedia/slices/missing-6.txt)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r50-portfolio-owner-fixes",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "Portfolio: owner corrections (projects list, previews, counts, timeline animation, CV one page)",
+    "done": true
+  },
+  {
+    "name": "r51-backlog-projects",
+    "folder": "D:/Projects/old projects/SIR Platform",
+    "title": "Backlog ideas into projects or modules, final product list",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261112-1401-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261112-1401 verification",
+    "done": true
+  },
+  {
+    "name": "r52-plan-sir-ai",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR AI (slug sir-ai)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-obour-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Education Hub (slug sir-education-hub)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Hagoozat (slug sir-hagoozat)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Business (slug sir-business)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Content Creation Studio (slug sir-content-creation-studio)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Controller (slug sir-controller)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-laptop-manager",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Laptop Manager (slug sir-laptop-manager)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR ModPack (slug sir-modpack)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Mods for GTA V (slug sir-mods-gta-v)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Life (slug sir-life)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-jobs",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Jobs (slug sir-jobs)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-study",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: SIR Study (slug sir-study)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r52-plan-sir-platform",
+    "folder": "D:/Projects/_SIR",
+    "title": "r52 premium plan: the shared kit (slug sir-platform)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "ci-sir-jobs-20261112-1741",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: إصلاح الفحص الآلي الأحمر",
+    "done": true
+  },
+  {
+    "name": "r45-jobs-scout-fixes-fix1",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Fix failures from r45-jobs-scout-fixes verification",
+    "done": true
+  },
+  {
+    "name": "r54-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r54-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: premium plan, competitors, first 10 tasks",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r60-build-sir-business",
+    "folder": "D:/Projects/SIR Business",
+    "title": "SIR Business: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-cars",
+    "folder": "D:/Projects/SIR Cars",
+    "title": "SIR Cars: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-content-creation-studio",
+    "folder": "D:/Projects/SIR Content Creation Studio",
+    "title": "SIR Content Creation Studio: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-controller",
+    "folder": "D:/Projects/SIR Controller",
+    "title": "SIR Controller: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-education-hub",
+    "folder": "D:/Projects/SIR Education Hub",
+    "title": "SIR Education Hub: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-hagoozat",
+    "folder": "D:/Projects/SIR Hagoozat",
+    "title": "SIR Hagoozat: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-handyman",
+    "folder": "D:/Projects/SIR Handyman",
+    "title": "SIR Handyman: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-life",
+    "folder": "D:/Projects/SIR Life",
+    "title": "SIR Life: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-modpack",
+    "folder": "D:/Projects/SIR ModPack",
+    "title": "SIR ModPack: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-mods-gta-v",
+    "folder": "D:/Projects/SIR Mods for GTA V",
+    "title": "SIR Mods for GTA V: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r60-build-sir-movies",
+    "folder": "D:/Projects/SIR Movies",
+    "title": "SIR Movies: rescan, then build from the first task",
+    "done": true,
+    "cancelled": "owner 2026-11-12: planning only until the current projects are done"
+  },
+  {
+    "name": "r62-control-room-mirror",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room: free hosted mirror updated without Claude",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r69-review-backlog",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify the finished tasks waiting in review",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r67-c-drive-space",
+    "folder": "D:/Projects/_SIR",
+    "title": "Drive C: nearly full: find what fills it, stop it, free space safely, add watchdog",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r64-telegram-first",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram-first backup manager: speed, one context for text and photos, Bot API kit, profile photo, robustness",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r62-ahome-smart-sync",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: smart TickTick and linked-app sync with auto classification",
+    "done": true
+  },
+  {
+    "name": "r57-ahome-free",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: owner feedback round r57 (22 items) by free tools",
+    "done": true
+  },
+  {
+    "name": "ci-sir-study-20261112-0700-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from ci-sir-study-20261112-0700 verification",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r60-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: rescan, then build from the first task",
+    "done": true
+  },
+  {
+    "name": "r53-hagoozat-and-ideas",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat plan and decisions for the unplanned ideas",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r56-business-sector-depth",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: 25+ sectors, each with its own specialised plan",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r58-new-project-folders",
+    "folder": "D:/Projects/_SIR",
+    "title": "Six new small projects: folders, repos, Desktop kits, TickTick parents",
+    "done": true
+  },
+  {
+    "name": "r61-plan-sir-business",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Business: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-cars",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Cars: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-content-creation-studio",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Content Creation Studio: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-controller",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Controller: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-education-hub",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Education Hub: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-hagoozat",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Hagoozat: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-handyman",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Handyman: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-life",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Life: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-modpack",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR ModPack: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-mods-gta-v",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Mods for GTA V: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-movies",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Movies: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-price-finder",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Price Finder: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-game-deals",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Game Deals: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r61-plan-sir-access-map",
+    "folder": "D:/Projects/_SIR",
+    "title": "SIR Access Map: planning refresh only (no building)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r63-control-room-private",
+    "folder": "D:/Projects/_SIR",
+    "title": "Control Room mirror: password, Tailscale links, privacy audit",
+    "done": true,
+    "parallel_ok": true,
+    "cancelled": "owner 2026-11-12: no public site; Control Room only on Tailscale"
+  },
+  {
+    "name": "r65-ahome-apk-adb-updates",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: APK to phone by ADB, phone power-off cause, update and notification system",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r66-bot-profile-photo",
+    "folder": "D:/Projects/_SIR",
+    "title": "Telegram bot: high-quality profile photo",
+    "done": true
+  },
+  {
+    "name": "r67-build-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: continue building from checkpoint",
+    "done": true
+  },
+  {
+    "name": "r67-voice-pipeline-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify Telegram voice pipeline after hang fix",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r64-ahome-bot-kit",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome Telegram bot: vendor telegram_lib.py and add edit-own-message support",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r68-sir-ai-bot-answers",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI bot: answer normal questions, fix privacy router, Arabic, edit messages, voice and photos",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-jobs",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-portfolio",
+    "folder": "D:/Projects/SIR Portfolio",
+    "title": "SIR Portfolio: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r70-cycle-sir-study",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: improvement cycle (new lens, 10 improvements, report)",
+    "done": true,
+    "parallel_ok": false
+  },
+  {
+    "name": "r71-ahome-profile-editor-fixes",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: fix avatar crop slider, keyboard overlap, buttons and toggles (owner screenshots)",
+    "done": true
+  },
+  {
+    "name": "r72-d-drive-org-plan",
+    "folder": "D:/Projects/_SIR",
+    "title": "D drive organization plan (read only audit)",
+    "done": true,
+    "parallel_ok": true
+  },
+  {
+    "name": "r70-cycle-sir-laptop-manager-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Fix failures from r70-cycle-sir-laptop-manager verification",
+    "done": true
+  },
+  {
+    "name": "verify-r71-ahome",
+    "folder": "D:/Projects/AHome",
+    "title": "Verify r71 AHome profile fixes",
+    "done": true
+  },
+  {
+    "name": "verify-r70-laptop-fix1",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "Verify r70 Laptop Manager fix1",
+    "done": true
+  },
+  {
+    "name": "verify-r70-sir-ai",
+    "folder": "D:/Projects/SIR AI",
+    "title": "Finish and verify r70 SIR AI a11y cycle",
+    "done": true
+  },
+  {
+    "name": "ahome-folder-icon",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome folder and shortcut icon",
+    "done": true
+  },
+  {
+    "name": "smoke-cursor",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-cursor",
+    "done": true
+  },
+  {
+    "name": "smoke-pi",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-pi",
+    "done": true
+  },
+  {
+    "name": "smoke-devin",
+    "folder": "D:/Projects/_SIR",
+    "title": "Smoke test: smoke-devin",
+    "done": true
+  },
+  {
+    "name": "parity-instructions",
+    "folder": "D:/Projects/_SIR",
+    "title": "Instruction parity across free tools",
+    "done": true
+  },
+  {
+    "name": "review-old-tasks",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify three old done claims",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-0721",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-0721",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify",
+    "folder": "D:/Projects/_SIR",
+    "title": "Verify all owner requests",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-1101",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1101",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1501",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1501",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "owner-requests-verify-fix1",
+    "folder": "D:/Projects/_SIR",
+    "title": "Fix failures from owner-requests-verify verification",
+    "done": true
+  },
+  {
+    "name": "r73-laptop-ollama-single-instance",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: stop spawning a second Ollama server",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1821",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1821",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261113-1501-fix1",
+    "folder": "D:/Projects/SIR Study",
+    "title": "Fix failures from audit-sir-study-20261113-1501 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-1821-fix1",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "Fix failures from audit-sir-jobs-20261113-1821 verification",
+    "done": true
+  },
+  {
+    "name": "audit-sir-laptop-manager-20261113-2241",
+    "folder": "D:/Projects/SIR Laptop Manager",
+    "title": "SIR Laptop Manager: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261113-2241",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "sir-ai-agentic-os-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI Agentic OS phase 1: adapter registry + status plane",
+    "done": true
+  },
+  {
+    "name": "ahome-free-tools-fallback",
+    "folder": "D:/Projects/AHome",
+    "title": "AHome: bounded free-tools fallback for hard non-private tasks",
+    "done": true
+  },
+  {
+    "name": "sir-ai-agentic-os-02",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI Agentic OS phase 2: chat stream parser",
+    "done": false
+  },
+  {
+    "name": "normal-sir-ai-runnable-adapters-01",
+    "folder": "D:/Projects/SIR AI",
+    "title": "SIR AI: make the 8 detect-only CLI adapters runnable",
+    "done": false,
+    "parallel_ok": false
+  }
+]
+[0m
+[0m$ [0mcd D:/Projects/_SIR; mkdir -p ops/briefs
+mkdir : An item with the specified name D:\Projects\_SIR\ops\briefs already exists.
+At line:4 char:22
++ cd D:/Projects/_SIR; mkdir -p ops/briefs
++                      ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceExists: (D:\Projects\_SIR\ops\briefs:String) [New-Item], IOException
+    + FullyQualifiedErrorId : DirectoryExist,Microsoft.PowerShell.Commands.NewItemCommand
+[0m
+[0m← [0mWrite ops/briefs/r74-ahome-profile-save-fix.md
+Wrote file successfully.
+[0m
+[0m← [0mWrite ops/briefs/r75-ahome-calling-fix.md
+Wrote file successfully.
+[0m
+[0m← [0mWrite ops/briefs/r76-ahome-games-gifs-fix.md
+Wrote file successfully.
+[0m
+[0m← [0mWrite ops/briefs/r77-portfolio-project-names.md
+Wrote file successfully.
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py r74-ahome-profile-save-fix ops/briefs/r74-ahome-profile-save-fix.md "D:/Projects/AHome" "AHome: fix profile picture save and button state"
+D:\Projects\_SIR\ops\briefs\r74-ahome-profile-save-fix.prompt.txt
+queued: r74-ahome-profile-save-fix
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py r75-ahome-calling-fix ops/briefs/r75-ahome-calling-fix.md "D:/Projects/AHome" "AHome: fix voice/video calling ringing and quality"
+D:\Projects\_SIR\ops\briefs\r75-ahome-calling-fix.prompt.txt
+queued: r75-ahome-calling-fix
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py r76-ahome-games-gifs-fix ops/briefs/r76-ahome-games-gifs-fix.md "D:/Projects/AHome" "AHome: fix GIF picker, search, games invitations and XO"
+D:\Projects\_SIR\ops\briefs\r76-ahome-games-gifs-fix.prompt.txt
+queued: r76-ahome-games-gifs-fix
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py r77-portfolio-project-names ops/briefs/r77-portfolio-project-names.md "D:/Projects/SIR Portfolio" "SIR Portfolio: fix project names and navbar"
+D:\Projects\_SIR\ops\briefs\r77-portfolio-project-names.prompt.txt
+queued: r77-portfolio-project-names
+[0m
+[0m$ [0mcd D:/Projects/SIR AI; ls -la
+Set-Location : A positional parameter cannot be found that accepts argument 'AI'.
+At line:4 char:1
++ cd D:/Projects/SIR AI; ls -la
++ ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Set-Location], ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+ 
+Get-ChildItem : A parameter cannot be found that matches parameter name 'la'.
+At line:4 char:27
++ cd D:/Projects/SIR AI; ls -la
++                           ~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ChildItem], ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+[0m
+[0m$ [0mcd "D:/Projects/SIR AI"; dir
+Directory: D:\Projects\SIR AI
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----        11/13/2026  11:06 PM                .aider.tags.cache.v4                                                 
+d-----        10/30/2026   4:16 AM                .claude                                                              
+d-----        11/11/2026   2:49 AM                .firebase                                                            
+d-----        11/11/2026   2:19 AM                .github                                                              
+d-----        11/13/2026  10:04 AM                .sir                                                                 
+d-----        11/12/2026   1:26 AM                .vercel                                                              
+d-----        11/11/2026  10:27 AM                apps                                                                 
+d-----        10/30/2026  12:33 AM                assets                                                               
+d-----        11/13/2026  11:33 PM                docs                                                                 
+d-----        11/11/2026   2:46 AM                firebase                                                             
+d-----        11/12/2026   2:17 AM                legacy                                                               
+d-----        11/12/2026   9:34 PM                node_modules                                                         
+d-----        11/11/2026  10:05 AM                packages                                                             
+d-----        11/11/2026   3:41 PM                Product Kit                                                          
+d-----        10/30/2026  12:26 AM                prompts                                                              
+d-----        11/13/2026   4:59 AM                scripts                                                              
+-a----        11/13/2026  11:06 PM         177489 .aider.chat.history.md                                               
+-a----        11/13/2026  11:04 PM          22803 .aider.input.history                                                 
+-a----        10/30/2026   4:16 AM            208 .editorconfig                                                        
+-a----        11/13/2026   1:08 AM           2979 .env                                                                 
+-a----        11/11/2026   2:34 AM             49 .firebaserc                                                          
+-a----        11/13/2026  12:07 AM            551 .gitignore                                                           
+-a----        11/11/2026   4:18 AM             49 .vercelignore                                                        
+-a----         11/2/2026   3:19 AM           2337 AGENTS.md                                                            
+-a----         11/8/2026   6:22 AM            178 CLAUDE.md                                                            
+-a----        11/13/2026  12:08 AM            346 eslint.config.js                                                     
+-a----        11/14/2026  12:01 AM          42830 firebase-debug.log                                                   
+-a----        11/11/2026   2:35 AM           1385 firebase.json                                                        
+-a----        11/14/2026  12:01 AM          12503 firestore-debug.log                                                  
+-a--s-        11/13/2026   4:43 AM         370070 folder.ico                                                           
+-a----         11/8/2026   6:22 AM            166 GEMINI.md                                                            
+-a----        11/12/2026  11:12 PM         502610 package-lock.json                                                    
+-a----        11/12/2026   9:32 PM           1030 package.json                                                         
+-a----        10/30/2026   4:16 AM            308 README.md                                                            
+-a----        10/30/2026   4:16 AM            236 SECURITY.md                                                          
+-a----        11/11/2026   3:37 PM            701 tsconfig.base.json                                                   
+-a----        11/11/2026   4:23 AM            991 vercel.json                                                          
+-a----        11/11/2026   5:52 AM            183 vitest.config.ts                                                     
+-a----        11/11/2026   2:47 AM            175 vitest.rules.config.ts
+[0m
+[0m$ [0mcd "D:/Projects/SIR AI/apps"; dir
+Directory: D:\Projects\SIR AI\apps
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----        11/11/2026   5:32 AM                agent                                                                
+d-----        11/13/2026  12:02 AM                api                                                                  
+d-----        11/11/2026   3:36 PM                bot                                                                  
+d-----        11/11/2026  10:29 AM                desktop                                                              
+d-----        11/12/2026  11:12 PM                web
+[0m
+[0m$ [0mcd "D:/Projects/SIR AI"; cat .sir/CHECKPOINT.md
+# CHECKPOINT: SIR AI
+Last updated: 2026-11-14 (sir-ai-agentic-os-01 phase 1, free CLI worker)
+
+## Round 2026-11-14 (sir-ai-agentic-os-01): Agentic OS Phase 1 Slice - DONE
+- **Audit**: repo already had 12 real CLI adapters, detection/login probes, pool cooldowns/rotation, desktop agent Firestore publishing and the Agents/Devices UI. Gaps were provider/routing metadata, a shared status model, full fleet publication/parsing and a unified chat event contract.
+- **Plan**: `docs/AGENTIC_OS_PHASE1.md` records the audit, contracts, wiring map and honest gaps.
+- **Implemented**: `packages/core/src/agentic.ts` (`CliStatusSchema`, adapter states, `ChatEventSchema`, `toCliStatus`, `sortCliStatuses`); CLI adapters now carry `providerId/providerLabel/providerKind/routingPriority` with owner order Claude > Antigravity > Devin > free pool; `detectAll` returns checked metadata; `ModelPool.add` preserves cooldown/failure state and `available()` sorts by priority; `CliBridge.statuses()` merges detection with pool health; `apps/agent` publishes full `CliStatus[]` to `users/{uid}/devices/{deviceId}.clis`; web parses with Zod (legacy minimal docs fall back to `unknown`) and `CliFleet` renders the real panel in Devices.
+- **Events**: `CliBridgeOptions.onEvent` emits schema-valid `status`/`output` events during runs; `thinking`/`tool_call`/`file_diff`/`fallback`/`error` types are defined for the next stream parser.
+- **Verification**: `npm run typecheck` clean; `npm run lint` clean; `npm test` 34 files / 332 tests passed; `npm run build` web green (16.60s, pre-existing chunk warning); a11y audit `node apps/web/e2e/a11y.mjs .sir/evidence/agentic-os-a11y after` -> 0 findings (`.sir/evidence/agentic-os-a11y/after.json`). Playwright chromium was installed to `D:\Caches\ms-playwright` for the audit.
+- **Commit**: `827b80f` on `main`.
+- **Honest gaps**: unified chat still emits raw `output`/`status` only (no thinking/tool/diff/fallback parser yet); Hermes/OpenClaw/Droid/Dsh/Pi are not in `CLI_IDS`; no manager picker, team roster or chat surface yet; CI remains quota-red so local gates are the recorded proof.
+- **Next step (exact)**: phase 2 stream parser that upgrades CLI stdout/stderr into `thinking`/`tool_call`/`file_diff`/`fallback` `ChatEvent`s and a minimal chat surface that consumes them.
+
+## Round 2026-11-13 (verify-r70-sir-ai): Verification close-out - DONE
+- **Verification**: local gates re-run this session: typecheck clean (10 workspaces), eslint clean, 324 tests passed (32 files), web build green (5.61s); a11y after-run 0 findings; tree clean (accidental icon/dev-script changes restored to HEAD).
+- **Report**: `ops/agy-runs/reports/verify-r70-sir-ai.md` updated with final re-verification section.
+- **Item 3 (r70 cycle)**: honestly open (next unfinished tasks / owner open requests not triaged); out of scope for this verify task.
+- **Next step (exact)**: next improvement cycle lens for SIR AI: offline and error recovery, or security and auth.
+
+## Round 2026-11-13 (r70-cycle-sir-ai): Accessibility and Keyboard Audit - DONE (close-out)
+- **Lens**: accessibility and keyboard (new lens for SIR AI; earlier cycles used offline/error recovery, perf/bundle, data integrity, etc.).
+- **Audit before**: `node apps/web/e2e/a11y.mjs .sir/evidence/r70-a11y baseline` -> 27 findings (touch-target 18, focus-unnamed 3, field-aria-only 2, field-placeholder-only 2, landmark-main 1, harness 1); per page: en/auth 4, en/today 2, en/automations 4, en/settings 1, en/download 5, ar/auth 3, ar/today 2, ar/automations 1, ar/download 5.
+- **Fixes shipped** (one commit each, pushed to main; range 8db88ac..f1cfde0): fb21360 auth legal/download 44px targets; 3b5bdc4 ask card input labelled by text; fefbe0e automations single main; 4f66f8f pause switch 44px; 8cd521a pricing/plan currency buttons 44px; bcb8221 tab bar overflow-x-auto; 6cfd0a7 audit harness label resolution; 22d2efd evidence + _debug-signin; 04a4611 remove scratch _debug-* scripts; f1cfde0 refresh after evidence.
+- **Audit after**: `node apps/web/e2e/a11y.mjs .sir/evidence/r70-a11y after` -> 0 findings (final re-run at close-out).
+- **Verification**: typecheck clean, eslint clean, 324 tests pass, web build green; CI quota flag present, local verification is the recorded proof.
+- **Reports**: `.sir/reports/2026-11-13-cycle.md`, `ops/tasks/reports/r70-sir-ai.md`, `ops/agy-runs/reports/r70-cycle-sir-ai.md`, `ops/agy-runs/reports/verify-r70-sir-ai.md`, `ops/verifications/r70-cycle-sir-ai.md`.
+- **Close-out (this session)**: verification file written, taskboard finish + pass, lock released, team bus DONE note, this checkpoint committed, agy-done signal sent.
+- **Honest gap**: item 3 of the round checklist (next unfinished tasks / owner open requests) was not taken this round; marked open in the verification file.
+- **Next step (exact)**: next improvement cycle lens for SIR AI: offline and error recovery, or security and auth.
+
+## Round 2026-11-13 (r68-sir-ai-bot-answers): Privacy Classifier Fix for Telegram Bot - DONE
+- **Problem**: The bot replied "This looks like a private question and was not sent to any outside model" to normal messages like "Hi". Root cause: all messages were classified as P1, but no providers had `noTraining: true` without env flags.
+- **Solution**: Rewrote `packages/core/src/privacy.ts` `classifyMessage()` to properly classify messages into P0/P1/P2/P3 tiers using a collect-all-matches + highest-priority-wins approach.
+- **Files changed**:
+  - `packages/core/src/privacy.ts`: Complete rewrite of classifier with Unicode-aware Arabic patterns
+  - `packages/core/test/privacy-classifier.test.ts`: 21 comprehensive tests (4 P0, 6 P1, 4 P2, 4 P3, 3 edge cases)
+  - `apps/bot/src/handlers.ts`: Removed unused `clearMemory` function
+  - `.sir/BOT_PLAN.md`: Planning document created per brief requirement
+- **Key fixes**:
+  - Arabic word boundaries: replaced `\b` with Unicode-aware `(?<![\p{L}\p{N}_])` / `(?![\p{L}\p{N}_])` lookbehind/lookahead
+  - P1 patterns: English "I usually/wake up/sleep/eat/etc.", Arabic possessives (ي،ك،نا،كم،هم،ها،ه) and habit verbs (أستيقظ،أنام،أعمل،أدرس...)
+  - P2 patterns: Arabic health/financial/ID terms with optional "ال" prefix and possessive suffixes; explicit private/confidential with feminine suffixes
+  - P3 patterns: Arabic password terms (كلمة المرور، كلمة السر), credit cards with separators (4111 1111 1111 1111), bare 15-16 digit numbers, AHome/Habiba refs
+  - Credit card pattern requires separators for standard groupings; national IDs (14 digits) correctly stay P2 via "national ID" pattern
+- **Verification**: All 21 privacy classifier tests pass; full suite 324 tests pass; typecheck clean; eslint clean.
+- **Commit**: `8db88ac` pushed to main.
+- **Next step**: Continue with bot handler improvements per brief (voice messages, photos, conversation memory, typing indicator, commands /plan /agents /privacy).
+
+## Round 2026-11-12 (r60-build-sir-ai): Tasks 7-9 DONE. Task 10 Watch/Car handed off (worker context exhausted).
+- STOP POINT: Tasks 7 (Billing/Paymob), 8 (Legal Pack), 9 (CLI Bridge) are complete, verified and pushed (see entries below). Task 10 was NOT started; the worker ran out of context after Task 9. No Task 10 code exists yet.
+- Task 10 exact scope (from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md`): Wear OS complication (Jetpack Compose + Glance) and watchOS complication (SwiftUI + WidgetKit) showing next plan item + next check-in countdown, updated at prayer boundaries via WorkManager/BackgroundTasks (not push); car mode (Android Auto + CarPlay) reading day summary via TTS, voice approvals ("Approve task 3" -> `/approve` via phone relay), auto-activates on car Bluetooth/Android Auto/CarPlay session; shared ar/en i18n, bidi isolated.
+- Known hard blockers to plan for: (a) watchOS/WidgetKit Swift cannot be compiled on this Windows machine - write sources + document the gap like Task 5's .ipa; (b) Wear OS needs a wearable system image in the SDK (`D:/Projects/Android/Sdk`) - check `sdkmanager --list | grep wear` before promising emulator evidence; (c) real car-mode Bluetooth/Android Auto testing is impossible here - CarPlay/Android Auto screens can only be verified via the web `#/car`-style implementation + headless evidence, honest gap required; (d) voice approvals must reuse the existing command/approval pipeline (`users/{uid}/commands`, `approvals`, phone `run_task`/approve verbs in `apps/agent`), never a new auth path.
+- Suggested order for next worker: (1) `#/car` web screen + SpeechRecognition/TTS + approval commands (fully testable, 16-combo sweep); (2) Wear OS Gradle module under `apps/` with Glance complication + WorkManager boundary updates (compile what the SDK allows, screenshot what an emulator permits); (3) watchOS WidgetKit Swift sources (unbuilt, documented); (4) evidence `.sir/evidence/task-10/`; (5) report + agy-done.
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 9 CLI Bridge DONE (ced77cd). Task 10 Watch/Car next.
+- Task 9 is code-complete and verified; committed and pushed to main as `ced77cd`.
+  - `packages/cli-bridge/src/adapters.ts`: all 8 previously detect-only CLIs are now full `CliAdapter`s with documented non-interactive run commands — codex (`exec` + `--sandbox`/`--ask-for-approval`), gemini-cli/antigravity/qwen (`-p` + `--approval-mode plan|default|yolo`), devin (`-p` + `--permission-mode normal|smart|dangerous`, `--respect-workspace-trust false` for CI), cursor-agent (`-p --output-format text`, `--force` only in auto), aider (`--message` + `--yes`/`--yes-always`), lm-studio (`lms chat <model> -p`). `RUNNABLE_ADAPTERS` now covers all 12 `CLI_IDS`; `RUNNABLE_CLI_IDS = CLI_IDS`; `detect.ts` simplified to the single adapter list.
+  - Rotation/pool/permission semantics reuse `packages/core/src/manager` unchanged: quota 60 min, refused 6 h, fast failure 15 min cooldowns already in `COOLDOWN_MS`; `classifyOutcome` unchanged.
+  - Tests: `test/task9.test.ts` 16 tests (8 adapter detect+args, unified-API coverage, 4 rotation/streaming, 3 permission-mapping). `test/task9-real.test.ts` 4 tests (Windows-only, skipped elsewhere): real `NodeProcessRunner` spawns against `.cmd` shims on PATH — `detect()` reports all 8 installed/runnable and every adapter's read_only/ask/auto args produce a real process that writes `hello.txt` in the project dir and streams output.
+  - Verification (CI minutes exhausted): typecheck clean (10 workspaces), eslint clean, 303 unit tests, web build green. Evidence log `.sir/evidence/task-9/vitest.log`.
+- HONEST GAPS: no real CLI binary is installed for the 8 new adapters on this machine, so live flag compatibility is asserted from vendor docs (Devin `--print`/`--permission-mode`, `lms chat -p` verified; codex/gemini/qwen/cursor/aider flags are the documented forms but untested against the real binaries); cursor-agent and aider have no true read-only mode — read_only maps to their least-permissive non-interactive form and the CLI's own prompts still apply; no timeline-UI screenshot exists because the bridge streams chunks to the agent service, not a web screen.
+- Next step (exact): Task 10 Watch Complication + Car Mode from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md`. If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with exact stop point.
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 8 Legal Pack DONE (7c783d3). Task 9 CLI Bridge next.
+- Task 8 is code-complete and verified; committed and pushed to main as `7c783d3`.
+  - 14 markdown sources under `docs/legal/` (en+ar): privacy, terms, refunds, cookies, dpa, sub-processors, ai-disclosure. No `data-inventory.yml` exists in the repo; the docs were written from the real data flows (Firestore collections, vault, payments, leads, Telegram, Paymob) and mark Saudi PDPL / other jurisdictions "(unsourced, verify)".
+  - `apps/web/src/screens/Legal.tsx` rewritten: imports all 14 docs via `?raw`, safe internal markdown renderer (h2/p/ul/table/links/bold only, no HTML injection), shared for all 7 routes `#/legal/{privacy,terms,refunds,cookies,dpa,sub-processors,ai-disclosure}`. `legalContent.ts` deleted. `LEGAL_PAGES` extended; Settings legal nav and `isLegalPage` route guard pick up the two new slugs automatically; i18n keys added ar/en; lawyer-review badge copy updated to "AI-drafted, to be reviewed by a qualified Egyptian lawyer before paid launch".
+  - Content requirements: privacy has the data-map table, sub-processor list link and prominent no-training clause plus official links (egazette.com.eg PDPL 151/2020, eur-lex.europa.eu GDPR); refunds states auto-renewal, no-proration and links `[Settings, Plan](/#/settings)`; ai-disclosure states not medical/legal/religious and prayer times are calculated estimates; cookies page documents equal-weight Reject/Accept and `CookieBanner` already renders both as identical `secondary` buttons.
+  - Verification (CI minutes exhausted, local substitute): typecheck clean (10 workspaces), eslint clean, 283 unit tests, web build green.
+  - Browser evidence `apps/web/e2e/legal-acceptance.mjs`: 16-combo sweep (4 widths x light/dark x ar/en) cycling all 7 pages = 0 findings, plus a per-page content pass at 1280-light-en and 390-dark-ar asserting badge, table, official links, settings link, no banned claims (SOC 2/ISO/bank-grade/military-grade) and no markdown token leakage; cookie banner button parity checked live. 30 screenshots + `acceptance.log` in `.sir/evidence/task-8/`.
+- HONEST GAPS: legal text is AI-drafted and still needs the qualified Egyptian lawyer review the badge promises before paid launch; `data-inventory.yml` was never produced so the docs are hand-derived from code, not generated from an inventory file; external link liveness (egazette/eur-lex) was asserted by href presence, not fetched.
+- Next step (exact): Task 9 Desktop Agent CLI Bridge Runners from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md`: extend `packages/cli-bridge` (or `packages/core/src/manager/`) so the 8 remaining CLIs (Codex, Gemini/Antigravity, Qwen, Devin, Cursor Agent, Aider, LM Studio) implement detect()+runTask() with quota/rotation, permission modes, SSE streaming and a mock-CLI CI harness. If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with exact stop point.
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 7 Billing/Paymob DONE (903c19e + 8386aa5). Task 8 Legal Pack next.
+- Task 7 is code-complete and verified end to end against the Firebase emulators; committed and pushed to main as `903c19e` (code) and `8386aa5` (evidence + dev harness).
+  - Core `packages/core/src/billing.ts`: `PLAN_PERIOD_DAYS` (month 30 / year 365), `PLAN_GRACE_DAYS` 7, `effectivePlan` (cancelled plan ends exactly at `planExpiresAt`; a running subscription gets the grace window and reports `grace: true`; fully expired -> free), `billingExpired`. `paymob.ts` `createCheckout` extras now carry `plan`, `period`, `user_id`, `idempotency_key`.
+  - API `apps/api/src/billingBackend.ts`: `BillingBackend` interface + `adminBilling` (Firestore `users/{uid}` merge writes, claim merge that never wipes `role`, `payments/{paymentId}` create-or-duplicate, `leads` add). Emulator mode works without a service account when `FIRESTORE_EMULATOR_HOST` is set.
+  - Routes in `handler.ts`: `GET /api/checkout/prices` (configured flag + EGP piastres + currency from Accept-Language then `x-vercel-ip-country`/`cf-ipcountry` via `detectCurrency`), `POST /api/checkout/lead` (waitlist, works with no Paymob keys), `GET /api/checkout/status` (effective plan, lazily rewrites expired plans to free in Firestore + claims), `POST /api/checkout/cancel` (one tap, `cancelAtPeriodEnd`, no proration), `POST /api/checkout` (unchanged price authority, now forwards `period`), `POST /api/paymob/webhook`.
+  - `paymobRoute.ts` rewritten: HMAC-SHA256 via `verifyCallback` over Paymob's signed field order (order kept as its raw JSON string, booleans as "true"/"false"), accepts JSON or `application/x-www-form-urlencoded` callbacks (entry.ts now parses both), extracts `merchant_order_id`/`extras` from string-or-object payloads, records `payments/{id}` once (replay = `duplicate: true` no-op), sets `plan`/`planExpiresAt`/`graceUntil`/`cancelAtPeriodEnd:false` on the user doc and mirrors them into custom claims.
+  - Web `#/pricing` (`screens/Pricing.tsx`): 5-state ViewState, monthly/yearly toggle with "2 months free", EGP-first prices with detected currency + manual override radio row, "149 EGP/mo (1,490 EGP/yr)" style line, real checkout redirect when configured, disabled "Subscriptions launching soon" + lead form when not, current-plan badge with renews/cancelled date. `screens/Plan.tsx` (Settings -> Plan): live `/api/checkout/status`, subscribe via `/api/checkout` when configured, one-tap cancel, "See full pricing" link. 33 new i18n keys ar/en.
+  - Verification (rule 18, CI minutes exhausted): typecheck clean (10 workspaces), eslint clean, 283 unit tests (6 billing + 5 webhook + 5 checkout/task-7 cases), web build green.
+  - REAL E2E against emulators (`apps/api/dev-server.ts` on :8787 + auth 9099 + firestore 8080 + vite 5173): signed webhook -> `activated:true plan:plus`, replay -> `duplicate:true`, `/api/checkout/status` -> plan plus with grace fields, `/api/checkout/cancel` -> `cancelAtPeriodEnd:true` and `accessUntil == planExpiresAt`, `/api/checkout` -> hosted Paymob URL (stubbed upstream, real route code), currency USD for `en-US` and EGP for `ar`+`EG` IP header, lead stored. Browser sweep `apps/web/e2e/pricing-acceptance.mjs`: 16 combos + interact + soon-state, 0 findings, 19 screenshots in `.sir/evidence/task-7/`.
+- HONEST GAPS (not claimed): (a) no real Paymob account/keys exist, so no live sandbox payment, no real HMAC from Paymob, and `PAYMOB_*` env vars are unset on Vercel — the coming-soon flow is what production shows today; (b) `setCustomUserClaims`/`getUser` were exercised against the Auth emulator, not production Firebase; (c) subscription renewal/webhook for renewals is the same code path but untested with a second payment; (d) owner must add `PAYMOB_API_KEY`, `PAYMOB_PUBLIC_KEY`, `PAYMOB_INTEGRATION_ID`, `PAYMOB_HMAC_SECRET` to Vercel to go live.
+- Next step (exact): Task 8 Legal Pack from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md`: 7 pages `/legal/{privacy,terms,refunds,cookies,dpa,sub-processors,ai-disclosure}` from `docs/legal/*.md` via shared LegalPage, lawyer-review badge, Egypt PDPL 151/2020 + GDPR links, Reject-All == Accept on cookies, refunds auto-renewal + cancel link, 16-combo sweep evidence in `.sir/evidence/task-8/`. If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with exact stop point.
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 4 Android DONE (b3ec9e9), Task 5 iOS DONE (a875e33), Task 6 Owner Analytics DONE (2132345).
+- Task 4: Capacitor config (appId `com.sirahmed8.sirai`, webDir `dist`), generated `apps/web/android/` Gradle project (compileSdk/targetSdk 36, minSdk 24), `npm run cap:sync -w @sir-ai/web` copies the Vite build, `assembleDebug` and `bundleRelease` both BUILD SUCCESSFUL locally (JDK 21, `ANDROID_HOME=D:/Projects/Android/Sdk`, `GRADLE_USER_HOME` moved to `D:/Projects/Android/.gradle`).
+- Phone routes `#/phone`, `#/phone/tasks`, `#/phone/pair`: `PhoneShell` + `PhoneDaily` (Fajr plan read-only, midday/evening check-in replies, Isha summary), `PhoneTasks` (live devices/commands/approvals with pause/resume/status/tasks and approve/deny), `PhonePair` (QR deep link `sirai://pair?data=` plus manual code). i18n ar/en; 44px targets; logical CSS.
+- QR pairing is real and single-use: `users/{uid}/pairingCodes/{code}` (10-min expiry, client create/read/delete, update only `used` false->true) and phone device create under `users/{uid}/devices/{id}` requires a valid unexpired unused code in the same batch. `PairingCodeCard` on Devices shows a QR (`qrcode`) + payload; `redeemPairingCode` writes the device doc and burns the code atomically. Rules test added: 25 emulator tests green (17 rules + 8 store).
+- Offline queue: Firestore `persistentLocalCache` already queues check-in/command/approval writes; `addCheckin` reports "saved on this device" when offline. Command sends carry idempotency keys.
+- Task 5: Added @capacitor/ios, generated Xcode project in `apps/web/ios/App/` (iOS 15.0 deployment target, bundle ID com.sirahmed8.sirai). Capacitor config updated with iOS section (scheme 'sirai', background color, content inset). Info.plist: CFBundleIdentifier, CFBundleShortVersionString, CFBundleVersion, NSCameraUsageDescription, CFBundleURLTypes for sirai:// deep linking, UIBackgroundModes for remote notifications. exportOptions.plist for App Store/TestFlight. Package.json scripts: cap:ios:sync, cap:ios:build (xcodebuild archive + export). cap sync ios works.
+- Task 6: Added /api/owner/analytics endpoint with owner role verification via Firebase Admin SDK (checks role === 'owner' custom claim). OwnerPage screen at #/owner with 5-state ViewState. Metrics: active users (7d), total users, retention (30d), cohort size, funnel (visits/signups/paid), AI spend per user/day with free tier cap progress bar, plan counts (free/plus/pro), activity totals (automations/notes/commands), error heatmap, CSV export. i18n owner.* keys for en/ar.
+- Verification (rule 18, CI minutes exhausted): tsc clean, eslint clean, 267 unit tests, 25 emulator tests, web build, cap sync (android + ios), Android assembleDebug+bundleRelease all green.
+- HONEST GAPS (not claimed): (a) 16-combination phone sweep screenshots not generated yet (needs the auth+Firestore emulator harness like task-2 acceptance); (b) `google-services.json`/Firebase Android app config absent, so FCM token/push is compiled but not live; (c) Android release bundle not signed with release keystore or published; (d) iOS .ipa build requires macOS/Xcode — configuration complete, not built; (e) APNs quick-reply not yet implemented (needs Apple Push Notification service setup); (f) Owner analytics requires FIREBASE_SERVICE_ACCOUNT_JSON on Vercel and owner user with role=owner custom claim — not yet tested live.
+- Next step (exact): Task 7 Billing — Paymob Adapter + Pricing Page. Implement Paymob (Egypt) payment adapter for Plus/Pro plans. Sandbox: create checkout session (amount in EGP, currency EGP), redirect to Paymob hosted page. Webhook: HMAC-SHA256 signature, idempotent activation (store payment_id in Firestore). On success: set user custom claim plan = 'plus'|'pro', planExpiresAt (server time + 30/365 days), grace period 7 days. Pricing page (/pricing): EGP first, auto-detected currency from Accept-Language + IP (GeoIP) with manual override dropdown. Until Paymob keys exist: buttons show "الاشتراكات تتوفر قريباً" + email lead form (stored in leads collection). Cancel in one tap in Settings → immediate cancellation at period end, no prorate refund. All env keys in Vercel only (PAYMOB_API_KEY, PAYMOB_HMAC_SECRET, PAYMOB_INTEGRATION_ID). 16-combo sweep. If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with exact stop point.
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 3 DONE (code + evidence committed). Tasks 4-10 open.
+- TASK 3 (Plain-Words Automation Builder) is code-complete and verified locally; committed and pushed to main as `e193cca`.
+  - Core `packages/core/src/automation.ts`: parser (EN/AR) for documented patterns ("every Sunday at 9...", "after Fajr...", "every weekday 18:00..."), never invents; `ScheduleSchema` (daily/weekdays/weekly/after-prayer), `ActionSchema` (summarize/check-conflicts/remind), `AutomationSchema` with idempotencyKey as doc id; `nextRunAt` (prayer-time aware, scans 370 days), `evaluateDue` (60-min grace window, idempotent per-day keys), `budgetStatus` (80% warn, 100% cap), `buildDryRunPreview` (honest sample-data labels), export/import JSON round-trip.
+  - 21 unit tests in `packages/core/test/automation.test.ts`: parser EN/AR examples, complete=false on unknown, cron mapping, nextRunAt prayer-aware, due evaluation with grace/sent-keys, budget warn/cap, export/import round-trip and rejections, dry-run labels, why-lines, run/budget doc validation.
+  - Firestore rules + emulator tests (4 new tests, 24 total): `users/{uid}/automations/{id}` (own-uid, fixed shape, id==idempotencyKey, schedule/action enums, time HH:mm, prayer offset 0-240), `users/{uid}/automationRuns/{id}` (server-write only), `users/{uid}/automationBudget/{day}` (server-write only), `users/{uid}/automationPrefs/main` (pause-all toggle). All 24 emulator tests green.
+  - Web: `#/automations` tab (7th, Settings unchanged), live parser preview while typing, 5-state ViewState (skeleton/error/empty/ready), rule cards with dry-run expand, run history (10 latest with why-lines), budget banner (warn/capped), pause-all toggle (game/focus mode), export/import JSON per card. i18n 67 keys ar/en. AutomationIcon added.
+  - Data layer `apps/web/src/data/automations.ts`: watchAutomations/watchRuns/watchBudget/watchPauseAll, create/update/delete/import/export, previewParse.
+  - Agent runner `apps/agent/src/automationRunner.ts`: `runAutomationPass` respects paused flag, budget cap, missing profile, idempotent run keys, honest why-lines with connection status.
+  - Verification (rule 18, CI minutes exhausted): typecheck clean (10 workspaces), eslint clean, 267 unit tests pass, 24 emulator rules tests pass, web production build succeeds (chunk-size warning pre-existing). Pushed straight to main (`e193cca`).
+- Task 3 remaining wiring (open, not claimed): (a) real WhatsApp/Calendar connections for dry-run to use live data; (b) Telegram/Push delivery channels in `fireAutomation` (currently "not connected" honest lines); (c) scheduler integration into desktop agent service periodic tick (runner exists, not yet scheduled).
+- Where evidence lives: unit test output above; acceptance screenshots and `acceptance.log` to be generated in `.sir/evidence/task-3/` (next step).
+- Next step (exact): Task 4 from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md` (Phone Remote Capacitor Shell Android) — Capacitor config, Android build, daily rhythm screen, live task list, QR pairing, offline queue, 16-combo sweep. If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with the exact stop point.
+- Open promises carried forward: see "Open promises" below (unchanged, from rounds 25-27).
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 2 DONE (code + evidence committed). Tasks 3-10 open.
+- TASK 2 (Connector Marketplace, official MCP registry) is code-complete and verified locally; committed and pushed to main as `37c1557` (core), `c446ceb` (rules), `46e7a99` (web + evidence).
+  - Core `packages/core/src/mcp.ts`: tolerant zod schemas of the real registry payload, `scanCapabilities` (BLOCK: full-mailbox/shell/arbitrary-exec/payments/credentials/mass-email/system-files -> "review"; WRITE patterns -> "write"; else readonly), `buildMarketEntries` (keeps registry order, caps at 80), `filterMarket` (query = all-words-substring over title/id/publisher/description; `latest` tab = 24 most recently published by publishedAt desc; `safe` = readonly only). Google Workspace pack model (`GOOGLE_PACK`: calendar write+approval gate scope calendar.events; gmail read, drive search, tasks readonly) + `GooglePackStateSchema`. 22 unit tests (`packages/core/test/mcp.test.ts`), all green.
+  - Registry access (honest): the catalogue is the LIVE official registry (registry.modelcontextprotocol.io) fetched directly by the browser (CORS open), `version=latest` so ids are unique; 6h localStorage cache (`sirai.marketplace.v1`) with honest "Updated N min ago" / offline-copy copy; search hits the registry's own `search=` endpoint (debounced 300ms, per-query cache, local substring fallback when offline).
+  - "Registry verified" = entry listed active by the official registry (namespace ownership proven at publish), copy + tooltip both say it is NOT a code audit. No OAuth scopes exist in the registry, so the risk scan is a documented heuristic and fails strict.
+  - Firestore rules: `users/{uid}/integrationPacks/{provider}` (own-uid, provider pinned google, calendar/gmail/drive/tasks booleans, updatedAt number) + `users/{uid}/connectorAudit/{id}` (client read own, no client writes). Emulator rules suite 20/20 green.
+  - Web: `#/marketplace` screen (search, All/Latest/Read-only tabs, verified badge + honest tooltip, risk chips, review/write notes, ViewState 5 states incl. empty-on-no-match, View source link), entry from Settings -> Connections ("Browse the marketplace"), Google pack card with 4 independent toggles persisted to `integrationPacks/google`, per-connector health lines (last sync / never-succeeded / machine error code).
+  - Evidence: `apps/web/e2e/connectors-acceptance.mjs` + `.sir/evidence/task-2/` (33 files, 16-combo screenshots + acceptance.log: 46 passed 0 failed; live catalogue renders 80 cards, verified badges 80, registry search "gmail" narrows 80 -> 22, pack calendar toggle persists across reload, seeded google connected + ticktick error render incl. health code/lastSync lines).
+  - HONESTY CAVEAT: connected/error/connecting states were rendered from owner-REST-seeded emulator docs. NO live Google OAuth consent was performed and NO provider was called; seeded data is evidence of rendering only. Live consent (Ahmed's own Allow tap) and a real Calendar-write approval roundtrip remain OPEN and are not claimed.
+- Verification (rule 18, CI minutes exhausted): typecheck clean (10 workspaces), eslint clean, 26 files / 246 tests pass, web production build succeeds (chunk-size warning is pre-existing), emulator rules 20/20, acceptance 46/46. Pushed straight to main (`46e7a99..`).
+- Task 2 remaining wiring (open, not claimed): (a) live Google OAuth consent roundtrip (needs Ahmed's sign-in + Allow tap; server side exists from round 25b, untested live); (b) Calendar-write action -> approval request -> execute -> audit-log-with-approval-id flow to be proven end to end once (a) exists; (c) health "last success + error codes" becomes real only after (a); (d) TickTick live connect likewise untested.
+- Where evidence lives: `.sir/evidence/task-2/acceptance.log`, screenshots `*-{marketplace,connections}.png`. Task 1 evidence in `.sir/evidence/task-1/`.
+- Next step (exact): Task 3 from `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md` (read it first), same loop as Tasks 1-2 (core schemas + tests -> rules + emulator tests -> UI -> acceptance evidence -> commit/push). If cut off, write HANDOFF in `D:/Projects/_SIR/ops/bus/team.md` with the exact stop point.
+- Open promises carried forward: see "Open promises" below (unchanged, from rounds 25-27).
+
+## Previous round 2026-11-12 (r60-build-sir-ai): Task 1 DONE, plan refresh committed
+- Rule 20 rescan committed as `c043cb8` (`.sir/PLAN_REFRESH.md`: all 10 task gaps found in `_SIR/ops/briefs/sir-ai-tasks.md`, priority order, freshness notes).
+- TASK 1 (Memory Notes CRUD + Graph View) is DONE and pushed straight to main:
+  - `0a0d8fa` core: `packages/core/src/memory.ts` (zod `MemoryNoteSchema`, P0-P3 tiers, typed links project/person/date, `idempotencyKey` doubling as Firestore doc id, export bundle builder (index.json + per-note .md), import validation, `buildGraph`/`filterGraph`/`graphFacets`), 14 unit tests in `packages/core/test/memory.test.ts`. `firebase/firestore.rules`: `users/{uid}/notes/{id}` own-uid-only with fixed shape, doc id == idempotencyKey, tier enum, updatedAt >= createdAt, immutable createdAt/idempotencyKey. Emulator rules suite green (2 files, 18 tests incl. cross-uid read/write denial).
+  - `6783cbc` web: nav tab notes (6th, no renumbering), `App.tsx` wiring, `apps/web/src/screens/Notes.tsx` (list/graph, export/import, editor), `apps/web/src/components/NoteGraph.tsx` (synchronous d3-force SVG, 640x420 viewBox), `apps/web/src/data/notes.ts` (watch/CRUD, fflate zip export/import, idempotent re-import), i18n ar/en keys, icons, `sweep.mjs` 6-tab update + notes section. typecheck, lint, 25 files/224 tests, build all pass.
+  - `f2f2cbe` evidence: `apps/web/e2e/notes-acceptance.mjs` + `.sir/evidence/task-1/` (32 screenshots: 4 widths x 2 themes x 2 locales, list + graph; `acceptance.log` shows 13/13 phase 1 (UI create 10 notes -> export 10 .md + index.json with tiers/links -> REST delete -> UI import restore) and 16/16 phase 2, 29 passed 0 failed). Key fix: profile load syncs Firestore `users/{uid}.locale` into the UI and overrides localStorage, so the acceptance patches the user doc locale via emulator REST per combo instead of flipping only localStorage.
+- Verification env notes: emulators need JDK 21 on PATH (`export PATH="/d/Projects/Android/jdk21/jdk-21.0.13+9/bin:$PATH"`); local `npm run test:emulator` fails (firebase-tools not in node_modules) - use `npx --yes firebase-tools@latest emulators:exec --only firestore --project sir-ai-official "vitest run --config vitest.rules.config.ts"`. Chromium headless sweep/acceptance run against Vite dev (5173) + auth (9099) + firestore (8080).
+- CI minutes exhausted (rule 18 flag `ops/ci-quota-exhausted.flag`): "green" = local verify output, still pushing to main.
+- GitHub audit note: 5 pre-existing high-severity findings in the tree NOT from the new deps (d3-force, fflate); zod<4.6.6 advisory noted, not force-upgraded.
+- Next step (exact): Task 2 (Connector Marketplace, `D:/Projects/_SIR/ops/briefs/sir-ai-tasks.md`) - read the brief section, scope the OAuth/connector data model and screens, build in the same pattern as Task 1 (core schemas + tests -> rules + emulator tests -> UI -> sweep/acceptance evidence), commit per slice, push. Alternatively stop cleanly per quota with HANDOFF in `ops/bus/team.md`.
+- Open promises carried forward: see "Open promises" below (unchanged, from rounds 25-27).
+
+## Previous rounds
+
+## Round 43: competitor and idea research (2026-11-12, Haiku research worker)
+- Now: `.sir/plans/COMPETITOR_MATRIX.md` (Teamily AI, AgentsRoom, OpenClaw, Personal.ai, Poke, Lindy, n8n, Smithery and the official MCP registry, plus Hermes, Goose, OpenHands, mem0, Letta, Obsidian) and `.sir/plans/FEATURE_IDEAS.md` (70 tagged ideas) written. Licences and stars checked with the GitHub API; competitor prices from aggregators are marked unverified.
+- `legacy/agentic-os-research/mcp-servers` cloned (6.3 MB, `.git` removed). `legacy/agentic-os-research/README.md` records every clone's licence and size (about 1.5 GB total). OpenClaw (14 GB) was NOT cloned.
+- Design principle added to `_SIR/ops/LESSONS.md`: every product runs the same competitor research.
+- Blocker: `D:/Projects/_SIR/ops/locks/` is denied to this worker (both the lock file and a read were refused), so the lock could not be read. Work was limited to `.sir/plans` and `legacy/`, as the fallback rule allows. No product code touched.
+- Finding for the plan: n8n's Sustainable Use License forbids selling it as the core of a product, so n8n stays an optional worker. Smithery hosted connections are reported as ending (conflicting reports), so the connector marketplace must not depend on a third-party proxy.
+- Next step (exact): owner or HQ reviews the two plan files; then pick 5 ideas from FEATURE_IDEAS.md and turn each into a `.sir/TASKS.md` entry with an acceptance test. Re-check Poke and Smithery status in one week (both change owner in 2026).
+- Open promises: verify the Teamily AI price and platforms on the live site when a browser pass is available (its About page did not state them); verify OpenClaw skill-security claims on its GitHub docs; `openit-ai/open-agent-os` licence: GitHub says Apache-2.0 but the old plan says BSL for Company edition, so read its LICENSE files.
+
+## Round 27 (2026-11-12, stopped by owner order; free CLI agents continue from here)
+Coordinator's round, items 1-3, one at a time, CI green after each, commit and push to main, before/after evidence at 320/390/768/1280, ar/en, light/dark:
+1. OWNER_DEFAULTS 14-16 (native feel, bidi, currency auto-detect): BUILT and verified in the sweep, committed with this checkpoint.
+   - `packages/core/src/bidi.ts` (firstStrongDir, inputDir, isMixedScript, splitRuns) and `region.ts` (detectCurrency from language tags, then time zone, then EGP), 8 new tests (210 total).
+   - `apps/web/src/components/Bidi.tsx` wraps user/AI text runs in `<bdi>` (AI answer, recommendation titles, device names, approvals, agent briefs). Ask input direction follows the first letter live and returns to the page direction when empty.
+   - `AppMenu.tsx`: own right-click/long-press menu (Refresh, Today, Settings, language, appearance); native menu kept on inputs, `.selectable` text and links. CSS: `user-select:none` on body, text selectable in fields, AI answer and legal pages.
+   - Plan tab: currency auto-detected, manual choice saved in `sirai.currency` and wins, hint text added.
+   - Sweep (`apps/web/e2e/sweep.mjs`) now checks user-select, menu open/close, live bidi, currency, and shoots all 16 width/theme/locale combos. Final run: 0 findings. Evidence: `.sir/evidence/r27-after/` (before: `.sir/evidence/r27-before/`, only the older 6-combo subset exists).
+   - NOT done: CI result of the r27 commit not yet read; context-menu screenshot caught mid fade-in (cosmetic; wait 300 ms before shooting if you want a clean picture); a global live-direction listener for future uncontrolled inputs (only the Ask box is free text today).
+2. NOT STARTED (item 18): mine `SIR AI/legacy/` fully, and TickTick notes "30-Day Projects Sprint" and the project-ideas notes in My notes column "Me" only (never "habobty", never the Accounts note). The 30-idea note was already mapped in MASTER_PLAN section 17. Port the remaining real ideas forward with citations in MASTER_PLAN and TASKS.
+3. NOT STARTED: continue `D:/Projects/_SIR/plans/SIR_AI_ASSISTANT_REQUIREMENTS.md`: the Jarvis-like voice and visual assistant with per-visitor personalization (nothing hard-coded to the owner). Voice input and read-aloud exist on the Ask card; next are wake-free hands-free turns, visual output, and a per-user profile driving tone and goals.
+Also unread: legacy folder; BOT/webhook work from round 26 is finished.
+Next step (exact): `gh run list --limit 3` for the r27 commit; if green, start item 2.
+
+## Round 26 (2026-11-12, sir-ai-builder)
+- Telegram per BOT_ARCHITECTURE.md: one shared bot, webhook `/api/telegram/webhook` (secret header), `/start <code>` links the chat, tappable `https://t.me/SirAiAssistantBot?start=<code>` link plus the code, BotFather commands and description set. `VITE_TELEGRAM_BOT_USERNAME` fixed in `apps/web/.env.local` so the link shows in the build.
+- Voice (T-06E): mic and read-aloud on the Ask card via browser speech APIs (`apps/web/src/lib/voice.ts`); proven in the sweep with a fake SpeechRecognition (auto-submit and speak call checked).
+- Found by audit: the cookie banner covered the bottom nav on phones, and the first fix covered the sign-in button. Now it sits at the bottom, reserves page room (`--cookie-h`), and rises above the nav only when the nav exists. Sweep checks the overlap with consent undecided.
+- Owner bug list (a)-(f): tab bar scroll, scroll-snap, "..." menu, "حياتنا" sidebar, Dynamic Island, hamburger duplicates do not exist in SIR AI code (grep confirmed); they belong to another product, not investigated here.
+- Verified: typecheck, lint, 202 tests, full sweep 0 findings. Emulators need JDK 21 on POSIX PATH (`/d/Projects/Android/jdk21/jdk-21.0.13+9/bin`).
+- Next: not yet read: OWNER_DEFAULTS items 14-18 (context menu, bidi inputs, currency auto-detect) and legacy/ mining beyond TickTick.
+
+## Reply to HQ keys-agent's note (2026-11-11, sir-ai-builder): done
+Standardized on `FIREBASE_SERVICE_ACCOUNT_JSON` everywhere: `apps/agent/src/main.ts`, `apps/bot/src/main.ts` (falls back to `applicationDefault()` when unset, e.g. Workload Identity), `apps/desktop/src/agentProcess.ts` now all read only that name. Removed `FIREBASE_SERVICE_ACCOUNT_B64` from the Vercel env (production and preview) and deleted both `_B64` and `_FILE` lines from the local `.env`; `_FILE` was never set on Vercel so nothing to remove there. Confirmed against the Firestore emulator: `npx firebase-tools emulators:exec --only firestore ... "vitest run --config vitest.rules.config.ts"` → 2 files, 17 tests passed, including the `EncryptedTokenVault`/`FirestoreVault` token-store tests.
+Also found and filled two more missing pieces while at it: `OAUTH_STATE_SECRET` and `TOKEN_ENCRYPTION_KEY` did not exist anywhere (so every `/api/oauth/start` call was silently answering `setup_needed` even with the client ids set) — generated two fresh random 32-byte secrets with Node's own `crypto.randomBytes` (not an external credential, just this server's own secret) and added them to Vercel production and preview; also added `API_PUBLIC_BASE=https://sir-ai-pi.vercel.app` (both envs) and `API_ALLOWED_ORIGINS` to preview (production already had it). Redeployed with `node scripts/deploy-hosts.mjs` (had to point it at `npx firebase-tools` / `npx vercel` instead of the bare commands, which were not on this shell's PATH) — both hosts again serve identical files, and `/api/health` now reports `oauth: ["google","ticktick","notion"]`.
+**Live proof, this session:**
+- **Real AI answer on both hosts**, proven without touching Ahmed's account: minted a disposable Firebase Auth test user with the Admin SDK (the service account already set up for the token store), exchanged it for a real ID token via Identity Toolkit, called the live `/api/ask` — both `sir-ai-official.web.app` and `sir-ai-pi.vercel.app` route to the same answer, `gemini/gemini-flash-lite-latest` replied "ready"/"Ready" — then deleted the disposable test user immediately after. No token or key was ever printed.
+- **Telegram bot is live**: `getMe` on the real `TELEGRAM_BOT_TOKEN` returns `{"ok":true,"username":"SirAiAssistantBot","is_bot":true}`. Did not call `getUpdates` or send any message: a real chat could already be waiting in the queue, and consuming/answering it would be sending a message to a real person without asking first.
+- **Live OAuth consent screens (Google/TickTick/Notion) — NOT done.** Completing one needs the app's own "Continue with Google" sign-in first, which is a sign-in action for the SIR AI app as Ahmed; that stays with him under my rules even using his already-authenticated Chrome, so I stopped at the sign-in screen and closed the tab rather than clicking it. The server side is ready and tested on fakes (`apps/api/test/oauth.test.ts`); someone signed in as Ahmed needs to open Settings → Connections → Connect for each provider and click Allow (not read any data after).
+
+## Note to sir-ai-builder: service-account variable name (2026-11-11, HQ keys-agent)
+The codebase reads THREE different names for the same Firebase service account, which will not work together:
+- `apps/agent/src/main.ts`, `apps/bot/src/main.ts`, `apps/desktop/src/agentProcess.ts` read `FIREBASE_SERVICE_ACCOUNT_FILE` (a path to a JSON file on disk) — fine for local/desktop processes, useless on Vercel.
+- `apps/api/src/entry.ts` and `apps/api/src/firestoreVault.ts` read `FIREBASE_SERVICE_ACCOUNT_JSON` (raw JSON text) — this is what the live Vercel token vault actually uses.
+- I had set `FIREBASE_SERVICE_ACCOUNT_B64` (base64 of the JSON) first by mistake; nothing in the code reads that name.
+What I did to unblock both paths without touching code: the project's `.env` (gitignored) and the Vercel env (production + preview) now carry all three: `FIREBASE_SERVICE_ACCOUNT_B64`, `FIREBASE_SERVICE_ACCOUNT_JSON` (minified, what the API actually needs), and `FIREBASE_SERVICE_ACCOUNT_FILE` (points to `.sir/_local/serviceAccount.json`, gitignored, for local agent/bot/desktop runs).
+Please pick ONE name across the whole codebase (recommend `FIREBASE_SERVICE_ACCOUNT_JSON`, since that is what the deployed API already reads and Vercel has no writable filesystem for a `_FILE` path) and update `apps/agent`, `apps/bot`, `apps/desktop` to decode it the same way, then delete the other two from env once confirmed. The service account is `sir-ai-token-store@sir-ai-official.iam.gserviceaccount.com` with `roles/datastore.user` on `sir-ai-official`.
+
+## Names (rule 13)
+- Firebase project: display name "SIR AI", id `sir-ai-official` (existed, reused). Web app "SIR AI Web Portal". Firestore (default) database created 2026-11-11 in eur3.
+- GitHub repo: `sirahmed8/sir-ai` (private, existed, reused).
+
+## Hosts (both serve the same build)
+- Firebase Hosting: https://sir-ai-official.web.app
+- Vercel: https://sir-ai-pi.vercel.app (project `sir-ai`, GitHub repo connected, git-triggered deploys switched off on purpose so both hosts always get the identical build from `node scripts/deploy-hosts.mjs`)
+- Same files proven by HTTP on 2026-11-11: both hosts return index html sha256 e69615264 and main bundle /assets/index-DRCGMAY7.js sha256 d9afa8610742. The /api routes exist only on Vercel (Firebase Hosting on the free plan cannot run functions), so any client call must use the Vercel address as API base.
+- API (Vercel function, same for both hosts): `/api/health`, `/api/ask`. No AI provider key exists yet (names to set: AI_BASE_URL, AI_MODEL, AI_API_KEY and optional AI2_*): `/api/ask` answers 503 ai_not_configured until the owner adds one.
+
+## Now
+Live on 2026-11-11: https://sir-ai-official.web.app and https://sir-ai-pi.vercel.app serve identical files; /api/health on Vercel reports aiConfigured true (GEMINI_API_KEY and OPENROUTER_API_KEY exist in the Vercel env). The chain code answered live from real Gemini through `node --import tsx packages/ai-chain/live-check.mjs` (23 models listed, flash-lite answered). A live answer through the app on both hosts still needs Ahmed to sign in once on each host.
+Round 25b: AI chain package, Ask card, recommendation generator and screen, OAuth PKCE routes with encrypted vault, checkout route, PWA with offline queue, remote control (agent service, commands, approvals, Telegram verbs).
+Round 25c (this session): confirmed and documented the desktop-is-the-assistant / phone-is-the-remote model (MASTER_PLAN sections 14-16, PLATFORMS.md); built `packages/cli-bridge` (T-06B: detects Claude Code, Codex, Gemini/Antigravity CLI, Qwen Code, OpenCode, Kilo, Devin, Cursor Agent, Aider, Ollama, LM Studio; runs tasks non-interactively for Claude Code/OpenCode/Kilo/Ollama with a mock-CLI test harness; rotates on usage limit/refusal/fast failure reusing `packages/core`'s queue/pool/runner) and wired it into `apps/agent` so a remote `run_task` really executes; built `apps/desktop` (T-06C: Electron shell, security checklist, single-instance lock, tray, auto-update via electron-updater, spawns the agent service); built the public `#/download` + pricing screen (T-06D), linked from the sign-in screen and Settings. Verified: 183 unit/integration tests (up from 166), typecheck and lint clean across all 10 workspaces including the two new ones, full browser sweep with 0 findings.
+
+## Next step (exact)
+1. Wait for OAuth client ids and a Firebase service account JSON for the token vault (names in ARCHITECTURE section 12), then run each consent screen once.
+2. Paymob: keys, a sandbox run, then the payment callback that activates the plan (T-051).
+3. Desktop: a first GitHub Release so `electron-builder`'s auto-update and the `#/download` Windows link have something real to point at; code-signing or an accepted SmartScreen warning.
+4. T-061 push notifications, QR pairing for devices, voice commands, Capacitor shells (T-066 and after), the other 8 CLI adapters (Codex, Gemini/Antigravity, Qwen Code, Devin, Cursor Agent, Aider, LM Studio — currently detect-only).
+
+## Open promises
+- Live AI answer: done (see above). Live Telegram token: confirmed live via getMe; sending/receiving a real message is not attempted (see above). Live OAuth consent screens: server ready and tested, needs Ahmed's own sign-in to click through (see above). Paymob sandbox: still needs keys that do not exist yet.
+- The agent service is not installed as a Windows service/scheduled task yet; today it is spawned by `apps/desktop` or run manually with `npm run start -w @sir-ai/agent`, and needs SIR_AGENT_UID and a service account file.
+- No signed Windows installer published yet; `apps/desktop` typechecks and builds but has not been packaged with `electron-builder` or run end to end on a clean machine.
+- Real-phone checks (iOS and Android) are not done; only Chrome touch emulation.
+- Only 4 of 12 CLIs are runnable (Claude Code, OpenCode, Kilo, Ollama); the other 8 are detect-only.
+- Test setup: emulators need JDK 21 (C:/Program Files/Microsoft/jdk-21.0.13.21-hotspot); `npm run test:emulator`; `npm run e2e` needs `npm run dev` and the emulators; `node apps/web/e2e/pwa.mjs` needs a build served by `npm run preview`.
+
+## Decisions
+- Spark plan has no Cloud Functions, so the bot service is a Node app on a free scheduler.
+- Firebase web config goes in `.env.local` (gitignored); `.env.example` lists names only.
+- Owner Edition (local daemon) deferred to M5; legacy untouched.
+
+## Re-read after reset
+`.sir/MASTER_PLAN.md`, `.sir/TASKS.md`, `.sir/ARCHITECTURE.md`, `D:/Projects/_SIR/plans/SIR_AI_ASSISTANT_REQUIREMENTS.md`.
+
+## HQ note (2026-11-11 05:55)
+- Now: ownership decided by the owner: the Sonnet agent sir-ai-builder owns M2 to M4 (no other writer; CLI task r25-sir-ai was reassigned and its worker killed). Hosts: Firebase https://sir-ai-official.web.app and Vercel https://sir-ai-pi.vercel.app (same build, deploy with scripts/deploy-hosts.mjs).
+- Next step: read the uncommitted work of the earlier CLI writer (Admin, Agents, Integrations, Plan screens), keep or fix it, commit; then T-030 to T-053 in order; check `gh run list --limit 3` after every push.
+- Open promises: real Google sign-in test, touch-drag result, Telegram bot token for the product (BotFather), M2 to M4.
+- Re-read after a reset: D:/Projects/_SIR/plans/OWNER_METHOD.md, D:/Projects/_SIR/plans/SIR_AI_ASSISTANT_REQUIREMENTS.md, .sir/TASKS.md.
+[0m
+Now let me update the HQ checkpoint and owner request ledger, then write the reply.
+[0m→ [0mRead ops/HQ_CHECKPOINT.md[90m [offset=1, limit=100][0m
+[0m→ [0mRead ops/OWNER_REQUEST_LEDGER.md[90m [limit=50, offset=1][0m
+[0m
+[0m← [0mEdit ops/HQ_CHECKPOINT.md
+Index: D:/Projects/_SIR/ops/HQ_CHECKPOINT.md
+===================================================================
+--- D:/Projects/_SIR/ops/HQ_CHECKPOINT.md
++++ D:/Projects/_SIR/ops/HQ_CHECKPOINT.md
+@@ -33,8 +33,16 @@
+ 
+ ## Re-read after a reset
+ `D:/Projects/AGENTS.md` · `_SIR/NEXT.md` · `ops/OWNER_STANDING_REQUESTS.md` · `ops/ACCOUNT_ROTATION.md` · `plans/CLI_AGENT_INSTRUCTIONS.md` · `plans/LOW_USAGE_MODE.md` · `ops/AUTOPILOT_QUEUE.json` · `AHome/.sir/R14_CHECKLIST.md`
+ 
++## HQ note (2026-11-14 00:00) [backup manager]
++- Owner burst 11-14 01:55 with 12 messages + 11 photos (AHome profile, calling, GIF picker, games XO, 3D tunnel, AHome AI bot errors, Portfolio site)
++- Queued 4 new tasks: r74-ahome-profile-save-fix, r75-ahome-calling-fix, r76-ahome-games-gifs-fix, r77-portfolio-project-names
++- SIR AI is active: sir-ai-agentic-os-02 (stream parser) and normal-sir-ai-runnable-adapters-01 (8 CLI adapters) in progress; recent cycles r70 (a11y), r68 (bot privacy) verified
++- Free tools at quota limit; autopilot will pick up queued tasks when slots free
++- C: ~18.8 GB free, D: ~56 GB free
++- Telegram bot token inactive, will refresh env var
++
+ ## History
+ `ops/archive/HQ_CHECKPOINT_until_2026-11-10.md` (full old file, 131 KB, including the 2026-10-29/30 phase notes, wave 0 PR notes and the old Open promises list). Mission log: `ops/MISSION_LOG.md`.
+ 
+ ## Done (r16-control)
+
+[0m
+[0m→ [0mRead ops/OWNER_REQUEST_LEDGER.md[90m [offset=140, limit=50][0m

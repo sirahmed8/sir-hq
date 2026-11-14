@@ -34,6 +34,14 @@ See `ops/OWNER_ACTIONS.md` (sign-ins, 2FA, CAPTCHA, payment, identity only).
 ## Re-read after a reset
 `D:/Projects/AGENTS.md` · `_SIR/NEXT.md` · `ops/OWNER_STANDING_REQUESTS.md` · `ops/ACCOUNT_ROTATION.md` · `plans/CLI_AGENT_INSTRUCTIONS.md` · `plans/LOW_USAGE_MODE.md` · `ops/AUTOPILOT_QUEUE.json` · `AHome/.sir/R14_CHECKLIST.md`
 
+## HQ note (2026-11-14 00:00) [backup manager]
+- Owner burst 11-14 01:55 with 12 messages + 11 photos (AHome profile, calling, GIF picker, games XO, 3D tunnel, AHome AI bot errors, Portfolio site)
+- Queued 4 new tasks: r74-ahome-profile-save-fix, r75-ahome-calling-fix, r76-ahome-games-gifs-fix, r77-portfolio-project-names
+- SIR AI is active: sir-ai-agentic-os-02 (stream parser) and normal-sir-ai-runnable-adapters-01 (8 CLI adapters) in progress; recent cycles r70 (a11y), r68 (bot privacy) verified
+- Free tools at quota limit; autopilot will pick up queued tasks when slots free
+- C: ~18.8 GB free, D: ~56 GB free
+- Telegram bot token inactive, will refresh env var
+
 ## History
 `ops/archive/HQ_CHECKPOINT_until_2026-11-10.md` (full old file, 131 KB, including the 2026-10-29/30 phase notes, wave 0 PR notes and the old Open promises list). Mission log: `ops/MISSION_LOG.md`.
 
@@ -426,3 +434,11 @@ r71-ahome-profile-editor-fixes implemented and pushed straight to AHome main (21
 - Ollama auto-unloaded qwen (keep_alive) - llama-server RAM freed. AHome local-core healthy on 8090.
 - SIR AI work is RUNNING: autopilot task sir-ai-agentic-os-02 (pid 40256) + normal-sir-ai-runnable-adapters-01 queued. Model pool mostly cooling/limited - normal rotation.
 - Disks: C 8.9GB free, D 7.9GB free (D dropped - autopilot artifacts; disk cleanup task exists).
+
+## HQ note (2026-11-14 02:20) [Devin = backup manager]
+- Bot SHORT descriptions set (the visible "What can this bot do" line) for all 4 bots - long descriptions were already set earlier; both now done.
+- Hermes gateway restarted (PID 13324) to load new SOUL.md (personality + Ahmed bio + adult-allowed + Egyptian Arabic). Context 65536.
+- Telegram audit: the 23:54 feature burst DID become tasks r74/r75/r76 (AHome calls/games/gifs) + r77 (portfolio names/navbar). Nothing lost.
+- Folder icons: desktop.ini IconResource set for 25 projects on D:\Projects AND Desktop\SIR Projects - AHome now uses assets/brand/icon.ico (pink home icon, the correct one).
+- New queue tasks (briefs+prompts written): r78 portfolio complete (favicon, navbar logo, 6 missing projects, descriptions, animations), r79 SIR AI branding (favicon+logo), r80 AHome models audit, r81 Jobs/Study/Portfolio AI features, r82 verify sweep all projects. Queue = 202 items, autopilot heartbeat live.
+- llama-server = Ollama's runner for qwen3.5:9b (serves Hermes + AHome local AI). Auto-unloads when idle (verified: 0 models loaded now, RAM freed). ~2-4GB only while warm.
