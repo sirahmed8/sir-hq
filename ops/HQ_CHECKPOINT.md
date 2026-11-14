@@ -9,9 +9,9 @@
 - Additional task added: 7-ahome-audit-models (audit local AI models and fallback chain).
 - Queue status: 1 active, 2 inbox (6-fix-laptop-manager-evidence, 7-ahome-audit-models), 32 review, 181 done.
 
-## HQ note (2026-11-14 16:21) [free manager]
-- All healthy: autopilot heartbeat 4 min, heartbeat ok; AHome runner pid 13684 on r76-ahome-games-gifs-fix-fix1 (round 1 ended ok 16:18, still working); second open task r75-ahome-calling-fix-fix1 waits for AHome writer slot.
-- CI "failure" on AHome/Jobs/Study/Laptop is the GitHub Actions quota flag (ops/ci-quota-exhausted.flag set; runs die in ~3-5s); watchdog sees it, no repair tasks needed.
-- Last commits: AHome 4 min ago, Laptop Manager 21 min, _SIR 21 min, Jobs 2h, Study 3h (both just had audit-1231 rounds done and verified PASS).
-- Pool: devin, aider-cerebras, agy-sonnet available; kilo/kilo-auto out 331 min (auth), big-pickle/beam-free/flint cooling ~19-32 min.
-- Queue has 2 open tasks so no new brief queued; standing owner requests covered by active work.
+## HQ note (2026-11-14 18:35) [HQ Manager Antigravity]
+- Resolved empty CMD window popups: killed 10 orphaned server loops and devin runner processes, marked completed audit tasks done in AUTOPILOT_QUEUE.json (0 remaining).
+- Fixed AHome Telegram local AI error: telegram_assistant now loads LOCAL_CORE_TOKEN from .worker.env; verified live response from qwen3.5:9b (no 401 / no unavailable error).
+- Fixed Hermes cropped responses: fixed config.yaml duplicate key line 428, set max_tokens=8192, ollama_num_ctx=65536, reasoning=false; Hermes gateway restarted and verified connected.
+- AHome ai_profiles num_predict increased (fast=1500, balanced=3500, deeper=4096) to prevent Qwen reasoning tokens from exhausting output budget. Pushed cda4867.
+- SIR AI, SIR Optimizer, SIR Jobs, SIR Study, SIR Portfolio all verified, built, and pushed to main. All dual hosts (Firebase + Vercel) live HTTP 200.

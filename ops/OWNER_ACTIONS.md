@@ -74,6 +74,10 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 ## AHome APK install (2026-11-14, rebuilt signed release)
 - Signed release `AHome-v1.0.0.apk` (`5.22 MB`, sha256 `e92087675b8c...`) is already copied to `/sdcard/Download/AHome-v1.0.0.apk` on the phone AND sent directly in your `@Personal1AI1Bot` Telegram chat. Android refuses silent `adb install -r` while the screen/MIUI USB install guard is locked (`INSTALL_FAILED_USER_RESTRICTED`). One tap: unlock the phone and tap `AHome-v1.0.0.apk` in Telegram or Files/Download to install/update it.
 
+## SIR AI APK install & iOS note (2026-11-14)
+- Debug APK `SIR-AI-v1.0.0.apk` (`6.59 MB`, built from `apps/web/android`) is already copied to `/sdcard/Download/SIR-AI-v1.0.0.apk` on `ronf6d5hrkqsuoaa` AND sent in Telegram (`message_id=844`). Android refuses silent `adb install -r` while the phone screen/MIUI USB install guard is locked (`INSTALL_FAILED_USER_RESTRICTED`). One tap: unlock the phone and tap `SIR-AI-v1.0.0.apk` in Files/Download or Telegram to install it.
+- iOS native `.ipa` builds cannot compile on Windows (Xcode/macOS required); use Safari "Add to Home Screen" on the live web URLs (`https://sir-ai-official.web.app`, `https://sir-portfolio-site.web.app`, `https://ahmed-habiba.web.app`) or build `npm run cap:ios:build` when on a Mac.
+
 ## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in) - RESOLVED 2026-11-14 09:50
 - RESOLVED: `api.telegram.org/bot<SIR_TELEGRAM_BOT_TOKEN>/getMe` now returns ok:true (bot "SIR AI Manager" @PersonalAI_1Bot), so the token in the user environment is valid again; the inbox listener (node telegram-inbox.mjs, pid 22448) is running. No owner step needed.
 
