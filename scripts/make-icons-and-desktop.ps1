@@ -41,6 +41,8 @@ foreach ($prop in $brand.PSObject.Properties) {
   if (Test-Path $src) {
     # AI-generated logo from agy: round the corners and build the multi-size icon
     & $magick $src -resize 256x256 '(' -size 256x256 xc:none -fill white -draw 'roundrectangle 0,0 255,255 56,56' ')' -compose DstIn -composite $png
+  } elseif (Test-Path $png) {
+    # Keep existing applied brand icon instead of overwriting with a placeholder
   } else {
     # temporary placeholder (monogram) until generate-icons-agy.ps1 has produced the real logo
     & $magick -size 256x256 xc:none -fill $b.color -draw 'roundrectangle 8,8 247,247 52,52' -font $font -pointsize 118 -fill white -gravity center -annotate +0+6 $b.mono $png
@@ -82,6 +84,8 @@ Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.Comm
     Set-Content $f $pair[1] -Encoding UTF8
   }
   foreach ($k in 'start','stop') {
+    $ps = "$proj\scripts\dev-$k.ps1"
+    if ((Test-Path $ps) -and (Select-String -Path $ps -Pattern '^# SIR-CUSTOM' -Quiet)) { continue }
     Set-Content "$proj\scripts\dev-$k.vbs" ("CreateObject(""WScript.Shell"").Run ""powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File """"$proj\scripts\dev-$k.ps1"""""", 0, False") -Encoding ASCII
   }
   # Desktop folder with the same icon and 3 shortcuts

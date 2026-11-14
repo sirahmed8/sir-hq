@@ -236,7 +236,7 @@ def main():
             PROJECTS_ROOT / "_SIR" / "ops",
             PROJECTS_ROOT / "SIR Jobs" / "data",
             PROJECTS_ROOT / "SIR Study" / "guides",
-            PROJECTS_ROOT / "SIR Laptop Manager" / "data"
+            PROJECTS_ROOT / "SIR Optimizer" / "data"
         ]
         # Include AHome data folder if it exists locally
         ahome_data = PROJECTS_ROOT / "Backups" / "AHome-data"

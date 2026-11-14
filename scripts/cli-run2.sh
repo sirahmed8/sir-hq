@@ -6,7 +6,7 @@
 # AHome (private data of Ahmed and Habiba) only ever goes to local models (AGENTS.md law): the pool is asked for "local" models only.
 NAME="$1"; DIR="$2"
 ROOT=/d/Projects/_SIR
-GAME_SNAP="/d/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json"
+GAME_SNAP="/d/Projects/SIR Optimizer/.sir/game_mode_snapshot.json"
 PROMPT=$ROOT/ops/briefs/$NAME.prompt.txt
 PREAMBLE=$ROOT/ops/WORKER_PREAMBLE.md
 DONE=$ROOT/ops/agy-runs/done/$NAME.done
@@ -55,7 +55,7 @@ for round in $(seq 1 40); do
     crush) timeout 3300 crush run -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     cline) timeout 3300 cline -P cline --thinking high -p --yolo -m "$model" "$msg" >> "$LOG" 2>&1 ;;
     gemini) timeout 3300 gemini -p "$msg" --yolo --skip-trust >> "$LOG" 2>&1 ;;
-    aider) ( . D:/Projects/_SIR/scripts/aider-env.sh; aider_env "$model"; BROWSER=true timeout 3300 aider --model "$model" --yes-always --no-detect-urls --no-browser --no-show-release-notes --no-check-update --analytics-disable --no-auto-commits --no-show-model-warnings --message "$msg" ) >> "$LOG" 2>&1 ;;
+    aider) ( . D:/Projects/_SIR/scripts/aider-env.sh; aider_env "$model"; BROWSER="D:/Projects/_SIR/scripts/noop-browser.exe" timeout 3300 aider --model "$model" --yes-always --no-detect-urls --no-browser --no-show-release-notes --no-check-update --analytics-disable --no-auto-commits --no-show-model-warnings --message "$msg" ) >> "$LOG" 2>&1 ;;
     kimi) timeout 3300 kimi -p "$msg" --yolo >> "$LOG" 2>&1 ;;
   esac
   code=$?

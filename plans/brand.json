@@ -35,11 +35,11 @@
   "folder": "SIR AI",
   "display": "SIR AI"
  },
- "sir-laptop-manager": {
-  "color": "#475569",
-  "mono": "LM",
-  "folder": "SIR Laptop Manager",
-  "display": "SIR Laptop Manager"
+ "sir-optimizer": {
+  "color": "#0E7490",
+  "mono": "SO",
+  "folder": "SIR Optimizer",
+  "display": "SIR Optimizer"
  },
  "sir-jobs": {
   "color": "#A16207",

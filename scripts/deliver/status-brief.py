@@ -2,11 +2,12 @@
 
 Used by telegram-inbox.mjs when Ahmed sends /status to the bot.
 """
+import sys as _sys, pathlib as _pl; _sys.path.insert(0, str(_pl.Path(__file__).resolve().parents[1])); import nowindow  # noqa: F401
 import subprocess, json
 
 P = "D:/Projects"
 PROJECTS = [("AHome", "التطبيق الخاص", "sirahmed8/ahmed-and-habiba"), ("SIR Study", "المذاكرة", "sirahmed8/sir-study"),
-            ("SIR Jobs", "الوظائف", "sirahmed8/sir-jobs"), ("SIR Laptop Manager", "مدير اللابتوب", "sirahmed8/sir-laptop-manager"),
+            ("SIR Jobs", "الوظائف", "sirahmed8/sir-jobs"), ("SIR Optimizer", "محسّن النظام", "sirahmed8/sir-optimizer"),
             ("_SIR", "غرفة التحكم", "sirahmed8/sir-hq")]
 
 

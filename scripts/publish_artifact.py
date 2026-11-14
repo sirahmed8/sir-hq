@@ -14,7 +14,7 @@ ROOT = Path("D:/Projects/_SIR")
 HTML = ROOT / "ops" / "artifact" / "control-room.html"
 STATE = ROOT / "ops" / "artifact" / "PUBLISHED.txt"
 LOG = ROOT / "ops" / "artifact" / "publish.log"
-GAME = Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json")
+GAME = Path("D:/Projects/SIR Optimizer/.sir/game_mode_snapshot.json")
 CLAUDE = Path.home() / ".local" / "bin" / "claude.exe"
 URL = "https://claude.ai/code/artifact/5903680d-7f79-4595-a8ea-31b0f4c3b2db"
 

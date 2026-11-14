@@ -8,7 +8,7 @@ from pathlib import Path
 import nowindow  # noqa: F401
 
 ROOT = Path("D:/Projects/_SIR")
-SHORT = {"AHome": "AHome", "SIR Jobs": "Jobs", "SIR Study": "Study", "SIR Laptop Manager": "Laptop",
+SHORT = {"AHome": "AHome", "SIR Jobs": "Jobs", "SIR Study": "Study", "SIR Optimizer": "Optimizer",
          "SIR AI": "SIR AI", "SIR Portfolio": "Portfolio", "_SIR": "HQ"}
 
 

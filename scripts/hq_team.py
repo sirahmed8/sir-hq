@@ -25,7 +25,7 @@ SUGGESTIONS_FILE = OPS / "SUGGESTIONS.md"
 LESSONS_FILE = OPS / "LESSONS.md"
 REJECTS_FILE = OPS / "suggestion-rejects.json"
 OUTBOX = OPS / "bus" / "telegram-outbox.md"
-GAME_FILE = Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json")
+GAME_FILE = Path("D:/Projects/SIR Optimizer/.sir/game_mode_snapshot.json")
 POOL_SCRIPT = ROOT / "scripts" / "cli_pool.py"
 QUEUE_ADD = ROOT / "scripts" / "queue-add.py"
 NO_WINDOW = 0x08000000
@@ -35,7 +35,7 @@ PROJECTS = {
     "ahome": ("AHome", "D:/Projects/AHome"),
     "sir-study": ("SIR Study", "D:/Projects/SIR Study"),
     "sir-jobs": ("SIR Jobs", "D:/Projects/SIR Jobs"),
-    "sir-laptop-manager": ("SIR Laptop Manager", "D:/Projects/SIR Laptop Manager"),
+    "sir-optimizer": ("SIR Optimizer", "D:/Projects/SIR Optimizer"),
     "sir-ai": ("SIR AI", "D:/Projects/SIR AI"),
     "sir-portfolio": ("SIR Portfolio", "D:/Projects/SIR Portfolio"),
     "sir-hq": ("_SIR", "D:/Projects/_SIR"),
@@ -204,7 +204,7 @@ def run_agent(pick: str, prompt: str, cwd, tag: str, timeout: int = 1800) -> tup
         for k in ("GROQ_API_KEY", "CEREBRAS_API_KEY", "MISTRAL_API_KEY", "COHERE_API_KEY", "OPENROUTER_API_KEY"):
             if k in keys:
                 env[k] = keys[k]
-        env["BROWSER"] = "true"
+        env["BROWSER"] = r"D:\Projects\_SIR\scripts\noop-browser.exe"
     if tool == "qwen":
         env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama",
                     "OPENAI_MODEL": model})

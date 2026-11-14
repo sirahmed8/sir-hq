@@ -71,8 +71,8 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 - After creation: provide the Firebase config values (API key, auth domain, project ID, storage bucket, messaging sender ID, app ID) and Cloudflare project name so the agent can write them to `.env.example` and Vercel/Cloudflare secrets.
 - Login brand check (T-005): once Firebase is live, open `http://localhost:5000` in Chrome, sign in with Google, verify the consent screen shows "SIR Content Creation Studio" (not the project ID), screenshot to `.sir/evidence/login-brand-check.png`.
 
-## AHome APK install (2026-11-13, r65)
-- The signed release APK (v1.0.0, 5.2 MB) is already on the phone at Download/AHome-v1.0.0.apk. Android refuses `adb install` while the phone is locked (INSTALL_FAILED_USER_RESTRICTED, PIN lock). One step: unlock the phone once with fingerprint or PIN. Either tap AHome-v1.0.0.apk in the Files/Download app to install it, or leave it unlocked for a few minutes and the next agent run will install it, launch it and take the screenshot by adb.
+## AHome APK install (2026-11-14, rebuilt signed release)
+- Signed release `AHome-v1.0.0.apk` (`5.22 MB`, sha256 `e92087675b8c...`) is already copied to `/sdcard/Download/AHome-v1.0.0.apk` on the phone AND sent directly in your `@Personal1AI1Bot` Telegram chat. Android refuses silent `adb install -r` while the screen/MIUI USB install guard is locked (`INSTALL_FAILED_USER_RESTRICTED`). One tap: unlock the phone and tap `AHome-v1.0.0.apk` in Telegram or Files/Download to install/update it.
 
 ## Telegram bot token rejected (2026-11-13, 12:49 UTC, health check-in) - RESOLVED 2026-11-14 09:50
 - RESOLVED: `api.telegram.org/bot<SIR_TELEGRAM_BOT_TOKEN>/getMe` now returns ok:true (bot "SIR AI Manager" @PersonalAI_1Bot), so the token in the user environment is valid again; the inbox listener (node telegram-inbox.mjs, pid 22448) is running. No owner step needed.
@@ -87,3 +87,6 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 
 ## Close background OpenClaw session w8-q9 (2026-11-14) - RESOLVED
 - Both OpenClaw scheduled tasks (`OpenClaw Gateway*`) are Disabled and `w8-q9` Session 4 has terminated on its own (`query user` / `qwinsta` show only `sir1ahmed1` on Session 3, and zero `openclaw` processes remain running). No manual `logoff 4` command is needed.
+
+## Tailscale remote access (1 tap UAC — 2026-11-14)
+- Tailscale daemon (`tailscaled`) is currently in `NoState` and requires administrator/UAC approval to restart the Windows service cleanly (`Open Tailscale tray icon -> Connect` or run elevated PowerShell: `Restart-Service Tailscale; tailscale up; tailscale serve --bg 8899; tailscale serve --bg 8765; tailscale serve --bg 3456`). Everything on Control Room (`:8899`), Optimizer (`:8765`), and SIR Jobs (`:3456`) is already configured to allow `ahmed.tail9e9aa7.ts.net` and `100.85.112.10`.

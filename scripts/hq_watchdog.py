@@ -26,7 +26,7 @@ PROJECTS = {
     "AHome": "D:/Projects/AHome",
     "SIR Jobs": "D:/Projects/SIR Jobs",
     "SIR Study": "D:/Projects/SIR Study",
-    "SIR Laptop Manager": "D:/Projects/SIR Laptop Manager",
+    "SIR Optimizer": "D:/Projects/SIR Optimizer",
     "_SIR": "D:/Projects/_SIR",
 }
 NO_WINDOW = 0x08000000
@@ -123,7 +123,7 @@ def queue_task(name: str, folder: str, title: str, text: str) -> None:
 
 
 def main() -> None:
-    if Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
+    if Path("D:/Projects/SIR Optimizer/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
         log("skip: game mode active")
         return
     state = load(STATE, {})

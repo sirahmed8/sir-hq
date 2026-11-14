@@ -21,7 +21,7 @@ def log(msg: str) -> None:
 
 
 def main() -> None:
-    if Path("D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
+    if Path("D:/Projects/SIR Optimizer/.sir/game_mode_snapshot.json").exists():  # a game is running: stay quiet
         log("skip: game mode active")
         return
     dry = "--dry" in sys.argv
@@ -64,10 +64,10 @@ def main() -> None:
         return
     # Windows CreateProcess does not apply PATHEXT, so a bare "opencode" fails; resolve the real file.
     cmd = [cmd[0] if Path(cmd[0]).is_absolute() else (shutil.which(cmd[0]) or cmd[0])] + cmd[1:]
-    env = None
+    import os
+    env = os.environ.copy()
+    env["BROWSER"] = r"D:\Projects\_SIR\scripts\noop-browser.exe"
     if tool in ("qwen", "goose"):
-        import os
-        env = os.environ.copy()
         if tool == "qwen":
             env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama", "OPENAI_MODEL": model})
         else:

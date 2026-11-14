@@ -7,7 +7,7 @@ MAX=${1:-7200}; QUIET=${2:-240}
 P=/d/Projects
 DONE=$P/_SIR/ops/agy-runs/done
 INBOX=$P/_SIR/ops/bus/ahmed-telegram.md
-REPOS="AHome:sirahmed8/ahmed-and-habiba|SIR Study:sirahmed8/sir-study|SIR Jobs:sirahmed8/sir-jobs|SIR Laptop Manager:sirahmed8/sir-laptop-manager|SIR Negm Furniture:sirahmed8/sir-negm-furniture|_SIR:sirahmed8/sir-hq"
+REPOS="AHome:sirahmed8/ahmed-and-habiba|SIR Study:sirahmed8/sir-study|SIR Jobs:sirahmed8/sir-jobs|SIR Optimizer:sirahmed8/sir-optimizer|SIR Negm Furniture:sirahmed8/sir-negm-furniture|_SIR:sirahmed8/sir-hq"
 declare -A head0
 IFS='|' read -ra R <<< "$REPOS"
 for r in "${R[@]}"; do d="${r%%:*}"; head0["$d"]=$(git -C "$P/$d" rev-parse origin/main 2>/dev/null); done

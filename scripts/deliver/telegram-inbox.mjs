@@ -25,7 +25,7 @@ const ACTIONS = `${OPS}/telegram-actions.json`;
 const APPROVALS = `${OPS}/approvals.jsonl`;
 const APPROVALS_JSON = `${OPS}/bus/approvals.json`;
 const PID_FILE = `${OPS}/telegram-listener.pid`;
-const GAME_SNAPSHOT = 'D:/Projects/SIR Laptop Manager/.sir/game_mode_snapshot.json';
+const GAME_SNAPSHOT = 'D:/Projects/SIR Optimizer/.sir/game_mode_snapshot.json';
 const SEND = 'D:/Projects/_SIR/scripts/deliver/send-telegram.mjs';
 const SEND_BUTTONS = 'D:/Projects/_SIR/scripts/deliver/send-buttons.mjs';
 const MENU = ['[الإدارة] اختار:', 'الحالة=status', 'تنضيف المساحة=clean_disk', 'إطفاء الألعاب=game_off', 'استلام المدير الاحتياطي=takeover', 'رجوع لكلود=handback'];

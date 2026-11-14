@@ -9,7 +9,7 @@ repos = [
     ('SIR HQ', 'sirahmed8/sir-hq'),
     ('SIR Jobs', 'sirahmed8/sir-jobs'),
     ('SIR Study', 'sirahmed8/sir-study'),
-    ('SIR Laptop Manager', 'sirahmed8/sir-laptop-manager'),
+    ('SIR Optimizer', 'sirahmed8/sir-optimizer'),
 ]
 
 for name, r in repos:

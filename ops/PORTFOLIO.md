@@ -4,7 +4,7 @@ True, verified facts only across the SIR project folders in `D:\Projects` (SIR P
 Work model: **Claude Sonnet 5.5 (Claude desktop)** is manager and reviewer; **Antigravity chats (Gemini 3.8 Flash High)** are autonomous workers. AgentsRoom is retired (crashed React #185 on 2026-11-08; archived to `SIR AI/legacy/agentsroom/`). AHome appears as counts and status only; private data never leaves local systems. No pull requests: all changes commit and push straight to `main`.
 
 ## Products in D:\Projects
-Final product list (owner, 2026-11-12, `plans/PRODUCT_DIRECTION_2026-11-12.md` section 7): SIR AI, SIR Education Hub, SIR Business, SIR Hagoozat, SIR Content Creation Studio, SIR Controller, SIR Laptop Manager, SIR ModPack, SIR Mods for GTA V, SIR Life, plus any independent project from the unplanned ideas. Owner's personal tools: SIR Jobs, SIR Study. SIR Portfolio is the owner's own website. Client work: SIR Negm Furniture (plans only). AHome: private. SIR Platform: cancelled.
+Final product list (owner, 2026-11-12, `plans/PRODUCT_DIRECTION_2026-11-12.md` section 7): SIR AI, SIR Education Hub, SIR Business, SIR Hagoozat, SIR Content Creation Studio, SIR Controller, SIR Optimizer (merged SIR Laptop Manager + legacy SIR Optimizer, 2026-11-14), SIR ModPack, SIR Mods for GTA V, SIR Life, plus any independent project from the unplanned ideas. Owner's personal tools: SIR Jobs, SIR Study. SIR Portfolio is the owner's own website. Client work: SIR Negm Furniture (plans only). AHome: private. SIR Platform: cancelled.
 
 | Product | Folder | Branch | Commits | Last commit | Since 11-02 | Wave | Status | Tasks | Scope & Current Reality |
 |---|---|---|---|---|---|---|---|---|---|
