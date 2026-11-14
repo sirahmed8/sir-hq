@@ -107,11 +107,13 @@ def queue_names() -> set:
     return {str(t.get("name", "")).lower() for t in load_queue()}
 
 
-def pool_pick() -> str:
+def pool_pick(exclude: tuple = ()) -> str:
     """Return '<tool>|<model>' from the shared pool, or '' when every model is cooling down."""
     try:
-        res = subprocess.run([sys.executable, str(POOL_SCRIPT), "pick"], capture_output=True,
-                             text=True, timeout=60)
+        args = [sys.executable, str(POOL_SCRIPT), "pick"]
+        if exclude:
+            args.append("--exclude=" + ",".join(exclude))
+        res = subprocess.run(args, capture_output=True, text=True, timeout=60)
     except (OSError, subprocess.TimeoutExpired) as exc:
         log("team", f"pool pick failed: {exc!r}")
         return ""
@@ -161,6 +163,7 @@ def agent_command(pick: str, prompt: str) -> list:
             "--analytics-disable", "--message", prompt,
         ],
         "kimi": ["kimi", "-p", prompt, "--yolo"],
+        "pi": [str(Path.home() / ".pi/agent/bin/pi.cmd"), "-p", "--no-session", "--model", model, prompt],
     }
     cmd = commands.get(tool, [])
     if cmd:

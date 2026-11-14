@@ -26,6 +26,9 @@ VERIFICATIONS = OPS / "verifications"
 SHOTS = VERIFICATIONS / "evidence"
 NAME = "verifier"
 MIN_EVIDENCE = 4
+# Tools that cannot read arbitrary files or write a result file in headless mode can never verify a task
+# (aider only reads files explicitly added to its chat, so it always answered "add that file to the chat").
+UNSUPPORTED_TOOLS = ("aider",)
 
 
 def checklist_files(task_name: str, folder: str) -> list:
@@ -207,7 +210,7 @@ def verify_task(task: dict, dry: bool) -> dict:
     if dry:
         result.update(status="dry", reason=f"would verify with checklist {[str(p) for p in checklists]}")
         return result
-    pick = pool_pick()
+    pick = pool_pick(exclude=UNSUPPORTED_TOOLS)
     if not pick:
         result.update(status="no-model", reason="every free model is cooling down")
         log(NAME, f"{name}: no free model available")

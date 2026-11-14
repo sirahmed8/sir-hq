@@ -76,9 +76,13 @@ def next_utc_midnight(now: float) -> float:
     return (int(now // 86400) + 1) * 86400
 
 
-def pick(local_only: bool = False) -> str:
+def pick(local_only: bool = False, exclude: tuple = ()) -> str:
     data, now = load(), time.time()
     entries = [e for e in POOL if is_local(e)] if local_only else POOL
+    # Some callers (the verifier) need tools that can read and write files headless;
+    # exclude lets them skip entries that cannot (e.g. aider has no file-read tool).
+    if exclude:
+        entries = [e for e in entries if e.partition("|")[0] not in exclude]
     if not entries:
         return "WAIT 3600"
     # load balancing (owner, 2026-11-12): the free tools must all work, so choose the available entry used longest ago
@@ -136,7 +140,12 @@ def status() -> None:
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "pick":
-        print(pick(local_only="local" in sys.argv[2:]))
+        rest = sys.argv[2:]
+        excluded = ()
+        for arg in rest:
+            if arg.startswith("--exclude="):
+                excluded = tuple(t for t in arg.split("=", 1)[1].split(",") if t)
+        print(pick(local_only="local" in rest, exclude=excluded))
     elif cmd == "report":
         print(report(sys.argv[2], int(sys.argv[3]), sys.argv[4], int(sys.argv[5]), float(sys.argv[6])))
     else:
