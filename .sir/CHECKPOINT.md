@@ -1,5 +1,9 @@
 # SIR HQ checkpoint (updated 2026-11-14 05:10, Fajr duty)
 
+## Now (afternoon health check-in, 2026-11-14 12:49 UTC)
+- Afternoon check-in sent with buttons health_done / health_later / health_skip (ok). No new answer in ahmed-telegram.md since 2026-11-13 17:40 (latest message 2026-11-14 02:07 is "اي الدنيا"), so `_local/health_log.jsonl` is unchanged. Note: the message had 4 lines, not the 3 allowed.
+- Next step: at the next duty run, read ahmed-telegram.md for his tap and log it.
+
 ## Now (Fajr duty, 2026-11-14)
 - Fajr plan sent to Telegram (message_id 824). Report: `.sir/reports/fajr-2026-11-14.md`. Outbox line logged.
 - Open owner action: re-issue SIR bot token via BotFather `/token`, set user env var `SIR_TELEGRAM_BOT_TOKEN` (ops/OWNER_ACTIONS.md).

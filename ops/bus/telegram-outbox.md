@@ -21,3 +21,5 @@
 2026-11-14T04:00Z | HQ-review | 3 scout suggestions with approve/reject buttons
 2026-11-14T04:45Z | verifier-fail | تدقيق مهمة لم ينجح
 2026-11-14T06:00Z | HQ-review | 3 scout suggestions with approve/reject buttons
+2026-11-14T10:45Z | verifier-fail | تدقيق مهمة لم ينجح
+2026-11-14T12:49Z | HQ-health | afternoon check-in with buttons (health_done/health_later/health_skip)
