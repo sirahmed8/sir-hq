@@ -213,16 +213,41 @@ def run_agent(pick: str, prompt: str, cwd, tag: str, timeout: int = 1800) -> tup
 
     started = time.time()
     try:
-        res = subprocess.run(cmd, cwd=str(cwd), capture_output=True, text=True, timeout=timeout, env=env,
-                             creationflags=NO_WINDOW)
-        code, out = res.returncode, (res.stdout or "") + (res.stderr or "")
-    except subprocess.TimeoutExpired:
-        code, out = 124, "timeout"
+        proc = subprocess.Popen(cmd, cwd=str(cwd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                text=True, env=env, creationflags=NO_WINDOW)
     except (OSError, FileNotFoundError) as exc:
-        code, out = 127, f"{exc!r}"
+        out = repr(exc)
+        log_file.write_text(out, encoding="utf-8", errors="replace")
+        pool_report(pick, 127, log_file, 0, time.time() - started)
+        return 127, out, log_file
+    try:
+        out, _ = proc.communicate(timeout=timeout)
+        code = proc.returncode
+    except subprocess.TimeoutExpired:
+        # subprocess.run only kills the direct child; a timed-out CLI often leaves a grandchild
+        # (e.g. node under pi.cmd) holding the stdout pipe, which hangs communicate() forever.
+        _kill_tree(proc.pid)
+        try:
+            out, _ = proc.communicate(timeout=30)
+        except subprocess.TimeoutExpired:
+            out = ""
+        code, out = 124, "timeout\n" + (out or "")
+    out = out or ""
     log_file.write_text(out, encoding="utf-8", errors="replace")
     pool_report(pick, code, log_file, 0, time.time() - started)
     return code, out, log_file
+
+
+def _kill_tree(pid: int) -> None:
+    """Kill a process and every child. On Windows taskkill /T is the only reliable way."""
+    try:
+        if os.name == "nt":
+            subprocess.run(["taskkill", "/F", "/T", "/PID", str(pid)],
+                           capture_output=True, creationflags=NO_WINDOW, timeout=30)
+        else:
+            os.kill(pid, 9)
+    except (OSError, subprocess.SubprocessError):
+        pass
 
 
 def lessons_text(limit: int = 9000) -> str:

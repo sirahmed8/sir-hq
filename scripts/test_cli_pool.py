@@ -6,6 +6,7 @@ verify (aider has no file-read tool), and every pool tool has a real command
 """
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -13,6 +14,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import cli_pool  # noqa: E402
 import hq_team  # noqa: E402
 import hq_verifier  # noqa: E402
+
+NO_WINDOW = 0x08000000
 
 
 class PickExcludeTest(unittest.TestCase):
@@ -119,6 +122,36 @@ class VerifyRetryTest(unittest.TestCase):
             hq_verifier.VERIFICATIONS, hq_verifier.pool_pick, hq_verifier.run_agent, hq_verifier.log = orig
         self.assertEqual(result["status"], "no-file")
         self.assertEqual(calls["n"], 3, "must stop after the configured number of tries")
+
+
+@unittest.skipUnless(sys.platform == "win32", "process-tree kill is Windows-specific")
+class TimeoutTreeKillTest(unittest.TestCase):
+    def test_kill_tree_kills_the_grandchild(self):
+        import subprocess
+        proc = subprocess.Popen(["cmd", "/c", "ping -n 60 127.0.0.1 > nul"],
+                                creationflags=NO_WINDOW, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        time.sleep(1)
+        hq_team._kill_tree(proc.pid)
+        time.sleep(2)
+        self.assertIsNotNone(proc.poll(), "the process tree must be dead after _kill_tree")
+
+    def test_run_agent_does_not_hang_after_timeout(self):
+        import subprocess
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        orig = (hq_team.agent_command, hq_team.pool_report, hq_team.OPS)
+        hq_team.agent_command = lambda pick, prompt: ["cmd", "/c", "ping -n 60 127.0.0.1 > nul"]
+        hq_team.pool_report = lambda *a, **k: None
+        hq_team.OPS = Path(tmp.name)
+        try:
+            t0 = time.time()
+            code, _out, logf = hq_team.run_agent("pi|x", "P", Path(tmp.name), "test-timeout", timeout=2)
+            elapsed = time.time() - t0
+        finally:
+            hq_team.agent_command, hq_team.pool_report, hq_team.OPS = orig
+        self.assertEqual(code, 124)
+        self.assertTrue(logf.exists())
+        self.assertLess(elapsed, 40, "run_agent must return after the timeout instead of hanging on the pipe")
 
 
 if __name__ == "__main__":
