@@ -1,4 +1,13 @@
-# SIR HQ checkpoint (updated 2026-11-13 17:40, evening health check-in run)
+# SIR HQ checkpoint (updated 2026-11-14 03:05, r82-verify-sweep worker)
+
+## Now (r82-verify-sweep, 2026-11-14)
+- Verification sweep of all projects done. Report: `ops/verifications/sweep-2026-11-14.md`; worker report `ops/agy-runs/reports/r82-verify-sweep.md`.
+- Verified green this sweep: SIR AI (npm test 335 pass), SIR Jobs (npm test 0 fail + doctor ALL GATES GREEN), SIR Study (31 unit tests, server 3300 HTTP 200), SIR Portfolio (content-check 0/0), SIR Laptop Manager (audio+ollama 15 tests), SIR HQ (pytest 65 pass).
+- Defects found (bookkeeping/hygiene, not code): SIR Life uncommitted revert of .sir docs hides real progress; SIR Laptop T-061 unticked + missing evidence dir; SIR Business T-003 unticked; AHome probe script not gitignored; SIR ModPack tsbuildinfo not ignored; SIR Controller checkpoint stale vs planning-only gate.
+- CI quota flag still present (rule 18): local verification is the gate.
+- Full detail in the sweep report (per-project verdicts + next steps).
+
+## Previous checkpoint (2026-11-13 17:40, evening health check-in run)
 
 ## Now
 - Evening health check-in sent 2026-11-13 17:39 UTC with buttons health_done / health_later / health_skip (ok from Telegram). Waiting for his tap; no new answer in ahmed-telegram.md yet, so health_log.jsonl is unchanged.
