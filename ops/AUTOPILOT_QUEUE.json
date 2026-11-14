@@ -1410,5 +1410,29 @@
     "folder": "D:/Projects/SIR Optimizer",
     "title": "SIR Optimizer: دورة فحص ذاتي",
     "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261114-1841",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261114-1841",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-jobs-20261114-1911",
+    "folder": "D:/Projects/SIR Jobs",
+    "title": "SIR Jobs: دورة فحص ذاتي",
+    "done": true
+  },
+  {
+    "name": "audit-sir-study-20261114-1911",
+    "folder": "D:/Projects/SIR Study",
+    "title": "SIR Study: دورة فحص ذاتي",
+    "done": true
   }
 ]

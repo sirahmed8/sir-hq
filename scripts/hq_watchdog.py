@@ -151,7 +151,7 @@ def main() -> None:
             queue_task(task, folder, f"{name}: إصلاح الفحص الآلي الأحمر", CI_FIX.format(project=name, stamp=stamp, task=task))
             telegram(f"[الإدارة] الفحص الآلي أحمر في {name}. حطيت مهمة إصلاح في القايمة.")
             open_folders.add(folder.lower())
-    if not open_tasks and not any(snap[n]["open_tasks"] for n in snap):
+    if not open_tasks and not any(snap[n]["open_tasks"] for n in snap) and not (OPS / "pause-autopilot.flag").exists() and not (OPS / "manager-active.flag").exists():
         for name in [n for n in sorted(PROJECTS, key=lambda n: -snap[n]["last_commit_min"]) if n != "AHome"][:2]:
             if name == "_SIR":
                 continue

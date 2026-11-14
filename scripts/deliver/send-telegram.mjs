@@ -37,16 +37,23 @@ export function splitText(text, size = CHUNK) {
 }
 
 async function call(base, token, method, body) {
-  let res;
-  try {
-    res = await fetch(`${base}/bot${token}/${method}`, { method: 'POST', body });
-  } catch (e) {
-    throw new Error(`network error (${e.cause?.code || e.name})`);
+  let lastErr;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 15000);
+      const res = await fetch(`${base}/bot${token}/${method}`, { method: 'POST', body, signal: controller.signal });
+      clearTimeout(timer);
+      let data;
+      try { data = await res.json(); } catch { throw new Error(`bad response HTTP ${res.status}`); }
+      if (!data.ok) throw new Error(`API ${data.error_code ?? res.status}: ${data.description ?? 'unknown error'}`);
+      return data.result;
+    } catch (e) {
+      lastErr = e;
+      if (attempt < 3) await new Promise((r) => setTimeout(r, 1000));
+    }
   }
-  let data;
-  try { data = await res.json(); } catch { throw new Error(`bad response HTTP ${res.status}`); }
-  if (!data.ok) throw new Error(`API ${data.error_code ?? res.status}: ${data.description ?? 'unknown error'}`);
-  return data.result;
+  throw new Error(`network error (${lastErr?.cause?.code || lastErr?.name || lastErr?.message})`);
 }
 
 function form(fields) {
