@@ -363,6 +363,13 @@ Updated: 2026-11-12
 
 ---
 
+## L52: Dialog and Floating Panel Focus (Move In, Restore Out)
+**Source:** r83 (SIR Portfolio AI chat focus, scout finding approved by HQ)
+**Rule:** Every conditionally mounted dialog, drawer, sheet or floating panel must move focus into the panel when it opens (first input, or the panel container with tabIndex -1 when there is no input) and return focus to the trigger when it closes (close button, Escape, overlay). Focus must never drop to <body> while a panel is open and must never stay stranded after the panel unmounts; the first Tab from a chat panel then walks the panel controls, not the page behind them.
+**Apply to all:** Every product with a floating chat, dialog, sheet, drawer or modal (SIR AI, SIR Jobs, SIR Study, SIR Portfolio, Control Room, SIR Laptop Manager dashboards, AHome sheets).
+
+---
+
 ## Design principle for every product (owner, research round 43, 2026-11-12)
 
 **Source:** SIR AI competitor research (`SIR AI/.sir/plans/COMPETITOR_MATRIX.md`, `FEATURE_IDEAS.md`).

@@ -166,3 +166,12 @@ devin START audit-sir-laptop-manager-20261113-1101 resume: stabilize sweep, clea
 11-14 02:49 autopilot START r75-ahome-calling-fix (runner pid 44300)
 2026-11-14 03:05 kilo DONE r82-verify-sweep sweep report written (ops/verifications/sweep-2026-11-14.md): active products verified green (SIR AI 335 tests, SIR Jobs all gates, SIR Study 31 tests, SIR Portfolio content 0/0, SIR Laptop 15 tests); defects = SIR Life docs revert, Laptop T-061 evidence+tick, Business T-003 tick, AHome gitignore; planning projects gated
 2026-11-14 autopilot DONE sir-ai-agentic-os-02 phase2: chat stream parser + fallback + chatEvents publish shipped; commits f3cfd0b+60ce927 pushed; local gates green; CI quota-blocked; report written, done signal sent, taskboard verified done
+2026-11-14 03:25 kilo DONE r75-ahome-calling-fix real web caller: INVITE->RINGING->ANSWERED (no more fake 1.2s connect), camera only after answer, noise suppression constraints, 720p30 + 1.5Mbps bitrate, getStats quality chip, full-screen incoming overlay, audio-call remote-audio bug fixed; commit 02503e7 pushed; tsc+eslint+build green, 1069 tests pass (4 known WebKit-missing)
+11-14 03:37 autopilot START r76-ahome-games-gifs-fix (runner pid 12636)
+11-14 03:52 autopilot START audit-sir-laptop-manager-20261113-2241-fix1 (runner pid 35648)
+11-14 05:42 autopilot START audit-sir-study-20261114-0541 (runner pid 25492)
+11-14 05:42 autopilot START audit-sir-jobs-20261114-0541 (runner pid 42952)
+2026-11-14 devin START audit-sir-jobs-20261114-0541 full visual/interaction sweep (reduced-motion, print, 200% zoom, focus traps + standard lens)
+11-14 06:03 autopilot START r83-portfolio-chat-focus (runner pid 43280)
+11-14 06:05 devin START audit-sir-study-20261114-0541 full visual/interaction sweep (layout/overflow/clipping lens + standard probes)
+2026-11-14 kilo DONE r83-portfolio-chat-focus: AI chat focus fixed (focus moves into dialog on open, returns to toggle on close), before/after tab probe + keyboard-audit EN/AR pass, axe 0/24, content 0/0, 847 tests, typecheck, build green, pushed b3df4e0; report ops/agy-runs/reports/r83-portfolio-chat-focus.md

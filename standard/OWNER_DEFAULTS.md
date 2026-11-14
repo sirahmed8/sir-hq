@@ -32,3 +32,6 @@
 
 ## Adopted from SIR Study
 - Before and after evidence for audit rounds (SIR Study, 2026-11-12): every claimed visible improvement ships a matched pair of PNGs (same file name, same viewport, same fixture, before taken from a git worktree at the pre-improvement commit and after from the current tree), a pixel verifier that fails on a blank or identical pair, a contact sheet with both sides side by side, and a unit test that fails when a pair is missing, empty or unchanged. A motion-only or invisible change (scrollbar width, content-visibility, a stagger animation) gets a computed-style test instead of a picture; never count it as a screenshot.
+
+## Adopted from SIR Portfolio
+- Floating chat and dialog focus (r83, SIR Portfolio AI chat, 2026-11-14): move focus into the first input when the panel opens and return focus to the trigger on close; adopt the pattern in every product with a floating chat or modal.
