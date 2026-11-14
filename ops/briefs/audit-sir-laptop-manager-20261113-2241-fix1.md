@@ -1,0 +1,10 @@
+Fix every item that failed verification of audit-sir-laptop-manager-20261113-2241.
+
+Verification file: D:\Projects\_SIR\ops\verifications\audit-sir-laptop-manager-20261113-2241.md
+Project: D:/Projects/SIR Laptop Manager
+
+Failed items:
+- Item 6: Keep CI green -> `gh run list --limit 3`: runs 43527047354, 43525215883, 43523856741 all `failure` in ~4s (Actions quota flag `ops/ci-quota-exhausted.flag` present). Per the CI rule the substitute gate is local verification, but `scripts/verify.ps1` FAILED twice on this machine: run 1 `2 failed, 350 passed, 1 skipped` (`test_dynamic_badges_localize_arabic`, `test_arabic_feedback_surfaces`); run 2 `6 failed, 346 passed, 1 skipped` (`test_ops_server_api_dry_run_clean` 401!=200, `test_session_endpoint_returns_token_for_own_host` token mismatch, `test_fix_gap_*` 401/connection reset, `test_dynamic_badges_localize_arabic` networkidle timeout). The two r26/r27 failures pass standalone (`2 passed in 19.01s`), but the suite is not reliably green: fixed test ports (8799/8813/8814) plus `wait_until="networkidle"` against servers that poll telemetry every 8s make results environment-dependent. Local verification did NOT pass, so the item cannot be PASS.
+- Item 7: Ship at least 10 visible improvements with before and after screenshots under `.sir/evidence/` -> Only 4 user-visible changes are documented for this round: (1) static shell exempt from read rate limit, (2) transparent GET retry on 429, (3) `{0}` i18n placeholder leak fix in health/updates error badges, (4) FEATURE_GAPS rank 15 health report export. Most `beforeafter/` PNG pairs are probe evidence of unchanged screens (per-tab/modal shots), not improvements. Six or more improvements are missing.
+
+Rules: fix the cause, not the report. Add or update a test for each fixed item where the project has tests. Check the shared lessons in D:/Projects/_SIR/ops/LESSONS.md for the touched screens. Run the project's checks and CI until green, commit and push to main, update the project checkpoint, and write a short report with the real command output.

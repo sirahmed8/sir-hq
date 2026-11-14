@@ -175,3 +175,7 @@ devin START audit-sir-laptop-manager-20261113-1101 resume: stabilize sweep, clea
 11-14 06:03 autopilot START r83-portfolio-chat-focus (runner pid 43280)
 11-14 06:05 devin START audit-sir-study-20261114-0541 full visual/interaction sweep (layout/overflow/clipping lens + standard probes)
 2026-11-14 kilo DONE r83-portfolio-chat-focus: AI chat focus fixed (focus moves into dialog on open, returns to toggle on close), before/after tab probe + keyboard-audit EN/AR pass, axe 0/24, content 0/0, 847 tests, typecheck, build green, pushed b3df4e0; report ops/agy-runs/reports/r83-portfolio-chat-focus.md
+2026-11-14 devin DONE audit-sir-study-20261114-0541 CLS 0.24-0.74 root-fixed (nav 3rd row from late read-progress chip + hidden-attr pill + unreserved read gutter); cycles 2+3 clean, 92 tests OK, verify 18/18, 12 evidence pairs, commits d8bc649..76f55c6 pushed; report ops/agy-runs/reports/audit-sir-study-20261114-0541.md
+11-14 07:13 autopilot START r82-study-drawer-hidden-from-taborder (runner pid 39188)
+11-14 07:23 autopilot START audit-sir-laptop-manager-20261114-0722 (runner pid 43796)
+2026-11-14 08:00 devin DONE r82-study-drawer-hidden-from-taborder closed drawer visibility:hidden fix + test_25, verify 18/18 green, pushed 2a416eb

@@ -17,3 +17,7 @@
 - 2026-11-13T17:39:52Z health check-in (Isha duty, HQ session): buttons health_done/health_later/health_skip sent
 2026-11-13T19:00Z | daily-summary | ملخص اليوم
 2026-11-13T22:45Z | verifier-fail | تدقيق مهمة لم ينجح
+- 2026-11-14T03:00:17Z fajr-plan (HQ duty) message_id=824 sent
+2026-11-14T04:00Z | HQ-review | 3 scout suggestions with approve/reject buttons
+2026-11-14T04:45Z | verifier-fail | تدقيق مهمة لم ينجح
+2026-11-14T06:00Z | HQ-review | 3 scout suggestions with approve/reject buttons

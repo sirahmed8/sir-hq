@@ -1,4 +1,23 @@
-# SIR HQ checkpoint (updated 2026-11-14 03:05, r82-verify-sweep worker)
+# SIR HQ checkpoint (updated 2026-11-14 05:10, Fajr duty)
+
+## Now (Fajr duty, 2026-11-14)
+- Fajr plan sent to Telegram (message_id 824). Report: `.sir/reports/fajr-2026-11-14.md`. Outbox line logged.
+- Open owner action: re-issue SIR bot token via BotFather `/token`, set user env var `SIR_TELEGRAM_BOT_TOKEN` (ops/OWNER_ACTIONS.md).
+- Ahmed's open complaints (ahmed-telegram.md, 13-14 Nov): SIR AI bot not answering, AHome game/call/GIF fixes, SIR Portfolio "Negm Furniture" rename, SIR Education Hub rename. Not yet confirmed done.
+- Upcoming exams: Business Administration Sun 15 Nov 18:00; HCI 18 Nov 11:30; Electronics 19 Nov 11:30.
+
+## Next step (exact)
+1. Check the Laptop Manager audit queue: `python D:/Projects/_SIR/scripts/ai-status.py`.
+2. Owner: re-issue SIR bot token (see above).
+3. Calendar: Google Calendar returned no events for 14-15 Nov except the exam; confirm with Ahmed whether his schedule is complete.
+4. Re-read after a reset: `ops/DAILY_RHYTHM.md`, `ops/bus/ahmed-telegram.md` (last 40 lines), `.sir/reports/fajr-2026-11-14.md`.
+
+## Open promises
+- HQ: log Ahmed's health answers into `_local/health_log.jsonl` when he replies.
+- HQ: verify the SIR AI and AHome fixes Ahmed asked for before reporting them as done.
+
+---
+
 
 ## Now (r82-verify-sweep, 2026-11-14)
 - Verification sweep of all projects done. Report: `ops/verifications/sweep-2026-11-14.md`; worker report `ops/agy-runs/reports/r82-verify-sweep.md`.

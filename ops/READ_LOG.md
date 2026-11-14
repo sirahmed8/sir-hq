@@ -315,3 +315,20 @@ A session with work but no line here is flagged by the nightly structure check a
 2026-11-13T23:22:46.456Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12 | (exact)
 2026-11-13T23:30:20.485Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-13, ops/bus/ahmed-telegram.md@2026-11-13 | (exact)
 2026-11-13T23:59:09.573Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-13, ops/bus/ahmed-telegram.md@2026-11-13 | (exact)
+2026-11-14T00:30:13.969Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | (exact)
+2026-11-14T00:39:51.069Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | (exact)
+2026-11-14T00:59:16.147Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | steps).
+2026-11-14T01:20:46.022Z | claude-code | claude | SIR Portfolio | SIR Portfolio/AGENTS.md@2026-11-09, .sir/TASKS.md@2026-11-14, content@2026-11-14 | 15 static export, bilingual /en and /ar, light and dark, CV page plus PDFs, privacy page, sitemap, robots, llms.txt.
+2026-11-14T02:01:40.402Z | claude-code | claude | SIR Study | SIR Study/AGENTS.md@2026-11-02, scripts/dev-start.vbs@2026-11-14, scripts/dev-start.ps1@2026-11-14, ops/agy-runs/reports/audit-sir-study-20261113-0721.md@2026-11-14, .sir/dev.log@2026-11-14 | exam `15/11 06:00 م`; `guides/START_HERE.html` top tab bar & hero card fallback rotated to `business-admin.html`; `.sir/TASKS.md` ticked `[x] T-113`; `guides/search-index.json` rebuilt at 228 headings; `.sir/status.json` updated to `34/37`).
+2026-11-14T02:14:52.035Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | steps).
+2026-11-14T02:34:34.201Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | steps).
+2026-11-14T02:59:34.443Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14, ops/bus/ahmed-telegram.md@2026-11-14 | steps).
+2026-11-14T03:12:25.674Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)
+2026-11-14T03:43:49.437Z | claude-code | claude | SIR Jobs | SIR Jobs/AGENTS.md@2026-11-02, .sir/CHECKPOINT.md@2026-11-14, .sir/jobs/TRACKER.md@2026-11-14, .sir/PROFILE.md@2026-11-14 | brief.
+2026-11-14T04:04:47.390Z | claude-code | claude | SIR Study | SIR Study/AGENTS.md@2026-11-02, scripts/dev-start.vbs@2026-11-14, scripts/dev-start.ps1@2026-11-14, ops/agy-runs/reports/audit-sir-study-20261113-0721.md@2026-11-14, .sir/dev.log@2026-11-14 | (exact)
+2026-11-14T04:30:46.853Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14 | (exact)
+2026-11-14T05:21:27.034Z | claude-code | claude | _SIR | _SIR/AGENTS.md@2026-11-13, ops/DAILY_RHYTHM.md@2026-11-14 | (exact)
+2026-11-14T05:46:27.138Z | claude-code | claude | SIR Study | SIR Study/AGENTS.md@2026-11-02, scripts/dev-start.vbs@2026-11-14, scripts/dev-start.ps1@2026-11-14, ops/agy-runs/reports/audit-sir-study-20261113-0721.md@2026-11-14, .sir/dev.log@2026-11-14 | (exact)
+2026-11-14T05:47:07.200Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12 | (exact)
+2026-11-14T05:47:16.365Z | claude-code | claude | HQ | _SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12 | (exact)
+2026-11-14T06:36:59.107Z | claude-code | claude | SIR Laptop Manager | SIR Laptop Manager/AGENTS.md@2026-11-02 | (exact)

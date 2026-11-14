@@ -22,5 +22,53 @@
     "answer": null,
     "created_at": "2026-11-12T04:00:01+00:00",
     "answered_at": null
+  },
+  {
+    "id": "sug-guide-pages-skip-heading-levels--b51a3b52",
+    "text": "Guide pages skip heading levels: content uses h2.card-title sections but subheads are h5, producing h2->h5 skips (9 on data-structures, 13 on electronics) and confusing screen-reader outline navigatio",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T04:00:02+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-the-streak-cta-link-on-the-hub-r-2f4ce05e",
+    "text": "The 'ابدأ المذاكرة' streak CTA link on the hub renders at 68x24px, below the 44px minimum touch target, and is appended inline after the streak sentence so it is easy to miss for keyboard/touch users.",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T04:00:02+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-chat-textarea-sets-inline-outlin-7b4f89f0",
+    "text": "Chat textarea sets inline outline:none which overrides the global :focus-visible ring, so keyboard focus inside the AI chat input is invisible (WCAG 2.4.7).",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T04:00:02+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-chat-messages-container-is-a-pla-e5917c86",
+    "text": "Chat messages container is a plain div with no role=log or aria-live, so screen reader users get no announcement when the assistant replies.",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T06:00:02+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-contact-form-has-no-submit-butto-1c877930",
+    "text": "Contact form has no submit button (send is an <a href={mailto}>), so pressing Enter inside the name/email fields does nothing; implicit submission requires a submit control.",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T06:00:02+00:00",
+    "answered_at": null
+  },
+  {
+    "id": "sug-header-cv-nav-link-renders-at-30-8527b66a",
+    "text": "Header 'CV' nav link renders at 30px wide (43px for the Arabic 'حقائق' link), below the 44px touch-target bar (lesson L19); height is fine via min-h-11 but width is text-driven.",
+    "status": "pending",
+    "answer": null,
+    "created_at": "2026-11-14T06:00:02+00:00",
+    "answered_at": null
   }
 ]

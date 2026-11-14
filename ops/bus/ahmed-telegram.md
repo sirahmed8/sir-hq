@@ -62,3 +62,4 @@
 - 2026-11-13T23:54:05.000Z from Ahmed (Telegram): [photo]
 - 2026-11-13T23:54:06.000Z from Ahmed (Telegram): [photo]
 - 2026-11-13T23:54:07.000Z from Ahmed (Telegram): and remove sir obour hub become sir education hub cuz i say old projects should not mentioned also make in navbar instead of SP make the logo project. Also do anyone work in SIR AI project cuz until now i dont see any change in the sites or the project!
+- 2026-11-14T02:07:58.000Z from Ahmed (Telegram): اي الدنيا

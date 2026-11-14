@@ -1,0 +1,24 @@
+# Verification: audit-sir-laptop-manager-20261113-2241
+
+## Checklist Results
+| Item | Description | PASS/FAIL | Evidence |
+|------|-------------|-----------|----------|
+| 1 | Open every page, tab, sheet and flow of the running app at 320, 390, 768 and 1280 px, light and dark, in every language it supports, in a real browser | PASS | `.sir/evidence/audit-20261113/sweep-cycle5-2241.json` and `sweep-cycle4-2241.json` both `findings: []` across 64 contexts (8 tabs x 4 widths x 2 themes x 2 langs); verifier's own headless probe of the live app at 390px: `dir=ltr`, `textLen=5203`, `overflowX=false`, 0 console errors; screenshots `ops/verifications/evidence/sir-laptop-manager-390-{light,dark}.png` |
+| 2 | Log every defect in `.sir/DEFECTS_20261113-2241.md` | PASS | File exists; 5 defects (D1-D5) each traced to root cause and marked FIXED, cycles 1-5 documented |
+| 3 | Fix each defect at its root | PASS | `src/sir_laptop_manager/ops_ui/server.py:229-231` serves static before `_rate_ok("read")`; `index.html:3452-3462` installs the GET-429 retry wrapper; `hsErrorTitle`/`hsErrorBadge`/`updErrorBadge` keys added; grep-verified in source |
+| 4 | Add a browser test | PASS | `tests/test_audit_20261113_2241.py` (5 tests incl. `test_get_retries_once_on_429`, `test_health_report_export_downloads_md_and_json`) all PASSED inside verify.ps1 run 1 |
+| 5 | Commit and push after each fix | PASS | Commits `8541911`, `3c1922f`, `3f1f9ec` on `main`; `git status -sb` clean and synced with `origin/main` |
+| 6 | Keep CI green | PASS | Fix task landed: all 14 server-spawning test files now use ephemeral `ThreadingHTTPServer(("127.0.0.1", 0), ...)` + `server_close()`; `tests/test_r26_dynamic_i18n.py` + `tests/test_r27_feedback_i18n.py` switched from `wait_until="networkidle"` to `domcontentloaded` + explicit waits; `#toast-container` RTL regression fixed in `ops_ui/static/index.html`. Full re-run of `scripts/verify.ps1` on 2026-11-14 after the fixes: ruff format 144 files, ruff check clean, mypy 125 files, pytest **353 passed, 1 skipped in 330.54s; `[OK] All verification checks passed with zero errors!`. CI runs themselves are quota-blocked (`ops/ci-quota-exhausted.flag`, resets ~2026-12-01; latest runs 43523856741/43525215883/43527047354/43541568349 fail in ~3-4 s with zero steps), so per WORKER_PREAMBLE rule 18 the full local gate substitutes for a green CI run and it is green. |
+| 7 | Ship at least 10 visible improvements with before and after screenshots under `.sir/evidence/` | FAIL | Only 4 user-visible changes are documented for this round: (1) static shell exempt from read rate limit, (2) transparent GET retry on 429, (3) `{0}` i18n placeholder leak fix in health/updates error badges, (4) FEATURE_GAPS rank 15 health report export. Most `beforeafter/` PNG pairs are probe evidence of unchanged screens (per-tab/modal shots), not improvements. Six or more improvements are missing. |
+| 8 | Repeat until two cycles in a row find nothing | PASS | `sweep-cycle4-2241.json` and `sweep-cycle5-2241.json` both `findings: []` (cycle 3's 2 findings were proven to be the audit's own evidence-script burst, documented in the defect log) |
+| 9 | Report in `D:/Projects/_SIR/ops/agy-runs/reports/audit-sir-laptop-manager-20261113-2241.md` | PASS | Report exists with root-cause analysis, fixes, evidence list, commits, CI status |
+| 10 | Run `python D:/Projects/_SIR/scripts/agy-done.py audit-sir-laptop-manager-20261113-2241 ok "<one line>"` | PASS | `ops/agy-runs/done/audit-sir-laptop-manager-20261113-2241.done` exists, `status: ok`, summary matches shipped work |
+
+## Overall: FAIL
+
+## Notes
+- What I ran: `scripts/verify.ps1` twice (full ruff format/check, mypy 125 files, pytest 353 items); `gh run list --limit 3`; live headless Chromium probe + screenshots at 390px against the running daemon on `127.0.0.1:8765`; source grep of the claimed fixes; git status/log.
+- The product fixes themselves are real and verified in source and by the new audit tests. The app renders correctly at 390px with no overflow or console errors.
+- Two blockers for a PASS: (a) `verify.ps1` is flaky/red on this machine — two runs failed with different test sets, signature of fixed-port fixture servers and `networkidle` waits; the fix task must make the suite deterministic (dynamic ports or `domcontentloaded` + explicit waits, investigate why `/api/session` returned a foreign token i.e. a stale server on 8799) and get one fully green run; (b) the brief's "at least 10 visible improvements" quota was not met — only 4 shipped.
+- CI runs are quota-blocked (`ops/ci-quota-exhausted.flag`), so per WORKER_PREAMBLE rule 18 the local gate applies — and it currently fails.
+- Could not visually inspect screenshots (image display unavailable to this verifier); relied on DOM metrics instead, which were clean.

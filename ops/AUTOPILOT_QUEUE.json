@@ -1305,7 +1305,7 @@
     "name": "r82-study-drawer-hidden-from-taborder",
     "folder": "D:/Projects/SIR Study",
     "title": "The closed side drawer is hidden only by CSS transform (translateX off-screen) with no vis",
-    "done": false
+    "done": true
   },
   {
     "name": "r83-portfolio-chat-focus",

@@ -78,4 +78,4 @@ Plan written 2026-11-12 03:08 by scripts/hq_usage_plan.py.
 <!-- r42-usage:end -->
 - SIR_HQ_Dashboard (:00 and :30, regenerates ops/artifact/control-room.html), SIR_HQ_ArtifactPublish (hourly :05 from 17:05, hidden Haiku run republishes the Claude artifact only when the file changed; log ops/artifact/publish.log; tested once by hand: published). Owner no longer has to ask for status: Control Room is the answer.
 - pool health 2026-11-13: available=2 cooling=7
-- pool health 2026-11-14: available=6 cooling=3
+- pool health 2026-11-14: available=7 cooling=2

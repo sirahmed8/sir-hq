@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-13T01:30:02.289Z",
+  "timestamp": "2026-11-14T01:30:02.236Z",
   "overallStatus": "RED",
   "manager": {
     "status": "AMBER",
@@ -16,15 +16,15 @@
   },
   "readLog": {
     "status": "GREEN",
-    "count": 240,
+    "count": 309,
     "lastEntry": {
-      "time": "2026-11-13T01:19:35.431Z",
-      "date": "2026-11-13",
+      "time": "2026-11-14T01:20:46.022Z",
+      "date": "2026-11-14",
       "tool": "claude-code",
       "agent": "claude",
-      "project": "HQ",
-      "filesRead": "_SIR/START_ANY_AI.md@2026-11-12, AGENTS.md@2026-11-12",
-      "nextStep": "(exact)"
+      "project": "SIR Portfolio",
+      "filesRead": "SIR Portfolio/AGENTS.md@2026-11-09, .sir/TASKS.md@2026-11-14, content@2026-11-14",
+      "nextStep": "15 static export, bilingual /en and /ar, light and dark, CV page plus PDFs, privacy page, sitemap, robots, llms.txt."
     },
     "ageDays": "0.0"
   },
@@ -40,59 +40,9 @@
       "status": "RED",
       "fileIssues": [],
       "pointerIssuesCount": 2,
-      "checkpointMtime": "2026-11-12T22:38:58.393Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-14T01:25:50.926Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
-    },
-    {
-      "name": "ahome-audit-before",
-      "status": "RED",
-      "fileIssues": [
-        {
-          "file": ".sir\\CHECKPOINT.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\PLAN.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\TASKS.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\BOARD.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\ARCHITECTURE.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\DESIGN.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\QUALITY.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\PRODUCTION.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\PLATFORMS.md",
-          "issue": "missing"
-        },
-        {
-          "file": ".sir\\BENCHMARK.md",
-          "issue": "missing"
-        }
-      ],
-      "pointerIssuesCount": 2,
-      "checkpointMtime": null,
-      "checkpointAgeDays": null,
-      "checkpointStale": true
     },
     {
       "name": "SIR Access Map",
@@ -145,7 +95,7 @@
       ],
       "pointerIssuesCount": 2,
       "checkpointMtime": "2026-11-12T19:04:52.175Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -153,7 +103,7 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-13T00:40:17.339Z",
+      "checkpointMtime": "2026-11-14T01:21:56.993Z",
       "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
@@ -162,8 +112,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T17:41:30.847Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointMtime": "2026-11-14T01:20:35.576Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -213,7 +163,7 @@
       ],
       "pointerIssuesCount": 1,
       "checkpointMtime": "2026-11-12T19:03:53.808Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -222,7 +172,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-12T17:38:33.025Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -230,8 +180,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T18:03:47.025Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointMtime": "2026-11-14T01:20:37.449Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -281,7 +231,7 @@
       ],
       "pointerIssuesCount": 1,
       "checkpointMtime": "2026-11-12T15:26:23.159Z",
-      "checkpointAgeDays": "0.4",
+      "checkpointAgeDays": "1.4",
       "checkpointStale": false
     },
     {
@@ -289,8 +239,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T15:57:00.289Z",
-      "checkpointAgeDays": "0.4",
+      "checkpointMtime": "2026-11-14T01:21:20.193Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -344,7 +294,7 @@
       ],
       "pointerIssuesCount": 2,
       "checkpointMtime": "2026-11-12T19:04:38.125Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -353,7 +303,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-12T17:36:30.416Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -403,7 +353,7 @@
       ],
       "pointerIssuesCount": 1,
       "checkpointMtime": "2026-11-12T19:03:37.166Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -411,7 +361,7 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T23:16:14.495Z",
+      "checkpointMtime": "2026-11-13T22:26:37.044Z",
       "checkpointAgeDays": "0.1",
       "checkpointStale": false
     },
@@ -420,18 +370,18 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T23:39:34.693Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-14T01:24:33.697Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
       "name": "SIR Life",
-      "status": "AMBER",
+      "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-09T19:00:44.408Z",
-      "checkpointAgeDays": "3.3",
-      "checkpointStale": true
+      "checkpointMtime": "2026-11-14T01:18:07.770Z",
+      "checkpointAgeDays": "0.0",
+      "checkpointStale": false
     },
     {
       "name": "SIR ModPack",
@@ -439,7 +389,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.379Z",
-      "checkpointAgeDays": "3.3",
+      "checkpointAgeDays": "4.3",
       "checkpointStale": true
     },
     {
@@ -448,7 +398,7 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-09T19:00:44.394Z",
-      "checkpointAgeDays": "3.3",
+      "checkpointAgeDays": "4.3",
       "checkpointStale": true
     },
     {
@@ -498,7 +448,7 @@
       ],
       "pointerIssuesCount": 1,
       "checkpointMtime": "2026-11-12T19:04:06.393Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -507,25 +457,16 @@
       "fileIssues": [],
       "pointerIssuesCount": 0,
       "checkpointMtime": "2026-11-08T15:19:03.477Z",
-      "checkpointAgeDays": "4.4",
+      "checkpointAgeDays": "5.4",
       "checkpointStale": true
-    },
-    {
-      "name": "SIR Platform",
-      "status": "GREEN",
-      "fileIssues": [],
-      "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T15:56:43.135Z",
-      "checkpointAgeDays": "0.4",
-      "checkpointStale": false
     },
     {
       "name": "SIR Portfolio",
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T22:47:53.890Z",
-      "checkpointAgeDays": "0.1",
+      "checkpointMtime": "2026-11-14T01:26:11.640Z",
+      "checkpointAgeDays": "0.0",
       "checkpointStale": false
     },
     {
@@ -579,7 +520,7 @@
       ],
       "pointerIssuesCount": 2,
       "checkpointMtime": "2026-11-12T19:04:22.716Z",
-      "checkpointAgeDays": "0.3",
+      "checkpointAgeDays": "1.3",
       "checkpointStale": false
     },
     {
@@ -587,17 +528,8 @@
       "status": "GREEN",
       "fileIssues": [],
       "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T22:53:56.074Z",
-      "checkpointAgeDays": "0.1",
-      "checkpointStale": false
-    },
-    {
-      "name": "sir-study-before-661a0d9",
-      "status": "GREEN",
-      "fileIssues": [],
-      "pointerIssuesCount": 0,
-      "checkpointMtime": "2026-11-12T12:57:29.000Z",
-      "checkpointAgeDays": "0.5",
+      "checkpointMtime": "2026-11-13T20:29:06.701Z",
+      "checkpointAgeDays": "0.2",
       "checkpointStale": false
     }
   ]

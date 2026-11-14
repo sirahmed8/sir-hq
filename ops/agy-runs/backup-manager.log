@@ -13680,3 +13680,642 @@ Index: D:/Projects/_SIR/ops/HQ_CHECKPOINT.md
 
 [0m
 [0m→ [0mRead ops/OWNER_REQUEST_LEDGER.md[90m [offset=140, limit=50][0m
+[0m
+[0m← [0mEdit ops/OWNER_REQUEST_LEDGER.md
+Index: D:/Projects/_SIR/ops/OWNER_REQUEST_LEDGER.md
+===================================================================
+--- D:/Projects/_SIR/ops/OWNER_REQUEST_LEDGER.md
++++ D:/Projects/_SIR/ops/OWNER_REQUEST_LEDGER.md
+@@ -147,4 +147,5 @@
+ 2026-11-13 02:55 | backup-manager | Same report: implemented and pushed (AHome main 212af85): crop sheet is a real modal, pinch zoom + two-finger pan, rotation pan remap, keyboard screens keep scrolling with --kb room, toggle drag styles always cleared, duplicate dead CSS rule removed. tsc/eslint/9 node tests/next build green; local-core bot tests 14/14. 320/390 px dev-page screenshots in AHome .sir/evidence/r71-20261113 (gitignored). CI fails by quota flag not by code. On-phone check OPEN: phone was locked, installed APK is stale.
+ - 2026-11-14 00:15 | backup-manager | Ahmed: Hi | DONE | رد مختصر بالحالة الحالية (3 مهام شغالة، الطابور ماشي)
+ - 2026-11-14 01:35 | backup-manager | Ahmed: اي الدنيا | DONE | status reply; queued sir-ai-agentic-os-02 (phase 2 chat stream parser)
+ | 11-14 01:30 | backup-manager | Ahmed: اي الدنيا (status check) | DONE | ملخص حالة مختصر: الطابور خلص،مهمة جديدة اتضافت لـ SIR AI، والمساحة على C و D واصلت انخفاض |
++- 2026-11-14 01:55 | backup-manager | Ahmed burst: AHome profile save broken, calling hardcoded (no ringing), video no camera, noise cancellation, GIF picker hardcoded categories/broken search/thumbnails, games XO plays self/no invite/notifications/cropped UI, Portfolio: remove SIR Negm Furniture -> Negm Furniture, SIR Obour Hub -> SIR Education Hub, navbar SP -> logo; SIR AI progress question | IN PROGRESS | queued r74, r75, r76, r77; SIR AI active (agentic-os-02, runnable-adapters-01)
+
+[0m
+[0m← [0mWrite ops/backup-manager/reply-1794614054820-2.txt
+Wrote file successfully.
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add ops/HQ_CHECKPOINT.md ops/OWNER_REQUEST_LEDGER.md ops/briefs/r74-ahome-profile-save-fix.md ops/briefs/r75-ahome-calling-fix.md ops/briefs/r76-ahome-games-gifs-fix.md ops/briefs/r77-portfolio-project-names.md ops/backup-manager/reply-1794614054820-2.txt; git commit -m "backup-manager: queued 4 tasks from owner burst (AHome profile save, calling, games/GIFs, Portfolio names); updated HQ checkpoint and owner ledger"
+warning: in the working copy of 'ops/HQ_CHECKPOINT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ops/OWNER_REQUEST_LEDGER.md', LF will be replaced by CRLF the next time Git touches it
+The following paths are ignored by one of your .gitignore files:
+ops/backup-manager
+hint: Use -f if you really want to add them.
+hint: Disable this message with "git config set advice.addIgnoredFile false"
+[main afe24f4] backup-manager: queued 4 tasks from owner burst (AHome profile save, calling, games/GIFs, Portfolio names); updated HQ checkpoint and owner ledger
+ 1 file changed, 1 insertion(+)
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/bus/team.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add -f ops/briefs/r74-ahome-profile-save-fix.md ops/briefs/r75-ahome-calling-fix.md ops/briefs/r76-ahome-games-gifs-fix.md ops/briefs/r77-portfolio-project-names.md ops/backup-manager/reply-1794614054820-2.txt; git commit -m "backup-manager: add briefs and reply file"
+warning: in the working copy of 'ops/backup-manager/reply-1794614054820-2.txt', LF will be replaced by CRLF the next time Git touches it
+[main 49986f1] backup-manager: add briefs and reply file
+ 1 file changed, 27 insertions(+)
+ create mode 100644 ops/backup-manager/reply-1794614054820-2.txt
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add -f ops/briefs/r74-ahome-profile-save-fix.md ops/briefs/r75-ahome-calling-fix.md ops/briefs/r76-ahome-games-gifs-fix.md ops/briefs/r77-portfolio-project-names.md; git commit -m "backup-manager: add 4 briefs for queued tasks"
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/READ_LOG.md
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/artifact/CHANGED.txt
+	modified:   ops/artifact/control-room.html
+	modified:   ops/bus/team.md
+	modified:   ops/dashboard.html
+	modified:   ops/public/dashboard.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git check-ignore ops/briefs/r74-ahome-profile-save-fix.md
+(no output)
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add ops/briefs/r74-ahome-profile-save-fix.md; git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/READ_LOG.md
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/artifact/CHANGED.txt
+	modified:   ops/artifact/control-room.html
+	modified:   ops/bus/team.md
+	modified:   ops/dashboard.html
+	modified:   ops/public/dashboard.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; ls -la ops/briefs/r74-ahome-profile-save-fix.md
+Get-ChildItem : A parameter cannot be found that matches parameter name 'la'.
+At line:4 char:25
++ cd D:/Projects/_SIR; ls -la ops/briefs/r74-ahome-profile-save-fix.md
++                         ~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ChildItem], ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+[0m
+[0m$ [0mcd D:/Projects/_SIR; dir ops/briefs/r74-ahome-profile-save-fix.md
+Directory: D:\Projects\_SIR\ops\briefs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----        11/14/2026   2:05 AM           1126 r74-ahome-profile-save-fix.md
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add "ops/briefs/r74-ahome-profile-save-fix.md"; git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/READ_LOG.md
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/artifact/CHANGED.txt
+	modified:   ops/artifact/control-room.html
+	modified:   ops/bus/team.md
+	modified:   ops/dashboard.html
+	modified:   ops/public/dashboard.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ops/agy-runs/reports/r74-ahome-profile-save-fix.md
+	ops/verifications/evidence/audit-sir-jobs-2241-390.png
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; cat .gitignore
+# local-only memory state (core/04-memory.md step 7)
+ops/LAST_CONTEXT.md
+ops/snapshots/
+ops/memory.log
+ops/stop-guard.json
+# raw scanner reports (redacted, but machine-specific noise)
+ops/inventory/gitleaks/
+# own repos later (platform/ and standard/ split out in their phases)
+platform/
+ops/subagent.log
+ops/usage-ledger.jsonl
+ops/provider-cooling.json
+.claude/
+
+__pycache__/
+*.pyc
+.venv/
+tools/sir-autonomy/.venv/
+tools/sir-autonomy/*.png
+tools/sir-autonomy/*.log
+!tools/sir-autonomy/chrome-extension/icons/*.png
+ops/agy-runs/*.png
+ops/agy-runs/done/
+ops/agy-runs/*.done
+ops/agy-runs/expected.txt
+ops/agy-runs/smoke.txt
+ops/agy-runs/model-probe.txt
+ops/telegram-offset.txt
+ops/briefs/*.prompt.txt
+ops/agy-runs/reports/*.png
+tools/sir-autonomy/.venv/
+tools/sir-autonomy/__pycache__/
+
+ops/control-room-refresh.log
+ops/control-room-server.log
+ops/control-room-health.json
+ops/control-room.lock
+ops/control-room-server.log.*
+ops/control-room-refresh.log.*
+ops/locks/
+ops/telegram-listener.pid
+_quarantine/
+
+# CLI runner logs: large, local only
+ops/agy-runs/cli-*.log
+ops/agy-runs/autopilot-*.out
+ops/autopilot.log
+ops/autopilot.log.old
+ops/autopilot_state.json
+ops/telegram-listener.log
+scratch/
+
+# runtime state and logs (regenerated by the duties/watchdog)
+ops/agy-runs/*.started
+ops/agy-runs/model-pool.json
+ops/watchdog.log
+ops/watchdog_state.json
+ops/duties.log
+ops/manager_tick.log
+ops/nonexistent-listener.pid
+
+.sir/LAST_CONTEXT.md
+.sir/.memory/
+ops/serve-control-room.out
+ops/pythonw.path
+_local/
+
+# r42 free-agent team runtime state (regenerated by scripts/r42_rounds.py)
+ops/verifier.log
+ops/scout.log
+ops/review.log
+ops/notify.log
+ops/rounds.log
+ops/team.log
+ops/review-state.json
+ops/notify-state.json
+ops/scout-lenses.json
+ops/agy-runs/verifier-*.log
+ops/agy-runs/scout-*.log
+ops/scout-evidence/
+ops/usage.log
+ops/agy-runs/*.out
+.aider*
+ops/tasks/
+
+# wrangler local state
+.wrangler/
+
+# backup manager runtime state (r64)
+ops/backup-manager/
+ops/telegram-media/
+ops/backup-manager.json
+ops/backup-manager-chat.jsonl.tmp
+nul
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git add ops/briefs/*.md; git status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ops/READ_LOG.md
+	modified:   ops/agy-runs/backup-manager.log
+	modified:   ops/artifact/CHANGED.txt
+	modified:   ops/artifact/control-room.html
+	modified:   ops/bus/team.md
+	modified:   ops/dashboard.html
+	modified:   ops/public/dashboard.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ops/agy-runs/reports/r74-ahome-profile-save-fix.md
+	ops/verifications/evidence/audit-sir-jobs-2241-390.png
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mcd D:/Projects/_SIR; git ls-files ops/briefs/
+ops/briefs/2026-10-29.md
+ops/briefs/2026-10-30.md
+ops/briefs/2026-11-01.md
+ops/briefs/2026-11-03.md
+ops/briefs/2026-11-04.md
+ops/briefs/2026-11-05.md
+ops/briefs/2026-11-06.md
+ops/briefs/2026-11-07.md
+ops/briefs/2026-11-08.md
+ops/briefs/2026-11-09.md
+ops/briefs/2026-11-12.md
+ops/briefs/2026-11-13.md
+ops/briefs/PASTE_AHOME.txt
+ops/briefs/PASTE_AHOME_2.txt
+ops/briefs/PASTE_AHOME_3.txt
+ops/briefs/PASTE_AHOME_4.txt
+ops/briefs/PASTE_AHOME_5.txt
+ops/briefs/SIR_AI_AGENTIC_OS.md
+ops/briefs/_CONTINUE_LINE.txt
+ops/briefs/_MANAGER_SUCCESSION.md
+ops/briefs/_SKILLS_LINE.txt
+ops/briefs/_artifact-v15-snapshot.html
+ops/briefs/_negm-ci-msg.txt
+ops/briefs/ahome-ci2.md
+ops/briefs/ahome-extra.md
+ops/briefs/ahome-folder-icon.md
+ops/briefs/ahome-free-tools-fallback.md
+ops/briefs/ahome-overhaul.md
+ops/briefs/ahome-r3.md
+ops/briefs/ahome-r4.md
+ops/briefs/ahome-r5.md
+ops/briefs/ahome-r6.md
+ops/briefs/ahome-standing.md
+ops/briefs/ahome-ui-bugs.md
+ops/briefs/audit-ahome-20261111-1011.md
+ops/briefs/audit-ahome-20261112-0051.md
+ops/briefs/audit-ahome-20261112-0111.md
+ops/briefs/audit-sir-jobs-20261111-0841.md
+ops/briefs/audit-sir-jobs-20261113-0721.md
+ops/briefs/audit-sir-jobs-20261113-1101.md
+ops/briefs/audit-sir-jobs-20261113-1501.md
+ops/briefs/audit-sir-jobs-20261113-1821-fix1.md
+ops/briefs/audit-sir-jobs-20261113-1821.md
+ops/briefs/audit-sir-jobs-20261113-2241.md
+ops/briefs/audit-sir-laptop-manager-20261111-0841.md
+ops/briefs/audit-sir-laptop-manager-20261111-1951.md
+ops/briefs/audit-sir-laptop-manager-20261112-1401-fix1.md
+ops/briefs/audit-sir-laptop-manager-20261112-1401.md
+ops/briefs/audit-sir-laptop-manager-20261113-1101.md
+ops/briefs/audit-sir-laptop-manager-20261113-2241.md
+ops/briefs/audit-sir-study-20261111-1011.md
+ops/briefs/audit-sir-study-20261111-1951.md
+ops/briefs/audit-sir-study-20261112-1401-fix1.md
+ops/briefs/audit-sir-study-20261112-1401.md
+ops/briefs/audit-sir-study-20261113-0721.md
+ops/briefs/audit-sir-study-20261113-1501-fix1.md
+ops/briefs/audit-sir-study-20261113-1501.md
+ops/briefs/audit-sir-study-20261113-1821.md
+ops/briefs/business-bakery-tasks.md
+ops/briefs/business-barber-tasks.md
+ops/briefs/business-bookstore-tasks.md
+ops/briefs/business-butcher-fresh-grocery-tasks.md
+ops/briefs/business-cafe-tasks.md
+ops/briefs/business-car-service-garage-tasks.md
+ops/briefs/business-car-wash-tasks.md
+ops/briefs/business-clinic-tasks.md
+ops/briefs/business-clothing-retail-tasks.md
+ops/briefs/business-delivery-courier-tasks.md
+ops/briefs/business-dental-clinic-tasks.md
+ops/briefs/business-dessert-ice-cream-tasks.md
+ops/briefs/business-electronics-phone-tasks.md
+ops/briefs/business-factory-workshop-tasks.md
+ops/briefs/business-florist-tasks.md
+ops/briefs/business-furniture-carpentry-tasks.md
+ops/briefs/business-grocery-shop-tasks.md
+ops/briefs/business-gym-fitness-tasks.md
+ops/briefs/business-hardware-materials-tasks.md
+ops/briefs/business-hotel-guest-house-tasks.md
+ops/briefs/business-juice-beverage-tasks.md
+ops/briefs/business-laundry-tasks.md
+ops/briefs/business-library-tasks.md
+ops/briefs/business-optical-shop-tasks.md
+ops/briefs/business-pet-shop-tasks.md
+ops/briefs/business-pharmacy-chain-tasks.md
+ops/briefs/business-pharmacy-tasks.md
+ops/briefs/business-photography-studio-tasks.md
+ops/briefs/business-print-shop-tasks.md
+ops/briefs/business-private-school-nursery-tasks.md
+ops/briefs/business-real-estate-office-tasks.md
+ops/briefs/business-repair-shop-tasks.md
+ops/briefs/business-restaurant-tasks.md
+ops/briefs/business-salon-tasks.md
+ops/briefs/business-school-shop-tasks.md
+ops/briefs/business-spa-wellness-tasks.md
+ops/briefs/business-stationery-gifts-tasks.md
+ops/briefs/business-supermarket-tasks.md
+ops/briefs/business-training-center-tasks.md
+ops/briefs/business-veterinary-clinic-tasks.md
+ops/briefs/business-wholesale-distribution-tasks.md
+ops/briefs/ci-ahome-20261112-1401.md
+ops/briefs/ci-sir-20261112-0901-fix1-fix1.md
+ops/briefs/ci-sir-20261112-0901-fix1.md
+ops/briefs/ci-sir-20261112-0901.md
+ops/briefs/ci-sir-20261112-0941.md
+ops/briefs/ci-sir-20261112-0951-fix1.md
+ops/briefs/ci-sir-20261112-0951.md
+ops/briefs/ci-sir-jobs-20261112-1741.md
+ops/briefs/ci-sir-study-20261111-0621.md
+ops/briefs/ci-sir-study-20261112-0700-fix1.md
+ops/briefs/ci-sir-study-20261112-0700.md
+ops/briefs/control-ci2.md
+ops/briefs/control-r3.md
+ops/briefs/control-r4.md
+ops/briefs/control-r5.md
+ops/briefs/control-r6.md
+ops/briefs/control-r7.md
+ops/briefs/control-room-standing.md
+ops/briefs/control-room.md
+ops/briefs/ds-qa.md
+ops/briefs/fix-jobs.md
+ops/briefs/fix-laptop.md
+ops/briefs/jobs-fix2.md
+ops/briefs/jobs-followup.md
+ops/briefs/jobs-followup.prompt.txt
+ops/briefs/jobs-r3.md
+ops/briefs/jobs-r4.md
+ops/briefs/jobs-r5.md
+ops/briefs/jobs-r6.md
+ops/briefs/jobs-review.md
+ops/briefs/jobs-standing.md
+ops/briefs/laptop-ci2.md
+ops/briefs/laptop-r3.md
+ops/briefs/laptop-r4.md
+ops/briefs/laptop-r5.md
+ops/briefs/laptop-r6.md
+ops/briefs/laptop-scan.md
+ops/briefs/laptop-standing.md
+ops/briefs/laptop-startup.md
+ops/briefs/laptop-startup.prompt.txt
+ops/briefs/loop-ahome.md
+ops/briefs/loop-jobs.md
+ops/briefs/loop-laptop.md
+ops/briefs/loop-study.md
+ops/briefs/normal-sir-ai-runnable-adapters-01.md
+ops/briefs/owner-requests-verify-fix1.md
+ops/briefs/owner-requests-verify.md
+ops/briefs/parity-instructions.md
+ops/briefs/planner-1.md
+ops/briefs/planner-2.md
+ops/briefs/planner-3.md
+ops/briefs/queued-laptop-updates.md
+ops/briefs/r10-ahome.md
+ops/briefs/r10-control.md
+ops/briefs/r10-jobs.md
+ops/briefs/r10-laptop.md
+ops/briefs/r10-study.md
+ops/briefs/r11-ahome.md
+ops/briefs/r11-control.md
+ops/briefs/r11-jobs.md
+ops/briefs/r11-laptop.md
+ops/briefs/r11-study.md
+ops/briefs/r12-jobs.md
+ops/briefs/r12-laptop.md
+ops/briefs/r13-control.md
+ops/briefs/r13-jobs.md
+ops/briefs/r13-laptop.md
+ops/briefs/r13-services.md
+ops/briefs/r13-study.md
+ops/briefs/r14-ahome.md
+ops/briefs/r15-control.md
+ops/briefs/r15-jobs.md
+ops/briefs/r15-laptop-fix1.md
+ops/briefs/r15-laptop.md
+ops/briefs/r16-control.md
+ops/briefs/r16-jobs.md
+ops/briefs/r16-laptop.md
+ops/briefs/r16-study.md
+ops/briefs/r17-ahome-verify.md
+ops/briefs/r18-ahome-phone.md
+ops/briefs/r19-control.md
+ops/briefs/r19-jobs.md
+ops/briefs/r19-study.md
+ops/briefs/r20-study.md
+ops/briefs/r21-ahome.md
+ops/briefs/r22-control.md
+ops/briefs/r22-jobs.md
+ops/briefs/r22-laptop.md
+ops/briefs/r22-study.md
+ops/briefs/r23-jobs-cv.md
+ops/briefs/r24-games.md
+ops/briefs/r24-jobs-apply.md
+ops/briefs/r25-sir-ai.md
+ops/briefs/r26-infra.md
+ops/briefs/r27-study-sources.md
+ops/briefs/r28-jobs-autoapply.md
+ops/briefs/r29-jobs-verify-applies.md
+ops/briefs/r30-ahome-local-core.md
+ops/briefs/r31-desktop-organize.md
+ops/briefs/r33-ahome-feedback.md
+ops/briefs/r34-jobs-ui-overhaul.md
+ops/briefs/r35-control-room-and-laptop-ui.md
+ops/briefs/r36-more-free-workers.md
+ops/briefs/r37-verify-today.md
+ops/briefs/r38-ahome-feedback2.md
+ops/briefs/r38-ahome-haiku-prompt.md
+ops/briefs/r39-portfolio-copy.md
+ops/briefs/r40-sir-ai-vision.md
+ops/briefs/r41-disk-regenerable.md
+ops/briefs/r42-verifier-scout.md
+ops/briefs/r43-study-mobile-card-tables.md
+ops/briefs/r44-portfolio-plans-upgrade.md
+ops/briefs/r45-jobs-scout-fixes-fix1.md
+ops/briefs/r45-jobs-scout-fixes.md
+ops/briefs/r45-study-scout-fixes.md
+ops/briefs/r46-competitors-gaps.md
+ops/briefs/r46-laptop-manager-fix1.md
+ops/briefs/r47-skills-encyclopedia-fix1.md
+ops/briefs/r47-skills-encyclopedia.md
+ops/briefs/r48-video-digest.md
+ops/briefs/r49-skills-deep.md
+ops/briefs/r50-portfolio-owner-fixes.md
+ops/briefs/r51-backlog-projects.md
+ops/briefs/r52-product-premium-plan.md
+ops/briefs/r53-business-plan.md
+ops/briefs/r53-education-hub-plan.md
+ops/briefs/r53-hagoozat-and-ideas.md
+ops/briefs/r54-plan-sir-access-map.md
+ops/briefs/r54-plan-sir-cars.md
+ops/briefs/r54-plan-sir-game-deals.md
+ops/briefs/r54-plan-sir-handyman.md
+ops/briefs/r54-plan-sir-movies.md
+ops/briefs/r54-plan-sir-price-finder.md
+ops/briefs/r56-business-sector-depth.md
+ops/briefs/r57-ahome-owner-feedback.md
+ops/briefs/r58-new-project-folders.md
+ops/briefs/r60-build-sir-ai.md
+ops/briefs/r60-build-sir-business.md
+ops/briefs/r60-build-sir-cars.md
+ops/briefs/r60-build-sir-content-creation-studio.md
+ops/briefs/r60-build-sir-controller.md
+ops/briefs/r60-build-sir-education-hub.md
+ops/briefs/r60-build-sir-hagoozat.md
+ops/briefs/r60-build-sir-handyman.md
+ops/briefs/r60-build-sir-jobs.md
+ops/briefs/r60-build-sir-laptop-manager.md
+ops/briefs/r60-build-sir-life.md
+ops/briefs/r60-build-sir-modpack.md
+ops/briefs/r60-build-sir-mods-gta-v.md
+ops/briefs/r60-build-sir-movies.md
+ops/briefs/r60-build-sir-portfolio.md
+ops/briefs/r60-build-sir-study.md
+ops/briefs/r61-plan-sir-access-map.md
+ops/briefs/r61-plan-sir-business.md
+ops/briefs/r61-plan-sir-cars.md
+ops/briefs/r61-plan-sir-content-creation-studio.md
+ops/briefs/r61-plan-sir-controller.md
+ops/briefs/r61-plan-sir-education-hub.md
+ops/briefs/r61-plan-sir-game-deals.md
+ops/briefs/r61-plan-sir-hagoozat.md
+ops/briefs/r61-plan-sir-handyman.md
+ops/briefs/r61-plan-sir-life.md
+ops/briefs/r61-plan-sir-modpack.md
+ops/briefs/r61-plan-sir-mods-gta-v.md
+ops/briefs/r61-plan-sir-movies.md
+ops/briefs/r61-plan-sir-price-finder.md
+ops/briefs/r62-ahome-smart-sync.md
+ops/briefs/r62-control-room-mirror.md
+ops/briefs/r63-control-room-private.md
+ops/briefs/r64-ahome-bot-kit.md
+ops/briefs/r64-telegram-first.md
+ops/briefs/r65-ahome-apk-adb-updates.md
+ops/briefs/r66-bot-profile-photo.md
+ops/briefs/r67-build-sir-portfolio.md
+ops/briefs/r67-c-drive-space.md
+ops/briefs/r67-voice-pipeline-verify.md
+ops/briefs/r68-sir-ai-bot-answers.md
+ops/briefs/r69-review-backlog.md
+ops/briefs/r70-cycle-sir-ai.md
+ops/briefs/r70-cycle-sir-jobs.md
+ops/briefs/r70-cycle-sir-laptop-manager-fix1.md
+ops/briefs/r70-cycle-sir-laptop-manager.md
+ops/briefs/r70-cycle-sir-portfolio.md
+ops/briefs/r70-cycle-sir-study.md
+ops/briefs/r71-ahome-profile-editor-fixes.md
+ops/briefs/r72-d-drive-org-plan.md
+ops/briefs/r73-laptop-ollama-single-instance.md
+ops/briefs/r74-ahome-profile-save-fix.md
+ops/briefs/r75-ahome-calling-fix.md
+ops/briefs/r76-ahome-games-gifs-fix.md
+ops/briefs/r77-portfolio-project-names.md
+ops/briefs/r78-portfolio-complete.md
+ops/briefs/r79-sir-ai-branding.md
+ops/briefs/r8-ahome.md
+ops/briefs/r8-control.md
+ops/briefs/r8-jobs.md
+ops/briefs/r8-laptop.md
+ops/briefs/r8-study.md
+ops/briefs/r80-ahome-models-audit.md
+ops/briefs/r81-projects-ai-features.md
+ops/briefs/r82-verify-sweep.md
+ops/briefs/r9-ahome.md
+ops/briefs/r9-control.md
+ops/briefs/r9-jobs.md
+ops/briefs/r9-laptop.md
+ops/briefs/r9-study.md
+ops/briefs/reconcile.md
+ops/briefs/remote-access.md
+ops/briefs/review-old-tasks.md
+ops/briefs/sir-access-map-tasks.md
+ops/briefs/sir-ai-agentic-os-01.md
+ops/briefs/sir-ai-agentic-os-02.md
+ops/briefs/sir-ai-runnable-adapters-01.md
+ops/briefs/sir-ai-task-4.md
+ops/briefs/sir-ai-tasks.md
+ops/briefs/sir-business-tasks.md
+ops/briefs/sir-cars-tasks.md
+ops/briefs/sir-content-creation-studio-tasks.md
+ops/briefs/sir-controller-tasks.md
+ops/briefs/sir-education-hub-tasks.md
+ops/briefs/sir-game-deals-tasks.md
+ops/briefs/sir-hagoozat-tasks.md
+ops/briefs/sir-handyman-tasks.md
+ops/briefs/sir-jobs-tasks.md
+ops/briefs/sir-laptop-manager-tasks.md
+ops/briefs/sir-life-tasks.md
+ops/briefs/sir-modpack-tasks.md
+ops/briefs/sir-mods-gta-v-tasks.md
+ops/briefs/sir-movies-tasks.md
+ops/briefs/sir-obour-hub-tasks.md
+ops/briefs/sir-price-finder-tasks.md
+ops/briefs/sir-study-tasks.md
+ops/briefs/smoke-cursor.md
+ops/briefs/smoke-devin.md
+ops/briefs/smoke-pi.md
+ops/briefs/study-ba-qa.md
+ops/briefs/study-ba-qa.prompt.txt
+ops/briefs/study-elec-qa.md
+ops/briefs/study-elec-qa.prompt.txt
+ops/briefs/study-fix2.md
+ops/briefs/study-hci-qa.md
+ops/briefs/study-hci-qa.prompt.txt
+ops/briefs/study-hr-qa.md
+ops/briefs/study-hr-qa.prompt.txt
+ops/briefs/study-or-qa.md
+ops/briefs/study-r3.md
+ops/briefs/study-r4.md
+ops/briefs/study-r5.md
+ops/briefs/study-r6.md
+ops/briefs/study-sad-qa.md
+ops/briefs/study-standing.md
+ops/briefs/verify-r70-laptop-fix1.md
+ops/briefs/verify-r70-sir-ai.md
+ops/briefs/verify-r71-ahome.md
+ops/briefs/week-2026-10-29.md
+ops/briefs/week-2026-11-06.md
+ops/briefs/week-2026-11-13.md
+[0m
+The briefs are already tracked. Let me push the commits.
+[0m$ [0mcd D:/Projects/_SIR; git push origin main
+To https://github.com/sirahmed8/sir-hq.git
+   2fde8af..49986f1  main -> main
+[0m
+[0m→ [0mRead ops/backup-manager/reply-1794614054820-2.txt
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py --list 2>&1 | head -20
+head : The term 'head' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:4 char:64
++ ...  D:/Projects/_SIR; python scripts/queue-add.py --list 2>&1 | head -20
++                                                                  ~~~~
+    + CategoryInfo          : ObjectNotFound: (head:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+[0m
+[0m$ [0mcd D:/Projects/_SIR; python scripts/queue-add.py --list
+Add a task to the autopilot queue. Usage: python queue-add.py <name> <brief.md> <project-folder> "<title>"
+Builds ops/briefs/<name>.prompt.txt with agy-task.py and appends the task to ops/AUTOPILOT_QUEUE.json (skips a name already queued).
+The autopilot (hq_autopilot.py) then gives it to the free CLI agents when its turn comes. Never queue AHome private content.
+[0m
+[0m$ [0mcd D:/Projects/_SIR; cat ops/AUTOPILOT_QUEUE.json | grep -E "r74|r75|r76|r77"
+grep : The term 'grep' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:4 char:53
++ cd D:/Projects/_SIR; cat ops/AUTOPILOT_QUEUE.json | grep -E "r74|r75| ...
++                                                     ~~~~
+    + CategoryInfo          : ObjectNotFound: (grep:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+[0m
+[0m$ [0mcd D:/Projects/_SIR; cat ops/AUTOPILOT_QUEUE.json | Select-String "r74|r75|r76|r77"
+"name": "r74-ahome-profile-save-fix",
+    "name": "r75-ahome-calling-fix",
+    "name": "r76-ahome-games-gifs-fix",
+    "name": "r77-portfolio-project-names",
+[0m
+The four new tasks are queued. The reply file is written at `D:/Projects/_SIR/ops/backup-manager/reply-1794614054820-2.txt` and all changes are committed and pushed to main.
+04:08:10 direct reply from openai/gpt-oss-120b
