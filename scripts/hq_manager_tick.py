@@ -51,7 +51,12 @@ def main() -> None:
         "crush": ["crush", "run", "-m", model, prompt],
         "cline": ["cline", "-p", "--yolo", "-m", model, prompt],
         "gemini": ["gemini", "-p", prompt, "--yolo", "--skip-trust"],
-        "aider": ["aider", "--model", model, "--yes-always", "--message", prompt],
+        "aider": [
+            "aider", "--model", model, "--yes-always",
+            "--no-show-model-warnings", "--no-show-release-notes",
+            "--no-check-update", "--no-detect-urls", "--no-browser",
+            "--analytics-disable", "--message", prompt,
+        ],
         "kimi": ["kimi", "-p", prompt, "--yolo"],
     }.get(tool)
     if cmd is None:

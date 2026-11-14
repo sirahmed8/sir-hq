@@ -61,7 +61,7 @@ ATTEMPT_TIMEOUT = 40       # seconds for ONE chain step (owner: 25-40 s per atte
 MAX_TOTAL = 180            # hard cap for the whole chain, then the honest fallback line
 CHAIN = [
     ("agy", "claude-sonnet-4-6", "claude via antigravity"),
-    ("aider", "groq/openai/gpt-oss-120b", "groq gpt-oss 120b"),
+    ("aider", "cerebras/qwen-3-235b-a22b-instruct-2507", "cerebras qwen-3 235b"),
     ("kilo", "kilo/kilo-auto/free", "kilo free router"),
     ("aider", "nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b", "nvidia nemotron ultra"),
     ("devin", "swe-2-flash-medium", "devin swe-2"),
@@ -330,6 +330,7 @@ def agent_cmd(tool: str, model: str, msg: str) -> tuple[list[str], dict]:
                                       f"{KEYS.get('CLOUDFLARE_ACCOUNT_ID', '')}/ai/v1")
             env["OPENAI_API_KEY"] = KEYS.get("CLOUDFLARE_API_TOKEN", "")
         return ([str(AIDER_EXE), "--model", model, "--yes-always", "--no-detect-urls", "--no-browser",
+                 "--no-show-release-notes", "--no-check-update", "--analytics-disable",
                  "--no-auto-commits", "--no-show-model-warnings", "--message", msg], env)
     cmds = {
         "kilo": [str(NPM_BIN / "kilo.cmd"), "run", "--auto", "-m", model, msg],

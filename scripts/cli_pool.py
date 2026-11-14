@@ -29,7 +29,7 @@ POOL = [
     "kilo|kilo/kilo-auto/free",                                 # Kilo free router (serves Nemotron and frontier models)
     "opencode|opencode/big-pickle",                             # OpenCode Zen free tier
     "devin|swe-2-flash-medium",                                 # Devin / Cognition free plan
-    "aider|groq/openai/gpt-oss-120b",                           # Groq API key
+    "aider|cerebras/qwen-3-235b-a22b-instruct-2507",            # Cerebras API key (Groq removed: 8k TPM limit fails & triggers billing URLs)
     "aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b",       # NVIDIA NIM key
     "agy|claude-sonnet-4-6",                                    # Google Antigravity account (Claude)
     "aider|openai/@cf/openai/gpt-oss-120b",                     # Cloudflare Workers AI

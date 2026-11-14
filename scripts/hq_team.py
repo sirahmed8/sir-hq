@@ -154,7 +154,12 @@ def agent_command(pick: str, prompt: str) -> list:
         "crush": ["crush", "run", "-m", model, prompt],
         "cline": ["cline", "-P", "cline", "--thinking", "high", "-p", "--yolo", "-m", model, prompt],
         "gemini": ["gemini", "-p", prompt, "--yolo", "--skip-trust"],
-        "aider": ["aider", "--model", model, "--yes-always", "--message", prompt],
+        "aider": [
+            "aider", "--model", model, "--yes-always",
+            "--no-show-model-warnings", "--no-show-release-notes",
+            "--no-check-update", "--no-detect-urls", "--no-browser",
+            "--analytics-disable", "--message", prompt,
+        ],
         "kimi": ["kimi", "-p", prompt, "--yolo"],
     }
     cmd = commands.get(tool, [])
@@ -193,9 +198,10 @@ def run_agent(pick: str, prompt: str, cwd, tag: str, timeout: int = 1800) -> tup
         elif model == "openai/GLM-5.3":
             env["OPENAI_API_BASE"] = "https://api.sambanova.ai/v1"
             env["OPENAI_API_KEY"] = keys.get("SAMBANOVA_API_KEY", "")
-        for k in ("GROQ_API_KEY",):
+        for k in ("GROQ_API_KEY", "CEREBRAS_API_KEY", "MISTRAL_API_KEY", "COHERE_API_KEY", "OPENROUTER_API_KEY"):
             if k in keys:
                 env[k] = keys[k]
+        env["BROWSER"] = "true"
     if tool == "qwen":
         env.update({"OPENAI_BASE_URL": "http://localhost:11434/v1", "OPENAI_API_KEY": "ollama",
                     "OPENAI_MODEL": model})
