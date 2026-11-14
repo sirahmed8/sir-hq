@@ -85,3 +85,6 @@ That is it. Microsoft was skipped (no phone-free signup path was available), so 
 - Hermes bot token: @HermesSIRAIBot was created but the token pasted in chat contains a stray "@" (Telegram rejects it: 404/401). Please re-copy the token from the BotFather "token" message (the long line under the bot name) and send it again — I'll wire it into Hermes and restart the gateway.
 - Parked apps awaiting your keep/delete decision: Factory (Droid) and Bionic — you said they feel useless; OpenRouter quota is shared with the coding pool. Say "delete" or "keep" for each.
 - SIR AI is now the flagship: all new feature work should route there once its plan box is picked up.
+
+## Close background OpenClaw session w8-q9 (2026-11-14) - RESOLVED
+- Both OpenClaw scheduled tasks (`OpenClaw Gateway*`) are Disabled and `w8-q9` Session 4 has terminated on its own (`query user` / `qwinsta` show only `sir1ahmed1` on Session 3, and zero `openclaw` processes remain running). No manual `logoff 4` command is needed.
