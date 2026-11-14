@@ -1,44 +1,28 @@
 # agent-reach
 
-- Tool: `agents`
-- Category: media
-- Source: `C:\Users\a7med\.agents\skills\agent-reach\SKILL.md`
-- SKILL.md size: 4864 chars
+Source read: `C:\Users\a7med\.agents\skills\agent-reach\SKILL.md` plus `references/capabilities.md`, `references/sessions.md`, and `references/maintenance.md`.
 
-## What it does
+## Summary
+Agent Reach is a read-only command-line skill for fetching public content across many platforms through one `agent-reach` CLI. It prefers the agent's own public search tools first, then uses Reach channels for search, reading, comments, subtitles, transcripts, market quotes, jobs, and platform-specific actions, returning JSON results with explicit error codes when setup, login, rate limits, blocks, or missing content prevent access.
 
-> 只读读取各平台内容：搜索、读帖、看评论、取字幕、查行情和职位。 Use when 用户提到或贴出链接：小红书/xiaohongshu、B站/bilibili、Twitter/X、Reddit、 YouTube（字幕、转录）、GitHub、V2EX、雪球/股票行情、LinkedIn/Boss直聘 职位、 Instagram、Facebook、小宇宙播客；或说"帮我搜/看看/读一下这个链接"而自带网页搜索/读取不可用、失败或拿不到正文； 或要安装、加上/去掉某个平台、登录/退出、看状态、更新、卸载 Agent Reach。 不做：发帖、评论、点赞、私信等任何写操作；不替用户登录、不索要密码。 公开内容优先用 Agent 自带工具，Reach 补缺口。
+## When to use / when NOT
+Use when the user shares a supported platform link or asks for public content that built-in search cannot fully retrieve, and when a declared channel action is needed. Do not use it for posting, commenting, liking, private messages, logging in on the user's behalf, password handling, private data, or guarantees of complete comment trees and media understanding.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Inputs are a channel or link, an action and parameters, optional backend selection, and the current login or setup state. Outputs are JSON with `ok`, `items`, `raw`, `meta`, or `error.code` plus hints. Tools are the `agent-reach` CLI commands (`channels`, `read`, channel actions, `add`, `remove`, `login`, `logout`, `doctor`, `check`, `update`, `uninstall`, `browser`, `configure`, `skill link`), a dedicated CloakBrowser or Chrome profile, OpenCLI extension import, and optional keys for services such as Groq or OpenAI.
 
-- Agent Reach
-- 选路
-- 结果与错误
-- 登录与专用浏览器
-- 平台注意
-- 渠道
-- 安装完成时
-- 用户要管理 Agent Reach 时
-- 有新版本时
-- 红线
-- (none)
+## 5 most important rules
+1. Announce that Agent Reach is being used, then prefer public built-in tools before installing or logging into channels.
+2. Run `agent-reach channels` when the available actions or parameters are unclear.
+3. Never perform write actions, log in for the user, ask for passwords, or output cookies and credentials.
+4. Handle error codes deliberately: setup gaps may use `add` or `configure`, login needs the user, while `RATE_LIMITED`, `PLATFORM_BLOCKED`, `BUSY`, and `UPSTREAM_BROKEN` mean stop rather than retry loops.
+5. Respect platform limits: Xiaohongshu read returns text descriptions only, Boss salary fields marked encoded must not be guessed, and subtitle tracks are not the same as transcript text.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Reach depends on external platforms, browser sessions, rate limits, and optional paid or login-backed paths. The owner may need to install a channel, connect OpenCLI, provide a key, or complete a visible login. Updates should happen only after the user agrees, and maintenance actions should distinguish dependency, browser, login, page-load, and platform failures.
 
-- none declared
+## Category / tags
+research · read-only, agent-reach, social-platforms, youtube, github, web-scraping, browser-automation, subtitles
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - 公开内容先用你自带的搜索/读取工具（可加 `site:域名`）。正文、评论、字幕分别核对是否已拿到；够了就直接回答，不装渠道、不登录。
-2. - 自带工具不可用、结果缺了用户要的部分、或用户要的是渠道声明的站内动作时，再用 Reach。不确定有哪些动作和参数先跑 `agent-reach channels`。
-3. - 渠道已经加上（默认渠道或 `add` 过）时，搜索/阅读直接走该站工具；还没加的渠道，搜索/阅读先试免登录公开网页，结果里 `backend: public-web` 标明来源。`--backend public-web` 只查公开网页；`--backend <后端>` 指定站内工具。
-
-## Files inside the skill
-
-- `references/capabilities.md` — "能力边界 / Capability scope"
-- `references/maintenance.md` — "维护"
-- `references/sessions.md` — "会话与专用浏览器"
+## Revisions
+Single workspace-owned source at `C:\Users\a7med\.agents\skills\agent-reach\SKILL.md`, version 1.6.0 in frontmatter. No codex, claude, kilo, cursor, opencode, or windsurf copy was present.

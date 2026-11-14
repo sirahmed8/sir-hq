@@ -1,38 +1,40 @@
-# PROGRESS: r47 skills encyclopedia
+# PROGRESS: r47 skills encyclopedia & canonical sync
 
-Last updated: 2026-11-12 (worker: Kilo)
+Last updated: 2026-11-14 (Antigravity / Gemini worker)
 
-## Status: DEEP-READ PASS COMPLETE
+## Status: CANONICAL SYNC & ENCYCLOPEDIA REFRESH COMPLETE
 
-All tasks in the brief are done for this pass:
+### Completed in 2026-11-12 deep-read pass (r47, Kilo)
 
-- [x] Inventoried every skill source on the machine (see `SOURCES.md`): 11 skill roots + 42 gemini plugin dirs + workspace + builtin sets. Tools with no skills found documented (Goose, Cline, Kimi, Devin-user, Windsurf/Cursor MCP).
-- [x] Generated one digest per installed skill copy: **1007 digest files** under `ops/encyclopedia/<tool>/<skill>.md` covering **385 unique skill names**. Built by `build-encyclopedia.mjs` (re-runnable, deterministic).
-- [x] **Deep-read pass completed**: 317 skills deep-read from SKILL.md + scripts/references headers end-to-end; written to `ops/encyclopedia/deep/` and propagated to all 853 tool-specific digest files (replacing auto-generated stubs). Every digest now has: Summary, When to use/when NOT, Inputs/outputs/tools, 5 key rules, Risks/owner notes, Category/tags, Revisions.
-- [x] `ops/SKILLS_INDEX.md`: table of all 385 unique skills (name, tools, category, purpose, digest link). Categories are keyword-heuristic; marked as such in the file header.
-- [x] `ops/encyclopedia/ORGANIZATION_PLAN.md`: duplicates (codex/windsurf/cursor/opencode/kilo share a byte-identical 112-set; ~100 names have 3 divergent revisions across claude/codex-family/gemini-plugin), gaps, conflicts, per-worker recommendations, MCP/plugin inventory per tool, and a safe NOT-YET-EXECUTED sync plan with exact copy steps.
-- [x] `ops/encyclopedia/mcp-inventory.json`: MCP server and plugin names per tool, secrets stripped.
-- [x] Pointer added to `ops/CUSTOMIZATIONS_CATALOG.md`.
+- [x] Inventoried skill sources (see `SOURCES.md`), generated initial 1007 digest files across 385 unique skill names, deepened 317 skills in `ops/encyclopedia/deep/`, and published `ORGANIZATION_PLAN.md` + initial `mcp-inventory.json`.
 
-## How digests were made (deep-read pass)
+### Completed in 2026-11-14 sync & refresh pass
 
-`build-encyclopedia.mjs` reads each SKILL.md in full and extracts: frontmatter name/description/allowed-tools, all headings, trigger lines, risk-flagged bullets, up to 5 verbatim rule lines, and the file list inside each skill folder (with the first heading/line of each .md/.txt reference). The deep-read pass (`propagate-deep.mjs`) then reads each skill's SKILL.md and all scripts/references files end-to-end, hand-writes a comprehensive digest with Summary, When to use/when NOT, Inputs/outputs/tools, 5 key rules, Risks/owner notes, Category/tags, Revisions, and propagates it to all tool folders where that skill exists. 317 skills deepened (including all 27 SIR core skills + 290 others); byte-identical copies across tools now share the same deep content. Gemini-plugin digests are named `<plugin>--<skill>.md` (with `--copyN` suffixes) because the same skill name ships inside several plugin dirs (netlify x3, twg-setup x2). Secret scan over all digests: no keys/tokens found.
+- [x] **Claude-only sync**: Copied the 9 existing Claude-only skills (`accidental-data-loss-prevention`, `firestore-data`, `imagegen`, `nextjs`, `review-agent`, `shadcn`, `skill-installer`, `social-creator-studio`, `video-digest`) from `~/.claude/skills/` into `~/.gemini/config/skills/`, `~/.config/opencode/skills/`, and `~/.config/kilo/skills/`. Skipped 3 absent in Claude (`next-forge`, `next-upgrade`, `turbopack`, already present in Codex/OpenCode/Kilo).
+- [x] **Canonical SIR core staging**: Populated `ops/encyclopedia/canonical/` with all **27 SIR core skills** (26 canonicalized from `~/.claude/skills/` for full trigger descriptions; `modern-web-guidance` canonicalized from `modern-web-guidance-plugin` 2026-11-13 revision) and synced them to `~/.gemini/config/skills/`, `~/.config/opencode/skills/`, and `~/.config/kilo/skills/`.
+- [x] **`sir-worker-preamble` skill created**: Authored `SKILL.md` packaging `ops/WORKER_PREAMBLE.md` and `standard/23-premium-code-bar.md` in `~/.gemini/config/skills/sir-worker-preamble/` and `D:/Projects/.agents/skills/sir-worker-preamble/`, plus deep digest `ops/encyclopedia/deep/sir-worker-preamble.md`.
+- [x] **Retired AgentsRoom MCP cleanup**: Removed 5 `AgentsRoom-*` entries from `D:/Projects/.mcp.json` and 4 from `D:/Projects/.agents/mcp_config.json` (preserving `everything-app`, `100hires`, `0bridge`); archived-verified and removed `D:/Projects/.agentsroom` (270 retired state files already backed up in `SIR AI/legacy/agentsroom/project-state/`).
+- [x] **Encyclopedia & MCP inventory rebuilt**: Added `gemini-config` (`~/.gemini/config/skills`) to `build-encyclopedia.mjs`, fixed `gen-index.mjs` relative links, fixed `extract-configs.mjs` (JSONC comment stripping, `codex` TOML, `claude` v2 `installed_plugins.json`, `devin` MCP/skills, `workspaceMcp`), and refreshed `index.json` (**421 unique skill names**, **1219 installed copies**), `SKILLS_INDEX.md`, `SOURCES.md`, `mcp-inventory.json`, and `CUSTOMIZATIONS_CATALOG.md`.
+
+## How digests work
+
+`build-encyclopedia.mjs` reads each `SKILL.md` in full and extracts frontmatter (`name`, `description`, `allowed-tools`), headings, trigger lines, risk-flagged bullets, up to 5 rule lines, and internal file lists. `propagate-deep.mjs` then merges hand-reviewed deep digests from `ops/encyclopedia/deep/` across all tool folders (389 deep digests covering 1128 digest files; 3 pre-existing AlloyDB deep files remain unmatched because those skills do not exist on disk). Gemini-plugin digests use `<plugin>--<skill>.md` names because plugins share names (`netlify` x3, `twg-setup` x2).
 
 ## To resume / extend
 
-- Re-run: `cd D:/Projects/_SIR/ops/encyclopedia && node build-encyclopedia.mjs && node gen-index.mjs`
-- Add a tool: append `{ tool, dirs }` to `SOURCES` in build-encyclopedia.mjs.
-- Next valuable step (needs HQ): per-skill diff of the ~100 divergent names to pick canonical revisions (list derivable from `index.json` hashes), then execute section 8 of ORGANIZATION_PLAN.
-- Deepen more skills: add deep digests to `ops/encyclopedia/deep/` and run `node propagate-deep.mjs`.
+- Re-run after any skill change: `cd D:/Projects/_SIR/ops/encyclopedia && node build-encyclopedia.mjs && node gen-index.mjs && node propagate-deep.mjs && node extract-configs.mjs`
+- Add a tool root: append `{ tool, dirs }` to `SOURCES` in `build-encyclopedia.mjs` and add its row in `gen-index.mjs`.
+- Deepen remaining skills (including the newly synced `sir-worker-preamble` neighbors or new plugin skills): add `ops/encyclopedia/deep/<skill>.md` and run `node propagate-deep.mjs`.
 
 ## Files in this folder
 
-- `build-encyclopedia.mjs` — scanner/digest generator
-- `extract-configs.mjs` — MCP/plugin name extractor (names only)
-- `gen-index.mjs` — SKILLS_INDEX.md + SOURCES.md generator
-- `propagate-deep.mjs` — propagates deep digests to all tool folders
-- `index.json` — machine-readable index of all 1007 copies
-- `mcp-inventory.json` — MCP servers/plugins per tool
-- `SOURCES.md`, `ORGANIZATION_PLAN.md`, `PROGRESS.md`
-- `deep/<skill>.md` — 317 deep-read digests (source of truth)
-- `<tool>/<skill>.md` — 1007 digests (12 tool dirs incl. gemini-plugin with `<plugin>--<skill>` names), now all deep-content where available
+- `build-encyclopedia.mjs` - scanner and digest generator (13 sources incl. `gemini-config`)
+- `extract-configs.mjs` - MCP and plugin name extractor (secrets stripped)
+- `gen-index.mjs` - `SKILLS_INDEX.md` and `SOURCES.md` generator
+- `propagate-deep.mjs` - propagates `deep/` digests to all tool digest folders
+- `canonical/<skill>/` - 27 canonical SIR core skill directories
+- `deep/<skill>.md` - 389 deep-read digests (source of truth for digest bodies)
+- `index.json` - machine-readable index of all 1219 installed skill copies
+- `mcp-inventory.json` - MCP servers and plugins per tool + workspace MCP
+- `SOURCES.md`, `ORGANIZATION_PLAN.md`, `PROGRESS.md` - source map, sync plan, and status
+- `<tool>/<skill>.md` - 1219 per-tool digests across 13 tool directories

@@ -1,43 +1,30 @@
 # asset-transformer-toolkit
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\asset-transformer-toolkit\SKILL.md`
-- SKILL.md size: 2951 chars
+Source read: `C:\Users\a7med\.gemini/config/plugins/unity/skills/asset-transformer-toolkit/SKILL.md` (2.9 KB; gemini-plugin/unity) plus `SECURITY.md` and `references/` (create-importer, lods, rule-api, ruleblock-api, ruleset-api, rulesets-and-actions).
 
-## What it does
+## Summary
+Skill that imports 3D models and point clouds into the Unity Editor via Asset Transformer Toolkit (formerly Pixyz), and creates, edits and runs RuleSets, Actions and LODs; requires the toolkit package version 4.0.0 or later.
 
->- In the Unity Editor, imports 3D models and point clouds with Asset Transformer Toolkit (formerly Pixyz), and creates, edits, and runs RuleSets, Actions, and LODs. Use for Pixyz imports in a Unity project, not for converting files from the shell.
+## When to use / when NOT
+Use for Pixyz or Asset Transformer Toolkit imports and rule-based scene operations. Do NOT use for converting files from the shell, for older toolkit versions, or for unrelated asset work.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: import file, importer settings, RuleSet or Action, LOD configuration.
+- Outputs: imported assets, RuleSet assets, executed runs.
+- Tools: Unity Editor, `unity command script eval` to run agent-written C# for RuleSet operations.
 
-- Before you start: check the package version
-- API Reference
-- Technical Notes
-- Importers
-- RuleSets and Actions
-- Levels of Detail
-- (none)
+## 5 most important rules
+1. The skill requires `com.unity.industry.toolkit` version 4.0.0 or later; check `Packages/packages-lock.json` first and do not add the package yourself.
+2. Never assume an import is followed by a reimport; start the import only when requested and expect it to run asynchronously in the background.
+3. Never use reflection to read or write importer or RuleSet fields; use the ScriptableObject API.
+4. Only one import or RuleSet run may process at a time, and a run is asynchronous.
+5. If `SetActionParameter` throws an AITypeSecurityException, terminate the task; do not bypass it with raw C# execution or reflection.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+The skill has the agent write C# and run it in the user's live Unity Editor; the accepted risk is limited to the user's own machine and narrow RuleSet editing scope.
 
-- none declared
+## Category / tags
+Category: build. Tags: unity, asset-transformer, pixyz, rulesets, actions, lods, importer, csharp.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. **Not installed:** tell the user this workflow needs Asset Transformer Toolkit 4.0 or later, which is an entitled Unity package they may need access to through their Unity plan, and stop. Don't add it to the manifest yourself.
-2. 3. **Installed below 4.0.0:** tell the user which version you found and that 4.0 or later is required, and ask before upgrading. Don't fall back to older APIs, raw C# against internal types, or reflection.
-
-## Files inside the skill
-
-- `references/create-importer.md` — ""
-- `references/lods.md` — "C"
-- `references/rule-api.md` — ""
-- `references/ruleblock-api.md` — ""
-- `references/ruleset-api.md` — ""
-- `references/rulesets-and-actions.md` — ""
-- `SECURITY.md` — "Security notes: asset-transformer-toolkit"
+## Revisions
+Single gemini-plugin/unity copy. No competing revisions.

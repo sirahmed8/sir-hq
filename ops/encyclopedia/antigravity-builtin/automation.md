@@ -1,48 +1,30 @@
 # automation
 
-- Tool: `antigravity-builtin`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\antigravity\builtin\skills\automation\SKILL.md`
-- SKILL.md size: 12548 chars
+Source read: `C:\Users\a7med\.gemini\antigravity\builtin\skills\automation\SKILL.md` (antigravity-builtin revision, the only copy).
 
-## What it does
+## Summary
+An interactive guide for creating scheduled background automations in Antigravity/Gemini. A scheduled automation is a background sidecar (`"builtin": "schedule"`) that runs on a cron schedule and starts a fresh agent conversation (`agentapi new-conversation`) on each run — each run has no memory of prior runs, so the prompt must be fully self-contained. The skill drives a strict 5-turn creation flow: ask cadence, confirm time/day, capture the task prompt, write `sidecar.json`, then optionally test-run to discover and record the exact permissions the automation needs.
 
-Interactive guide to design and create a scheduled background automation. Use this skill when the user wants to create an automated or recurring scheduled task (e.g. "summarize my emails every morning", "every Monday send me a to-do list"). Also triggered by the /automation slash command.
+## When to use / when NOT
+Use when the user wants a recurring scheduled agent task ("summarize my emails every morning", "every Monday send me a to-do list") or invokes `/automation`. Do NOT use it for UI sidecars, continuous command/daemon sidecars, or in-turn timers — those use the `schedule` tool instead. Do NOT use it for one-shot or event-driven automation.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: cadence (hourly/daily/weekly/custom cron), specific time/day, the task description, the user's IANA timezone.
+- Outputs: `~/.gemini/config/sidecars/<slug>/sidecar.json` with `builtin: "schedule"`, `args: ["CRON_TZ=<zone> <cron>", "agentapi", "new-conversation", "--", "<self-contained prompt>"]`, `restart_policy: "always"`, `display_name`, and `agent_permissions.access_grants` populated from a real test run.
+- Tools: `ask_question` for cadence/time, `write_to_file` for sidecar.json, `agentapi new-conversation` for test runs, the Automations dashboard (`sidecar://dashboard`) for enabling. Skills/MCP tools may be consulted during the test run.
 
-- Scheduled Automations
-- Quick Start (5-Turn Creation Flow)
-- Interactive Creation Workflow
-- Turn 1: Ask for the Cadence
-- Turn 2: Confirm the Specific Time / Day
-- Turn 3: Ask What the Task Should Do
-- Step 4: Create `sidecar.json` & Offer a Test Run to Configure Permissions
-- 1. Translate Schedule & Author Self-Contained Run Prompt
-- 2. Announce Automation Creation & Write `<configDir>/sidecars/<sidecar-id>/sidecar.json`
-- 3. Point to the Dashboard (with Automation Name) & Ask to Test-Run for Reliable Permissions
-- Step 5: If the User Chooses to Test-Run the Task Now
-- (none)
+## 5 most important rules
+1. **Cron must be prefixed `CRON_TZ=<IANA zone>`** — detect the host timezone, map to IANA (never abbreviations like PST or raw offsets), and don't double-prefix a user-supplied `CRON_TZ=`/`TZ=` cron.
+2. **The run prompt must be self-contained** — every scheduled run is a brand-new conversation with zero memory of previous runs.
+3. **Never hallucinate permissions** — only grant `command(...)`, `read_file(...)`, `write_file(...)`, `mcp(server/tool)`, `read_url(domain)` entries actually verified during a test run; never wildcards like `command(*)` or `mcp(*)`.
+4. **Never enable the automation yourself** — do not set `"enabled": true` or invoke any enable RPC; the user enables `<display_name>` in the Automations dashboard.
+5. **Use snake_case fields and lowercase restart_policy** (`"always"` required for schedule sidecars), absolute paths in args, `"--"` before the prompt, and never put sidecar.json in an ephemeral CitC workspace.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Enabling happens on the owner's machine via the dashboard — the agent must hand off with the exact `display_name`. Permissions discovered in a test run reflect that run only; a task needing new tools later will be auto-denied until grants are updated. Automations run unattended with the user's credentials — the self-contained prompt should avoid destructive actions.
 
-- MCP mentions: MCP servers, MCP tools
+## Category / tags
+automation · scheduling, cron, sidecar, antigravity, background-tasks, agentapi, permissions
 
-## Risks / cautions found in text
-
-- -   `(Recommended) Yes, execute a test run now to configure permissions`
-- -   `No, I'll review permissions and enable '<display_name>' in the
-- 2.  **Update `sidecar.json` with the exact verified permissions**:
-- -   Record every permission grant actually required during the test run,
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Use lowercase string literals for **`restart_policy`** (`"always"` is
-2. -   Never place `sidecar.json` or scripts inside an ephemeral CitC workspace
-3. -   `args[0]` **must** be the full cron schedule as a single string, including
-4. -   Always use **absolute paths** for any local script arguments in `args`
-5. -   Always include `"--"` immediately before the prompt string in `args` so the
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision (antigravity-builtin). Not present in claude/codex/cursor/kilo skill stores — this is the canonical and only source.

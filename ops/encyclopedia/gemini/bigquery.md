@@ -1,60 +1,27 @@
 # bigquery
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\bigquery\SKILL.md`
-- SKILL.md size: 3851 chars
+**Source:** `C:\Users\a7med\.gemini\skills\bigquery\SKILL.md` (+ `references/`)
+**Category:** data
+**Tags:** bigquery, sql, bigframes, bqml, ai-functions, graph-analytics, gql, google-cloud
 
-## What it does
+## Summary
+A Google-published BigQuery skill (metadata version v4, Apache-2.0) that acts as a routing table for four BigQuery areas: SQL query optimization, BigFrames (BigQuery DataFrames) Python code, BigQuery ML and AI functions (BQML SQL), and Graph Analytics (property graphs and GQL). The SKILL.md itself is short and points to about 24 reference files; the real guidance lives in those references.
 
-| Provides BigQuery-specific logic, knowledge, and specialized standards. Use this skill whenever you are doing anything with BigQuery, including: 1. BigQuery query optimization (SQL) 2. BigFrames Python code 3. BigQuery ML/AI functions (SQL & Python) 4. Graph Analytics (GQL & Property Graphs)
+## When to use / when not to
+Use it for any BigQuery work, especially query optimization, BigFrames code generation, BQML/AI function syntax, or GQL graph queries. Do not use it for non-Google data warehouses or for general Python and ML work unrelated to BigQuery.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Inputs: the BigQuery task, the data size, and SQL or Python code. Outputs: optimized SQL, BigFrames code, BQML function usage, GQL queries, and a "Summary of Optimizations" section. Tools: BigQuery, BigFrames and GoogleSQL GQL. No MCP.
 
-- 1. Query Optimization
-- 2. BigFrames (BigQuery DataFrames)
-- 3. BigQuery ML & AI Functions (BQML SQL)
-- 4. Graph Analytics (Property Graphs & GQL)
-- (none)
+## Five most important rules
+1. Always check the data size before choosing libraries, and justify the choice with that size.
+2. Treat BigFrames as the default library over the BigQuery Python client; avoid `.to_pandas()` on full datasets, avoid `read_gbq()` for SQL, and prefer built-in accessors over UDFs and lambdas.
+3. For BQML, table-valued functions (`AI.GENERATE_TABLE`, `AI.FORECAST`, `AI.EVALUATE`, `AI.GENERATE_EMBEDDING`) belong in the `FROM` clause; use `=>` for named optional arguments and `'DEFAULT'` as the remote connection.
+4. For graphs, use BigQuery GoogleSQL GQL only; never generate Cypher.
+5. Route to the specific reference file for the function or feature instead of answering from memory.
 
-## Tools / MCPs it needs
+## Risks and owner actions
+The skill is a router, so the reference files are large and detailed; the main risk is answering from memory instead of loading the right reference. No owner action is needed beyond GCP access.
 
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Guide**: [OPTIMIZATION.md](references/sql/OPTIMIZATION.md)
-2. - **Guide**: [BIGFRAMES.md](references/bigframes/BIGFRAMES.md)
-3. - **Best Practices**: [ai_function_best_practices.md](references/ai-ml/ai_function_best_practices.md)
-
-## Files inside the skill
-
-- `OWNERS`
-- `references/ai-ml/ai_classify.md` — "BigQuery AI.Classify"
-- `references/ai-ml/ai_detect_anomalies.md` — "BigQuery AI.Detect_Anomalies"
-- `references/ai-ml/ai_evaluate.md` — "AI.EVALUATE"
-- `references/ai-ml/ai_forecast.md` — "BigQuery AI.Forecast"
-- `references/ai-ml/ai_function_best_practices.md` — "BigQuery ML (BQML) & AI Functions"
-- `references/ai-ml/ai_generate.md` — "BigQuery AI.Generate"
-- `references/ai-ml/ai_generate_embedding.md` — "AI.GENERATE_EMBEDDING"
-- `references/ai-ml/ai_generate_table.md` — "AI.GENERATE_TABLE"
-- `references/ai-ml/ai_if.md` — "BigQuery AI.If"
-- `references/ai-ml/ai_key_drivers.md` — "BigQuery AI.Key_Drivers"
-- `references/ai-ml/ai_score.md` — "BigQuery AI.Score"
-- `references/ai-ml/ai_search.md` — "BigQuery AI.Search"
-- `references/ai-ml/ai_similarity.md` — "BigQuery AI.Similarity"
-- `references/ai-ml/ml_contribution_analysis.md` — "Contribution Analysis"
-- `references/ai-ml/remote_models.md` — "Creating Remote Models"
-- `references/ai-ml/vector_search.md` — "VECTOR_SEARCH"
-- `references/bigframes/BIGFRAMES.md` — "BigFrames Code Generation"
-- `references/graph/graph-schema/best_practices.md` — "BigQuery Graph Schema Best Practices"
-- `references/graph/graph-schema/ddl_reference.md` — "BigQuery Property Graph DDL Reference"
-- `references/graph/graph-schema/feature_parity.md` — "BigQuery Graph Limitations & Feature Parity"
-- `references/graph/graph-schema/graph_schema_ddl_advisor.md` — "BigQuery Graph Schema Advisor"
-- `references/graph/graph_queries.md` — "Graph Query Language (GQL) Query Generation Guidelines"
-- `references/graph/semantic_queries.md` — "Semantic Graph Specific Rules"
-- `references/sql/OPTIMIZATION.md` — "BigQuery Optimization"
+## Revisions
+Only one copy exists (`.gemini/skills/bigquery`, 3851 bytes, dated 2026-07-12).

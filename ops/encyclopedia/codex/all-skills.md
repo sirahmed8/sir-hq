@@ -1,46 +1,28 @@
 # all-skills
 
-- Tool: `codex`
-- Category: security
-- Source: `C:\Users\a7med\.codex\skills\all-skills\SKILL.md`
-- SKILL.md size: 14755 chars
+Source read: `C:\Users\a7med\.codex\skills\all-skills\SKILL.md`.
 
-## What it does
+## Summary
+`all-skills` is a master meta-skill that catalogs 56 Antigravity skills across production engineering, database reliability, token optimization, customization, mobile ergonomics, UI/UX, desktop and native platforms, Gemini and Vercel AI systems, Next.js and web delivery, security, legal compliance, conversion copy, and SEO. It also states core autonomous-engineer directives such as proactive auditing, real metrics only, bilingual parity, and multi-tier AI fallback.
 
-Master meta-skill unifying all Antigravity design, engineering, mobile UX, security, and copywriting skills.
+## When to use / when NOT
+Use when a task needs the umbrella discipline or when the user explicitly invokes `all-skills`, especially for full-stack product work that spans design, security, mobile responsiveness, AI, deployment, and copy. Do not use it as a substitute for reading the specific skill that owns a deep procedure, and do not let the catalog override a narrower task's actual requirements.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Input is the user's task or domain plus the project context. Output is the inherited set of engineering, design, security, mobile, AI, and copy rules, with pointers to the individual `SKILL.md` paths that contain deeper procedures. Tools are the listed skill files across Antigravity config and plugin directories, project test and browser verification, package managers, Vercel/Gemini/Firebase-related skills, and the user's authenticated Windows browser sessions when verification requires them.
 
-- All Skills — Master Autonomous Engineering, Mobile Ergonomics & Design Intelligence
-- 1. Complete Catalog of All 56 Integrated Antigravity Skills
-- A. Core Architecture, Memory & Production Engineering
-- B. Mobile Ergonomics, Responsiveness & 400% Zoom Adaptability
-- C. Desktop & Native Multi-Platform Engineering
-- D. Gemini & Multi-Tier AI Systems
-- E. Next.js 16, Vercel & Web Full-Stack Platform
-- F. Security, Compliance, Conversion & SEO
-- 2. Autonomous Senior Engineer Protocol (Core Directives)
-- (none)
+## 5 most important rules
+1. Treat every listed skill as active discipline; invoking `all-skills` means the interaction inherits their combined directives.
+2. Use the specific skill path for deep procedures instead of trying to compress every skill into one response.
+3. Never seed fake metrics, counters, percentages, or sample ledgers; public and executive numbers must come from real persistent data.
+4. Maintain 100% Arabic and English parity with correct `dir` handling and no language leakage.
+5. Keep mobile and zoom resilience non-negotiable: no horizontal overflow, usable touch targets, flexible dialogs, and real working features only.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+The catalog is machine-specific and can drift as skills are added, removed, or moved, so paths should be checked before relying on them. Loading all disciplines at once can over-constrain small tasks, and several directives assume the owner's environment, authenticated browser sessions, and bilingual product requirements. The owner should keep the catalog synchronized with installed skills.
 
-- MCP mentions: MCP servers
+## Category / tags
+ops · meta-skill, antigravity, engineering-standards, design, mobile, security, ai, vercel, bilingual, catalog
 
-## Risks / cautions found in text
-
-- 1. **`master-production-directive`** (`C:\Users\a7med\.gemini\config\skills\master-production-directive\SKILL.md`)
-- - Autonomous full-stack engineering, zero-mock persistence, zero-trust security, anti-vibe-coded design system, legal compliance, AST knowledge graphs, GEO, and production hardening.
-- 2. **`production-engineering-standards`** (`C:\Users\a7med\.gemini\config\skills\production-engineering-standards\SKILL.md`)
-- - Standard operating procedures for writing production-grade, bug-free, complete code with real data persistence, modern frameworks, and robust verification.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **400% Zoom Adaptability**: Everything must adapt dynamically when a user zooms in to 400% on PC or browses on compact mobile displays (Android, iOS). No fixed pixel widths exceeding screen boundaries.
-2. - **Flexible Dialogs & Popovers**: All modals, popovers, and chat windows must use viewport-aware bounds (`w-[94vw] sm:w-[420px] max-w-[calc(100vw-24px)] max-h-[80vh] overflow-y-auto`).
-3. 1. **Think Ahead Instead of the User**:
-4. - Never wait for the user to discover bugs. Proactively audit schemas, check live API calls, inspect console logs, verify responsiveness, and fix edge cases immediately.
-5. - Never seed fake DAU counters, fake percentages, or simulated sample transaction ledgers.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+The codex, kilo, cursor, and windsurf copies are byte-identical and selected here. No claude or gemini-plugin copy of `all-skills` itself was present, although the file points to gemini config and plugin skill paths.

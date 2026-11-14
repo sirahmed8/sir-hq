@@ -1,50 +1,30 @@
 # android-cli
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\android-cli\SKILL.md`
-- SKILL.md size: 24651 chars
+Source read: `C:\Users\a7med\.claude\skills\android-cli\SKILL.md` (24.6 KB; claude revision; content identical to the codex and kilo copies).
 
-## What it does
+## Summary
+Google-published skill that drives the `android` command line tool for Android development: installs the CLI, manages SDK packages, creates projects, runs apps on devices or emulators, inspects UI layouts, captures screenshots, searches the Android documentation knowledge base, and manages AVDs and updates.
 
-Use when installing or running the android CLI to create Android projects, run apps on devices, manage AVDs and SDK components, or look up Android docs.
+## When to use / when NOT
+Use when the task is Android-side: scaffolding, build and deploy, device UI inspection, emulator management, doc lookup, APK runs. Do NOT use for writing or reviewing native Android source code or Gradle configuration.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: command intent and parameters, for example `android create empty-activity --name=MyApp --output=./my-app` or `android sdk install platforms/android-34`.
+- Outputs: command output, layout JSON, screenshots, doc articles.
+- Tools: `android <command>`; before `android layout` or `android screen` read the interact reference; before journey evaluation read the journeys reference.
 
-- Use this tool to obtain additional information on how to achieve Android-specific tasks or to know more about Android APIs, surfaces, libraries, or devices.
-- Always use this tool to get the most up-to-date information about Android concepts. Typical good use cases are:
+## 5 most important rules
+1. Before using `android layout` or `android screen`, read the interact reference first; read the journeys reference before evaluating a journey.
+2. Install with the official curl installer for the platform; on Windows use the provided .cmd installer.
+3. Confirm a device or emulator is connected before layout, screen or run operations; check state with `android info`.
+4. Use `android docs` for authoritative, up-to-date API and concept answers, including migration guides and examples.
+5. Update the CLI with `android update`; manage SDK packages with `android sdk install`, `update`, `remove` and `list`.
 
-## Structure (headings inside SKILL.md)
+## Risks / things needing the owner
+A physical device or emulator must be available; SDK license acceptance is required; release signing is outside this skill.
 
-- Android CLI Specialist
-- Installation
-- SDK management
-- Project creation
-- Interacting with Android devices
-- Running journey tests
-- Doc searching
-- Running APKs
-- Managing emulators
-- Capturing screenshots
-- Managing skills
-- Updating the CLI
-- `android help` output
-- (none)
+## Category / tags
+Category: mobile. Tags: android, cli, sdk, emulator, device, layout, docs, apk.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - `android sdk install <package>[@<version>]...`: Install specific packages. Multiple packages can be specified, separated by spaces. `<version>` defaults to latest. For example: `android sdk install platforms/android-30@2 platforms/android-34`
-2. - `android sdk update [<pkg-name>]`: Update a specific package or all packages to the latest version.
-3. - `android sdk remove <pkg-name>`: Remove a package from the local SDK.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Claude copy is the preferred source (24.6 KB); content is identical to the codex and kilo copies. Not present in the antigravity builtin set.

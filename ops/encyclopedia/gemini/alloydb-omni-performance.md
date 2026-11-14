@@ -1,48 +1,30 @@
 # alloydb-omni-performance
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\alloydb-omni-performance\SKILL.md`
-- SKILL.md size: 11723 chars
+Source read: `C:\Users\a7med\.gemini\skills\alloydb-omni-performance\SKILL.md` (gemini revision; only source).
 
-## What it does
+## Summary
+A Google-published AlloyDB Omni skill for analyzing query performance and monitoring database activity. It ships Node.js scripts that connect to a PostgreSQL-compatible AlloyDB Omni instance and run diagnostics: execute SQL, estimate column cardinality, generate EXPLAIN plans (without executing), list active/long-running queries, database stats, query stats (pg_stat_statements) and table stats (sequential scans, index usage, bloat, vacuum times).
 
-Use these skills when you need to analyze query performance, generate execution plans, check table/column statistics, and monitor overall database activity.
+## When to use / when NOT
+Use when tuning AlloyDB Omni (PostgreSQL-compatible) queries, inspecting execution plans, finding missing indexes, spotting table bloat, or monitoring active queries. Do NOT use against production without care on `execute_sql` (it runs arbitrary SQL), and do NOT treat estimated cardinality as exact (run ANALYZE first). Requires pg_stat_statements for query stats.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: SQL statements, schema/table/column names, filters (min duration, application names, limits, sort fields), connection via .env.
+- Outputs: JSON/text query results and EXPLAIN plans.
+- Tools: Node.js scripts under the skill's `scripts/` folder; environment variables loaded from .env files. No MCP.
 
-- Use this skill to execute a single SQL statement.
+## 5 most important rules
+1. **Run ANALYZE on a table before cardinality estimates** or results are stale.
+2. **`get_query_plan` does not execute the query** (safe for production plan inspection); `execute_sql` does execute arbitrary SQL.
+3. **Query stats require pg_stat_statements** installed/enabled or the call fails.
+4. **Table stats surface index effectiveness** via `idx_scan_ratio_percent` and bloat via `dead_row_ratio_percent`; low index ratio signals missing/ineffective indexes.
+5. **Scripts auto-load .env**; only ask the user for env vars if execution fails due to missing variables.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+`execute_sql` can mutate data if given DML/DDL; treat as privileged. Connection credentials live in .env (do not commit). Results depend on stats freshness. Owner must confirm target instance, credentials, and that pg_stat_statements is enabled before relying on query stats. Apache-2.0 licensed.
 
-- Usage
-- Scripts
-- execute_sql
-- get_column_cardinality
-- get_query_plan
-- list_active_queries
-- list_database_stats
-- list_query_stats
-- list_table_stats
-- (none)
+## Category / tags
+data · alloydb, postgresql, performance, query-plan, monitoring, google
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- `scripts/execute_sql.js`
-- `scripts/get_column_cardinality.js`
-- `scripts/get_query_plan.js`
-- `scripts/list_active_queries.js`
-- `scripts/list_database_stats.js`
-- `scripts/list_query_stats.js`
-- `scripts/list_table_stats.js`
+## Revisions
+Single source (gemini). No other tool ships this skill, so no revision comparison.

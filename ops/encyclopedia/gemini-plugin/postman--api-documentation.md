@@ -1,32 +1,29 @@
 # api-documentation
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-documentation\SKILL.md`
-- SKILL.md size: 2845 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-documentation\SKILL.md` (2.8 KB; gemini-plugin/postman) plus `reference/rest-api-best-practices.md`.
 
-## What it does
+## Summary
+Skill that keeps API contracts documented: starts from the existing source of truth (OpenAPI or Postman collection), generates the other when both are needed, describes what changes affect callers, saves examples including error paths, and chooses delivery.
 
-Use when defining or improving an API contract, generating documentation from a collection or OpenAPI spec, publishing API docs, or sharing a documentation link. Makes auth, inputs, responses, and examples reusable by callers, tests, and mocks. Use for requests such as "publish API docs".
+## When to use / when NOT
+Use when defining or improving an API contract, generating docs from a collection or OpenAPI spec, or publishing docs. Do NOT use for implementing endpoints or running tests; route implementation to api-engineer and testing to api-testing.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: OpenAPI spec or Postman collection, contract changes, examples.
+- Outputs: documentation, generated collection, saved examples.
+- Tools: `postman spec generate collection`, collection-schema-v3 for local edits, variables for credentials, postman-mcp-server docs workflow.
 
-- API Documentation
-- Verification
-- (none)
+## 5 most important rules
+1. Keep one source of truth; when both spec and collection matter, maintain both with an explicit generation direction.
+2. Inspect generated collections before replacing an existing one; maintained scripts and examples carry knowledge beyond endpoint shapes.
+3. Describe caller impact: required vs optional inputs, auth and scopes, response guarantees, pagination, retries, side effects; label unresolved design choices instead of inventing them.
+4. Save examples for consequential cases including errors; a success-only example hides failure paths callers must handle.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Public docs publishing requires an audience decision; a workspace push does not publish public docs by itself.
 
-- none declared
+## Category / tags
+Category: research. Tags: api, documentation, openapi, postman, contracts, examples.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 3. Describe what changes a caller's decision: required versus optional inputs,
-
-## Files inside the skill
-
-- `reference/rest-api-best-practices.md` — "REST API Design Practices"
+## Revisions
+Single gemini-plugin/postman copy. No competing revisions.

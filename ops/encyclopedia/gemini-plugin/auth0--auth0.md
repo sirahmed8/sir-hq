@@ -1,113 +1,30 @@
 # auth0
 
-- Tool: `gemini-plugin` (plugin: `auth0`)
-- Category: security
-- Source: `C:\Users\a7med\.gemini\config\plugins\auth0\skills\auth0\SKILL.md`
-- SKILL.md size: 20584 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\auth0\skills\auth0\SKILL.md` (gemini-plugin auth0 2.6.0 installed copy; a newer 2.8.0 exists in the plugin cache — see Revisions), plus its references/ tree (~60 framework-*, feature-*, pattern-*, tooling-* hubs), scripts/, agents/, assets/.
 
-## What it does
+## Summary
+Auth0's official agent skill (Apache-2.0, by Auth0) for integrating and operating Auth0. Its core method is a four-step router: detect intent (integrate, feature:mfa, feature:passkeys, feature:organizations, feature:enterprise-connect, feature:universal-portals, feature:custom-domains, feature:acul, feature:branding, feature:dpop, feature:custom-token-exchange, feature:token-vault, audit, healthcheck, guidance, debug, debug:rate-limit, migrate, upgrade-sdk, tooling), detect the framework from installed SDK packages or workspace deps, detect tooling (CLI default, MCP if active, Terraform if .tf files, Vercel integration if requested), then load only 2-3 reference files from ~60 hubs instead of dumping everything into context.
 
-Authenticate users and protect Next.js.
+## When to use / when NOT
+Use for any Auth0 task: adding login to an app in ~45 supported frameworks (Next.js, React, Vue, Angular, Expo, Flutter, .NET, Java, PHP/Laravel, Python, Go, Swift, Android, KMP...), tenant features (MFA, passkeys, organizations, enterprise SSO, custom domains, branding/ACUL, DPoP, token vault, custom token exchange), migrations from other providers, tenant audits/health checks, SDK major-version upgrades, and CLI automation. Do NOT use it for non-Auth0 auth providers (use the `auth` skill for Clerk/Descope/Better Auth), and do NOT skip the intent/framework detection steps — loading the wrong reference hub produces wrong SDK calls.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: the developer's goal in plain language, the project's dependency files (package.json, requirements.txt, pom.xml, composer.json, *.csproj, pubspec.yaml, Package.swift, go.mod), presence of `terraform/` or an Auth0 MCP server.
+- Outputs: a chosen intent + framework + tooling triple and 2-3 reference file paths to read; then SDK code/config produced by following those references.
+- Tools: `auth0` CLI (brew install, macOS/Linux per metadata — not installed by default on this Windows machine), Auth0 MCP server (optional), Terraform provider, Vercel Marketplace integration. References live under `references/framework-{x}/`, `references/feature-{x}/`, `references/pattern-{x}/`, `references/tooling-{x}/`.
 
-- Auth0
-- Step 1: Detect intent
-- If nothing clearly matches
-- Step 2: Detect framework
-- Tier 1 — Auth0 SDK already installed (strongest signal)
-- Node.js / JavaScript / TypeScript — check `package.json` → `dependencies`
-- Python — check `requirements.txt` or `pyproject.toml`
-- Java / Kotlin — check `build.gradle` or `pom.xml`
-- .NET — check `*.csproj` or `NuGet.Config`
-- PHP — check `composer.json`
-- Go — check `go.mod`
-- Mobile (native)
-- Tier 2 — Framework from non-Auth0 workspace dependencies
-- Tier 3 — Framework from the prompt
-- Variant disambiguation (web app vs API)
-- If nothing matched
-- Conflicts
-- Step 3: Detect tooling
-- Step 4: Load reference files
-- integrate
-- feature:mfa
-- feature:passkeys
-- feature:organizations
-- feature:enterprise-connect
-- feature:universal-portals
-- (none)
+## 5 most important rules
+1. **Detect intent first, from plain language** — the intent string is a lookup key; e.g. "second step after password" → `feature:mfa`, "work email routes to employer login" → `feature:enterprise-connect`.
+2. **Framework detection is tiered**: Auth0 SDK package in deps → non-Auth0 workspace deps → framework named in the prompt; workspace signals outrank the prompt on conflict, and web-app vs API variant is chosen intent-first (ask if ambiguous).
+3. **Load only 2-3 reference files** — never read the whole tree; each intent section in Step 4 lists exactly what to read.
+4. **`tooling` intent skips framework detection** — CLI-only tasks (create apps/APIs, script tenant setup) load only `tooling-cli` unless a framework question appears.
+5. **Audit/healthcheck have guardrails** — apply findings only with per-command confirmation, verify each change by re-fetch, and never quote Enterprise pricing.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+The `auth0` CLI is required for tenant configuration and is declared for macOS/Linux only — on this Windows PC it likely needs WSL or manual install; MCP/Terraform paths need owner setup. Audit intent can change a live tenant — every mutation requires explicit per-command confirmation. Enterprise Connect/Organizations touch real customer identity; plan choice affects billing.
 
-- MCP mentions: MCP server
+## Category / tags
+security · authentication, auth0, oauth, oidc, mfa, passkeys, organizations, enterprise-sso, nextjs, migration, audit
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-
-## Files inside the skill
-
-- `agents/openai.yaml`
-- `assets/acul/js-templates/login-id.js`
-- `assets/acul/js-templates/login-password.js`
-- `assets/acul/react-templates/login-id.tsx`
-- `assets/acul/react-templates/login-password.tsx`
-- `assets/acul/theme-templates/globals.css`
-- `assets/acul/theme-templates/tailwind.config.ts`
-- `assets/acul/theme-templates/theme-provider.ts`
-- `assets/acul/theme-templates/tokens.css`
-- `assets/audit/report-template.html`
-- `assets/audit/report-template.md` — "Locked report skeleton (Auth0 Platform Development Review)"
-- `assets/healthcheck/report-template.html`
-- `assets/healthcheck/report-template.md` — "Auth0 Tenant Health Check — {{customer_name}}"
-- `references/feature-acul/index.md` — "ACUL Screen Generator"
-- `references/feature-audit/index.md` — "Auth0 tenant audit (CheckMate) — full workflow"
-- `references/feature-audit-pricing/index.md` — "Auth0 Pricing"
-- `references/feature-audit-remediation/index.md` — "Auth0 tenant audit — remediation reference"
-- `references/feature-branding/index.md` — "Auth0 Branding"
-- `references/feature-custom-domains/index.md` — "Auth0 Custom Domains"
-- `references/feature-custom-token-exchange/auth0-android.md` — "Auth0.Android — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-api-python.md` — "auth0-api-python — Custom Token Exchange (server-side / OBO)"
-- `references/feature-custom-token-exchange/auth0-auth-js.md` — "@auth0/auth0-auth-js — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-react.md` — "@auth0/auth0-react — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-server-js.md` — "@auth0/auth0-server-js — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-server-python.md` — "auth0-server-python — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-spa-js.md` — "@auth0/auth0-spa-js — Custom Token Exchange"
-- `references/feature-custom-token-exchange/auth0-swift.md` — "Auth0.swift — Custom Token Exchange"
-- `references/feature-custom-token-exchange/index.md` — "Auth0 Custom Token Exchange"
-- `references/feature-custom-token-exchange/nextjs-auth0.md` — "@auth0/nextjs-auth0 — Custom Token Exchange"
-- `references/feature-custom-token-exchange/react-native-auth0.md` — "react-native-auth0 — Custom Token Exchange"
-- `references/feature-dpop/index.md` — "Auth0 DPoP (Device-Bound Tokens)"
-- `references/feature-enterprise-connect/auth0-angular.md` — "@auth0/auth0-angular — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-express.md` — "@auth0/auth0-express — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-react.md` — "@auth0/auth0-react — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-server-js.md` — "@auth0/auth0-server-js — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-server-python.md` — "auth0-server-python — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-spa-js.md` — "@auth0/auth0-spa-js — Enterprise Connect"
-- `references/feature-enterprise-connect/auth0-vue.md` — "@auth0/auth0-vue — Enterprise Connect"
-- `references/feature-enterprise-connect/index.md` — "Auth0 Enterprise Connect"
-- `references/feature-enterprise-connect/nextjs-auth0.md` — "@auth0/nextjs-auth0 — Enterprise Connect"
-- `references/feature-healthcheck/index.md` — "Auth0 tenant health check (all plans) — full workflow"
-- `references/feature-mfa/aspnetcore-api.md` — "ASP.NET Core API (Auth0.AspNetCore.Authentication.Api) — MFA (API-side scope gate)"
-- `references/feature-mfa/auth0-android.md` — "Auth0.Android — MFA (API-driven, Flexible Factors Grant)"
-- `references/feature-mfa/auth0-angular.md` — "@auth0/auth0-angular — MFA"
-- `references/feature-mfa/auth0-api-python.md` — "auth0-api-python — MFA (API-side scope gate)"
-- `references/feature-mfa/auth0-auth-js.md` — "@auth0/auth0-auth-js — MFA (API-driven, no redirect)"
-- `references/feature-mfa/auth0-react.md` — "@auth0/auth0-react — MFA"
-- `references/feature-mfa/auth0-server-js.md` — "@auth0/auth0-server-js — MFA"
-- `references/feature-mfa/auth0-server-python.md` — "auth0-server-python — MFA"
-- `references/feature-mfa/auth0-spa-js.md` — "@auth0/auth0-spa-js — MFA (step-up)"
-- `references/feature-mfa/auth0-swift.md` — "Auth0.swift — MFA (API-driven)"
-- `references/feature-mfa/auth0-vue.md` — "@auth0/auth0-vue — MFA"
-- `references/feature-mfa/express-oidc.md` — "express-openid-connect — MFA (redirect step-up)"
-- `references/feature-mfa/go-jwt-middleware.md` — "go-jwt-middleware — MFA (API-side scope gate)"
-- `references/feature-mfa/index.md` — "Auth0 MFA"
-- `references/feature-mfa/nextjs-auth0.md` — "@auth0/nextjs-auth0 — MFA (v4)"
-- `references/feature-mfa/oidc-client-net.md` — "Auth0.OidcClient (.NET native/desktop) — MFA (client-initiated step-up)"
-- `references/feature-mfa/react-native-auth0.md` — "react-native-auth0 — MFA (API-driven, Flexible Factors Grant)"
-- `references/feature-mfa/spring-security-api.md` — "Spring Security (resource server) — MFA (API-side scope gate)"
-- `references/feature-migration/index.md` — "Auth0 Migration Guide"
+## Revisions
+Installed plugin copy is metadata version 2.6.0; a newer 2.8.0 exists in the plugin cache (per earlier slice notes). The 2.8.0 revision is preferable — same router design with updated references — but the installed 2.6.0 SKILL.md was the readable source here and the method is unchanged.

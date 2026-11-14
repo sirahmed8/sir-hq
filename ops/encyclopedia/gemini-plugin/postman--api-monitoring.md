@@ -1,33 +1,30 @@
 # api-monitoring
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-monitoring\SKILL.md`
-- SKILL.md size: 4582 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-monitoring\SKILL.md` (4.6 KB; gemini-plugin/postman).
 
-## What it does
+## Summary
+Skill for turning a saved collection into recurring evidence about a live API via Postman Monitors, including scheduling, runner choice, failure triage and verification.
 
-Use when setting up recurring API checks, running or diagnosing a Postman Monitor, changing its schedule, or reaching private APIs through a self-hosted runner. Reuses collection assertions to detect live regressions and traces failures to individual run evidence. Use for requests such as "check this API every minute".
+## When to use / when NOT
+Use when setting up recurring checks, running or diagnosing a Postman Monitor, changing its schedule, or reaching private APIs through a self-hosted runner. Do NOT use for one-off endpoint checks or simulation of failures; use api-testing and api-simulation.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: collection, cadence, execution location, alert recipients.
+- Outputs: monitor configuration, run or job outcomes, metrics.
+- Tools: postman monitor commands, postman runner commands, postman collection assertions.
 
-- API Monitoring
-- Verification
-- (none)
+## 5 most important rules
+1. A 200 response is a weak health signal if the response can violate the contract; reuse meaningful assertions and check auth, target environment and write side effects.
+2. `monitor create` and `monitor update` cannot change the collection or pause or resume a monitor; use pause and resume for those.
+3. Use a self-hosted runner when the target is private; verify the runner is reporting in before assigning runs.
+4. The CLI timeout caps waiting, not execution; after a timeout read the job with `monitor jobs get`.
+5. In a CI gate run `monitor run` without `-x` so a failed run fails the build.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Monitor creation starts an immediate run by default; permanent monitor deletion needs explicit intent.
 
-- none declared
+## Category / tags
+Category: ops. Tags: api, postman, monitor, health-check, runners, alerts.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 1. Reuse the collection's meaningful assertions before scheduling it. A
-2. 5. Use `postman monitor run <id>` for an immediate verdict, such as after a
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin/postman copy. No competing revisions.

@@ -1,30 +1,28 @@
 # agent-supercharged-os
 
-Source read: `C:\Users\a7med\.config\kilo\skills\agent-supercharged-os\SKILL.md` (2.0 KB; kilo revision; identical copies in codex/cursor/windsurf/opencode; not in claude).
+Source read: `C:\Users\a7med\.claude\skills\agent-supercharged-os\SKILL.md`.
 
 ## Summary
-A structured 4-phase engineering operating system (Plan → Test → Implement → Review) with cross-session learning via checkpoints. Transforms an agent into a disciplined engineering team. Phase 1: Architecture & Plan — schema, API routes, DB indices, error conditions up front. Phase 2: Test-Driven Validation — unit/integration tests first, boundary conditions exercised. Phase 3: Surgical Implementation — max 300 lines/file, layered architecture (Presentation→Domain→Data→Core), zero placeholders, zero unhandled promises. Phase 4: Multi-Tier Review — Security (OWASP Top 10), Performance (N+1, re-renders, bundle), Accessibility (keyboard, contrast, ARIA). Phase 5: Continuous Learning — update `continuation_checkpoint.md` with tasks, decisions, lessons.
+Agent Supercharged OS is a compact engineering discipline that pushes coding agents through an architecture plan, test-first validation, surgical implementation, multi-tier review, and session checkpointing. It is meant to make every coding task behave like a small engineering team rather than a one-shot answer.
 
 ## When to use / when NOT
-Use as the default discipline for ALL coding tasks, refactors, features, and reviews. It is not a task-specific skill — it overlays every task. Do NOT skip phases even for "small" changes; the pipeline is the quality floor.
+Use as the default working discipline for features, bug fixes, refactors, reviews, and multi-step implementation work where quality and continuity matter. Do not use it as a task-specific feature skill, and do not skip phases for supposedly small changes; the value is that the same gates apply every time.
 
 ## Inputs, outputs, tools
-- Inputs: any coding task, bug, or refactor.
-- Outputs: architectural breakdown, failing tests, surgical diffs, review reports, updated checkpoint.
-- Tools: test runners (project-specific), Chrome DevTools MCP for browser validation, linters/typecheckers. No MCPs required by the skill itself.
+Input is the coding task, bug report, or review target. Outputs are an architectural breakdown, tests or test contracts, bounded implementation diffs, security/performance/accessibility review notes, and an updated `continuation_checkpoint.md`. Tools are the project's normal test runner, linter, type checker, and browser or runtime verification when relevant; the skill itself requires no MCP.
 
 ## 5 most important rules
-1. **Never write code before an architectural breakdown** (schemas, routes, indices, error conditions).
-2. **Write tests first or alongside** — boundary conditions (null, invalid payload, timeout) must be exercised.
-3. **Surgical implementation only**: max 300 lines/file, layered architecture, no placeholders, no unhandled promises.
-4. **Multi-tier review mandatory**: Security (OWASP), Performance (N+1, bundle), Accessibility (keyboard, contrast, ARIA).
-5. **Checkpoint every session**: Update `continuation_checkpoint.md` with active tasks, key decisions, learned lessons.
+1. Never write code before producing an architectural breakdown with schemas, routes, indices, dependencies, and error conditions.
+2. Write unit and integration tests before or alongside implementation, including nulls, invalid payloads, and timeouts.
+3. Keep implementation surgical: maximum 300 lines per file, layered Presentation to Domain to Data to Core structure, no placeholders, no unhandled promises.
+4. Run multi-tier review for OWASP-style security, N+1 queries, re-renders, bundle bloat, keyboard navigation, contrast, and ARIA.
+5. Persist progress by updating `continuation_checkpoint.md` with active tasks, design decisions, and learned lessons.
 
 ## Risks / owner notes
-The 4-phase pipeline slows initial velocity but prevents rework. Risk: agents skip Phase 1/2 under time pressure. Owner should verify checkpoint exists and review gates ran.
+The pipeline trades early speed for fewer rework cycles, and agents may be tempted to skip planning or tests under pressure. The owner should verify that the checkpoint file exists, tests actually ran, and review gates were not just narrated. It also assumes the project has or can adopt a layered structure.
 
 ## Category / tags
-ops · engineering-discipline, tdd, surgical-code, phased-workflow, checkpoint, review-gates, owasp, a11y, performance
+ops · engineering-discipline, tdd, planning, code-review, checkpoint, security, performance, accessibility
 
 ## Revisions
-Five byte-identical copies in codex/kilo/cursor/windsurf/opencode (2.0 KB). Not in claude. The kilo/codex family revision is canonical.
+The claude copy is selected by the source rule and has the fullest frontmatter description. Codex, kilo, cursor, windsurf, and opencode copies are near-identical older revisions, and the gemini-plugin advanced-engineering copy has the same body with a truncated description.

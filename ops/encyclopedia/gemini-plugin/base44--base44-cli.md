@@ -1,118 +1,30 @@
 # base44-cli
 
-- Tool: `gemini-plugin` (plugin: `base44`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-cli\SKILL.md`
-- SKILL.md size: 42770 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-cli\SKILL.md` (gemini-plugin base44 0.1.7, 758 lines) plus its 50-file references/ directory.
 
-## What it does
+## Summary
+The operating manual for the Base44 CLI (`npx base44`), the command-line tool for everything Base44-platform: creating and linking projects, scaffolding local files for externally provisioned apps, local dev (`base44 dev`, with a `--remote` mode that hits production data), deploying all resources, pushing entities/functions/actors/agents/agent-skills/connectors/auth config, managing secrets, generating TypeScript types, running scripts via `base44 exec`, site deploy, and a generic `base44 api` escape hatch that searches/calls the platform's OpenAPI spec for anything without a dedicated command. It enforces a strict state check: existing project (`base44/config.jsonc` present) -> hand off to base44-sdk; provisioned app (`BASE44_APP_ID` env or Stripe Projects flow) -> `scaffold`, never `create`; otherwise -> `create`.
 
-The base44 CLI is used for EVERYTHING.
+## When to use / when NOT
+Use for all CLI-level Base44 work: project creation/linking/eject, auth (login/logout/whoami), deploys, entity/function/actor/agent/connector/auth-config push-pull, secrets, types generation, exec, site hosting, and arbitrary API calls. Do NOT use it to write application code in an existing project (that is base44-sdk), and do NOT run bare `base44` — always via the local dev dependency (`npx`/`yarn`/`pnpm`).
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: user intent, presence of `base44/config.jsonc`, `base44/.app.jsonc`, env vars (`BASE44_APP_ID`, `BASE44_ACCESS_TOKEN`, `BASE44_REFRESH_TOKEN`, `BASE44_API_KEY`), CLI args.
+- Outputs: local project scaffold/edits, deployed Base44 resources, JSON output with `--json`, TypeScript `types.d.ts`.
+- Tools: `base44` npm package as devDependency (never a global install), `npx base44 whoami|login|create|scaffold|link|eject|dev|deploy|entities push|functions deploy|actors deploy|agents push|agent-skills push|connectors *|auth *|secrets *|types generate|exec|site deploy|api search|catalog|grep|fetch|workflows list|runs|logs|dashboard open|visibility|workspace *`. MCP: none. 50 reference files cover each command.
 
-- ## When to Use This Skill vs base44-sdk
-- Workflows are the automation system (cron schedules, entity triggers, connector events, in-app agent actions). These commands are read-only: they answer "what workflows exist" and "did my scheduled work fail, and why".
-- Use this skill when the user asks to export, download, or share a report as a PDF.
+## 5 most important rules
+1. **Mandatory auth check first**: run `npx base44 whoami` at session start; if not logged in, STOP and have the user run `npx base44 login` — never proceed unauthenticated. (Skipped automatically when `BASE44_API_KEY`/`BASE44_ACCESS_TOKEN` env auth is present.)
+2. **NEVER call `base44` directly** — always `npx base44` (or yarn/pnpm); the CLI is a local dev dependency.
+3. **State check before acting**: config.jsonc exists -> base44-sdk territory; provisioned app -> `scaffold` (running `create` makes a duplicate app); neither -> `create` (read create.md first — it is marked MUST READ).
+4. **`base44 dev` hits a throwaway local backend; `base44 dev --remote` hits PRODUCTION data** — default to local, warn loudly before `--remote`.
+5. **Build through the CLI**: `npx base44 build` injects `VITE_BASE44_APP_ID`; a bare `npm run build` produces a site whose API calls fail. Prefer dedicated commands over `base44 api`, but use `api` when a dedicated command does more than asked.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+`--remote` dev and `deploy` touch live production data and incur real platform usage — confirm with the owner before running against a production app. `secrets set` handles credentials; values must never be echoed into files or logs. `eject`/`scaffold` write code locally — verify app identity (`.app.jsonc`) to avoid wiring the wrong app.
 
-- Base44 CLI
-- ⚡ IMMEDIATE ACTION REQUIRED - Read This First
-- Critical: Local Installation Only
-- MANDATORY: Authentication Check at Session Start
-- Overview
-- When to Use This Skill vs base44-sdk
-- Project Structure
-- Installation
-- Global `--app-id` Option
-- Run a one-off script against a specific app
-- Fetch logs for a deployed app without a local checkout
-- Global `--json` Option
-- Available Commands
-- Authentication
-- Project Management
-- Workspace Management
-- Development
-- Deployment
-- Entity Management
-- Function Management
-- Workflow Runs
-- Actor Management
-- Agent Management
-- Agent Skills Management
-- Connector Management
-- (none)
+## Category / tags
+build · base44, cli, deployment, baaS, scaffolding, devops, typescript
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Entity tools**: `entity_name` + `allowed_operations` (array of: `read`, `create`, `update`, `delete`)
-- - **Server route tools** (full-stack apps): `tool_name` (1-64 chars of letters, digits, `_`, `-`) + `route_path` (app-relative, starts with a single `/`, no query string) + `method` (`get`\|`post`\|`put`\|`patch`\|`delete`, default `post`) + `description` (default `"agent server route"`)
-- - `npx base44 functions delete <name>` - Delete a deployed function
-- - `npx base44 actors delete <name>` - Tear down a deployed actor
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **DO NOT run `npx base44 create`** — that creates a second, duplicate app. See [scaffold.md](references/scaffold.md).
-2. - Do NOT activate base44-sdk yet
-3. - **DO NOT proceed** with any CLI operations
-4. - Wait for the user to confirm they have logged in before continuing
-5. - `base44 deploy` still requires a local project directory because it reads local resources
-
-## Files inside the skill
-
-- `references/actors-create.md` — "Creating Actors"
-- `references/actors-deploy.md` — "base44 actors deploy"
-- `references/agent-skills-pull.md` — "base44 agent-skills pull"
-- `references/agent-skills-push.md` — "base44 agent-skills push"
-- `references/agents-pull.md` — "base44 agents pull"
-- `references/agents-push.md` — "base44 agents push"
-- `references/api-catalog.md` — "base44 api catalog"
-- `references/api-fetch.md` — "base44 api fetch"
-- `references/api-grep.md` — "base44 api grep"
-- `references/api-search.md` — "base44 api search"
-- `references/auth-login.md` — "base44 login"
-- `references/auth-logout.md` — "base44 logout"
-- `references/auth-password-login.md` — "base44 auth password-login"
-- `references/auth-pull.md` — "base44 auth pull"
-- `references/auth-push.md` — "base44 auth push"
-- `references/auth-social-login.md` — "base44 auth social-login"
-- `references/auth-sso.md` — "base44 auth sso"
-- `references/auth-whoami.md` — "base44 whoami"
-- `references/connectors-create.md` — "Creating Connectors"
-- `references/connectors-initiate.md` — "base44 connectors initiate"
-- `references/connectors-list-available.md` — "base44 connectors list-available"
-- `references/connectors-pull.md` — "base44 connectors pull"
-- `references/connectors-push.md` — "base44 connectors push"
-- `references/create.md` — "base44 create"
-- `references/dashboard.md` — "base44 dashboard open"
-- `references/deploy.md` — "base44 deploy"
-- `references/dev.md` — "base44 dev"
-- `references/eject.md` — "base44 eject"
-- `references/entities-create.md` — "Creating Entities"
-- `references/entities-push.md` — "base44 entities push"
-- `references/exec.md` — "base44 exec"
-- `references/functions-create.md` — "Creating Functions"
-- `references/functions-delete.md` — "base44 functions delete"
-- `references/functions-deploy.md` — "base44 functions deploy"
-- `references/functions-list.md` — "base44 functions list"
-- `references/functions-pull.md` — "base44 functions pull"
-- `references/link.md` — "base44 link"
-- `references/rls-examples.md` — "RLS Examples"
-- `references/scaffold.md` — "base44 scaffold"
-- `references/secrets-delete.md` — "base44 secrets delete"
-- `references/secrets-list.md` — "base44 secrets list"
-- `references/secrets-set.md` — "base44 secrets set"
-- `references/site-deploy.md` — "base44 site deploy"
-- `references/site-open.md` — "base44 site open"
-- `references/types-generate.md` — "`base44 types generate`"
-- `references/visibility.md` — "base44 visibility"
-- `references/workflows-list.md` — "base44 workflows list"
-- `references/workflows-runs.md` — "base44 workflows runs"
-- `references/workspace-get.md` — "base44 workspace get"
-- `references/workspace-list.md` — "base44 workspace list"
-- `references/workspace-move.md` — "base44 workspace move"
+## Revisions
+Single revision (gemini-plugin base44 0.1.7). Not present in other tool stores — canonical and only source.

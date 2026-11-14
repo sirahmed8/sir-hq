@@ -1,44 +1,28 @@
 # access-protected-vercel-deployment
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\access-protected-vercel-deployment\SKILL.md`
-- SKILL.md size: 4906 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\access-protected-vercel-deployment\SKILL.md`.
 
-## What it does
+## Summary
+This Vercel plugin skill explains how to reach protected preview or production deployments without weakening Deployment Protection. For HTTP checks it prefers `vercel curl` / `vc curl`, which uses the caller's existing Vercel authentication; for browser automation it injects a short-lived `x-vercel-trusted-oidc-idp-token` header so tools such as agent-browser or Playwright can load protected pages.
 
-Access and test protected Vercel preview or.
+## When to use / when NOT
+Use when a linked Vercel project returns a Deployment Protection, SSO, login, or Trusted Sources error during verification, smoke tests, or browser automation. Do not use it to disable protection, bypass app-level authentication, or change Trusted Sources without understanding the access-control impact.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Inputs are the target deployment URL or path-only project target, the linked Vercel project context, and the caller's auth state. Outputs are authenticated HTTP responses or a browser session that can load the protected deployment, plus a diagnosis of whether the failure is Vercel protection or the app's own auth. Tools are the Vercel CLI (`vc curl`, `vc whoami`, `vc link`, `vc login`, `vc env run`, `vc env pull`), `VERCEL_OIDC_TOKEN`, and browser automation that supports origin-scoped headers.
 
-- Access Protected Vercel Deployments
-- Choose the access path
-- HTTP requests: use `vercel curl`
-- Browser automation: attach the development OIDC token as a header
-- Trusted Sources rules
-- Diagnose the response
-- Avoid
-- Related skills
-- (none)
+## 5 most important rules
+1. Use the caller's existing Vercel authentication first; do not ask for a long-lived bypass secret as the first move.
+2. Use `vc curl` instead of raw `curl` for protected HTTP requests, and use full URLs when the exact deployment matters.
+3. For browsers, send `x-vercel-trusted-oidc-idp-token` as an origin-scoped header and never print, commit, or log the token.
+4. Do not confuse that header with `x-vercel-oidc-token`, which serves a different function inside Vercel Functions.
+5. Treat Trusted Sources changes as access-control changes; a local development token can reach same-project Preview by default, but protected Production may require an authorized `development` to `production` rule.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+The OIDC token is a secret even though it is short-lived; it must stay out of source, screenshots, logs, and shell output. `TRUSTED_SOURCES_ENVIRONMENT_MISMATCH` means the token is valid but not allowed for that environment, while an application `401` or `403` after protection is bypassed belongs to app auth. The owner should approve any Trusted Sources or protection change.
 
-- none declared
+## Category / tags
+cloud · vercel, deployment-protection, trusted-sources, oidc, curl, browser-automation, preview
 
-## Risks / cautions found in text
-
-- - the target is a protected Production deployment and the caller uses a local development token;
-- - `TRUSTED_SOURCES_ENVIRONMENT_MISMATCH` means the token is valid but its caller environment is not allowed to reach the target environment.
-- - A deployment marked `"target": "production"` can still be protected. Do not assume production is public.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - An application-generated `401` or `403` after Vercel protection is bypassed belongs to the application's own authentication and must be debugged separately.
-2. - A deployment marked `"target": "production"` can still be protected. Do not assume production is public.
-3. - Do not disable Deployment Protection to make automation pass.
-4. - Do not send raw unauthenticated `curl` repeatedly after receiving the protection page.
-5. - Do not start an interactive SSO browser login when `vc curl` or an origin-scoped OIDC header can authenticate the request.
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin Vercel revision. No codex, kilo, claude, cursor, opencode, or windsurf copy was present for this skill.

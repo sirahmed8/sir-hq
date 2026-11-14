@@ -1,54 +1,33 @@
 # build-gtk
 
-- Tool: `gemini-plugin` (plugin: `unity`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\unity\skills\build-gtk\SKILL.md`
-- SKILL.md size: 18083 chars
+Tools: gemini (antigravity plugin). Source: C:\Users\a7med\.gemini\config\plugins\unity\skills\build-gtk\SKILL.md (read in full) + references/graph-api.md, state-machine-api.md, runtime-and-visualization.md, pitfalls.md
 
-## What it does
+## Summary
+Unity Graph Toolkit (GTK) authoring framework for Editor graph and state-machine tools on Unity 6.6+/6.7+: define Graph/StateMachine assets, Node/State/Condition classes, ports, options, validation, and compile authored graphs into plain runtime assets via a ScriptedImporter. Authoring-only framework; you write the runtime data model and executor. Discovery is by reflection; never use retired GraphModel/Stencil/GraphView APIs.
 
->- Builds node-based Editor tools with Unity Graph Toolkit (GTK) on Unity 6.6+: graphs, nodes, ports and validation, State Machine API tools on 6.7+, and runtime assets via a scripted importer. Use for custom graph, node or state machine editors, or migrating a GraphView tool. Not for Shader Graph, VFX Graph or Animator Controllers.
+## When to use / not use
+Use for custom graph, node, context/block, subgraph, blackboard-variable, or state-machine editors, or migrating a GraphView tool, on Unity 6.6+ (state machines require 6.7+). NOT for Shader Graph, VFX Graph, Animator Controllers, or runtime execution (GTK has no runtime).
 
-## When to use (from skill text)
+## Inputs, outputs, dependencies
+Input: Unity project with Editor version; desired graph/state-machine tool. Output: Editor assembly classes (Graph, Node, State, Condition, importer) plus a runtime asset at import. Needs: Unity 6000.6+ (6.7+ for state machines); no package install (built-in module); runtime asmdef must not reference Unity.GraphToolkit.Editor.
 
-- Derive from `Condition` directly for a valueless trigger. Group (And/Or) and variable conditions are
+## Key rules
+1. Read ProjectVersion.txt first; the State Machine API does not exist before 6000.7 — say so plainly, do not emulate with the Graph API.
+2. Every authoring class is [Serializable] in an Editor-only assembly; use public API names exactly (Graph, Node, IPort, State, Condition<T>); IDs are Hash128.
+3. End every port builder chain with .Build(); use .Delayed() on count-like options; ports accept multiple wires by default, so declare .WithCapacity(PortCapacity.Single) when one wire is wanted.
+4. Validate in OnGraphChanged/OnStateMachineChanged with the logger; never mutate there; put fixes in GraphLogAction, menu items, toolbar buttons, or the importer.
+5. Importers use LoadGraphForImporter/LoadStateMachineForImporter then SetMainObject(runtime); runtime assemblies stay free of Unity.GraphToolkit.Editor; guard visualization code with #if UNITY_EDITOR.
+6. For a runtime debug view use the GraphVisualization API keyed by the authored Graph.ID and node/port/wire Hash128 IDs; dispose the context when the run ends.
 
-## Structure (headings inside SKILL.md)
+## Risks / owner items
+- com.unity.graphtoolkit is a deprecated shim; never add it to the manifest.
+- Mutating a graph in OnEnable/OnDisable/OnGraphChanged throws InvalidOperationException.
+- GraphChanges (added and modified only) never reports removed nodes; diff a cached HashSet<Hash128> on every version.
+- Custom UI (NodeView/StateView/ConditionView): allocate in OnViewBuilt, re-add in OnCullingChanged(false), never in OnViewAttached.
+- Importer results are cached per version; bump the ScriptedImporter version to force reimport.
 
-- Unity Graph Toolkit (GTK)
-- Important
-- References
-- Step 1: Check the Editor version and pick the API
-- Mental model
-- Workflow A: build a graph tool
-- Workflow B: build a state machine tool (Unity 6.7 and newer)
-- Editing a graph from code
-- Decisions
-- Constraints
-- Verify
-- Final report
-- Topic map
-- (none)
+## Category and tags
+unity, editor, graph-tool, state-machine, scripted-importer, build.
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- 3. With an importer, select the asset and confirm the produced runtime object is the main asset in
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Do only what's asked. Don't change unrelated assets or files. Avoid long explanations.
-2. - Before you go forward with a workflow or diagnosis, open and read the reference file(s) named in
-3. - `references/pitfalls.md` — the mistakes that survive compilation. Read before handing off, and
-4. - Graph Toolkit is an authoring framework only. It draws and persists graphs; it never executes them.
-5. - Link to the Script Reference or manual instead of restating them, so the answer stays correct when
-
-## Files inside the skill
-
-- `references/graph-api.md` — "Graph API reference (Unity 6.6 and newer)"
-- `references/pitfalls.md` — "Pitfalls that survive compilation, and the ones that do not"
-- `references/runtime-and-visualization.md` — "From authored graph to runtime, and back"
-- `references/state-machine-api.md` — "State Machine API reference (Unity 6.7 and newer)"
+## Revision note
+Single gemini revision covering 6.6 Graph API and 6.7 State Machine API; references read in full.

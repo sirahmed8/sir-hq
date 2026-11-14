@@ -1,32 +1,30 @@
 # api-testing
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-testing\SKILL.md`
-- SKILL.md size: 3404 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-testing\SKILL.md` (3.4 KB; gemini-plugin/postman).
 
-## What it does
+## Summary
+Skill for testing an endpoint or running collection assertions: saved requests preserve auth, payloads and assertions; pick the smallest execution mode and derive assertions from the contract and the behavior at risk.
 
-Use when testing an endpoint, running collection assertions, or checking real application traffic against an API contract. Reuses saved requests and reports what live, mocked, or captured-traffic results actually establish. Use for requests such as "test this endpoint".
+## When to use / when NOT
+Use when testing an endpoint, running collection assertions, or checking real application traffic against an API contract. Do NOT use for building mocks or simulating failures; use api-mocking and api-simulation.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: endpoint, saved request, collection, contract, target (real or mocked).
+- Outputs: pass or fail evidence, assertion counts, exported reports.
+- Tools: `postman request`, `postman collection run`, `postman application test`, variables and datasets for input handling.
 
-- API Testing
-- Verification
-- (none)
+## 5 most important rules
+1. The useful result is evidence about an intended guarantee; a successful HTTP exchange alone does not establish correctness.
+2. Reuse a matching saved request under `postman/collections/` before reconstructing its HTTP fields.
+3. Derive assertions from the contract and the behavior at risk; a test that repeats the current implementation can bless its bug.
+4. Choose a real or mocked target per claim; passing against a mock does not verify the real service.
+5. Report the target, tested behavior, assertion counts and exit code; the exit code reflects failed assertions, not HTTP status alone.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Workspace-bound resources need a signed-in CLI; datasets and variables may need owner-provided inputs.
 
-- none declared
+## Category / tags
+Category: automation. Tags: api, postman, testing, assertions, collections.
 
-## Risks / cautions found in text
-
-- 3. Derive assertions from the contract and the behavior at risk. A test that
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 2. Reuse a matching request under `postman/collections/` before reconstructing
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single gemini-plugin/postman copy. No competing revisions.

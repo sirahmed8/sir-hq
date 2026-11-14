@@ -1,77 +1,28 @@
 # chrome-extensions
 
-- Tool: `codex`
-- Category: security
-- Source: `C:\Users\a7med\.codex\skills\chrome-extensions\SKILL.md`
-- SKILL.md size: 26273 chars
+## Summary
+Manifest V3 Chrome extension development and Chrome Web Store publishing playbook. Part 1 lists 20 mandatory rules that prevent common broken builds: real icon files or omit them; explicit side-panel open triggers; CSP-safe code execution (sandbox/blob/srcdoc); `tabs` permission for `tab.url`; async/await only; batched content-script DOM updates; no state in service-worker globals (use `chrome.storage` + `chrome.alarms`); stable extension ID via manifest `key` for OAuth; context-menu user feedback; Prompt API availability; `action` manifest key for `chrome.action`; `activeTab` limits; DevTools panel paths relative to extension root; offscreen document API restrictions; real image files for notifications/badges; tab/desktop capture state locking; `desktopCapture` targetTab; user-scripts pitfalls; no `chrome.windows.query()`; gesture-safe `permissions.request`. Part 2 maintains `CHROMEWEBSTORE.md` as the single source of truth, with a pre-publish checklist and store-listing copy rules.
 
-## What it does
+## When to use / when NOT
+Use when creating, modifying, debugging, or publishing a Chrome extension (MV3). Do NOT generate Manifest V2 code or skip the output checklist.
 
-> Build and publish Chrome Extensions using Manifest V3 best practices. Use this skill whenever the user asks to create, modify, debug, or understand Chrome browser extensions, add-ons, or anything involving the Chrome Extensions API. Trigger on mentions of: 'Chrome extension', 'browser extension', 'manifest.json', 'content script', 'service worker' (in browser context), 'popup' (in browser extension context), 'side panel', 'chrome.* API', 'declarativeNetRequest', 'omnibox', 'context menu' (in extension context), 'userScripts', 'user script', 'script manager', or any request to build functionality that integrates with the Chrome browser UI. Also trigger for publishing to the Chrome Web Store: 'publish extension', preparing an extension for publishing, responding to a review rejection, writing permission justifications, or drafting a privacy policy.
+## Inputs, outputs, tools
+- Inputs: `manifest.json`, source files, icon assets, `CHROMEWEBSTORE.md`.
+- Outputs: unpacked extension, store listing metadata, privacy policy, ZIP (excluding `.git/`, `node_modules/`, `.env`, `CHROMEWEBSTORE.md`).
+- Tools: Chrome, `chrome://extensions`, Chrome Developer Dashboard, `references/extensions/*.md` and `references/webstore/*.md`.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Manifest V3 only: `service_worker`, `chrome.action`, `chrome.scripting`, separate `host_permissions`, no inline scripts.
+2. Never reference icon/image files that do not exist; generate them or omit the field.
+3. Service workers are ephemeral — persist all state in `chrome.storage`; use `chrome.alarms`, not `setTimeout`.
+4. Side panels need an explicit open trigger (`onClicked` or `setPanelBehavior` with `openPanelOnActionClick`).
+5. Every permission and host_permission needs a specific justification in `CHROMEWEBSTORE.md`.
 
-- Defining `"side_panel": {"default_path": "..."}` does NOT make it openable. Add a trigger:
-- easily trigger this. Use explicit state locking:
-- - [ ] Side panel has an explicit open trigger (not just a manifest declaration)
+## Risks / things needing the owner
+Publishing needs a Chrome Developer account, OAuth client updates after store assignment, a live privacy policy URL, and screenshots. Some APIs require user gestures or toggles (user scripts "Allow User Scripts").
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+security · chrome, extensions, manifest-v3, csp, service-worker, webstore, publishing
 
-- Chrome Extensions
-- Part 1 — Building Extensions
-- Mandatory Rules
-- Always Manifest V3
-- Part 2 — Publishing to the Chrome Web Store
-- Core Workflow
-- How to fill it out
-- CHROMEWEBSTORE.md Sections
-- Pre-Publish Checklist
-- Store Listing Copy Guidelines
-- Reference Files
-- Output Checklist
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - `host_permissions` is separate from `permissions`
-- - **manifest.json changes**: If permissions, host_permissions, or content_scripts changed,
-- - **Privacy-relevant changes**: If data collection, storage, or transmission changed,
-- 1. Read `manifest.json` to extract name, version, description, permissions, host_permissions
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **API throws on property access if not enabled.** Chrome 138+ requires the user to toggle "Allow User Scripts" on the extension's details page; Chrome < 138 requires Developer mode. Always call `isUserScriptsAvailable()` before any `chrome.userScripts.*` call and show an error UI when it returns f
-2. - **Messaging requires explicit opt-in.** Call `configureWorld({ messaging: true })` first; listen on `runtime.onUserScriptMessage`, not `runtime.onMessage`.
-3. - **`ScriptSource` constraint:** each `js` entry must have exactly one of `code` or `file`. **`id` constraint:** cannot start with `_`.
-4. - Every permission and host_permission must have a specific justification (not "needed to work")
-5. - Privacy policy URL must be live and match the data use disclosure form
-
-## Files inside the skill
-
-- `references/extensions/api-calling.md` — "Calling External APIs from Extensions"
-- `references/extensions/auth-identity.md` — "Authentication with chrome.identity"
-- `references/extensions/content-scripts.md` — "Content Scripts & DOM Manipulation"
-- `references/extensions/context-menus.md` — "Context Menus"
-- `references/extensions/csp-sandbox.md` — "CSP & Sandboxed Code Execution"
-- `references/extensions/declarative-net-request.md` — "Declarative Net Request (Content Filtering)"
-- `references/extensions/devtools.md` — "DevTools Panels"
-- `references/extensions/icons.md` — "Generating Extension Icons"
-- `references/extensions/media-capture.md` — "Media Capture (Tab & Desktop)"
-- `references/extensions/message-passing.md` — "Message Passing"
-- `references/extensions/omnibox.md` — "Omnibox Integration"
-- `references/extensions/permissions.md` — "Permissions"
-- `references/extensions/popup-ui.md` — "Popup UI"
-- `references/extensions/prompt-api.md` — "Chrome Prompt API (LanguageModel) — Extension-Specific Notes"
-- `references/extensions/service-worker.md` — "Service Worker Lifetime & State Management"
-- `references/extensions/side-panel.md` — "Side Panel"
-- `references/extensions/storage.md` — "Chrome Storage API"
-- `references/extensions/tab-management.md` — "Tab Management & Groups"
-- `references/extensions/user-scripts.md` — "User Scripts API"
-- `references/webstore/chromewebstore-template.md` — "CHROMEWEBSTORE.md Template"
-- `references/webstore/privacy-policy.md` — "Privacy Policy Guidance"
-- `references/webstore/review-checklist.md` — "Pre-Publish Review Checklist"
-- `references/webstore/store-listing.md` — "Store Listing Tips & Common Rejections"
+## Revisions
+Five tools hold it (codex, cursor, gemini-plugin, kilo, opencode, windsurf — no claude); codex copy chosen, all 26273 chars identical across tools. References: 19 extension + 4 webstore docs.

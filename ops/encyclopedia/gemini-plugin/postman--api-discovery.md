@@ -1,32 +1,29 @@
 # api-discovery
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: research
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-discovery\SKILL.md`
-- SKILL.md size: 4582 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-discovery\SKILL.md` (4.6 KB; gemini-plugin/postman) plus `reference/orbit.md`.
 
-## What it does
+## Summary
+Skill for finding APIs or owners, integrating public providers, locating Postman resources, and investigating consumers and change impact; routes each question to Orbit, Postman search, or the Context Graph, then verifies which source answered.
 
-Use when finding an API or owner, integrating a public provider, locating Postman resources, or investigating consumers and change impact across services. Turns discovered contracts and mocks into reusable dependencies and identifies evidence outside the current checkout. Use for requests such as "who consumes this endpoint".
+## When to use / when NOT
+Use when a question is about who consumes an endpoint, provider integration, or locating Postman collections, mocks or specs. Do NOT use to implement or test the API itself; route implementation to api-engineer and testing to api-testing.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: discovery question; source selection (public provider, Postman resource, cross-service change).
+- Outputs: resource IDs, integration guidance, consumer or change impact evidence.
+- Tools: postman CLI (`postman status`, `postman search`, `postman context-graph ask`, `postman dependency add`), Orbit REST API (`POST /v1/search`, `POST /v1/integrate`; read-only, safe retries, back off on 429).
 
-- API Discovery
-- Verification
-- (none)
+## 5 most important rules
+1. Check `postman status` before search, Context Graph and dependency commands; sign in if signed out and skip with a note if that is not possible.
+2. Answer each question with the source that fits; a miss in one source is not proof of absence in another; combine entity search with relationship context.
+3. Pass discovered ids verbatim to integrate; never construct or edit them.
+4. Treat returned leads as unverified until checked against definitions, source or telemetry; newly added calls may not be ingested yet.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Postman sign-in is required for search and Context Graph; Orbit usage is free but not unlimited, so back off on 429.
 
-- none declared
+## Category / tags
+Category: research. Tags: api, postman, discovery, orbit, context-graph, integration.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. 5. Before importing, tell this repository's owning workspace from a
-
-## Files inside the skill
-
-- `reference/orbit.md` — "Orbit — public API discovery reference"
+## Revisions
+Single gemini-plugin/postman copy. No competing revisions.

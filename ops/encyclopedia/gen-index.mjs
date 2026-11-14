@@ -31,7 +31,7 @@ for (const r of rows) {
   const tools = [...r.tools].sort().join(', ');
   const cat = [...r.cats].sort((a, b) => catOrder.indexOf(a) - catOrder.indexOf(b))[0];
   const purpose = (r.desc || '').replace(/\|/g, '/').replace(/\s+/g, ' ').slice(0, 140);
-  md += `| ${r.name} | ${tools} | ${cat} | ${purpose} | [digest](${r.digest.replace('encyclopedia/', '')}) |\n`;
+  md += `| ${r.name} | ${tools} | ${cat} | ${purpose} | [digest](${r.digest}) |\n`;
 }
 fs.writeFileSync('D:/Projects/_SIR/ops/SKILLS_INDEX.md', md, 'utf8');
 
@@ -49,6 +49,7 @@ const table = [
   ['Kilo skills', 'C:/Users/a7med/.config/kilo/skills', results.kilo?.length],
   ['Shared .agents skills', 'C:/Users/a7med/.agents/skills', results.agents?.length],
   ['Gemini CLI skills', 'C:/Users/a7med/.gemini/skills', results.gemini?.length],
+  ['Gemini config skills (Antigravity)', 'C:/Users/a7med/.gemini/config/skills', results['gemini-config']?.length],
   ['Antigravity builtin skills', 'C:/Users/a7med/.gemini/antigravity/builtin/skills', results['antigravity-builtin']?.length],
   ['Antigravity scratch skills', 'C:/Users/a7med/.gemini/antigravity/scratch/skills', results['antigravity-scratch']?.length],
   ['Gemini plugins (skills inside)', 'C:/Users/a7med/.gemini/config/plugins/*/skills', results['gemini-plugin']?.length],
@@ -64,20 +65,22 @@ srcLines.push('');
 srcLines.push('- **Goose**: `goose.exe` on PATH (WinGet Links) but no `~/.config/goose`, no AppData config, no skills.');
 srcLines.push('- **Cline**: `~/.cline` has data/tasks/cron only; no skills dir, no mcp settings file found.');
 srcLines.push('- **Kimi Code**: `~/.kimi-code` has config.toml (providers/models), sessions, telemetry; no skills or MCP tables.');
-srcLines.push('- **Devin CLI**: `~/AppData/Local/devin/cli` binary + docs only; skills are builtin (declarative-repo-setup, upload-secrets). No user skill dir found.');
+srcLines.push('- **Devin CLI**: `~/AppData/Local/devin/cli` binary + docs; builtin skills (`declarative-repo-setup`, `upload-secrets`), plus reads workspace `.agents/skills/` (`D:/Projects/.agents/skills`) and `~/.agents/skills/`.');
 srcLines.push('- **Windsurf / Cursor MCP**: no `mcp_config.json` / `mcp.json` found; Cursor `~/.cursor` holds only AGENTS.md and skills/.');
-srcLines.push('- **Project skill folders**: `D:/Projects/*/.claude`, `.agents`, `.sir` contain `agents/` subagent definitions (one per project), not SKILL.md skills, except `D:/Projects/.agents/skills/sir-session-end`. `D:/Projects/AHome` was NOT opened (private project). Legacy bundled SKILL.md files under `SIR AI/legacy/**` are research artifacts, excluded from the index.');
-srcLines.push('- **Claude plugins**: 84 installed plugins catalogued in `mcp-inventory.json` (`claude.plugins`); their skills live in the plugin cache, not user skill dirs.');
+srcLines.push('- **Project skill folders**: `D:/Projects/*/.claude`, `.agents`, `.sir` contain `agents/` subagent definitions (one per project), not SKILL.md skills, except `D:/Projects/.agents/skills/` (`sir-session-end`, `sir-worker-preamble`). `D:/Projects/AHome` was NOT opened (private project). Legacy bundled SKILL.md files under `SIR AI/legacy/**` are research artifacts, excluded from the index.');
+srcLines.push('- **Claude plugins**: installed plugins catalogued in `mcp-inventory.json` (`claude.plugins`); their skills live in the plugin cache, not user skill dirs.');
+srcLines.push('- **Canonical staging**: `D:/Projects/_SIR/ops/encyclopedia/canonical/` holds the 27 canonical SIR core skills synced across `gemini-config`, `opencode`, and `kilo`.');
 srcLines.push('');
 srcLines.push('## MCP / connector definitions per tool');
 srcLines.push('');
 srcLines.push('Names only (secrets stripped): see `ops/encyclopedia/mcp-inventory.json`. Summary:');
-srcLines.push('- Claude (`~/.claude.json`): no `mcpServers` configured at user or project level.');
-srcLines.push('- OpenCode & Kilo (`opencode.jsonc` / `kilo.jsonc`): only `nvidia-app` MCP.');
-srcLines.push('- Gemini CLI (`~/.gemini/settings.json`, `~/.gemini/config/mcp_config.json`): chrome-devtools, dart, datacloud_* (BigQuery, Cloud SQL, Knowledge Catalog, Spanner), firebase, github, gmail, gdrive, gsheets, gslides, gdocs, gcalendar, linear, notion, stripe, supabase, verkle etc. (full list in JSON).');
-srcLines.push('- Antigravity (`~/.gemini/antigravity/mcp_config.json`): same Google stack as Gemini CLI.');
-srcLines.push('- Workspace `D:/Projects/.mcp.json` and `.agents/mcp_config.json`: AgentsRoom-* servers (AgentsRoom retired 2026-11-08, likely stale) plus everything-app, 100hires, 0bridge.');
-srcLines.push('- Devin: `cli/mcp/descriptions.json` is empty `{}`; built-in skills only.');
+srcLines.push('- Claude (`~/.claude.json`): `GitKraken`, `nvidia-app`, plus 85 installed plugins in `~/.claude/plugins/installed_plugins.json`.');
+srcLines.push('- Codex (`~/.codex/config.toml`): `node_repl`, `sir_bridge`, `GitKraken`, plus 12 bundled/primary-runtime plugins.');
+srcLines.push('- OpenCode (`~/.config/opencode/opencode.jsonc`): `sir-autonomy`, `nvidia-app`, `GitKraken` (under `mcp.servers`).');
+srcLines.push('- Kilo (`~/.config/kilo/kilo.jsonc`): `sir-autonomy`, `nvidia-app`.');
+srcLines.push('- Gemini CLI & Antigravity (`~/.gemini/settings.json`, `~/.gemini/config/mcp_config.json`, `~/.gemini/antigravity/mcp_config.json`): `MCP_DOCKER`, `GitKraken`, `chrome-devtools-mcp`, `dart-mcp-server`, `datacloud_*` (BigQuery, Cloud SQL, Knowledge Catalog, Spanner), `firebase-mcp-server`, `github-mcp-server`, `gmp-code-assist`, `nvidia-app`, `sequential-thinking`, `sir-autonomy`, `ticktick`, plus plugin-scoped MCPs (`canva`, `context7`, `data-agent-kit-plugin`, `figma`, `flutter`, `gemini-api`, `google-developer-knowledge`, `linear`, `mobbin`, `netlify`, `notion`, `postman`, `sir-autonomy`, `stripe`, `supabase`, `vercel-plugin`).');
+srcLines.push('- Workspace `D:/Projects/.mcp.json` (`{}`) and `D:/Projects/.agents/mcp_config.json`: `everything-app`, `100hires`, `0bridge` (retired `AgentsRoom-*` entries removed 2026-11-14).');
+srcLines.push('- Devin: `%APPDATA%/devin/config.json` has `mcpServers: {}` (`cli/mcp/descriptions.json` lists 2 cached MCP hashes incl. NVIDIA App); built-in skills (`declarative-repo-setup`, `upload-secrets`) + `.agents/skills` + `~/.agents/skills`.');
 srcLines.push('- Kimi: no MCP; config.toml defines providers/models only.');
 srcLines.push('- Cline, Goose: no MCP config found.');
 fs.writeFileSync(path.join(ENC, 'SOURCES.md'), srcLines.join('\n'), 'utf8');

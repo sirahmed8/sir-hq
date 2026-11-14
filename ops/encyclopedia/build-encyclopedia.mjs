@@ -18,6 +18,7 @@ const SOURCES = [
   { tool: 'kilo',         dirs: [`${HOME}/.config/kilo/skills`] },
   { tool: 'agents',       dirs: [`${HOME}/.agents/skills`] },
   { tool: 'gemini',       dirs: [`${HOME}/.gemini/skills`] },
+  { tool: 'gemini-config', dirs: [`${HOME}/.gemini/config/skills`] },
   { tool: 'antigravity-builtin', dirs: [`${HOME}/.gemini/antigravity/builtin/skills`] },
   { tool: 'antigravity-scratch', dirs: [`${HOME}/.gemini/antigravity/scratch/skills`] },
   { tool: 'workspace',    dirs: [`${PROJ}/.agents/skills`] },

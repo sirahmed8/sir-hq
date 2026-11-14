@@ -1,54 +1,28 @@
-# cdn-caching
+# cdn-caching (Vercel)
 
-- Tool: `gemini-plugin` (plugin: `vercel-plugin`)
-- Category: automation
-- Source: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\cdn-caching\SKILL.md`
-- SKILL.md size: 20335 chars
+## Summary
+Expert runbook for debugging Vercel CDN caching across the CDN cache, durable ISR cache, function invocation, and image cache layers. Covers cache status/reason headers, PPR state, hit-rate and ISR-cost analysis via `vercel metrics`/`vercel logs`, BYPASS traffic triage, and concrete remediation (tag scoping, revalidation strategy, Cache-Control headers).
 
-## What it does
+## When to use / when NOT
+Use when investigating cache hit rates, ISR costs, stale content, BYPASS traffic, or per-path caching behavior on Vercel. Applies to any framework using ISR/PPR on Vercel (Next.js, SvelteKit, Nuxt, Astro). Do NOT use for caching data between a function and a backend (that's runtime-cache) or for non-Vercel hosts.
 
-Debug Vercel CDN caching.
+## Inputs, outputs, tools
+- Inputs: team/project identifiers, deployment URL/path, optional request IDs, time window.
+- Outputs: cache diagnosis, metric breakdowns, per-request CDN records, remediation guidance.
+- Tools: Vercel CLI (`vercel metrics`, `vercel logs`, `vercel httpstat`), `curl` header inspection, dashboard Logs panel.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Read `x-vercel-cache` (outcome) AND `cacheReason` (explanation) — metrics lump MISS/STALE together; reason distinguishes cold/collapsed/error/vary-key and stale_time/stale_tag/stale_error.
+2. Treat HIT/STALE/PRERENDER as cache-served; focus on MISS; exclude BYPASS and (not set) from hit-rate math.
+3. Prefer granular cache tags (`product-${id}`) plus a roll-up; broad tags have large blast radius and collapse hit rate.
+4. Prefer tag-based on-demand revalidation over short time-based intervals; invalidate (SWR) keeps serving stale, delete forces foreground regen (REVALIDATED).
+5. PPR still invokes the function on a shell hit (dynamic holes) — a Partial serve is not a cache miss; no holes means pure ISR HIT.
 
-- - **What triggered revalidation** — group `vercel.request.count` by `triggering_tag` to see which tags fire most often (`triggering_tag` is on request count only, not ISR operation metrics. It is one of the tags that triggered the page to be stale):
-- -f "triggering_tag:*" --group-by triggering_tag --since 24h
-- **Confirm in code.** Metrics tell you _which_ tag is hot; the repo tells you _why_. Grep for the tag's invalidation call site — `revalidateTag(`, `invalidateByTag(`, `updateTag(`, `dangerouslyDeleteByTag(` — and read the trigger. A CMS webhook or a sync cron that invalidates a **broad** tag on every
+## Risks / things needing the owner
+Metrics commands require Observability Plus (or a Priority project) for per-request logs; aggregate metrics need team/project flags. Purges propagate globally in ~300ms and are irreversible-ish (broad invalidation drops hit rate until re-warm). Never treat expected BYPASS (Draft Mode, SEO crawlers) as a bug.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · vercel, cdn, caching, isr, ppr, observability
 
-- Vercel Caching
-- Core Knowledge
-- How caching works
-- Investigating cache issues
-- Cache hit rate
-- Analyzing ISR costs
-- numerator: cache serves — sum the HIT + STALE + PRERENDER buckets
-- denominator: ISR writes
-- Debugging BYPASS traffic
-- Reducing ISR cost
-- Inspect one path
-- FAQ
-- Related skills
-- References:
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - **Invalidate vs. dangerously-delete** — two ways to clear content, with very different blast on hit rate:
-- - _Dangerously-delete_ (`dangerouslyDeleteByTag`, Next.js `updateTag`, `revalidatePath`, or `revalidateTag(tag)` with no profile) = hard removal. The next request blocks in the **foreground** to regenerate → `x-vercel-cache: REVALIDATED`.
-- - **Cache tags & blast radius** — tags group cached entries so one call can clear many. A coarse tag attached to thousands of paths has a large _blast radius_: a single write drops them all and the hit rate collapses until they re-warm. Prefer granular tags (`product-${id}`) plus a roll-up tag.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Image cache** — optimized images, cached on the CDN after the first transform.
-2. - **Revalidation** — refreshing cached content. **Time-based** runs automatically after an interval; **on-demand** runs when you call an API. Both use stale-while-revalidate: visitors keep getting the cached version while the new one regenerates in the background.
-3. - **Does PPR avoid function invocations?** No — a PPR route has dynamic holes by definition, so the cached shell hit still runs the function to fill them. (A route with _no_ holes is just ISR and serves a pure `prerender` HIT — see Key concepts.)
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision: `C:\Users\a7med\.gemini\config\plugins\vercel-plugin\skills\cdn-caching\SKILL.md` (~20KB). No duplicate. Skill name in frontmatter: cdn-caching.

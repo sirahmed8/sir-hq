@@ -1,43 +1,28 @@
 # a11y-debugging
 
-- Tool: `gemini-plugin` (plugin: `chrome-devtools-plugin`)
-- Category: design
-- Source: `C:\Users\a7med\.gemini\config\plugins\chrome-devtools-plugin\skills\a11y-debugging\SKILL.md`
-- SKILL.md size: 5810 chars
+Source read: `C:\Users\a7med\.codex\skills\a11y-debugging\SKILL.md` plus `references/a11y-snippets.md`.
 
-## What it does
+## Summary
+This skill turns Chrome DevTools MCP into a practical accessibility audit loop for web pages. It starts with Lighthouse and Chrome's native issue reports, then uses the accessibility tree, DOM order, form labels, keyboard focus, tap-target measurements, contrast checks, and document-level checks to find semantic and operability problems that a normal visual pass misses.
 
-Uses Chrome DevTools MCP for accessibility.
+## When to use / when NOT
+Use while building or reviewing web UI, before release, or when a page feels usable but may fail keyboard, screen-reader, contrast, or touch-target requirements. Do not treat it as a complete substitute for manual screen-reader testing, and do not use it for native mobile apps or non-browser surfaces without an equivalent inspection path.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Inputs are an open browser page, its `pageId`, target elements or `uid`s, and the audit goal. Outputs are prioritized findings with selectors or element references plus concrete fixes. Tools are Chrome DevTools MCP functions such as `list_pages`, `new_page`, `take_snapshot`, `list_console_messages`, `evaluate_script`, `press_key`, `take_screenshot`, and `lighthouse_audit`, plus the bundled JavaScript snippets and web.dev `.md.txt` pages. The skill expects the Chrome DevTools MCP connector.
 
-- Core Concepts
-- Workflow Patterns
-- 1. Automated Audit (Lighthouse)
-- 2. Browser Issues & Audits
-- 3. Semantics & Structure
-- 4. Labels, Forms & Text Alternatives
-- 5. Focus & Keyboard Navigation
-- 6. Tap Targets and Visuals
-- 7. Color Contrast
-- 8. Global Page Checks
-- Troubleshooting
-- (none)
+## 5 most important rules
+1. Page-scoped tools need a valid `pageId`; get it from `list_pages` or `new_page`.
+2. Treat the accessibility tree from `take_snapshot` as the source of truth for what assistive technology sees.
+3. Run Lighthouse first for a baseline, then parse the JSON for failing audits instead of reading the whole report.
+4. Check Chrome's native `issue` console messages before manually investigating labels, contrast, and semantics.
+5. Use the bundled snippets for orphaned inputs, tap-target size, approximate contrast, and global page checks, then verify focus movement with Tab snapshots.
 
-## Tools / MCPs it needs
+## Risks / owner notes
+Automated contrast math is approximate and can miss gradients, transparency, or complex backgrounds; Lighthouse and headless runs can also miss issues. Findings still need human review before changing brand or layout. The owner should decide which WCAG level the product must meet and whether legal or customer requirements apply.
 
-- none declared
+## Category / tags
+web · accessibility, a11y, wcag, chrome-devtools, keyboard, contrast, tap-targets, frontend
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Parsing**: Do not read the entire file line-by-line. Use a CLI tool like `jq` or a Node.js one-liner to filter for failures:
-2. 3.  **Check Heading Levels**: Ensure heading levels (`h1`, `h2`, `h3`, etc.) are logical and do not skip levels. The snapshot will include heading roles.
-3. 4.  If a modal opens, focus must move into the modal and "trap" within it until closed.
-
-## Files inside the skill
-
-- `references/a11y-snippets.md` — "Accessibility Debugging Snippets"
+## Revisions
+The codex, kilo, cursor, and windsurf copies are byte-identical and selected here because codex has the fuller description. The gemini-plugin chrome-devtools copy has the same workflow body but a shorter frontmatter description.

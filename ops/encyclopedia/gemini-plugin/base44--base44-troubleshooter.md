@@ -1,52 +1,30 @@
 # base44-troubleshooter
 
-- Tool: `gemini-plugin` (plugin: `base44`)
-- Category: ops
-- Source: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-troubleshooter\SKILL.md`
-- SKILL.md size: 6500 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\base44\skills\base44-troubleshooter\SKILL.md` (gemini-plugin base44, 160 lines) plus references/project-logs.md.
 
-## What it does
+## Summary
+A focused runbook for diagnosing production issues in a deployed Base44 app using the Base44 CLI. It covers three tools: `base44 logs` (function logs with `--follow` realtime streaming, `--level`, `--function`, `--since/--until`, `--limit` capped at 500), `base44 workflows runs`/`list` (the automation system — cron schedules, entity triggers, connector events — where failed runs carry the failing task and underlying error, and `consecutiveFailures` flags broken workflows), and auth/app-context resolution via `npx base44 whoami`, `base44/.app.jsonc`, or `--app-id`. Its central lesson: logs are not read-after-write — one-shot fetches lag ~20-30s ingestion, so an empty result right after a run proves nothing; the variable to change is TIME, never flags.
 
-Troubleshoot production issues using backend.
+## When to use / when NOT
+Use when a deployed Base44 app has production errors, a function is failing, or "my scheduled job didn't run". Do NOT use it for local development issues (use `base44 dev`), for writing code (base44-sdk), or as a substitute for reading the function source — it diagnoses from logs and workflow runs only.
 
-## When to use (from skill text)
+## Inputs, outputs, tools
+- Inputs: app context (linked `base44/.app.jsonc`, `--app-id app_123`, or cwd), optional function name, time range, log level.
+- Outputs: log lines (realtime via `--follow` or one-shot), failed workflow runs with the failing task + error, a diagnosis.
+- Tools: `npx base44 whoami` (auth gate — if expired, user must run `npx base44 login`), `npx base44 logs [--follow|--level error|--function|--since|--until|--limit|--env prod|preview]`, `npx base44 workflows runs [--status failed]`, `npx base44 workflows list`. MCP: none.
 
-- an index that lags behind the invocation, so an empty result right after triggering a
-- If you can trigger the failure (or it is happening now), start here rather than
-- - **Never decide on a timer.** Open the stream, trigger the function, and read until
+## 5 most important rules
+1. **Logs lag ~20-30s; empty means "not ingested yet", not "healthy"** — wait and re-run the same command; never diagnose by widening `--limit`/`--level`/`--order`.
+2. **For a reproducible failure, start with `logs --follow` and trigger the function while watching** — never decide on a timer or a fixed read window; delivery is per-invocation (lines arrive when the invocation ends).
+3. **"Scheduled job didn't run" → check `workflows runs`, not function logs** — function logs can't tell whether a run was dispatched; a failed run names the failing task and error. Note `manual` trigger just means no trigger type was stamped, and test runs appear tagged `(scheduled, test)`.
+4. **`--function` filters stamped rows only** — legacy per-function deployments emit unstamped rows a filtered view hides; if a filtered run is empty, re-run unfiltered before concluding.
+5. **Respect the stream contract**: `--since`/`--until`/`--order` are rejected with `--follow`; a mid-run stream loss exits 1 (re-run, don't change flags); `--limit` above 500 is clamped; `No logs found` is ambiguous (ingestion lag, wrong function name, unpublished app on `--env prod`).
 
-## Structure (headings inside SKILL.md)
+## Risks / owner notes
+`--env prod` reads live production logs — they may contain user data; don't paste raw log lines into tracked files or reports. Requires the user to be logged in (`base44 login`) when the token expires — an owner action.
 
-- Troubleshoot Production Issues
-- Prerequisites
-- From a linked local project
-- Or explicitly
-- Available Commands
-- Logs are not read-after-write
-- Troubleshooting Flow
-- 1. Watch it happen — `--follow`
-- 2. Ask whether it was a scheduled run, not a request
-- 3. Check Recent Errors
-- 4. Drill Into a Specific Function
-- 5. Inspect a Time Range
-- 6. Analyze the Logs
-- Reading an empty result
-- (none)
+## Category / tags
+ops · base44, troubleshooting, logs, monitoring, workflows, debugging, production
 
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- - no function by that name, or the filter dropped unstamped rows (see step 3)
-- - the app has not been published, when reading `--env prod`
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **When output is empty, the variable to change is TIME, never a flag.** Wait and
-2. - **Never decide on a timer.** Open the stream, trigger the function, and read until
-
-## Files inside the skill
-
-- `references/project-logs.md` — "base44 logs"
+## Revisions
+Single revision (gemini-plugin base44). References sibling base44-cli workflow references — canonical and only source.

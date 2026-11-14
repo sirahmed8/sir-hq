@@ -1,38 +1,30 @@
 # antigravity_guide
 
-- Tool: `antigravity-builtin`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\antigravity\builtin\skills\antigravity_guide\SKILL.md`
-- SKILL.md size: 3023 chars
+Source read: `C:\Users\a7med\.gemini\antigravity\builtin\skills\antigravity_guide\SKILL.md` (3.0 KB; gemini revision; references in `references/`).
 
-## What it does
+## Summary
+Google Antigravity (AGY) guide and offline sitemap that maps the agent surfaces (CLI `agy`, IDE, Antigravity 2.0 desktop app, Python SDK) and tells the agent which subdocumentation to read for the asked surface.
 
-Provides a comprehensive guide, quick reference, and sitemap for Google Antigravity (AGY), including the Antigravity CLI (agy), Antigravity 2.0, Antigravity IDE, Python SDK, slash commands, keybindings, and customizations (skills, rules, MCP, sidecars). Activate this skill when the user asks questions about how to use, configure, or customize Antigravity, AGY, the agy CLI, the Antigravity IDE, or Antigravity 2.0.
+## When to use / when NOT
+Use when the user asks how to use, configure or customize Antigravity, the AGY CLI, the Antigravity IDE, Antigravity 2.0, or the Antigravity SDK. Do NOT use for general Gemini model questions or for other agent platforms.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: the Antigravity surface or feature question.
+- Outputs: pointer to the matching reference file plus the live documentation sitemap when needed.
+- Tools: references (cli, ide, app, sdk); live fetch of `https://antigravity.google/docs` and its sitemap pages.
 
-- Google Antigravity (AGY) Guide & Sitemap
-- 1. Surfaces Sitemap (Offline Subdocs)
-- 2. Smart Hybrid Retrieval: When to Fetch Live Docs
-- (none)
+## 5 most important rules
+1. Read the subdocumentation that matches the asked surface; do not answer from memory.
+2. When the question is about the latest updates, advanced Vertex AI integrations or complex setups not covered offline, fetch the live docs.
+3. The CLI is configured via `~/.gemini/antigravity-cli/settings.json`; use `agy` flags and `/help` inside the TUI.
+4. The Python SDK installs via `pip install google-antigravity`; use the Agent async context manager with LocalAgentConfig and CapabilitiesConfig, stream thoughts and tool calls, or run the interactive loop.
+5. The IDE and Antigravity 2.0 coexist; the IDE is the in-editor surface and 2.0 the parallel desktop app, sharing the same agentic capabilities.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Owner-specific Antigravity customizations (skills, rules, MCP, sidecars) live outside this skill; owner sign-in may be required for CLI or SDK use.
 
-- none declared
+## Category / tags
+Category: ai. Tags: antigravity, agy, sdk, cli, ide, agent, mcp, gemini.
 
-## Risks / cautions found in text
-
-- -   **Agent Permissions & Security**:
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   **Antigravity CLI (`agy`)**: [references/cli.md](references/cli.md)
-2. -   Pointers to the authoritative public CLI docs for slash commands,
-3. -   **Antigravity IDE**: [references/ide.md](references/ide.md)
-
-## Files inside the skill
-
-- `references/app.md` — "Antigravity 2.0 Reference"
-- `references/cli.md` — "Antigravity CLI (`agy`) Reference"
-- `references/ide.md` — "Antigravity IDE Reference"
-- `references/sdk.md` — "Antigravity Python SDK Reference"
+## Revisions
+Single copy in the antigravity builtin set (3.0 KB). No competing revisions.

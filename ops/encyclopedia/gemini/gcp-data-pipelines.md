@@ -1,45 +1,28 @@
 # gcp-data-pipelines
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\gcp-data-pipelines\SKILL.md`
-- SKILL.md size: 9478 chars
+## Summary
+gcp-data-pipelines is the primary Google-published entry point skill for building, managing, and orchestrating data pipelines on Google Cloud. It acts as a router: first scans the workspace for existing pipeline indicators (dbt_project.yml, workflow_settings.yaml, deployment.yaml, .py with apache_beam, .ipynb with pyspark, etc.), then if an unambiguous match exists and the request fits, it proceeds directly with that pipeline's specialized skill. If no pipeline or ambiguous, it presents a structured menu of GCP pipeline tools grouped by Data Pipeline Tools (BigQuery DTS, dbt, Dataflow, Dataform, Spark/Dataproc Serverless) and Deployment & Orchestration (Cloud Composer Orchestration, Provisioning), then stops and waits for user selection before activating the corresponding sub-skill.
 
-## What it does
+## When to use / when NOT
+Use as the first stop when a user wants to create, update, run, or orchestrate data pipelines on GCP and hasn't specified a tool. Do NOT use if the user already named a specific tool (go directly to that skill), if the workspace has an unambiguous existing pipeline matching the request (route directly to that skill), or for general GCP assistance unrelated to data pipelines.
 
-Primary entry point for building, managing, and orchestrating data pipelines on Google Cloud. Guides users to the appropriate skill for dbt, Dataflow (Apache Beam), Dataform, Spark (Dataproc Serverless), BigQuery Data Transfer Service (DTS) or orchestration pipeline using Cloud Composer. Clarify requirements and resolve ambiguity for creating, updating and running data pipelines. '
+## Inputs, outputs, tools
+- Inputs: User request (may be vague or specific), workspace contents (scanned for pipeline indicators).
+- Outputs: Tool recommendation with comparison table, or direct delegation to sub-skill after user confirms.
+- Tools: Workspace file scanning (grep/ls), `gcloud` for resource discovery if needed. No scripts/references in skill folder.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Always scan workspace first for existing pipeline indicators (table in SKILL.md lists 7 framework indicators).
+2. If unambiguous match found and request fits, proceed directly to that skill — do not re-ask.
+3. If multiple pipelines present and request ambiguous, ask user which to target.
+4. If no pipeline found and no tool hints, present the structured options table (Data Pipeline Tools + Deployment/Orchestration) and MUST stop for user confirmation.
+5. For "run" requests, clarify scope (which components) and method (local vs orchestrate/deploy) before acting.
 
-- orchestration service like Cloud Composer and trigger a run as part of a
+## Risks / things needing the owner
+User must confirm tool choice; agent cannot proceed without selection. Workspace scanning may miss obscure indicators; user may need to clarify. No owner-only steps (no secrets, payments, identity).
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, data-pipelines, router, dbt, dataflow, dataform, spark, composer, orchestration, provisioning
 
-- GCP Data Pipelines Skill
-- Role & Persona
-- Task Execution Workflow
-- Step 1: Detect Existing Pipelines
-- Step 2: Present Tool Options
-- Step 3: Confirm Selection
-- Clarifying "Run" Requests
-- Next Steps
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   Understand the user's requirements before recommending a tool.
-2. -   Prioritize **technical accuracy** — investigate the workspace before making
-3. -   Be **direct and fact-driven**; avoid recommending tools without context.
-4. -   Do not assume the knowledge from other workspaces and interactions unless
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+Single revision in `C:\Users\a7med\.gemini\skills\gcp-data-pipelines\SKILL.md` (Google-published, Apache-2.0, v1). Only gemini has this skill; no divergent copies.

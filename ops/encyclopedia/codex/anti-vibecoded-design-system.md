@@ -1,6 +1,6 @@
 # anti-vibecoded-design-system
 
-Source read: `C:\Users\a7med\.claude\skills\anti-vibecoded-design-system\SKILL.md` (2.7 KB; claude revision; not found in codex/kilo/cursor/windsurf/opencode).
+Source read: `C:\Users\a7med\.claude\skills\anti-vibecoded-design-system\SKILL.md` (claude revision; not found in codex/kilo/cursor/windsurf/opencode).
 
 ## Summary
 A design quality gate that eliminates low-effort AI aesthetic tropes ("vibe-coded" look) and enforces a bespoke, high-contrast, tactile visual standard. Defines a blacklist of 7 prohibited clichés (purple-blue gradients, gradient headlines, emoji headers, universal pill buttons, 3-icon-box layouts, fake testimonials/metrics, "Made with AI" tags, intrusive micro-gimmicks) and enforces 4 positive standards: 60-30-10 color rule, tactile physics (spring transitions, active scale), true high-contrast dark mode, typographic discipline (Geist/Inter/PJSans + mono, balanced headings, pretty body wrap).

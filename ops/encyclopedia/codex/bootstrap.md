@@ -1,53 +1,27 @@
 # bootstrap
 
-- Tool: `codex`
-- Category: automation
-- Source: `C:\Users\a7med\.codex\skills\bootstrap\SKILL.md`
-- SKILL.md size: 5820 chars
+**Source:** `C:\Users\a7med\.claude\skills-disabled\bootstrap\SKILL.md` (claude copy, currently disabled; codex and other tools hold the same content)
+**Category:** automation
+**Tags:** vercel, bootstrap, neon, postgres, nextjs, shadcn, next-forge, environment-variables
 
-## What it does
+## Summary
+A Vercel project bootstrap orchestrator that links a repository to a Vercel project, provisions environment variables and shared resources (Neon Postgres), verifies env keys, runs database migrations and seeding, starts the dev server, and optionally establishes a shadcn/Next.js UI baseline. It enforces strict ordering: no migrations and no dev server until linking and environment verification are complete. It also has a dedicated path for next-forge monorepos.
 
-Orchestrator for linking, environment provisioning, and bootstrapping Vercel-linked repositories.
+## When to use / when not to
+Use it when linking a repository to Vercel and provisioning its environment and resources during bootstrap, especially for Next.js plus shadcn or next-forge projects. Do not use it for ongoing development after bootstrap or for non-Vercel hosting.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+Inputs: a Vercel CLI login, the repository, an env template (`.env.example`, `.env.sample` or `.env.template`), and the chosen team and project. Outputs: a linked project, provisioned Neon Postgres, `.env.local`, a verified env-key diff, migration and seed results, and a bootstrap summary. Tools: Vercel CLI (`vercel link`, `vercel integration`, `vercel env`), Node and a package manager, and the shadcn CLI. No MCP.
 
-- Project Bootstrap Orchestrator
-- Rules
-- Preflight
-- Resource Setup: Postgres
-- Preferred path (Vercel-managed Neon)
-- Fallback path 1 (Dashboard)
-- Fallback path 2 (Neon CLI)
-- AUTH_SECRET Generation
-- Env Verification
-- App Setup
-- UI Baseline for Next.js + shadcn Projects
-- Bootstrap Verification
-- Summary Format
-- Bootstrap Result
-- Bootstrap Next Steps
-- next-forge Projects
-- (none)
+## Five most important rules
+1. Never run `db:push`, `db:migrate`, `db:seed` or `dev` before Vercel linking and env verification are complete.
+2. Prefer Vercel-managed provisioning (`vercel integration add neon`) over provider CLIs, and use the provider CLI only as a fallback.
+3. Generate `AUTH_SECRET` without printing it, store it in Vercel, and unset the shell variable.
+4. Compare required env keys against `.env.local` by name only, and proceed only when the missing list is empty.
+5. For next-forge, use per-app env files, run `pnpm migrate`, deploy three separate Vercel projects, and remove optional service imports to avoid validation errors.
 
-## Tools / MCPs it needs
+## Risks and owner actions
+Bootstrap creates real Vercel projects and provisions Neon resources, so it needs the owner's Vercel account; never echo secret values. The `.app.jsonc` file with the app ID should stay git-ignored.
 
-- none declared
-
-## Risks / cautions found in text
-
-- - Never echo secret values in terminal output, logs, or summaries.
-- 1. Add a baseline primitive set: `npx shadcn@latest add button card input label textarea select switch tabs dialog alert-dialog sheet dropdown-menu badge separator skeleton table`
-- 4. Default to dark mode for product, admin, and AI apps unless the repo is clearly marketing-first.
-- - **Secrets**: AUTH_SECRET set in Vercel (value never shown)
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - Do not run `db:push`, `db:migrate`, `db:seed`, or `dev` until Vercel linking is complete and env keys are verified.
-2. - Never echo secret values in terminal output, logs, or summaries.
-3. 3. If not linked, inspect available teams/projects before asking the user to choose:
-4. - Required env key diff is empty.
-5. - **Env Keys**: <count> required, <count> present, <count> missing
-
-## Files inside the skill
-
-- (SKILL.md only)
+## Revisions
+The claude copy (5863 bytes, 2026-10-28) currently sits in `skills-disabled/`; the codex copy (5826 bytes, 2026-10-11) differs only in the description line. Content is otherwise identical, so the codex copy is the live equivalent in the other tools.

@@ -1,72 +1,28 @@
 # gcp-dataflow
 
-- Tool: `gemini`
-- Category: design
-- Source: `C:\Users\a7med\.gemini\skills\gcp-dataflow\SKILL.md`
-- SKILL.md size: 21343 chars
+## Summary
+gcp-dataflow is a Google-published skill for authoring, packaging, executing, and troubleshooting Apache Beam pipelines on Cloud Dataflow. It covers the full lifecycle: check for existing Google-provided templates (Classic or Flex) matching source/sink before building custom; create new pipelines from scratch with language confirmation (Java/Python/Go) and consistent Beam SDK versioning; package as Flex Templates using Cloud Build (prefer over local Docker); configure Google templates with strict parameter validation (all non-optional params required); pre-create target sinks (BigQuery tables, error tables) to prevent runtime mismatches; execute with mandatory pre-launch confirmation of the full gcloud command; monitor jobs with staged polling; and deep diagnostics for streaming/batch jobs using Dataflow REST API, Monitoring, and Logging with transform-name-to-stage/ptransform mapping. References folder contains 8 detailed guides (python_flex_template_reference, dataflow_diagnostics_reference, bottlenecks_and_parallelism_context, streaming_job_health, streaming_horizontal_autoscaling_analysis, SSL cert guide, UDF guide, deadletter schema).
 
-## What it does
+## When to use / when NOT
+Use for creating Dataflow pipelines (custom or from templates), configuring Flex Templates, debugging job failures, analyzing streaming job health/bottlenecks/autoscaling, or batch job performance. Do NOT use for general GCP resource management, non-Dataflow services (GCE, GCS, BigQuery unless directly impacting Dataflow), or non-Beam pipeline technologies.
 
-| Guides writing, packaging, executing, and troubleshooting Apache Beam pipelines on Dataflow. Use when creating new pipelines, configuring Flex Templates, or analyzing performance of Dataflow jobs. Capabilities include Java/Python/Go setup, Cloud Build integration, and deep diagnostic analysis of job health and autoscaling. Use when: - Creating an Apache Beam Dataflow pipeline. - Creating a Google Dataflow Flex Template. - Using an existing Google Dataflow Template. - Debugging Dataflow pipeline - Troubleshooting Dataflow pipeline - Analyzing Performance of Dataflow pipeline. Key capabilities: Java/Python/Go project setup, Flex Templates (with Cloud Build), and diagnostics for streaming job health, bottlenecks, and autoscaling. Do NOT use for: - General GCP resource management unrelated to Dataflow. - Issues with other GCP services (e.g., GCE, GCS, BigQuery) unless directly impacting Dataflow pipeline execution. - Pipeline technologies other than Apache Beam on Dataflow.
+## Inputs, outputs, tools
+- Inputs: Source/sink identification, pipeline requirements, existing codebase (Java Gradle, Python, Go), template selection, job ID for diagnostics.
+- Outputs: Pipeline code (Java/Python/Go), cloudbuild.yaml, Flex Template artifacts, launch commands, monitoring URLs, diagnostic reports with root causes and file:/// code links.
+- Tools: `gcloud` (dataflow flex-template run, jobs describe, logging read), `gcloud storage ls` for templates, Dataflow REST API, Monitoring REST API, Cloud Build. References: 8 .md files in `references/`. No scripts folder.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Always check for existing Google Dataflow templates (Classic in gs://dataflow-templates/latest, Flex in gs://dataflow-templates/latest/flex) before writing custom pipeline.
+2. Package new pipelines as Flex Templates using Cloud Build; use Single Docker Image Configuration for Python; never bake secrets into images — fetch from Secret Manager at runtime.
+3. Strict parameter validation: any template metadata param without "isOptional": true is REQUIRED, even if description suggests default.
+4. Pre-create target BigQuery table and error/bad-records table before launch; derive error schema from DataflowTemplates GitHub source.
+5. Mandatory pre-launch confirmation: present entire gcloud command with all params explained; do not execute until explicit approval. Monitor with staged polling (30s×2min, then 3min).
 
-- Use this section when implementing Dataflow pipeline logic using Apache Beam.
-- Use this section when creating a new project for a Dataflow pipeline from
-- Use this section when configuring a Dataflow Java pipeline project using gradle.
+## Risks / things needing the owner
+GCP project/region/permissions must be verified; `gcloud config get-value project` used to avoid placeholders. Secrets via Secret Manager need `roles/secretmanager.secretAccessor` on worker SA. Regional restrictions may apply. No direct owner actions (sign-in, payment) but user must approve launch commands.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, dataflow, apache-beam, flex-templates, streaming, batch, diagnostics, troubleshooting, cloud-build
 
-- Apache Beam Pipelines on Cloud Dataflow
-- Pipeline authoring
-- Check if existing Google Dataflow Template exists
-- Create a new pipeline from scratch
-- Java projects using Gradle
-- Packaging a pipeline as a Flex Template
-- Configuring Google-provided templates
-- Destination-specific prerequisites
-- Configuring Custom Pipelines (Dataflow Runner)
-- Lookup environment resources instead of using placeholder values
-- Job Execution
-- Universal Execution Workflow
-- Job Monitoring
-- Diagnostics & Troubleshooting
-- Task Execution Workflow
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- -   **Providing SSL certificates and Secrets to Workers**:
-- -   If certificates or keys are stored in Secret Manager, **NEVER** bake
-- *   **Parameter-Based SSL / Secret Staging**: If the Google-provided
-- *   If it does not exist, ask for permission to create it. If permitted,
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   YOU MUST use same version of Apache Beam consistently throughout the project
-2. -   **Shadow Jars (Fat Jars)**: Do NOT propose to use the Shadow plugin
-3. -   You MUST configure the application logging backend (`slf4j-simple`,
-4. -   Do NOT assume local Docker availability on the workspace machine.
-5. -   When building images with Cloud Build in the background you MUST provide
-
-## Files inside the skill
-
-- `references/bottlenecks_and_parallelism_context.md` — "Bottlenecks and Parallelism Context"
-- `references/dataflow_diagnostics_reference.md` — "Dataflow Diagnostics Reference"
-- `references/dataflow_metrics_bigquery.md` — ""
-- `references/dataflow_metrics_core_job.md` — "Core Job Metrics"
-- `references/dataflow_metrics_pubsub.md` — ""
-- `references/dataflow_metrics_streaming_engine.md` — ""
-- `references/python_flex_template_reference.md` — "Dataflow Flex Template - Single Docker Image Configuration"
-- `references/streaming_horizontal_autoscaling_analysis.md` — "Dataflow Streaming Horizontal Autoscaling Analysis"
-- `references/streaming_job_health.md` — "Streaming Job Health Analysis"
-- `resources/dataflow_diagnostics_reference.md` — "Dataflow Diagnostics Reference"
-- `resources/dataflow_metrics_bigquery.md` — ""
-- `resources/dataflow_metrics_core_job.md` — "Core Job Metrics"
-- `resources/dataflow_metrics_pubsub.md` — ""
-- `resources/dataflow_metrics_streaming_engine.md` — ""
-- `resources/python_flex_template_reference.md` — "Dataflow Flex Template - Single Docker Image Configuration"
+## Revisions
+Single revision in `C:\Users\a7med\.gemini\skills\gcp-dataflow\SKILL.md` (Google-published, Apache-2.0, v4). Only gemini has this skill; 8 reference files in `references/`. No divergent copies.

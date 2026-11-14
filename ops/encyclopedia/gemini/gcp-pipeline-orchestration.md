@@ -1,58 +1,28 @@
 # gcp-pipeline-orchestration
 
-- Tool: `gemini`
-- Category: data
-- Source: `C:\Users\a7med\.gemini\skills\gcp-pipeline-orchestration\SKILL.md`
-- SKILL.md size: 17130 chars
+## Summary
+gcp-pipeline-orchestration is a Google-published skill for generating, validating, deploying, and triggering orchestration pipelines on Google Cloud Composer using the `gcloud beta orchestration-pipelines` CLI. It manages two files: an orchestration YAML (pipeline logic, tasks, schedule — camelCase fields, mandatory tags per IDE) and `deployment.yaml` (environment configs: project, region, Composer environment, artifact storage bucket, pipeline sources, variables). Workflow: check for existing deployment.yaml; if missing, init with `gcloud beta orchestration-pipelines init`; fetch Dataproc clusters and Composer environments via gcloud to avoid placeholders; generate/update both files; mandatory validation with `gcloud beta orchestration-pipelines validate --environment=<ENV>` per environment; optional deploy (`deploy --local` returns bundle ID, defaults to paused); optional trigger (Deploy → Poll 30s+15s×2min → Trigger → Verify run). References: orchestration-pipelines-schema.md (YAML structure, camelCase mapping, required tags, deployment.yaml template). Scripts: trigger/airflow_trigger.py fallback.
 
-## What it does
+## When to use / when NOT
+Use when creating or updating declarative orchestration pipelines for Cloud Composer to schedule/coordinate dbt, Spark, Dataform, Python, or BigQuery SQL pipelines. Do NOT use for general Airflow DAG authoring (use gcp-composer-troubleshooting for debugging, gcp-managed-airflow-migrations for upgrades), for provisioning infrastructure (use gcp-pipeline-resource-provisioning), or for running pipelines locally without orchestration.
 
-This skill helps the agent generate or update orchestration pipeline definitions for Google Cloud Composer to initialize orchestration pipeline or update the orchestration definition for orchestration of various data pipelines, like dbt pipelines, notebooks, Spark jobs, Dataform, Python scripts or inline BigQuery SQL queries. This skill also helps deploy and trigger orchestration pipelines.
+## Inputs, outputs, tools
+- Inputs: Pipeline name, environment name (default dev), project/region (from gcloud or user), artifact bucket, Composer environment, Dataproc clusters, schedule (cron, must have endTime), pipeline tasks (dbt, pyspark, bq, etc.).
+- Outputs: orchestration-pipeline.yaml, deployment.yaml, validation pass, deploy bundle ID, trigger run confirmation, run list output.
+- Tools: `gcloud beta orchestration-pipelines` (init, validate, deploy, list, trigger, runs list, pause/unpause), `gcloud dataproc clusters list`, `gcloud composer environments list/describe`. References: orchestration-pipelines-schema.md. Scripts: trigger/airflow_trigger.py.
 
-## When to use (from skill text)
+## 5 most important rules
+1. Always check for existing deployment.yaml first; if absent, init with `gcloud beta orchestration-pipelines init` (ask for pipeline name, default env=dev).
+2. YAML uses camelCase (proto snake_case → YAML camelCase); mandatory `tags` field at top level (e.g., ["job:datacloud:kilo"] for this harness).
+3. Every schedule MUST include endTime; startTime defaults to current date; never include Z suffix (use YYYY-MM-DDTHH:MM:SS).
+4. Validate per environment with `gcloud beta orchestration-pipelines validate --environment=<ENV>`; fix errors and re-validate until exit code 0 before deploy/trigger.
+5. Deploy → Poll → Trigger flow: deploy with `--local` (extract bundle ID), poll `list --bundle` every 15s up to 2min, then trigger with bundle ID and pipelineId; verify run appears in `runs list`.
 
-- ## How to use this skill
-- ## How to use this skill
-- > auto-run. Use Step 7 to trigger it.
+## Risks / things needing the owner
+User must provide artifact storage bucket name (init creates placeholder). Composer environment must have compatible image version (composer-3-airflow-3.1.7-build.x, composer-2.16.11-airflow-2.11.1, etc.) and orchestration-pipelines PyPI package. gcloud beta commands require appropriate IAM. Fallback trigger script needs project/region/composer_env from deployment.yaml.
 
-## Structure (headings inside SKILL.md)
+## Category / tags
+cloud · gcp, composer, orchestration, orchestration-pipelines, declarative, yaml, dataproc, scheduling
 
-- Mandatory Reference Routing
-- How to use this skill
-- How to use this skill
-- Step 1: Assess Orchestration Pipeline Status and Initialize if Necessary
-- Replace <ORCHESTRATION_PIPELINE_NAME> with the actual name
-- Replace <ENV_NAME> with the actual environment name
-- Step 2: Review the orchestration pipeline code structure and syntax instruction
-- Step 3: Generate the pipeline files
-- Step 4: Validate the content (REQUIRED)
-- Replace <ENV_NAME> with the identified environment name
-- Step 5: Handle Validation Errors
-- Declarative Pipeline Templates
-- `deployment.yaml` Template - IMPORTANT FORMAT MUST MATCH-
-- Step 6: Deploy the Orchestration Pipeline (Optional)
-- Step 7: Trigger the Orchestration Pipeline Run (Optional)
-- Definition of done
-- Other actions
-- (none)
-
-## Tools / MCPs it needs
-
-- none declared
-
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   All files should always be maintained together. And all files should be
-2. 2.  **Determine if initialization is required**: Initialization is required if
-3. 4.  **Environment Name**: If initialization is needed, you MUST ask the user for
-4. -   Before generating, check if an orchestration pipeline definition file and
-5. -   First, before creating the orchestration pipeline definition file, you
-
-## Files inside the skill
-
-- `references/orchestration-pipelines-schema.md` — "Pipeline YAML Schema"
-- `scripts/trigger/airflow_trigger.py`
+## Revisions
+Single revision in `C:\Users\a7med\.gemini\skills\gcp-pipeline-orchestration\SKILL.md` (Google-published, Apache-2.0, v1). Only gemini has this skill; 1 reference file, 1 script (trigger/airflow_trigger.py). No divergent copies.

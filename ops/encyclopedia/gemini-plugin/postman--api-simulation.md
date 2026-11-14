@@ -1,42 +1,30 @@
 # api-simulation
 
-- Tool: `gemini-plugin` (plugin: `postman`)
-- Category: data
-- Source: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-simulation\SKILL.md`
-- SKILL.md size: 12875 chars
+Source read: `C:\Users\a7med\.gemini\config\plugins\postman\skills\api-simulation\SKILL.md` (12.9 KB; gemini-plugin/postman) plus `reference/sim_yaml_schema.md` and `reference/context_file.md`.
 
-## What it does
+## Summary
+Skill for running services, frontends, tests or demos against stand-ins for their HTTP dependencies, served locally or at a deployed URL; records simulation context and assumptions beside each simulation.
 
-Runs services, frontends, tests or demos against stand-ins for their HTTP dependencies, served as one environment locally or at a deployed URL. Use when you add or change code that calls other services and need to run it, test it, prove a fix or reproduce an upstream failure (timeouts, 5xx, 409, 429) end to end, locally or in CI, without the real services because they're unreachable, need credentials, cost money, have side effects or don't exist yet. Also answers what happens to a request, or to the data it writes, when a service it calls goes down, is slow or returns errors ("what happens to a booking if the email service is down?"), by exercising relevant failures and observing caller outcomes. Applies even when nobody says mock or simulation, and a `postman/simulations/` directory in the repository is itself a reason to load this before changing code it covers. To give a frontend or another team a stand-in for an API, use api-mocking. Covers `postman simulation`.
+## When to use / when NOT
+Use when adding or changing code that calls other services and you need to run it against mocks, prove a fix, or reproduce an upstream failure without the real services. Do NOT use for simple lookups or for building mocks; use api-discovery and api-mocking.
 
-## Structure (headings inside SKILL.md)
+## Inputs, outputs, tools
+- Inputs: simulation file, mocks, context document, code under test.
+- Outputs: simulation run log, context claims, pass or fail judgment.
+- Tools: `postman simulation run`, `postman simulation create`, `postman mock run`, `postman request`; CLI 1.70.0 or later required.
 
-- API Simulation
-- Building it
-- Running it
-- Running it on one port instead
-- Reading the log
-- When a dependency goes down
-- Its context document
-- Keeping it
-- Rules
-- Before you say it works
-- (none)
+## 5 most important rules
+1. The code under test must run for real; a member standing in for the dependency means the test only proves the mock.
+2. Pull the owner's mock even when one is deployed; only members take conditions and appear in the log.
+3. `simulation deploy` is public by default, unlike mock deploy; ask before deploying without `--private`.
+4. What the run proves depends on `origin:`; a member with no origin is never matched under `--proxy`.
+5. Claim a simulation passes only after the code ran and the expected response or state change was observed; write findings into the context document.
 
-## Tools / MCPs it needs
+## Risks / things needing the owner
+Simulation deploy or public exposure needs an explicit owner ask; context documents accumulate claims that need refreshing.
 
-- none declared
+## Category / tags
+Category: automation. Tags: api, postman, simulation, mocks, testing, context.
 
-## Risks / cautions found in text
-
-- none flagged by keyword scan
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. - **Bring in each mock you don't own as a dependency first, then build the
-2. 1. **What you're testing is never a member.** It must run for real, or the
-
-## Files inside the skill
-
-- `reference/context_file.md` — "`<name>.context.yaml`"
-- `reference/sim_yaml_schema.md` — "`.sim.yaml` reference"
+## Revisions
+Single gemini-plugin/postman copy. No competing revisions.

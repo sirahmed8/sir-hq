@@ -1,41 +1,28 @@
 # gdrive
 
-- Tool: `claude`
-- Category: data
-- Source: `C:\Users\a7med\.claude\skills\gdrive\SKILL.md`
-- SKILL.md size: 12761 chars
+## Summary
+gdrive is a Google-published skill for managing files and folders in Google Drive. It provides CRUD operations for files and folders, including upload/download/copy/rename/move operations, folder creation and listing, file search by title, sharing and permission management, and file metadata inspection. The skill handles authentication flow, folder hierarchy navigation, and batch operations. All operations require user confirmation for modifications (upload, move, delete, share).
 
-## What it does
+## When to use / when NOT
+Use when users need to manage Google Drive files and folders: upload, download, organize, search, share, or inspect metadata. Do NOT use for non-Google file types, for bulk operations without user confirmation, or for file types better suited to other tools (local filesystem operations, SSH/SFTP for code).
 
-Browse, search, and manage Google Drive files and folders. Use when the user shares a drive.google.com URL, asks what is in a folder, wants a file found, downloaded, uploaded, updated in place, moved, copied, or renamed, wants a Google file exported to PDF, Markdown, or CSV, wants comments read or added, wants sharing and permissions checked or changed, or wants Drive activity watched. Don't use for editing the contents of a Doc, Sheet, or Slides deck.
+## Inputs, outputs, tools
+- Inputs: Operation type (upload, download, copy, rename, move, mkdir, ls, search, share, metadata), file/folder paths, sharing permissions, search query.
+- Outputs: File metadata (ID, name, parents, size, mimeType), folder listing, share confirmation, download confirmation.
+- Tools: `gdrive` CLI (files upload, download, copy, mv, rm, mkdir, ls, about, permissions, search). No scripts folder.
 
-## Structure (headings inside SKILL.md)
+## 5 most important rules
+1. Always ask for user confirmation before any modification operation (upload, move, rename, delete, share).
+2. For uploads: ask for local path first; never auto-select files.
+3. Search: use title search first; fall back to full-text if needed. Never expose file contents in search results.
+4. Permissions: default to private; only share when explicitly requested.
+5. Never hardcode file IDs or paths; always ask user to provide or confirm.
 
-- Google Drive
-- Setup and Authentication
-- Windows (PowerShell)
-- Usage
-- Recipes
-- Commands
-- Tips
-- Global Flags
-- (none)
+## Risks / things needing the owner
+Google account authentication required first run; user must complete OAuth flow. Shared storage quotas may limit upload size. No direct owner actions beyond initial sign-in.
 
-## Tools / MCPs it needs
+## Category / tags
+google · drive, file-management, upload, download, share, metadata, folder, crud
 
-- none declared
-
-## Risks / cautions found in text
-
-- -   `mutate` uploads, edits, creates, deletes, and changes permissions.
-
-## Key rules (verbatim lines from SKILL.md)
-
-1. -   **Reach for `readonly` first, and never run a `mutate` command the user did
-2. -   **Check where a file is going before you move it.** Moving a file out of a
-3. -   Always pass `--mime_type` when watching one kind of document, so discovery
-
-## Files inside the skill
-
-- `scripts/gdrive`
-- `scripts/gdrive.cmd`
+## Revisions
+Single revision in `C:\Users\a7med\.config\kilo\skills\gdrive\SKILL.md` (Google-published, Apache-2.0, v1). Only kilo has this skill; scripts/references folders exist (scripts=True, refs=False per earlier check).
