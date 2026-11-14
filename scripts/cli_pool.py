@@ -31,7 +31,7 @@ POOL = [
     "devin|swe-2-flash-medium",                                 # Devin / Cognition free plan
     "aider|cerebras/qwen-3-235b-a22b-instruct-2507",            # Cerebras API key (Groq removed: 8k TPM limit fails & triggers billing URLs)
     "aider|nvidia_nim/nvidia/nemotron-3-ultra-550b-a55b",       # NVIDIA NIM key
-    "agy|claude-sonnet-4-6",                                    # Google Antigravity account (Claude)
+    "agy|claude-sonnet-5-5-medium",                             # Google Antigravity account (Claude; `agy models` lists the ids)
     "aider|openai/@cf/openai/gpt-oss-120b",                     # Cloudflare Workers AI
     "cline|reflection/beam-free",                               # Beam through Cline (needs one sign-in)
     "pi|radius/recursive/flint",                                # Recursive flint through Radius
