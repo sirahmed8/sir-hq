@@ -66,8 +66,8 @@ Format: `## <timestamp> | <project> | <severity>` then Finding, Evidence, Propos
 **Project:** SIR Study
 **Severity:** high
 **Category:** bug
-**Status:** approved
-**HQ Note:** queued as r82-study-drawer-hidden-from-taborder (HQ auto-approved: clear defect)
+**Status:** done
+**HQ Note:** queued as r82-study-drawer-hidden-from-taborder (HQ auto-approved: clear defect); fixed 2026-11-14 in commit 2a416eb: .side-drawer is visibility:hidden + pointer-events:none while closed (flips visible immediately on open, after the 0.32s slide-out on close), regression test test_25_r82_closed_drawer_leaves_tab_order added, verify.ps1 18/18 green locally; CI blocked by the Actions quota flag, not the code.
 **Id:** sug-the-closed-side-drawer-is-hidden-b425c23f
 
 ---
