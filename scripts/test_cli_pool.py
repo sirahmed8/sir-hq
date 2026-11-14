@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import cli_pool  # noqa: E402
 import hq_team  # noqa: E402
+import hq_verifier  # noqa: E402
 
 
 class PickExcludeTest(unittest.TestCase):
@@ -53,6 +54,71 @@ class AgentCommandTest(unittest.TestCase):
 
     def test_unknown_tool_is_empty(self):
         self.assertEqual(hq_team.agent_command("not-a-tool|x", "P"), [])
+
+
+class VerifyRetryTest(unittest.TestCase):
+    def test_retries_until_a_model_writes_the_file(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        vdir = Path(tmp.name) / "verifications"
+        vdir.mkdir()
+        task = {"name": "fake-task", "folder": tmp.name, "title": "fake"}
+        calls = {"n": 0, "picks": []}
+
+        def fake_pick(exclude=()):
+            calls["picks"].append(tuple(exclude))
+            return "pi|radius/recursive/flint"
+
+        def fake_run(pick, prompt, cwd, tag, timeout=1800):
+            calls["n"] += 1
+            if calls["n"] == 2:  # first model writes nothing, second writes the file
+                (vdir / "fake-task.md").write_text(
+                    "# Verification: fake-task\n\n## Checklist Results\n"
+                    "| Item | Description | PASS/FAIL | Evidence |\n"
+                    "|------|-------------|-----------|----------|\n"
+                    "| 1 | thing | PASS | ran npm test, 5 passed |\n\n## Overall: PASS\n",
+                    encoding="utf-8")
+            return 1, "boom", Path(tmp.name) / "log.txt"
+
+        orig = (hq_verifier.VERIFICATIONS, hq_verifier.pool_pick, hq_verifier.run_agent, hq_verifier.log)
+        hq_verifier.VERIFICATIONS = vdir
+        hq_verifier.pool_pick = fake_pick
+        hq_verifier.run_agent = fake_run
+        hq_verifier.log = lambda *a, **k: None
+        try:
+            result = hq_verifier.verify_task(task, dry=False)
+        finally:
+            hq_verifier.VERIFICATIONS, hq_verifier.pool_pick, hq_verifier.run_agent, hq_verifier.log = orig
+        self.assertEqual(result["status"], "verified")
+        self.assertEqual(calls["n"], 2, "must retry after a model writes no file")
+        self.assertEqual(calls["picks"][0], ("aider",), "aider must be excluded from verify picks")
+
+    def test_gives_up_after_all_tries(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        vdir = Path(tmp.name) / "verifications"
+        vdir.mkdir()
+        task = {"name": "fake-task2", "folder": tmp.name, "title": "fake"}
+        calls = {"n": 0}
+
+        def fake_pick(exclude=()):
+            return "pi|radius/recursive/flint"
+
+        def fake_run(pick, prompt, cwd, tag, timeout=1800):
+            calls["n"] += 1
+            return 1, "boom", Path(tmp.name) / "log.txt"
+
+        orig = (hq_verifier.VERIFICATIONS, hq_verifier.pool_pick, hq_verifier.run_agent, hq_verifier.log)
+        hq_verifier.VERIFICATIONS = vdir
+        hq_verifier.pool_pick = fake_pick
+        hq_verifier.run_agent = fake_run
+        hq_verifier.log = lambda *a, **k: None
+        try:
+            result = hq_verifier.verify_task(task, dry=False, tries=3)
+        finally:
+            hq_verifier.VERIFICATIONS, hq_verifier.pool_pick, hq_verifier.run_agent, hq_verifier.log = orig
+        self.assertEqual(result["status"], "no-file")
+        self.assertEqual(calls["n"], 3, "must stop after the configured number of tries")
 
 
 if __name__ == "__main__":
